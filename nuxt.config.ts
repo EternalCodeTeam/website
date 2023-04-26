@@ -52,6 +52,14 @@ export default defineNuxtConfig({
         }
     },
 
+    // pwa
+    pwa: {
+        manifest: {
+            name: "EternalCode.pl",
+        }
+    },
+
+    // html validator
     htmlValidator: {
         usePrettier: false, // TODO: enable prettier
     }
