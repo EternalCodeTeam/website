@@ -23,15 +23,29 @@ export default defineNuxtConfig({
     plugins: [
         { src: "~/plugins/aos", mode: "client" }
     ],
-    
+
+/*    purgecss: {
+        content: [
+            './components/!**!/!*.vue',
+            './layouts/!**!/!*.vue',
+            './pages/!**!/!*.vue',
+            './plugins/!**!/!*.js',
+            './nuxt.config.ts',
+        ],
+        safelist: [
+            'html',
+            'body',
+        ],
+    },*/
+
     postcss: {
         plugins: {
             tailwindcss: {},
             autoprefixer: {},
-            '@fullhuman/postcss-purgecss': {
-                content: [ './pages/**/*.vue', './layouts/**/*.vue', './components/**/*.vue' ],
+/*            '@fullhuman/postcss-purgecss': {
+                content: [ './pages/!**!/!*.vue', './layouts/!**!/!*.vue', './components/!**!/!*.vue' ],
                 safelist: [ 'html', 'body' ]
-            }
+            }*/
         },
     },
 

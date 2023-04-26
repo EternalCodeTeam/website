@@ -6,7 +6,7 @@
           <NuxtLink class="flex items-center" to="/">
             <NuxtImg
               alt="Eternalcode Logo"
-              class="h-8 mr-3 text-white"
+              class="h-8 mr-3 text-white dark:invert"
               format="webp"
               src="/img/logo.svg"
             />
