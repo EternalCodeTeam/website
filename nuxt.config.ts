@@ -29,17 +29,6 @@ export default defineNuxtConfig({
         plugins: {
             tailwindcss: {},
             autoprefixer: {},
-            'postcss-purgecss': {
-                content: [
-                    './components/**/*.{vue,js}',
-                    './layouts/**/*.vue',
-                    './pages/**/*.vue',
-                    './plugins/**/*.{js,ts}',
-                    './nuxt.config.{js,ts}',
-                    './app.vue',
-                ],
-                defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
-            },
         },
     },
 
@@ -66,15 +55,18 @@ export default defineNuxtConfig({
 
     // purgeCSS
     purgeCSS: {
-        mode: 'postcss',
+        mode: "postcss",
         // Add the paths to your Tailwind CSS files
         content: [
-            './components/**/*.{vue,js}',
-            './layouts/**/*.vue',
-            './pages/**/*.vue',
-            './plugins/**/*.{js,ts}',
-            './nuxt.config.{js,ts}',
+            "./components/**/*.{vue,js}",
+            "./layouts/**/*.vue",
+            "./pages/**/*.vue",
+            "./plugins/**/*.{js,ts}",
+            "./nuxt.config.{js,ts}",
         ],
+        safelist: [
+            "dark",
+        ]
     },
 
     htmlValidator: {
