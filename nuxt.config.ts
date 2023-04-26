@@ -14,10 +14,10 @@ export default defineNuxtConfig({
         "@nuxt/image-edge",
         "@nuxt/content",
         "@nuxtjs/html-validator",
-        'nuxt-purgecss',
+        "nuxt-purgecss",
     ],
     extends: [
-        'nuxt-seo-kit'
+        "nuxt-seo-kit"
     ],
     plugins: [
         { src: "~/plugins/aos", mode: "client" },
@@ -29,6 +29,17 @@ export default defineNuxtConfig({
         plugins: {
             tailwindcss: {},
             autoprefixer: {},
+            'postcss-purgecss': {
+                content: [
+                    './components/**/*.{vue,js}',
+                    './layouts/**/*.vue',
+                    './pages/**/*.vue',
+                    './plugins/**/*.{js,ts}',
+                    './nuxt.config.{js,ts}',
+                    './app.vue',
+                ],
+                defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
+            },
         },
     },
 
@@ -38,7 +49,7 @@ export default defineNuxtConfig({
             siteName: "EternalCode.pl",
             siteDescription: "EternalCode.pl - Open source projects team",
             language: "en",
-            titleSeparator: '|',
+            titleSeparator: "|",
             trailingSlash: true,
         }
     },
@@ -49,28 +60,24 @@ export default defineNuxtConfig({
 
     app: {
         head: {
-            titleTemplate: '%pageTitle %titleSeparator %siteName'
+            titleTemplate: "%pageTitle %titleSeparator %siteName"
         }
     },
 
     // purgeCSS
     purgeCSS: {
-        mode: "postcss",
+        mode: 'postcss',
+        // Add the paths to your Tailwind CSS files
         content: [
-            "./components/**/*.{js,vue,ts}",
-            "./layouts/**/*.vue",
-            "./pages/**/*.vue",
-            "./plugins/**/*.{js,ts}",
-            "./nuxt.config.{js,ts}",
-            "./app.vue",
-            "./node_modules/flowbite/**/*.js",
-        ],
-        safeList: [
-            "dark"
+            './components/**/*.{vue,js}',
+            './layouts/**/*.vue',
+            './pages/**/*.vue',
+            './plugins/**/*.{js,ts}',
+            './nuxt.config.{js,ts}',
         ],
     },
 
     htmlValidator: {
         usePrettier: false, // TODO: enable prettier
-    },
+    }
 });
