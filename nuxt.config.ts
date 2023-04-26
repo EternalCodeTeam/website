@@ -14,7 +14,6 @@ export default defineNuxtConfig({
         "@nuxt/image-edge",
         "@nuxt/content",
         "@nuxtjs/html-validator",
-        "nuxt-purgecss",
     ],
     extends: [
         "nuxt-seo-kit"
@@ -51,22 +50,6 @@ export default defineNuxtConfig({
         head: {
             titleTemplate: "%pageTitle %titleSeparator %siteName"
         }
-    },
-
-    // purgeCSS
-    purgeCSS: {
-        mode: "postcss",
-        // Add the paths to your Tailwind CSS files
-        content: [
-            "./components/**/*.{vue,js}",
-            "./layouts/**/*.vue",
-            "./pages/**/*.vue",
-            "./plugins/**/*.{js,ts}",
-            "./nuxt.config.{js,ts}",
-        ],
-        safelist: [
-            "dark",
-        ]
     },
 
     htmlValidator: {
