@@ -1,10 +1,12 @@
 export default defineNuxtConfig({
+  // TODO: configure purgeCSS
   ssr: true,
   css: [
     "~/assets/css/main.css",
     "@fortawesome/fontawesome-svg-core/styles.css",
   ],
-  // TODO: configure purgeCSS
+
+
   modules: [
     "@nuxt/devtools",
     "@nuxtjs/tailwindcss",
@@ -15,13 +17,37 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "@nuxtjs/html-validator",
   ],
-  plugins: [{ src: "~/plugins/aos", mode: "client" }],
+  extends: [
+    'nuxt-seo-kit'
+  ],
+  plugins: [
+      { src: "~/plugins/aos", mode: "client" }
+  ],
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
   },
+
+  // Seo kit
+  runtimeConfig: {
+    public: {
+      siteName: "EternalCode.pl",
+      siteDescription: "EternalCode.pl - Open source projects team",
+      language: "en",
+      titleSeparator: '|',
+      trailingSlash: true,
+    }
+  },
+
+  app: {
+    head: {
+      titleTemplate: '%pageTitle %titleSeparator %siteName'
+    }
+  },
+
+
   htmlValidator: {
     usePrettier: false, // TODO: enable prettier
   },

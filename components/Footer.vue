@@ -46,25 +46,25 @@
             class="text-gray-500 hover:text-gray-900 dark:hover:text-white transition duration-500"
             href="#"
           >
-            <font-awesome-icon :icon="['fa', 'tiktok']" />
+            <font-awesome-icon :icon="['fab', 'tiktok']" />
           </a>
           <a
             class="text-gray-500 hover:text-gray-900 dark:hover:text-white transition duration-500"
             href="#"
           >
-            <font-awesome-icon :icon="['fa', 'youtube']" />
+            <font-awesome-icon :icon="['fab', 'youtube']" />
           </a>
           <a
             class="text-gray-500 hover:text-gray-900 dark:hover:text-white transition duration-500"
             href="#"
           >
-            <font-awesome-icon :icon="['fa', 'github']" />
+            <font-awesome-icon :icon="['fab', 'github']" />
           </a>
           <a
             class="text-gray-500 hover:text-gray-900 dark:hover:text-white transition duration-500"
             href="#"
           >
-            <font-awesome-icon :icon="['fa', 'discord']" />
+            <font-awesome-icon :icon="['fab', 'discord']" />
           </a>
         </div>
       </div>

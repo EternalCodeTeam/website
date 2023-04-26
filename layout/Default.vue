@@ -1,6 +1,9 @@
 <template>
   <Navbar />
   <Hero />
+  <SeoKit />
+  <OgImageScreenshot />
+  <OgImageStatic />
   <NuxtPage />
   <Footer />
 </template>
