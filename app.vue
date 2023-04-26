@@ -1,6 +1,6 @@
 <template>
   <div class="bg-[#eff1f5] dark:bg-[#0d1117] min-h-screen">
-    <Default/>
+    <Default />
   </div>
 </template>
 
