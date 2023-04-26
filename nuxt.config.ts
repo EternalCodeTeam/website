@@ -6,8 +6,8 @@ export default defineNuxtConfig({
     plugins: [
         { src: '~/plugins/aos', mode: 'client' },
     ],
+    // TODO: configure purgeCSS
     modules: [
-        'nuxt-purgecss',
         '@nuxt/devtools',
         '@nuxtjs/tailwindcss',
         '@nuxtjs/fontaine',
