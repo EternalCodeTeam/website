@@ -9,6 +9,7 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^5.0.0",
     "@nuxt/devtools": "npm:@nuxt/devtools-edge@latest",
     "@nuxtjs/fontaine": "^0.2.5",
     "@nuxtjs/html-validator": "^1.2.5",
