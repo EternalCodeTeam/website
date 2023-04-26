@@ -12,7 +12,6 @@ export default defineNuxtConfig({
         "@nuxtjs/fontaine",
         "@vite-pwa/nuxt",
         "@nuxt/image-edge",
-        "@nuxtjs/color-mode",
         "@nuxt/content",
         "@nuxtjs/html-validator",
         'nuxt-purgecss',
@@ -66,8 +65,9 @@ export default defineNuxtConfig({
             "./app.vue",
             "./node_modules/flowbite/**/*.js",
         ],
-/*        whitelist: ["dark-mode"],
-        whitelistPatterns: [/svg.*!/, /fa.*!/],*/
+        safeList: [
+            "dark"
+        ],
     },
 
     htmlValidator: {
