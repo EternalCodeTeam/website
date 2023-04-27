@@ -5,6 +5,7 @@ const route = useRoute();
 <template>
 
   <Hero />
+  <About />
   <Features/>
   <Team/>
 

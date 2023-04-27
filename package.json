@@ -12,6 +12,7 @@
     "@nuxt/devtools": "npm:@nuxt/devtools-edge@latest",
     "@nuxtjs/fontaine": "^0.2.5",
     "@nuxtjs/tailwindcss": "^6.6.6",
+    "@types/aos": "^3.0.4",
     "@types/node": "^18",
     "@vite-pwa/nuxt": "^0.0.7",
     "autoprefixer": "^10.4.14",

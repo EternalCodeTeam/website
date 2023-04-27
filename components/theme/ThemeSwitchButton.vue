@@ -18,7 +18,7 @@
     </button>
   </transition>
 </template>
-<script>
+<script lang="ts">
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { useDark } from "@vueuse/core";
 

@@ -10,10 +10,8 @@
                 format="webp"
                 src="/img/logo.svg"
             />
-            <span
-                class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
-            >EternalCode.pl</span
-            >
+            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+              EternalCode.pl</span>
           </NuxtLink>
         </div>
 
@@ -76,7 +74,7 @@
   </footer>
 </template>
 
-<script>
+<script lang="ts">
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 export default {

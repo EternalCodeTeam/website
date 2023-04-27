@@ -42,6 +42,9 @@ devDependencies:
   '@nuxtjs/tailwindcss':
     specifier: ^6.6.6
     version: 6.6.6(rollup@2.79.1)(webpack@5.81.0)
+  '@types/aos':
+    specifier: ^3.0.4
+    version: 3.0.4
   '@types/node':
     specifier: ^18
     version: 18.0.0
@@ -2567,6 +2570,10 @@ packages:
     dependencies:
       '@tufjs/canonical-json': 1.0.0
       minimatch: 7.4.6
+    dev: true
+
+  /@types/aos@3.0.4:
+    resolution: {integrity: sha512-mna6Jd6bdK1NpwarLopGvXOgUoCfj0470IwLxuVOFDElTGI0JTd7xSGQ0AjbAEnHErC/b3fA9t2uB3IXVKmckA==}
     dev: true
 
   /@types/debug@4.1.7:
