@@ -19,7 +19,7 @@
 </template>
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { useDark } from '@vueuse/core';
+import { useDark } from "@vueuse/core";
 
 export default {
   name: "ThemeSwitcher",
@@ -30,12 +30,12 @@ export default {
     const toggleTheme = () => {
       isDarkTheme.value = !isDarkTheme.value;
       document.documentElement.classList.toggle("dark");
-    }
+    };
 
     return {
       isDarkTheme,
-      toggleTheme
+      toggleTheme,
     };
-  }
+  },
 };
 </script>

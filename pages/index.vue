@@ -1,8 +1,8 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 const route = useRoute();
 </script>
 
 <template>
-  <Features />
-  <Team />
+  <Features/>
+  <Team/>
 </template>

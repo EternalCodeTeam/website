@@ -3,7 +3,7 @@ export default defineNuxtConfig({
     ssr: true,
     css: [
         "~/assets/css/main.css",
-        '~/node_modules/@fortawesome/fontawesome-svg-core/styles.css',
+        "~/node_modules/@fortawesome/fontawesome-svg-core/styles.css",
     ],
 
     modules: [
@@ -57,20 +57,4 @@ export default defineNuxtConfig({
             name: "EternalCode.pl",
         }
     },
-
-    build: {
-        extractCSS: true,
-        optimization: {
-            splitChunks: {
-                cacheGroups: {
-                    styles: {
-                        name: 'styles',
-                        test: /\.(css|vue)$/,
-                        chunks: 'all',
-                        enforce: true
-                    }
-                }
-            }
-        },
-    }
 });

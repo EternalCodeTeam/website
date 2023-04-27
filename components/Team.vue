@@ -17,9 +17,9 @@
               alt="Bonnie Green"
               class="w-full sm:rounded-none sm:rounded-l-lg rounded-lg"
               format="webp"
-              src="https://avatars.githubusercontent.com/u/65517973?v=4"
-              width="200"
               height="200"
+              width="200"
+              src="https://avatars.githubusercontent.com/u/65517973?v=4"
           />
         </a>
         <div class="p-8">
