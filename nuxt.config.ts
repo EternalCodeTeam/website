@@ -3,7 +3,7 @@ export default defineNuxtConfig({
     ssr: true,
     css: [
         "~/assets/css/main.css",
-        "@fortawesome/fontawesome-svg-core/styles.css",
+        '~/node_modules/@fortawesome/fontawesome-svg-core/styles.css',
     ],
 
     modules: [
@@ -13,7 +13,6 @@ export default defineNuxtConfig({
         "@vite-pwa/nuxt",
         "@nuxt/image-edge",
         "@nuxt/content",
-        "@nuxtjs/html-validator",
     ],
     extends: [
         "nuxt-seo-kit"
@@ -59,8 +58,19 @@ export default defineNuxtConfig({
         }
     },
 
-    // html validator
-    htmlValidator: {
-        usePrettier: false, // TODO: enable prettier
+    build: {
+        extractCSS: true,
+        optimization: {
+            splitChunks: {
+                cacheGroups: {
+                    styles: {
+                        name: 'styles',
+                        test: /\.(css|vue)$/,
+                        chunks: 'all',
+                        enforce: true
+                    }
+                }
+            }
+        },
     }
 });

@@ -5,7 +5,8 @@
         Our Team
       </h2>
       <p class="font-light text-gray-500 dark:text-gray-400 lg:mb-16 sm:text-xl">
-        Explore the whole collection of open-source web components and elements built with the utility classes from Tailwind
+        Explore the whole collection of open-source web components and elements built with the utility classes from
+        Tailwind
       </p>
     </div>
 
@@ -17,6 +18,8 @@
               class="w-full sm:rounded-none sm:rounded-l-lg rounded-lg"
               format="webp"
               src="https://avatars.githubusercontent.com/u/65517973?v=4"
+              width="200"
+              height="200"
           />
         </a>
         <div class="p-8">
@@ -42,4 +45,9 @@
 
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
+export default defineComponent({
+  components: { FontAwesomeIcon },
+});
+
 </script>
