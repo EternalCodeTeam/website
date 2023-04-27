@@ -22,6 +22,7 @@
             <ThemeSwitchButton/>
 
             <button
+                aria-label="Menu"
                 aria-controls="mobile-menu-language-select"
                 aria-expanded="false"
                 class="inline-flex items-center p-2 ml-1 text-sm rounded-lg md:hidden dark:text-white"

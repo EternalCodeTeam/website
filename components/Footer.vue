@@ -43,24 +43,28 @@
         </span>
         <div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
           <a
+              aria-label="TikTok link"
               class="text-gray-500 hover:text-gray-900 dark:hover:text-white transition duration-500"
               href="#"
           >
             <font-awesome-icon :icon="['fab', 'tiktok']"/>
           </a>
           <a
+              aria-label="Youtube link"
               class="text-gray-500 hover:text-gray-900 dark:hover:text-white transition duration-500"
               href="#"
           >
             <font-awesome-icon :icon="['fab', 'youtube']"/>
           </a>
           <a
+              aria-label="GitHub link"
               class="text-gray-500 hover:text-gray-900 dark:hover:text-white transition duration-500"
               href="#"
           >
             <font-awesome-icon :icon="['fab', 'github']"/>
           </a>
           <a
+              aria-label="Discord link"
               class="text-gray-500 hover:text-gray-900 dark:hover:text-white transition duration-500"
               href="#"
           >
