@@ -3,17 +3,17 @@
     <div class="fixed inset-x-0 top-0 z-50">
       <nav class="border-gray-200 bg-transparent backdrop-filter backdrop-blur-md">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+
           <NuxtLink class="flex items-center" to="/">
             <NuxtImg
                 alt="Eternalcode Logo"
                 class="h-8 mr-3 text-white dark:invert"
                 format="webp"
-                height="32"
                 src="/img/logo.svg"
+                height="32"
                 width="32"
             />
-            <span
-                class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white" >
               EternalCode.pl
             </span>
           </NuxtLink>
@@ -26,8 +26,7 @@
                 aria-expanded="false"
                 class="inline-flex items-center p-2 ml-1 text-sm rounded-lg md:hidden dark:text-white"
                 data-collapse-toggle="mobile-menu-language-select"
-                type="button"
-            >
+                type="button">
               <font-awesome-icon :icon="['fa', 'bars']" class="w-6 h-6"/>
             </button>
           </div>

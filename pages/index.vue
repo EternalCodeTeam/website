@@ -4,7 +4,7 @@ const route = useRoute();
 
 <template>
 
-  <LazyHero />
+  <Hero />
   <Features/>
   <Team/>
 

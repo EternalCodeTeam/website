@@ -27,25 +27,25 @@
 
     <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
       <div class="mr-auto place-self-center lg:col-span-7">
-        <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white" data-aos="fade-up">
+        <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white" data-aos="fade-up" data-aos-duration="200">
           Lorem Ipsum
         </h1>
 
         <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400"
-           data-aos="fade-up">
+           data-aos="fade-up" data-aos-duration="250">
           Fusce utinam contentiones vel vocibus dicat augue. Conclusionemque
           liber habitant conubia atomorum libero fringilla ante gubergren
           recteque.
         </p>
 
         <a class="inline-flex items-center justify-center px-1 py-3 mr-3 text-base font-medium text-center dark:text-white rounded-lg bg-primary-700 hover:bg-primary-800"
-           href="#" data-aos="fade-up">
+           href="#" data-aos="fade-up" data-aos-duration="300">
           Lets Go!
         </a>
 
         <NuxtLink class="bg-gradient-to-r transition duration-500 ease-in-out from-blue-500 via-blue-600 to-blue-700
-        hover:bg-gradient-to-br shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 rounded-lg text-sm
-        px-5 py-2.5 text-white font-medium" to="/team" type="button" data-aos="fade-up">
+        shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 rounded-lg text-sm
+        px-5 py-2.5 text-white font-medium" to="/team" type="button" data-aos="fade-up" data-aos-duration="350">
           Meet our team!
         </NuxtLink>
       </div>
