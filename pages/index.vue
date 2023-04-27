@@ -3,6 +3,9 @@ const route = useRoute();
 </script>
 
 <template>
+
+  <LazyHero />
   <Features/>
   <Team/>
+
 </template>

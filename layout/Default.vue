@@ -1,6 +1,5 @@
 <template>
   <Navbar/>
-  <Hero/>
   <SeoKit/>
   <OgImageScreenshot/>
   <OgImageStatic/>
