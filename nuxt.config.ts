@@ -17,6 +17,7 @@ export default defineNuxtConfig({
     extends: [
         "nuxt-seo-kit"
     ],
+
     plugins: [
         { src: "~/plugins/aos", mode: "client" },
         { src: "~/plugins/fontawesome", mode: "client" },
