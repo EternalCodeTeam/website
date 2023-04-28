@@ -9,7 +9,7 @@
                 alt="Eternalcode Logo"
                 class="h-8 mr-3 text-white dark:invert"
                 format="webp"
-                src="/img/logo.svg"
+                src="/assets/img/logo.svg"
                 height="32"
                 width="32"
             />

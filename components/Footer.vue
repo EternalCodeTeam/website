@@ -8,7 +8,7 @@
                 alt="Eternalcode Logo"
                 class="h-8 mr-3 text-white dark:text-white"
                 format="webp"
-                src="/img/logo.svg"
+                src="/assets/img/logo.svg"
             />
             <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
               EternalCode.pl</span>
