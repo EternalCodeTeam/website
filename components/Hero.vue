@@ -51,8 +51,7 @@
         </NuxtLink>
       </div>
       <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
-        <NuxtImg alt="intellij icon" data-aos="fade-left" data-aos-duration="200" src="/img/intellij-idea.svg" />
-        <NuxtImg alt="java icon" class="w-full lg:mt-10" data-aos="fade-left" data-aos-duration="300" src="/img/java-icon.svg"/>
+          <!-- left side -->
       </div>
     </div>
 

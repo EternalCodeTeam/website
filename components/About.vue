@@ -12,9 +12,9 @@
           senectus honestatis dolorem nonumy. Libris splendide bibendum omnesque mentitum brute quaerendum
           contentiones.</p>
       </div>
-      <div class="relative grid grid-cols-2 gap-4">
-        <NuxtImg alt="intellij icon" data-aos="fade-left" data-aos-duration="200" src="/img/intellij-idea.svg" />
-        <NuxtImg alt="java icon" class="w-full lg:mt-10" data-aos="fade-left" data-aos-duration="300" src="/img/java-icon.svg"/>
+      <div class="grid grid-cols-2 gap-4 mt-8">
+        <NuxtImg class="w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png" alt="office content 1" />
+        <NuxtImg class="mt-4 w-full lg:mt-10 rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-1.png" alt="office content 2" />
       </div>
     </div>
   </section>
