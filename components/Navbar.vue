@@ -9,11 +9,11 @@
                 alt="Eternalcode Logo"
                 class="h-8 mr-3 text-white dark:invert"
                 format="svg"
-                src="/assets/img/logo.svg"
                 height="32"
+                src="/assets/img/logo.svg"
                 width="32"
             />
-            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white" >
+            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
               EternalCode.pl
             </span>
           </NuxtLink>
@@ -22,9 +22,9 @@
             <ThemeSwitchButton/>
 
             <button
-                aria-label="Menu"
                 aria-controls="mobile-menu-language-select"
                 aria-expanded="false"
+                aria-label="Menu"
                 class="inline-flex items-center p-2 ml-1 text-sm rounded-lg md:hidden dark:text-white"
                 data-collapse-toggle="mobile-menu-language-select"
                 type="button">

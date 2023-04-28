@@ -12,16 +12,18 @@
 
     <div class="max-w-screen-sm mx-auto mb-8 lg:mb-16 justify-items-center mouse-cursor-gradient-tracking">
       <div class="items-center bg-gray-50 dark:bg-[#161b22] rounded-lg shadow sm:flex dark:border-gray-700">
-        <a href="#">
+
+        <a>
           <NuxtImg
               alt="Bonnie Green"
               class="w-full sm:rounded-none sm:rounded-l-lg rounded-lg"
               format="webp"
               height="200"
-              width="200"
               src="https://avatars.githubusercontent.com/u/65517973?v=4"
+              width="200"
           />
         </a>
+
         <div class="p-8">
           <h3 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
             <a href="#">Davis Schiller</a>
@@ -46,8 +48,7 @@
 <script lang="ts">
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-export default defineComponent({
+export default {
   components: { FontAwesomeIcon },
-});
-
+};
 </script>
