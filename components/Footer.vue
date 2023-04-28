@@ -40,19 +40,19 @@
         </span>
         <div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
           <a aria-label="TikTok link"
-             class="text-gray-500 hover:text-gray-900 dark:hover:text-white transition duration-500" href="#">
+             class="text-gray-500 hover:text-gray-900 dark:hover:text-white transition duration-500" href="https://www.tiktok.com/@eternalcode.pl">
             <font-awesome-icon :icon="['fab', 'tiktok']"/>
           </a>
           <a aria-label="Youtube link"
-             class="text-gray-500 hover:text-gray-900 dark:hover:text-white transition duration-500" href="#">
+             class="text-gray-500 hover:text-gray-900 dark:hover:text-white transition duration-500" href="https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q">
             <font-awesome-icon :icon="['fab', 'youtube']"/>
           </a>
           <a aria-label="GitHub link"
-             class="text-gray-500 hover:text-gray-900 dark:hover:text-white transition duration-500" href="#">
+             class="text-gray-500 hover:text-gray-900 dark:hover:text-white transition duration-500" href="https://github.com/EternalCodeTeam">
             <font-awesome-icon :icon="['fab', 'github']"/>
           </a>
           <a aria-label="Discord link"
-             class="text-gray-500 hover:text-gray-900 dark:hover:text-white transition duration-500" href="#">
+             class="text-gray-500 hover:text-gray-900 dark:hover:text-white transition duration-500" href="https://discord.com/invite/FQ7jmGBd6c">
             <font-awesome-icon :icon="['fab', 'discord']"/>
           </a>
         </div>

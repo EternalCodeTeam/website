@@ -40,7 +40,7 @@
         </p>
 
         <a class="inline-flex items-center justify-center px-1 py-3 mr-3 text-base font-medium text-center dark:text-white
-        rounded-lg bg-primary-700 hover:bg-primary-800" data-aos="fade-up" data-aos-duration="600" href="#">
+        rounded-lg bg-primary-700 hover:bg-primary-800" data-aos="fade-up" data-aos-duration="600" href="#about">
           Lets Go!
         </a>
 
