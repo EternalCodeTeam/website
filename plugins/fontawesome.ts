@@ -2,7 +2,7 @@ import { defineNuxtPlugin } from "#app";
 
 import { config, library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faBars, faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faMoon, faSun, faStar } from "@fortawesome/free-solid-svg-icons";
 import {
   faDiscord,
   faGithub,
@@ -22,7 +22,8 @@ library.add(
   faInstagram,
   faLinkedin,
   faTiktok,
-  faYoutube
+  faYoutube,
+  faStar
 );
 
 export default defineNuxtPlugin((nuxtApp) => {

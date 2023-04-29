@@ -11,5 +11,8 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [require("flowbite/plugin")],
+  plugins: [
+    require("@tailwindcss/container-queries"),
+    require("flowbite/plugin"),
+  ],
 };

@@ -14,7 +14,7 @@
               src="/assets/img/logo.svg"
               width="32" />
             <span
-              class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+              class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white hidden md:block">
               EternalCode.pl
             </span>
           </NuxtLink>
@@ -67,7 +67,8 @@ export default {
 
 const navigation = [
   { name: "Home", href: "/" },
-  { name: "Team", href: "/team" },
+  { name: "Our Team", href: "/team" },
+  { name: "Our projects", href: "/projects" },
   { name: "Documentations", href: "https://docs.eternalcode.pl/" },
   { name: "Status", href: "https://status.eternalcode.pl/" },
   { name: "Repository", href: "https://repo.eternalcode.pl/#/" },
