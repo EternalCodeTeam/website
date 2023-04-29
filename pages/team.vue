@@ -3,5 +3,5 @@ const route = useRoute();
 </script>
 
 <template>
-  <LazyTeam/>
+  <LazyTeam />
 </template>

@@ -1,8 +1,9 @@
 <template>
   <div class="bg-[#eff1f5] dark:bg-[#0d1117] min-h-screen">
-    <Default/>
+    <Default />
   </div>
 </template>
 
 <script lang="ts" setup>
-import Default from "~/layout/Default.vue";</script>
+import Default from "~/layout/Default.vue";
+</script>

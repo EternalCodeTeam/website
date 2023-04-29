@@ -1,61 +1,60 @@
 export default defineNuxtConfig({
-    // TODO: configure purgeCSS
-    ssr: true,
-    css: [
-        "~/assets/css/main.css",
-        "~/node_modules/@fortawesome/fontawesome-svg-core/styles.css",
-    ],
+  // TODO: configure purgeCSS
+  ssr: true,
 
-    modules: [
-        "@nuxt/devtools",
-        "@nuxtjs/tailwindcss",
-        "@nuxtjs/fontaine",
-        "@vite-pwa/nuxt",
-        "@nuxt/image-edge",
-        "@nuxt/content",
-    ],
-    extends: [
-        "nuxt-seo-kit"
-    ],
+  css: [
+    "~/assets/css/main.css",
+    "~/node_modules/@fortawesome/fontawesome-svg-core/styles.css",
+  ],
 
-    plugins: [
-        { src: "~/plugins/aos", mode: "client" },
-        { src: "~/plugins/fontawesome", mode: "client" },
-    ],
+  modules: [
+    "@nuxt/devtools",
+    "@nuxtjs/tailwindcss",
+    "@nuxtjs/fontaine",
+    "@vite-pwa/nuxt",
+    "@nuxt/image-edge",
+    "@nuxt/content",
+  ],
+  extends: ["nuxt-seo-kit"],
 
-    // postcss
-    postcss: {
-        plugins: {
-            tailwindcss: {},
-            autoprefixer: {},
-        },
+  plugins: [
+    { src: "~/plugins/aos", mode: "client" },
+    { src: "~/plugins/fontawesome", mode: "client" },
+  ],
+
+  // postcss
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
     },
+  },
 
-    // Seo kit
-    runtimeConfig: {
-        public: {
-            siteName: "EternalCode.pl",
-            siteDescription: "EternalCode.pl - Open source projects team",
-            language: "en",
-            titleSeparator: "|",
-            trailingSlash: true,
-        }
+  // Seo kit
+  runtimeConfig: {
+    public: {
+      siteName: "EternalCode.pl",
+      siteDescription: "EternalCode.pl - Open source projects team",
+      language: "en",
+      titleSeparator: "|",
+      trailingSlash: true,
     },
+  },
 
-    unhead: {
-        seoOptimise: true
-    },
+  unhead: {
+    seoOptimise: true,
+  },
 
-    app: {
-        head: {
-            titleTemplate: "%pageTitle %titleSeparator %siteName"
-        }
+  app: {
+    head: {
+      titleTemplate: "%pageTitle %titleSeparator %siteName",
     },
+  },
 
-    // pwa
-    pwa: {
-        manifest: {
-            name: "EternalCode.pl",
-        }
+  // pwa
+  pwa: {
+    manifest: {
+      name: "EternalCode.pl",
     },
+  },
 });
