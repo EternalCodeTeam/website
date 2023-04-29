@@ -22,7 +22,7 @@
           data-aos="fade-up"
           data-aos-duration="500">
           <div
-            class="items-center bg-gray-50 dark:bg-[#161b22] rounded-lg shadow sm:flex dark:border-gray-700 flex-1">
+            class="items-center bg-gray-50 dark:bg-[#161b22] rounded-[12px] shadow sm:flex dark:border-gray-700 flex-1">
             <a :href="member.github">
               <NuxtImg
                 :alt="member.name"

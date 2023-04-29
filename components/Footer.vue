@@ -9,8 +9,8 @@
               class="h-8 mr-3 text-white dark:invert"
               format="webp"
               height="32"
-              width="32"
-              src="/assets/img/logo.svg" />
+              src="/assets/img/logo.svg"
+              width="32" />
             <span
               class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
               EternalCode.pl
@@ -26,7 +26,9 @@
             </h2>
             <ul class="text-gray-600 dark:text-gray-400">
               <li v-for="link in section.links" :key="link.text" class="mb-4">
-                <a :href="link.url" class="hover:underline">{{ link.text }}</a>
+                <NuxtLink :to="link.url" class="hover:underline">
+                  {{ link.text }}
+                </NuxtLink>
               </li>
             </ul>
           </div>
@@ -81,27 +83,15 @@ export default {
     return {
       sections: [
         {
-          title: "Company",
+          title: "Team",
           links: [
             {
               text: "About",
-              url: "#",
+              url: "/#about",
             },
             {
-              text: "Blog",
-              url: "#",
-            },
-            {
-              text: "Jobs",
-              url: "#",
-            },
-            {
-              text: "Press",
-              url: "#",
-            },
-            {
-              text: "Partners",
-              url: "#",
+              text: "Our team",
+              url: "/team",
             },
           ],
         },
@@ -110,24 +100,36 @@ export default {
           links: [
             {
               text: "Github",
-              url: "https://github.com/themesberg/flowbite",
+              url: "https://github.com/EternalCodeTeam",
             },
             {
               text: "Discord",
-              url: "https://discord.gg/4eeurUVvTy",
+              url: "https://discord.com/invite/FQ7jmGBd6c",
+            },
+            {
+              text: "Youtube",
+              url: "https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q",
+            },
+            {
+              text: "TikTok",
+              url: "https://www.tiktok.com/@eternalcode.pl",
             },
           ],
         },
         {
-          title: "Legal",
+          title: "See more",
           links: [
             {
-              text: "Privacy Policy",
-              url: "#",
+              text: "Repository",
+              url: "https://repo.eternalcode.pl/#/",
             },
             {
-              text: "Terms & Conditions",
-              url: "#",
+              text: "Documentations",
+              url: "https://docs.eternalcode.pl/",
+            },
+            {
+              text: "Service Status",
+              url: "https://status.eternalcode.pl/",
             },
           ],
         },
