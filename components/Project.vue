@@ -42,15 +42,14 @@
             </div>
           </div>
 
-          <div class="w-full @md:w-1/2 @lg:w-1/2">
+          <div class="w-full overflow-hidden @md:w-1/2 @lg:w-1/2">
             <NuxtImg
-              :src="`https://opengraph.githubassets.com/eternal/EternalCodeTeam/${repo.name}`"
-              alt="`{{ repo.name }}` Project image"
-              class="h-64 rounded-[12px] object-cover @md:h-96"
-              width="2024"
-              height="212"
+              :src="getImageUrl(repo.name)"
+              alt="Project image"
+              class="w-full rounded-[12px] object-cover"
               data-aos="fade-up"
-              data-aos-duration="500" />
+              data-aos-duration="500"
+              format="webp" />
           </div>
         </div>
       </div>
@@ -68,27 +67,47 @@ export default {
     const filteredRepos = ref([]);
 
     const fetchData = async () => {
-      const cachedData = localStorage.getItem("repos");
+      const cachedData = localStorage.getItem("githubRepos");
       if (cachedData) {
         repos.value = JSON.parse(cachedData);
-      } else {
+      }
+
+      try {
         const response = await fetch(
           "https://api.github.com/orgs/EternalCodeTeam/repos"
         );
-        repos.value = await response.json();
-        localStorage.setItem("repos", JSON.stringify(repos.value));
+
+        const data = await response.json();
+        repos.value = Array.isArray(data) ? data : [];
+
+        localStorage.setItem("githubRepos", JSON.stringify(repos.value));
+      } catch (error) {
+        console.error(error);
       }
+
       filteredRepos.value = repos.value
         .filter((repo) => !repo.archived && repo.name !== ".github")
         .sort((a, b) => b.stargazers_count - a.stargazers_count);
     };
 
-    onMounted(() => {
-      fetchData();
-    });
+    const repoImages = {
+      EternalCore:
+        "https://github.com/EternalCodeTeam/EternalCore/raw/master/assets/readme-banner.png",
+      ChatFormatter:
+        "https://github.com/EternalCodeTeam/ChatFormatter/raw/master/assets/img/chatformatter.png",
+      EternalCombat:
+        "https://github.com/EternalCodeTeam/EternalCombat/raw/master/assets/readme-banner.png",
+    };
+
+    const getImageUrl = (repoName) =>
+      repoImages[repoName] ||
+      `https://opengraph.githubassets.com/1/EternalCodeTeam/${repoName}`;
+
+    onMounted(fetchData);
 
     return {
       filteredRepos,
+      getImageUrl,
     };
   },
 };
