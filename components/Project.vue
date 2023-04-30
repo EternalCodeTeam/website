@@ -1,6 +1,6 @@
 <template>
   <section id="projects">
-    <div class="@container max-w-screen-xl py-16 px-4 mx-auto">
+    <div class="mx-auto max-w-screen-xl px-4 py-16 @container">
       <div class="@mt-8 space-y-8 @lg:mt-12">
         <div
           v-for="repo in filteredRepos"
@@ -8,23 +8,23 @@
           class="flex flex-col-reverse items-center justify-between @lg:flex-row">
           <div class="w-full @md:w-1/2 @lg:w-1/2">
             <h1
-              class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none @md:text-5xl xl:text-6xl dark:text-white"
+              class="mb-4 max-w-2xl text-4xl font-extrabold leading-none tracking-tight @md:text-5xl dark:text-white xl:text-6xl"
               data-aos="fade-up"
               data-aos-duration="500">
               {{ repo.name }}
             </h1>
 
             <p
-              class="max-w-2xl mb-6 font-light text-gray-500 @lg:mb-8 @md:text-lg @lg:text-xl dark:text-gray-400"
+              class="mb-6 max-w-2xl font-light text-gray-500 @md:text-lg @lg:mb-8 @lg:text-xl dark:text-gray-400"
               data-aos="fade-up"
               data-aos-duration="550">
               {{ repo.description }}
             </p>
 
-            <div class="flex @md:flex-row justify-center @md:justify-start">
+            <div class="flex justify-center @md:flex-row @md:justify-start">
               <a :href="`https://github.com/EternalCodeTeam/${repo.name}`">
                 <button
-                  class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center @md:mb-0 @md:mr-2"
+                  class="rounded-lg bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-blue-500/50 @md:mb-0 @md:mr-2 dark:shadow-lg dark:shadow-blue-800/80"
                   data-aos="fade-up"
                   data-aos-duration="600">
                   <font-awesome-icon :icon="['fab', 'github']" />
@@ -33,7 +33,7 @@
               </a>
 
               <button
-                class="text-white bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center ml-2 @md:mb-0 @md:mr-2"
+                class="ml-2 rounded-lg bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-yellow-500/50 @md:mb-0 @md:mr-2 dark:shadow-lg dark:shadow-yellow-500/80"
                 data-aos="fade-up"
                 data-aos-duration="650">
                 <font-awesome-icon :icon="['fa', 'star']" />
@@ -44,9 +44,11 @@
 
           <div class="w-full @md:w-1/2 @lg:w-1/2">
             <NuxtImg
-              :src="`https://d-art.ppstatic.pl/kadry/k/r/1/aa/9c/5608ac1621d7a_o_large.jpg`"
+              :src="`https://opengraph.githubassets.com/eternal/EternalCodeTeam/${repo.name}`"
               alt="`{{ repo.name }}` Project image"
-              class="object-cover w-full h-64 rounded-[12px] @md:h-96"
+              class="h-64 rounded-[12px] object-cover @md:h-96"
+              width="2024"
+              height="212"
               data-aos="fade-up"
               data-aos-duration="500" />
           </div>

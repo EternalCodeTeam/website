@@ -1,10 +1,10 @@
 <template>
   <section id="about">
     <div
-      class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
-      <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
+      class="mx-auto max-w-screen-xl items-center gap-16 px-4 py-8 lg:grid lg:grid-cols-2 lg:px-6 lg:py-16">
+      <div class="font-light text-gray-500 dark:text-gray-400 sm:text-lg">
         <h2
-          class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white"
+          class="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white"
           data-aos="fade-right"
           data-aos-duration="200">
           Homero habitasse suavitate habemus nulla at viderer contentiones
@@ -25,7 +25,7 @@
         </p>
       </div>
 
-      <div class="grid grid-cols-2 gap-4 mt-8">
+      <div class="mt-8 grid grid-cols-2 gap-4">
         <NuxtImg
           alt="office content 1"
           class="w-full rounded-lg"
@@ -37,7 +37,7 @@
           width="200" />
         <NuxtImg
           alt="office content 2"
-          class="mt-4 w-full lg:mt-10 rounded-lg"
+          class="mt-4 w-full rounded-lg lg:mt-10"
           data-aos="fade-left"
           data-aos-duration="600"
           format="webp"

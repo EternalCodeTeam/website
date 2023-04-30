@@ -28,17 +28,17 @@
     </div>
 
     <div
-      class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+      class="mx-auto grid max-w-screen-xl px-4 py-8 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
       <div class="mr-auto place-self-center lg:col-span-7">
         <h1
-          class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white"
+          class="mb-4 max-w-2xl text-4xl font-extrabold leading-none tracking-tight dark:text-white md:text-5xl xl:text-6xl"
           data-aos="fade-up"
           data-aos-duration="500">
           Lorem Ipsum
         </h1>
 
         <p
-          class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400"
+          class="mb-6 max-w-2xl font-light text-gray-500 dark:text-gray-400 md:text-lg lg:mb-8 lg:text-xl"
           data-aos="fade-up"
           data-aos-duration="550">
           Fusce utinam contentiones vel vocibus dicat augue. Conclusionemque
@@ -47,7 +47,7 @@
         </p>
 
         <NuxtLink
-          class="inline-flex items-center justify-center px-1 py-3 mr-3 text-base font-medium text-center dark:text-white rounded-lg bg-primary-700 hover:bg-primary-800"
+          class="bg-primary-700 hover:bg-primary-800 mr-3 inline-flex items-center justify-center rounded-lg px-1 py-3 text-center text-base font-medium dark:text-white"
           data-aos="fade-up"
           data-aos-duration="600"
           to="/#about">
@@ -55,7 +55,7 @@
         </NuxtLink>
 
         <NuxtLink
-          class="bg-gradient-to-r transition duration-500 ease-in-out from-blue-500 via-blue-600 to-blue-700 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 rounded-lg text-sm px-5 py-2.5 text-white font-medium"
+          class="rounded-lg bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-blue-500/50 transition duration-500 ease-in-out dark:shadow-lg dark:shadow-blue-800/80"
           data-aos="fade-up"
           data-aos-duration="650"
           to="/team"
@@ -63,7 +63,7 @@
           Meet our team!
         </NuxtLink>
       </div>
-      <div class="hidden lg:mt-0 lg:col-span-5 lg:flex"></div>
+      <div class="hidden lg:col-span-5 lg:mt-0 lg:flex"></div>
     </div>
 
     <div

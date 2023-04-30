@@ -2,19 +2,19 @@
   <div class="bg-white">
     <div class="fixed inset-x-0 top-0 z-50">
       <nav
-        class="border-gray-200 bg-transparent backdrop-filter backdrop-blur-md">
+        class="border-gray-200 bg-transparent backdrop-blur-md backdrop-filter">
         <div
-          class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+          class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
           <NuxtLink class="flex items-center" to="/">
             <NuxtImg
               alt="Eternalcode Logo"
-              class="h-8 mr-3 text-white dark:invert"
+              class="mr-3 h-8 text-white dark:invert"
               format="svg"
               height="32"
               src="/assets/img/logo.svg"
               width="32" />
             <span
-              class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white hidden md:block">
+              class="hidden self-center whitespace-nowrap text-2xl font-semibold dark:text-white md:block">
               EternalCode.pl
             </span>
           </NuxtLink>
@@ -26,22 +26,22 @@
               aria-controls="mobile-menu-language-select"
               aria-expanded="false"
               aria-label="Menu"
-              class="inline-flex items-center p-2 ml-1 text-sm rounded-lg md:hidden dark:text-white"
+              class="ml-1 inline-flex items-center rounded-lg p-2 text-sm dark:text-white md:hidden"
               data-collapse-toggle="mobile-menu-language-select"
               type="button">
-              <font-awesome-icon :icon="['fa', 'bars']" class="w-6 h-6" />
+              <font-awesome-icon :icon="['fa', 'bars']" class="h-6 w-6" />
             </button>
           </div>
 
           <div
             id="mobile-menu-language-select"
-            class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
+            class="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto">
             <ul
-              class="flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 md:mt-0">
+              class="mt-4 flex flex-col p-4 md:mt-0 md:flex-row md:space-x-8 md:p-0">
               <li v-for="item in navigation" :key="item.name">
                 <NuxtLink
                   :to="item.href"
-                  class="block py-2 pl-3 pr-4 text-gray-900 rounded-full md:p-0 dark:text-white">
+                  class="block rounded-full py-2 pl-3 pr-4 text-gray-900 dark:text-white md:p-0">
                   {{ item.name }}
                 </NuxtLink>
               </li>

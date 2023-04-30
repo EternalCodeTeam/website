@@ -1,23 +1,23 @@
 <template>
   <section>
-    <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
-      <div class="max-w-screen-md mb-8 lg:mb-16">
+    <div class="mx-auto max-w-screen-xl px-4 py-8 sm:py-16 lg:px-6">
+      <div class="mb-8 max-w-screen-md lg:mb-16">
         <h2
-          class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+          class="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
           Designed for business teams like yours
         </h2>
-        <p class="text-gray-500 sm:text-xl dark:text-gray-400">
+        <p class="text-gray-500 dark:text-gray-400 sm:text-xl">
           Here at Flowbite we focus on markets where technology, innovation, and
           capital can unlock long-term value and drive economic growth.
         </p>
       </div>
       <div
-        class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
+        class="space-y-8 md:grid md:grid-cols-2 md:gap-12 md:space-y-0 lg:grid-cols-3">
         <div>
           <div
-            class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+            class="bg-primary-100 dark:bg-primary-900 mb-4 flex h-10 w-10 items-center justify-center rounded-full lg:h-12 lg:w-12">
             <svg
-              class="dark:text-white w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300"
+              class="text-primary-600 dark:text-primary-300 h-5 w-5 dark:text-white lg:h-6 lg:w-6"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg">
@@ -36,9 +36,9 @@
         </div>
         <div>
           <div
-            class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+            class="bg-primary-100 dark:bg-primary-900 mb-4 flex h-10 w-10 items-center justify-center rounded-full lg:h-12 lg:w-12">
             <svg
-              class="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300"
+              class="text-primary-600 dark:text-primary-300 h-5 w-5 lg:h-6 lg:w-6"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg">
@@ -54,9 +54,9 @@
         </div>
         <div>
           <div
-            class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+            class="bg-primary-100 dark:bg-primary-900 mb-4 flex h-10 w-10 items-center justify-center rounded-full lg:h-12 lg:w-12">
             <svg
-              class="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300"
+              class="text-primary-600 dark:text-primary-300 h-5 w-5 lg:h-6 lg:w-6"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg">
@@ -78,9 +78,9 @@
         </div>
         <div>
           <div
-            class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+            class="bg-primary-100 dark:bg-primary-900 mb-4 flex h-10 w-10 items-center justify-center rounded-full lg:h-12 lg:w-12">
             <svg
-              class="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300"
+              class="text-primary-600 dark:text-primary-300 h-5 w-5 lg:h-6 lg:w-6"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg">
@@ -100,9 +100,9 @@
         </div>
         <div>
           <div
-            class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+            class="bg-primary-100 dark:bg-primary-900 mb-4 flex h-10 w-10 items-center justify-center rounded-full lg:h-12 lg:w-12">
             <svg
-              class="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300"
+              class="text-primary-600 dark:text-primary-300 h-5 w-5 lg:h-6 lg:w-6"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg">
@@ -120,9 +120,9 @@
         </div>
         <div>
           <div
-            class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+            class="bg-primary-100 dark:bg-primary-900 mb-4 flex h-10 w-10 items-center justify-center rounded-full lg:h-12 lg:w-12">
             <svg
-              class="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300"
+              class="text-primary-600 dark:text-primary-300 h-5 w-5 lg:h-6 lg:w-6"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg">

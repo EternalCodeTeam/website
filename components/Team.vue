@@ -1,33 +1,33 @@
 <template>
   <section>
-    <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-      <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
+    <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
+      <div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-16">
         <h2
-          class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+          class="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
           Our Team
         </h2>
         <p
-          class="font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400">
+          class="font-light text-gray-500 dark:text-gray-400 sm:text-xl lg:mb-16">
           EternalCodeTeam is a group of passionate and innovative programmers
           who, thanks to their commitment, creativity and determination, devote
           themselves to creating unique open source projects.
         </p>
       </div>
 
-      <div class="grid gap-8 mb-6 lg:mb-16 md:grid-cols-2">
+      <div class="mb-6 grid gap-8 md:grid-cols-2 lg:mb-16">
         <div
           v-for="(member, index) in teamMembers"
           :key="index"
-          class="max-w-screen-sm mx-auto mb-8 lg:mb-16 flex-1"
+          class="mx-auto mb-8 max-w-screen-sm flex-1 lg:mb-16"
           data-aos="fade-up"
           data-aos-duration="500">
           <div
-            class="items-center bg-gray-50 dark:bg-[#161b22] rounded-[12px] shadow sm:flex dark:border-gray-700 flex-1">
+            class="flex-1 items-center rounded-[12px] bg-gray-50 shadow dark:border-gray-700 dark:bg-[#161b22] sm:flex">
             <a :href="member.github">
               <NuxtImg
                 :alt="member.name"
                 :src="member.avatar"
-                class="sm:rounded-none sm:rounded-l-lg rounded-lg"
+                class="rounded-lg sm:rounded-none sm:rounded-l-lg"
                 format="webp"
                 height="400"
                 sizes="sm:100vw md:50vw lg:400px"
@@ -42,21 +42,21 @@
               <span class="text-gray-500 dark:text-gray-400">
                 {{ member.role }}
               </span>
-              <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">
+              <p class="mb-4 mt-3 font-light text-gray-500 dark:text-gray-400">
                 {{ member.bio }}
               </p>
               <ul class="flex space-x-4 sm:mt-0">
                 <li v-if="member.github">
                   <a
                     :href="member.github"
-                    class="text-gray-500 hover:text-gray-900 dark:hover:text-white transition duration-500">
+                    class="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white">
                     <font-awesome-icon :icon="['fab', 'github']" />
                   </a>
                 </li>
                 <li v-if="member.linkedin">
                   <a
                     :href="member.linkedin"
-                    class="text-gray-500 hover:text-gray-900 dark:hover:text-white transition duration-500">
+                    class="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white">
                     <font-awesome-icon :icon="['fab', 'linkedin']" />
                   </a>
                 </li>

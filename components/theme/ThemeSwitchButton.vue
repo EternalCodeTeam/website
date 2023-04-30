@@ -2,16 +2,16 @@
   <transition class="duration-500 ease-in-out" name="fade">
     <button
       aria-label="Toggle Dark Mode"
-      class="inline-flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-200 hover:dark:bg-gray-800"
+      class="inline-flex h-10 w-10 items-center justify-center rounded-full hover:bg-gray-200 hover:dark:bg-gray-800"
       @click="toggleTheme">
       <font-awesome-icon
         v-if="!isDarkTheme"
         :icon="['fa', 'moon']"
-        class="w-6 h-6 text-black" />
+        class="h-6 w-6 text-black" />
       <font-awesome-icon
         v-else
         :icon="['fa', 'sun']"
-        class="w-6 h-6 text-white" />
+        class="h-6 w-6 text-white" />
     </button>
   </transition>
 </template>
