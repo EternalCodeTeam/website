@@ -35,8 +35,7 @@
                 class="rounded-lg object-cover @sm:rounded-none @sm:rounded-l-lg"
                 format="webp"
                 width="400"
-                height="400"
-              />
+                height="400" />
             </a>
             <div class="p-8">
               <h3

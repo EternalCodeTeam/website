@@ -3,6 +3,6 @@ const route = useRoute();
 </script>
 
 <template>
-  <About />
   <Features />
+  <Faq />
 </template>
