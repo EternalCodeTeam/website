@@ -16,6 +16,7 @@
     "@nuxt/devtools": "npm:@nuxt/devtools-edge@latest",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@nuxtjs/fontaine": "^0.2.5",
+    "@nuxtjs/i18n": "8.0.0-beta.11",
     "@nuxtjs/tailwindcss": "^6.6.7",
     "@types/aos": "^3.0.4",
     "@types/node": "^18.16.2",
@@ -44,7 +45,6 @@
     "@vueuse/core": "^10.1.0",
     "aos": "^2.3.4",
     "clipboard": "^2.0.11",
-    "flowbite": "^1.6.5",
-    "highlight.js": "^11.8.0"
+    "flowbite": "^1.6.5"
   }
 }

@@ -1,10 +1,11 @@
+import path from "node:path";
+
 export default defineNuxtConfig({
-  // TODO: configure purgeCSS
   ssr: true,
 
   css: [
     "~/assets/css/main.css",
-    "~/node_modules/@fortawesome/fontawesome-svg-core/styles.css",
+    "~/node_modules/@fortawesome/fontawesome-svg-core/styles.css"
   ],
 
   modules: [
@@ -14,20 +15,36 @@ export default defineNuxtConfig({
     "@vite-pwa/nuxt",
     "@nuxt/image-edge",
     "@nuxt/content",
+    "@nuxtjs/i18n"
   ],
   extends: ["nuxt-seo-kit"],
 
   plugins: [
     { src: "~/plugins/aos", mode: "client" },
-    { src: "~/plugins/fontawesome", mode: "client" },
+    { src: "~/plugins/fontawesome", mode: "client" }
   ],
 
   // postcss
   postcss: {
     plugins: {
       tailwindcss: {},
-      autoprefixer: {},
-    },
+      autoprefixer: {}
+    }
+  },
+
+  i18n: {
+    defaultLocale: "en",
+    langDir: "locales",
+    locales: [
+      {
+        code: 'pl',
+        file: 'pl.json'
+      },
+      {
+        code: 'en',
+        file: 'en.json'
+      },
+    ],
   },
 
   // Seo kit
@@ -37,24 +54,24 @@ export default defineNuxtConfig({
       siteDescription: "EternalCode.pl - Open source projects team",
       language: "en",
       titleSeparator: "|",
-      trailingSlash: true,
-    },
+      trailingSlash: true
+    }
   },
 
   unhead: {
-    seoOptimise: true,
+    seoOptimise: true
   },
 
   app: {
     head: {
-      titleTemplate: "%pageTitle %titleSeparator %siteName",
-    },
+      titleTemplate: "%pageTitle %titleSeparator %siteName"
+    }
   },
 
   // pwa
   pwa: {
     manifest: {
-      name: "EternalCode.pl",
-    },
-  },
+      name: "EternalCode.pl"
+    }
+  }
 });

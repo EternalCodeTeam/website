@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="mx-auto max-w-screen-xl px-4 py-8 sm:py-16 lg:px-6">
+    <div class="mx-auto max-w-screen-xl px-4 py-8">
       <div class="mb-8 max-w-screen-md lg:mb-16">
         <h2
           class="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">

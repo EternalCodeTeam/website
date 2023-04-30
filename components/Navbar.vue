@@ -20,6 +20,7 @@
           </NuxtLink>
 
           <div class="flex items-center md:order-2">
+            <LocaleButtons />
             <ThemeSwitchButton />
 
             <button

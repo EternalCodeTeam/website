@@ -23,7 +23,9 @@
         <div
           v-for="(member, index) in teamMembers"
           :key="index"
-          class="mx-auto mb-8 max-w-screen-md flex-1 @lg:mb-16">
+          class="mx-auto mb-8 max-w-screen-md flex-1 @lg:mb-16"
+          data-aos="fade-up"
+          data-aos-duration="450">
           <div
             class="flex-1 items-center rounded-[12px] bg-gray-50 shadow @sm:flex dark:border-gray-700 dark:bg-[#161b22]">
             <a
@@ -32,7 +34,7 @@
               <NuxtImg
                 :alt="member.name"
                 :src="member.avatar"
-                class="rounded-lg object-cover @sm:rounded-none @sm:rounded-l-lg"
+                class="rounded-full object-cover @sm:rounded-none @sm:rounded-l-lg"
                 format="webp"
                 width="400"
                 height="400" />
