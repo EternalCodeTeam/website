@@ -1,39 +1,43 @@
 <template>
   <section>
-    <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
-      <div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-16">
+    <div
+      class="mx-auto max-w-screen-xl px-4 py-8 @container @lg:px-6 @lg:py-16">
+      <div class="mx-auto mb-8 max-w-screen-sm text-center @lg:mb-16">
         <h2
-          class="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+          class="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white"
+          data-aos="fade-up"
+          data-aos-duration="400">
           Our Team
         </h2>
         <p
-          class="font-light text-gray-500 dark:text-gray-400 sm:text-xl lg:mb-16">
+          class="font-light text-gray-500 @sm:text-xl @lg:mb-16 dark:text-gray-400"
+          data-aos="fade-up"
+          data-aos-duration="450">
           EternalCodeTeam is a group of passionate and innovative programmers
           who, thanks to their commitment, creativity and determination, devote
           themselves to creating unique open source projects.
         </p>
       </div>
 
-      <div class="mb-6 grid gap-8 md:grid-cols-2 lg:mb-16">
+      <div class="mb-6 grid gap-8 @md:grid-cols-2 @lg:mb-16">
         <div
           v-for="(member, index) in teamMembers"
           :key="index"
-          class="mx-auto mb-8 max-w-screen-sm flex-1 lg:mb-16"
-          data-aos="fade-up"
-          data-aos-duration="500">
+          class="mx-auto mb-8 max-w-screen-md flex-1 @lg:mb-16">
           <div
-            class="flex-1 items-center rounded-[12px] bg-gray-50 shadow dark:border-gray-700 dark:bg-[#161b22] sm:flex">
-            <a :href="member.github">
+            class="flex-1 items-center rounded-[12px] bg-gray-50 shadow @sm:flex dark:border-gray-700 dark:bg-[#161b22]">
+            <a
+              :href="member.github"
+              class="aspect-w-1 aspect-h-1 container sm:w-full sm:max-w-[32rem]">
               <NuxtImg
                 :alt="member.name"
                 :src="member.avatar"
-                class="rounded-lg sm:rounded-none sm:rounded-l-lg"
+                class="rounded-lg object-cover @sm:rounded-none @sm:rounded-l-lg"
                 format="webp"
+                width="400"
                 height="400"
-                sizes="sm:100vw md:50vw lg:400px"
-                width="400" />
+              />
             </a>
-
             <div class="p-8">
               <h3
                 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -45,10 +49,11 @@
               <p class="mb-4 mt-3 font-light text-gray-500 dark:text-gray-400">
                 {{ member.bio }}
               </p>
-              <ul class="flex space-x-4 sm:mt-0">
+              <ul class="flex space-x-4 @sm:mt-0">
                 <li v-if="member.github">
                   <a
                     :href="member.github"
+                    aria-label="Github profile link"
                     class="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white">
                     <font-awesome-icon :icon="['fab', 'github']" />
                   </a>
@@ -56,6 +61,7 @@
                 <li v-if="member.linkedin">
                   <a
                     :href="member.linkedin"
+                    aria-label="LinkedIn profile link"
                     class="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white">
                     <font-awesome-icon :icon="['fab', 'linkedin']" />
                   </a>
@@ -87,7 +93,7 @@ export default {
         },
         {
           name: "Norbert Dejlich",
-          role: "Lead Team",
+          role: "Lead Team & Meeting Leader",
           bio: "Consetetur feugait semper pellentesque nihil intellegebat interdum ultricies noster.",
           avatar: "https://avatars-githubusercontent.webp.se/u/49173834?v=4",
           github: "https://github.com/Rollczi/",
@@ -103,14 +109,14 @@ export default {
         },
         {
           name: "Piotr Zych",
-          role: "Lead Team",
+          role: "Lead Team, Meeting Leader & Team Manager",
           bio: "Consetetur feugait semper pellentesque nihil intellegebat interdum ultricies noster.",
           avatar: "https://avatars-githubusercontent.webp.se/u/77621271?v=4",
           github: "https://github.com/Osnixer/",
         },
         {
           name: "Jakub",
-          role: "Moderator",
+          role: "Discord Moderator & Team Developer",
           bio: "Consetetur feugait semper pellentesque nihil intellegebat interdum ultricies noster.",
           avatar: "https://avatars-githubusercontent.webp.se/u/77227023?v=4",
           github: "https://github.com/Jakubk15",
@@ -131,9 +137,9 @@ export default {
         },
         {
           name: "Michał Wojtas",
-          role: "Student",
+          role: "Student & Team Analyst",
           bio: "Consetetur feugait semper pellentesque nihil intellegebat interdum ultricies noster.",
-          avatar: "https://avatars.githubusercontent.com/u/80779749?v=4",
+          avatar: "https://avatars-githubusercontent.webp.se/u/80779749?v=4",
           github: "https://github.com/Embrejs",
         },
       ],

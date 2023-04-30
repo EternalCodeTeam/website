@@ -46,10 +46,12 @@
             <NuxtImg
               :src="getImageUrl(repo.name)"
               alt="Project image"
-              class="w-full rounded-[12px] object-cover"
+              class="rounded-[12px] object-cover"
               data-aos="fade-up"
               data-aos-duration="500"
-              format="webp" />
+              format="webp"
+              width="1000"
+              height="500" />
           </div>
         </div>
       </div>
