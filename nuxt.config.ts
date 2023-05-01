@@ -1,5 +1,3 @@
-import path from "node:path";
-
 export default defineNuxtConfig({
   ssr: true,
 
@@ -28,7 +26,8 @@ export default defineNuxtConfig({
   postcss: {
     plugins: {
       tailwindcss: {},
-      autoprefixer: {}
+      autoprefixer: {},
+      ...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {})
     }
   },
 
