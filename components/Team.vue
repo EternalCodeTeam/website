@@ -2,22 +2,10 @@
   <section>
     <div
       class="mx-auto max-w-screen-xl px-4 py-8 @container @lg:px-6 @lg:py-16">
-      <div class="mx-auto mb-8 max-w-screen-sm text-center @lg:mb-16">
-        <h2
-          class="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white"
-          data-aos="fade-up"
-          data-aos-duration="400">
-          Our Team
-        </h2>
-        <p
-          class="font-light text-gray-500 @sm:text-xl @lg:mb-16 dark:text-gray-400"
-          data-aos="fade-up"
-          data-aos-duration="450">
-          EternalCodeTeam is a group of passionate and innovative programmers
-          who, thanks to their commitment, creativity and determination, devote
-          themselves to creating unique open source projects.
-        </p>
-      </div>
+      <SectionTitle
+        title="Our Team"
+        description="EternalCodeTeam is a dedicated group of creative programmers who work on unique open source projects."
+      />
 
       <div class="mb-6 grid gap-8 @md:grid-cols-2 @lg:mb-16">
         <div
@@ -34,10 +22,10 @@
               <NuxtImg
                 :alt="member.name"
                 :src="member.avatar"
-                class="rounded-full object-cover @sm:rounded-none @sm:rounded-l-lg"
+                class="object-cover @sm:rounded-none @sm:rounded-l-lg"
                 format="webp"
-                width="400"
-                height="400" />
+                height="400"
+                width="400" />
             </a>
             <div class="p-8">
               <h3

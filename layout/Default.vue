@@ -10,11 +10,12 @@
 
 <script lang="ts" setup>
 import { onMounted } from "vue";
-import { initFlowbite } from "flowbite";
-import Navbar from "~/components/Navbar.vue";
+import { initDropdowns } from 'flowbite'
+
+import Navbar from "~/components/navbar/Navbar.vue";
 import Footer from "~/components/Footer.vue";
 
 onMounted(() => {
-  initFlowbite();
+  initDropdowns();
 });
 </script>

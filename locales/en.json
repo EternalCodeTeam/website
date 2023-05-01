@@ -1,4 +1,8 @@
 {
   "welcome": "EternalCode.pl",
-  "subwelcome": "We are a team creating open source projects"
+  "subwelcome": "We are a team creating open source projects",
+  "languages": {
+    "en": "English",
+    "pl": "Polish"
+  }
 }

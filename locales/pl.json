@@ -1,4 +1,8 @@
 {
   "welcome": "EternalCode.pl",
-  "subwelcome": "Jesteśmy zespołem tworzącym otwartoźródłowe projekty"
+  "subwelcome": "Jesteśmy zespołem tworzącym otwartoźródłowe projekty",
+  "languages": {
+    "en": "Angielski",
+    "pl": "Polski"
+  }
 }

@@ -21,7 +21,7 @@
 
           <div class="flex items-center md:order-2">
             <LocaleButtons />
-            <ThemeSwitchButton />
+            <ThemeSwitcher />
 
             <button
               aria-controls="mobile-menu-language-select"
@@ -56,9 +56,11 @@
 
 <script lang="ts">
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import LocaleButtons from "~/components/navbar/LocaleButtons.vue";
+import ThemeSwitcher from "~/components/navbar/ThemeSwitchButton.vue";
 
 export default {
-  components: { FontAwesomeIcon },
+  components: { ThemeSwitcher, LocaleButtons, FontAwesomeIcon },
   data() {
     return {
       navigation,

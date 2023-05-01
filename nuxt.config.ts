@@ -52,7 +52,7 @@ export default defineNuxtConfig({
     public: {
       siteName: "EternalCode.pl",
       siteDescription: "EternalCode.pl - Open source projects team",
-      language: "en",
+      languages: ["en", "pl"],
       titleSeparator: "|",
       trailingSlash: true
     }
