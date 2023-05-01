@@ -7,7 +7,8 @@ import {
   faMoon,
   faSun,
   faStar,
-  faQuestion
+  faQuestion,
+  faArrowDown,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faDiscord,
@@ -30,7 +31,8 @@ library.add(
   faTiktok,
   faYoutube,
   faStar,
-  faQuestion
+  faQuestion,
+  faArrowDown
 );
 
 export default defineNuxtPlugin((nuxtApp) => {

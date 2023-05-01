@@ -46,6 +46,10 @@
                   {{ item.name }}
                 </NuxtLink>
               </li>
+
+              <li>
+                <DropdownNavbar :items="dropdownItems" name="Services" />
+              </li>
             </ul>
           </div>
         </div>
@@ -56,24 +60,30 @@
 
 <script lang="ts">
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
 import LocaleButtons from "~/components/navbar/LocaleButtons.vue";
 import ThemeSwitcher from "~/components/navbar/ThemeSwitchButton.vue";
-
-export default {
-  components: { ThemeSwitcher, LocaleButtons, FontAwesomeIcon },
-  data() {
-    return {
-      navigation,
-    };
-  },
-};
+import DropdownNavbar from "~/components/navbar/DropdownNavbar.vue";
 
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Our Team", href: "/team" },
   { name: "Our projects", href: "/projects" },
+];
+
+const dropdownItems = [
   { name: "Documentations", href: "https://docs.eternalcode.pl/" },
   { name: "Status", href: "https://status.eternalcode.pl/" },
   { name: "Repository", href: "https://repo.eternalcode.pl/#/" },
 ];
+
+export default {
+  components: { ThemeSwitcher, LocaleButtons, FontAwesomeIcon, DropdownNavbar },
+  data() {
+    return {
+      navigation,
+      dropdownItems,
+    };
+  },
+};
 </script>
