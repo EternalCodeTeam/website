@@ -8,6 +8,7 @@
           <NuxtLink class="flex items-center" to="/">
             <NuxtImg
               alt="Eternalcode Logo"
+              aria-label="Eternalcode Logo"
               class="mr-3 h-8 text-white dark:invert"
               format="svg"
               height="32"
@@ -41,6 +42,7 @@
               class="mt-4 flex flex-col p-4 md:mt-0 md:flex-row md:space-x-8 md:p-0">
               <li v-for="item in navigation" :key="item.name">
                 <NuxtLink
+                  :aria-label="item.name"
                   :to="item.href"
                   class="block rounded-full py-2 pl-3 pr-4 text-gray-900 dark:text-white md:p-0">
                   {{ item.name }}
@@ -68,13 +70,13 @@ import DropdownNavbar from "~/components/navbar/DropdownNavbar.vue";
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Our Team", href: "/team" },
-  { name: "Our projects", href: "/projects" },
+  { name: "Our projects", href: "/projects" }
 ];
 
 const dropdownItems = [
   { name: "Documentations", href: "https://docs.eternalcode.pl/" },
   { name: "Status", href: "https://status.eternalcode.pl/" },
-  { name: "Repository", href: "https://repo.eternalcode.pl/#/" },
+  { name: "Repository", href: "https://repo.eternalcode.pl/#/" }
 ];
 
 export default {
@@ -82,8 +84,8 @@ export default {
   data() {
     return {
       navigation,
-      dropdownItems,
+      dropdownItems
     };
-  },
+  }
 };
 </script>

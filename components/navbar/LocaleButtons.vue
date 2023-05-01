@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <button class="mr-2 h-6 w-6 overflow-hidden" @click="setLanguage('pl')">
-      <NuxtImg class="rounded-[15%]" src="/assets/img/lang/pl.svg" />
+  <div class="mr-1">
+    <button class="transition-all duration-500 mr-2 h-6 w-6 overflow-hidden hover:grayscale-[100]" @click="setLanguage('pl')">
+      <NuxtImg class="rounded-[15%]" src="/assets/img/lang/pl.svg" alt="Polish language" aria-label="Polish language" />
     </button>
-    <button class="h-6 w-6 overflow-hidden" @click="setLanguage('en')">
-      <NuxtImg class="rounded-[15%]" src="/assets/img/lang/en.svg" />
+    <button class="transition-all duration-500 h-6 w-6 overflow-hidden hover:grayscale-[100]" @click="setLanguage('en')">
+      <NuxtImg class="rounded-[15%]" src="/assets/img/lang/en.svg" alt="English language" aria-label="English language" />
     </button>
   </div>
 </template>

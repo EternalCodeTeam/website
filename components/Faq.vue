@@ -1,18 +1,15 @@
 <template>
   <section id="faq">
     <div class="mx-auto max-w-screen-xl px-4 py-8">
-      <h2
-        class="mb-8 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-        Frequently asked questions
-      </h2>
+
+      <SectionTitle title="Frequently Asked Questions" description="Frequently asked questions about us!" />
 
       <div
-        class="grid border-t border-gray-200 pt-8 text-left dark:border-gray-700 md:grid-cols-2 md:gap-16">
+        class="grid pt-8 text-left md:grid-cols-2 md:gap-16">
         <div>
           <div class="mb-10">
             <h3
               class="mb-4 flex items-center text-lg font-medium text-gray-900 dark:text-white">
-              <font-awesome-icon :icon="['fas', 'question']" />
               What do you mean by "Figma assets"?
             </h3>
             <p class="text-gray-500 dark:text-gray-400">
@@ -24,7 +21,6 @@
           <div class="mb-10">
             <h3
               class="mb-4 flex items-center text-lg font-medium text-gray-900 dark:text-white">
-              <font-awesome-icon :icon="['fas', 'location-question']" />
               What does "lifetime access" exactly mean?
             </h3>
             <p class="text-gray-500 dark:text-gray-400">
@@ -36,7 +32,6 @@
           <div class="mb-10">
             <h3
               class="mb-4 flex items-center text-lg font-medium text-gray-900 dark:text-white">
-              <font-awesome-icon :icon="['fas', 'location-question']" />
               How does support work?
             </h3>
             <p class="text-gray-500 dark:text-gray-400">
@@ -59,7 +54,6 @@
           <div class="mb-10">
             <h3
               class="mb-4 flex items-center text-lg font-medium text-gray-900 dark:text-white">
-              <font-awesome-icon :icon="['fas', 'location-question']" />
               I want to build more than one project. Is that allowed?
             </h3>
             <p class="text-gray-500 dark:text-gray-400">
@@ -82,7 +76,6 @@
           <div class="mb-10">
             <h3
               class="mb-4 flex items-center text-lg font-medium text-gray-900 dark:text-white">
-              <font-awesome-icon :icon="['fas', 'location-question']" />
               What does "free updates" include?
             </h3>
             <p class="text-gray-500 dark:text-gray-400">
@@ -99,7 +92,6 @@
           <div class="mb-10">
             <h3
               class="mb-4 flex items-center text-lg font-medium text-gray-900 dark:text-white">
-              <font-awesome-icon :icon="['fas', 'location-question']" />
               What does the free version include?
             </h3>
             <p class="text-gray-500 dark:text-gray-400">
@@ -121,7 +113,6 @@
           <div class="mb-10">
             <h3
               class="mb-4 flex items-center text-lg font-medium text-gray-900 dark:text-white">
-              <font-awesome-icon :icon="['fas', 'location-question']" />
               What is the difference between Windster and Tailwind UI?
             </h3>
             <p class="text-gray-500 dark:text-gray-400">
@@ -139,7 +130,6 @@
           <div class="mb-10">
             <h3
               class="mb-4 flex items-center text-lg font-medium text-gray-900 dark:text-white">
-              <font-awesome-icon :icon="['fas', 'location-question']" />
               Can I use Windster in open-source projects?
             </h3>
             <p class="text-gray-500 dark:text-gray-400">

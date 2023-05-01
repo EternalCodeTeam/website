@@ -1,10 +1,10 @@
 <template>
   <div class="relative">
     <button
-      class="flex items-center justify-between w-full py-2 pl-3 pr-4 rounded-[12px] hover:bg-gray-100t md:border-0 md:p-0 md:w-auto dark:text-white dark:border-white"
-      @click="isOpen = !isOpen"
+      :aria-expanded="isOpen.toString()"
       aria-haspopup="true"
-      :aria-expanded="isOpen.toString()">
+      class="flex items-center justify-between w-full py-2 pl-3 pr-4 rounded-[12px] hover:bg-gray-100t md:border-0 md:p-0 md:w-auto dark:text-white dark:border-white"
+      @click="isOpen = !isOpen">
       {{ name }}
       <svg
         :class="{
@@ -32,10 +32,10 @@
         class="py-2 text-sm text-gray-700">
         <li v-for="item in items" :key="item.name">
           <a
+            :aria-label="item.name"
             :href="item.href"
             class="block px-4 py-2 dark:text-white hover:bg-gray-200 hover:dark:bg-gray-800 dark:hover:text-white"
-            role="menuitem"
-            :aria-label="item.name">
+            role="menuitem">
             {{ item.name }}
           </a>
         </li>
@@ -49,17 +49,17 @@ export default {
   props: {
     items: {
       type: Array,
-      required: true
+      required: true,
     },
     name: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      isOpen: false
+      isOpen: false,
     };
-  }
+  },
 };
 </script>
