@@ -6,6 +6,3 @@ bracketSpacing: true
 bracketSameLine: true
 jsxBracketSameLine: true
 arrowParens: always
-tailwindConfig: ./tailwind.config.ts
-plugins:
-  - prettier-plugin-tailwindcss

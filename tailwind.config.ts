@@ -14,6 +14,5 @@ module.exports = {
   plugins: [
     require("@tailwindcss/container-queries"),
     require("flowbite/plugin"),
-    require("prettier-plugin-tailwindcss"),
   ],
 };
