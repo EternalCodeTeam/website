@@ -4,8 +4,7 @@
       class="mx-auto max-w-screen-xl px-4 py-8 @container @lg:px-6 @lg:py-16">
       <SectionTitle
         title="Our Team"
-        description="EternalCodeTeam is a dedicated group of creative programmers who work on unique open source projects."
-      />
+        description="EternalCodeTeam is a dedicated group of creative programmers who work on unique open source projects." />
 
       <div class="mb-6 grid gap-8 @md:grid-cols-2 @lg:mb-16">
         <div
@@ -18,11 +17,11 @@
             class="flex-1 items-center rounded-[12px] bg-gray-50 shadow @sm:flex dark:border-gray-700 dark:bg-[#161b22]">
             <a
               :href="member.github"
-              class="aspect-w-1 aspect-h-1 container sm:w-full sm:max-w-[32rem]">
+              class="aspect-w-1 aspect-h-1 container @sm:w-full @sm:max-w-[32rem]">
               <NuxtImg
                 :alt="member.name"
                 :src="member.avatar"
-                class="object-cover @sm:rounded-none @sm:rounded-l-lg"
+                class="object-cover rounded-[12px] @sm:rounded-none @sm:rounded-l-[12px]"
                 format="webp"
                 height="400"
                 width="400" />
@@ -71,68 +70,70 @@ export default {
   components: { FontAwesomeIcon },
   data() {
     return {
-      teamMembers: [
-        {
-          name: "Martin Sulikowski",
-          role: "Lead Team",
-          bio: "Consetetur feugait semper pellentesque nihil intellegebat interdum ultricies noster.",
-          avatar: "https://avatars-githubusercontent.webp.se/u/65517973?v=4",
-          github: "https://github.com/vLuckyyy",
-          linkedin: "https://www.linkedin.com/in/vlucky",
-        },
-        {
-          name: "Norbert Dejlich",
-          role: "Lead Team & Meeting Leader",
-          bio: "Consetetur feugait semper pellentesque nihil intellegebat interdum ultricies noster.",
-          avatar: "https://avatars-githubusercontent.webp.se/u/49173834?v=4",
-          github: "https://github.com/Rollczi/",
-          linkedin: "https://www.linkedin.com/in/rollczi/",
-        },
-        {
-          name: "Krzysztof Haller",
-          role: "Lead Team",
-          bio: "Consetetur feugait semper pellentesque nihil intellegebat interdum ultricies noster.",
-          avatar: "https://avatars-githubusercontent.webp.se/u/60399586?v=4",
-          github: "https://github.com/Hyd3r1/",
-          linkedin: "https://www.linkedin.com/in/khallercom/",
-        },
-        {
-          name: "Piotr Zych",
-          role: "Lead Team, Meeting Leader & Team Manager",
-          bio: "Consetetur feugait semper pellentesque nihil intellegebat interdum ultricies noster.",
-          avatar: "https://avatars-githubusercontent.webp.se/u/77621271?v=4",
-          github: "https://github.com/Osnixer/",
-        },
-        {
-          name: "Jakub",
-          role: "Discord Moderator & Team Developer",
-          bio: "Consetetur feugait semper pellentesque nihil intellegebat interdum ultricies noster.",
-          avatar: "https://avatars-githubusercontent.webp.se/u/77227023?v=4",
-          github: "https://github.com/Jakubk15",
-        },
-        {
-          name: "Karol Dronia",
-          role: "Team Developer",
-          bio: "Consetetur feugait semper pellentesque nihil intellegebat interdum ultricies noster.",
-          avatar: "https://avatars-githubusercontent.webp.se/u/80169196?v=4",
-          github: "https://github.com/eripe14",
-        },
-        {
-          name: "Kamil Jęczeń",
-          role: "Team Developer",
-          bio: "Consetetur feugait semper pellentesque nihil intellegebat interdum ultricies noster.",
-          avatar: "https://avatars-githubusercontent.webp.se/u/66566758?v=4",
-          github: "https://github.com/Kamicjusz",
-        },
-        {
-          name: "Michał Wojtas",
-          role: "Student & Team Analyst",
-          bio: "Consetetur feugait semper pellentesque nihil intellegebat interdum ultricies noster.",
-          avatar: "https://avatars-githubusercontent.webp.se/u/80779749?v=4",
-          github: "https://github.com/Embrejs",
-        },
-      ],
+      teamMembers,
     };
   },
 };
+
+const teamMembers = [
+  {
+    name: "Martin Sulikowski",
+    role: "Lead Team",
+    bio: "Consetetur feugait semper pellentesque nihil intellegebat interdum ultricies noster.",
+    avatar: "https://avatars-githubusercontent.webp.se/u/65517973?v=4",
+    github: "https://github.com/vLuckyyy",
+    linkedin: "https://www.linkedin.com/in/vlucky",
+  },
+  {
+    name: "Norbert Dejlich",
+    role: "Lead Team & Meeting Leader",
+    bio: "Consetetur feugait semper pellentesque nihil intellegebat interdum ultricies noster.",
+    avatar: "https://avatars-githubusercontent.webp.se/u/49173834?v=4",
+    github: "https://github.com/Rollczi/",
+    linkedin: "https://www.linkedin.com/in/rollczi/",
+  },
+  {
+    name: "Krzysztof Haller",
+    role: "Lead Team",
+    bio: "Consetetur feugait semper pellentesque nihil intellegebat interdum ultricies noster.",
+    avatar: "https://avatars-githubusercontent.webp.se/u/60399586?v=4",
+    github: "https://github.com/Hyd3r1/",
+    linkedin: "https://www.linkedin.com/in/khallercom/",
+  },
+  {
+    name: "Piotr Zych",
+    role: "Lead Team, Meeting Leader & Team Manager",
+    bio: "Consetetur feugait semper pellentesque nihil intellegebat interdum ultricies noster.",
+    avatar: "https://avatars-githubusercontent.webp.se/u/77621271?v=4",
+    github: "https://github.com/Osnixer/",
+  },
+  {
+    name: "Jakub",
+    role: "Discord Moderator & Team Developer",
+    bio: "Consetetur feugait semper pellentesque nihil intellegebat interdum ultricies noster.",
+    avatar: "https://avatars-githubusercontent.webp.se/u/77227023?v=4",
+    github: "https://github.com/Jakubk15",
+  },
+  {
+    name: "Karol Dronia",
+    role: "Team Developer",
+    bio: "Consetetur feugait semper pellentesque nihil intellegebat interdum ultricies noster.",
+    avatar: "https://avatars-githubusercontent.webp.se/u/80169196?v=4",
+    github: "https://github.com/eripe14",
+  },
+  {
+    name: "Kamil Jęczeń",
+    role: "Team Developer",
+    bio: "Consetetur feugait semper pellentesque nihil intellegebat interdum ultricies noster.",
+    avatar: "https://avatars-githubusercontent.webp.se/u/66566758?v=4",
+    github: "https://github.com/Kamicjusz",
+  },
+  {
+    name: "Michał Wojtas",
+    role: "Student & Team Analyst",
+    bio: "Consetetur feugait semper pellentesque nihil intellegebat interdum ultricies noster.",
+    avatar: "https://avatars-githubusercontent.webp.se/u/80779749?v=4",
+    github: "https://github.com/Embrejs",
+  },
+];
 </script>

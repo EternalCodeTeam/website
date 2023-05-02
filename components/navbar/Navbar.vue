@@ -70,13 +70,13 @@ import DropdownNavbar from "~/components/navbar/DropdownNavbar.vue";
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Our Team", href: "/team" },
-  { name: "Our projects", href: "/projects" }
+  { name: "Our projects", href: "/projects" },
 ];
 
 const dropdownItems = [
   { name: "Documentations", href: "https://docs.eternalcode.pl/" },
   { name: "Status", href: "https://status.eternalcode.pl/" },
-  { name: "Repository", href: "https://repo.eternalcode.pl/#/" }
+  { name: "Repository", href: "https://repo.eternalcode.pl/#/" },
 ];
 
 export default {
@@ -84,8 +84,8 @@ export default {
   data() {
     return {
       navigation,
-      dropdownItems
+      dropdownItems,
     };
-  }
+  },
 };
 </script>

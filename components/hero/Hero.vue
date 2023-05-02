@@ -1,6 +1,5 @@
 <template>
   <div class="relative isolate px-6 pt-14 lg:px-8">
-
     <PolygonLeft />
 
     <div
@@ -20,8 +19,16 @@
           {{ $t("subwelcome") }}
         </p>
 
-        <TransparentButton to="/#about" name="Let's go!" data-aos="fade-up" data-aos-duration="600"/>
-        <BlueButton to="/team" name="Meet our team!" data-aos="fade-up" data-aos-duration="650"/>
+        <TransparentButton
+          to="/#about"
+          name="Let's go!"
+          data-aos="fade-up"
+          data-aos-duration="600" />
+        <BlueButton
+          to="/team"
+          name="Meet our team!"
+          data-aos="fade-up"
+          data-aos-duration="650" />
       </div>
 
       <div class="lg:col-span-5 hidden lg:block">

@@ -1,11 +1,9 @@
 <template>
   <section id="projects">
     <div class="mx-auto max-w-screen-xl px-4 py-16">
-
       <SectionTitle
         description="Discover our open source projects!"
-        title="Our Projects"
-      />
+        title="Our Projects" />
 
       <div class="mt-8 space-y-8 lg:mt-12">
         <div
@@ -53,8 +51,7 @@
               data-aos-duration="500"
               format="webp"
               height="500"
-              width="1000"
-            />
+              width="1000" />
           </div>
         </div>
       </div>
@@ -102,8 +99,8 @@ export default {
 
     return {
       filteredRepos,
-      getImageUrl
+      getImageUrl,
     };
-  }
+  },
 };
 </script>

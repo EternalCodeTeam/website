@@ -26,7 +26,10 @@
             </h2>
             <ul class="text-gray-600 dark:text-gray-400">
               <li v-for="link in section.links" :key="link.text" class="mb-4">
-                <NuxtLink :to="link.url" class="hover:underline" :aria-label="link.text" >
+                <NuxtLink
+                  :to="link.url"
+                  class="hover:underline"
+                  :aria-label="link.text">
                   {{ link.text }}
                 </NuxtLink>
               </li>
