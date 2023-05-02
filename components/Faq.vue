@@ -1,15 +1,17 @@
 <template>
-  <section id="faq">
+  <section id="faq" aria-label="Frequently Asked Questions">
     <div class="mx-auto max-w-screen-xl px-4 py-8">
       <SectionTitle
         title="Frequently Asked Questions"
         description="Frequently asked questions about us!" />
 
       <div class="grid pt-8 text-left md:grid-cols-2 md:gap-16">
-        <div v-for="(faq, index) in faqs" :key="index">
+        <div v-for="(faq, index) in faqs" :key="index" role="listitem">
           <div class="mb-10" data-aos="fade-up" data-aos-duration="500">
             <h3
-              class="mb-4 flex items-center text-lg font-medium text-gray-900 dark:text-white">
+              class="mb-4 flex items-center text-lg font-medium text-gray-900 dark:text-white"
+              role="heading"
+              aria-level="3">
               {{ faq.question }}
             </h3>
             <p class="text-gray-500 dark:text-gray-400">
