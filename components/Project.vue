@@ -3,8 +3,8 @@
     <div class="mx-auto max-w-screen-xl px-4 py-16">
 
       <SectionTitle
-        title="Our Projects"
         description="Discover our open source projects!"
+        title="Our Projects"
       />
 
       <div class="mt-8 space-y-8 lg:mt-12">
@@ -25,35 +25,36 @@
               data-aos-duration="550">
               {{ repo.description }}
             </p>
-            <div class="flex justify-center md:flex-row md:justify-start">
-              <a :href="`https://github.com/EternalCodeTeam/${repo.name}`">
-                <button
-                  class="rounded-lg bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 md:mb-0 md:mr-2"
-                  data-aos="fade-up"
-                  data-aos-duration="600">
-                  <font-awesome-icon :icon="['fab', 'github']" />
-                  Repository
-                </button>
-              </a>
+            <a :href="`https://github.com/EternalCodeTeam/${repo.name}`">
               <button
-                class="ml-2 cursor-not-allowed rounded-lg bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-yellow-500/50 dark:shadow-lg dark:shadow-yellow-500/80 md:mb-0 md:mr-2"
+                aria-label="Go to repository"
+                class="rounded-lg bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 md:mb-0 md:mr-2"
                 data-aos="fade-up"
-                data-aos-duration="650">
-                <font-awesome-icon :icon="['fa', 'star']" />
-                {{ repo.stargazers_count }} Stars
+                data-aos-duration="600">
+                <font-awesome-icon :icon="['fab', 'github']" />
+                Repository
               </button>
-            </div>
+            </a>
+            <button
+              aria-label="Number of stars"
+              class="ml-2 cursor-not-allowed rounded-lg bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-yellow-500/50 dark:shadow-lg dark:shadow-yellow-500/80 md:mb-0 md:mr-2"
+              data-aos="fade-up"
+              data-aos-duration="650">
+              <font-awesome-icon :icon="['fa', 'star']" />
+              {{ repo.stargazers_count }} Stars
+            </button>
           </div>
           <div class="w-full overflow-hidden md:w-1/2 lg:w-1/2">
             <NuxtImg
+              :alt="`${repo.name} project image`"
               :src="getImageUrl(repo.name)"
-              alt="Project image"
               class="rounded-[12px] object-cover"
               data-aos="fade-up"
               data-aos-duration="500"
               format="webp"
+              height="500"
               width="1000"
-              height="500" />
+            />
           </div>
         </div>
       </div>
@@ -101,8 +102,8 @@ export default {
 
     return {
       filteredRepos,
-      getImageUrl,
+      getImageUrl
     };
-  },
+  }
 };
 </script>

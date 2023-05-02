@@ -20,22 +20,8 @@
           {{ $t("subwelcome") }}
         </p>
 
-        <NuxtLink
-          class="bg-primary-700 hover:bg-primary-800 mr-3 inline-flex items-center justify-center rounded-lg px-1 py-3 text-center text-base font-medium dark:text-white"
-          data-aos="fade-up"
-          data-aos-duration="600"
-          to="/#about">
-          Lets Go!
-        </NuxtLink>
-
-        <NuxtLink
-          class="rounded-lg bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-blue-500/50 transition duration-500 ease-in-out dark:shadow-lg dark:shadow-blue-800/80"
-          data-aos="fade-up"
-          data-aos-duration="650"
-          to="/team"
-          type="button">
-          Meet our team!
-        </NuxtLink>
+        <TransparentButton to="/#about" name="Let's go!" data-aos="fade-up" data-aos-duration="600"/>
+        <BlueButton to="/team" name="Meet our team!" data-aos="fade-up" data-aos-duration="650"/>
       </div>
 
       <div class="lg:col-span-5 hidden lg:block">
@@ -51,4 +37,6 @@
 <script setup>
 import PolygonRight from "~/components/hero/PolygonRight.vue";
 import PolygonLeft from "~/components/hero/PolygonLeft.vue";
+import BlueButton from "~/components/buttons/BlueButton.vue";
+import TransparentButton from "~/components/buttons/TransparentButton.vue";
 </script>
