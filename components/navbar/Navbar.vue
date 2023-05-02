@@ -5,7 +5,7 @@
         class="border-gray-200 bg-transparent backdrop-blur-md backdrop-filter">
         <div
           class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
-          <NuxtLink class="flex items-center" to="/">
+          <NuxtLink class="flex items-center" :to="localePath('/')">
             <NuxtImg
               alt="Eternalcode Logo"
               aria-label="Eternalcode Logo"
@@ -40,17 +40,17 @@
             class="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto">
             <ul
               class="mt-4 flex flex-col p-4 md:mt-0 md:flex-row md:space-x-8 md:p-0">
-              <li v-for="item in navigation" :key="item.name">
+              <li v-for="item in navigation" :key="item.key">
                 <NuxtLink
-                  :aria-label="item.name"
-                  :to="item.href"
+                  :aria-label="$t(item.key)"
+                  :to="localePath(item.href)"
                   class="block rounded-full py-2 pl-3 pr-4 text-gray-900 dark:text-white md:p-0">
-                  {{ item.name }}
+                  {{ $t(item.key) }}
                 </NuxtLink>
               </li>
 
               <li>
-                <DropdownNavbar :items="dropdownItems" name="Services" />
+                <DropdownNavbar :items="dropdownItems" :name="$t('navbar.services')" />
               </li>
             </ul>
           </div>
@@ -60,32 +60,24 @@
   </div>
 </template>
 
-<script lang="ts">
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+<script setup lang="ts">
+const localePath = useLocalePath()
 
-import LocaleButtons from "~/components/navbar/LocaleButtons.vue";
-import ThemeSwitcher from "~/components/navbar/ThemeSwitchButton.vue";
-import DropdownNavbar from "~/components/navbar/DropdownNavbar.vue";
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+import LocaleButtons from '~/components/navbar/LocaleButtons.vue'
+import ThemeSwitcher from '~/components/navbar/ThemeSwitchButton.vue'
+import DropdownNavbar from '~/components/navbar/DropdownNavbar.vue'
 
 const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Our Team", href: "/team" },
-  { name: "Our projects", href: "/projects" },
+  { key: "navbar.home", href: "/" },
+  { key: "navbar.team", href: "/team" },
+  { key: "navbar.projects", href: "/projects" },
 ];
 
 const dropdownItems = [
-  { name: "Documentations", href: "https://docs.eternalcode.pl/" },
-  { name: "Status", href: "https://status.eternalcode.pl/" },
-  { name: "Repository", href: "https://repo.eternalcode.pl/#/" },
+  { key: "navbar.dropdown.docs", href: "https://docs.eternalcode.pl/" },
+  { key: "navbar.dropdown.status", href: "https://status.eternalcode.pl/" },
+  { key: "navbar.dropdown.repo", href: "https://repo.eternalcode.pl/#/" },
 ];
-
-export default {
-  components: { ThemeSwitcher, LocaleButtons, FontAwesomeIcon, DropdownNavbar },
-  data() {
-    return {
-      navigation,
-      dropdownItems,
-    };
-  },
-};
 </script>

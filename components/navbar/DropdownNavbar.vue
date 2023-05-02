@@ -30,13 +30,13 @@
       <ul
         aria-labelledby="dropdownLargeButton"
         class="py-2 text-sm text-gray-700">
-        <li v-for="item in items" :key="item.name">
+        <li v-for="item in items" :key="item.key">
           <a
-            :aria-label="item.name"
-            :href="item.href"
+            :aria-label="$t(item.key)"
+            :href="localePath(item.href)"
             class="block px-4 py-2 dark:text-white hover:bg-gray-200 hover:dark:bg-gray-800 dark:hover:text-white"
             role="menuitem">
-            {{ item.name }}
+            {{ $t(item.key) }}
           </a>
         </li>
       </ul>

@@ -18,7 +18,7 @@
           class="rounded-lg bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-blue-500/50 transition duration-500 ease-in-out dark:shadow-lg dark:shadow-blue-800/80"
           data-aos="fade-up"
           data-aos-duration="650"
-          to="/"
+          :to="localePath('/')"
           type="button">
           Back to homepage!
         </NuxtLink>

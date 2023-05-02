@@ -27,7 +27,7 @@ export default defineNuxtConfig({
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
-      ...(process.env.NODE_ENV === "production" ? { cssnano: {} } : {}),
+      cssnano: {},
     },
   },
 
@@ -44,6 +44,7 @@ export default defineNuxtConfig({
         file: "en.json",
       },
     ],
+    strategy: "prefix",
   },
 
   // Seo kit
@@ -51,7 +52,6 @@ export default defineNuxtConfig({
     public: {
       siteName: "EternalCode.pl",
       siteDescription: "EternalCode.pl - Open source projects team",
-      languages: ["en", "pl"],
       titleSeparator: "|",
       trailingSlash: true,
     },
@@ -70,6 +70,7 @@ export default defineNuxtConfig({
   // pwa
   pwa: {
     manifest: {
+      mode: "production",
       name: "EternalCode.pl",
     },
   },

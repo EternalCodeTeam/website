@@ -3,7 +3,7 @@
     <div class="mx-auto max-w-screen-xl">
       <div class="md:flex md:justify-between">
         <div class="mb-6 md:mb-0">
-          <NuxtLink class="ml-4 flex items-center" to="/">
+          <NuxtLink class="ml-4 flex items-center" :to="localePath('/')">
             <NuxtImg
               alt="Eternalcode Logo"
               class="mr-3 h-8 text-white dark:invert"
@@ -27,7 +27,7 @@
             <ul class="text-gray-600 dark:text-gray-400">
               <li v-for="link in section.links" :key="link.text" class="mb-4">
                 <NuxtLink
-                  :to="link.url"
+                  :to="localePath(link.url)"
                   class="hover:underline"
                   :aria-label="link.text">
                   {{ link.text }}
@@ -84,60 +84,66 @@ export default {
 
   data() {
     return {
-      sections: [
-        {
-          title: "Team",
-          links: [
-            {
-              text: "About",
-              url: "/#about",
-            },
-            {
-              text: "Our team",
-              url: "/team",
-            },
-          ],
-        },
-        {
-          title: "Follow us",
-          links: [
-            {
-              text: "Github",
-              url: "https://github.com/EternalCodeTeam",
-            },
-            {
-              text: "Discord",
-              url: "https://discord.com/invite/FQ7jmGBd6c",
-            },
-            {
-              text: "Youtube",
-              url: "https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q",
-            },
-            {
-              text: "TikTok",
-              url: "https://www.tiktok.com/@eternalcode.pl",
-            },
-          ],
-        },
-        {
-          title: "See more",
-          links: [
-            {
-              text: "Repository",
-              url: "https://repo.eternalcode.pl/#/",
-            },
-            {
-              text: "Documentations",
-              url: "https://docs.eternalcode.pl/",
-            },
-            {
-              text: "Service Status",
-              url: "https://status.eternalcode.pl/",
-            },
-          ],
-        },
-      ],
+      sections,
     };
   },
 };
+
+const sections = [
+  {
+    title: "Team",
+    links: [
+      {
+        text: "About",
+        url: "/#about",
+      },
+      {
+        text: "Team",
+        url: "/team",
+      },
+      {
+        text: "Projects",
+        url: "/projects",
+      },
+    ],
+  },
+  {
+    title: "Follow us",
+    links: [
+      {
+        text: "Github",
+        url: "https://github.com/EternalCodeTeam",
+      },
+      {
+        text: "Discord",
+        url: "https://discord.com/invite/FQ7jmGBd6c",
+      },
+      {
+        text: "Youtube",
+        url: "https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q",
+      },
+      {
+        text: "TikTok",
+        url: "https://www.tiktok.com/@eternalcode.pl",
+      },
+    ],
+  },
+  {
+    title: "See more",
+    links: [
+      {
+        text: "Repository",
+        url: "https://repo.eternalcode.pl/#/",
+      },
+      {
+        text: "Documentations",
+        url: "https://docs.eternalcode.pl/",
+      },
+      {
+        text: "Service Status",
+        url: "https://status.eternalcode.pl/",
+      },
+    ],
+  },
+];
 </script>

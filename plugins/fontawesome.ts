@@ -17,6 +17,8 @@ import {
   faLinkedin,
   faTiktok,
   faYoutube,
+  faLinux,
+  faJava,
 } from "@fortawesome/free-brands-svg-icons";
 
 config.autoAddCss = false;
@@ -32,7 +34,9 @@ library.add(
   faYoutube,
   faStar,
   faQuestion,
-  faArrowDown
+  faArrowDown,
+  faLinux,
+  faJava
 );
 
 export default defineNuxtPlugin((nuxtApp) => {

@@ -19,21 +19,21 @@
           {{ $t("subwelcome") }}
         </p>
 
-        <TransparentButton
+        <BlueButton
           to="/#about"
-          name="Let's go!"
+          :name="$t('firstButton')"
           data-aos="fade-up"
           data-aos-duration="600" />
         <BlueButton
           to="/team"
-          name="Meet our team!"
+          :name="$t('secondButton')"
           data-aos="fade-up"
           data-aos-duration="650" />
       </div>
 
       <div class="lg:col-span-5 hidden lg:block">
         <div class="overflow-hidden">
-          <NuxtImg src="/assets/img/Snap.png" />
+<!--          <NuxtImg src="/assets/img/Snap.png" />-->
         </div>
       </div>
 
@@ -45,5 +45,4 @@
 import PolygonRight from "~/components/hero/PolygonRight.vue";
 import PolygonLeft from "~/components/hero/PolygonLeft.vue";
 import BlueButton from "~/components/buttons/BlueButton.vue";
-import TransparentButton from "~/components/buttons/TransparentButton.vue";
 </script>
