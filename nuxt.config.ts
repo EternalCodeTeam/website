@@ -14,8 +14,13 @@ export default defineNuxtConfig({
     "@nuxt/image-edge",
     "@nuxt/content",
     "@nuxtjs/i18n",
+    "@storyblok/nuxt"
   ],
   extends: ["nuxt-seo-kit"],
+
+  storyblok: {
+    accessToken: "n2QFKFZvAbr2RX9Xt1r4lAtt"
+  },
 
   plugins: [
     { src: "~/plugins/aos", mode: "client" },

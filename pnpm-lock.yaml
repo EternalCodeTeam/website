@@ -19,6 +19,9 @@ dependencies:
   '@nuxt/image-edge':
     specifier: 1.0.0-28020728.5df24eb
     version: 1.0.0-28020728.5df24eb(rollup@2.79.1)
+  '@storyblok/nuxt':
+    specifier: ^5.4.4
+    version: 5.4.4(rollup@2.79.1)
   '@tailwindcss/container-queries':
     specifier: ^0.1.1
     version: 0.1.1(tailwindcss@3.3.2)
@@ -38,7 +41,7 @@ dependencies:
 devDependencies:
   '@nuxt/devtools':
     specifier: npm:@nuxt/devtools-edge@latest
-    version: /@nuxt/devtools-edge@0.4.5-28047419.153f22c(nuxt@3.4.3)(rollup@2.79.1)(vite@4.3.3)
+    version: /@nuxt/devtools-edge@0.4.5-28052099.e8c008b(nuxt@3.4.3)(rollup@2.79.1)(vite@4.3.3)
   '@nuxtjs/eslint-config-typescript':
     specifier: ^12.0.0
     version: 12.0.0(eslint@8.39.0)(typescript@5.0.4)
@@ -2041,15 +2044,15 @@ packages:
     resolution: {integrity: sha512-YBI/6o2EBz02tdEJRBK8xkt3zvOFOWlLBf7WKYGBsSYSRtjjgrqPe2skp6VLLmKx5WbHHDNcW+6oACaurxGzeA==}
     dev: true
 
-  /@nuxt/devtools-edge@0.4.5-28047419.153f22c(nuxt@3.4.3)(rollup@2.79.1)(vite@4.3.3):
-    resolution: {integrity: sha512-Ymdati8yQTRd8ix2gpiE2lNVKiuhy6UxCXX3GaMAsYCehwVUbsIcXKsfgO6k0Kq+nt1tklGXmXPQppq0QCaEow==}
+  /@nuxt/devtools-edge@0.4.5-28052099.e8c008b(nuxt@3.4.3)(rollup@2.79.1)(vite@4.3.3):
+    resolution: {integrity: sha512-q7LfVSJEQR8TP6xIXpIlAdcHTJeeCxU7xD6ir/aLSkkV+YdM66u/acJ5KQfOymNzjdSZtySq3BSh+LNlwEOX7A==}
     hasBin: true
     peerDependencies:
       nuxt: ^3.4.2
       vite: '*'
     dependencies:
-      '@nuxt/devtools-kit': /@nuxt/devtools-kit-edge@0.4.5-28047419.153f22c(nuxt@3.4.3)(rollup@2.79.1)(vite@4.3.3)
-      '@nuxt/devtools-wizard': /@nuxt/devtools-wizard-edge@0.4.5-28047419.153f22c
+      '@nuxt/devtools-kit': /@nuxt/devtools-kit-edge@0.4.5-28052099.e8c008b(nuxt@3.4.3)(rollup@2.79.1)(vite@4.3.3)
+      '@nuxt/devtools-wizard': /@nuxt/devtools-wizard-edge@0.4.5-28052099.e8c008b
       '@nuxt/kit': 3.4.3(rollup@2.79.1)
       birpc: 0.2.11
       consola: 3.1.0
@@ -2069,7 +2072,7 @@ packages:
       pathe: 1.1.0
       perfect-debounce: 0.1.3
       picocolors: 1.0.0
-      pkg-types: 1.0.2
+      pkg-types: 1.0.3
       rc9: 2.1.0
       semver: 7.5.0
       sirv: 2.0.3
@@ -2090,8 +2093,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@nuxt/devtools-kit-edge@0.4.5-28047419.153f22c(nuxt@3.4.3)(rollup@2.79.1)(vite@4.3.3):
-    resolution: {integrity: sha512-IfCjEZjEBKj28SEHfjnwG9z9pSWQJawI7UFarGv5NurJccXLKwjZRGi7OeLX2Pxn0HYbbss0381X6LzQT9UQgg==}
+  /@nuxt/devtools-kit-edge@0.4.5-28052099.e8c008b(nuxt@3.4.3)(rollup@2.79.1)(vite@4.3.3):
+    resolution: {integrity: sha512-aS4vcc0ClhGobv7/uIr+YqFBzKpXFCeONikhAlQBS7P+ocr7pqoeJfsQdUh4dmRizvUVySiz8Le66jUvpXaazQ==}
     peerDependencies:
       nuxt: ^3.4.2
       vite: '*'
@@ -2106,8 +2109,8 @@ packages:
       - supports-color
     dev: true
 
-  /@nuxt/devtools-wizard-edge@0.4.5-28047419.153f22c:
-    resolution: {integrity: sha512-sH0Ey4Pp6wr/sYXHs6kJmzHoIszti5go5r9CpkyC9FNE6JhkmqCJws44C3k64PZu1A9QKAb17aDRdKviO8M8iw==}
+  /@nuxt/devtools-wizard-edge@0.4.5-28052099.e8c008b:
+    resolution: {integrity: sha512-XosdXMr18xZ87arUgibMXHxG9eVBmd/RJ5pZqQXAGQjV5l0LtZRB/4duUOLkfRKR1NvWxp7IlmyYgHvUbUk4bA==}
     hasBin: true
     dependencies:
       consola: 3.1.0
@@ -2117,7 +2120,7 @@ packages:
       magicast: 0.2.4
       pathe: 1.1.0
       picocolors: 1.0.0
-      pkg-types: 1.0.2
+      pkg-types: 1.0.3
       prompts: 2.4.2
       rc9: 2.1.0
       semver: 7.5.0
@@ -2186,7 +2189,7 @@ packages:
       lodash.template: 4.5.0
       mlly: 1.2.0
       pathe: 1.1.0
-      pkg-types: 1.0.2
+      pkg-types: 1.0.3
       scule: 1.0.0
       semver: 7.5.0
       unctx: 2.3.0
@@ -2212,7 +2215,7 @@ packages:
       lodash.template: 4.5.0
       mlly: 1.2.0
       pathe: 1.1.0
-      pkg-types: 1.0.2
+      pkg-types: 1.0.3
       scule: 1.0.0
       semver: 7.5.0
       unctx: 2.3.0
@@ -2274,7 +2277,7 @@ packages:
       hookable: 5.5.3
       jiti: 1.18.2
       pathe: 1.1.0
-      pkg-types: 1.0.2
+      pkg-types: 1.0.3
       postcss-import-resolver: 2.0.0
       scule: 1.0.0
       std-env: 3.3.2
@@ -2296,7 +2299,7 @@ packages:
       hookable: 5.5.3
       jiti: 1.18.2
       pathe: 1.1.0
-      pkg-types: 1.0.2
+      pkg-types: 1.0.3
       postcss-import-resolver: 2.0.0
       scule: 1.0.0
       std-env: 3.3.2
@@ -2314,7 +2317,7 @@ packages:
       defu: 6.1.2
       hookable: 5.5.3
       pathe: 1.1.0
-      pkg-types: 1.0.2
+      pkg-types: 1.0.3
       postcss-import-resolver: 2.0.0
       std-env: 3.3.2
       ufo: 1.1.1
@@ -2842,6 +2845,28 @@ packages:
 
   /@socket.io/component-emitter@3.1.0:
     resolution: {integrity: sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==}
+    dev: false
+
+  /@storyblok/js@2.1.3:
+    resolution: {integrity: sha512-lUnCygXMmw3VJQldM5JyEFwraKz2OYN+rt1FvvlWn/55DQfbB/DIgnoQ1mpRw4tJoBqGPRgEQJGOH8e/Q1Vm7Q==}
+    dependencies:
+      storyblok-js-client: 5.10.3
+    dev: false
+
+  /@storyblok/nuxt@5.4.4(rollup@2.79.1):
+    resolution: {integrity: sha512-EamhFSJLb5AyiBcCklK3kxR5iUcTCpoH4pjammbWlorMcW6wkVkqMXVEk7Enklj81UHTf2qK4cPLaHjMQ3uz7A==}
+    dependencies:
+      '@nuxt/kit': 3.4.3(rollup@2.79.1)
+      '@storyblok/vue': 7.1.4
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
+    dev: false
+
+  /@storyblok/vue@7.1.4:
+    resolution: {integrity: sha512-4TURlt9urpW/4Emj6hW8qcJ2PTNVzpYSUQKHUVYhDiwNYr6AjdvlpqFQ5GNTPH9gp2a8A4sHTesejsT72IcUYw==}
+    dependencies:
+      '@storyblok/js': 2.1.3
     dev: false
 
   /@surma/rollup-plugin-off-main-thread@2.2.3:
@@ -4011,7 +4036,7 @@ packages:
       ohash: 1.1.2
       pathe: 1.1.0
       perfect-debounce: 0.1.3
-      pkg-types: 1.0.2
+      pkg-types: 1.0.3
       rc9: 2.1.0
     transitivePeerDependencies:
       - supports-color
@@ -9094,6 +9119,13 @@ packages:
       mlly: 1.2.0
       pathe: 1.1.0
 
+  /pkg-types@1.0.3:
+    resolution: {integrity: sha512-nN7pYi0AQqJnoLPC9eHFQ8AcyaixBUOwvqc5TDnIKCMEE6I0y8P7OKA7fPexsXGCGxQDl/cmrLAp26LhcwxZ4A==}
+    dependencies:
+      jsonc-parser: 3.2.0
+      mlly: 1.2.0
+      pathe: 1.1.0
+
   /playwright-core@1.33.0:
     resolution: {integrity: sha512-aizyPE1Cj62vAECdph1iaMILpT0WUDCq3E6rW6I+dleSbBoGbktvJtzS6VHkZ4DKNEOG9qJpiom/ZxO+S15LAw==}
     engines: {node: '>=14'}
@@ -10623,6 +10655,10 @@ packages:
       internal-slot: 1.0.5
     dev: true
 
+  /storyblok-js-client@5.10.3:
+    resolution: {integrity: sha512-D/Uiv9Nw/u+o3GfiFZ3u82Nw1I73jyOihiaKsrWLpbYeL+paXGuq3QmqcxBffEqkrlMlTksoeyz4Kz/ngNAM7g==}
+    dev: false
+
   /string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
     engines: {node: '>=8'}
@@ -11331,7 +11367,7 @@ packages:
       magic-string: 0.30.0
       mlly: 1.2.0
       pathe: 1.1.0
-      pkg-types: 1.0.2
+      pkg-types: 1.0.3
       scule: 1.0.0
       strip-literal: 1.0.1
       unplugin: 1.3.1
@@ -11348,7 +11384,7 @@ packages:
       magic-string: 0.30.0
       mlly: 1.2.0
       pathe: 1.1.0
-      pkg-types: 1.0.2
+      pkg-types: 1.0.3
       scule: 1.0.0
       strip-literal: 1.0.1
       unplugin: 1.3.1
