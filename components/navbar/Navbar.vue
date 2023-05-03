@@ -61,6 +61,8 @@
 </template>
 
 <script setup lang="ts">
+const localePath = useLocalePath()
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import LocaleButtons from '~/components/navbar/LocaleButtons.vue'
