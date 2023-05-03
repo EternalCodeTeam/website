@@ -1,21 +1,7 @@
-<template>
-  <Navbar />
-  <Hero />
-  <SeoKit />
-  <OgImageScreenshot />
-  <OgImageStatic />
-  <NuxtPage />
-  <Footer />
-</template>
-
-<script lang="ts" setup>
-import { onMounted } from "vue";
-import { initDropdowns } from "flowbite";
-
-import Navbar from "~/components/navbar/Navbar.vue";
-import Footer from "~/components/Footer.vue";
-
-onMounted(() => {
-  initDropdowns();
-});
+<script setup>
+const story = await useAsyncStoryblok('test', { version: 'draft' })
 </script>
+
+<template>
+  <StoryblokComponent v-if="story" :blok="story.content" />
+</template>
