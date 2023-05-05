@@ -33,7 +33,7 @@
 
       <div class="lg:col-span-5 hidden lg:block">
         <div class="overflow-hidden">
-<!--          <NuxtImg src="/assets/img/Snap.png" />-->
+          <!--          <NuxtImg format="webp" width="400" height="400" src="/assets/img/coding.png" />-->
         </div>
       </div>
 

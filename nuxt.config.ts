@@ -3,13 +3,12 @@ export default defineNuxtConfig({
 
   css: [
     "~/assets/css/main.css",
-    "~/node_modules/@fortawesome/fontawesome-svg-core/styles.css",
+    "@fortawesome/fontawesome-svg-core/styles.css",
   ],
 
   modules: [
     "@nuxt/devtools",
     "@nuxtjs/tailwindcss",
-    "@nuxtjs/fontaine",
     "@vite-pwa/nuxt",
     "@nuxt/image-edge",
     "@nuxt/content",
@@ -19,7 +18,7 @@ export default defineNuxtConfig({
 
   plugins: [
     { src: "~/plugins/aos", mode: "client" },
-    { src: "~/plugins/fontawesome", mode: "client" },
+    { src: "~/plugins/fontawesome" },
   ],
 
   // postcss
@@ -70,7 +69,6 @@ export default defineNuxtConfig({
   // pwa
   pwa: {
     manifest: {
-      mode: "production",
       name: "EternalCode.pl",
     },
   },

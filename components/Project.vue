@@ -3,8 +3,7 @@
     <div class="mx-auto max-w-screen-xl px-4 py-16">
       <SectionTitle
         description="Discover our open source projects!"
-        title="Our Projects"
-      />
+        title="Our Projects" />
 
       <div class="mt-8 space-y-8 lg:mt-12">
         <div

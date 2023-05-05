@@ -5,13 +5,13 @@
     @click="toggleTheme">
     <font-awesome-icon
       v-if="!isDarkTheme"
-      :icon="['fa', 'moon']"
+      :icon="['fas', 'moon']"
       class="h-6 w-6 text-black"
       alt="Moon icon"
       title="Switch to dark mode" />
     <font-awesome-icon
       v-else
-      :icon="['fa', 'sun']"
+      :icon="['fas', 'sun']"
       class="h-6 w-6 text-white"
       alt="Sun icon"
       title="Switch to light mode" />

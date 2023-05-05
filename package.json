@@ -15,7 +15,6 @@
   "devDependencies": {
     "@nuxt/devtools": "npm:@nuxt/devtools-edge@latest",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
-    "@nuxtjs/fontaine": "^0.2.5",
     "@nuxtjs/i18n": "8.0.0-beta.11",
     "@nuxtjs/tailwindcss": "^6.6.7",
     "@types/aos": "^3.0.4",
