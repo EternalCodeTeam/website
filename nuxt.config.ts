@@ -37,10 +37,12 @@ export default defineNuxtConfig({
       {
         code: "pl",
         file: "pl.json",
+        iso: "pl-PL",
       },
       {
         code: "en",
         file: "en.json",
+        iso: "en-US",
       },
     ],
     strategy: "prefix",
