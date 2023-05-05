@@ -29,7 +29,9 @@
                 <NuxtLink
                   :to="localePath(link.url)"
                   class="hover:underline"
-                  :aria-label="link.text">
+                  :aria-label="link.text"
+                  aria-hidden="true"
+                >
                   {{ link.text }}
                 </NuxtLink>
               </li>
