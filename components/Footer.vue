@@ -19,21 +19,127 @@
         </div>
 
         <div class="grid grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-6">
-          <div v-for="section in sections" :key="section.title">
+          <div>
             <h2
               class="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">
-              {{ section.title }}
+              Team
             </h2>
             <ul class="text-gray-600 dark:text-gray-400">
-              <li v-for="link in section.links" :key="link.text" class="mb-4">
+              <li class="mb-4">
                 <NuxtLink
-                  :to="localePath(link.url)"
+                  :to="localePath('/#about')"
                   class="hover:underline"
-                  :aria-label="link.text"
+                  aria-label="About"
                   aria-hidden="true"
                 >
-                  {{ link.text }}
+                  About
                 </NuxtLink>
+              </li>
+              <li class="mb-4">
+                <NuxtLink
+                  :to="localePath('/team')"
+                  class="hover:underline"
+                  aria-label="Team"
+                  aria-hidden="true"
+                >
+                  Team
+                </NuxtLink>
+              </li>
+              <li class="mb-4">
+                <NuxtLink
+                  :to="localePath('/projects')"
+                  class="hover:underline"
+                  aria-label="Projects"
+                  aria-hidden="true"
+                >
+                  Projects
+                </NuxtLink>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h2
+              class="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">
+              Follow us
+            </h2>
+            <ul class="text-gray-600 dark:text-gray-400">
+              <li class="mb-4">
+                <a
+                  href="https://github.com/EternalCodeTeam"
+                  class="hover:underline"
+                  aria-label="Github"
+                  aria-hidden="true"
+                >
+                  Github
+                </a>
+              </li>
+              <li class="mb-4">
+                <a
+                  href="https://discord.com/invite/FQ7jmGBd6c"
+                  class="hover:underline"
+                  aria-label="Discord"
+                  aria-hidden="true"
+                >
+                  Discord
+                </a>
+              </li>
+              <li class="mb-4">
+                <a
+                  href="https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q"
+                  class="hover:underline"
+                  aria-label="Youtube"
+                  aria-hidden="true"
+                >
+                  Youtube
+                </a>
+              </li>
+              <li class="mb-4">
+                <a
+                  href="https://www.tiktok.com/@eternalcode.pl"
+                  class="hover:underline"
+                  aria-label="TikTok"
+                  aria-hidden="true"
+                >
+                  TikTok
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h2
+              class="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">
+              See more
+            </h2>
+            <ul class="text-gray-600 dark:text-gray-400">
+              <li class="mb-4">
+                <a
+                  href="https://repo.eternalcode.pl/#/"
+                  class="hover:underline"
+                  aria-label="Repository"
+                  aria-hidden="true"
+                >
+                  Repository
+                </a>
+              </li>
+              <li class="mb-4">
+                <a
+                  href="https://docs.eternalcode.pl/"
+                  class="hover:underline"
+                  aria-label="Documentations"
+                  aria-hidden="true"
+                >
+                  Documentations
+                </a>
+              </li>
+              <li class="mb-4">
+                <a
+                  href="https://status.eternalcode.pl/"
+                  class="hover:underline"
+                  aria-label="Service Status"
+                  aria-hidden="true"
+                >
+                  Service Status
+                </a>
               </li>
             </ul>
           </div>
@@ -83,69 +189,5 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 export default {
   components: { FontAwesomeIcon },
-
-  data() {
-    return {
-      sections,
-    };
-  },
 };
-
-const sections = [
-  {
-    title: "Team",
-    links: [
-      {
-        text: "About",
-        url: "/#about",
-      },
-      {
-        text: "Team",
-        url: "/team",
-      },
-      {
-        text: "Projects",
-        url: "/projects",
-      },
-    ],
-  },
-  {
-    title: "Follow us",
-    links: [
-      {
-        text: "Github",
-        url: "https://github.com/EternalCodeTeam",
-      },
-      {
-        text: "Discord",
-        url: "https://discord.com/invite/FQ7jmGBd6c",
-      },
-      {
-        text: "Youtube",
-        url: "https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q",
-      },
-      {
-        text: "TikTok",
-        url: "https://www.tiktok.com/@eternalcode.pl",
-      },
-    ],
-  },
-  {
-    title: "See more",
-    links: [
-      {
-        text: "Repository",
-        url: "https://repo.eternalcode.pl/#/",
-      },
-      {
-        text: "Documentations",
-        url: "https://docs.eternalcode.pl/",
-      },
-      {
-        text: "Service Status",
-        url: "https://status.eternalcode.pl/",
-      },
-    ],
-  },
-];
 </script>
