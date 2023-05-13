@@ -9,6 +9,8 @@ import {
   faStar,
   faQuestion,
   faArrowDown,
+  faArrowRight,
+  faPeopleGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faDiscord,
@@ -26,6 +28,8 @@ library.add(
   faSun,
   faMoon,
   faBars,
+  faArrowRight,
+  faPeopleGroup,
   faDiscord,
   faGithub,
   faInstagram,

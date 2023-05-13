@@ -45,7 +45,7 @@ export default defineNuxtConfig({
         iso: "en-US",
       },
     ],
-    strategy: "prefix",
+    strategy: "prefix_except_default",
   },
 
   // Seo kit

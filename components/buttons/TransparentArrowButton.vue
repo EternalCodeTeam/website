@@ -2,7 +2,8 @@
   <NuxtLink
     :to="localePath(to)"
     :aria-label="name + ' button'"
-    class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+    class="text-black dark:text-white font-medium text-sm px-5 py-2.5 text-center mr-2 mb-2">
+    <font-awesome-icon :icon="['fas', 'arrow-right']" />
     {{ name }}
   </NuxtLink>
 </template>
@@ -11,7 +12,7 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 export default {
-  name: "BlueButton",
+  name: "TransparentArrowButton",
   components: { FontAwesomeIcon },
   props: {
     name: {

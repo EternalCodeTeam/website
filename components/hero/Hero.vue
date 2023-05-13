@@ -19,12 +19,12 @@
           {{ $t("subwelcome") }}
         </p>
 
-        <BlueButton
+        <TransparentArrowButton
           to="/#about"
           :name="$t('firstButton')"
           data-aos="fade-up"
           data-aos-duration="600" />
-        <BlueButton
+        <BlueTeamButton
           to="/team"
           :name="$t('secondButton')"
           data-aos="fade-up"
@@ -44,5 +44,6 @@
 <script setup>
 import PolygonRight from "~/components/hero/PolygonRight.vue";
 import PolygonLeft from "~/components/hero/PolygonLeft.vue";
-import BlueButton from "~/components/buttons/BlueButton.vue";
+import TransparentArrowButton from "~/components/buttons/TransparentArrowButton.vue";
+import BlueTeamButton from "~/components/buttons/BlueTeamButton.vue";
 </script>
