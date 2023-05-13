@@ -57,5 +57,13 @@
         "text": "We are open to learning about new technologies and are eager to learn them!"
       }
     }
+  },
+  "footer": {
+    "team": "Team",
+    "projects": "Projects",
+    "about": "About us",
+    "follow": "Follow us",
+    "seemore": "See more",
+    "copyright": "© 2021-present EternalCodeTeam. All rights reserved."
   }
 }

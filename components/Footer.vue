@@ -22,7 +22,7 @@
           <div>
             <h2
               class="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">
-              Team
+              {{ $t("footer.team") }}
             </h2>
             <ul class="text-gray-600 dark:text-gray-400">
               <li class="mb-4">
@@ -31,7 +31,7 @@
                   class="hover:underline"
                   aria-label="About"
                   aria-hidden="true">
-                  About
+                  {{ $t("footer.about") }}
                 </NuxtLink>
               </li>
               <li class="mb-4">
@@ -40,7 +40,7 @@
                   class="hover:underline"
                   aria-label="Team"
                   aria-hidden="true">
-                  Team
+                  {{ $t("footer.team") }}
                 </NuxtLink>
               </li>
               <li class="mb-4">
@@ -49,7 +49,7 @@
                   class="hover:underline"
                   aria-label="Projects"
                   aria-hidden="true">
-                  Projects
+                  {{ $t("footer.projects") }}
                 </NuxtLink>
               </li>
             </ul>
@@ -57,7 +57,7 @@
           <div>
             <h2
               class="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">
-              Follow us
+              {{ $t("footer.follow") }}
             </h2>
             <ul class="text-gray-600 dark:text-gray-400">
               <li class="mb-4">
@@ -101,7 +101,7 @@
           <div>
             <h2
               class="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">
-              See more
+              {{ $t("footer.seemore") }}
             </h2>
             <ul class="text-gray-600 dark:text-gray-400">
               <li class="mb-4">
@@ -141,7 +141,7 @@
 
       <div class="sm:flex sm:items-center sm:justify-between">
         <span class="text-sm text-gray-500 dark:text-gray-400 sm:text-center">
-          © 2021-present EternalCodeTeam. All Rights Reserved.
+          {{ $t("footer.copyright") }}
         </span>
         <div class="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
           <a
