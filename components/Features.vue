@@ -5,8 +5,7 @@
         :description="$t('features.text')"
         :title="$t('features.title')"
         data-aos="fade-up"
-        data-aos-duration="550"
-      />
+        data-aos-duration="550" />
 
       <div
         class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
@@ -69,7 +68,7 @@ import SectionTitle from "~/components/section/SectionTitle.vue";
 
 export default {
   components: {
-      SectionTitle,
+    SectionTitle,
     BlueButton,
     FontAwesomeIcon,
   },

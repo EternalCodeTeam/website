@@ -30,8 +30,7 @@
                   :to="localePath('/#about')"
                   class="hover:underline"
                   aria-label="About"
-                  aria-hidden="true"
-                >
+                  aria-hidden="true">
                   About
                 </NuxtLink>
               </li>
@@ -40,8 +39,7 @@
                   :to="localePath('/team')"
                   class="hover:underline"
                   aria-label="Team"
-                  aria-hidden="true"
-                >
+                  aria-hidden="true">
                   Team
                 </NuxtLink>
               </li>
@@ -50,8 +48,7 @@
                   :to="localePath('/projects')"
                   class="hover:underline"
                   aria-label="Projects"
-                  aria-hidden="true"
-                >
+                  aria-hidden="true">
                   Projects
                 </NuxtLink>
               </li>
@@ -68,8 +65,7 @@
                   href="https://github.com/EternalCodeTeam"
                   class="hover:underline"
                   aria-label="Github"
-                  aria-hidden="true"
-                >
+                  aria-hidden="true">
                   Github
                 </a>
               </li>
@@ -78,8 +74,7 @@
                   href="https://discord.com/invite/FQ7jmGBd6c"
                   class="hover:underline"
                   aria-label="Discord"
-                  aria-hidden="true"
-                >
+                  aria-hidden="true">
                   Discord
                 </a>
               </li>
@@ -88,8 +83,7 @@
                   href="https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q"
                   class="hover:underline"
                   aria-label="Youtube"
-                  aria-hidden="true"
-                >
+                  aria-hidden="true">
                   Youtube
                 </a>
               </li>
@@ -98,8 +92,7 @@
                   href="https://www.tiktok.com/@eternalcode.pl"
                   class="hover:underline"
                   aria-label="TikTok"
-                  aria-hidden="true"
-                >
+                  aria-hidden="true">
                   TikTok
                 </a>
               </li>
@@ -116,8 +109,7 @@
                   href="https://repo.eternalcode.pl/#/"
                   class="hover:underline"
                   aria-label="Repository"
-                  aria-hidden="true"
-                >
+                  aria-hidden="true">
                   Repository
                 </a>
               </li>
@@ -126,8 +118,7 @@
                   href="https://docs.eternalcode.pl/"
                   class="hover:underline"
                   aria-label="Documentations"
-                  aria-hidden="true"
-                >
+                  aria-hidden="true">
                   Documentations
                 </a>
               </li>
@@ -136,8 +127,7 @@
                   href="https://status.eternalcode.pl/"
                   class="hover:underline"
                   aria-label="Service Status"
-                  aria-hidden="true"
-                >
+                  aria-hidden="true">
                   Service Status
                 </a>
               </li>

@@ -9,8 +9,7 @@
         alt="Polish language"
         aria-label="Polish language"
         width="24"
-        height="24"
-      />
+        height="24" />
     </button>
     <button
       class="transition-all duration-500 h-6 w-6 overflow-hidden hover:grayscale-[100]"
@@ -21,8 +20,7 @@
         alt="English language"
         aria-label="English language"
         width="24"
-        height="24"
-      />
+        height="24" />
     </button>
   </div>
 </template>
