@@ -30,13 +30,31 @@
       <ul
         aria-labelledby="dropdownLargeButton"
         class="py-2 text-sm text-gray-700">
-        <li v-for="item in items" :key="item.key">
+        <li>
           <a
-            :aria-label="$t(item.key)"
-            :href="localePath(item.href)"
+            :aria-label="$t('navbar.dropdown.docs')"
+            href="https://docs.eternalcode.pl/"
             class="block px-4 py-2 dark:text-white hover:bg-gray-200 hover:dark:bg-gray-800 dark:hover:text-white"
             role="menuitem">
-            {{ $t(item.key) }}
+            {{ $t('navbar.dropdown.docs') }}
+          </a>
+        </li>
+        <li>
+          <a
+            :aria-label="$t('navbar.dropdown.status')"
+            href="https://status.eternalcode.pl/"
+            class="block px-4 py-2 dark:text-white hover:bg-gray-200 hover:dark:bg-gray-800 dark:hover:text-white"
+            role="menuitem">
+            {{ $t('navbar.dropdown.status') }}
+          </a>
+        </li>
+        <li>
+          <a
+            :aria-label="$t('navbar.dropdown.repo')"
+            href="https://repo.eternalcode.pl/#/"
+            class="block px-4 py-2 dark:text-white hover:bg-gray-200 hover:dark:bg-gray-800 dark:hover:text-white"
+            role="menuitem">
+            {{ $t('navbar.dropdown.repo') }}
           </a>
         </li>
       </ul>
@@ -47,10 +65,6 @@
 <script lang="ts">
 export default {
   props: {
-    items: {
-      type: Array,
-      required: true,
-    },
     name: {
       type: String,
       required: true,

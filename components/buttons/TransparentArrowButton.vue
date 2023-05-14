@@ -12,7 +12,6 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 export default {
-  name: "TransparentArrowButton",
   components: { FontAwesomeIcon },
   props: {
     name: {

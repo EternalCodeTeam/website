@@ -70,10 +70,4 @@ const navigation = [
   { key: "navbar.team", href: "/team" },
   { key: "navbar.projects", href: "/projects" },
 ];
-
-const dropdownItems = [
-  { key: "navbar.dropdown.docs", href: "https://docs.eternalcode.pl/" },
-  { key: "navbar.dropdown.status", href: "https://status.eternalcode.pl/" },
-  { key: "navbar.dropdown.repo", href: "https://repo.eternalcode.pl/#/" },
-];
 </script>

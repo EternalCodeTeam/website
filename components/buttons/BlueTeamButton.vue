@@ -12,7 +12,6 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 export default {
-  name: "BlueTeamButton",
   components: { FontAwesomeIcon },
   props: {
     name: {

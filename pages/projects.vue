@@ -1,5 +1,5 @@
 <template>
-  <Project />
+  <LazyProject />
 </template>
 
 <script lang="ts" setup>

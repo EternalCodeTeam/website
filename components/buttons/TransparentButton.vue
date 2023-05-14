@@ -10,7 +10,6 @@
 <script lang="ts">
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 export default {
-  name: "TransparentButton",
   components: { FontAwesomeIcon },
   props: {
     name: {
