@@ -36,7 +36,7 @@
             href="https://docs.eternalcode.pl/"
             class="block px-4 py-2 dark:text-white hover:bg-gray-200 hover:dark:bg-gray-800 dark:hover:text-white"
             role="menuitem">
-            {{ $t('navbar.dropdown.docs') }}
+            {{ $t("navbar.dropdown.docs") }}
           </a>
         </li>
         <li>
@@ -45,7 +45,7 @@
             href="https://status.eternalcode.pl/"
             class="block px-4 py-2 dark:text-white hover:bg-gray-200 hover:dark:bg-gray-800 dark:hover:text-white"
             role="menuitem">
-            {{ $t('navbar.dropdown.status') }}
+            {{ $t("navbar.dropdown.status") }}
           </a>
         </li>
         <li>
@@ -54,7 +54,7 @@
             href="https://repo.eternalcode.pl/#/"
             class="block px-4 py-2 dark:text-white hover:bg-gray-200 hover:dark:bg-gray-800 dark:hover:text-white"
             role="menuitem">
-            {{ $t('navbar.dropdown.repo') }}
+            {{ $t("navbar.dropdown.repo") }}
           </a>
         </li>
       </ul>

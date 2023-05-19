@@ -19,16 +19,22 @@
           {{ $t("subwelcome") }}
         </p>
 
-        <TransparentArrowButton
-          to="/#about"
-          :name="$t('firstButton')"
-          data-aos="fade-up"
-          data-aos-duration="600" />
-        <BlueTeamButton
-          to="/team"
-          :name="$t('secondButton')"
-          data-aos="fade-up"
-          data-aos-duration="650" />
+        <NuxtLink :to="localePath('/#about')">
+          <button
+            :aria-label="$t('firstButton') + ' button'"
+            class="text-black dark:text-white font-medium text-sm px-5 py-2.5 text-center mr-2 mb-2">
+            <font-awesome-icon :icon="['fas', 'arrow-right']" />
+            {{ $t("firstButton") }}
+          </button>
+        </NuxtLink>
+
+        <NuxtLink :to="localePath('/team')">
+          <button
+            class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+            <font-awesome-icon :icon="['fas', 'people-group']" />
+            {{ $t("secondButton") }}
+          </button>
+        </NuxtLink>
       </div>
 
       <div class="lg:col-span-5 hidden lg:block">
@@ -42,8 +48,7 @@
   </div>
 </template>
 <script setup>
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import PolygonRight from "~/components/hero/PolygonRight.vue";
 import PolygonLeft from "~/components/hero/PolygonLeft.vue";
-import TransparentArrowButton from "~/components/hero/TransparentArrowButton.vue";
-import BlueTeamButton from "~/components/hero/BlueTeamButton.vue";
 </script>
