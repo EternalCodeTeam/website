@@ -63,13 +63,11 @@
 
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import BlueButton from "~/components/buttons/BlueButton.vue";
 import SectionTitle from "~/components/section/SectionTitle.vue";
 
 export default {
   components: {
     SectionTitle,
-    BlueButton,
     FontAwesomeIcon,
   },
 };

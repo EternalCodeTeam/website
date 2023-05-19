@@ -45,9 +45,7 @@
               </NuxtLink>
             </li>
             <li>
-              <DropdownNavbar
-                :items="dropdownItems"
-                :name="$t('navbar.services')" />
+              <DropdownNavbar :name="$t('navbar.services')" />
             </li>
           </ul>
         </div>
