@@ -44,6 +44,6 @@
 <script setup>
 import PolygonRight from "~/components/hero/PolygonRight.vue";
 import PolygonLeft from "~/components/hero/PolygonLeft.vue";
-import TransparentArrowButton from "~/components/buttons/TransparentArrowButton.vue";
-import BlueTeamButton from "~/components/buttons/BlueTeamButton.vue";
+import TransparentArrowButton from "~/components/hero/TransparentArrowButton.vue";
+import BlueTeamButton from "~/components/hero/BlueTeamButton.vue";
 </script>
