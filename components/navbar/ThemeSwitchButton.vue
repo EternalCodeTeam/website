@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import { useDark, useToggle } from "@vueuse/core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 export default {
@@ -27,14 +26,30 @@ export default {
   components: {
     FontAwesomeIcon,
   },
-  setup() {
-    const isDark = useDark();
-    const toggleTheme = useToggle(isDark);
-
+  data() {
     return {
-      isDark,
-      toggleTheme,
+      isDark: false,
     };
+  },
+  methods: {
+    toggleTheme() {
+      this.isDark = !this.isDark;
+      if (this.isDark) {
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+      }
+    },
+  },
+  mounted() {
+    this.isDark = localStorage.getItem("theme") === "dark";
+    if (this.isDark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
   },
 };
 </script>
