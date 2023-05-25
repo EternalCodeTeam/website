@@ -1,7 +1,7 @@
 <template>
-  <div id="terminal" class="h-72 w-auto flex  rounded-lg">
+  <div id="terminal" class="h-72 w-auto flex  rounded-lg" aria-hidden="true">
     <div id="settings" class="h-full w-1/5">
-      <div id="on-off-buttons" class="h-6 rounded-tl-lg select-none bg-[#4B5563]">
+      <div id="on-off-buttons" class="h-6 rounded-tl-lg select-none dark:bg-[#4B5563]">
         <div class="w-1/3 m-0 flex flex-row pt-1 pl-1 ">
 
           <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -23,18 +23,29 @@
           </svg>
         </div>
       </div>
-      <div id="project-settings" class="h-6 flex center flex-row bg-[#374151]">
+      <div id="project-settings" class="h-6 flex center flex-row dark:bg-[#374151]">
         <a href="https://github.com/EternalCodeTeam/" target="_blank">
-          <img src="~/assets/img/hero/branch.svg" alt="branch" class="h-4 w-4 m-1 select-none">
+          <picture>
+            <source srcset="~/assets/img/hero/branch.svg" type="image/svg+xml">
+            <img src="~/assets/img/hero/branch.svg" alt="branch" class="h-4 w-4 m-1 select-none">
+          </picture>
         </a>
         <a href="https://github.com/EternalCodeTeam/" target="_blank">
-          <img src="~/assets/img/hero/project.svg" alt="project" class="h-4 w-4 m-1 select-none">
+          <picture>
+            <source srcset="~/assets/img/hero/project.svg" type="image/svg+xml">
+            <img src="~/assets/img/hero/project.svg" alt="project" class="h-4 w-4 m-1 select-none"
+                 href="https://github.com/EternalCodeTeam/" target="_blank">
+          </picture>
         </a>
         <a href="https://github.com/EternalCodeTeam/" target="_blank">
-          <img src="~/assets/img/hero/github.svg" alt="github" class="h-4 w-4 m-1 select-none">
+          <picture>
+            <source srcset="~/assets/img/hero/github.svg" type="image/svg+xml">
+            <img src="~/assets/img/hero/github.svg" alt="github" class="h-4 w-4 m-1 select-none"
+                 href="https://github.com/EternalCodeTeam/" target="_blank">
+          </picture>
         </a>
       </div>
-      <div id="files" class="h-72 bg-[#4B5563] p-2 rounded-bl-lg">
+      <div id="files" class="h-72 dark:bg-[#4B5563] p-2 rounded-bl-lg">
 
         <p class="text-sm font-light text-gray-400 select-none">▄▄▄▄▄</p>
         <p class="text-sm font-light text-gray-400 select-none">▄▄▄▄▄▄▄▄</p>
@@ -53,17 +64,24 @@
     </div>
     <div id="main-tab" class="h-60 rounded-tr-lg w-4/5">
       <div id="file-section" class="flex">
-        <div id="file-1" class="h- w-1/2 bg-[#374151] flex flex-row text-gray-400 pl-2 select-none">
-          <img src="~/assets/img/hero/project.svg"
-               class="h-4 w-4 m-1 select-none"> EternalCodeWWW
+        <div id="file-1" class="h- w-1/2 dark:bg-[#374151] flex flex-row dark:text-gray-400 pl-2 select-none">
+          <picture>
+            <source srcset="~/assets/img/hero/project.svg" type="image/svg+xml">
+            <img src="~/assets/img/hero/project.svg" alt="project"
+                 class="h-4 w-auto m-1 select-none">
+          </picture>
+          <label>EternalCodeWWW</label>
         </div>
-        <div id="file-2" class="h-6  w-1/2 bg-[#1F2A37] flex flex-row rounded-tr-lg text-gray-400 pl-2 select-none">
-          <img src="~/assets/img/hero/terminal.svg" alt="terminal"
-               class="h-4 w-4 m-1 select-none">
-          Terminal
+        <div id="file-2" class="h-6  w-1/2 dark:bg-[#1F2A37] flex flex-row rounded-tr-lg dark:text-gray-400 pl-2 select-none">
+          <picture>
+            <source srcset="~/assets/img/hero/terminal.svg" type="image/svg+xml">
+            <img src="~/assets/img/hero/terminal.svg" alt="terminal"
+                 class="h-4 w-4 m-1 select-none">
+          </picture>
+          <label>Terminal</label>
         </div>
       </div>
-      <div id="file-2-code " class=" h-72 sticky inset-x-0 bottom-0 bg-[#1F2A37] pl-2 ">
+      <div id="file-2-code " class=" h-72 sticky inset-x-0 bottom-0 dark:bg-[#1F2A37] pl-2 ">
         <label
             v-for="(line, index) in lines"
             v-show="index <= currentIndex"
@@ -77,7 +95,7 @@
           <br v-if="line.endLine">
         </label>
       </div>
-      <div id="file-settings" class="w-auto h-6 rounded-br-lg bg-[#374151]"></div>
+      <div id="file-settings" class="w-auto h-6 rounded-br-lg dark:bg-[#374151]"></div>
     </div>
   </div>
 </template>
@@ -101,6 +119,7 @@ export default {
         }, delay);
       }
     }
+
     onMounted(() => {
       setTimeout(() => {
         displayLines();
