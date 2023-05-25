@@ -91,7 +91,7 @@
               src="/assets/img/hero/project.svg"
               width="16"
               height="16"/>
-          <label>EternalCodeWWW</label>
+          <span>EternalCodeWWW</span>
         </div>
         <div
             id="file-2"
@@ -104,13 +104,13 @@
               src="/assets/img/hero/terminal.svg"
               width="16"
               height="16"/>
-          <label>Terminal</label>
+          <span>Terminal</span>
         </div>
       </div>
       <div
           id="file-2-code "
           class="h-72 sticky inset-x-0 bottom-0 dark:bg-[#1F2A37] bg-[#e6e7e8] pl-2">
-        <label
+        <span
             v-for="(line, index) in lines"
             :key="index"
             :class="[
@@ -128,11 +128,11 @@
               target="_blank"
           >{{ line.line }}
           </a>
-          <label v-else>
+          <span v-else>
             {{ line.line }}
-          </label>
+          </span>
           <br v-if="line.endLine"/>
-        </label>
+        </span>
       </div>
       <div
           id="file-settings"
