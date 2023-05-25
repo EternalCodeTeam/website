@@ -5,7 +5,7 @@ const linesAndFormatting = [
     },
     {
         line: "> nuxt dev",
-        formatting: "text-gray-100 text-sm",
+        formatting: "dark:text-gray-100 text-black-300 text-sm",
         endLine: true
     },
     {
@@ -34,7 +34,7 @@ const linesAndFormatting = [
     },
     {
         line: "> Local: ",
-        formatting: "text-gray-200 text-sm",
+        formatting: "dark:text-gray-200 text-black-300 text-sm",
         endLine: false
     },
     {
@@ -45,7 +45,7 @@ const linesAndFormatting = [
     },
     {
         line: "> Network: ",
-        formatting: "text-gray-200 text-sm",
+        formatting: "dark:text-gray-200 text-black-300 text-sm",
         endLine: false
     },
     {
@@ -65,7 +65,7 @@ const linesAndFormatting = [
     },
     {
         line: "Nuxt Devtools is enabled",
-        formatting: "text-gray-100 text-sm",
+        formatting: "dark:text-gray-100 text-black-300 text-sm",
         endLine: false
     },
     {
@@ -85,7 +85,7 @@ const linesAndFormatting = [
     },
     {
         line: "Using default Tailwind CSS file",
-        formatting: "text-gray-100 text-sm",
+        formatting: "dark:text-gray-100 text-black-300 text-sm",
         endLine: true
     }
 ];
