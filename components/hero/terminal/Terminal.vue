@@ -25,24 +25,34 @@
       </div>
       <div id="project-settings" class="h-6 flex center flex-row dark:bg-[#374151] bg-[#cfd0d1]">
         <a href="https://github.com/EternalCodeTeam/" target="_blank">
-          <picture>
-            <source srcset="~/assets/img/hero/branch.svg" type="image/svg+xml">
-            <img src="~/assets/img/hero/branch.svg" alt="branch" class="h-4 w-4 m-1 select-none">
-          </picture>
+          <NuxtImg
+              class="h-4 w-4 m-1 select-none"
+              format="svg"
+              alt="branch icon"
+              aria-label="branch icon"
+              src="/assets/img/hero/branch.svg"
+              width="16"
+              height="16" />
         </a>
         <a href="https://github.com/EternalCodeTeam/" target="_blank">
-          <picture>
-            <source srcset="~/assets/img/hero/project.svg" type="image/svg+xml">
-            <img src="~/assets/img/hero/project.svg" alt="project" class="h-4 w-4 m-1 select-none"
-                 href="https://github.com/EternalCodeTeam/" target="_blank">
-          </picture>
+          <NuxtImg
+              class="h-4 w-4 m-1 select-none"
+              format="svg"
+              alt="project icon"
+              aria-label="project icon"
+              src="/assets/img/hero/project.svg"
+              width="16"
+              height="16" />
         </a>
         <a href="https://github.com/EternalCodeTeam/" target="_blank">
-          <picture>
-            <source srcset="~/assets/img/hero/github.svg" type="image/svg+xml">
-            <img src="~/assets/img/hero/github.svg" alt="github" class="h-4 w-4 m-1 select-none"
-                 href="https://github.com/EternalCodeTeam/" target="_blank">
-          </picture>
+          <NuxtImg
+              class="h-4 w-4 m-1 select-none"
+              format="svg"
+              alt="github icon"
+              aria-label="github icon"
+              src="/assets/img/hero/github.svg"
+              width="16"
+              height="16" />
         </a>
       </div>
       <div id="files" class="h-72 dark:bg-[#4B5563] bg-[#d8dde6] p-2 rounded-bl-lg">
@@ -65,19 +75,25 @@
     <div id="main-tab" class="h-60 rounded-tr-lg w-4/5">
       <div id="file-section" class="flex">
         <div id="file-1" class="h- w-1/2 dark:bg-[#374151] bg-[#bfbfbf] flex flex-row dark:text-gray-400 pl-2 select-none ">
-          <picture>
-            <source srcset="~/assets/img/hero/project.svg" type="image/svg+xml">
-            <img src="~/assets/img/hero/project.svg" alt="project"
-                 class="h-4 w-auto m-1 select-none">
-          </picture>
+          <NuxtImg
+              class="h-4 w-4 m-1 select-none"
+              format="svg"
+              alt="project icon"
+              aria-label="project icon"
+              src="/assets/img/hero/project.svg"
+              width="16"
+              height="16" />
           <label>EternalCodeWWW</label>
         </div>
         <div id="file-2" class="h-6  w-1/2 dark:bg-[#1F2A37] bg-[#e6e7e8] flex flex-row rounded-tr-lg dark:text-gray-400 pl-2 select-none border-b-2 border-rose-500 dark:border-gray-900">
-          <picture>
-            <source srcset="~/assets/img/hero/terminal.svg" type="image/svg+xml">
-            <img src="~/assets/img/hero/terminal.svg" alt="terminal"
-                 class="h-4 w-4 m-1 select-none">
-          </picture>
+          <NuxtImg
+              class="h-4 w-4 m-1 select-none"
+              format="svg"
+              alt="terminal icon"
+              aria-label="terminal icon"
+              src="/assets/img/hero/terminal.svg"
+              width="16"
+              height="16" />
           <label>Terminal</label>
         </div>
       </div>
