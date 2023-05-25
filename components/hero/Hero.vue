@@ -62,10 +62,10 @@
       </div>
 
       <div class="lg:col-span-5 lg:block">
-        <Terminal/>
+        <Terminal />
       </div>
 
-      <PolygonRight/>
+      <PolygonRight />
     </div>
   </div>
 </template>
