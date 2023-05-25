@@ -95,7 +95,7 @@
           <br v-if="line.endLine">
         </label>
       </div>
-      <div id="file-settings" class="w-auto h-6 rounded-br-lg dark:bg-[#374151] bg-[#e9e999]"></div>
+      <div id="file-settings" class="w-auto h-6 rounded-br-lg dark:bg-[#374151] bg-[#bdbdbd]"></div>
     </div>
   </div>
 </template>

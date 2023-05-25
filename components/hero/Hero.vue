@@ -61,7 +61,7 @@
         </NuxtLink>
       </div>
 
-      <div class="lg:col-span-5 hidden lg:block">
+      <div class="lg:col-span-5 lg:block">
         <Terminal/>
       </div>
 
@@ -72,4 +72,5 @@
 <script setup>
 import PolygonRight from "~/components/hero/PolygonRight.vue";
 import PolygonLeft from "~/components/hero/PolygonLeft.vue";
+import Terminal from "~/components/hero/terminal/Terminal.vue";
 </script>
