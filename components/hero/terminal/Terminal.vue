@@ -1,5 +1,5 @@
 <template>
-  <div id="terminal" class="h-72 w-auto flex  rounded-lg " aria-hidden="true">
+  <div id="terminal" class="h-72 w-auto md:flex md:flex-row rounded-lg hidden md:mt-3 lg:mt-0" aria-hidden="true" >
     <div id="settings" class="h-full w-1/5">
       <div id="on-off-buttons" class="h-6 rounded-tl-lg select-none dark:bg-[#4B5563] bg-[#d8dde6] ">
         <div class="w-1/3 m-0 flex flex-row pt-1 pl-1 ">
