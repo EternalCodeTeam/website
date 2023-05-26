@@ -19,8 +19,8 @@
           </span>
         </NuxtLink>
         <div class="flex items-center md:order-2">
-          <LocaleButtons />
           <ThemeSwitcher />
+          <NavbarLanguageSwitchDropdown />
           <button
             class="ml-1 inline-flex items-center rounded-lg p-2 text-sm dark:text-white md:hidden"
             type="button"

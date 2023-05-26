@@ -1,8 +1,10 @@
 <template>
-  <div class="relative">
+  <div class="relative" ref="dropdown">
     <button
       :aria-expanded="isOpen.toString()"
       aria-haspopup="true"
+      id="servicesDropdownButton"
+      data-dropdown-toggle="servicesDropdown"
       class="flex items-center justify-between w-full py-2 pl-3 pr-4 rounded-[12px] hover:bg-gray-100t md:border-0 md:p-0 md:w-auto dark:text-white dark:border-white"
       @click="isOpen = !isOpen">
       {{ name }}
@@ -24,11 +26,12 @@
     </button>
 
     <div
+      id="servicesDropdown"
       v-if="isOpen"
       class="z-10 absolute font-normal bg-white divide-y divide-gray-100 rounded-[12px] shadow w-44 dark:bg-[#161b22]"
       role="menu">
       <ul
-        aria-labelledby="dropdownLargeButton"
+        aria-labelledby="servicesDropdownButton"
         class="py-2 text-sm text-gray-700">
         <li>
           <a
@@ -74,6 +77,24 @@ export default {
     return {
       isOpen: false,
     };
+  },
+  mounted() {
+    document.addEventListener("click", this.handleClickOutside);
+  },
+  beforeUnmount() {
+    document.removeEventListener("click", this.handleClickOutside);
+  },
+  methods: {
+    handleClickOutside(event: MouseEvent) {
+      const dropdown = this.$refs.dropdown as HTMLElement;
+      const target = event.target as HTMLElement;
+      if (
+        !dropdown.contains(target) &&
+        target.id !== "servicesDropdownButton"
+      ) {
+        this.isOpen = false;
+      }
+    },
   },
 };
 </script>
