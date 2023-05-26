@@ -33,17 +33,36 @@ export default {
   data() {
     return {
       isDark: false,
+      prefersDark: false,
     };
   },
   mounted() {
-    this.isDark = localStorage.getItem("theme") === "dark";
     const htmlElement = document.documentElement;
-    if (this.isDark) {
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const theme = localStorage.getItem("theme");
+
+    if (theme === "dark") {
+      this.isDark = true;
       htmlElement.classList.add("dark");
       return;
     }
-    
+
+    if (theme === "light") {
+      this.isDark = false;
+      htmlElement.classList.remove("dark");
+      return;
+    }
+
+    if (prefersDark) {
+      this.isDark = true;
+      htmlElement.classList.add("dark");
+      return;
+    }
+
+    this.isDark = false;
     htmlElement.classList.remove("dark");
+
+    this.prefersDark = prefersDark;
   },
   methods: {
     toggleTheme() {
