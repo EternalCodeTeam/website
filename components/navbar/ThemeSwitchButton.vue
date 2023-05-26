@@ -37,22 +37,27 @@ export default {
   },
   mounted() {
     this.isDark = localStorage.getItem("theme") === "dark";
+    const htmlElement = document.documentElement;
     if (this.isDark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
+      htmlElement.classList.add("dark");
+      return;
     }
+    
+    htmlElement.classList.remove("dark");
   },
   methods: {
     toggleTheme() {
       this.isDark = !this.isDark;
+      const htmlElement = document.documentElement;
+
       if (this.isDark) {
-        document.documentElement.classList.add("dark");
+        htmlElement.classList.add("dark");
         localStorage.setItem("theme", "dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-        localStorage.setItem("theme", "light");
+        return;
       }
+
+      htmlElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
     },
   },
 };
