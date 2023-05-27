@@ -36,12 +36,28 @@
           class="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto">
           <ul
             class="mt-4 flex flex-col p-4 md:mt-0 md:flex-row md:space-x-8 md:p-0">
-            <li v-for="item in navigation" :key="item.key">
+            <li>
               <NuxtLink
-                :to="localePath(item.href)"
+                :to="localePath('/')"
                 class="block rounded-full py-2 pl-3 pr-4 text-gray-900 dark:text-white md:p-0"
-                :aria-label="$t(item.key)">
-                {{ $t(item.key) }}
+                aria-label="Home">
+                Home
+              </NuxtLink>
+            </li>
+            <li>
+              <NuxtLink
+                :to="localePath('/team')"
+                class="block rounded-full py-2 pl-3 pr-4 text-gray-900 dark:text-white md:p-0"
+                aria-label="Team">
+                Team
+              </NuxtLink>
+            </li>
+            <li>
+              <NuxtLink
+                :to="localePath('/projects')"
+                class="block rounded-full py-2 pl-3 pr-4 text-gray-900 dark:text-white md:p-0"
+                aria-label="Projects">
+                Projects
               </NuxtLink>
             </li>
             <li>
@@ -59,10 +75,4 @@ import ThemeSwitcher from "~/components/navbar/ThemeSwitchButton.vue";
 import DropdownNavbar from "~/components/navbar/DropdownNavbar.vue";
 
 const localePath = useLocalePath();
-
-const navigation = [
-  { key: "navbar.home", href: "/" },
-  { key: "navbar.team", href: "/team" },
-  { key: "navbar.projects", href: "/projects" },
-];
 </script>

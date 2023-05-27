@@ -12,6 +12,7 @@
         name="material-symbols:keyboard-arrow-down-rounded"
         size="20"
         class="mt-1"
+        alt="Dropdown arrow"
         :class="{
           'transform rotate-180 transition-transform duration-300': isOpen,
           'transition-transform duration-300': !isOpen,

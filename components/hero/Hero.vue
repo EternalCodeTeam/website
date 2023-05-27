@@ -1,6 +1,6 @@
 <template>
   <div class="relative isolate px-6 pt-14 lg:px-8">
-    <PolygonLeft />
+    <PolygonLeft aria-hidden="true" />
 
     <div
       class="mx-auto grid max-w-screen-xl px-4 py-8 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
@@ -30,6 +30,7 @@
 
         <NuxtLink :to="localePath('/team')">
           <button
+            :aria-label="$t('secondButton') + ' button'"
             class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
             <Icon name="material-symbols:groups" class="mb-[0.5px]"/>
             {{ $t("secondButton") }}
@@ -39,11 +40,11 @@
 
       <div class="lg:col-span-5 hidden lg:block">
         <div class="overflow-hidden">
-          <!--          <NuxtImg format="webp" width="400" height="400" src="/assets/img/coding.png" />-->
+          <!--          <NuxtImg format="webp" width="400" height="400" src="/assets/img/coding.png" alt="Coding image" />-->
         </div>
       </div>
 
-      <PolygonRight />
+      <PolygonRight aria-hidden="true" />
     </div>
   </div>
 </template>
