@@ -64,10 +64,7 @@
 </template>
 
 <script lang="ts">
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-
 export default {
-  components: { FontAwesomeIcon },
   data() {
     return {
       teamMembers,
