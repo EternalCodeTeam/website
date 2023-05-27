@@ -13,12 +13,12 @@ export default defineNuxtConfig({
     "@nuxt/image-edge",
     "@nuxt/content",
     "@nuxtjs/i18n",
+    "nuxt-icon"
   ],
   extends: ["nuxt-seo-kit"],
 
   plugins: [
     { src: "~/plugins/aos", mode: "client" },
-    { src: "~/plugins/fontawesome" },
   ],
 
   // postcss

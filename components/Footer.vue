@@ -148,36 +148,28 @@
             aria-label="TikTok link"
             class="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
             href="https://www.tiktok.com/@eternalcode.pl">
-            <font-awesome-icon :icon="['fab', 'tiktok']" />
+            <Icon name="ic:round-tiktok" />
           </a>
           <a
             aria-label="Youtube link"
             class="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
             href="https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q">
-            <font-awesome-icon :icon="['fab', 'youtube']" />
+            <Icon name="simple-icons:youtube" />
           </a>
           <a
             aria-label="GitHub link"
             class="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
             href="https://github.com/EternalCodeTeam">
-            <font-awesome-icon :icon="['fab', 'github']" />
+            <Icon name="ph:github-logo-fill" />
           </a>
           <a
             aria-label="Discord link"
             class="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
             href="https://discord.com/invite/FQ7jmGBd6c">
-            <font-awesome-icon :icon="['fab', 'discord']" />
+            <Icon name="ion:logo-discord" />
           </a>
         </div>
       </div>
     </div>
   </footer>
 </template>
-
-<script lang="ts">
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-
-export default {
-  components: { FontAwesomeIcon },
-};
-</script>

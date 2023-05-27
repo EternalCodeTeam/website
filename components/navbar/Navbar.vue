@@ -28,7 +28,7 @@
             aria-controls="mobile-menu-language-select"
             aria-expanded="false"
             data-collapse-toggle="mobile-menu-language-select">
-            <font-awesome-icon :icon="['fa', 'bars']" class="h-6 w-6" />
+            <Icon name="fa6-solid:bars" class="h-6 w-6" />
           </button>
         </div>
         <div
@@ -55,9 +55,6 @@
 </template>
 
 <script setup lang="ts">
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-
-import LocaleButtons from "~/components/navbar/LocaleButtons.vue";
 import ThemeSwitcher from "~/components/navbar/ThemeSwitchButton.vue";
 import DropdownNavbar from "~/components/navbar/DropdownNavbar.vue";
 
