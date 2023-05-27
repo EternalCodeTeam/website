@@ -141,7 +141,7 @@
 
       <div class="sm:flex sm:items-center sm:justify-between">
         <span class="text-sm text-gray-500 dark:text-gray-400 sm:text-center">
-          {{ $t("footer.copy") }}
+          {{ $t("footer.copyright") }}
         </span>
         <div class="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
           <a
