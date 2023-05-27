@@ -7,24 +7,34 @@
       <div
           id="on-off-buttons"
           class="h-6 rounded-tl-lg select-none dark:bg-[#4B5563] bg-[#d8dde6]">
-        <div class="w-1/3 m-0 flex flex-row pt-1 pl-1">
+        <div class="group/item w-2/3 m-0 flex flex-row pt-0.5 pl-1 space-x-1 ">
           <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <g color="red">
+            <g color="red" class="flex items-center justify-center">
               <circle cx="50" cy="50" r="35" fill="currentcolor"/>
+              <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle"
+                    class="group/edit group-hover/item:visible invisible absolute text-xl" style="font-size: 400%">x
+              </text>
             </g>
           </svg>
 
           <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <g color="orange">
+            <g color="orange" class="flex items-center justify-center">
               <circle cx="50" cy="50" r="35" fill="currentcolor"/>
+              <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle"
+                    class="group/edit group-hover/item:visible invisible absolute text-xl" style="font-size: 500%">-
+              </text>
             </g>
           </svg>
 
           <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <g color="green">
+            <g color="green" class="flex items-center justify-center">
               <circle cx="50" cy="50" r="35" fill="currentcolor"/>
+              <text x="69%" y="10%" dominant-baseline="middle" text-anchor="middle"
+                    class="group/edit group-hover/item:visible invisible absolute text-xl rotate-45" style="font-size: 400%">🡙
+              </text>
             </g>
           </svg>
+
         </div>
       </div>
       <div
