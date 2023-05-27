@@ -7,10 +7,10 @@
       <div
           id="on-off-buttons"
           class="h-6 rounded-tl-lg select-none dark:bg-[#4B5563] bg-[#d8dde6]">
-        <div class="group/item w-2/3 m-0 flex flex-row pt-0.5 pl-1 space-x-1 ">
+        <div class="group/item w-2/3  flex flex-row pt-0.5 pl-1 space-x-1 md:h-full">
           <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <g color="red" class="flex items-center justify-center">
-              <circle cx="50" cy="50" r="35" fill="currentcolor"/>
+              <circle cx="50" cy="50" r="35" fill="currentcolor "/>
               <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle"
                     class="group/edit group-hover/item:visible invisible absolute text-xl" style="font-size: 400%">x
               </text>
