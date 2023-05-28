@@ -29,7 +29,7 @@
                 <NuxtLink
                   :to="localePath('/#about')"
                   class="hover:underline"
-                  aria-label="About"
+                  aria-label="About EternalCode"
                   aria-hidden="true">
                   {{ $t("footer.about") }}
                 </NuxtLink>
@@ -38,7 +38,7 @@
                 <NuxtLink
                   :to="localePath('/team')"
                   class="hover:underline"
-                  aria-label="Team"
+                  aria-label="EternalCode Team"
                   aria-hidden="true">
                   {{ $t("footer.team") }}
                 </NuxtLink>
@@ -47,7 +47,7 @@
                 <NuxtLink
                   :to="localePath('/projects')"
                   class="hover:underline"
-                  aria-label="Projects"
+                  aria-label="EternalCode Projects"
                   aria-hidden="true">
                   {{ $t("footer.projects") }}
                 </NuxtLink>
@@ -64,7 +64,7 @@
                 <a
                   href="https://github.com/EternalCodeTeam"
                   class="hover:underline"
-                  aria-label="Github"
+                  aria-label="EternalCode Github"
                   aria-hidden="true">
                   Github
                 </a>
@@ -73,7 +73,7 @@
                 <a
                   href="https://discord.com/invite/FQ7jmGBd6c"
                   class="hover:underline"
-                  aria-label="Discord"
+                  aria-label="EternalCode Discord"
                   aria-hidden="true">
                   Discord
                 </a>
@@ -82,7 +82,7 @@
                 <a
                   href="https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q"
                   class="hover:underline"
-                  aria-label="Youtube"
+                  aria-label="EternalCode Youtube"
                   aria-hidden="true">
                   Youtube
                 </a>
@@ -91,7 +91,7 @@
                 <a
                   href="https://www.tiktok.com/@eternalcode.pl"
                   class="hover:underline"
-                  aria-label="TikTok"
+                  aria-label="EternalCode TikTok"
                   aria-hidden="true">
                   TikTok
                 </a>
@@ -108,7 +108,7 @@
                 <a
                   href="https://repo.eternalcode.pl/#/"
                   class="hover:underline"
-                  aria-label="Repository"
+                  aria-label="EternalCode Repository"
                   aria-hidden="true">
                   Repository
                 </a>
@@ -117,7 +117,7 @@
                 <a
                   href="https://docs.eternalcode.pl/"
                   class="hover:underline"
-                  aria-label="Documentations"
+                  aria-label="EternalCode Documentations"
                   aria-hidden="true">
                   Documentations
                 </a>
@@ -126,7 +126,7 @@
                 <a
                   href="https://status.eternalcode.pl/"
                   class="hover:underline"
-                  aria-label="Service Status"
+                  aria-label="EternalCode Service Status"
                   aria-hidden="true">
                   Service Status
                 </a>
@@ -145,39 +145,31 @@
         </span>
         <div class="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
           <a
-            aria-label="TikTok link"
+            aria-label="EternalCode TikTok link"
             class="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
             href="https://www.tiktok.com/@eternalcode.pl">
-            <font-awesome-icon :icon="['fab', 'tiktok']" />
+            <Icon name="ic:round-tiktok" />
           </a>
           <a
-            aria-label="Youtube link"
+            aria-label="EternalCode Youtube link"
             class="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
             href="https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q">
-            <font-awesome-icon :icon="['fab', 'youtube']" />
+            <Icon name="simple-icons:youtube" />
           </a>
           <a
-            aria-label="GitHub link"
+            aria-label="EternalCode Github link"
             class="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
             href="https://github.com/EternalCodeTeam">
-            <font-awesome-icon :icon="['fab', 'github']" />
+            <Icon name="ph:github-logo-fill" />
           </a>
           <a
-            aria-label="Discord link"
+            aria-label="EternalCode Discord link"
             class="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
             href="https://discord.com/invite/FQ7jmGBd6c">
-            <font-awesome-icon :icon="['fab', 'discord']" />
+            <Icon name="ion:logo-discord" />
           </a>
         </div>
       </div>
     </div>
   </footer>
 </template>
-
-<script lang="ts">
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-
-export default {
-  components: { FontAwesomeIcon },
-};
-</script>

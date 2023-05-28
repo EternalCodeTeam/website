@@ -43,7 +43,7 @@
                     :href="member.github"
                     aria-label="Github profile link"
                     class="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white">
-                    <font-awesome-icon :icon="['fab', 'github']" />
+                    <Icon name="ph:github-logo-fill" />
                   </a>
                 </li>
                 <li v-if="member.linkedin">
@@ -51,7 +51,7 @@
                     :href="member.linkedin"
                     aria-label="LinkedIn profile link"
                     class="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white">
-                    <font-awesome-icon :icon="['fab', 'linkedin']" />
+                    <Icon name="akar-icons:linkedin-fill" />
                   </a>
                 </li>
               </ul>
@@ -64,10 +64,7 @@
 </template>
 
 <script lang="ts">
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-
 export default {
-  components: { FontAwesomeIcon },
   data() {
     return {
       teamMembers,

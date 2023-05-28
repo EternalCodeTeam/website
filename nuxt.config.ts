@@ -1,10 +1,7 @@
 export default defineNuxtConfig({
   ssr: true,
 
-  css: [
-    "~/assets/css/main.css",
-    "@fortawesome/fontawesome-svg-core/styles.css",
-  ],
+  css: ["~/assets/css/main.css"],
 
   modules: [
     "@nuxt/devtools",
@@ -13,13 +10,11 @@ export default defineNuxtConfig({
     "@nuxt/image-edge",
     "@nuxt/content",
     "@nuxtjs/i18n",
+    "nuxt-icon",
   ],
   extends: ["nuxt-seo-kit"],
 
-  plugins: [
-    { src: "~/plugins/aos", mode: "client" },
-    { src: "~/plugins/fontawesome" },
-  ],
+  plugins: [{ src: "~/plugins/aos", mode: "client" }],
 
   // postcss
   postcss: {
