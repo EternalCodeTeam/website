@@ -29,7 +29,7 @@
                 class="rounded-lg bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 md:mb-0 md:mr-2"
                 data-aos="fade-up"
                 data-aos-duration="600">
-                <Icon name="ph:github-logo-fill" class="mb-[0.5px]"/>
+                <Icon name="ph:github-logo-fill" class="mb-[0.5px]" />
                 Repository
               </button>
             </a>
@@ -38,7 +38,7 @@
               class="ml-2 cursor-not-allowed rounded-lg bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-yellow-500/50 dark:shadow-lg dark:shadow-yellow-500/80 md:mb-0 md:mr-2"
               data-aos="fade-up"
               data-aos-duration="650">
-              <Icon name="ic:round-star" size="20" class="mb-[0.5px]"/>
+              <Icon name="ic:round-star" size="20" class="mb-[0.5px]" />
               {{ repo.stargazers_count }} Stars
             </button>
           </div>

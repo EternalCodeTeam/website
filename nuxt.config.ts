@@ -1,9 +1,7 @@
 export default defineNuxtConfig({
   ssr: true,
 
-  css: [
-    "~/assets/css/main.css",
-  ],
+  css: ["~/assets/css/main.css"],
 
   modules: [
     "@nuxt/devtools",
@@ -12,13 +10,11 @@ export default defineNuxtConfig({
     "@nuxt/image-edge",
     "@nuxt/content",
     "@nuxtjs/i18n",
-    "nuxt-icon"
+    "nuxt-icon",
   ],
   extends: ["nuxt-seo-kit"],
 
-  plugins: [
-    { src: "~/plugins/aos", mode: "client" },
-  ],
+  plugins: [{ src: "~/plugins/aos", mode: "client" }],
 
   // postcss
   postcss: {

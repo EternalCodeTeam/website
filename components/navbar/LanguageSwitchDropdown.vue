@@ -1,9 +1,9 @@
 <template>
-  <div class="relative" ref="dropdown">
+  <div ref="dropdown" class="relative">
     <button
-    :aria-expanded="isOpen ? 'true' : 'false'"
-      aria-haspopup="true"
       id="languageDropdownButton"
+      :aria-expanded="isOpen ? 'true' : 'false'"
+      aria-haspopup="true"
       data-dropdown-toggle="languageDropdown"
       class="flex items-center justify-between w-full py-2 pl-3 pr-4 rounded-[12px] hover:bg-gray-100t md:border-0 md:p-0 md:w-auto dark:text-white dark:border-white"
       @click="isOpen = !isOpen">
@@ -20,8 +20,8 @@
     </button>
 
     <div
-      id="languageDropdown"
       v-if="isOpen"
+      id="languageDropdown"
       class="z-10 absolute font-normal bg-white divide-y divide-gray-100 rounded-[12px] shadow w-16 dark:bg-[#161b22]"
       role="menu">
       <ul

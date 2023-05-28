@@ -3,7 +3,10 @@
     aria-label="Toggle Dark Mode"
     class="transition-all duration-500 inline-flex h-10 w-10 items-center justify-center rounded-full hover:bg-gray-200 hover:dark:bg-gray-800"
     @click="toggleTheme">
-    <Icon v-if="isDark" name="material-symbols:partly-cloudy-day-rounded" class="w-6 h-6 dark:invert" />
+    <Icon
+      v-if="isDark"
+      name="material-symbols:partly-cloudy-day-rounded"
+      class="w-6 h-6 dark:invert" />
 
     <Icon v-else name="solar:moon-stars-bold" class="w-6 h-6 dark:invert" />
   </button>
@@ -20,7 +23,9 @@ export default {
   },
   mounted() {
     const htmlElement = document.documentElement;
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
     const theme = localStorage.getItem("theme");
 
     if (theme === "dark") {

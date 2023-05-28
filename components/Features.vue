@@ -12,7 +12,7 @@
         <div data-aos="fade-up" data-aos-duration="600">
           <div
             class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
-            <Icon name="logos:java" size="48"/>
+            <Icon name="logos:java" size="48" />
           </div>
           <h3 class="mb-2 text-xl font-bold dark:text-white">
             {{ $t("features.texts.text1.title") }}
@@ -25,7 +25,7 @@
         <div data-aos="fade-up" data-aos-duration="650">
           <div
             class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
-            <Icon name="logos:linux-tux" size="48"/>
+            <Icon name="logos:linux-tux" size="48" />
           </div>
           <h3 class="mb-2 text-xl font-bold dark:text-white">
             {{ $t("features.texts.text2.title") }}
@@ -38,7 +38,10 @@
         <div data-aos="fade-up" data-aos-duration="700">
           <div
             class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
-            <Icon name="material-symbols:question-mark" class="dark:invert" size="48"/>
+            <Icon
+              name="material-symbols:question-mark"
+              class="dark:invert"
+              size="48" />
           </div>
           <h3 class="mb-2 text-xl font-bold dark:text-white">
             {{ $t("features.texts.text3.title") }}
