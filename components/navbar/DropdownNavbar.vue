@@ -4,7 +4,6 @@
       id="servicesDropdownButton"
       :aria-expanded="isOpen ? 'true' : 'false'"
       aria-haspopup="true"
-      data-dropdown-toggle="servicesDropdown"
       class="flex items-center justify-between w-full py-2 pl-3 pr-4 rounded-[12px] hover:bg-gray-100t md:border-0 md:p-0 md:w-auto dark:text-white dark:border-white"
       @click="isOpen = !isOpen">
       {{ name }}

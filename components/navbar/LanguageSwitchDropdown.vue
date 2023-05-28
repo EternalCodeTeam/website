@@ -4,11 +4,9 @@
       id="languageDropdownButton"
       :aria-expanded="isOpen ? 'true' : 'false'"
       aria-haspopup="true"
-      data-dropdown-toggle="languageDropdown"
       class="flex items-center justify-between w-full py-2 pl-3 pr-4 rounded-[12px] hover:bg-gray-100t md:border-0 md:p-0 md:w-auto dark:text-white dark:border-white"
       @click="isOpen = !isOpen">
       <Icon name="bi:translate" class="w-6 h-6 dark:text-white" />
-      {{ name }}
       <Icon
         name="material-symbols:keyboard-arrow-down-rounded"
         size="20"

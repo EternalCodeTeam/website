@@ -8,10 +8,13 @@
         data-aos-duration="550" />
 
       <div
-        class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
-        <div data-aos="fade-up" data-aos-duration="600">
+        class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0 text-center md:flex-col">
+        <div
+          data-aos="fade-up"
+          data-aos-duration="700"
+          class="flex flex-col items-center">
           <div
-            class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+            class="flex justify-center items-center center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
             <Icon name="logos:java" size="48" />
           </div>
           <h3 class="mb-2 text-xl font-bold dark:text-white">
@@ -22,9 +25,12 @@
           </p>
         </div>
 
-        <div data-aos="fade-up" data-aos-duration="650">
+        <div
+          data-aos="fade-up"
+          data-aos-duration="700"
+          class="flex flex-col items-center">
           <div
-            class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+            class="flex justify-center items-center center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
             <Icon name="logos:linux-tux" size="48" />
           </div>
           <h3 class="mb-2 text-xl font-bold dark:text-white">
@@ -35,9 +41,12 @@
           </p>
         </div>
 
-        <div data-aos="fade-up" data-aos-duration="700">
+        <div
+          data-aos="fade-up"
+          data-aos-duration="700"
+          class="flex flex-col items-center">
           <div
-            class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+            class="flex justify-center items-center center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
             <Icon
               name="material-symbols:question-mark"
               class="dark:invert"
