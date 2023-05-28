@@ -7,10 +7,10 @@
         data-aos="fade-up"
         data-aos-duration="750" />
 
-      <div class="grid pt-8 text-left md:grid-cols-2 md:gap-16">
+      <div class="grid pt-8 text-left md:grid-cols-2 md:gap-16 text-center ">
         <div class="mb-10" data-aos="fade-up" data-aos-duration="800">
           <h3
-            class="mb-4 flex items-center text-lg font-medium text-gray-900 dark:text-white"
+            class="mb-4 flex justify-center items-center center text-lg font-medium text-gray-900 dark:text-white"
             role="heading"
             aria-level="3">
             {{ $t("faq.answers.question1.question") }}
@@ -22,7 +22,7 @@
 
         <div class="mb-10" data-aos="fade-up" data-aos-duration="850">
           <h3
-            class="mb-4 flex items-center text-lg font-medium text-gray-900 dark:text-white"
+          class="mb-4 flex justify-center items-center center text-lg font-medium text-gray-900 dark:text-white"
             role="heading"
             aria-level="3">
             {{ $t("faq.answers.question2.question") }}
@@ -34,7 +34,7 @@
 
         <div class="mb-10" data-aos="fade-up" data-aos-duration="900">
           <h3
-            class="mb-4 flex items-center text-lg font-medium text-gray-900 dark:text-white"
+          class="mb-4 flex justify-center items-center center text-lg font-medium text-gray-900 dark:text-white"
             role="heading"
             aria-level="3">
             {{ $t("faq.answers.question3.question") }}
@@ -46,7 +46,7 @@
 
         <div class="mb-10" data-aos="fade-up" data-aos-duration="950">
           <h3
-            class="mb-4 flex items-center text-lg font-medium text-gray-900 dark:text-white"
+          class="mb-4 flex justify-center items-center center text-lg font-medium text-gray-900 dark:text-white"
             role="heading"
             aria-level="3">
             {{ $t("faq.answers.question4.question") }}
