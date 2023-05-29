@@ -73,7 +73,7 @@
       </div>
       <div
           id="files"
-          class="h-72 dark:bg-[#4B5563] bg-[#d8dde6] p-2 rounded-bl-lg">
+          class="h-80 dark:bg-[#4B5563] bg-[#d8dde6] p-2 rounded-bl-lg">
         <p class="text-sm font-light text-gray-400 select-none">▄▄▄▄▄</p>
         <p class="text-sm font-light text-gray-400 select-none">▄▄▄▄▄▄▄▄</p>
         <p class="text-sm font-light text-gray-400 select-none">▄▄▄▄</p>
@@ -92,7 +92,7 @@
       <div id="file-section" class="flex">
         <div
             id="file-1"
-            class="h- w-1/2 dark:bg-[#374151] bg-[#bfbfbf] flex flex-row dark:text-gray-400 pl-2 select-none">
+            class="w-1/2 dark:bg-[#374151] bg-[#bfbfbf] flex flex-row dark:text-gray-400 pl-2 select-none">
           <NuxtImg
               class="h-4 w-4 m-1 select-none"
               format="svg"
@@ -119,7 +119,7 @@
       </div>
       <div
           id="file-2-code "
-          class="h-72 sticky inset-x-0 bottom-0 dark:bg-[#1F2A37] bg-[#e6e7e8] pl-2">
+          class="h-80 overflow-auto inset-x-0 bottom-0 dark:bg-[#1F2A37] bg-[#e6e7e8] pl-2">
         <span
             v-for="(line, index) in lines"
             :key="index"
