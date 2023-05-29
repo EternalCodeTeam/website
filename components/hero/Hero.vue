@@ -3,7 +3,7 @@
     <PolygonLeft aria-hidden="true"/>
 
     <div
-        class="mx-auto md:w-full lg:grid flex flex-col md:items-center md:justify-center max-w-screen-xl px-4 py-8 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0 ">
+        class="mx-auto md:w-full lg:grid flex flex-col md:items-center md:justify-center max-w-screen-xl pl-2 py-8 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0 ">
       <div class=" lg:mr-auto md:ml-0 place-self-center lg:col-span-7">
         <h1
             class="mb-4 lg:max-w-2xl text-4xl font-extrabold leading-none tracking-tight dark:text-white md:text-5xl xl:text-6xl text-center lg:text-left"
@@ -40,7 +40,7 @@
         </div>
 
       </div>
-      <div class="lg:col-span-5 lg:block md:mx-auto h-full">
+      <div class="lg:col-span-5 lg:block md:mx-auto h-full pl-4">
         <Terminal/>
       </div>
 
