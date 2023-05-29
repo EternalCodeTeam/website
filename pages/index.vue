@@ -1,7 +1,9 @@
 <template>
   <div>
+   <!--  
     <Partners />
     <About />
+    -->
     <Features />
     <Faq />
   </div>
