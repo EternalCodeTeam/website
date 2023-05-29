@@ -3,14 +3,15 @@
     <PolygonLeft aria-hidden="true" />
 
     <div
-      class=" md:w-full lg:grid md:flex md:flex-col md:items-center md:justify-center max-w-screen-xl px-4 py-8 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0 ">
-      <div class="lg:mr-auto md:ml-0 place-self-center lg:col-span-7">
+      class="mx-auto md:w-full lg:grid flex flex-col md:items-center md:justify-center max-w-screen-xl px-4 py-8 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0 ">
+      <div class=" lg:mr-auto md:ml-0 place-self-center lg:col-span-7">
         <h1
-          class="mb-4 lg:max-w-2xl  text-4xl font-extrabold leading-none tracking-tight dark:text-white md:text-5xl xl:text-6xl"
+          class="mb-4 lg:max-w-2xl text-4xl font-extrabold leading-none tracking-tight dark:text-white md:text-5xl xl:text-6xl text-center md:text-left"
           data-aos="fade-up"
           data-aos-duration="500">
           {{ $t("welcome") }}
         </h1>
+
 
         <p
           class="mb-6 max-w-2xl font-light text-gray-500 dark:text-gray-400 md:text-lg lg:mb-8 lg:text-xl"

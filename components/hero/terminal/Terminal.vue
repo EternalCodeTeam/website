@@ -1,7 +1,7 @@
 <template>
   <div
       id="terminal"
-      class="h-72 w-auto md:flex md:flex-row rounded-lg hidden md:mt-3 lg:mt-0"
+      class=" w-auto md:flex md:flex-row rounded-lg hidden md:mt-3 lg:mt-0"
       aria-hidden="true">
     <div id="settings" class="h-full w-1/5">
       <div
@@ -30,7 +30,8 @@
             <g color="green" class="flex items-center justify-center">
               <circle cx="50" cy="50" r="35" fill="currentcolor"/>
               <text x="69%" y="10%" dominant-baseline="middle" text-anchor="middle"
-                    class="group/edit group-hover/item:visible invisible absolute text-xl rotate-45" style="font-size: 400%">🡙
+                    class="group/edit group-hover/item:visible invisible absolute text-xl rotate-45"
+                    style="font-size: 400%">🡙
               </text>
             </g>
           </svg>
@@ -67,7 +68,7 @@
         <p class="text-sm font-light text-gray-400 select-none">▄▄▄</p>
       </div>
     </div>
-    <div id="main-tab" class="h-60 rounded-tr-lg w-4/5">
+    <div id="main-tab" class="h-full rounded-tr-lg w-4/5 flex flex-col">
       <div id="file-section" class="flex">
         <div
             id="file-1"
@@ -84,7 +85,7 @@
       </div>
       <div
           id="file-2-code "
-          class="h-80 overflow-auto inset-x-0 bottom-0 dark:bg-[#1F2A37] bg-[#e6e7e8] pl-2">
+          class="min-h-80 h-80 inset-x-0 dark:bg-[#1F2A37] bg-[#e6e7e8] pl-2">
         <span
             v-for="(line, index) in lines"
             :key="index"
@@ -108,11 +109,15 @@
           </span>
           <br v-if="line.endLine"/>
         </span>
+
       </div>
       <div
           id="file-settings"
-          class="w-auto h-6 rounded-br-lg dark:bg-[#374151] bg-[#bdbdbd]"></div>
+          class="w-full m-0  h-6 rounded-br-lg dark:bg-[#374151] bg-[#bdbdbd]">
+
+      </div>
     </div>
+
   </div>
 </template>
 
