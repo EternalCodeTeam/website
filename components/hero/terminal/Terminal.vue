@@ -39,36 +39,15 @@
       </div>
       <div
           id="project-settings"
-          class="h-6 flex center flex-row dark:bg-[#374151] bg-[#cfd0d1]">
+          class="h-6 flex center flex-row dark:bg-[#374151] bg-[#cfd0d1] justify-between px-3">
         <a href="https://github.com/EternalCodeTeam/" target="_blank">
-          <NuxtImg
-              class="h-4 w-4 m-1 select-none"
-              format="svg"
-              alt="branch icon"
-              aria-label="branch icon"
-              src="/assets/img/hero/branch.svg"
-              width="16"
-              height="16"/>
+          <Icon name="octicon:git-branch" class="mb-[3px] dark:text-slate-500" size="80%" />
         </a>
         <a href="https://github.com/EternalCodeTeam/" target="_blank">
-          <NuxtImg
-              class="h-4 w-4 m-1 select-none"
-              format="svg"
-              alt="project icon"
-              aria-label="project icon"
-              src="/assets/img/hero/project.svg"
-              width="16"
-              height="16"/>
+          <Icon name="fluent:projection-screen-16-regular" class="mb-[3px] dark:text-slate-500" />
         </a>
         <a href="https://github.com/EternalCodeTeam/" target="_blank">
-          <NuxtImg
-              class="h-4 w-4 m-1 select-none"
-              format="svg"
-              alt="github icon"
-              aria-label="github icon"
-              src="/assets/img/hero/github.svg"
-              width="16"
-              height="16"/>
+          <Icon name="ph:github-logo-fill" class="mb-[4px] pl-1 dark:text-slate-500" size="85%"/>
         </a>
       </div>
       <div
@@ -92,29 +71,15 @@
       <div id="file-section" class="flex">
         <div
             id="file-1"
-            class="w-1/2 dark:bg-[#374151] bg-[#bfbfbf] flex flex-row dark:text-gray-400 pl-2 select-none">
-          <NuxtImg
-              class="h-4 w-4 m-1 select-none"
-              format="svg"
-              alt="project icon"
-              aria-label="project icon"
-              src="/assets/img/hero/project.svg"
-              width="16"
-              height="16"/>
+            class="font-Monaco w-1/2 dark:bg-[#374151] bg-[#bfbfbf] flex flex-row dark:text-gray-400 pl-2 select-none">
+          <Icon name="ic:round-folder" class="mr-1 place-self-center dark:text-slate-500" />
           <span>EternalCodeWWW</span>
         </div>
         <div
             id="file-2"
-            class="h-6 w-1/2 dark:bg-[#1F2A37] bg-[#e6e7e8] flex flex-row rounded-tr-lg dark:text-gray-400 pl-2 select-none border-b-2 border-rose-500 dark:border-gray-900">
-          <NuxtImg
-              class="h-4 w-4 m-1 select-none"
-              format="svg"
-              alt="terminal icon"
-              aria-label="terminal icon"
-              src="/assets/img/hero/terminal.svg"
-              width="16"
-              height="16"/>
-          <span>Terminal</span>
+            class="font-Monaco h-6 w-1/2 dark:bg-[#1F2A37] bg-[#e6e7e8] flex flex-row rounded-tr-lg dark:text-gray-400 pl-2 select-none border-b-2 border-rose-500 dark:border-gray-900 font-mono">
+          <Icon name="ph:terminal-fill" class="place-self-center left-0 dark:text-slate-500 w-5 " size="85%"/>
+          <span class="ml-1 mr-auto">Terminal</span>
         </div>
       </div>
       <div
@@ -198,6 +163,9 @@ export default {
 .line.active {
   opacity: 1;
   transition: opacity 0.5s ease-in-out;
+}
+.font-Monaco {
+  font-family: Monaco, monospace;
 }
 
 </style>

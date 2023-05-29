@@ -3,8 +3,8 @@
     <PolygonLeft aria-hidden="true" />
 
     <div
-      class="md:mx-auto md:w-full md:mx- lg:grid md:flex md:flex-col md:items-center md:justify-center max-w-screen-xl px-4 py-8 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0 justify-center">
-      <div class="lg:mr-auto md:mx-auto place-self-center lg:col-span-7">
+      class=" md:w-full lg:grid md:flex md:flex-col md:items-center md:justify-center max-w-screen-xl px-4 py-8 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0 ">
+      <div class="lg:mr-auto md:ml-0 place-self-center lg:col-span-7">
         <h1
           class="mb-4 lg:max-w-2xl  text-4xl font-extrabold leading-none tracking-tight dark:text-white md:text-5xl xl:text-6xl"
           data-aos="fade-up"
