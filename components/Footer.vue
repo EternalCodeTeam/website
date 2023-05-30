@@ -5,12 +5,13 @@
         <div class="mb-6 md:mb-0">
           <NuxtLink class="ml-4 flex items-center" :to="localePath('/')">
             <NuxtImg
-              alt="Eternalcode Logo"
               class="mr-3 h-8 text-white dark:invert"
-              format="webp"
-              height="32"
+              format="svg"
+              alt="Eternalcode Logo"
+              aria-label="Eternalcode Logo"
               src="/assets/img/logo.svg"
-              width="32" />
+              width="32"
+              height="32" />
             <span
               class="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
               EternalCode.pl
@@ -163,10 +164,12 @@
         </div>
       </div>
 
-      <hr class="my-6 border-gray-200 dark:border-gray-700 sm:mx-auto lg:my-8" />
+      <hr
+        class="my-6 border-gray-200 dark:border-gray-700 sm:mx-auto lg:my-8" />
 
       <div class="sm:flex sm:items-center sm:justify-between">
-        <span class="text-sm text-gray-500 dark:text-gray-400 sm:text-center block mb-4 sm:mb-0">
+        <span
+          class="text-sm text-gray-500 dark:text-gray-400 sm:text-center block mb-4 sm:mb-0">
           {{ $t("footer.copyright") }}
         </span>
         <div class="flex space-x-6">
