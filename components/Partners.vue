@@ -21,7 +21,7 @@
                 <Icon
                   name="akar-icons:github-fill"
                   size="48"
-                  class="m-4 dark:invert" />
+                  class="m-4 text-black dark:text-white" />
               </a>
               <a
                 href="https://www.jetbrains.com"
