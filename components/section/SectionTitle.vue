@@ -9,7 +9,7 @@
       </div>
       <div class="lg:w-1/2">
         <p
-          class="font-light text-gray-500 text-xl dark:text-gray-400 text-center lg:text-right break-words">
+          class="font-light text-gray-500 text-xl dark:text-gray-400 text-center lg:text-right break-words text-center">
           {{ description }}
         </p>
       </div>

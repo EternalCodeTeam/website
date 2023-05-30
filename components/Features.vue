@@ -31,7 +31,7 @@
           class="flex flex-col items-center">
           <div
             class="flex justify-center items-center center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
-            <Icon name="logos:linux-tux" size="48" />
+            <Icon name="flat-color-icons:linux" size="48" />
           </div>
           <h3 class="mb-2 text-xl font-bold dark:text-white">
             {{ $t("features.texts.text2.title") }}
@@ -48,7 +48,7 @@
           <div
             class="flex justify-center items-center center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
             <Icon
-              name="material-symbols:question-mark"
+              name="material-symbols:tab-new-right-outline-rounded"
               class="dark:invert"
               size="48" />
           </div>

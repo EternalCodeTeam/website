@@ -19,13 +19,13 @@
         </div>
 
         <div class="grid grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-6">
-          <div>
+          <div class="mb-6 sm:mb-0">
             <h2
-              class="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">
+              class="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">
               {{ $t("footer.team") }}
             </h2>
             <ul class="text-gray-600 dark:text-gray-400">
-              <li class="mb-4">
+              <li class="mb-2">
                 <NuxtLink
                   :to="localePath('/#about')"
                   class="hover:underline"
@@ -34,7 +34,7 @@
                   {{ $t("footer.about") }}
                 </NuxtLink>
               </li>
-              <li class="mb-4">
+              <li class="mb-2">
                 <NuxtLink
                   :to="localePath('/team')"
                   class="hover:underline"
@@ -43,7 +43,7 @@
                   {{ $t("footer.team") }}
                 </NuxtLink>
               </li>
-              <li class="mb-4">
+              <li class="mb-2">
                 <NuxtLink
                   :to="localePath('/projects')"
                   class="hover:underline"
@@ -54,13 +54,13 @@
               </li>
             </ul>
           </div>
-          <div>
+          <div class="mb-6 sm:mb-0">
             <h2
-              class="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">
+              class="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">
               {{ $t("footer.follow") }}
             </h2>
             <ul class="text-gray-600 dark:text-gray-400">
-              <li class="mb-4">
+              <li class="mb-2">
                 <a
                   href="https://github.com/EternalCodeTeam"
                   class="hover:underline"
@@ -69,7 +69,7 @@
                   Github
                 </a>
               </li>
-              <li class="mb-4">
+              <li class="mb-2">
                 <a
                   href="https://discord.com/invite/FQ7jmGBd6c"
                   class="hover:underline"
@@ -78,7 +78,7 @@
                   Discord
                 </a>
               </li>
-              <li class="mb-4">
+              <li class="mb-2">
                 <a
                   href="https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q"
                   class="hover:underline"
@@ -87,7 +87,7 @@
                   Youtube
                 </a>
               </li>
-              <li class="mb-4">
+              <li class="mb-2">
                 <a
                   href="https://www.tiktok.com/@eternalcode.pl"
                   class="hover:underline"
@@ -96,15 +96,33 @@
                   TikTok
                 </a>
               </li>
+              <li class="mb-2">
+                <a
+                  href="https://www.spigotmc.org/resources/authors/eternalcodeteam.1570200/"
+                  class="hover:underline"
+                  aria-label="EternalCode Spigot"
+                  aria-hidden="true">
+                  SpigotMC
+                </a>
+              </li>
+              <li class="mb-2">
+                <a
+                  href="https://modrinth.com/user/EternalCodeTeam"
+                  class="hover:underline"
+                  aria-label="EternalCode Modrinth"
+                  aria-hidden="true">
+                  Modrinth
+                </a>
+              </li>
             </ul>
           </div>
           <div>
             <h2
-              class="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white">
+              class="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">
               {{ $t("footer.seemore") }}
             </h2>
             <ul class="text-gray-600 dark:text-gray-400">
-              <li class="mb-4">
+              <li class="mb-2">
                 <a
                   href="https://repo.eternalcode.pl/#/"
                   class="hover:underline"
@@ -113,7 +131,7 @@
                   Repository
                 </a>
               </li>
-              <li class="mb-4">
+              <li class="mb-2">
                 <a
                   href="https://docs.eternalcode.pl/"
                   class="hover:underline"
@@ -122,7 +140,7 @@
                   Documentations
                 </a>
               </li>
-              <li class="mb-4">
+              <li class="mb-2">
                 <a
                   href="https://status.eternalcode.pl/"
                   class="hover:underline"
@@ -131,19 +149,27 @@
                   Service Status
                 </a>
               </li>
+              <li class="mb-2">
+                <a
+                  href="https://bstats.org/author/vLucky"
+                  class="hover:underline"
+                  aria-label="EternalCode Service Status"
+                  aria-hidden="true">
+                  Plugin BStats
+                </a>
+              </li>
             </ul>
           </div>
         </div>
       </div>
 
-      <hr
-        class="my-6 border-gray-200 dark:border-gray-700 sm:mx-auto lg:my-8" />
+      <hr class="my-6 border-gray-200 dark:border-gray-700 sm:mx-auto lg:my-8" />
 
       <div class="sm:flex sm:items-center sm:justify-between">
-        <span class="text-sm text-gray-500 dark:text-gray-400 sm:text-center">
+        <span class="text-sm text-gray-500 dark:text-gray-400 sm:text-center block mb-4 sm:mb-0">
           {{ $t("footer.copyright") }}
         </span>
-        <div class="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
+        <div class="flex space-x-6">
           <a
             aria-label="EternalCode TikTok link"
             class="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
@@ -167,6 +193,18 @@
             class="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
             href="https://discord.com/invite/FQ7jmGBd6c">
             <Icon name="ion:logo-discord" />
+          </a>
+          <a
+            aria-label="EternalCode SpigotMC link"
+            class="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
+            href="https://www.spigotmc.org/resources/authors/eternalcodeteam.1570200/">
+            <Icon name="fa6-solid:faucet-drip" />
+          </a>
+          <a
+            aria-label="EternalCode Modrinht link"
+            class="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
+            href="https://modrinth.com/user/EternalCodeTeam">
+            <Icon name="simple-icons:modrinth" />
           </a>
         </div>
       </div>
