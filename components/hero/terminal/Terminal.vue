@@ -78,19 +78,19 @@
           </div>
           <div
               id="files"
-              class="h-80 rounded-bl-lg bg-[#d8dde6] p-2 dark:bg-[#4B5563]">
-            <p class="select-none text-sm font-light text-gray-400">▄▄▄▄▄</p>
-            <p class="select-none text-sm font-light text-gray-400">▄▄▄▄▄▄▄▄</p>
-            <p class="select-none text-sm font-light text-gray-400">▄▄▄▄</p>
-            <p class="select-none text-sm font-light text-gray-400">▄▄▄▄▄▄▄</p>
-            <p class="select-none text-sm font-light text-gray-400">▄▄▄▄▄</p>
-            <p class="select-none text-sm font-light text-gray-400">▄▄▄▄▄▄</p>
-            <p class="select-none text-sm font-light text-gray-400">▄▄▄▄</p>
-            <p class="select-none text-sm font-light text-gray-400">▄▄▄▄▄▄▄</p>
-            <p class="select-none text-sm font-light text-gray-400">▄▄▄▄</p>
-            <p class="select-none text-sm font-light text-gray-400">▄▄▄▄▄</p>
-            <p class="select-none text-sm font-light text-gray-400">▄▄▄▄</p>
-            <p class="select-none text-sm font-light text-gray-400">▄▄▄</p>
+              class="h-80 rounded-bl-lg bg-[#d8dde6] p-2 dark:bg-[#4B5563] select-none text-sm font-light text-gray-400">
+            <p>▄▄▄▄▄</p>
+            <p>▄▄▄▄▄▄▄▄</p>
+            <p>▄▄▄▄</p>
+            <p>▄▄▄▄▄▄▄</p>
+            <p>▄▄▄▄▄</p>
+            <p>▄▄▄▄▄▄</p>
+            <p>▄▄▄▄</p>
+            <p>▄▄▄▄▄▄▄</p>
+            <p>▄▄▄▄</p>
+            <p>▄▄▄▄▄</p>
+            <p>▄▄▄▄</p>
+            <p>▄▄▄</p>
           </div>
         </div>
         <div id="main-tab" class="flex h-full w-4/5 flex-col rounded-tr-lg">
