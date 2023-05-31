@@ -4,7 +4,7 @@
 
     <div
       class="mx-auto flex max-w-screen-xl flex-col py-8 pl-2 md:w-full md:items-center md:justify-center lg:grid lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
-      <div class="place-self-center md:ml-0 lg:col-span-7 lg:mr-auto">
+      <div class="place-self-center md:ml-0 lg:col-span-4 lg:mr-auto">
         <h1
           class="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight dark:text-white md:text-5xl lg:max-w-2xl lg:text-left xl:text-6xl"
           data-aos="fade-up"
@@ -39,7 +39,7 @@
           </NuxtLink>
         </div>
       </div>
-      <div class="h-full pl-4 md:mx-auto lg:col-span-5 lg:block">
+      <div class="lg:col-span-8 w-full lg:block lg:pl-36 lg:pr-0 px-20">
         <Terminal />
       </div>
 
