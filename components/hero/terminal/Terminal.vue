@@ -11,7 +11,6 @@
               class="h-6 select-none rounded-tl-lg bg-[#d8dde6] dark:bg-[#4B5563]">
             <div
                 class="group/item flex w-2/3 flex-row space-x-1 pl-1 pt-0.5 md:h-full">
-
               <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <g color="red" class="flex items-center justify-center">
                   <circle cx="50" cy="50" r="35" fill="currentcolor "/>
@@ -147,8 +146,6 @@
         </div>
       </div>
     </div>
-
-
 </template>
 
 <script>
@@ -161,8 +158,6 @@ export default {
     const lines = linesAndFormatting;
     const currentIndex = ref(0);
     const delay = 300; // Delay in milliseconds
-
-
     function runTerminal() {
       if (currentIndex.value < lines.length) {
         if (linesAndFormatting[currentIndex.value].endLine) {
@@ -176,9 +171,6 @@ export default {
         }
       }
     }
-
-
-
     onMounted(() => {
       runTerminal();
     });
@@ -186,10 +178,7 @@ export default {
       lines,
       currentIndex,
     };
-
-
   },
-
   methods: {
     onMouseMove(event) {
       const card = this.$refs.perspective;
@@ -206,7 +195,5 @@ export default {
   },
 };
 </script>
-
 <style scoped>
-
 </style>
