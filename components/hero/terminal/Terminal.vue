@@ -1,6 +1,6 @@
 <template>
 
-    <div class="card" ref="perspective" @mousemove="onMouseMove" @mouseleave="onMouseLeave" >
+    <div class="w-auto h-auto transition transform duration-300 ease-in-out"  ref="perspective" @mousemove="onMouseMove" @mouseleave="onMouseLeave" style="transform-style: preserve-3d">
       <div
           id="terminal"
           class="hidden w-auto rounded-lg md:mt-3 md:flex md:flex-row lg:mt-0 "
@@ -97,20 +97,20 @@
           <div id="file-section" class="flex">
             <div
                 id="file-1"
-                class="font-Monaco flex w-1/2 select-none flex-row bg-[#bfbfbf] pl-2 dark:bg-[#374151] dark:text-gray-400">
+                class="flex w-1/2 select-none flex-row bg-[#bfbfbf] pl-2 dark:bg-[#374151] dark:text-gray-400">
               <Icon
                   name="ic:round-folder"
-                  class="mr-1 place-self-center dark:text-slate-500"/>
-              <span>EternalCodeWWW</span>
+                  class="mr-1 place-self-center dark:text-slate-500 font"/>
+              <span class="font-mono ">EternalCodeWWW</span>
             </div>
             <div
                 id="file-2"
-                class="font-Monaco flex h-6 w-1/2 select-none flex-row rounded-tr-lg border-b-2 border-rose-500 bg-[#e6e7e8] pl-2 font-mono dark:border-gray-900 dark:bg-[#1F2A37] dark:text-gray-400">
+                class="flex h-6 w-1/2 select-none flex-row rounded-tr-lg border-b-2 border-rose-500 bg-[#e6e7e8] pl-2 dark:border-gray-900 dark:bg-[#1F2A37] dark:text-gray-400">
               <Icon
                   name="ph:terminal-fill"
                   class="left-0 w-5 place-self-center dark:text-slate-500 "
                   size="85%"/>
-              <span class="ml-1 mr-auto">Terminal</span>
+              <span class="ml-1 mr-auto font-mono ">Terminal</span>
             </div>
           </div>
           <div
@@ -195,8 +195,8 @@ export default {
       const card = this.$refs.perspective;
       const relX = (event.offsetX + 1) / card.offsetWidth;
       const relY = (event.offsetY + 1) / card.offsetHeight;
-      const rotY = `rotateY(${(relX - 0.5) * 60 +10 }deg)`;
-      const rotX = `rotateX(${(relY - 0.5) * -60 -4}deg)`;
+      const rotY = `rotateY(${(relX - 0.5) * 30 }deg)`;
+      const rotX = `rotateX(${(relY - 0.5) * -30 }deg)`;
       card.style.transform = `perspective(500px) ${rotY} ${rotX}`;
     },
     onMouseLeave() {
@@ -209,27 +209,4 @@ export default {
 
 <style scoped>
 
-.font-Monaco {
-  font-family: Monaco, monospace;
-}
-
-.card-container {
-  width: 100%;
-  height: 100%; /* Adjust the container height as needed */
-  perspective: 1000px; /* Adjust the perspective value for desired 3D effect */
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Adjust the perspective value for desired 3D effect */
-}
-
-.card {
-  width: auto; /* Adjust the card width as needed */
-  height: auto; /* Adjust the card height as needed */
-  transform-style: preserve-3d;
-  transition: transform 0.3s ease;
-}
-
-.card:hover {
-  transform: rotateY(10deg) rotateX(-10deg);
-}
 </style>
