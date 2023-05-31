@@ -1,7 +1,7 @@
 <template>
   <button
     aria-label="Toggle Dark Mode"
-    class="transition-all duration-500 inline-flex h-10 w-10 items-center justify-center rounded-full hover:bg-gray-200 hover:dark:bg-gray-800"
+    class="transition-all duration-500 inline-flex h-10 w-10 items-center justify-center rounded-full"
     @click="toggleTheme">
     <Icon
       v-if="isDark"

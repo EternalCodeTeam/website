@@ -14,14 +14,14 @@
           data-aos="fade-up"
           data-aos-duration="450">
           <div
-            class="flex-1 items-center rounded-[12px] bg-gray-50 shadow @sm:flex dark:border-gray-700 dark:bg-[#161b22]">
+            class="flex-1 items-center rounded-[12px] @sm:flex">
             <a
               :href="member.github"
               class="aspect-w-1 aspect-h-1 container @sm:w-full @sm:max-w-[32rem]">
               <NuxtImg
                 :alt="member.name"
                 :src="member.avatar"
-                class="object-cover rounded-[12px] @sm:rounded-none @sm:rounded-l-[12px]"
+                class="object-cover rounded-full"
                 format="webp"
                 height="400"
                 width="400" />

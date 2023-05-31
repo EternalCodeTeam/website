@@ -16,7 +16,8 @@
   },
   "about": {
     "title": "O nas",
-    "text": "Jesteśmy zespołem programistów specjalizujących się w projektach open source. Dzięki temu zyskujemy doświadczenie i dzielimy się wiedzą. Jesteśmy otwarci na każdą technologię!"
+    "text": "Jesteśmy zespołem programistów specjalizujących się w projektach open-source. Dzięki temu zyskujemy doświadczenie i dzielimy się wiedzą. Jesteśmy otwarci na każdą technologię!",
+    "text2": "Szczególne podziękowania dla JetBrains i Sentry.io za udostępnienie licencji open-source dla członków naszego zespołu. Chcielibyśmy również podziękować GitHubowi za dostarczanie oprogramowania o wysokiej jakości do zarządzania repozytoriami Git."
   },
   "faq": {
     "title": "Najczęściej zadawane pytania",
@@ -24,7 +25,7 @@
     "answers": {
       "question1": {
         "question": "Co to jest EternalCodeTeam?",
-        "answer": "EternalCodeTeam to zespół programistów tworzących projekty open source. Jesteśmy otwarci na każdą technologię!"
+        "answer": "EternalCodeTeam to zespół programistów tworzących projekty open-source. Jesteśmy otwarci na każdą technologię!"
       },
       "question2": {
         "question": "Jak mogę dołączyć do zespołu?",

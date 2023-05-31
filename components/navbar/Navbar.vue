@@ -41,7 +41,7 @@
                 :to="localePath('/')"
                 class="block rounded-full py-2 pl-3 pr-4 text-gray-900 dark:text-white md:p-0"
                 aria-label="Home">
-                Home
+                {{ $t("navbar.home") }}
               </NuxtLink>
             </li>
             <li>
@@ -49,7 +49,7 @@
                 :to="localePath('/team')"
                 class="block rounded-full py-2 pl-3 pr-4 text-gray-900 dark:text-white md:p-0"
                 aria-label="Team">
-                Team
+                {{ $t("navbar.team") }}
               </NuxtLink>
             </li>
             <li>
@@ -57,7 +57,7 @@
                 :to="localePath('/projects')"
                 class="block rounded-full py-2 pl-3 pr-4 text-gray-900 dark:text-white md:p-0"
                 aria-label="Projects">
-                Projects
+                {{ $t("navbar.projects") }}
               </NuxtLink>
             </li>
             <li>
