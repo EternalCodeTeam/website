@@ -33,8 +33,7 @@
           </p>
 
           <ul class="flex gap-y-6 flex-wrap items-center justify-center">
-            <li class="flex-none" data-aos="fade-up"
-            data-aos-duration="600">
+            <li class="flex-none" data-aos="fade-up" data-aos-duration="600">
               <a href="https://github.com">
                 <Icon
                   name="akar-icons:github-fill"
@@ -43,15 +42,13 @@
               </a>
             </li>
 
-            <li class="flex-none" data-aos="fade-up"
-            data-aos-duration="650">
+            <li class="flex-none" data-aos="fade-up" data-aos-duration="650">
               <a href="https://www.jetbrains.com">
                 <Icon name="logos:jetbrains" size="48" class="m-4" />
               </a>
             </li>
 
-            <li class="flex-none" data-aos="fade-up"
-            data-aos-duration="700">
+            <li class="flex-none" data-aos="fade-up" data-aos-duration="700">
               <a href="https://sentry.io">
                 <Icon
                   name="vscode-icons:file-type-sentry"

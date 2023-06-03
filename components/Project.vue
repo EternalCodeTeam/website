@@ -81,6 +81,7 @@ export default {
           JSON.stringify(filteredRepos.value)
         );
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error(error);
       }
 

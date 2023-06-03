@@ -8,7 +8,6 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@vite-pwa/nuxt",
     "@nuxt/image-edge",
-    "@nuxt/content",
     "@nuxtjs/i18n",
     "nuxt-icon",
   ],

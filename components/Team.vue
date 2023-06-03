@@ -13,8 +13,7 @@
           class="mx-auto mb-8 max-w-screen-md flex-1 @lg:mb-16"
           data-aos="fade-up"
           data-aos-duration="450">
-          <div
-            class="flex-1 items-center rounded-[12px] @sm:flex">
+          <div class="flex-1 items-center rounded-[12px] @sm:flex">
             <a
               :href="member.github"
               class="aspect-w-1 aspect-h-1 container @sm:w-full @sm:max-w-[32rem]">
@@ -57,7 +56,7 @@
               </ul>
             </div>
           </div>
-        </div> 
+        </div>
       </div>
     </div>
   </section>
