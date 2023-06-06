@@ -102,7 +102,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @tailwind utilities;
 
 @layer utilities {
