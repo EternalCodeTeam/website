@@ -5,6 +5,6 @@
 @layer utilities {
     .striped div:nth-child(even) {
         @apply flex-row-reverse;
-        @apply gap-5;
+
     }
 }
