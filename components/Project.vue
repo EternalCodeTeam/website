@@ -33,6 +33,7 @@
                 Repository
               </button>
             </a>
+            <a :href="`https://github.com/EternalCodeTeam/${repo.name}/stargazers`">
             <button
               aria-label="Number of stars"
               class="ml-2 cursor-not-allowed rounded-lg bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-yellow-500/50 dark:shadow-lg dark:shadow-yellow-500/80 md:mb-0 md:mr-2"
@@ -41,6 +42,7 @@
               <Icon name="ic:round-star" size="20" class="mb-[0.5px]" />
               {{ repo.stargazers_count }} Stars
             </button>
+            </a>
           </div>
           <div class="w-full overflow-hidden md:w-1/2 lg:w-1/2">
             <NuxtImg
