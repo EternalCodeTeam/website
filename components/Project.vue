@@ -3,13 +3,13 @@
     <div class="mx-auto max-w-screen-xl px-4 py-16">
       <SectionTitle
         description="Discover our open source projects!"
-        title="Our Projects"/>
-      <div class="mt-8 space-y-8 lg:mt-12 lg:striped">
+        title="Our Projects" />
+      <div class="mt-8 space-y-8 lg:mt-12 lg:alternate">
         <div
           v-for="repo in filteredRepos"
           :key="repo.id"
           class="flex flex-col-reverse items-center justify-between lg:flex-row gap-12">
-          <div class="w-full md:w-1/2 lg:w-1/2 ">
+          <div class="w-full md:w-1/2 lg:w-1/2">
             <h1
               class="mb-4 max-w-2xl text-4xl font-extrabold leading-none tracking-tight dark:text-white md:text-5xl xl:text-6xl"
               data-aos="fade-up"
@@ -28,7 +28,7 @@
                 class="rounded-lg bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 md:mb-0 md:mr-2"
                 data-aos="fade-up"
                 data-aos-duration="600">
-                <Icon name="ph:github-logo-fill" class="mb-[0.5px]"/>
+                <Icon name="ph:github-logo-fill" class="mb-[0.5px]" />
                 Repository
               </button>
             </a>
@@ -37,7 +37,7 @@
               class="ml-2 cursor-not-allowed rounded-lg bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-yellow-500/50 dark:shadow-lg dark:shadow-yellow-500/80 md:mb-0 md:mr-2"
               data-aos="fade-up"
               data-aos-duration="650">
-              <Icon name="ic:round-star" size="20" class="mb-[0.5px]"/>
+              <Icon name="ic:round-star" size="20" class="mb-[0.5px]" />
               {{ repo.stargazers_count }} Stars
             </button>
           </div>
@@ -50,7 +50,7 @@
               data-aos-duration="500"
               format="webp"
               height="500"
-              width="1000"/>
+              width="1000" />
           </div>
         </div>
       </div>
@@ -101,3 +101,13 @@ export default {
   },
 };
 </script>
+
+<style>
+@tailwind utilities;
+
+@layer utilities {
+  .alternate div:nth-child(even) {
+    @apply flex-row-reverse;
+  }
+}
+</style>
