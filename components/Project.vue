@@ -4,12 +4,11 @@
       <SectionTitle
         description="Discover our open source projects!"
         title="Our Projects" />
-
-      <div class="mt-8 space-y-8 lg:mt-12">
+      <div class="mt-8 space-y-8 lg:mt-12 lg:alternate">
         <div
           v-for="repo in filteredRepos"
           :key="repo.id"
-          class="flex flex-col-reverse items-center justify-between lg:flex-row">
+          class="flex flex-col-reverse items-center justify-between lg:flex-row gap-12">
           <div class="w-full md:w-1/2 lg:w-1/2">
             <h1
               class="mb-4 max-w-2xl text-4xl font-extrabold leading-none tracking-tight dark:text-white md:text-5xl xl:text-6xl"
@@ -102,3 +101,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+@tailwind utilities;
+
+@layer utilities {
+  .alternate div:nth-child(even) {
+    @apply flex-row-reverse;
+  }
+}
+</style>
