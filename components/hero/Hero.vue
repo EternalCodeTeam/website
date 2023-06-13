@@ -6,14 +6,14 @@
       class="mx-auto flex max-w-screen-xl flex-col py-8 pl-2 md:w-full md:items-center md:justify-center lg:grid lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
       <div class="place-self-center md:ml-0 lg:col-span-4 lg:mr-auto">
         <h1
-          class="mb-6 text-4xl font-extrabold leading-none tracking-tight dark:text-white md:text-5xl lg:max-w-2xl lg:text-left xl:text-6xl"
+          class="mb-4 text-center text-4xl font-extrabold leading-none tracking-tight dark:text-white md:text-5xl lg:max-w-2xl lg:text-left xl:text-6xl"
           data-aos="fade-up"
           data-aos-duration="500">
           {{ $t("welcome") }}
         </h1>
 
         <p
-          class="mb-6 max-w-6xl text-gray-500 dark:text-gray-400 leading-none tracking-tight dark:text-white"
+          class="mb-6 max-w-2xl text-center font-light text-gray-500 dark:text-gray-400 md:text-lg lg:mb-8 lg:text-left lg:text-xl"
           data-aos="fade-up"
           data-aos-duration="550">
           {{ $t("subwelcome") }}
@@ -42,13 +42,6 @@
       <div class="lg:col-span-8 w-full lg:block lg:pl-36 lg:pr-0 px-20">
         <Terminal />
       </div>
-
-
     </div>
   </div>
 </template>
-<script setup>
-import PolygonRight from "~/components/hero/PolygonRight.vue";
-import PolygonLeft from "~/components/hero/PolygonLeft.vue";
-import Terminal from "~/components/hero/terminal/Terminal.vue";
-</script>

@@ -1,4 +1,4 @@
-# Nuxt 3 Minimal Starter
+# EternalCode.pl - Nuxt3 + TailwindCSS based website
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
@@ -7,7 +7,7 @@ Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introdu
 Make sure to install the dependencies:
 
 ```bash
-npm install
+pnpm install
 ```
 
 ## Development Server
@@ -15,7 +15,7 @@ npm install
 Start the development server on `http://localhost:3000`
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 ## Production
@@ -23,13 +23,11 @@ npm run dev
 Build the application for production:
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 Locally preview production build:
 
 ```bash
-npm run preview
+pnpm run preview
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
