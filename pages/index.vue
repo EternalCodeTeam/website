@@ -1,9 +1,7 @@
 <template>
-  <div>
     <About />
     <Features />
     <Faq />
-  </div>
 </template>
 
 <script lang="ts" setup>

@@ -1,6 +1,6 @@
 <template>
   <div class="relative isolate px-6 pt-14 lg:px-8">
-    <PolygonLeft aria-hidden="true" />
+    <Blops />
 
     <div
       class="mx-auto flex max-w-screen-xl flex-col py-8 pl-2 md:w-full md:items-center md:justify-center lg:grid lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
