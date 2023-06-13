@@ -1,8 +1,12 @@
-<script setup lang="ts">
-const route = useRoute()
-</script>
-
 <template>
-  <Features />
-  <Team />
+  <div>
+    <About />
+    <Features />
+    <Faq />
+  </div>
 </template>
+
+<script lang="ts" setup>
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const route = useRoute();
+</script>

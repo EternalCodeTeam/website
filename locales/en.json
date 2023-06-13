@@ -1,0 +1,70 @@
+{
+  "welcome": "EternalCode.pl",
+  "subwelcome": "We are a team creating open source projects",
+  "firstButton": "Let's go!",
+  "secondButton": "Meet our team!",
+  "navbar": {
+    "home": "Home",
+    "team": "Team",
+    "projects": "Projects",
+    "services": "Services",
+    "dropdown": {
+      "docs": "Documentations",
+      "status": "Status",
+      "repo": "Repository"
+    }
+  },
+  "about": {
+    "title": "About us",
+    "text": "We are a team of programmers specializing in open-source projects. This allows us to gain new experiences and share knowledge with each other. We are open to any technology!",
+    "text2": "Special thanks to JetBrains and Sentry.io for providing open-source licenses to our team members. We would also like to express our gratitude to GitHub for providing high-quality software for managing Git repositories."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "text": "Here you will find answers to the most frequently asked questions",
+    "answers": {
+      "question1": {
+        "question": "What is EternalCodeTeam?",
+        "answer": "EternalCodeTeam is a team of programmers who create open-source projects. We are open to any technology!"
+      },
+      "question2": {
+        "question": "How can I join the team?",
+        "answer": "You can join the team by contacting us via Discord"
+      },
+      "question3": {
+        "question": "What are the benefits of joining the team?",
+        "answer": "By joining the team, you will gain new experiences and you will be able to share your knowledge with other team members."
+      },
+      "question4": {
+        "question": "What are the requirements to join the team?",
+        "answer": "You must have basic knowledge of programming."
+      }
+    }
+  },
+  "features": {
+    "title": "What do we do?",
+    "text": "Below you will find information about what we do on a daily basis.",
+    "texts": {
+      "text1": {
+        "title": "Java",
+        "text": "Java is definitely our favorite programming language. We have already created many projects in Java!"
+      },
+      "text2": {
+        "title": "Linux",
+        "text": "We like to work on operating systems based on the Linux kernel."
+      },
+      "text3": {
+        "title": "Other technologies",
+        "text": "We are open to learning about new technologies and are eager to learn them!"
+      }
+    }
+  },
+  "footer": {
+    "team": "Team",
+    "projects": "Projects",
+    "about": "About us",
+    "follow": "Follow us",
+    "seemore": "See more",
+    "copyright": "© 2021-present EternalCodeTeam. All rights reserved."
+  }
+}

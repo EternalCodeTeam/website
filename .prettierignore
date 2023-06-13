@@ -6,7 +6,4 @@ node_modules
 .output
 .env
 dist
-.idea
-.DS_Store
-machinet.conf
-package-lock.json
+pnpm-lock.yaml
