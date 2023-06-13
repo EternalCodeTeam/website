@@ -7,12 +7,16 @@
         <div class="mb-6 md:mb-0">
           <NuxtLink class="flex items-center ml-4" to="/">
             <NuxtImg
-                alt="Eternalcode Logo"
-                class="h-8 mr-3 text-white dark:text-white"
-                format="webp"
-                src="/img/logo.svg"
-            />
-            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">EternalCode.pl</span>
+              class="mr-3 h-8 text-white dark:invert"
+              alt="Eternalcode Logo"
+              aria-label="Eternalcode Logo"
+              src="/assets/img/logo.svg"
+              width="32"
+              height="32" />
+            <span
+              class="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
+              EternalCode.pl
+            </span>
           </NuxtLink>
         </div>
 
