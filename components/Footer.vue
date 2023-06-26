@@ -6,7 +6,6 @@
           <NuxtLink class="ml-4 flex items-center" :to="localePath('/')">
             <NuxtImg
               class="mr-3 h-8 text-white dark:invert"
-              format="svg"
               alt="Eternalcode Logo"
               aria-label="Eternalcode Logo"
               src="/assets/img/logo.svg"
