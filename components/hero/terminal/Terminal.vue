@@ -1,10 +1,4 @@
 <template>
-  <div
-    ref="perspective"
-    class="w-auto h-auto transition transform duration-300 ease-in-out"
-    style="transform-style: preserve-3d"
-    @mousemove="onMouseMove"
-    @mouseleave="onMouseLeave">
     <div
       id="terminal"
       class="hidden w-full md:mt-3 md:flex md:flex-row lg:mt-0"
@@ -26,7 +20,7 @@
           <div
             id="file-name"
             class="text-center mx-auto text-2xs text-gray-800 dark:text-gray-400 select-none">
-            <span class="font-bold">Eternalcode - Git blame: CitralFlo</span>
+            <span class="font-medium">EternalCode - New Features</span>
           </div>
         </div>
         <div id="section-left" class="flex flex-row">
@@ -140,7 +134,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -166,7 +159,6 @@ export default {
         }
       }
     }
-
     onMounted(() => {
       runTerminal();
     });
@@ -174,20 +166,6 @@ export default {
       lines,
       currentIndex,
     };
-  },
-  methods: {
-    onMouseMove(event) {
-      const card = this.$refs.perspective;
-      const relX = (event.offsetX + 1) / card.offsetWidth;
-      const relY = (event.offsetY + 1) / card.offsetHeight;
-      const rotY = `rotateY(${(relX - 0.5) * 20}deg)`;
-      const rotX = `rotateX(${(relY - 0.5) * -15}deg)`;
-      card.style.transform = `perspective(500px) ${rotY} ${rotX}`;
-    },
-    onMouseLeave() {
-      const card = this.$refs.perspective;
-      card.style.transform = `rotateY(0deg) rotateX(0deg)`;
-    },
   },
 };
 </script>
