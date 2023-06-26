@@ -1,6 +1,8 @@
 <template>
-  <Navbar />
-  <Hero />
+  <header>
+    <Navbar />
+    <Hero />
+  </header>
   <SeoKit />
   <OgImageScreenshot />
   <OgImageStatic />
