@@ -5,13 +5,13 @@
       class="mx-auto flex max-w-screen-xl flex-col py-8 pl-2 md:w-full md:items-center md:justify-center lg:grid lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
       <div class="place-self-center md:ml-0 lg:col-span-4 lg:mr-auto">
         <h1
-          class="mb-4 text-center text-4xl font-extrabold tracking-tight dark:text-white md:text-5xl lg:text-left lg:ml-0 xl:text-6xl"
+          class="max-w-2xl text-center mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white"
           data-aos="fade-up"
           data-aos-duration="500">
           {{ $t("welcome") }}
         </h1>
         <p
-          class="mb-6 max-w-2xl text-center font-light text-gray-500 dark:text-gray-400 md:text-lg lg:max-w-2xl lg:mb-8 lg:text-left lg:text-xl"
+          class="max-w-2xl mb-6 ml-[3px] font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400"
           data-aos="fade-up"
           data-aos-duration="550">
           {{ $t("subwelcome") }}
