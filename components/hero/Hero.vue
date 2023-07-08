@@ -45,3 +45,7 @@
     </div>
   </div>
 </template>
+<script setup>
+import Blops from "~/components/Blobs/Blops.vue";
+import Terminal from "~/components/hero/terminal/Terminal.vue";
+</script>

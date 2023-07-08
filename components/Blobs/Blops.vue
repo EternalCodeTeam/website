@@ -71,7 +71,11 @@ export default defineComponent({
           if (this.positionsRangeData[i].posX !== targetX || this.positionsRangeData[i].posY !== targetY) {
             this.positionsRangeData[i].posX += stepX;
             this.positionsRangeData[i].posY += stepY;
-            requestAnimationFrame(animate);
+
+            // client side only
+            if (process.client) {
+              window.requestAnimationFrame(animate);
+            }
           }
         };
 
