@@ -77,11 +77,15 @@ class Ball {
 
   generateRandomVelocity() {
     const randomX =
-      Math.floor(Math.random() * 120) +
-      100;
+      (
+        Math.floor(Math.random() * 120) +
+        100
+      ) * (Math.random() < 0.5 ? -1 : 1);
     const randomY =
+      (
       Math.floor(Math.random() * 150) +
-      100;
+      100
+      ) * (Math.random() < 0.5 ? -1 : 1);
 
     return new Vector(randomX, randomY);
   }
