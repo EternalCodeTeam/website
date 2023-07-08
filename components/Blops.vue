@@ -12,27 +12,75 @@
         </filter>
       </defs>
       <g filter="url(#bbblurry-filter)" class="light:opacity-150 dark:opacity-70">
-        <ellipse rx="80" ry="80" cx="709.0676475644736" cy="104.87774498425227" fill="hsla(272, 99%, 54%, 1.00)"
-                 class="animate-bounce-up-down"></ellipse>
-        <ellipse rx="80" ry="80" cx="693.4348876314014" cy="438.0825482912712" fill="hsla(272, 99%, 54%, 1.00)"
-                 class="animate-bounce-up-down"></ellipse>
-        <ellipse rx="80" ry="80" cx="191.9203423505054" cy="624.7306258116716" fill="hsla(272, 99%, 54%, 1.00)"
-                 class="animate-bounce-up-down" ></ellipse>
-        <ellipse rx="80" ry="80" cx="70.57745409261497" cy="492.2083264096245" fill="hsla(272, 99%, 54%, 1.00)"
-                 class="animate-bounce-up-down" ></ellipse>
-        <ellipse rx="80" ry="80" cx="131.1563270129459" cy="98.49645229159847" fill="hsla(272, 99%, 54%, 1.00)"
-                 class="animate-bounce-up-down" ></ellipse>
-        <ellipse rx="80" ry="80" cx="66.43386920709258" cy="715.8552271658211" fill="hsla(272, 99%, 54%, 1.00)"
-                 class="animate-bounce-up-down" ></ellipse>
-        <ellipse rx="80" ry="80" cx="540.8173732258263" cy="94.11494194150595" fill="hsla(272, 99%, 54%, 1.00)"
-                 class="animate-bounce-up-down" ></ellipse>
-        <ellipse rx="80" ry="80" cx="709.0446689465907" cy="639.5999723903795" fill="hsla(272, 99%, 54%, 1.00)"
-                 class="animate-bounce-up-down"></ellipse>
+        <ellipse v-for="(data, index) in positionsRangeData"
+                 :key="index"
+                 :rx="data.range"
+                 :ry="data.range"
+                 :cx="data.posX"
+                 :cy="data.posY"
+                 fill="hsla(212, 72%, 59%, 1.00)">
+        </ellipse>
       </g>
     </svg>
   </div>
 </template>
+<script>
+import { defineComponent } from 'vue';
 
+const range = [
+  { minX: 50, maxX: 150, minY: 50, maxY: 150 },
+  { minX: 10, maxX: 110, minY: 680, maxY: 780 },
+  { minX: 30, maxX: 130, minY: 450, maxY: 550 },
+  { minX: 80, maxX: 180, minY: 50, maxY: 150 },
+  { minX: 150, maxX: 250, minY: 600, maxY: 700 },
+  { minX: 500, maxX: 600, minY: 50, maxY: 150 },
+  { minX: 650, maxX: 750, minY: 400, maxY: 500 },
+  { minX: 650, maxX: 750, minY: 600, maxY: 700 },
+];
+
+export default defineComponent({
+  name: 'Blops',
+  data() {
+    return {
+      positionsRangeData: [
+        { posX: 50, posY: 50, range: 80 },
+        { posX: 10, posY: 680, range: 80 },
+        { posX: 30, posY: 450, range: 80 },
+        { posX: 80, posY: 50, range: 80 },
+        { posX: 150, posY: 600, range: 80 },
+        { posX: 500, posY: 50, range: 80 },
+        { posX: 650, posY: 400, range: 80 },
+        { posX: 650, posY: 600, range: 80 },
+      ],
+    };
+  },
+  created() {
+    setInterval(() => {
+      this.moveBall();
+    }, 1000);
+  },
+  methods: {
+    moveBall() {
+      for (let i = 0; i < this.positionsRangeData.length; i++) {
+        const targetX = Math.floor(Math.random() * (range[i].maxX - range[i].minX + 1)) + range[i].minX;
+        const targetY = Math.floor(Math.random() * (range[i].maxY - range[i].minY + 1)) + range[i].minY;
+        const stepX = (targetX - this.positionsRangeData[i].posX) / 30;
+        const stepY = (targetY - this.positionsRangeData[i].posY) / 30;
+
+        const animate = () => {
+          if (this.positionsRangeData[i].posX !== targetX || this.positionsRangeData[i].posY !== targetY) {
+            this.positionsRangeData[i].posX += stepX;
+            this.positionsRangeData[i].posY += stepY;
+            requestAnimationFrame(animate);
+          }
+        };
+
+        animate();
+      }
+    },
+  },
+});
+</script>
 <style scoped>
 
 </style>

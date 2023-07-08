@@ -8,22 +8,8 @@ module.exports = {
     "./app.vue",
   ],
   theme: {
-    extend: {
-      keyframes: {
-        bgbounce: {
-          '0%': { transform: 'translateY(-100px) translateX(0px)', opacity: '0.5' },
-          '25%': { transform: 'translateY(20px) translateX(10px)', opacity: '1' },
-          '40%': { transform: 'translateY(50px) translateX(-30px)', opacity: '0.6' },
-          '60%': { transform: 'translateY(70px) translateX(-130px)', opacity: '0.9' },
-          '75%': { transform: 'translateY(30px) translateX(45px)', opacity: '0.75' },
-          '100%': { transform: 'translateY(-30px)  translateX(0px)', opacity: '0.4' },
-        }
-      },
-        animation: {
-            'bounce-up-down': 'bgbounce 10s ease-in-out infinite alternate',
-        }
-    }
-  },
+    extend: {}
+    },
   variants: {},
   plugins: [
     require("@tailwindcss/container-queries"),
