@@ -34,8 +34,8 @@
         <ellipse
           v-for="(data, index) in Balls"
           :key="index"
-          :rx="30"
-          :ry="30"
+          :rx="isDark ? '40' : '70'"
+          :ry="isDark ? '40' : '70'"
           :cx="data.position.x"
           :cy="data.position.y"
           fill="hsla(212, 72%, 59%, 1.00)"
@@ -46,7 +46,9 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import {defineComponent} from 'vue';
+
+let isDark = ref(false);
 
 class Vector {
   constructor(x, y) {
@@ -68,21 +70,18 @@ class Vector {
 }
 
 class Ball {
-  constructor(posX, posY, range) {
+  constructor(posX, posY) {
     this.position = new Vector(posX, posY);
-    this.velocity = this.generateRandomVelocity(range).multiply(0.2);
+    this.velocity = this.generateRandomVelocity().multiply(0.2);
   }
 
-  generateRandomVelocity(range) {
-    const randomIndex = Math.floor(Math.random() * range.length);
-    const randomRange = range[randomIndex];
-
+  generateRandomVelocity() {
     const randomX =
-      Math.floor(Math.random() * (randomRange.maxX - randomRange.minX + 1)) +
-      randomRange.minX;
+      Math.floor(Math.random() * 120) +
+      100;
     const randomY =
-      Math.floor(Math.random() * (randomRange.maxY - randomRange.minY + 1)) +
-      randomRange.minY;
+      Math.floor(Math.random() * 150) +
+      100;
 
     return new Vector(randomX, randomY);
   }
@@ -94,33 +93,22 @@ class Ball {
       .add(newPosition.subtract(this.position).multiply(smoothness));
 
     // If the ball is out of the screen, generate a new velocity vector with reverse direction
-    if ( this.position.x < 0 || this.position.x > 800 || this.position.y < 0 || this.position.y > 800 ) {
+    if (this.position.x < 0 || this.position.x > 800 || this.position.y < 0 || this.position.y > 800) {
       this.velocity = this.velocity.multiply(-1);
     }
 
   }
 }
 
-const range = [
-  { minX: 50, maxX: 150, minY: 50, maxY: 150 },
-  { minX: 10, maxX: 110, minY: 680, maxY: 780 },
-  { minX: 30, maxX: 130, minY: 450, maxY: 550 },
-  { minX: 80, maxX: 180, minY: 50, maxY: 150 },
-  { minX: 150, maxX: 250, minY: 600, maxY: 700 },
-  { minX: 500, maxX: 600, minY: 50, maxY: 150 },
-  { minX: 650, maxX: 750, minY: 400, maxY: 500 },
-  { minX: 650, maxX: 750, minY: 600, maxY: 700 },
-];
-
 const Balls = [
-  new Ball(50, 50, range),
-  new Ball(10, 680, range),
-  new Ball(30, 450, range),
-  new Ball(80, 50, range),
-  new Ball(150, 600, range),
-  new Ball(500, 50, range),
-  new Ball(650, 400, range),
-  new Ball(650, 600, range),
+  new Ball(50, 50),
+  new Ball(10, 680),
+  new Ball(30, 450),
+  new Ball(80, 50),
+  new Ball(150, 600),
+  new Ball(500, 50),
+  new Ball(650, 400),
+  new Ball(650, 600),
 ];
 
 export default defineComponent({
@@ -128,6 +116,7 @@ export default defineComponent({
   data() {
     return {
       Balls,
+      isDark: isDark.value,
     };
   },
   mounted() {
@@ -140,9 +129,21 @@ export default defineComponent({
     // Generate new random velocity for the balls
     setInterval(() => {
       for (const ball of this.Balls) {
-        ball.velocity = ball.generateRandomVelocity(range).multiply(0.2);
+        setTimeout(() => {
+          ball.velocity = ball.generateRandomVelocity().multiply(0.2);
+        }, Math.random() * 100);
       }
     }, 5000);
+
+    //check for dark mode
+    const theme = localStorage.getItem("theme");
+    this.isDark = theme === "dark";
+
+    //listen for dark mode changes
+    addEventListener("storage", (e) => {
+      this.isDark = e.newValue === "dark";
+    });
+
   },
 });
 </script>
