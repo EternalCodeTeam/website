@@ -1,3 +1,4 @@
+import {defineNuxtConfig} from "nuxt/config";
 export default defineNuxtConfig({
   ssr: true,
 
@@ -52,6 +53,7 @@ export default defineNuxtConfig({
     },
   },
 
+  // @ts-ignore
   unhead: {
     seoOptimise: true,
   },

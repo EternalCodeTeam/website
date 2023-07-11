@@ -1,6 +1,6 @@
 <template>
   <div class="relative isolate px-6 pt-14 lg:px-8">
-    <Blops />
+    <Blobs />
 
     <div
       class="mx-auto flex max-w-screen-xl flex-col py-8 pl-2 md:w-full md:items-center md:justify-center lg:grid lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
@@ -46,6 +46,6 @@
   </div>
 </template>
 <script setup>
-import Blops from "~/components/Blobs/Blops.vue";
+import Blobs from "~/components/blobs/Blobs.vue";
 import Terminal from "~/components/hero/terminal/Terminal.vue";
 </script>
