@@ -137,6 +137,9 @@
 </template>
 
 <script>
+import { ref, onMounted } from "vue";
+import linesAndFormatting from "~/components/hero/terminal/text";
+
 export default {
 name: "Terminal",
 setup() {
