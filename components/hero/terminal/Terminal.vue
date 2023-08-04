@@ -7,14 +7,86 @@
         <div
           class="flex border-b-2 border-rose-500 bg-[#d8dde6] dark:bg-[#4B5563] dark:border-gray-900 w-full rounded-t-lg">
           <div
-            id="on-off-buttons"
-            class="h-6 select-none bg-[#d8dde6] dark:bg-[#4B5563] rounded-lg">
+            class="flex justify-center items-center h-full space-x-1.5 ml-2 h-6 select-none rounded-lg bg-[#d8dde6] dark:bg-[#4B5563]"
+            style="width: fit-content">
+            <div class="w-[12px] h-[12px] bg-[#f9644e] rounded-full"></div>
+            <div class="w-[12px] h-[12px] bg-[#ffb630] rounded-full"></div>
+            <div class="w-[12px] h-[12px] bg-[#3cc548] rounded-full"></div>
+          </div>
+        </div>
+        <div
+          id="file-name"
+          class="text-center mx-auto text-2xs text-gray-800 dark:text-gray-400 select-none">
+          <span class="font-medium">EternalCode</span>
+        </div>
+      </div>
+      <div id="section-left" class="flex flex-row">
+        <div id="settings" class="h-full w-1/5 flex">
+          <div
+            id="project-settings"
+            class="center flex h-full w-1/4 flex-col py-2 px-2 bg-[#cfd0d1] space-y-2 items-center dark:bg-[#374151] rounded-bl-lg">
+            <a>
+              <Icon
+                name="octicon:git-branch"
+                class="mb-[3px] dark:text-slate-500" />
+            </a>
+            <a>
+              <Icon
+                name="carbon:code-hide"
+                class="mb-[3px] dark:text-slate-500" />
+            </a>
+            <a>
+              <Icon
+                name="teenyicons:git-commit-outline"
+                class="mb-[3px] dark:text-slate-500" />
+            </a>
+            <Icon
+              name="ph:github-logo-fill"
+              class="mb-[4px] dark:text-slate-500" />
+            <a>
+              <Icon
+                name="ic:sharp-more-vert"
+                class="mb-[3px] dark:text-slate-500" />
+            </a>
+          </div>
+          <div
+            id="files"
+            class="h-full bg-[#d8dde6] w-3/4 pl-4 dark:bg-[#4B5563] select-none text-sm font-light text-gray-400">
+            <p>▄▄▄▄▄</p>
+            <p>▄▄▄▄▄▄▄▄</p>
+            <p>▄▄▄▄</p>
+            <p>▄▄▄▄▄▄▄</p>
+            <p>▄▄▄▄▄</p>
+            <p>▄▄▄▄▄▄</p>
+            <p>▄▄▄▄</p>
+            <p>▄▄▄▄▄▄▄</p>
+            <p>▄▄▄▄</p>
+            <p>▄▄▄▄▄</p>
+            <p>▄▄▄▄</p>
+            <p>▄▄▄</p>
+          </div>
+        </div>
+        <div
+          id="main-tab"
+          class="flex h-full w-4/5 flex-col bg-[#bfbfbf] dark:bg-[#374151] rounded-br-lg">
+          <div id="file-section" class="flex">
             <div
               class="flex justify-center items-center h-full space-x-1.5 ml-2 h-6 select-none rounded-lg bg-[#d8dde6] dark:bg-[#4B5563]"
               style="width: fit-content">
-              <div class="w-[12px] h-[12px] bg-[#f9644e] rounded-full"></div>
-              <div class="w-[12px] h-[12px] bg-[#ffb630] rounded-full"></div>
-              <div class="w-[12px] h-[12px] bg-[#3cc548] rounded-full"></div>
+              <Icon
+                name="ic:round-folder"
+                class="mr-1 place-self-center dark:text-slate-500 font" />
+              <span class="font-mono">EternalCode</span>
+            </div>
+            <div
+              id="file-2"
+              class="flex h-6 select-none flex-row border-b-2 border-rose-500 bg-[#e6e7e8] pl-2 dark:border-gray-900 dark:bg-[#1F2A37] dark:text-gray-400 pr-4"
+              style="width: fit-content">
+              <Icon
+                name="ph:terminal-fill"
+                class="left-0 w-5 place-self-center dark:text-slate-500"
+                size="85%" />
+              <span class="ml-1 mr-auto font-mono">Terminal</span>
             </div>
           </div>
           <div

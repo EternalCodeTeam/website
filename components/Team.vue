@@ -1,7 +1,6 @@
 <template>
   <section>
-    <div
-      class="mx-auto max-w-screen-xl px-4 py-8 @container @lg:px-6 @lg:py-16">
+    <div class="mx-auto max-w-screen-xl px-4 py-16">
       <SectionTitle
         title="Our Team"
         description="EternalCodeTeam is a dedicated group of creative programmers who work on unique open source projects." />
