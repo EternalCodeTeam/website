@@ -23,7 +23,7 @@
               {{ repo.description }}
             </p>
             <div class="flex">
-              <a :href="`https://github.com/EternalCodeTeam/${repo.name}`">
+              <a :href="`https://github.com/EternalCodeTeam/${repo.name}`" target="_blank">
                 <button
                   aria-label="Go to repository"
                   class="rounded-lg bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 md:mb-0 md:mr-2"
@@ -34,7 +34,7 @@
                 </button>
               </a>
               <a
-                :href="`https://github.com/EternalCodeTeam/${repo.name}/stargazers`">
+                :href="`https://github.com/EternalCodeTeam/${repo.name}/stargazers`" target="_blank">
                 <button
                   aria-label="Number of stars"
                   class="ml-2 cursor-pointer rounded-lg bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-yellow-500/50 dark:shadow-lg dark:shadow-yellow-500/80 md:mb-0 md:mr-2"
