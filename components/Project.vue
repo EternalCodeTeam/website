@@ -22,27 +22,58 @@
               data-aos-duration="550">
               {{ repo.description }}
             </p>
-            <a :href="`https://github.com/EternalCodeTeam/${repo.name}`">
-              <button
-                aria-label="Go to repository"
-                class="rounded-lg bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 md:mb-0 md:mr-2"
+            <div class="flex">
+              <a :href="`https://github.com/EternalCodeTeam/${repo.name}`">
+                <button
+                  aria-label="Go to repository"
+                  class="rounded-lg bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 md:mb-0 md:mr-2"
+                  data-aos="fade-up"
+                  data-aos-duration="600">
+                  <Icon name="ph:github-logo-fill" class="mb-[0.5px]" />
+                  Repository
+                </button>
+              </a>
+              <a
+                :href="`https://github.com/EternalCodeTeam/${repo.name}/stargazers`">
+                <button
+                  aria-label="Number of stars"
+                  class="ml-2 cursor-pointer rounded-lg bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-yellow-500/50 dark:shadow-lg dark:shadow-yellow-500/80 md:mb-0 md:mr-2"
+                  data-aos="fade-up"
+                  data-aos-duration="650">
+                  <Icon name="ic:round-star" size="20" class="mb-[0.5px]" />
+                  {{ repo.stargazers_count }} Stars
+                </button>
+              </a>
+
+              <div
+                class="flex -space-x-4"
                 data-aos="fade-up"
-                data-aos-duration="600">
-                <Icon name="ph:github-logo-fill" class="mb-[0.5px]" />
-                Repository
-              </button>
-            </a>
-            <a
-              :href="`https://github.com/EternalCodeTeam/${repo.name}/stargazers`">
-              <button
-                aria-label="Number of stars"
-                class="ml-2 cursor-pointer rounded-lg bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-yellow-500/50 dark:shadow-lg dark:shadow-yellow-500/80 md:mb-0 md:mr-2"
-                data-aos="fade-up"
-                data-aos-duration="650">
-                <Icon name="ic:round-star" size="20" class="mb-[0.5px]" />
-                {{ repo.stargazers_count }} Stars
-              </button>
-            </a>
+                data-aos-duration="700">
+                <a
+                  v-for="(contributor, index) in (
+                    repo.contributors || []
+                  ).slice(0, 5)"
+                  :key="index"
+                  :href="`https://github.com/${contributor.login}`"
+                  target="_blank"
+                  class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800 mx-auto flex items-center justify-center text-xs font-medium text-white bg-gray-700 hover:bg-gray-600 dark:border-gray-800"
+                  :title="contributor.login">
+                  <NuxtImg
+                    :alt="`${contributor.login} avatar`"
+                    :src="contributor.avatar_url"
+                    format="webp"
+                    class="w-full h-full rounded-full object-cover" />
+                </a>
+
+                <a
+                  v-if="repo.contributors && repo.contributors.length > 5"
+                  :href="`https://github.com/EternalCodeTeam/${repo.name}/graphs/contributors`"
+                  target="_blank"
+                  class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800 mx-auto flex items-center justify-center text-xs font-medium text-white bg-gray-700 hover:bg-gray-600 dark:border-gray-800">
+                  +{{ repo.contributors.length - 5 }}
+                </a>
+              </div>
+            </div>
           </div>
           <div class="w-full overflow-hidden md:w-1/2 lg:w-1/2">
             <NuxtImg
@@ -72,6 +103,11 @@ export default {
         filteredRepos.value = JSON.parse(cachedData);
       }
 
+      filteredRepos.value = filteredRepos.value.map((repo) => ({
+        ...repo,
+        contributors: [],
+      }));
+
       try {
         const response = await fetch(
           "https://api.github.com/orgs/EternalCodeTeam/repos"
@@ -82,8 +118,20 @@ export default {
           "githubRepos",
           JSON.stringify(filteredRepos.value)
         );
+
+        for (const repo of filteredRepos.value) {
+          const contributorsResponse = await fetch(
+            `https://api.github.com/repos/EternalCodeTeam/${repo.name}/contributors`
+          );
+          const contributorsData = await contributorsResponse.json();
+          repo.contributors = contributorsData
+            .filter((contributor) => !contributor.login.includes("bot"))
+            .map((contributor) => ({
+              login: contributor.login,
+              avatar_url: contributor.avatar_url,
+            }));
+        }
       } catch (error) {
-        // eslint-disable-next-line no-console
         console.error(error);
       }
 
