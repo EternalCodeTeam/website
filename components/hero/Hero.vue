@@ -1,6 +1,5 @@
 <template>
   <div class="relative isolate px-6 pt-14 lg:px-8">
-    <PolygonLeft aria-hidden="true" />
     <div
       class="mx-auto flex max-w-screen-xl flex-col py-8 pl-2 md:w-full md:items-center md:justify-center lg:grid lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
       <div class="place-self-center md:ml-0 lg:col-span-4 lg:mr-auto">
@@ -40,12 +39,10 @@
       <div class="lg:col-span-8 w-full lg:block lg:pl-36 lg:pr-0 px-20">
         <Terminal />
       </div>
-      <PolygonRight aria-hidden="true" />
     </div>
   </div>
 </template>
+
 <script setup>
-import PolygonRight from "~/components/hero/PolygonRight.vue";
-import PolygonLeft from "~/components/hero/PolygonLeft.vue";
 import Terminal from "~/components/hero/terminal/Terminal.vue";
 </script>

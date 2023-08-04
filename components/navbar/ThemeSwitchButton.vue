@@ -2,7 +2,9 @@
   <button
     aria-label="Toggle Dark Mode"
     class="transition-all duration-500 inline-flex h-10 w-10 items-center justify-center rounded-full"
-    @click="toggleTheme">
+    :class="{ 'opacity-50 pointer-events-none': isDisabled }"
+    @click="toggleTheme"
+    :disabled="isDisabled">
     <Icon
       v-if="isDark"
       name="material-symbols:partly-cloudy-day-rounded"
@@ -19,6 +21,7 @@ export default {
     return {
       isDark: false,
       prefersDark: false,
+      isDisabled: false,
     };
   },
   mounted() {
@@ -53,6 +56,15 @@ export default {
   },
   methods: {
     toggleTheme() {
+      if (this.isDisabled) {
+        return;
+      }
+
+      this.isDisabled = true;
+      setTimeout(() => {
+        this.isDisabled = false;
+      }, 1500);
+
       this.isDark = !this.isDark;
       const htmlElement = document.documentElement;
 
