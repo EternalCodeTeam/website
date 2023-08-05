@@ -3,8 +3,8 @@
     aria-label="Toggle Dark Mode"
     class="transition-all duration-500 inline-flex h-10 w-10 items-center justify-center rounded-full"
     :class="{ 'opacity-50 pointer-events-none': isDisabled }"
-    @click="toggleTheme"
-    :disabled="isDisabled">
+    :disabled="isDisabled"
+    @click="toggleTheme">
     <Icon
       v-if="isDark"
       name="material-symbols:partly-cloudy-day-rounded"
