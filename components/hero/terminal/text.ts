@@ -50,7 +50,7 @@ const linesAndFormatting = [
         line: "Main site",
         formatting: "text-blue-500 text-sm",
         special: true,
-        url: "https://eternalcode.pl/",
+        url: "/",
         endLine: true,
     },
     {
