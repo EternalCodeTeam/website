@@ -1,53 +1,101 @@
 const linesAndFormatting = [
-  {
-    line: "> eternalcode --help",
-    formatting: "dark:text-gray-100 text-black-300 text-sm",
-    endLine: true,
-  },
-  {
-    line: "",
-    formatting: "h-1",
-    endLine: true,
-  },
-  {
-    line: "We are a team of programmers specializing in open-source projects.",
-    formatting: "text-slate-600 text-sm",
-    endLine: true,
-  },
-  {
-    line: "Gain experiences, share knowledge, and open to any technology!",
-    formatting: "text-slate-600 text-sm",
-    endLine: true,
-  },
-  {
-    line: "",
-    endLine: true,
-  },
-  {
-    line: "Special thanks to:",
-    formatting: "text-slate-600 text-sm",
-    endLine: true,
-  },
-  {
-    line: "🙏 JetBrains, Sentry.io, Jira Software for providing open-source licenses.",
-    formatting: "text-green-500 text-sm",
-    endLine: true,
-  },
-  {
-    line: "",
-    formatting: "",
-    endLine: true,
-  },
-  {
-    line: "Find more information below!",
-    formatting: "text-slate-600 text-sm",
-    endLine: true,
-  },
-  {
-    line: "🚀 Happy coding!",
-    formatting: "text-slate-600 text-sm",
-    endLine: true,
-  },
+    {
+        line: "> eternalcode --help",
+        formatting: "dark:text-gray-100 text-black-300 text-sm",
+        endLine: true,
+    },
+    {
+        line: "",
+        formatting: "",
+        endLine: true,
+    },
+    {
+        line: "Help requested!",
+        formatting: "text-slate-600 text-sm",
+        endLine: true,
+    },
+    {
+        line: "Try finding answers in our ",
+        formatting: "text-slate-600 text-sm",
+        endLine: false,
+    },
+    {
+        line: "documentation",
+        formatting: "text-blue-500 text-sm",
+        special: true,
+        url: "https://docs.eternalcode.pl/",
+        endLine: true,
+    },
+    {
+        line: "",
+        formatting: "",
+        endLine: true,
+    },
+    {
+        line: "> eternalcode --tree",
+        formatting: "dark:text-gray-100 text-black-300 text-sm",
+        endLine: true,
+    },
+    {
+        line: "",
+        formatting: "",
+        endLine: true,
+    },
+    {
+        line: "├── 📁 ",
+        formatting: "text-slate-600 text-sm",
+        endLine: false,
+    },
+    {
+        line: "Main site",
+        formatting: "text-blue-500 text-sm",
+        special: true,
+        url: "https://eternalcode.pl/",
+        endLine: true,
+    },
+    {
+        line: "│   ├── 📁 ",
+        formatting: "text-slate-600 text-sm",
+        endLine: false,
+    },
+    {
+        line: "Team",
+        formatting: "text-blue-500 text-sm",
+        special: true,
+        url: "/team",
+        endLine: true,
+    },
+    {
+        line: "│   ├── 📁 ",
+        formatting: "text-slate-600 text-sm",
+        endLine: false,
+    },
+    {
+        line: "Projects",
+        formatting: "text-blue-500 text-sm",
+        special: true,
+        url: "/projects",
+        endLine: true,
+    },
+    {
+        line: "├── 📁 FAQ",
+        formatting: "text-slate-600 text-sm",
+        endLine: true,
+    },
+    {
+        line: "│   │   ├── 📁 ",
+        formatting: "text-slate-600 text-sm",
+        endLine: false,
+    },
+    {
+        line: "Docs",
+        formatting: "text-blue-500 text-sm",
+        special: true,
+        locale: false,
+        url: "https://docs.eternalcode.pl/",
+        endLine: true,
+    }
+
 ];
 
 export default linesAndFormatting;

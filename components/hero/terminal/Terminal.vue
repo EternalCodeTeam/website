@@ -115,15 +115,15 @@
                 { 'opacity-100': index <= currentIndex },
                 line.formatting,
               ]">
-              <a
+              <NuxtLink
+                :to="line.url"
                 v-if="line.special"
-                href="https://eternalcode.pl/"
-                target="_blank"
                 >{{ line.line }}
-              </a>
+              </NuxtLink>
               <span v-else>
                 {{ line.line }}
               </span>
+
               <br v-if="line.endLine" />
             </span>
           </div>
