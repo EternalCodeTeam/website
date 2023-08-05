@@ -56,6 +56,12 @@
                   class="m-4" />
               </a>
             </li>
+
+            <li class="flex-none" data-aos="fade-up" data-aos-duration="750">
+              <a href="https://www.atlassian.com/software/jira">
+                <Icon name="logos:jira" size="48" class="m-4" />
+              </a>
+            </li>
           </ul>
         </div>
       </div>

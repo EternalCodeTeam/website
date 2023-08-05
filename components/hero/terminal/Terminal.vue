@@ -20,7 +20,7 @@
         <div
           id="file-name"
           class="text-center mx-auto text-2xs text-gray-800 dark:text-gray-400 select-none">
-          <span class="font-medium">EternalCode - New Features</span>
+          <span class="font-medium">EternalCode</span>
         </div>
       </div>
       <div id="section-left" class="flex flex-row">
@@ -28,30 +28,32 @@
           <div
             id="project-settings"
             class="center flex h-full w-1/4 flex-col py-2 px-2 bg-[#cfd0d1] space-y-2 items-center dark:bg-[#374151] rounded-bl-lg">
-            <a>
+            <span>
               <Icon
                 name="octicon:git-branch"
                 class="mb-[3px] dark:text-slate-500"
                 s />
-            </a>
-            <a>
+            </span>
+            <span>
               <Icon
                 name="carbon:code-hide"
                 class="mb-[3px] dark:text-slate-500" />
-            </a>
-            <a>
+            </span>
+            <span>
               <Icon
                 name="teenyicons:git-commit-outline"
                 class="mb-[3px] dark:text-slate-500" />
-            </a>
-            <Icon
-              name="ph:github-logo-fill"
-              class="mb-[4px] dark:text-slate-500" />
-            <a>
+            </span>
+            <span>
+              <Icon
+                name="ph:github-logo-fill"
+                class="mb-[4px] dark:text-slate-500" />
+            </span>
+            <span>
               <Icon
                 name="ic:sharp-more-vert"
                 class="mb-[3px] dark:text-slate-500" />
-            </a>
+            </span>
           </div>
           <div
             id="files"
@@ -81,7 +83,7 @@
               <Icon
                 name="ic:round-folder"
                 class="mr-1 place-self-center dark:text-slate-500 font" />
-              <span class="font-mono">EternalCodeWWW</span>
+              <span class="font-mono">EternalCode</span>
             </div>
             <div
               id="file-2"
@@ -113,15 +115,13 @@
                 { 'opacity-100': index <= currentIndex },
                 line.formatting,
               ]">
-              <a
-                v-if="line.special"
-                href="https://eternalcode.pl/"
-                target="_blank"
+              <NuxtLink v-if="line.special" :to="line.url"
                 >{{ line.line }}
-              </a>
+              </NuxtLink>
               <span v-else>
                 {{ line.line }}
               </span>
+
               <br v-if="line.endLine" />
             </span>
           </div>
@@ -144,22 +144,23 @@ export default {
     const lines = linesAndFormatting;
     const currentIndex = ref(0);
     const delay = 300; // Delay in milliseconds
+
     function runTerminal() {
       if (currentIndex.value < lines.length) {
         if (linesAndFormatting[currentIndex.value].endLine) {
           setTimeout(() => {
             currentIndex.value++;
-            return runTerminal();
+            runTerminal();
           }, delay);
         } else {
           currentIndex.value++;
-          return runTerminal();
+          runTerminal();
         }
       }
     }
-    onMounted(() => {
-      runTerminal();
-    });
+
+    onMounted(runTerminal);
+
     return {
       lines,
       currentIndex,
