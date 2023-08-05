@@ -28,32 +28,32 @@
           <div
             id="project-settings"
             class="center flex h-full w-1/4 flex-col py-2 px-2 bg-[#cfd0d1] space-y-2 items-center dark:bg-[#374151] rounded-bl-lg">
-            <a href="https://github.com/EternalCodeTeam/" target="_blank">
+            <span>
               <Icon
                 name="octicon:git-branch"
                 class="mb-[3px] dark:text-slate-500"
                 s />
-            </a>
-            <a href="https://github.com/EternalCodeTeam/" target="_blank">
+            </span>
+            <span>
               <Icon
                 name="carbon:code-hide"
                 class="mb-[3px] dark:text-slate-500" />
-            </a>
-            <a href="https://github.com/EternalCodeTeam/" target="_blank">
+            </span>
+            <span>
               <Icon
                 name="teenyicons:git-commit-outline"
                 class="mb-[3px] dark:text-slate-500" />
-            </a>
-            <a href="https://github.com/EternalCodeTeam/" target="_blank">
+            </span>
+            <span>
               <Icon
                 name="ph:github-logo-fill"
                 class="mb-[4px] dark:text-slate-500" />
-            </a>
-            <a href="https://github.com/EternalCodeTeam/" target="_blank">
+            </span>
+            <span>
               <Icon
                 name="ic:sharp-more-vert"
                 class="mb-[3px] dark:text-slate-500" />
-            </a>
+            </span>
           </div>
           <div
             id="files"
@@ -115,9 +115,7 @@
                 { 'opacity-100': index <= currentIndex },
                 line.formatting,
               ]">
-              <NuxtLink
-                :to="line.url"
-                v-if="line.special"
+              <NuxtLink v-if="line.special" :to="line.url"
                 >{{ line.line }}
               </NuxtLink>
               <span v-else>
@@ -141,31 +139,32 @@ import { ref, onMounted } from "vue";
 import linesAndFormatting from "~/components/hero/terminal/text";
 
 export default {
-name: "Terminal",
-setup() {
-  const lines = linesAndFormatting;
-  const currentIndex = ref(0);
-  const delay = 300; // Delay in milliseconds
-  function runTerminal() {
-    if (currentIndex.value < lines.length) {
-      if (linesAndFormatting[currentIndex.value].endLine) {
-        setTimeout(() => {
+  name: "Terminal",
+  setup() {
+    const lines = linesAndFormatting;
+    const currentIndex = ref(0);
+    const delay = 300; // Delay in milliseconds
+
+    function runTerminal() {
+      if (currentIndex.value < lines.length) {
+        if (linesAndFormatting[currentIndex.value].endLine) {
+          setTimeout(() => {
+            currentIndex.value++;
+            runTerminal();
+          }, delay);
+        } else {
           currentIndex.value++;
-          return runTerminal();
-        }, delay);
-      } else {
-        currentIndex.value++;
-        return runTerminal();
+          runTerminal();
+        }
       }
     }
-  }
-  onMounted(() => {
-    runTerminal();
-  });
-  return {
-    lines,
-    currentIndex,
-  };
-},
+
+    onMounted(runTerminal);
+
+    return {
+      lines,
+      currentIndex,
+    };
+  },
 };
 </script>
