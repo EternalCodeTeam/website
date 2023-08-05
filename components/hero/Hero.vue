@@ -15,14 +15,14 @@
         </p>
         <div class="flex flex-col items-center justify-center pr-4 sm:flex-row md:p-0 lg:block">
           <NuxtLink :to="localePath('/#about')">
-            <button :aria-label="$t('firstButton') + ' button'" class="mb-2 mr-2 pr-5 py-2.5 text-left text-sm font-medium text-black dark:text-white">
+            <button :aria-label="`${$t('firstButton')} button`" class="mb-2 mr-2 pr-5 py-2.5 text-left text-sm font-medium text-black dark:text-white">
               <Icon name="material-symbols:arrow-forward" class="mb-[0.5px]" />
               {{ $t("firstButton") }}
             </button>
           </NuxtLink>
 
           <NuxtLink :to="localePath('/team')">
-            <button :aria-label="$t('secondButton') + ' button'" class="mb-2 mr-2 rounded-lg bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80">
+            <button :aria-label="`${$t('secondButton')} button`" class="mb-2 mr-2 rounded-lg bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80">
               <Icon name="material-symbols:groups" class="mb-[0.5px]" />
               {{ $t("secondButton") }}
             </button>
