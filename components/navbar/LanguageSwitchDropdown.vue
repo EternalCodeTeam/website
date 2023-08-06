@@ -6,7 +6,7 @@
       aria-haspopup="true"
       class="flex items-center justify-between w-full py-2 pl-3 pr-4 rounded-[12px] hover:bg-gray-100t md:border-0 md:p-0 md:w-auto dark:text-white dark:border-white"
       @click="isOpen = !isOpen"
-      @mouseover="isOpen = true">
+      @mouseover="isDesktop && (isOpen = true)">
       <Icon name="bi:translate" class="w-6 h-6 dark:text-white" />
       <Icon
         name="material-symbols:keyboard-arrow-down-rounded"
@@ -67,13 +67,16 @@ export default {
   data() {
     return {
       isOpen: false,
+      isDesktop: window.innerWidth >= 768,
     };
   },
   mounted() {
     document.addEventListener("click", this.handleClickOutside);
+    window.addEventListener("resize", this.handleResize);
   },
   beforeUnmount() {
     document.removeEventListener("click", this.handleClickOutside);
+    window.removeEventListener("resize", this.handleResize);
   },
   methods: {
     handleClickOutside(event: MouseEvent) {
@@ -88,6 +91,9 @@ export default {
     },
     setLanguage(language: string) {
       this.$i18n.locale = language;
+    },
+    handleResize() {
+      this.isDesktop = window.innerWidth >= 768;
     },
   },
 };

@@ -6,7 +6,7 @@
       aria-haspopup="true"
       class="flex items-center justify-between w-full py-2 pl-3 pr-4 rounded-[12px] hover:bg-gray-100t md:border-0 md:p-0 md:w-auto dark:text-white dark:border-white"
       @click="isOpen = !isOpen"
-      @mouseover="isOpen = true">
+      @mouseover="isDesktop && (isOpen = true)">
       {{ name }}
       <Icon
         name="material-symbols:keyboard-arrow-down-rounded"
@@ -61,7 +61,9 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   props: {
     name: {
       type: String,
@@ -71,16 +73,19 @@ export default {
   data() {
     return {
       isOpen: false,
+      isDesktop: window.innerWidth >= 768,
     };
   },
   mounted() {
     document.addEventListener("click", this.handleClickOutside);
+    window.addEventListener("resize", this.handleResize);
   },
   beforeUnmount() {
     document.removeEventListener("click", this.handleClickOutside);
+    window.removeEventListener("resize", this.handleResize);
   },
   methods: {
-    handleClickOutside(event: MouseEvent) {
+    handleClickOutside(event: MouseEvent): void {
       const dropdown = this.$refs.dropdown as HTMLElement;
       const target = event.target as HTMLElement;
       if (
@@ -90,6 +95,9 @@ export default {
         this.isOpen = false;
       }
     },
+    handleResize(): void {
+      this.isDesktop = window.innerWidth >= 768;
+    }
   },
-};
+});
 </script>
