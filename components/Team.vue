@@ -75,7 +75,7 @@ const teamMembers = [
   {
     name: "Krzysztof Haller",
     role: "Lead Team",
-    avatar: "https://avatars-githubusercontent.webp.se/u/60399586?v=4",
+    avatar: "https://avatars-githubusercontent.webp.se/u/60399586",
     github: "https://github.com/Hyd3r1/",
     linkedin: "https://www.linkedin.com/in/khallercom/",
   },
