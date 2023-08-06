@@ -121,7 +121,7 @@
               ]">
               <NuxtLink
                 v-if="line.special && line.locale !== false"
-                :to="localePath(line.url)"
+                :to="localePath(`${line.url}`)"
                 >{{ line.line }}</NuxtLink
               >
               <a v-else-if="line.special" :href="line.url" target="_blank">{{
@@ -139,10 +139,20 @@
     </div>
   </div>
 </template>
-<script>
+
+<script lang="ts">
 import { ref, onMounted } from "vue";
 
-const linesAndFormatting = [
+interface Line {
+  line: string;
+  formatting?: string;
+  special?: boolean;
+  locale?: boolean;
+  url?: string;
+  endLine: boolean;
+}
+
+const linesAndFormatting: Line[] = [
   {
     line: "> eternalcode --help",
     formatting: "dark:text-gray-100 text-black-300 text-sm",
@@ -245,9 +255,10 @@ const linesAndFormatting = [
 export default {
   name: "Terminal",
   setup() {
-    const lines = ref(linesAndFormatting);
+    const lines = ref<Line[]>(linesAndFormatting);
     const currentIndex = ref(0);
     const delay = 300; // Delay in milliseconds
+    const localePath = useLocalePath();
 
     function runTerminal() {
       if (
@@ -271,6 +282,7 @@ export default {
     return {
       lines,
       currentIndex,
+      localePath,
     };
   },
 };

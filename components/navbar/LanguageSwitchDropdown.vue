@@ -68,7 +68,7 @@ export default {
       isOpen: false,
     };
   },
-    mounted() {
+  mounted() {
     document.addEventListener("click", this.handleClickOutside);
   },
   beforeUnmount() {
@@ -88,6 +88,6 @@ export default {
     setLanguage(language: string) {
       this.$i18n.locale = language;
     },
-  }
+  },
 };
 </script>

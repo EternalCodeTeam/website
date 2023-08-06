@@ -96,13 +96,29 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
+import { ref, onMounted } from 'vue';
+
+interface Contributor {
+  login: string;
+  avatar_url: string;
+}
+
+interface Repo {
+  id: number;
+  name: string;
+  stargazers_count: number;
+  archived: boolean;
+  description: string;
+  contributors: Contributor[];
+}
+
 export default {
   setup() {
-    const filteredRepos = ref([]);
+    const filteredRepos = ref<Repo[]>([]);
 
     const fetchData = async () => {
-      const cachedData = localStorage.getItem("githubRepos");
+      const cachedData = localStorage.getItem('githubRepos');
       if (cachedData) {
         filteredRepos.value = JSON.parse(cachedData);
       }
@@ -114,12 +130,12 @@ export default {
 
       try {
         const response = await fetch(
-          "https://api.github.com/orgs/EternalCodeTeam/repos"
+          'https://api.github.com/orgs/EternalCodeTeam/repos'
         );
         const data = await response.json();
         filteredRepos.value = Array.isArray(data) ? data : [];
         localStorage.setItem(
-          "githubRepos",
+          'githubRepos',
           JSON.stringify(filteredRepos.value)
         );
 
@@ -129,22 +145,28 @@ export default {
           );
           const contributorsData = await contributorsResponse.json();
           repo.contributors = contributorsData
-            .filter((contributor) => !contributor.login.includes("bot"))
-            .map((contributor) => ({
+            .filter((contributor: Contributor) => !contributor.login.includes('bot'))
+            .map((contributor: Contributor) => ({
               login: contributor.login,
               avatar_url: contributor.avatar_url,
             }));
+          const repoResponse = await fetch(
+            `https://api.github.com/repos/EternalCodeTeam/${repo.name}`
+          );
+          const repoData = await repoResponse.json();
+          repo.id = repoData.id;
+          repo.description = repoData.description;
         }
       } catch (error) {
         console.error(error);
       }
 
       filteredRepos.value = filteredRepos.value
-        .filter((repo) => !repo.archived && repo.name !== ".github")
+        .filter((repo) => !repo.archived && repo.name !== '.github')
         .sort((a, b) => b.stargazers_count - a.stargazers_count);
     };
 
-    const getImageUrl = (repoName) =>
+    const getImageUrl = (repoName: string) =>
       `https://opengraph.githubassets.com/1/EternalCodeTeam/${repoName}`;
 
     onMounted(fetchData);

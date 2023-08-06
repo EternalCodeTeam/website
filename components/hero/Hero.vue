@@ -47,8 +47,10 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import PolygonRight from "~/components/hero/PolygonRight.vue";
 import PolygonLeft from "~/components/hero/PolygonLeft.vue";
 import Terminal from "~/components/hero/terminal/Terminal.vue";
+
+const localePath = useLocalePath();
 </script>

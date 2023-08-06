@@ -66,7 +66,7 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import SectionTitle from "~/components/section/SectionTitle.vue";
 
 export default {
