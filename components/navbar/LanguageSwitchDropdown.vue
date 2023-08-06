@@ -5,8 +5,6 @@
       :aria-expanded="isOpen ? 'true' : 'false'"
       aria-haspopup="true"
       class="flex items-center justify-between w-full py-2 pl-3 pr-4 rounded-[12px] hover:bg-gray-100t md:border-0 md:p-0 md:w-auto dark:text-white dark:border-white"
-      @mouseenter="isOpen = true"
-      @mouseleave="isOpen = false"
       @click="isOpen = !isOpen">
       <Icon name="bi:translate" class="w-6 h-6 dark:text-white" />
       <Icon
@@ -23,9 +21,7 @@
       v-if="isOpen"
       id="languageDropdown"
       class="z-10 absolute font-normal bg-white divide-y divide-gray-100 rounded-[12px] shadow w-16 dark:bg-[#161b22]"
-      role="menu"
-      @mouseenter="isOpen = true"
-      @mouseleave="isOpen = false">
+      role="menu">
       <ul
         aria-labelledby="languageDropdownButton"
         class="py-2 text-sm text-gray-700">
