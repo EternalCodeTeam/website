@@ -1,9 +1,7 @@
 <template>
   <section id="team">
     <div class="mx-auto max-w-screen-xl px-4 py-16">
-      <SectionTitle
-        title="Our Team"
-        description="EternalCodeTeam is a dedicated group of creative programmers who work on unique open source projects." />
+      <SectionTitle :title="$t('team.text')" :description="$t('team.text2')" />
 
       <div
         class="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

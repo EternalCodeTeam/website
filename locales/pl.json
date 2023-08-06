@@ -1,6 +1,6 @@
 {
   "welcome": "EternalCode.pl",
-  "subwelcome": "Jesteśmy zespołem tworzącym otwartoźródłowe projekty",
+  "subwelcome": "Jesteśmy zespołem tworzącym otwartoźródłowe projekty!",
   "firstButton": "Ruszajmy!",
   "secondButton": "Nasz zespół",
   "navbar": {
@@ -21,7 +21,7 @@
   },
   "faq": {
     "title": "Najczęściej zadawane pytania",
-    "text": "Tutaj znajdziesz odpowiedzi na najczęściej zadawane pytania",
+    "text": "Tutaj znajdziesz odpowiedzi na najczęściej zadawane pytania.",
     "answers": {
       "question1": {
         "question": "Co to jest EternalCodeTeam?",
@@ -29,7 +29,7 @@
       },
       "question2": {
         "question": "Jak mogę dołączyć do zespołu?",
-        "answer": "Możesz dołączyć do zespołu, kontaktując się z nami za pośrednictwem Discorda"
+        "answer": "Możesz dołączyć do zespołu, kontaktując się z nami za pośrednictwem Discorda."
       },
       "question3": {
         "question": "Jakie są korzyści z dołączenia do zespołu?",
@@ -43,11 +43,11 @@
   },
   "features": {
     "title": "Czym się zajmujemy?",
-    "text": "Poniżej znajdziesz informacje na temat tego, czym się zajmujemy na codzień",
+    "text": "Poniżej znajdziesz informacje na temat tego, czym się zajmujemy na codzień.",
     "texts": {
       "text1": {
         "title": "Java",
-        "text": " To zdecydowanie nasz ulubiony język programowania. Stworzyliśmy już wiele projektów w Javie!"
+        "text": " To zdecydowanie nasz ulubiony język programowania. Stworzyliśmy już wiele projektów w Javie."
       },
       "text2": {
         "title": "Linux",
@@ -55,9 +55,17 @@
       },
       "text3": {
         "title": "Inne technologie",
-        "text": "Jesteśmy otwarci na poznawanie nowych technologii i chętnie się ich uczymy!"
+        "text": "Jesteśmy otwarci na poznawanie nowych technologii i chętnie się ich uczymy."
       }
     }
+  },
+  "team": {
+    "text": "Nasz zespół!",
+    "text2": "EternalCodeTeam to oddana grupa kreatywnych programistów, którzy pracują nad unikalnymi projektami open source."
+  },
+  "projects": {
+    "text": "Nasze projekty",
+    "text2": "Poniżej znajdziesz listę naszych projektów."
   },
   "footer": {
     "team": "Team",

@@ -1,6 +1,6 @@
 {
   "welcome": "EternalCode.pl",
-  "subwelcome": "We are a team creating open source projects",
+  "subwelcome": "We are a team creating open source projects!",
   "firstButton": "Let's go!",
   "secondButton": "Meet our team!",
   "navbar": {
@@ -21,7 +21,7 @@
   },
   "faq": {
     "title": "Frequently Asked Questions",
-    "text": "Here you will find answers to the most frequently asked questions",
+    "text": "Here you will find answers to the most frequently asked questions.",
     "answers": {
       "question1": {
         "question": "What is EternalCodeTeam?",
@@ -29,7 +29,7 @@
       },
       "question2": {
         "question": "How can I join the team?",
-        "answer": "You can join the team by contacting us via Discord"
+        "answer": "You can join the team by contacting us via Discord."
       },
       "question3": {
         "question": "What are the benefits of joining the team?",
@@ -47,7 +47,7 @@
     "texts": {
       "text1": {
         "title": "Java",
-        "text": "Java is definitely our favorite programming language. We have already created many projects in Java!"
+        "text": "Java is definitely our favorite programming language. We have already created many projects in Java."
       },
       "text2": {
         "title": "Linux",
@@ -55,9 +55,17 @@
       },
       "text3": {
         "title": "Other technologies",
-        "text": "We are open to learning about new technologies and are eager to learn them!"
+        "text": "We are open to learning about new technologies and are eager to learn them."
       }
     }
+  },
+  "team": {
+    "text": "Our team!",
+    "text2": "EternalCodeTeam is a dedicated group of creative programmers who work on unique open source projects."
+  },
+  "projects": {
+    "text": "Our projects",
+    "text2": "Below you will find a list of our projects."
   },
   "footer": {
     "team": "Team",
