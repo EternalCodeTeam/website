@@ -97,7 +97,7 @@
 </template>
 
 <script lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
 
 interface Contributor {
   login: string;
@@ -118,7 +118,7 @@ export default {
     const filteredRepos = ref<Repo[]>([]);
 
     const fetchData = async () => {
-      const cachedData = localStorage.getItem('githubRepos');
+      const cachedData = localStorage.getItem("githubRepos");
       if (cachedData) {
         filteredRepos.value = JSON.parse(cachedData);
       }
@@ -130,12 +130,12 @@ export default {
 
       try {
         const response = await fetch(
-          'https://api.github.com/orgs/EternalCodeTeam/repos'
+          "https://api.github.com/orgs/EternalCodeTeam/repos"
         );
         const data = await response.json();
         filteredRepos.value = Array.isArray(data) ? data : [];
         localStorage.setItem(
-          'githubRepos',
+          "githubRepos",
           JSON.stringify(filteredRepos.value)
         );
 
@@ -145,7 +145,9 @@ export default {
           );
           const contributorsData = await contributorsResponse.json();
           repo.contributors = contributorsData
-            .filter((contributor: Contributor) => !contributor.login.includes('bot'))
+            .filter(
+              (contributor: Contributor) => !contributor.login.includes("bot")
+            )
             .map((contributor: Contributor) => ({
               login: contributor.login,
               avatar_url: contributor.avatar_url,
@@ -162,7 +164,7 @@ export default {
       }
 
       filteredRepos.value = filteredRepos.value
-        .filter((repo) => !repo.archived && repo.name !== '.github')
+        .filter((repo) => !repo.archived && repo.name !== ".github")
         .sort((a, b) => b.stargazers_count - a.stargazers_count);
     };
 
