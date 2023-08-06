@@ -5,6 +5,7 @@
       :aria-expanded="isOpen ? 'true' : 'false'"
       aria-haspopup="true"
       class="flex items-center justify-between w-full py-2 pl-3 pr-4 rounded-[12px] hover:bg-gray-100t md:border-0 md:p-0 md:w-auto dark:text-white dark:border-white"
+      @click="isOpen = !isOpen"
       @mouseover="isOpen = true">
       <Icon name="bi:translate" class="w-6 h-6 dark:text-white" />
       <Icon
@@ -80,7 +81,7 @@ export default {
       const target = event.target as HTMLElement;
       if (
         !dropdown.contains(target) &&
-        target.id !== "servicesDropdownButton"
+        target.id !== "languageDropdownButton"
       ) {
         this.isOpen = false;
       }
