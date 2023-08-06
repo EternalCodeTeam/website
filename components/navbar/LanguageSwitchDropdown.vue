@@ -5,7 +5,7 @@
       :aria-expanded="isOpen ? 'true' : 'false'"
       aria-haspopup="true"
       class="flex items-center justify-between w-full py-2 pl-3 pr-4 rounded-[12px] hover:bg-gray-100t md:border-0 md:p-0 md:w-auto dark:text-white dark:border-white"
-      @click="isOpen = !isOpen">
+      @mouseover="isOpen = true">
       <Icon name="bi:translate" class="w-6 h-6 dark:text-white" />
       <Icon
         name="material-symbols:keyboard-arrow-down-rounded"
@@ -21,7 +21,8 @@
       v-if="isOpen"
       id="languageDropdown"
       class="z-10 absolute font-normal bg-white divide-y divide-gray-100 rounded-[12px] shadow w-16 dark:bg-[#161b22]"
-      role="menu">
+      role="menu"
+      @mouseleave="isOpen = false">
       <ul
         aria-labelledby="languageDropdownButton"
         class="py-2 text-sm text-gray-700">
@@ -67,7 +68,7 @@ export default {
       isOpen: false,
     };
   },
-  mounted() {
+    mounted() {
     document.addEventListener("click", this.handleClickOutside);
   },
   beforeUnmount() {
@@ -79,7 +80,7 @@ export default {
       const target = event.target as HTMLElement;
       if (
         !dropdown.contains(target) &&
-        target.id !== "languageDropdownButton"
+        target.id !== "servicesDropdownButton"
       ) {
         this.isOpen = false;
       }
@@ -87,6 +88,6 @@ export default {
     setLanguage(language: string) {
       this.$i18n.locale = language;
     },
-  },
+  }
 };
 </script>
