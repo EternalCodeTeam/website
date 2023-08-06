@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section id="team">
     <div class="mx-auto max-w-screen-xl px-4 py-16">
       <SectionTitle
         title="Our Team"
@@ -16,7 +16,8 @@
           <NuxtImg
             class="mx-auto mb-4 w-36 h-36 rounded-full"
             :src="member.avatar"
-            :alt="`${member.name} Avatar`" />
+            :alt="`${member.name} Avatar`"
+            :title="member.nick ? member.nick : member.name" />
 
           <h3
             class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -66,7 +67,16 @@ const teamMembers = [
     linkedin: "https://www.linkedin.com/in/vlucky",
   },
   {
+    name: "Piotr Zych",
+    nick: "Piotrulla & Osnixer",
+    role: "Team Manager, Meeting Leader",
+    avatar: "https://avatars-githubusercontent.webp.se/u/77621271?v=4",
+    github: "https://github.com/Osnixer/",
+    linkedin: "https://www.linkedin.com/in/piotrulla/",
+  },
+  {
     name: "Norbert Dejlich",
+    nick: "Rollczi",
     role: "Lead Team & Meeting Leader",
     avatar: "https://avatars-githubusercontent.webp.se/u/49173834?v=4",
     github: "https://github.com/Rollczi/",
@@ -80,37 +90,36 @@ const teamMembers = [
     linkedin: "https://www.linkedin.com/in/khallercom/",
   },
   {
-    name: "Piotr Zych",
-    role: "Lead Team, Meeting Leader",
-    avatar: "https://avatars-githubusercontent.webp.se/u/77621271?v=4",
-    github: "https://github.com/Osnixer/",
-  },
-  {
     name: "Jakub",
+    nick: "Jakubk15",
     role: "Discord Moderator & Team Developer",
     avatar: "https://avatars-githubusercontent.webp.se/u/77227023?v=4",
     github: "https://github.com/Jakubk15",
   },
   {
     name: "Karol Dronia",
+    nick: "eripe14",
     role: "Team Developer",
     avatar: "https://avatars-githubusercontent.webp.se/u/80169196?v=4",
     github: "https://github.com/eripe14",
   },
   {
     name: "Kamil Jęczeń",
+    nick: "Kamicjusz",
     role: "Team Developer",
     avatar: "https://avatars-githubusercontent.webp.se/u/66566758?v=4",
     github: "https://github.com/Kamicjusz",
   },
   {
     name: "Michał Wojtas",
+    nick: "EMMA & CitrlaFlo",
     role: "Student & Team Analyst",
     avatar: "https://avatars-githubusercontent.webp.se/u/80779749?v=4",
     github: "https://github.com/Embrejs",
   },
   {
     name: "Igor",
+    nick: "igoyek",
     role: "Student",
     avatar: "https://avatars-githubusercontent.webp.se/u/65646893?v=4",
     github: "https://github.com/igoyek",

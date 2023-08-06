@@ -1,5 +1,5 @@
 <template>
-  <section class="py-14">
+  <section id="about" class="py-14">
     <div class="mx-auto max-w-screen-xl px-4 py-8">
       <div class="items-center gap-x-12 sm:px-4 md:px-0 lg:flex">
         <div class="flex-1 sm:hidden lg:block">

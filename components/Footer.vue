@@ -128,7 +128,7 @@
                   class="hover:underline"
                   aria-label="EternalCode Repository"
                   aria-hidden="true">
-                  Repository
+                  {{ $t("navbar.dropdown.repo") }}
                 </a>
               </li>
               <li class="mb-2">
@@ -137,7 +137,7 @@
                   class="hover:underline"
                   aria-label="EternalCode Documentations"
                   aria-hidden="true">
-                  Documentations
+                  {{ $t("navbar.dropdown.docs") }}
                 </a>
               </li>
               <li class="mb-2">
@@ -146,7 +146,7 @@
                   class="hover:underline"
                   aria-label="EternalCode Service Status"
                   aria-hidden="true">
-                  Service Status
+                  {{ $t("navbar.dropdown.status") }}
                 </a>
               </li>
               <li class="mb-2">
@@ -155,7 +155,7 @@
                   class="hover:underline"
                   aria-label="EternalCode Service Status"
                   aria-hidden="true">
-                  Plugin BStats
+                  BStats
                 </a>
               </li>
             </ul>

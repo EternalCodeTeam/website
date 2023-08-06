@@ -1,5 +1,5 @@
 <template>
-  <section id="faq" aria-label="Frequently Asked Questions">
+  <section id="faq" class="pt-8">
     <div class="mx-auto max-w-screen-xl px-4 py-8">
       <SectionTitle
         :title="$t('faq.title')"
@@ -7,7 +7,7 @@
         data-aos="fade-up"
         data-aos-duration="750" />
 
-      <div class="grid pt-8 text-left md:grid-cols-2 md:gap-16">
+      <div class="grid text-left md:grid-cols-2 md:gap-16">
         <div class="mb-10" data-aos="fade-up" data-aos-duration="800">
           <h3
             class="mb-4 flex text-lg font-medium text-gray-900 dark:text-white"
