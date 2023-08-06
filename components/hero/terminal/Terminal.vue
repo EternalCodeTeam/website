@@ -34,21 +34,25 @@
                 class="mb-[3px] dark:text-slate-500"
                 s />
             </span>
+
             <span>
               <Icon
                 name="carbon:code-hide"
                 class="mb-[3px] dark:text-slate-500" />
             </span>
+
             <span>
               <Icon
                 name="teenyicons:git-commit-outline"
                 class="mb-[3px] dark:text-slate-500" />
             </span>
+
             <span>
               <Icon
                 name="ph:github-logo-fill"
                 class="mb-[4px] dark:text-slate-500" />
             </span>
+
             <span>
               <Icon
                 name="ic:sharp-more-vert"
@@ -97,7 +101,7 @@
             </div>
           </div>
           <div
-            id="file-2-code "
+            id="file-2-code"
             class="min-h-80 inset-x-0 h-80 bg-[#e6e7e8] pl-2 dark:bg-[#1F2A37]">
             <span
               v-for="(line, index) in lines"
@@ -115,13 +119,15 @@
                 { 'opacity-100': index <= currentIndex },
                 line.formatting,
               ]">
-              <NuxtLink v-if="line.special" :to="line.url"
-                >{{ line.line }}
-              </NuxtLink>
-              <span v-else>
-                {{ line.line }}
-              </span>
-
+              <NuxtLink
+                v-if="line.special && line.locale !== false"
+                :to="localePath(line.url)"
+                >{{ line.line }}</NuxtLink
+              >
+              <a v-else-if="line.special" :href="line.url" target="_blank">{{
+                line.line
+              }}</a>
+              <span v-else>{{ line.line }}</span>
               <br v-if="line.endLine" />
             </span>
           </div>
@@ -133,33 +139,134 @@
     </div>
   </div>
 </template>
-
 <script>
 import { ref, onMounted } from "vue";
-import linesAndFormatting from "~/components/hero/terminal/text";
+
+const linesAndFormatting = [
+  {
+    line: "> eternalcode --help",
+    formatting: "dark:text-gray-100 text-black-300 text-sm",
+    endLine: true,
+  },
+  {
+    line: "",
+    endLine: true,
+  },
+  {
+    line: "Help requested!",
+    formatting: "text-slate-600 text-sm",
+    endLine: true,
+  },
+  {
+    line: "Try finding answers in our ",
+    formatting: "text-slate-600 text-sm",
+    endLine: false,
+  },
+  {
+    line: "documentation!",
+    formatting: "text-blue-500 text-sm",
+    special: true,
+    locale: false,
+    url: "https://docs.eternalcode.pl/",
+    endLine: true,
+  },
+  {
+    line: "",
+    endLine: true,
+  },
+  {
+    line: "> eternalcode --tree",
+    formatting: "dark:text-gray-100 text-black-300 text-sm",
+    endLine: true,
+  },
+  {
+    line: "",
+    endLine: true,
+  },
+  {
+    line: "├── 📁 ",
+    formatting: "text-slate-600 text-sm",
+    endLine: false,
+  },
+  {
+    line: "Home",
+    formatting: "text-blue-500 text-sm",
+    special: true,
+    locale: true,
+    url: "/",
+    endLine: true,
+  },
+  {
+    line: "│   ├── 📁 ",
+    formatting: "text-slate-600 text-sm",
+    endLine: false,
+  },
+  {
+    line: "Team",
+    formatting: "text-blue-500 text-sm",
+    special: true,
+    locale: true,
+    url: "/team",
+    endLine: true,
+  },
+  {
+    line: "│   ├── 📁 ",
+    formatting: "text-slate-600 text-sm",
+    endLine: false,
+  },
+  {
+    line: "Projects",
+    formatting: "text-blue-500 text-sm",
+    special: true,
+    locale: true,
+    url: "/projects",
+    endLine: true,
+  },
+  {
+    line: "├── 📁 FAQ",
+    formatting: "text-slate-600 text-sm",
+    endLine: true,
+  },
+  {
+    line: "│   │   ├── 📁 ",
+    formatting: "text-slate-600 text-sm",
+    endLine: false,
+  },
+  {
+    line: "Docs",
+    formatting: "text-blue-500 text-sm",
+    special: true,
+    locale: false,
+    url: "https://docs.eternalcode.pl/",
+    endLine: true,
+  },
+];
 
 export default {
   name: "Terminal",
   setup() {
-    const lines = linesAndFormatting;
+    const lines = ref(linesAndFormatting);
     const currentIndex = ref(0);
     const delay = 300; // Delay in milliseconds
 
     function runTerminal() {
-      if (currentIndex.value < lines.length) {
-        if (linesAndFormatting[currentIndex.value].endLine) {
-          setTimeout(() => {
-            currentIndex.value++;
-            runTerminal();
-          }, delay);
-        } else {
+      if (
+        currentIndex.value < lines.value.length &&
+        lines.value[currentIndex.value].endLine
+      ) {
+        setTimeout(() => {
           currentIndex.value++;
           runTerminal();
-        }
+        }, delay);
+      } else if (currentIndex.value < lines.value.length) {
+        currentIndex.value++;
+        runTerminal();
       }
     }
 
-    onMounted(runTerminal);
+    onMounted(() => {
+      runTerminal();
+    });
 
     return {
       lines,
