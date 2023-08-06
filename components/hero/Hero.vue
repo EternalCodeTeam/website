@@ -12,7 +12,7 @@
           {{ $t("welcome") }}
         </h1>
         <p
-          class="max-w-2xl mb-6 ml-[3px] font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400"
+          class="max-w-2xl text-center lg:text-left mb-6 ml-[3px] font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400"
           data-aos="fade-up"
           data-aos-duration="550">
           {{ $t("subwelcome") }}

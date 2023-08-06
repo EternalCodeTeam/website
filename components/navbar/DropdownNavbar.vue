@@ -85,7 +85,7 @@ export default {
       const target = event.target as HTMLElement;
       if (
         !dropdown.contains(target) &&
-        target.id !== "servicesDropdownButton"
+        !document.getElementById("servicesDropdownButton")?.contains(target)
       ) {
         this.isOpen = false;
       }

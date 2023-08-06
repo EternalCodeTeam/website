@@ -81,7 +81,7 @@ export default {
       const target = event.target as HTMLElement;
       if (
         !dropdown.contains(target) &&
-        target.id !== "languageDropdownButton"
+        !document.getElementById("languageDropdownButton")?.contains(target)
       ) {
         this.isOpen = false;
       }
