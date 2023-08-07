@@ -53,29 +53,7 @@
                 class="flex -space-x-4"
                 data-aos="fade-up"
                 data-aos-duration="700">
-                <a
-                  v-for="(contributor, index) in (
-                    repo.contributors || []
-                  ).slice(0, 5)"
-                  :key="index"
-                  :href="`https://github.com/${contributor.login}`"
-                  target="_blank"
-                  class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800 mx-auto flex items-center justify-center text-xs font-medium text-white bg-gray-700 hover:bg-gray-600 dark:border-gray-800"
-                  :title="contributor.login">
-                  <NuxtImg
-                    :alt="`${contributor.login} avatar`"
-                    :src="contributor.avatar_url"
-                    format="webp"
-                    class="w-full h-full rounded-full object-cover" />
-                </a>
-
-                <a
-                  v-if="repo.contributors && repo.contributors.length > 5"
-                  :href="`https://github.com/EternalCodeTeam/${repo.name}/graphs/contributors`"
-                  target="_blank"
-                  class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800 mx-auto flex items-center justify-center text-xs font-medium text-white bg-gray-700 hover:bg-gray-600 dark:border-gray-800">
-                  +{{ repo.contributors.length - 5 }}
-                </a>
+                <ProjectAvatarGroup :repo="repo" />
               </div>
             </div>
           </div>
@@ -97,8 +75,6 @@
 </template>
 
 <script lang="ts">
-import { ref, onMounted } from "vue";
-
 interface Contributor {
   login: string;
   avatar_url: string;
@@ -130,30 +106,30 @@ export default {
 
       try {
         const response = await fetch(
-          "https://api.github.com/orgs/EternalCodeTeam/repos"
+          "https://api.github.com/orgs/EternalCodeTeam/repos",
         );
         const data = await response.json();
         filteredRepos.value = Array.isArray(data) ? data : [];
         localStorage.setItem(
           "githubRepos",
-          JSON.stringify(filteredRepos.value)
+          JSON.stringify(filteredRepos.value),
         );
 
         for (const repo of filteredRepos.value) {
           const contributorsResponse = await fetch(
-            `https://api.github.com/repos/EternalCodeTeam/${repo.name}/contributors`
+            `https://api.github.com/repos/EternalCodeTeam/${repo.name}/contributors`,
           );
           const contributorsData = await contributorsResponse.json();
           repo.contributors = contributorsData
             .filter(
-              (contributor: Contributor) => !contributor.login.includes("bot")
+              (contributor: Contributor) => !contributor.login.includes("bot"),
             )
             .map((contributor: Contributor) => ({
               login: contributor.login,
               avatar_url: contributor.avatar_url,
             }));
           const repoResponse = await fetch(
-            `https://api.github.com/repos/EternalCodeTeam/${repo.name}`
+            `https://api.github.com/repos/EternalCodeTeam/${repo.name}`,
           );
           const repoData = await repoResponse.json();
           repo.id = repoData.id;

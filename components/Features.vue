@@ -65,13 +65,3 @@
     </div>
   </section>
 </template>
-
-<script lang="ts">
-import SectionTitle from "~/components/section/SectionTitle.vue";
-
-export default {
-  components: {
-    SectionTitle,
-  },
-};
-</script>
