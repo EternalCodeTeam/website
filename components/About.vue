@@ -5,7 +5,11 @@
         <div class="flex-1 sm:hidden lg:block">
           <NuxtImg
             src="https://i.imgur.com/CLmOMVd.png"
-            class="rounded-[12px] blur-[1px]"
+            class="rounded-[12px]"
+            foramt="webp"
+            width="1000"
+            height="500"
+            sizes="100vw"
             alt="about me presentation"
             data-aos="fade-up"
             data-aos-duration="450" />
