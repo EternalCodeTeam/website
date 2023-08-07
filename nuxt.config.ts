@@ -60,11 +60,4 @@ export default defineNuxtConfig({
       titleTemplate: "%pageTitle %titleSeparator %siteName",
     },
   },
-
-  // pwa
-  pwa: {
-    manifest: {
-      name: "EternalCode.pl",
-    },
-  },
 });
