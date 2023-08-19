@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section id="features">
     <div class="mx-auto max-w-screen-xl px-4 py-8">
       <SectionTitle
         :description="$t('features.text')"
@@ -17,9 +17,11 @@
             class="flex justify-center items-center center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
             <Icon name="logos:java" size="48" />
           </div>
+
           <h3 class="mb-2 text-xl font-bold dark:text-white">
             {{ $t("features.texts.text1.title") }}
           </h3>
+
           <p class="text-gray-500 dark:text-gray-400">
             {{ $t("features.texts.text1.text") }}
           </p>
@@ -63,13 +65,3 @@
     </div>
   </section>
 </template>
-
-<script>
-import SectionTitle from "~/components/section/SectionTitle.vue";
-
-export default {
-  components: {
-    SectionTitle,
-  },
-};
-</script>

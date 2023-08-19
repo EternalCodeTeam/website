@@ -5,7 +5,6 @@
   </header>
   <SeoKit />
   <OgImageScreenshot />
-  <OgImageStatic />
   <NuxtPage />
   <Footer />
 </template>

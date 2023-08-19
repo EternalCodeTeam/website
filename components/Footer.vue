@@ -29,8 +29,7 @@
                 <NuxtLink
                   :to="localePath('/#about')"
                   class="hover:underline"
-                  aria-label="About EternalCode"
-                  aria-hidden="true">
+                  aria-label="About EternalCode">
                   {{ $t("footer.about") }}
                 </NuxtLink>
               </li>
@@ -38,8 +37,7 @@
                 <NuxtLink
                   :to="localePath('/team')"
                   class="hover:underline"
-                  aria-label="EternalCode Team"
-                  aria-hidden="true">
+                  aria-label="EternalCode Team">
                   {{ $t("footer.team") }}
                 </NuxtLink>
               </li>
@@ -47,8 +45,7 @@
                 <NuxtLink
                   :to="localePath('/projects')"
                   class="hover:underline"
-                  aria-label="EternalCode Projects"
-                  aria-hidden="true">
+                  aria-label="EternalCode Projects">
                   {{ $t("footer.projects") }}
                 </NuxtLink>
               </li>
@@ -64,8 +61,7 @@
                 <a
                   href="https://github.com/EternalCodeTeam"
                   class="hover:underline"
-                  aria-label="EternalCode Github"
-                  aria-hidden="true">
+                  aria-label="EternalCode Github">
                   Github
                 </a>
               </li>
@@ -73,8 +69,7 @@
                 <a
                   href="https://discord.com/invite/FQ7jmGBd6c"
                   class="hover:underline"
-                  aria-label="EternalCode Discord"
-                  aria-hidden="true">
+                  aria-label="EternalCode Discord">
                   Discord
                 </a>
               </li>
@@ -82,8 +77,7 @@
                 <a
                   href="https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q"
                   class="hover:underline"
-                  aria-label="EternalCode Youtube"
-                  aria-hidden="true">
+                  aria-label="EternalCode Youtube">
                   Youtube
                 </a>
               </li>
@@ -91,8 +85,7 @@
                 <a
                   href="https://www.tiktok.com/@eternalcode.pl"
                   class="hover:underline"
-                  aria-label="EternalCode TikTok"
-                  aria-hidden="true">
+                  aria-label="EternalCode TikTok">
                   TikTok
                 </a>
               </li>
@@ -100,8 +93,7 @@
                 <a
                   href="https://www.spigotmc.org/resources/authors/eternalcodeteam.1570200/"
                   class="hover:underline"
-                  aria-label="EternalCode Spigot"
-                  aria-hidden="true">
+                  aria-label="EternalCode Spigot">
                   SpigotMC
                 </a>
               </li>
@@ -109,8 +101,7 @@
                 <a
                   href="https://modrinth.com/user/EternalCodeTeam"
                   class="hover:underline"
-                  aria-label="EternalCode Modrinth"
-                  aria-hidden="true">
+                  aria-label="EternalCode Modrinth">
                   Modrinth
                 </a>
               </li>
@@ -126,36 +117,32 @@
                 <a
                   href="https://repo.eternalcode.pl/#/"
                   class="hover:underline"
-                  aria-label="EternalCode Repository"
-                  aria-hidden="true">
-                  Repository
+                  aria-label="EternalCode Repository">
+                  {{ $t("navbar.dropdown.repo") }}
                 </a>
               </li>
               <li class="mb-2">
                 <a
                   href="https://docs.eternalcode.pl/"
                   class="hover:underline"
-                  aria-label="EternalCode Documentations"
-                  aria-hidden="true">
-                  Documentations
+                  aria-label="EternalCode Documentations">
+                  {{ $t("navbar.dropdown.docs") }}
                 </a>
               </li>
               <li class="mb-2">
                 <a
                   href="https://status.eternalcode.pl/"
                   class="hover:underline"
-                  aria-label="EternalCode Service Status"
-                  aria-hidden="true">
-                  Service Status
+                  aria-label="EternalCode Service Status">
+                  {{ $t("navbar.dropdown.status") }}
                 </a>
               </li>
               <li class="mb-2">
                 <a
                   href="https://bstats.org/author/vLucky"
                   class="hover:underline"
-                  aria-label="EternalCode Service Status"
-                  aria-hidden="true">
-                  Plugin BStats
+                  aria-label="EternalCode Service Status">
+                  BStats
                 </a>
               </li>
             </ul>
@@ -213,3 +200,7 @@
     </div>
   </footer>
 </template>
+
+<script setup lang="ts">
+const localePath = useLocalePath();
+</script>

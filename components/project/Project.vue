@@ -2,8 +2,9 @@
   <section id="projects">
     <div class="mx-auto max-w-screen-xl px-4 py-16">
       <SectionTitle
-        description="Discover our open source projects!"
-        title="Our Projects" />
+        :title="$t('projects.text')"
+        :description="$t('projects.text2')" />
+
       <div class="mt-8 space-y-8 lg:mt-12 lg:alternate">
         <div
           v-for="repo in filteredRepos"
@@ -52,29 +53,7 @@
                 class="flex -space-x-4"
                 data-aos="fade-up"
                 data-aos-duration="700">
-                <a
-                  v-for="(contributor, index) in (
-                    repo.contributors || []
-                  ).slice(0, 5)"
-                  :key="index"
-                  :href="`https://github.com/${contributor.login}`"
-                  target="_blank"
-                  class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800 mx-auto flex items-center justify-center text-xs font-medium text-white bg-gray-700 hover:bg-gray-600 dark:border-gray-800"
-                  :title="contributor.login">
-                  <NuxtImg
-                    :alt="`${contributor.login} avatar`"
-                    :src="contributor.avatar_url"
-                    format="webp"
-                    class="w-full h-full rounded-full object-cover" />
-                </a>
-
-                <a
-                  v-if="repo.contributors && repo.contributors.length > 5"
-                  :href="`https://github.com/EternalCodeTeam/${repo.name}/graphs/contributors`"
-                  target="_blank"
-                  class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800 mx-auto flex items-center justify-center text-xs font-medium text-white bg-gray-700 hover:bg-gray-600 dark:border-gray-800">
-                  +{{ repo.contributors.length - 5 }}
-                </a>
+                <ProjectAvatarGroup :repo="repo" />
               </div>
             </div>
           </div>
@@ -95,10 +74,24 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
+interface Contributor {
+  login: string;
+  avatar_url: string;
+}
+
+interface Repo {
+  id: number;
+  name: string;
+  stargazers_count: number;
+  archived: boolean;
+  description: string;
+  contributors: Contributor[];
+}
+
 export default {
   setup() {
-    const filteredRepos = ref([]);
+    const filteredRepos = ref<Repo[]>([]);
 
     const fetchData = async () => {
       const cachedData = localStorage.getItem("githubRepos");
@@ -113,26 +106,34 @@ export default {
 
       try {
         const response = await fetch(
-          "https://api.github.com/orgs/EternalCodeTeam/repos"
+          "https://api.github.com/orgs/EternalCodeTeam/repos",
         );
         const data = await response.json();
         filteredRepos.value = Array.isArray(data) ? data : [];
         localStorage.setItem(
           "githubRepos",
-          JSON.stringify(filteredRepos.value)
+          JSON.stringify(filteredRepos.value),
         );
 
         for (const repo of filteredRepos.value) {
           const contributorsResponse = await fetch(
-            `https://api.github.com/repos/EternalCodeTeam/${repo.name}/contributors`
+            `https://api.github.com/repos/EternalCodeTeam/${repo.name}/contributors`,
           );
           const contributorsData = await contributorsResponse.json();
           repo.contributors = contributorsData
-            .filter((contributor) => !contributor.login.includes("bot"))
-            .map((contributor) => ({
+            .filter(
+              (contributor: Contributor) => !contributor.login.includes("bot"),
+            )
+            .map((contributor: Contributor) => ({
               login: contributor.login,
               avatar_url: contributor.avatar_url,
             }));
+          const repoResponse = await fetch(
+            `https://api.github.com/repos/EternalCodeTeam/${repo.name}`,
+          );
+          const repoData = await repoResponse.json();
+          repo.id = repoData.id;
+          repo.description = repoData.description;
         }
       } catch (error) {
         console.error(error);
@@ -143,7 +144,7 @@ export default {
         .sort((a, b) => b.stargazers_count - a.stargazers_count);
     };
 
-    const getImageUrl = (repoName) =>
+    const getImageUrl = (repoName: string) =>
       `https://opengraph.githubassets.com/1/EternalCodeTeam/${repoName}`;
 
     onMounted(fetchData);

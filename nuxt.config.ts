@@ -6,7 +6,6 @@ export default defineNuxtConfig({
   modules: [
     "@nuxt/devtools",
     "@nuxtjs/tailwindcss",
-    "@vite-pwa/nuxt",
     "@nuxt/image-edge",
     "@nuxtjs/i18n",
     "nuxt-icon",
@@ -59,13 +58,6 @@ export default defineNuxtConfig({
   app: {
     head: {
       titleTemplate: "%pageTitle %titleSeparator %siteName",
-    },
-  },
-
-  // pwa
-  pwa: {
-    manifest: {
-      name: "EternalCode.pl",
     },
   },
 });
