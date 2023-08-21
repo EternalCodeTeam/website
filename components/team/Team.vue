@@ -95,5 +95,11 @@ const teamMembers = [
     avatar: "https://avatars-githubusercontent.webp.se/u/65646893",
     github: "https://github.com/igoyek",
   },
+  {
+    name: "DMK",
+    role: "Student",
+    avatar: "https://avatars-githubusercontent.webp.se/u/81445555",
+    github: "https://github.com/imDMK",
+  },
 ];
 </script>
