@@ -100,6 +100,7 @@ const teamMembers = [
     role: "Student",
     avatar: "https://avatars-githubusercontent.webp.se/u/81445555",
     github: "https://github.com/imDMK",
+    linkedin: "https://www.linkedin.com/in/dominik-s-7b8a91286",
   },
 ];
 </script>
