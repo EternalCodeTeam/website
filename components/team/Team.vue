@@ -42,7 +42,7 @@ const teamMembers = [
     nick: "Piotrulla & Osnixer",
     role: "Team Manager, Meeting Leader",
     avatar: "https://avatars-githubusercontent.webp.se/u/77621271",
-    github: "https://github.com/Osnixer/",
+    github: "https://github.com/P1otrulla/",
     linkedin: "https://www.linkedin.com/in/piotrulla/",
   },
   {
