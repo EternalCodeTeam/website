@@ -9,6 +9,8 @@ export default defineNuxtConfig({
     "@nuxt/image-edge",
     "@nuxtjs/i18n",
     "nuxt-icon",
+    "@formkit/auto-animate/nuxt",
+    "@nuxt/image"
   ],
   extends: ["nuxt-seo-kit"],
 
