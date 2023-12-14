@@ -115,11 +115,18 @@ export default {
           JSON.stringify(filteredRepos.value),
         );
 
-        for (const repo of filteredRepos.value) {
-          const contributorsResponse = await fetch(
+        const fetchDataPromises = filteredRepos.value.map(async (repo) => {
+          const contributorsResponse = fetch(
             `https://api.github.com/repos/EternalCodeTeam/${repo.name}/contributors`,
           );
-          const contributorsData = await contributorsResponse.json();
+          const repoResponse = fetch(
+            `https://api.github.com/repos/EternalCodeTeam/${repo.name}`,
+          );
+          const [contributorsData, repoData] = await Promise.all([
+            (await contributorsResponse).json(),
+            (await repoResponse).json(),
+          ]);
+
           repo.contributors = contributorsData
             .filter(
               (contributor: Contributor) => !contributor.login.includes("bot"),
@@ -128,13 +135,12 @@ export default {
               login: contributor.login,
               avatar_url: contributor.avatar_url,
             }));
-          const repoResponse = await fetch(
-            `https://api.github.com/repos/EternalCodeTeam/${repo.name}`,
-          );
-          const repoData = await repoResponse.json();
+
           repo.id = repoData.id;
           repo.description = repoData.description;
-        }
+        });
+
+        await Promise.all(fetchDataPromises);
       } catch (error) {
         console.error(error);
       }
