@@ -68,25 +68,18 @@ const teamMembers = [
     github: "https://github.com/Jakubk15",
   },
   {
-    name: "Karol Dronia",
-    nick: "eripe14",
-    role: "Team Developer",
-    avatar: "https://avatars-githubusercontent.webp.se/u/80169196",
-    github: "https://github.com/eripe14",
-  },
-  {
-    name: "Kamil Jęczeń",
-    nick: "Kamicjusz",
-    role: "Team Developer",
-    avatar: "https://avatars-githubusercontent.webp.se/u/66566758",
-    github: "https://github.com/Kamicjusz",
-  },
-  {
     name: "Michał Wojtas",
     nick: "EMMA & CitrlaFlo",
-    role: "Student & Team Analyst",
+    role: "Team Developer & Team Analyst",
     avatar: "https://avatars-githubusercontent.webp.se/u/80779749",
     github: "https://github.com/Embrejs",
+  },
+  {
+    name: "DMK",
+    role: "Team Developer",
+    avatar: "https://avatars-githubusercontent.webp.se/u/81445555",
+    github: "https://github.com/imDMK",
+    linkedin: "https://www.linkedin.com/in/dominik-s-7b8a91286",
   },
   {
     name: "Igor",
@@ -96,11 +89,28 @@ const teamMembers = [
     github: "https://github.com/igoyek",
   },
   {
-    name: "DMK",
+    name: "Crispi",
     role: "Student",
-    avatar: "https://avatars-githubusercontent.webp.se/u/81445555",
-    github: "https://github.com/imDMK",
-    linkedin: "https://www.linkedin.com/in/dominik-s-7b8a91286",
+    avatar: "https://avatars-githubusercontent.webp.se/u/52218342",
+    github: "https://github.com/Kryspek",
   },
+  {
+    name: "VerniQ",
+    role: "Student",
+    avatar: "https://avatars-githubusercontent.webp.se/u/81250751",
+    github: "https://github.com/VerniQ",
+  },
+  {
+    name: "Chudy",
+    role: "Student",
+    avatar: "https://avatars-githubusercontent.webp.se/u/111442524",
+    github: "https://github.com/ChudziudgiToJa",
+  },
+  {
+    name: "Kazaruma",
+    role: "Student",
+    avatar: "https://avatars-githubusercontent.webp.se/u/117529786",
+    github: "https://github.com/Kazaruma",
+  }
 ];
 </script>
