@@ -6,11 +6,9 @@ export default defineNuxtConfig({
   modules: [
     "@nuxt/devtools",
     "@nuxtjs/tailwindcss",
-    "@nuxt/image-edge",
     "@nuxtjs/i18n",
     "nuxt-icon",
-    "@formkit/auto-animate/nuxt",
-    "@nuxt/image"
+    "@nuxt/image",
   ],
   extends: ["nuxt-seo-kit"],
 
