@@ -9,8 +9,9 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxtjs/i18n",
     "nuxt-icon",
+    "nuxt-simple-sitemap",
+    "nuxt-simple-robots",
   ],
-  extends: ["nuxt-seo-kit"],
 
   plugins: [{ src: "~/plugins/aos", mode: "client" }],
 
