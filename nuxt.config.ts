@@ -10,7 +10,6 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
     "nuxt-icon",
   ],
-  extends: ["nuxt-seo-kit"],
 
   plugins: [{ src: "~/plugins/aos", mode: "client" }],
 
@@ -55,11 +54,13 @@ export default defineNuxtConfig({
     seoOptimise: true,
   },
 
+  linkChecker: {
+    trailingSlash: false,
+  },
+
   app: {
     head: {
-      titleTemplate: "%pageTitle %titleSeparator %siteName",
-      charset: "utf-8",
-      viewport: "width=device-width, initial-scale=1",
+      titleTemplate: "%s %separator %siteName",
     },
   },
 });
