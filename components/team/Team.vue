@@ -111,6 +111,6 @@ const teamMembers = [
     role: "Student",
     avatar: "https://avatars-githubusercontent.webp.se/u/117529786",
     github: "https://github.com/Kazaruma",
-  }
+  },
 ];
 </script>
