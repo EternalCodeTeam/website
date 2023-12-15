@@ -3,8 +3,6 @@
     <Navbar />
     <Hero />
   </header>
-  <SeoKit />
-  <OgImageScreenshot />
   <NuxtPage />
   <Footer />
 </template>
