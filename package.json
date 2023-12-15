@@ -35,7 +35,7 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "@nuxt/image-edge": "1.0.0-rc.1-28205905.cb96767",
+    "@nuxt/image": "^1.1.0",
     "@tailwindcss/container-queries": "^0.1.1",
     "aos": "^2.3.4",
     "flowbite": "^2.2.0"

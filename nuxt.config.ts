@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   modules: [
     "@nuxt/devtools",
     "@nuxtjs/tailwindcss",
-    "@nuxt/image-edge",
+    "@nuxt/image",
     "@nuxtjs/i18n",
     "nuxt-icon",
   ],
