@@ -55,6 +55,10 @@ export default defineNuxtConfig({
     seoOptimise: true,
   },
 
+  linkChecker: {
+    trailingSlash: false,
+  },
+
   app: {
     head: {
       titleTemplate: "%pageTitle %titleSeparator %siteName",
