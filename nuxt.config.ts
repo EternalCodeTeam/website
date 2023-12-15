@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxtjs/i18n",
     "nuxt-icon",
-    "@nuxtseo/modules"
+    "@nuxtseo/module",
   ],
 
   plugins: [{ src: "~/plugins/aos", mode: "client" }],
