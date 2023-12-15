@@ -1,17 +1,4 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>nuxt/renovate-config-nuxt"],
-  "groupName": "all dependencies",
-  "groupSlug": "all",
-  "lockFileMaintenance": {
-    "enabled": false
-  },
-  "packageRules": [
-    {
-      "groupName": "all dependencies",
-      "groupSlug": "all",
-      "matchPackagePatterns": ["*"]
-    }
-  ],
-  "separateMajorMinor": false
+  "extends": ["github>nuxt/renovate-config-nuxt"]
 }
