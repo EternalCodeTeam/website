@@ -38,6 +38,6 @@
     "@nuxt/image-edge": "1.0.0-rc.1-28205905.cb96767",
     "@tailwindcss/container-queries": "^0.1.1",
     "aos": "^2.3.4",
-    "flowbite": "^1.8.1"
+    "flowbite": "^2.2.0"
   }
 }
