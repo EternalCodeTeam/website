@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   ssr: true,
 
-  css: ["~/assets/css/main.css"],
+  css: ["~/assets/css/main.css", "~/assets/css/loading.css"],
 
   modules: [
     "@nuxt/devtools",
@@ -60,6 +60,11 @@ export default defineNuxtConfig({
   },
 
   app: {
+    pageTransition: {
+      name: "page",
+      mode: "in-out",
+    },
+
     head: {
       titleTemplate: "%s %separator %siteName",
     },
