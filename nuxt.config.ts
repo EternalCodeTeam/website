@@ -9,8 +9,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxtjs/i18n",
     "nuxt-icon",
-    "nuxt-simple-sitemap",
-    "nuxt-simple-robots",
+    "@nuxtseo/module",
   ],
 
   plugins: [{ src: "~/plugins/aos", mode: "client" }],
@@ -62,7 +61,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      titleTemplate: "%pageTitle %titleSeparator %siteName",
+      titleTemplate: "%s %separator %siteName",
     },
   },
 });
