@@ -86,7 +86,6 @@ interface Repo {
   stargazers_count: number;
   archived: boolean;
   description: string;
-  contributors: Contributor[];
 }
 
 export default {
@@ -95,14 +94,13 @@ export default {
 
     const fetchData = async () => {
       const cachedData = localStorage.getItem("githubRepos");
+
       if (cachedData) {
         filteredRepos.value = JSON.parse(cachedData);
       }
 
-      filteredRepos.value = filteredRepos.value.map((repo) => ({
-        ...repo,
-        contributors: [],
-      }));
+      filteredRepos.value = filteredRepos.value.map((repo) => (
+        { ...repo }));
 
       try {
         const response = await fetch(
@@ -116,28 +114,17 @@ export default {
         );
 
         const fetchDataPromises = filteredRepos.value.map(async (repo) => {
-          const contributorsResponse = fetch(
-            `https://api.github.com/repos/EternalCodeTeam/${repo.name}/contributors`,
-          );
           const repoResponse = fetch(
             `https://api.github.com/repos/EternalCodeTeam/${repo.name}`,
           );
-          const [contributorsData, repoData] = await Promise.all([
-            (await contributorsResponse).json(),
+
+          const [repoData] = await Promise.all([
             (await repoResponse).json(),
           ]);
 
-          repo.contributors = contributorsData
-            .filter(
-              (contributor: Contributor) => !contributor.login.includes("bot"),
-            )
-            .map((contributor: Contributor) => ({
-              login: contributor.login,
-              avatar_url: contributor.avatar_url,
-            }));
-
           repo.id = repoData.id;
           repo.description = repoData.description;
+
         });
 
         await Promise.all(fetchDataPromises);
