@@ -75,11 +75,6 @@
 </template>
 
 <script lang="ts">
-interface Contributor {
-  login: string;
-  avatar_url: string;
-}
-
 interface Repo {
   id: number;
   name: string;
