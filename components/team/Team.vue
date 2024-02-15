@@ -6,8 +6,8 @@
       <div
         class="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <TeamMember
-          v-for="(member, index) in teamMembers.data"
-          :key="index"
+          v-for="(member, index) in fetchResult.data"
+          :key="member.id"
           :member="member.attributes"
           :index="index" />
       </div>
@@ -18,18 +18,12 @@
 <script setup lang="ts">
 import TeamMember from "~/components/team/TeamMember.vue";
 
-const { ETERNALCODE_STRAPI_URL } = import.meta.env;
-const { ETERNALCODE_STRAPI_KEY } = import.meta.env;
+const config = useRuntimeConfig()
 
-const { data: teamMembers, error } = await useAsyncData("team-members", () =>
-  $fetch(ETERNALCODE_STRAPI_URL + "/api/team-members", {
-    headers: {
-      Authorization: `Bearer ${ETERNALCODE_STRAPI_KEY}`,
-    },
-  }),
-);
+const fetchResult = await $fetch(config.strapiUrl + "/api/team-members?populate=*", {
+  headers: {
+    Authorization: `Bearer ${config.strapiKey}`,
+  },
+});
 
-if (error.value) {
-  console.error("Error while fetching team members: ", error.value);
-}
 </script>

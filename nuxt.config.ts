@@ -49,6 +49,9 @@ export default defineNuxtConfig({
       titleSeparator: "|",
       trailingSlash: true,
     },
+
+    strapiKey: process.env.NUXT_ETERNALCODE_STRAPI_KEY,
+    strapiUrl: process.env.NUXT_ETERNALCODE_STRAPI_URL,
   },
 
   unhead: {

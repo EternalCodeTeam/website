@@ -5,16 +5,18 @@
     :data-aos-duration="`${index * 100 + 300}`">
     <NuxtImg
       class="mx-auto mb-4 w-36 h-36 rounded-full"
-      :src="member.avatar"
+      :src="member.avatar_url"
       :alt="`${member.name} Avatar`"
-      :title="member.nick ? member.nick : member.name" />
+      :title="member.name" />
 
     <h3
       class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
       <p>{{ member.name }}</p>
     </h3>
 
-    <p>{{ member.role }}</p>
+    <p v-for="(role, roleIndex) in member.team_roles.data" :key="roleIndex">
+      {{ role.attributes.name }}
+    </p>
 
     <ul class="flex justify-center mt-4 space-x-4">
       <li v-if="member.github">
