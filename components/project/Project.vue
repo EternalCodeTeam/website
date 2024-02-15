@@ -94,8 +94,7 @@ export default {
         filteredRepos.value = JSON.parse(cachedData);
       }
 
-      filteredRepos.value = filteredRepos.value.map((repo) => (
-        { ...repo }));
+      filteredRepos.value = filteredRepos.value.map((repo) => ({ ...repo }));
 
       try {
         const response = await fetch(
@@ -113,13 +112,10 @@ export default {
             `https://api.github.com/repos/EternalCodeTeam/${repo.name}`,
           );
 
-          const [repoData] = await Promise.all([
-            (await repoResponse).json(),
-          ]);
+          const [repoData] = await Promise.all([(await repoResponse).json()]);
 
           repo.id = repoData.id;
           repo.description = repoData.description;
-
         });
 
         await Promise.all(fetchDataPromises);
