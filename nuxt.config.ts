@@ -49,12 +49,12 @@ export default defineNuxtConfig({
       titleSeparator: "|",
       trailingSlash: true,
 
-      strapiKey: process.env.NUXT_PUBLIC_ETERNALCODE_STRAPI_KEY,
-      strapiUrl: process.env.NUXT_PUBLIC_ETERNALCODE_STRAPI_URL,
+      ETERNALCODE_STRAPI_KEY: "",
+      ETERNALCODE_STRAPI_URL: "",
     },
 
-    strapiKey: process.env.NUXT_PUBLIC_ETERNALCODE_STRAPI_KEY,
-    strapiUrl: process.env.NUXT_PUBLIC_ETERNALCODE_STRAPI_URL,
+    ETERNALCODE_STRAPI_KEY: "",
+    ETERNALCODE_STRAPI_URL: "",
   },
 
   unhead: {

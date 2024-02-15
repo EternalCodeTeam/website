@@ -21,10 +21,10 @@ import TeamMember from "~/components/team/TeamMember.vue";
 const config = useRuntimeConfig();
 
 const fetchResult = await $fetch(
-  config.strapiUrl + "/api/team-members?populate=*",
+  config.ETERNALCODE_STRAPI_URL + "/api/team-members?populate=*",
   {
     headers: {
-      Authorization: `Bearer ${config.strapiKey}`,
+      Authorization: `Bearer ${config.ETERNALCODE_STRAPI_KEY}`,
     },
   },
 );
