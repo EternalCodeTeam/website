@@ -48,10 +48,10 @@ export default defineNuxtConfig({
       siteDescription: "EternalCode.pl - Open source projects team",
       titleSeparator: "|",
       trailingSlash: true,
-    },
 
-    strapiKey: process.env.NUXT_ETERNALCODE_STRAPI_KEY,
-    strapiUrl: process.env.NUXT_ETERNALCODE_STRAPI_URL,
+      strapiKey: process.env.NUXT_PUBLIC_ETERNALCODE_STRAPI_KEY,
+      strapiUrl: process.env.NUXT_PUBLIC_ETERNALCODE_STRAPI_URL,
+    },
   },
 
   unhead: {
