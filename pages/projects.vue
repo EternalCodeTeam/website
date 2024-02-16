@@ -11,7 +11,7 @@ useSeoMeta({
   twitterTitle: "EternalCode.pl",
   twitterDescription: "We are a team creating open source projects!",
   twitterImage: "/assets/img/logo-white-background.webp",
-  twitterCard: "We are a team creating open source projects!",
+  twitterCard: "summary",
 });
 
 useHead({

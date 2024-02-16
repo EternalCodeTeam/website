@@ -49,10 +49,12 @@ export default defineNuxtConfig({
       titleSeparator: "|",
       trailingSlash: true,
     },
-  },
 
-  unhead: {
-    seoOptimise: true,
+    ETERNALCODE_STRAPI_KEY:
+      "" || process.env.NUXT_PUBLIC_ETERNALCODE_STRAPI_KEY,
+
+    ETERNALCODE_STRAPI_URL:
+      "" || process.env.NUXT_PUBLIC_ETERNALCODE_STRAPI_URL,
   },
 
   linkChecker: {
