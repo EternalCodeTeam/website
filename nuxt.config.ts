@@ -50,14 +50,11 @@ export default defineNuxtConfig({
       trailingSlash: true,
     },
 
-    private: {
-      ETERNALCODE_STRAPI_KEY: process.env.ETERNALCODE_STRAPI_KEY,
-      ETERNALCODE_STRAPI_URL: process.env.ETERNALCODE_STRAPI_URL,
-    },
-  },
+    ETERNALCODE_STRAPI_KEY:
+      "" || process.env.NUXT_PUBLIC_ETERNALCODE_STRAPI_KEY,
 
-  unhead: {
-    seoOptimise: true,
+    ETERNALCODE_STRAPI_URL:
+      "" || process.env.NUXT_PUBLIC_ETERNALCODE_STRAPI_URL,
   },
 
   linkChecker: {

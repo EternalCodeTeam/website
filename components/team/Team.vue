@@ -17,15 +17,5 @@
 
 <script setup lang="ts">
 import TeamMember from "~/components/team/TeamMember.vue";
-
-const config = useRuntimeConfig();
-
-const fetchResult = await $fetch(
-  config.ETERNALCODE_STRAPI_URL + "/api/team-members?populate=*",
-  {
-    headers: {
-      Authorization: `Bearer ${config.ETERNALCODE_STRAPI_KEY}`,
-    },
-  },
-);
+const fetchResult = await $fetch("/api/members");
 </script>
