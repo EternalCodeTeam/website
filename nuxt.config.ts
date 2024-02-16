@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     "nuxt-icon",
     "@nuxtseo/module",
     "@nuxtjs/fontaine",
+    "@nuxtjs/critters",
   ],
 
   plugins: [{ src: "~/plugins/aos", mode: "client" }],
