@@ -35,8 +35,8 @@ devDependencies:
     specifier: ^0.4.1
     version: 0.4.1(rollup@4.11.0)
   '@nuxtjs/i18n':
-    specifier: 8.0.0-rc.11
-    version: 8.0.0-rc.11(rollup@4.11.0)(vue@3.4.19)
+    specifier: 8.1.1
+    version: 8.1.1(rollup@4.11.0)(vue@3.4.19)
   '@nuxtjs/tailwindcss':
     specifier: ^6.11.4
     version: 6.11.4(rollup@4.11.0)
@@ -1508,8 +1508,8 @@ packages:
     engines: {node: '>= 16'}
     dev: true
 
-  /@intlify/unplugin-vue-i18n@1.6.0(rollup@4.11.0)(vue-i18n@9.9.1):
-    resolution: {integrity: sha512-IGeFNWxdEvB12E/3Y/+nmIsGeTg5okPsK1XEtUUD/DdkHbVqUbJucMpHKeHF8Px55Qca551pQCs/g+VjNUt6KA==}
+  /@intlify/unplugin-vue-i18n@2.0.0(rollup@4.11.0)(vue-i18n@9.9.1):
+    resolution: {integrity: sha512-1oKvm92L9l2od2H9wKx2ZvR4tzn7gUtd7bPLI7AWUmm7U9H1iEypndt5d985ypxGsEs0gToDaKTrytbBIJwwSg==}
     engines: {node: '>= 14.16'}
     peerDependencies:
       petite-vue-i18n: '*'
@@ -1544,45 +1544,6 @@ packages:
   /@intlify/utils@0.12.0:
     resolution: {integrity: sha512-yCBNcuZQ49iInqmWC2xfW0rgEQyNtCM8C8KcWKTXxyscgUE1+48gjLgZZqP75MjhlApxwph7ZMWLqyABkSgxQA==}
     engines: {node: '>= 18'}
-    dev: true
-
-  /@intlify/vue-i18n-bridge@1.1.0(vue-i18n@9.9.1):
-    resolution: {integrity: sha512-yBwGpr70Rc56pjsPdtvNRi/ju0P9h3670EkCOuxAzKKR5OH61uF9LprLUGmph/Uy2TXBO2DKqpnJBFXyXJQKeg==}
-    engines: {node: '>= 12'}
-    hasBin: true
-    requiresBuild: true
-    peerDependencies:
-      '@vue/composition-api': ^1.0.0-rc.1
-      vue-i18n: ^8.26.1 || >=9.2.0
-      vue-i18n-bridge: '>=9.2.0'
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
-      vue-i18n:
-        optional: true
-      vue-i18n-bridge:
-        optional: true
-    dependencies:
-      vue-i18n: 9.9.1(vue@3.4.19)
-    dev: true
-
-  /@intlify/vue-router-bridge@1.1.0(vue@3.4.19):
-    resolution: {integrity: sha512-EX+KndT9VS3muMdZWFmc99D8nUaWTOXr322a8zNf5HnMCbpbogdifWYW8hat+nVE73St/gcDbPz6u5smVUPoQg==}
-    engines: {node: '>= 12'}
-    hasBin: true
-    requiresBuild: true
-    peerDependencies:
-      '@vue/composition-api': ^1.0.0-rc.1
-      vue-router: ^4.0.0-0 || ^3.0.0
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
-      vue-router:
-        optional: true
-    dependencies:
-      vue-demi: 0.14.7(vue@3.4.19)
-    transitivePeerDependencies:
-      - vue
     dev: true
 
   /@ioredis/commands@1.2.0:
@@ -2361,13 +2322,13 @@ packages:
       - supports-color
     dev: true
 
-  /@nuxtjs/i18n@8.0.0-rc.11(rollup@4.11.0)(vue@3.4.19):
-    resolution: {integrity: sha512-+jR96NgUXwZi/5WKxomnjTyoWGlrbTgYWHO3/w5byH2fIZo2txFoZDaxcht0UpvcbWApgd777uTxEK3OL242ng==}
+  /@nuxtjs/i18n@8.1.1(rollup@4.11.0)(vue@3.4.19):
+    resolution: {integrity: sha512-woq2gdXv+soVRc2yeE2pwWODiLnF7fx1eAEXi5Zx+StQDxHegAHTbKX/ZqcsW8VZ3mqlcpzfqN399KCZ9qXJ8g==}
     engines: {node: ^14.16.0 || >=16.11.0}
     dependencies:
       '@intlify/h3': 0.5.0
       '@intlify/shared': 9.9.1
-      '@intlify/unplugin-vue-i18n': 1.6.0(rollup@4.11.0)(vue-i18n@9.9.1)
+      '@intlify/unplugin-vue-i18n': 2.0.0(rollup@4.11.0)(vue-i18n@9.9.1)
       '@intlify/utils': 0.12.0
       '@miyaneee/rollup-plugin-json5': 1.2.0(rollup@4.11.0)
       '@nuxt/kit': 3.10.2(rollup@4.11.0)
@@ -2385,15 +2346,13 @@ packages:
       ufo: 1.4.0
       unplugin: 1.7.1
       vue-i18n: 9.9.1(vue@3.4.19)
-      vue-i18n-routing: 1.2.0(vue-i18n@9.9.1)(vue@3.4.19)
+      vue-router: 4.2.5(vue@3.4.19)
     transitivePeerDependencies:
-      - '@vue/composition-api'
       - petite-vue-i18n
       - rollup
       - supports-color
       - vue
       - vue-i18n-bridge
-      - vue-router
     dev: true
 
   /@nuxtjs/tailwindcss@6.11.4(rollup@4.11.0):
@@ -11361,36 +11320,6 @@ packages:
       semver: 7.6.0
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /vue-i18n-routing@1.2.0(vue-i18n@9.9.1)(vue@3.4.19):
-    resolution: {integrity: sha512-pn+bIFRMX5BN1BVQJ5rn05dYVnBhU/QnkxhjEJAe9HnYtJhDubetvoY+yfgDNWwesNWfHbbvsilsgSGL6DJyeA==}
-    engines: {node: '>= 14.6'}
-    peerDependencies:
-      '@vue/composition-api': ^1.0.0-rc.1
-      vue: ^2.6.14 || ^2.7.0 || ^3.2.0
-      vue-i18n: ^8.26.1 || >=9.2.0
-      vue-i18n-bridge: '>=9.2.0'
-      vue-router: ^3.5.3 || ^3.6.0 || ^4.0.0
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
-      vue:
-        optional: true
-      vue-i18n:
-        optional: true
-      vue-i18n-bridge:
-        optional: true
-      vue-router:
-        optional: true
-    dependencies:
-      '@intlify/shared': 9.9.1
-      '@intlify/vue-i18n-bridge': 1.1.0(vue-i18n@9.9.1)
-      '@intlify/vue-router-bridge': 1.1.0(vue@3.4.19)
-      ufo: 1.4.0
-      vue: 3.4.19(typescript@5.3.3)
-      vue-demi: 0.14.7(vue@3.4.19)
-      vue-i18n: 9.9.1(vue@3.4.19)
     dev: true
 
   /vue-i18n@9.9.1(vue@3.4.19):
