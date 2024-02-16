@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
     "nuxt-icon",
     "@nuxtseo/module",
+    "@nuxtjs/fontaine",
   ],
 
   plugins: [{ src: "~/plugins/aos", mode: "client" }],
