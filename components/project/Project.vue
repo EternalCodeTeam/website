@@ -60,6 +60,8 @@ const fetchResult = await $fetch("/api/projects");
 </script>
 
 <style scoped>
+@tailwind utilities;
+
 @layer utilities {
   .alternate div:nth-child(even) {
     @apply flex-row-reverse;
