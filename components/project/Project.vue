@@ -7,25 +7,26 @@
 
       <div class="mt-8 space-y-8 lg:mt-12 lg:alternate">
         <div
-          v-for="repo in filteredRepos"
+          v-for="(repo, index) in fetchResult.data"
           :key="repo.id"
+          :index="index"
           class="flex flex-col-reverse items-center justify-between lg:flex-row gap-12">
           <div class="w-full md:w-1/2 lg:w-1/2">
             <h1
               class="mb-4 max-w-2xl text-4xl font-extrabold leading-none tracking-tight dark:text-white md:text-5xl xl:text-6xl"
               data-aos="fade-up"
               data-aos-duration="500">
-              {{ repo.name }}
+              {{ repo.attributes.name }}
             </h1>
             <p
               class="mb-6 max-w-2xl font-light text-gray-500 dark:text-gray-400 md:text-lg lg:mb-8 lg:text-xl"
               data-aos="fade-up"
               data-aos-duration="550">
-              {{ repo.description }}
+              {{ repo.attributes.description }}
             </p>
             <div class="flex">
               <a
-                :href="`https://github.com/EternalCodeTeam/${repo.name}`"
+                :href="`${repo.attributes.repository_url}`"
                 target="_blank">
                 <button
                   aria-label="Go to repository"
@@ -36,31 +37,12 @@
                   Repository
                 </button>
               </a>
-              <a
-                :href="`https://github.com/EternalCodeTeam/${repo.name}/stargazers`"
-                target="_blank">
-                <button
-                  aria-label="Number of stars"
-                  class="ml-2 cursor-pointer rounded-lg bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-yellow-500/50 dark:shadow-lg dark:shadow-yellow-500/80 md:mb-0 md:mr-2"
-                  data-aos="fade-up"
-                  data-aos-duration="650">
-                  <Icon name="ic:round-star" size="20" class="mb-[0.5px]" />
-                  {{ repo.stargazers_count }} Stars
-                </button>
-              </a>
-
-              <div
-                class="flex -space-x-4"
-                data-aos="fade-up"
-                data-aos-duration="700">
-                <ProjectAvatarGroup :repo="repo" />
-              </div>
             </div>
           </div>
           <div class="w-full overflow-hidden md:w-1/2 lg:w-1/2">
             <NuxtImg
-              :alt="`${repo.name} project image`"
-              :src="getImageUrl(repo.name)"
+              :alt="`${repo.attributes.name} project image`"
+              :src="`${repo.attributes.banner_url}`"
               class="rounded-[12px] object-cover"
               data-aos="fade-up"
               data-aos-duration="500"
@@ -74,71 +56,8 @@
   </section>
 </template>
 
-<script lang="ts">
-interface Repo {
-  id: number;
-  name: string;
-  stargazers_count: number;
-  archived: boolean;
-  description: string;
-}
-
-export default {
-  setup() {
-    const filteredRepos = ref<Repo[]>([]);
-
-    const fetchData = async () => {
-      const cachedData = localStorage.getItem("githubRepos");
-
-      if (cachedData) {
-        filteredRepos.value = JSON.parse(cachedData);
-      }
-
-      filteredRepos.value = filteredRepos.value.map((repo) => ({ ...repo }));
-
-      try {
-        const response = await fetch(
-          "https://api.github.com/orgs/EternalCodeTeam/repos",
-        );
-        const data = await response.json();
-        filteredRepos.value = Array.isArray(data) ? data : [];
-        localStorage.setItem(
-          "githubRepos",
-          JSON.stringify(filteredRepos.value),
-        );
-
-        const fetchDataPromises = filteredRepos.value.map(async (repo) => {
-          const repoResponse = fetch(
-            `https://api.github.com/repos/EternalCodeTeam/${repo.name}`,
-          );
-
-          const [repoData] = await Promise.all([(await repoResponse).json()]);
-
-          repo.id = repoData.id;
-          repo.description = repoData.description;
-        });
-
-        await Promise.all(fetchDataPromises);
-      } catch (error) {
-        console.error(error);
-      }
-
-      filteredRepos.value = filteredRepos.value
-        .filter((repo) => !repo.archived && repo.name !== ".github")
-        .sort((a, b) => b.stargazers_count - a.stargazers_count);
-    };
-
-    const getImageUrl = (repoName: string) =>
-      `https://opengraph.githubassets.com/1/EternalCodeTeam/${repoName}`;
-
-    onMounted(fetchData);
-
-    return {
-      filteredRepos,
-      getImageUrl,
-    };
-  },
-};
+<script setup lang="ts">
+const fetchResult = await $fetch("/api/projects");
 </script>
 
 <style scoped>
