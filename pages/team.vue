@@ -1,5 +1,5 @@
 <template>
-  <LazyTeam />
+  <Team />
 </template>
 
 <script lang="ts" setup>

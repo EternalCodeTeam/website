@@ -1,8 +1,8 @@
 <template>
   <div>
-    <LazyAbout />
-    <LazyFeatures />
-    <LazyFaq />
+    <About />
+    <Features />
+    <Faq />
   </div>
 </template>
 

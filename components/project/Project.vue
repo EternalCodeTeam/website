@@ -25,9 +25,7 @@
               {{ repo.attributes.description }}
             </p>
             <div class="flex">
-              <a
-                :href="`${repo.attributes.repository_url}`"
-                target="_blank">
+              <a :href="`${repo.attributes.repository_url}`" target="_blank">
                 <button
                   aria-label="Go to repository"
                   class="rounded-lg bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 md:mb-0 md:mr-2"
@@ -47,6 +45,7 @@
               data-aos="fade-up"
               data-aos-duration="500"
               format="webp"
+              loading="lazy"
               height="500"
               width="1000" />
           </div>
@@ -61,8 +60,6 @@ const fetchResult = await $fetch("/api/projects");
 </script>
 
 <style scoped>
-@tailwind utilities;
-
 @layer utilities {
   .alternate div:nth-child(even) {
     @apply flex-row-reverse;

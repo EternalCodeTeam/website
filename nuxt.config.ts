@@ -25,6 +25,10 @@ export default defineNuxtConfig({
     },
   },
 
+  nitro: {
+    compressPublicAssets: true,
+  },
+
   i18n: {
     defaultLocale: "en",
     langDir: "locales",
