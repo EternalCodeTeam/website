@@ -16,6 +16,9 @@
 </template>
 
 <script setup lang="ts">
-import TeamMember from "~/components/team/TeamMember.vue";
-const fetchResult = await $fetch("/api/members");
+const fetchResult = ref([]);
+
+onMounted(async () => {
+  fetchResult.value = await $fetch("/api/members");
+});
 </script>

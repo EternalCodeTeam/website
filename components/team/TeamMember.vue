@@ -50,5 +50,10 @@ export default {
       required: true,
     },
   },
+  computed: {
+    memberRoles() {
+      return this.member.team_roles.data;
+    },
+  },
 };
 </script>
