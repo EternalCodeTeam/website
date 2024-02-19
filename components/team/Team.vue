@@ -16,7 +16,16 @@
 </template>
 
 <script setup lang="ts">
-const fetchResult = ref([]);
+interface MemberData {
+  id: string;
+  attributes: any;
+}
+
+interface Member {
+  data: MemberData[];
+}
+
+const fetchResult: Ref<Member> = ref({ data: [] });
 
 onMounted(async () => {
   fetchResult.value = await $fetch("/api/members");

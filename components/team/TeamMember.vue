@@ -38,11 +38,33 @@
   </div>
 </template>
 
+
 <script lang="ts">
-export default {
+interface Role {
+  attributes: {
+    name: string;
+  };
+}
+
+interface Member {
+  avatar_url: string;
+  name: string;
+  team_roles: {
+    data: Role[];
+  };
+  github?: string;
+  linkedin?: string;
+}
+
+interface Props {
+  member: Member;
+  index: Number;
+}
+
+export default defineComponent({
   props: {
     member: {
-      type: Object,
+      type: Object as PropType<Member>,
       required: true,
     },
     index: {
@@ -50,10 +72,12 @@ export default {
       required: true,
     },
   },
-  computed: {
-    memberRoles() {
-      return this.member.team_roles.data;
-    },
+  setup(props: Props) {
+    const memberRoles = computed(() => props.member.team_roles.data);
+
+    return {
+      memberRoles
+    };
   },
-};
+});
 </script>
