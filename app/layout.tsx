@@ -7,6 +7,7 @@ import Navbar from "@/components/header/Navbar";
 import Hero from "@/components/header/hero/Hero";
 import Footer from "@/components/footer/Footer";
 import React from "react";
+import { Analytics } from "@vercel/analytics/next";
 
 const poppins = Poppins({
   weight: ["500"],
@@ -35,6 +36,7 @@ export default function RootLayout({
           <Navbar />
           <Hero />
           {children}
+          <Analytics />
           <Footer />
         </body>
       </Providers>
