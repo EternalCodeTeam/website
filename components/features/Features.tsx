@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import SectionTitle from "@/components/SectionTitle";
 import JavaIcon from "@/components/icons/java";
 import LinuxIcon from "@/components/icons/linux";
-import TabNew from "@/components/icons/TabNew";
+import TabNew from "@/components/icons/tab-new";
 import { useInView } from "react-intersection-observer";
 import { useMemo } from "react";
 

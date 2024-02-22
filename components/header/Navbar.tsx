@@ -16,7 +16,7 @@ export default function Navbar() {
 
   // TODO: Naprawić wielkośc ikony barów na mobilnym menu.
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 border-gray-200 backdrop-blur-md backdrop-filter">
+    <nav className="fixed inset-x-0 top-0 z-50 border-gray-200 bg-[#eff1f5] backdrop-filter dark:bg-[#0d1117]">
       <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-4 py-8">
         <Link href="/" className="flex items-center">
           <Image
@@ -42,7 +42,7 @@ export default function Navbar() {
             data-collapse-toggle="mobile-menu-language-select"
             onClick={toggleMenu}
           >
-            <MobileMenuBar />
+            <MobileMenuBar className="mb-1" />
           </button>
         </div>
         <div
