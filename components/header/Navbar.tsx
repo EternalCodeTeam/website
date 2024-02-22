@@ -14,7 +14,6 @@ export default function Navbar() {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // TODO: Naprawić wielkośc ikony barów na mobilnym menu.
   return (
     <nav className="fixed inset-x-0 top-0 z-50 border-gray-200 bg-[#eff1f5] backdrop-filter dark:bg-[#0d1117]">
       <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-4 py-8">
