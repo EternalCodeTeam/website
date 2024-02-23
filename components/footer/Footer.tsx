@@ -12,26 +12,28 @@ import logo from "@/public/logo.svg";
 
 export default function Footer() {
   return (
-    <footer className="isolate p-4 sm:p-6">
+    <footer className="isolate p-4 text-center sm:p-6 lg:text-right">
       <div className="mx-auto max-w-screen-xl px-4 py-8">
         <div className="md:flex md:justify-between">
-          <div className="mb-6 md:mb-0">
-            <Link className="flex items-center" href="/">
-              <Image
-                className="mr-3 h-8 text-white dark:invert"
-                alt="Eternalcode Logo"
-                aria-label="Eternalcode Logo"
-                src={logo}
-                width="32"
-                height="32"
-              />
-              <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
-                EternalCode.pl
-              </span>
+          <div className="mb-6 flex items-center justify-center md:mb-0 md:justify-start">
+            <Link href="/" legacyBehavior>
+              <a className="flex items-center">
+                <Image
+                  className="mr-3 h-8 text-white dark:invert"
+                  alt="Eternalcode Logo"
+                  aria-label="Eternalcode Logo"
+                  src={logo}
+                  width="32"
+                  height="32"
+                />
+                <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
+                  EternalCode.pl
+                </span>
+              </a>
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-6">
+          <div className="grid grid-cols-2 justify-center gap-8 sm:grid-cols-3 sm:gap-6 md:justify-end">
             <div className="mb-6 sm:mb-0">
               <h2 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">
                 Lorem Ipsum
@@ -91,7 +93,7 @@ export default function Footer() {
           <span className="mb-4 block text-sm text-gray-500 dark:text-gray-400 sm:mb-0 sm:text-center">
             © 2021-present EternalCodeTeam. All rights reserved.
           </span>
-          <div className="flex space-x-6">
+          <div className="flex justify-center space-x-6">
             <a
               aria-label="EternalCode TikTok link"
               className="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
