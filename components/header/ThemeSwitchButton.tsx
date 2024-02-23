@@ -7,17 +7,19 @@ import LightThemeIcon from "@/components/icons/light-theme";
 export default function ThemeChanger() {
   const { theme, setTheme } = useTheme();
 
+  const { resolvedTheme } = useTheme();
+
   return (
-    <div>
-      {theme === "dark" ? (
-        <button onClick={() => setTheme("light")}>
-          <LightThemeIcon className="h-6 w-6 text-white" />
-        </button>
+    <button
+      aria-label={`Change to ${theme === "dark" ? "light" : "dark"} mode`}
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      className="rounded-md p-2 text-gray-800 dark:text-gray-200"
+    >
+      {resolvedTheme === "dark" ? (
+        <LightThemeIcon className="h-6 w-6" />
       ) : (
-        <button onClick={() => setTheme("dark")}>
-          <DarkThemeIcon className="h-6 w-6 text-black" />
-        </button>
+        <DarkThemeIcon className="h-6 w-6" />
       )}
-    </div>
+    </button>
   );
 }
