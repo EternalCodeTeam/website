@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "See our open source projects",
 };
 
-export default function Projects() {
+export default async function Projects() {
   return (
     <main>
       <Project />
