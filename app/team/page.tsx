@@ -9,7 +9,6 @@ export const metadata: Metadata = {
   description: "See our team members and their roles in our projects",
 };
 
-
 export default function TeamMembers() {
   return (
     <main>
@@ -17,4 +16,3 @@ export default function TeamMembers() {
     </main>
   );
 }
-
