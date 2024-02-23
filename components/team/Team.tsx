@@ -103,7 +103,7 @@ export default function Team() {
 export function TeamMember({ member, index }: TeamMemberProps) {
   const controls = useAnimation();
   const { ref, inView } = useInView({
-    triggerOnce: false
+    triggerOnce: false,
   });
 
   useEffect(() => {
