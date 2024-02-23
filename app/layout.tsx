@@ -19,10 +19,6 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "EternalCode.pl | Home",
   description: "We are a team creating open source projects!",
-  openGraph: {
-    title: "EternalCode.pl | Home",
-    description: "We are a team creating open source projects!",
-  },
 };
 
 export default function RootLayout({
