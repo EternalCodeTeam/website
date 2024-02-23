@@ -151,17 +151,21 @@ export default function Terminal() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.55 }}
+      aria-label="Terminal"
     >
       <div
         id="terminal"
         className=" w-full md:mt-3 md:flex md:flex-row lg:mt-0"
-        aria-hidden="true"
+        role="region"
+        aria-labelledby="file-name"
       >
         <div className="flex w-full flex-col">
           <div className="flex w-full rounded-t-lg border-b-2 border-rose-500 bg-[#d8dde6] dark:border-gray-900 dark:bg-[#4B5563]">
             <div
               id="on-off-buttons"
               className="h-6 select-none rounded-lg bg-[#d8dde6] dark:bg-[#4B5563]"
+              role="toolbar"
+              aria-label="On/Off buttons"
             >
               <div
                 className="ml-2 flex h-full select-none items-center justify-center space-x-1.5 rounded-lg bg-[#d8dde6] dark:bg-[#4B5563]"
@@ -175,6 +179,8 @@ export default function Terminal() {
             <div
               id="file-name"
               className="text-2xs mx-auto select-none text-center text-gray-800 dark:text-gray-400"
+              role="heading"
+              aria-level={1}
             >
               <span className="font-medium">EternalCode</span>
             </div>
@@ -184,6 +190,8 @@ export default function Terminal() {
               <div
                 id="project-settings"
                 className="center flex h-full w-1/4 flex-col items-center space-y-2 rounded-bl-lg bg-[#cfd0d1] px-2 py-2 dark:bg-[#374151]"
+                role="region"
+                aria-labelledby="project-settings"
               >
                 {icons.map((Icon, i) => (
                   <span key={i}>
@@ -194,6 +202,8 @@ export default function Terminal() {
               <div
                 id="files"
                 className="h-full w-3/4 select-none bg-[#d8dde6] pl-4 text-sm font-light text-gray-400 dark:bg-[#4B5563]"
+                role="region"
+                aria-labelledby="files"
               >
                 <p>▄▄▄▄</p>
                 <p>▄▄▄▄▄▄</p>
@@ -212,6 +222,8 @@ export default function Terminal() {
             <div
               id="main-tab"
               className="flex h-full w-4/5 flex-col rounded-br-lg bg-[#bfbfbf] dark:bg-[#374151]"
+              role="region"
+              aria-labelledby="main-tab"
             >
               <div id="file-section" className="flex">
                 <TabFile
@@ -231,6 +243,8 @@ export default function Terminal() {
               <div
                 id="file-2-code"
                 className="inset-x-0 h-80 min-h-80 bg-[#e6e7e8] pl-2 dark:bg-[#1F2A37]"
+                role="region"
+                aria-labelledby="file-2-code"
               >
                 {lines.map((line, index) => (
                   <TerminalLine
@@ -243,6 +257,8 @@ export default function Terminal() {
               <div
                 id="file-settings"
                 className="m-0 h-6 w-full rounded-br-lg bg-[#bdbdbd] dark:bg-[#374151]"
+                role="region"
+                aria-labelledby="file-settings"
               ></div>
             </div>
           </div>
