@@ -30,10 +30,13 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <Providers>
         <body
-          className={`${poppins.className} antialiased min-h-screen bg-[#eff1f5] dark:bg-[#0d1117]`}
+          className={`${poppins.className} min-h-screen bg-[#eff1f5] antialiased dark:bg-[#0d1117]`}
         >
           <NextTopLoader />
-          <Navbar />
+          <header>
+            <Navbar />
+          </header>
+
           <Hero />
           {children}
           <Analytics />
