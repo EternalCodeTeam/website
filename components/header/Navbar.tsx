@@ -41,7 +41,7 @@ export default function Navbar() {
             data-collapse-toggle="mobile-menu-language-select"
             onClick={toggleMenu}
           >
-            <MobileMenuBar className="mb-1" />
+            <MobileMenuBar />
           </button>
         </div>
         <div
