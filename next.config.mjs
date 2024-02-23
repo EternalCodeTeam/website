@@ -5,6 +5,9 @@ const withBundleAnalyzer = generated({
 });
 
 const nextConfig = {
+  siteUrl: "https://www.eternalcode.pl",
+  generateRobotsTxt: true,
+
   images: {
     remotePatterns: [
       {

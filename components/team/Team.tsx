@@ -102,7 +102,9 @@ export default function Team() {
 
 export function TeamMember({ member, index }: TeamMemberProps) {
   const controls = useAnimation();
-  const [ref, inView] = useInView();
+  const { ref, inView } = useInView({
+    triggerOnce: false
+  });
 
   useEffect(() => {
     if (inView) {
@@ -116,7 +118,7 @@ export function TeamMember({ member, index }: TeamMemberProps) {
       className="text-center text-gray-500 dark:text-gray-400"
       initial={{ opacity: 0, y: 30 }}
       animate={controls}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      transition={{ duration: 0.1, delay: index * 0.1 }}
       ref={ref}
     >
       <Image
