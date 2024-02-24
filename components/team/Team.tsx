@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import SectionTitle from "@/components/SectionTitle";
 import Image from "next/image";
 import { motion, useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
 import GitHubIcon from "../icons/github";
 import LinkedinIcon from "../icons/linkedin";
 
@@ -55,7 +54,7 @@ export default function Team() {
           throw new Error("Failed to fetch team members");
         }
 
-        const data = await response.json() as { data: Member[] };
+        const data = (await response.json()) as { data: Member[] };
 
         if (data && data.data) {
           setMembers(data.data);
@@ -102,15 +101,10 @@ export default function Team() {
 
 export function TeamMember({ member, index }: TeamMemberProps) {
   const controls = useAnimation();
-  const { ref, inView } = useInView({
-    triggerOnce: false,
-  });
 
   useEffect(() => {
-    if (inView) {
-      controls.start({ opacity: 1, y: 0 });
-    }
-  }, [controls, inView]);
+    controls.start({ opacity: 1, y: 0 });
+  }, [controls]);
 
   return (
     <motion.div
@@ -119,7 +113,6 @@ export function TeamMember({ member, index }: TeamMemberProps) {
       initial={{ opacity: 0, y: 30 }}
       animate={controls}
       transition={{ duration: 0.1, delay: index * 0.1 }}
-      ref={ref}
     >
       <Image
         className="mx-auto mb-4 h-36 w-36 rounded-full"

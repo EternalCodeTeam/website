@@ -26,8 +26,9 @@ export default function About() {
     []
   );
 
-  const { ref: section, inView: inView1 } = useInView({ triggerOnce: true });
-  const { ref: div, inView: inView2 } = useInView({ triggerOnce: true });
+  const { ref: section, inView: inView1 } = useInView({ triggerOnce: false });
+  const { ref: div, inView: inView2 } = useInView({ triggerOnce: false });
+  const { ref: img, inView: inView3 } = useInView({ triggerOnce: false });
 
   return (
     <motion.section
@@ -40,17 +41,23 @@ export default function About() {
     >
       <Container>
         <div className="mx-auto items-center gap-x-12 sm:px-4 md:px-0 lg:flex">
-          <div className="mx-auto flex-1 sm:hidden lg:block">
+          <motion.div
+            className="mx-auto flex-1 sm:hidden lg:block"
+            ref={img}
+            variants={combineVariants}
+            initial="hidden"
+            animate={inView3 ? "show" : "hidden"}
+          >
             <Image
               src={AboutImage}
               className="mx-auto rounded-[12px]"
-              height={300}
-              width={500}
+              height={500}
+              width={1000}
               priority={true}
               decoding="async"
               alt="about me presentation"
             />
-          </div>
+          </motion.div>
           <motion.div
             ref={div}
             variants={combineVariants}
