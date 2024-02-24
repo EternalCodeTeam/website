@@ -16,6 +16,10 @@ interface Project {
   };
 }
 
+interface ApiResponse {
+  data: Project[];
+}
+
 export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -29,7 +33,7 @@ export default function Projects() {
           throw new Error("Failed to fetch projects");
         }
 
-        const data = await response.json();
+        const data = (await response.json()) as ApiResponse;
         setProjects(data.data);
       } catch (error) {
         setError("Error fetching projects");
