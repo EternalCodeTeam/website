@@ -55,7 +55,7 @@ export default function Team() {
           throw new Error("Failed to fetch team members");
         }
 
-        const data = await response.json();
+        const data = await response.json() as { data: Member[] };
 
         if (data && data.data) {
           setMembers(data.data);
