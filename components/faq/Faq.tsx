@@ -19,12 +19,12 @@ export default function Faq() {
     []
   );
 
-  const { ref: q1, inView: inViewFAQ1 } = useInView({ triggerOnce: false });
-  const { ref: q2, inView: inViewFAQ2 } = useInView({ triggerOnce: false });
-  const { ref: q3, inView: inViewFAQ3 } = useInView({ triggerOnce: false });
-  const { ref: s4, inView: inViewFAQ4 } = useInView({ triggerOnce: false });
+  const { ref: q1, inView: inViewFAQ1 } = useInView({ triggerOnce: true });
+  const { ref: q2, inView: inViewFAQ2 } = useInView({ triggerOnce: true });
+  const { ref: q3, inView: inViewFAQ3 } = useInView({ triggerOnce: true });
+  const { ref: s4, inView: inViewFAQ4 } = useInView({ triggerOnce: true });
   const { ref: sectionTitle, inView: inViewTitle } = useInView({
-    triggerOnce: false,
+    triggerOnce: true,
   });
 
   return (
