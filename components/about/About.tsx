@@ -46,7 +46,7 @@ export default function About() {
               className="mx-auto rounded-[12px]"
               height={500}
               width={1000}
-              loading="lazy"
+              priority={true}
               decoding="async"
               alt="about me presentation"
             />
