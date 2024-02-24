@@ -44,8 +44,8 @@ export default function About() {
             <Image
               src={AboutImage}
               className="mx-auto rounded-[12px]"
-              height={500}
-              width={1000}
+              height={300}
+              width={500}
               priority={true}
               decoding="async"
               alt="about me presentation"
