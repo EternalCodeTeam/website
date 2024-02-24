@@ -6,6 +6,7 @@ import Link from "next/link";
 import logo from "@/public/logo.svg";
 import ThemeSwitchButton from "./ThemeSwitchButton";
 import MobileMenuBar from "../icons/mobile-menu-bar";
+import NewWindow from "../icons/new-window";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,6 +14,30 @@ export default function Navbar() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const links = [
+    { href: "/", label: "Home", text: "Home" },
+    { href: "/team", label: "Team", text: "Team" },
+    { href: "/projects", label: "Projects", text: "Projects" },
+    {
+      href: "https://repo.eternalcode.pl/#/",
+      label: "Repository",
+      text: "Repository",
+      isExternal: true,
+    },
+    {
+      href: "https://docs.eternalcode.pl/",
+      label: "Documentation",
+      text: "Documentation",
+      isExternal: true,
+    },
+    {
+      href: "https://status.eternalcode.pl/",
+      label: "Status",
+      text: "Status",
+      isExternal: true,
+    },
+  ];
 
   return (
     <nav className="fixed inset-x-0 top-0 z-50 border-gray-200 bg-[#eff1f5] backdrop-filter dark:bg-[#0d1117]">
@@ -30,8 +55,10 @@ export default function Navbar() {
             EternalCode.pl
           </span>
         </Link>
-        <div className="flex items-center md:order-2">
+
+        <div className="flex items-center justify-center md:order-2">
           <ThemeSwitchButton />
+
           <button
             className="ml-1 inline-flex items-center rounded-lg p-2 text-sm dark:text-white md:hidden"
             type="button"
@@ -41,7 +68,7 @@ export default function Navbar() {
             data-collapse-toggle="mobile-menu-language-select"
             onClick={toggleMenu}
           >
-            <MobileMenuBar />
+            <MobileMenuBar className="h-5 w-5" />
           </button>
         </div>
         <div
@@ -50,64 +77,20 @@ export default function Navbar() {
             isMenuOpen ? "" : "hidden"
           } w-full items-center justify-between md:order-1 md:flex md:w-auto`}
         >
-          <ul className="mt-4 flex flex-col p-4 md:mt-0 md:flex-row md:space-x-8 md:p-0">
-            <li>
-              <Link
-                href="/"
-                className="light:text-gray-900 block rounded-full py-2 pl-3 pr-4 dark:text-white md:p-0"
-                aria-label="Home"
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/team"
-                className="block rounded-full py-2 pl-3 pr-4 text-gray-900 dark:text-white md:p-0"
-                aria-label="Team"
-              >
-                Team
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/projects"
-                className="block rounded-full py-2 pl-3 pr-4 text-gray-900 dark:text-white md:p-0"
-                aria-label="Projects"
-              >
-                Projects
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="https://repo.eternalcode.pl/#/"
-                target="_blank"
-                className="block rounded-full py-2 pl-3 pr-4 text-gray-900 dark:text-white md:p-0"
-                aria-label="Repository"
-              >
-                Repository
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="https://docs.eternalcode.pl/"
-                target="_blank"
-                className="block rounded-full py-2 pl-3 pr-4 text-gray-900 dark:text-white md:p-0"
-                aria-label="Documentation"
-              >
-                Documentation
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="https://status.eternalcode.pl/"
-                target="_blank"
-                className="block rounded-full py-2 pl-3 pr-4 text-gray-900 dark:text-white md:p-0"
-                aria-label="Status"
-              >
-                Status
-              </Link>
-            </li>
+          <ul className="mt-4 flex flex-col p-4 md:mt-0 md:flex-row md:space-x-4 md:p-0">
+            {links.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="flex items-center rounded-full py-2 pl-3 pr-4 text-gray-900 dark:text-white md:p-0"
+                  aria-label={link.label}
+                  target={link.isExternal ? "_blank" : undefined}
+                >
+                  {link.text}{" "}
+                  {link.isExternal && <NewWindow className="ml-1" />}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
