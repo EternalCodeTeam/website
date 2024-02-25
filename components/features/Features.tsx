@@ -22,11 +22,11 @@ export default function Features() {
     []
   );
 
-  const { ref: item1, inView: inView1 } = useInView({ triggerOnce: true });
-  const { ref: item2, inView: inView2 } = useInView({ triggerOnce: true });
-  const { ref: item3, inView: inView3 } = useInView({ triggerOnce: true });
+  const { ref: item1, inView: inView1 } = useInView({ triggerOnce: false });
+  const { ref: item2, inView: inView2 } = useInView({ triggerOnce: false });
+  const { ref: item3, inView: inView3 } = useInView({ triggerOnce: false });
   const { ref: sectionTitle, inView: inView4 } = useInView({
-    triggerOnce: true,
+    triggerOnce: false,
   });
 
   return (

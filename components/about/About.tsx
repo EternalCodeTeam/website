@@ -26,9 +26,9 @@ export default function About() {
     []
   );
 
-  const { ref: section, inView: inView1 } = useInView({ triggerOnce: true });
-  const { ref: div, inView: inView2 } = useInView({ triggerOnce: true });
-  const { ref: img, inView: inView3 } = useInView({ triggerOnce: true });
+  const { ref: section, inView: inView1 } = useInView({ triggerOnce: false });
+  const { ref: div, inView: inView2 } = useInView({ triggerOnce: false });
+  const { ref: img, inView: inView3 } = useInView({ triggerOnce: false });
 
   return (
     <motion.section
