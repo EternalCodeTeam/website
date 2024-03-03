@@ -12,7 +12,7 @@ import logo from "@/public/logo.svg";
 
 export default function Footer() {
   return (
-    <footer className="isolate p-4 text-center sm:p-6 lg:text-right">
+    <footer className="isolate p-4 text-center sm:p-6 lg:text-left">
       <div className="mx-auto max-w-screen-xl px-4 py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 flex items-center justify-center md:mb-0 md:justify-start">
@@ -36,50 +36,140 @@ export default function Footer() {
           <div className="grid grid-cols-2 justify-center gap-8 sm:grid-cols-3 sm:gap-6 md:justify-end">
             <div className="mb-6 sm:mb-0">
               <h2 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">
-                Lorem Ipsum
+                TEAM
               </h2>
               <ul className="text-gray-600 dark:text-gray-400">
                 <li className="mb-2">
                   <Link
                     className="hover:underline"
                     aria-label="About EternalCode"
-                    href="/"
+                    href="/#about"
                   >
-                    Lorem Ipsum
+                    About us
                   </Link>
                 </li>
-              </ul>
-            </div>
-
-            <div className="mb-6 sm:mb-0">
-              <h2 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">
-                Lorem Ipsum
-              </h2>
-              <ul className="text-gray-600 dark:text-gray-400">
                 <li className="mb-2">
-                  <a
-                    href="/link"
+                  <Link
                     className="hover:underline"
-                    aria-label="EternalCode Github"
+                    aria-label="Our team"
+                    href="/team"
                   >
-                    Lorem Ipsum
-                  </a>
+                    Team
+                  </Link>
+                </li>
+                <li className="mb-2">
+                  <Link
+                    className="hover:underline"
+                    aria-label="Projects"
+                    href="/projects"
+                  >
+                    Projects
+                  </Link>
                 </li>
               </ul>
             </div>
 
             <div>
               <h2 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">
-                Lorem Ipsum
+                FOLLOW US
               </h2>
               <ul className="text-gray-600 dark:text-gray-400">
                 <li className="mb-2">
                   <a
+                    href="https://github.com/EternalCodeTeam"
+                    className="hover:underline"
+                    aria-label="EternalCode GitHub"
+                  >
+                    GitHub
+                  </a>
+                </li>
+                <li className="mb-2">
+                  <a
+                    href="https://discord.com/invite/FQ7jmGBd6c"
+                    className="hover:underline"
+                    aria-label="EternalCode Discord"
+                  >
+                    Discord
+                  </a>
+                </li>
+                <li className="mb-2">
+                  <a
                     href="/link"
+                    className="hover:underline"
+                    aria-label="EternalCode YouTube"
+                  >
+                    YouTube
+                  </a>
+                </li>
+                <li className="mb-2">
+                  <a
+                    href="https://www.tiktok.com/@eternalcode.pl"
+                    className="hover:underline"
+                    aria-label="EternalCode TikTok"
+                  >
+                    TikTok
+                  </a>
+                </li>
+                <li className="mb-2">
+                  <a
+                    href="https://www.spigotmc.org/resources/authors/eternalcodeteam.1570200/"
+                    className="hover:underline"
+                    aria-label="EternalCode SpigotMC"
+                  >
+                    SpigotMC
+                  </a>
+                </li>
+                <li className="mb-2">
+                  <a
+                    href="https://modrinth.com/organization/eternalcodeteam"
+                    className="hover:underline"
+                    aria-label="EternalCode Modrinth"
+                  >
+                    Modrinth
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div className="mb-6 sm:mb-0">
+              <h2 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">
+                SEE MORE
+              </h2>
+              <ul className="text-gray-600 dark:text-gray-400">
+                <li className="mb-2">
+                  <a
+                    href="https://repo.eternalcode.pl/#/"
                     className="hover:underline"
                     aria-label="EternalCode Repository"
                   >
-                    Lorem Ipsum
+                    Repository
+                  </a>
+                </li>
+                <li className="mb-2">
+                  <a
+                    href="https://docs.eternalcode.pl/"
+                    className="hover:underline"
+                    aria-label="EternalCode Documentations"
+                  >
+                    Documentations
+                  </a>
+                </li>
+                <li className="mb-2">
+                  <a
+                    href="https://status.eternalcode.pl/"
+                    className="hover:underline"
+                    aria-label="EternalCode Status"
+                  >
+                    Status
+                  </a>
+                </li>
+                <li className="mb-2">
+                  <a
+                    href="https://bstats.org/author/vLucky"
+                    className="hover:underline"
+                    aria-label="EternalCode BStats"
+                  >
+                    BStats
                   </a>
                 </li>
               </ul>
