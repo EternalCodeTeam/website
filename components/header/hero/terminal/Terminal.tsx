@@ -228,12 +228,6 @@ export default function Terminal() {
               <div id="file-section" className="flex">
                 <TabFile
                   withIcon={
-                    <FolderIcon className="font mr-1 place-self-center dark:text-slate-500" />
-                  }
-                  title="Terminal"
-                />
-                <TabFile
-                  withIcon={
                     <TerminalIcon className="left-0 w-5 place-self-center dark:text-slate-500" />
                   }
                   isActive

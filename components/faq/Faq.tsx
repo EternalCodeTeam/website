@@ -16,7 +16,7 @@ export default function Faq() {
         },
       },
     }),
-    []
+    [],
   );
 
   const { ref: q1, inView: inViewFAQ1 } = useInView({ triggerOnce: false });
@@ -73,15 +73,10 @@ export default function Faq() {
               Q2: How can I join the team?
             </h3>
             <p className="mt-3 text-gray-500 dark:text-gray-400">
-              To join our team, we encourage you to contact us through the
-              Discord community server. It is a place where team members meet,
-              exchange ideas, and discuss current projects. During this process,
-              we not only require your commitment but also your interest and
-              willingness to share your skills and ideas. Our team values the
-              diversity of talents, and by joining us, you have the opportunity
-              to actively participate in projects, develop your skills, and gain
-              experience in a friendly environment. Do not hesitate to join us
-              and be part of an inspiring team adventure!
+              Join us by contacting via Discord, where our team interacts and discusses projects. We value not just
+              commitment but also your interests, ideas, and diverse talents. As a member, you'll actively participate
+              in projects, hone skills, and gain experience in a supportive setting. Be part of our exciting team
+              journey, don't hesitate!
             </p>
           </motion.div>
 
@@ -96,14 +91,9 @@ export default function Faq() {
               Q3: What are the benefits of joining the team?
             </h3>
             <p className="mt-3 text-gray-500 dark:text-gray-400">
-              By joining our team, you will gain new experience that can be
-              valuable in your professional future. We already have several
-              individuals who, after participating in the team, achieved their
-              dream positions in the IT industry using the acquired skills.
-              Additionally, you will have the opportunity to establish new
-              professional contacts, showcase your skills, and participate in
-              various game competitions organized within the team. Do not
-              hesitate to join us!
+              Joining us provides valuable experience and has led previous members to their dream IT roles. You'll also
+              be able to extend your professional network, demonstrate your skills, and partake in team game
+              competitions. Don't hesitate, join us!
             </p>
           </motion.div>
 
@@ -118,14 +108,9 @@ export default function Faq() {
               Q4: What are the requirements for joining the team?
             </h3>
             <p className="mt-3 text-gray-500 dark:text-gray-400">
-              In addition to the required commitment on your part, we expect you
-              to have basic knowledge of programming. We do not provide
-              comprehensive training from scratch, so it is advisable to already
-              possess a certain level of programming skills. Our team focuses on
-              developing existing competencies, allowing you to continue
-              progressing in the programming field. Unfortunately, at the
-              moment, we only accept individuals proficient in the Polish
-              language.
+              In addition to commitment, we require basic programming knowledge. Our training isn't comprehensive, so
+              it's recommended to have some programming skills. Our team focuses on enhancing existing competencies to
+              aid your professional growth. Currently, we only accept Polish-speaking individuals.
             </p>
           </motion.div>
         </div>

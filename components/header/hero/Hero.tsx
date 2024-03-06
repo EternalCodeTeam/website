@@ -35,7 +35,6 @@ export default function Hero() {
         <div className="hidden w-full px-20 lg:col-span-8 lg:block lg:pl-36 lg:pr-0">
           <Terminal />
         </div>
-        {/* <PolygonRight /> */}
       </div>
     </div>
   );
