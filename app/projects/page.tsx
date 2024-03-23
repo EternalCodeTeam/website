@@ -1,7 +1,7 @@
 import Project from "@/components/projects/Projects";
 import type { Metadata } from "next";
 
-export const dynamic = "force-static";
+export const dynamic = "auto";
 export const fetchCache = "force-cache";
 
 export const metadata: Metadata = {
