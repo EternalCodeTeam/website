@@ -1,7 +1,7 @@
 import Team from "@/components/team/Team";
 import type { Metadata } from "next";
 
-export const dynamic = "auto";
+export const dynamic = "force-dynamic";
 export const fetchCache = "force-cache";
 
 export const metadata: Metadata = {
