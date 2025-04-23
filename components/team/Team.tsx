@@ -41,6 +41,11 @@ interface Member {
   };
 }
 
+interface StrapiResponse {
+  data: Member[];
+  meta?: any;
+}
+
 const STRAPI_URL = process.env.NEXT_PUBLIC_ETERNALCODE_STRAPI_URL || 'https://localhost:1337';
 const STRAPI_KEY = process.env.NEXT_PUBLIC_ETERNALCODE_STRAPI_KEY;
 
@@ -54,6 +59,7 @@ export default function Team() {
       try {
         setLoading(true);
         
+        // Headers z autoryzacją i cache control
         const headers: HeadersInit = {
           'Cache-Control': 'no-cache',
           'Pragma': 'no-cache'
@@ -64,7 +70,6 @@ export default function Team() {
           headers['Authorization'] = `Bearer ${STRAPI_KEY}`;
         }
         
-        // Bezpośrednie zapytanie do Strapi z użyciem zmiennych środowiskowych
         const response = await fetch(`${STRAPI_URL}/api/team-members?populate=team_roles`, {
           method: 'GET',
           headers
@@ -74,9 +79,9 @@ export default function Team() {
           throw new Error(`Failed to fetch team members: ${response.status}`);
         }
 
-        const data = await response.json();
+        const data = await response.json() as StrapiResponse;
 
-        if (data && data.data) {
+        if (data && Array.isArray(data.data)) {
           setMembers(data.data);
         } else {
           throw new Error("Invalid data structure in API response");
