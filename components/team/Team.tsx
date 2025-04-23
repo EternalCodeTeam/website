@@ -46,9 +46,6 @@ interface StrapiResponse {
   meta?: any;
 }
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_ETERNALCODE_STRAPI_URL || 'https://localhost:1337';
-const STRAPI_KEY = process.env.NEXT_PUBLIC_ETERNALCODE_STRAPI_KEY;
-
 export default function Team() {
   const [members, setMembers] = useState<Member[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -59,20 +56,13 @@ export default function Team() {
       try {
         setLoading(true);
         
-        // Headers z autoryzacją i cache control
-        const headers: HeadersInit = {
-          'Cache-Control': 'no-cache',
-          'Pragma': 'no-cache'
-        };
-        
-        // Dodanie klucza API jeśli istnieje
-        if (STRAPI_KEY) {
-          headers['Authorization'] = `Bearer ${STRAPI_KEY}`;
-        }
-        
-        const response = await fetch(`${STRAPI_URL}/api/team-members?populate=team_roles`, {
+        const response = await fetch('/api/team-members', {
           method: 'GET',
-          headers
+          headers: {
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+          },
+          cache: 'no-store'
         });
 
         if (!response.ok) {
