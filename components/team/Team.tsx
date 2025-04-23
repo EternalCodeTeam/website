@@ -56,7 +56,7 @@ export default function Team() {
       try {
         setLoading(true);
         
-        const response = await fetch('/api/team-members', {
+        const response = await fetch('/api/team', {
           method: 'GET',
           headers: {
             'Cache-Control': 'no-cache',

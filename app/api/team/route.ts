@@ -7,6 +7,7 @@ export async function GET(request: Request) {
       headers: {
         Authorization: `Bearer ${process.env.ETERNALCODE_STRAPI_KEY}`,
       },
+      cache: 'no-store'
     }
   );
 
