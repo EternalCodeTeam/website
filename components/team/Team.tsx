@@ -57,12 +57,9 @@ export default function Team() {
         setLoading(true);
         
         const response = await fetch('/api/team', {
-          method: 'GET',
           headers: {
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
-          },
-          cache: 'no-store'
+            'Accept': 'application/json',
+          }
         });
 
         if (!response.ok) {

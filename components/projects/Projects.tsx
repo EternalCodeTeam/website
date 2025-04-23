@@ -4,8 +4,6 @@ import React, { useEffect, useState } from "react";
 import SectionTitle from "@/components/SectionTitle";
 import ProjectItem from "@/components/projects/ProjectItem";
 
-export const dynamic = "force-static";
-
 interface Project {
   id: string;
   attributes: {
@@ -22,30 +20,65 @@ interface ApiResponse {
 
 export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch("/api/project");
+        setLoading(true);
+        
+        const response = await fetch("/api/project", {
+          headers: {
+            'Accept': 'application/json',
+          }
+        });
 
         if (!response.ok) {
-          throw new Error("Failed to fetch projects");
+          throw new Error(`Failed to fetch projects: ${response.status}`);
         }
 
         const data = (await response.json()) as ApiResponse;
-        setProjects(data.data);
+        
+        if (data && Array.isArray(data.data)) {
+          setProjects(data.data);
+        } else {
+          throw new Error("Invalid data structure in API response");
+        }
       } catch (error) {
-        setError("Error fetching projects");
-        console.error("Error fetching projects:", error);
+        const err = error as Error;
+        setError(err.message);
+        console.error("Error fetching projects:", err);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchProjects();
   }, []);
 
+  if (loading) {
+    return (
+      <section id="projects">
+        <div className="mx-auto max-w-screen-xl px-4 py-16">
+          <div className="flex justify-center items-center h-64">
+            <div className="text-xl">Loading projects...</div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   if (error) {
-    return <div>{error}</div>;
+    return (
+      <section id="projects">
+        <div className="mx-auto max-w-screen-xl px-4 py-16">
+          <div className="flex justify-center items-center h-64">
+            <div className="text-xl text-red-500">Error: {error}</div>
+          </div>
+        </div>
+      </section>
+    );
   }
 
   return (
