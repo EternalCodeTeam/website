@@ -41,22 +41,34 @@ interface Member {
   };
 }
 
+interface StrapiResponse {
+  data: Member[];
+  meta?: any;
+}
+
 export default function Team() {
   const [members, setMembers] = useState<Member[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchMembers = async () => {
       try {
-        const response = await fetch("/api/team");
+        setLoading(true);
+        
+        const response = await fetch('/api/team', {
+          headers: {
+            'Accept': 'application/json',
+          }
+        });
 
         if (!response.ok) {
-          throw new Error("Failed to fetch team members");
+          throw new Error(`Failed to fetch team members: ${response.status}`);
         }
 
-        const data = (await response.json()) as { data: Member[] };
+        const data = await response.json() as StrapiResponse;
 
-        if (data && data.data) {
+        if (data && Array.isArray(data.data)) {
           setMembers(data.data);
         } else {
           throw new Error("Invalid data structure in API response");
@@ -65,14 +77,36 @@ export default function Team() {
         const err = error as Error;
         setError(err.message);
         console.error("Error fetching team members:", err);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchMembers();
   }, []);
 
+  if (loading) {
+    return (
+      <section id="team">
+        <div className="mx-auto max-w-screen-xl px-4 py-16">
+          <div className="flex justify-center items-center h-64">
+            <div className="text-xl">Loading team data...</div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   if (error) {
-    return <div>{error}</div>;
+    return (
+      <section id="team">
+        <div className="mx-auto max-w-screen-xl px-4 py-16">
+          <div className="flex justify-center items-center h-64">
+            <div className="text-xl text-red-500">Error: {error}</div>
+          </div>
+        </div>
+      </section>
+    );
   }
 
   return (
@@ -137,6 +171,8 @@ export function TeamMember({ member, index }: TeamMemberProps) {
             <a
               href={member.github}
               className="transition duration-500 hover:text-gray-900 dark:hover:text-white"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <GitHubIcon />
             </a>
@@ -148,6 +184,8 @@ export function TeamMember({ member, index }: TeamMemberProps) {
             <a
               href={member.linkedin}
               className="transition duration-500 hover:text-gray-900 dark:hover:text-white"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <LinkedinIcon />
             </a>
