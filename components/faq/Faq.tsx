@@ -8,32 +8,36 @@ import { useInView } from "react-intersection-observer";
 const faqItems = [
   {
     question: "Q1: What does teamwork look like?",
-    answer: "Teamwork is a complex process where all volunteers strive to effectively carry out their assigned tasks. As a team we provide help to each other because everyone is striving for some challenges. There is no better way to learn new things than when mentored by teammate. Approximately every two weeks, we organize meetings to discuss ongoing projects, their progress, and brainstorming sessions where we share ideas about a specific project."
+    answer:
+      "Teamwork is a complex process where all volunteers strive to effectively carry out their assigned tasks. As a team we provide help to each other because everyone is striving for some challenges. There is no better way to learn new things than when mentored by teammate. Approximately every two weeks, we organize meetings to discuss ongoing projects, their progress, and brainstorming sessions where we share ideas about a specific project.",
   },
   {
     question: "Q2: How can I join the team?",
-    answer: "Join our team to learn more about GitHub workflow, understand and use good programming practices like reviewing pull requests. As a team we provide many answers to not so easy questions and everyone of us is a specialist in his own field, meaning problem solving is in our nature. You'll also be able to extend your professional network, demonstrate your skills, and partake in team game competitions. (Shhh! Don't tell anyone about open source licences) Don't hesitate, join us!"
+    answer:
+      "Join our team to learn more about GitHub workflow, understand and use good programming practices like reviewing pull requests. As a team we provide many answers to not so easy questions and everyone of us is a specialist in his own field, meaning problem solving is in our nature. You'll also be able to extend your professional network, demonstrate your skills, and partake in team game competitions. (Shhh! Don't tell anyone about open source licences) Don't hesitate, join us!",
   },
   {
     question: "Q3: What are the benefits of joining the team?",
-    answer: "Joining us provides valuable experience and has led previous members to their dream IT roles. You'll also be able to extend your professional network, demonstrate your skills, and partake in team game competitions. Don't hesitate, join us!"
+    answer:
+      "Joining us provides valuable experience and has led previous members to their dream IT roles. You'll also be able to extend your professional network, demonstrate your skills, and partake in team game competitions. Don't hesitate, join us!",
   },
   {
     question: "Q4: What are the requirements for joining the team?",
-    answer: "In addition to commitment, we require basic programming knowledge. Our training isn't comprehensive, so it's recommended to have some programming skills. Our team focuses on enhancing existing competencies to aid your professional growth. Currently, we only accept Polish-speaking individuals."
-  }
+    answer:
+      "In addition to commitment, we require basic programming knowledge. Our training isn't comprehensive, so it's recommended to have some programming skills. Our team focuses on enhancing existing competencies to aid your professional growth. Currently, we only accept Polish-speaking individuals.",
+  },
 ];
 
 export default function Faq() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const toggleFaq = useCallback((index: number) => {
-    setActiveIndex(prevIndex => prevIndex === index ? null : index);
+    setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
   }, []);
 
   const { ref: sectionRef, inView: sectionInView } = useInView({
     triggerOnce: true,
-    threshold: 0.1
+    threshold: 0.1,
   });
 
   const containerVariants = {
@@ -41,9 +45,9 @@ export default function Faq() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
-      }
-    }
+        staggerChildren: 0.2,
+      },
+    },
   };
 
   const itemVariants = {
@@ -52,9 +56,9 @@ export default function Faq() {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5
-      }
-    }
+        duration: 0.5,
+      },
+    },
   };
 
   return (
@@ -72,7 +76,7 @@ export default function Faq() {
           />
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="mt-12"
           variants={containerVariants}
           initial="hidden"
@@ -92,16 +96,21 @@ export default function Faq() {
               >
                 <span>{item.question}</span>
                 <svg
-                  className={`h-6 w-6 transform transition-transform duration-300 ${activeIndex === index ? 'rotate-180' : ''}`}
+                  className={`h-6 w-6 transform transition-transform duration-300 ${activeIndex === index ? "rotate-180" : ""}`}
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
                 </svg>
               </button>
-              <div 
-                className={`overflow-hidden transition-all duration-300 ease-in-out ${activeIndex === index ? 'max-h-96' : 'max-h-0'}`}
+              <div
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${activeIndex === index ? "max-h-96" : "max-h-0"}`}
                 id={`faq-panel-${index}`}
               >
                 <div className="bg-[#f5f6f7] p-6 text-gray-700 dark:bg-[#1F2A37] dark:text-gray-400">
