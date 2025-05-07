@@ -8,11 +8,11 @@ import { useInView } from "react-intersection-observer";
 const faqItems = [
   {
     question: "Q1: What does teamwork look like?",
-    answer: "Teamwork is a complex process where all volunteers strive to effectively carry out their assigned tasks. Approximately every two weeks, we organize meetings to discuss ongoing projects, their progress, and brainstorming sessions where we share ideas about a specific project."
+    answer: "Teamwork is a complex process where all volunteers strive to effectively carry out their assigned tasks. As a team we provide help to each other because everyone is striving for some challenges. There is no better way to learn new things than when mentored by teammate. Approximately every two weeks, we organize meetings to discuss ongoing projects, their progress, and brainstorming sessions where we share ideas about a specific project."
   },
   {
     question: "Q2: How can I join the team?",
-    answer: "Join us by contacting via Discord, where our team interacts and discusses projects. We value not just commitment but also your interests, ideas, and diverse talents. As a member, you'll actively participate in projects, hone skills, and gain experience in a supportive setting. Be part of our exciting team journey, don't hesitate!"
+    answer: "Join our team to learn more about GitHub workflow, understand and use good programming practices like reviewing pull requests. As a team we provide many answers to not so easy questions and everyone of us is a specialist in his own field, meaning problem solving is in our nature. You'll also be able to extend your professional network, demonstrate your skills, and partake in team game competitions. (Shhh! Don't tell anyone about open source licences) Don't hesitate, join us!"
   },
   {
     question: "Q3: What are the benefits of joining the team?",
@@ -86,7 +86,7 @@ export default function Faq() {
             >
               <button
                 onClick={() => toggleFaq(index)}
-                className="flex w-full items-center justify-between bg-[#e6e7e8] px-6 py-4 text-left text-lg font-medium text-gray-900 hover:bg-gray-50 dark:bg-[#1F2A37] dark:text-white dark:hover:bg-[#374151]"
+                className="flex w-full items-center justify-between bg-[#f0f1f2] px-6 py-4 text-left text-lg font-medium text-gray-800 transition-colors duration-300 hover:bg-[#e6e7e8] dark:bg-[#1F2A37] dark:text-white dark:hover:bg-[#374151]"
                 aria-expanded={activeIndex === index}
               >
                 <span>{item.question}</span>
@@ -102,7 +102,7 @@ export default function Faq() {
               <div 
                 className={`overflow-hidden transition-all duration-300 ease-in-out ${activeIndex === index ? 'max-h-96' : 'max-h-0'}`}
               >
-                <div className="bg-[#e6e7e8] p-6 text-gray-500 dark:bg-[#1F2A37] dark:text-gray-400">
+                <div className="bg-[#f5f6f7] p-6 text-gray-700 dark:bg-[#1F2A37] dark:text-gray-400">
                   {item.answer}
                 </div>
               </div>
