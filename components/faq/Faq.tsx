@@ -14,12 +14,12 @@ const faqItems = [
   {
     question: "Q2: How can I join the team?",
     answer:
-      "Join our team to learn more about GitHub workflow, understand and use good programming practices like reviewing pull requests. As a team we provide many answers to not so easy questions and everyone of us is a specialist in his own field, meaning problem solving is in our nature. You'll also be able to extend your professional network, demonstrate your skills, and partake in team game competitions. (Shhh! Don't tell anyone about open source licences) Don't hesitate, join us!",
+      "Join us by contacting via Discord, where our team interacts and discusses projects. We value not just commitment but also your interests, ideas, and diverse talents. As a member, you'll actively participate in projects, hone skills, and gain experience in a supportive setting. Be part of our exciting team journey, don't hesitate!",
   },
   {
     question: "Q3: What are the benefits of joining the team?",
     answer:
-      "Joining us provides valuable experience and has led previous members to their dream IT roles. You'll also be able to extend your professional network, demonstrate your skills, and partake in team game competitions. Don't hesitate, join us!",
+      "Join our team to learn more about GitHub workflow, understand and use good programming practices like reviewing pull requests. As a team we provide many answers to not so easy questions and everyone of us is a specialist in his own field, meaning problem solving is in our nature. You'll also be able to extend your professional network, demonstrate your skills, and partake in team game competitions. (Shhh! Don't tell anyone about open source licences) Don't hesitate, join us!",
   },
   {
     question: "Q4: What are the requirements for joining the team?",
