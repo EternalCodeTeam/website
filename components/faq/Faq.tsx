@@ -88,6 +88,7 @@ export default function Faq() {
                 onClick={() => toggleFaq(index)}
                 className="flex w-full items-center justify-between bg-[#f0f1f2] px-6 py-4 text-left text-lg font-medium text-gray-800 transition-colors duration-300 hover:bg-[#e6e7e8] dark:bg-[#1F2A37] dark:text-white dark:hover:bg-[#374151]"
                 aria-expanded={activeIndex === index}
+                aria-controls={`faq-panel-${index}`}
               >
                 <span>{item.question}</span>
                 <svg
@@ -101,6 +102,7 @@ export default function Faq() {
               </button>
               <div 
                 className={`overflow-hidden transition-all duration-300 ease-in-out ${activeIndex === index ? 'max-h-96' : 'max-h-0'}`}
+                id={`faq-panel-${index}`}
               >
                 <div className="bg-[#f5f6f7] p-6 text-gray-700 dark:bg-[#1F2A37] dark:text-gray-400">
                   {item.answer}
