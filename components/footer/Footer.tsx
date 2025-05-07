@@ -15,22 +15,24 @@ export default function Footer() {
     <footer className="isolate p-4 text-center sm:p-6 lg:text-left">
       <div className="mx-auto max-w-screen-xl px-4 py-8">
         <div className="md:flex md:justify-between">
-          <div className="mb-6 flex items-center justify-center md:mb-0 md:justify-start">
-            <Link href="/" legacyBehavior>
-              <a className="flex items-center">
-                <Image
-                  className="mr-3 h-8 text-white dark:invert"
-                  alt="Eternalcode Logo"
-                  aria-label="Eternalcode Logo"
-                  src={logo}
-                  width="32"
-                  height="32"
-                />
-                <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
-                  EternalCode.pl
-                </span>
-              </a>
+          <div className="mb-6 flex flex-col items-center md:mb-0 md:items-start">
+            <Link href="/" className="flex items-center">
+              <Image
+                className="mr-3 h-8 text-white dark:invert"
+                alt="Eternalcode Logo"
+                aria-label="Eternalcode Logo"
+                src={logo}
+                width="32"
+                height="32"
+                priority
+              />
+              <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
+                EternalCode.pl
+              </span>
             </Link>
+            <p className="mt-2 max-w-md text-sm text-gray-600 dark:text-gray-400">
+              Providing high-quality Minecraft plugins and development solutions since 2021.
+            </p>
           </div>
 
           <div className="grid grid-cols-2 justify-center gap-8 sm:grid-cols-3 sm:gap-6 md:justify-end">
@@ -79,6 +81,8 @@ export default function Footer() {
                     href="https://github.com/EternalCodeTeam"
                     className="hover:underline"
                     aria-label="EternalCode GitHub"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     GitHub
                   </a>
@@ -88,15 +92,19 @@ export default function Footer() {
                     href="https://discord.com/invite/FQ7jmGBd6c"
                     className="hover:underline"
                     aria-label="EternalCode Discord"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Discord
                   </a>
                 </li>
                 <li className="mb-2">
                   <a
-                    href="/link"
+                    href="https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q"
                     className="hover:underline"
                     aria-label="EternalCode YouTube"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     YouTube
                   </a>
@@ -106,6 +114,8 @@ export default function Footer() {
                     href="https://www.tiktok.com/@eternalcode.pl"
                     className="hover:underline"
                     aria-label="EternalCode TikTok"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     TikTok
                   </a>
@@ -115,6 +125,8 @@ export default function Footer() {
                     href="https://www.spigotmc.org/resources/authors/eternalcodeteam.1570200/"
                     className="hover:underline"
                     aria-label="EternalCode SpigotMC"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     SpigotMC
                   </a>
@@ -124,6 +136,8 @@ export default function Footer() {
                     href="https://modrinth.com/organization/eternalcodeteam"
                     className="hover:underline"
                     aria-label="EternalCode Modrinth"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Modrinth
                   </a>
@@ -141,6 +155,8 @@ export default function Footer() {
                     href="https://repo.eternalcode.pl/#/"
                     className="hover:underline"
                     aria-label="EternalCode Repository"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Repository
                   </a>
@@ -150,6 +166,8 @@ export default function Footer() {
                     href="https://docs.eternalcode.pl/"
                     className="hover:underline"
                     aria-label="EternalCode Documentations"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Documentations
                   </a>
@@ -159,6 +177,8 @@ export default function Footer() {
                     href="https://status.eternalcode.pl/"
                     className="hover:underline"
                     aria-label="EternalCode Status"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Status
                   </a>
@@ -168,6 +188,8 @@ export default function Footer() {
                     href="https://bstats.org/author/vLucky"
                     className="hover:underline"
                     aria-label="EternalCode BStats"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     BStats
                   </a>
@@ -188,6 +210,8 @@ export default function Footer() {
               aria-label="EternalCode TikTok link"
               className="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
               href="https://www.tiktok.com/@eternalcode.pl"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <TikTokIcon />
             </a>
@@ -195,6 +219,8 @@ export default function Footer() {
               aria-label="EternalCode Youtube link"
               className="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
               href="https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <YouTubeIcon />
             </a>
@@ -202,6 +228,8 @@ export default function Footer() {
               aria-label="EternalCode Github link"
               className="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
               href="https://github.com/EternalCodeTeam"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <GitHubIcon />
             </a>
@@ -209,6 +237,8 @@ export default function Footer() {
               aria-label="EternalCode Discord link"
               className="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
               href="https://discord.com/invite/FQ7jmGBd6c"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <DiscordIcon />
             </a>
@@ -216,13 +246,17 @@ export default function Footer() {
               aria-label="EternalCode SpigotMC link"
               className="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
               href="https://www.spigotmc.org/resources/authors/eternalcodeteam.1570200/"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <SpigotMcLikeIcon />
             </a>
             <a
-              aria-label="EternalCode Modrinht link"
+              aria-label="EternalCode Modrinth link"
               className="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
-              href="https://modrinth.com/user/EternalCodeTeam"
+              href="https://modrinth.com/organization/eternalcodeteam"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <ModrinthIcon />
             </a>

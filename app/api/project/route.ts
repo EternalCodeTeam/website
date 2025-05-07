@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export const revalidate = 3600; 
+export const revalidate = 3600;
 
 export async function GET(request: Request) {
   try {
@@ -10,7 +10,7 @@ export async function GET(request: Request) {
         headers: {
           Authorization: `Bearer ${process.env.ETERNALCODE_STRAPI_KEY}`,
         },
-        next: { revalidate }
+        next: { revalidate },
       }
     );
 
@@ -20,11 +20,11 @@ export async function GET(request: Request) {
     }
 
     const body = await res.json();
-    
+
     return NextResponse.json(body, {
       headers: {
-        'Cache-Control': 'public, max-age=60, stale-while-revalidate=3600',
-      }
+        "Cache-Control": "public, max-age=60, stale-while-revalidate=3600",
+      },
     });
   } catch (error) {
     console.error("Error fetching projects:", error);
