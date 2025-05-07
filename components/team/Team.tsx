@@ -89,8 +89,22 @@ export default function Team() {
     return (
       <section id="team">
         <div className="mx-auto max-w-screen-xl px-4 py-16">
-          <div className="flex h-64 items-center justify-center">
-            <div className="text-xl">Loading team data...</div>
+          <SectionTitle
+            title="Our Team"
+            description="EternalCodeTeam is a dedicated group of creative programmers who work on unique open source projects."
+          />
+          <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {[...Array(8)].map((_, index) => (
+              <div key={index} className="animate-pulse">
+                <div className="mx-auto mb-4 h-36 w-36 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                <div className="mb-2 h-6 w-3/4 rounded bg-gray-200 dark:bg-gray-700 mx-auto"></div>
+                <div className="mb-4 h-4 w-1/2 rounded bg-gray-200 dark:bg-gray-700 mx-auto"></div>
+                <div className="mt-4 flex justify-center space-x-4">
+                  <div className="h-6 w-6 rounded bg-gray-200 dark:bg-gray-700"></div>
+                  <div className="h-6 w-6 rounded bg-gray-200 dark:bg-gray-700"></div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
