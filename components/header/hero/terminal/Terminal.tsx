@@ -278,7 +278,6 @@ export default function Terminal() {
       initial={{ opacity: 0, y: 20 }}
       animate={controls}
       transition={{ duration: 0.55, ease: "easeOut" }}
-      className="shadow-2xl"
     >
       <TerminalTab>
         <div className="scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-700 inset-x-0 h-80 min-h-80 overflow-y-auto bg-[#e6e7e8] pl-2 pt-2 dark:bg-[#1F2A37]">
