@@ -1,33 +1,29 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
-import GitBranchIcon from "../../../icons/git-branch";
-import CodeHideIcon from "../../../icons/code-hide";
-import GitCommitIcon from "../../../icons/git-commit";
-import GitHubIcon from "../../../icons/github";
-import SharpMoreVertIcon from "../../../icons/sharp-more-vert";
-import FolderIcon from "../../../icons/folder";
-import TerminalIcon from "../../../icons/terminal-fill";
-import { motion } from "framer-motion";
-import { TerminalLine } from "@/components/header/hero/terminal/TerminalLine";
-import { TabFile } from "@/components/header/hero/terminal/TerminalTabFile";
-
-interface Line {
-  line: string;
-  formatting?: string;
-  special?: boolean;
-  locale?: boolean;
-  url?: string;
-  endLine: boolean;
-}
+import { useEffect, useState, useMemo, useCallback, useRef } from "react";
+import { motion, useAnimation } from "framer-motion";
+import { TerminalLine, Line } from "./TerminalLine";
+import { TerminalTab } from "./TerminalTab";
+import { useInView } from "react-intersection-observer";
 
 export default function Terminal() {
+  const { ref, inView } = useInView({
+    triggerOnce: false,
+    threshold: 0.1,
+  });
+
+  const controls = useAnimation();
+  const typingTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const lineTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const animationFrameRef = useRef<number | null>(null);
+
   const lines: Line[] = useMemo(
     () => [
       {
         line: "> eternalcode --help",
-        formatting: "dark:text-gray-100 text-black-300 text-sm",
+        formatting: "dark:text-gray-100 text-black-300 text-sm font-mono",
         endLine: true,
+        isCommand: true,
       },
       {
         line: "",
@@ -35,20 +31,23 @@ export default function Terminal() {
       },
       {
         line: "Help requested!",
-        formatting: "text-slate-600 text-sm",
+        formatting: "text-slate-600 text-sm font-mono",
         endLine: true,
       },
       {
-        line: "Try finding answers in our ",
-        formatting: "text-slate-600 text-sm",
-        endLine: false,
-      },
-      {
-        line: "documentation!",
-        formatting: "text-blue-500 text-sm",
-        special: true,
-        locale: false,
-        url: "https://docs.eternalcode.pl/",
+        line: [
+          {
+            text: "Try finding answers in our ",
+            formatting: "text-slate-600 text-sm font-mono",
+          },
+          {
+            text: "documentation!",
+            formatting: "text-blue-500 text-sm font-mono hover:underline",
+            special: true,
+            locale: false,
+            url: "https://docs.eternalcode.pl/",
+          },
+        ],
         endLine: true,
       },
       {
@@ -57,207 +56,237 @@ export default function Terminal() {
       },
       {
         line: "> eternalcode --tree",
-        formatting: "dark:text-gray-100 text-black-300 text-sm",
+        formatting: "dark:text-gray-100 text-black-300 text-sm font-mono",
         endLine: true,
+        isCommand: true,
       },
       {
         line: "",
         endLine: true,
       },
       {
-        line: "├── 📁 ",
-        formatting: "text-slate-600 text-sm",
-        endLine: false,
-      },
-      {
-        line: "Home",
-        formatting: "text-blue-500 text-sm",
-        special: true,
-        locale: true,
-        url: "/",
+        line: [
+          { text: "├── 📁 ", formatting: "text-slate-600 text-sm font-mono" },
+          {
+            text: "Home",
+            formatting: "text-slate-600 text-sm font-mono",
+            special: true,
+            locale: true,
+            url: "/",
+          },
+        ],
         endLine: true,
       },
       {
-        line: "│   ├── 📁 ",
-        formatting: "text-slate-600 text-sm",
-        endLine: false,
-      },
-      {
-        line: "Team",
-        formatting: "text-blue-500 text-sm",
-        special: true,
-        locale: true,
-        url: "/team",
+        line: [
+          {
+            text: "│   ├── 📁 ",
+            formatting: "text-slate-600 text-sm font-mono",
+          },
+          {
+            text: "Team",
+            formatting: "text-blue-500 text-sm font-mono hover:underline",
+            special: true,
+            locale: true,
+            url: "/team",
+          },
+        ],
         endLine: true,
       },
       {
-        line: "│   ├── 📁 ",
-        formatting: "text-slate-600 text-sm",
-        endLine: false,
-      },
-      {
-        line: "Projects",
-        formatting: "text-blue-500 text-sm",
-        special: true,
-        locale: true,
-        url: "/projects",
+        line: [
+          {
+            text: "│   ├── 📁 ",
+            formatting: "text-slate-600 text-sm font-mono",
+          },
+          {
+            text: "Projects",
+            formatting: "text-blue-500 text-sm font-mono hover:underline",
+            special: true,
+            locale: true,
+            url: "/projects",
+          },
+        ],
         endLine: true,
       },
       {
-        line: "├── 📁 Faq",
-        formatting: "text-slate-600 text-sm",
+        line: [
+          { text: "├── 📁 ", formatting: "text-slate-600 text-sm font-mono" },
+          { text: "Faq", formatting: "text-slate-600 text-sm font-mono" },
+        ],
         endLine: true,
       },
       {
-        line: "│   │   ├── 📁 ",
-        formatting: "text-slate-600 text-sm",
-        endLine: false,
-      },
-      {
-        line: "Docs",
-        formatting: "text-blue-500 text-sm",
-        special: true,
-        locale: false,
-        url: "https://docs.eternalcode.pl/",
+        line: [
+          {
+            text: "│   │   ├── 📁 ",
+            formatting: "text-slate-600 text-sm font-mono",
+          },
+          {
+            text: "Docs",
+            formatting: "text-blue-500 text-sm font-mono hover:underline",
+            special: true,
+            locale: false,
+            url: "https://docs.eternalcode.pl/",
+          },
+        ],
         endLine: true,
       },
     ],
     []
   );
 
-  const icons = [
-    GitBranchIcon,
-    CodeHideIcon,
-    GitCommitIcon,
-    GitHubIcon,
-    SharpMoreVertIcon,
-  ];
-
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [typingText, setTypingText] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const [currentCommandIndex, setCurrentCommandIndex] = useState(-1);
+  const [completedCommands, setCompletedCommands] = useState<number[]>([]);
+  const [visibleLines, setVisibleLines] = useState<
+    { key: number; line: Line; isVisible: boolean }[]
+  >([]);
+
+  const resetAnimation = useCallback(() => {
+    setCurrentIndex(0);
+    setTypingText("");
+    setIsTyping(false);
+    setCurrentCommandIndex(-1);
+    setCompletedCommands([]);
+    setVisibleLines([]);
+
+    if (typingTimerRef.current) {
+      clearTimeout(typingTimerRef.current);
+      typingTimerRef.current = null;
+    }
+
+    if (lineTimerRef.current) {
+      clearTimeout(lineTimerRef.current);
+      lineTimerRef.current = null;
+    }
+
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
+    }
+  }, []);
+
+  const typeCommand = useCallback(
+    (command: string, index: number) => {
+      setIsTyping(true);
+      setCurrentCommandIndex(index);
+      setTypingText("");
+
+      let charIndex = 0;
+      let lastTimestamp = 0;
+      const TYPING_SPEED = 50;
+
+      const typeNextChar = (timestamp: number) => {
+        if (!lastTimestamp) lastTimestamp = timestamp;
+        const elapsed = timestamp - lastTimestamp;
+
+        if (elapsed >= TYPING_SPEED) {
+          if (charIndex < command.length) {
+            setTypingText(command.substring(0, charIndex + 1));
+            charIndex++;
+            lastTimestamp = timestamp;
+          } else {
+            setIsTyping(false);
+            setCompletedCommands((prev) => [...prev, index]);
+            const delay = lines[index].endLine ? 500 : 0;
+            lineTimerRef.current = setTimeout(() => {
+              setCurrentIndex((prev) => prev + 1);
+            }, delay);
+            return;
+          }
+        }
+
+        animationFrameRef.current = requestAnimationFrame(typeNextChar);
+      };
+
+      animationFrameRef.current = requestAnimationFrame(typeNextChar);
+    },
+    [lines]
+  );
+
+  const processNextLine = useCallback(() => {
+    if (currentIndex < lines.length) {
+      const currentLine = lines[currentIndex];
+
+      if (currentLine.isCommand) {
+        if (typeof currentLine.line === "string") {
+          typeCommand(currentLine.line, currentIndex);
+        } else {
+          setCurrentIndex((prevIndex) => prevIndex + 1);
+        }
+      } else {
+        const delay = currentLine.endLine ? 300 : 0;
+        lineTimerRef.current = setTimeout(
+          () => setCurrentIndex((prevIndex) => prevIndex + 1),
+          delay
+        );
+      }
+    }
+  }, [currentIndex, lines, typeCommand]);
 
   useEffect(() => {
-    if (currentIndex < lines.length) {
-      const delay = lines[currentIndex].endLine ? 300 : 0;
-      const timer = setTimeout(
-        () => setCurrentIndex((prevIndex) => prevIndex + 1),
-        delay
-      );
-      return () => clearTimeout(timer);
+    if (inView) {
+      controls.start({ opacity: 1, y: 0 });
+      processNextLine();
+    } else {
+      controls.start({ opacity: 0, y: 20 });
+      resetAnimation();
     }
-  }, [currentIndex, lines]);
+
+    return () => {
+      if (typingTimerRef.current) {
+        clearTimeout(typingTimerRef.current);
+      }
+      if (lineTimerRef.current) {
+        clearTimeout(lineTimerRef.current);
+      }
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [inView, currentIndex, controls, processNextLine, resetAnimation]);
+
+  useEffect(() => {
+    const newVisibleLines = lines
+      .slice(0, currentIndex + 1)
+      .map((line, index) => {
+        const isCommand = line.isCommand;
+        const isCurrentlyTyping = index === currentCommandIndex;
+        const isCompleted = completedCommands.includes(index);
+
+        return {
+          key: index,
+          line:
+            isCurrentlyTyping && typeof line.line === "string"
+              ? { ...line, line: typingText || "" }
+              : isCommand && isCompleted
+                ? { ...line, line: line.line }
+                : line,
+          isVisible: true,
+        };
+      });
+
+    setVisibleLines(newVisibleLines);
+  }, [lines, currentIndex, currentCommandIndex, typingText, completedCommands]);
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.55 }}
-      aria-label="Terminal"
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={controls}
+      transition={{ duration: 0.55, ease: "easeOut" }}
+      className="shadow-2xl"
     >
-      <div
-        id="terminal"
-        className=" w-full md:mt-3 md:flex md:flex-row lg:mt-0"
-        role="region"
-        aria-labelledby="file-name"
-      >
-        <div className="flex w-full flex-col">
-          <div className="flex w-full rounded-t-lg border-b-2 border-rose-500 bg-[#d8dde6] dark:border-gray-900 dark:bg-[#4B5563]">
-            <div
-              id="on-off-buttons"
-              className="h-6 select-none rounded-lg bg-[#d8dde6] dark:bg-[#4B5563]"
-              role="toolbar"
-              aria-label="On/Off buttons"
-            >
-              <div
-                className="ml-2 flex h-full select-none items-center justify-center space-x-1.5 rounded-lg bg-[#d8dde6] dark:bg-[#4B5563]"
-                style={{ width: "fit-content" }}
-              >
-                <div className="h-[12px] w-[12px] rounded-full bg-[#f9644e]"></div>
-                <div className="h-[12px] w-[12px] rounded-full bg-[#ffb630]"></div>
-                <div className="h-[12px] w-[12px] rounded-full bg-[#3cc548]"></div>
-              </div>
-            </div>
-            <div
-              id="file-name"
-              className="text-2xs mx-auto select-none text-center text-gray-800 dark:text-gray-400"
-              role="heading"
-              aria-level={1}
-            >
-              <span className="font-medium">EternalCode</span>
-            </div>
-          </div>
-          <div id="section-left" className="flex flex-row">
-            <div id="settings" className="flex h-full w-1/5">
-              <div
-                id="project-settings"
-                className="center flex h-full w-1/4 flex-col items-center space-y-2 rounded-bl-lg bg-[#cfd0d1] px-2 py-2 dark:bg-[#374151]"
-                role="region"
-                aria-labelledby="project-settings"
-              >
-                {icons.map((Icon, i) => (
-                  <span key={i}>
-                    <Icon className="mb-[3px] dark:text-slate-500" />
-                  </span>
-                ))}
-              </div>
-              <div
-                id="files"
-                className="h-full w-3/4 select-none bg-[#d8dde6] pl-4 text-sm font-light text-gray-400 dark:bg-[#4B5563]"
-                role="region"
-                aria-labelledby="files"
-              >
-                <p>▄▄▄▄</p>
-                <p>▄▄▄▄▄▄</p>
-                <p>▄▄▄</p>
-                <p>▄▄▄▄▄</p>
-                <p>▄▄▄</p>
-                <p>▄▄▄▄▄</p>
-                <p>▄▄▄▄</p>
-                <p>▄▄▄▄▄</p>
-                <p>▄▄</p>
-                <p>▄▄▄▄</p>
-                <p>▄▄</p>
-                <p>▄</p>
-              </div>
-            </div>
-            <div
-              id="main-tab"
-              className="flex h-full w-4/5 flex-col rounded-br-lg bg-[#bfbfbf] dark:bg-[#374151]"
-              role="region"
-              aria-labelledby="main-tab"
-            >
-              <div id="file-section" className="flex">
-                <TabFile
-                  withIcon={
-                    <TerminalIcon className="left-0 w-5 place-self-center dark:text-slate-500" />
-                  }
-                  isActive
-                  title="Terminal"
-                />
-              </div>
-              <div
-                id="file-2-code"
-                className="inset-x-0 h-80 min-h-80 bg-[#e6e7e8] pl-2 dark:bg-[#1F2A37]"
-                role="region"
-                aria-labelledby="file-2-code"
-              >
-                {lines.map((line, index) => (
-                  <TerminalLine
-                    key={index}
-                    line={line}
-                    isVisible={index <= currentIndex}
-                  />
-                ))}
-              </div>
-              <div
-                id="file-settings"
-                className="m-0 h-6 w-full rounded-br-lg bg-[#bdbdbd] dark:bg-[#374151]"
-                role="region"
-                aria-labelledby="file-settings"
-              ></div>
-            </div>
-          </div>
+      <TerminalTab>
+        <div className="scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-700 inset-x-0 h-80 min-h-80 overflow-y-auto bg-[#e6e7e8] pl-2 pt-2 dark:bg-[#1F2A37]">
+          {visibleLines.map(({ key, line, isVisible }) => (
+            <TerminalLine key={key} line={line} isVisible={isVisible} />
+          ))}
         </div>
-      </div>
+      </TerminalTab>
     </motion.div>
   );
 }

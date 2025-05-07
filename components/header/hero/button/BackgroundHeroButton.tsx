@@ -10,7 +10,7 @@ export default function BackgroundHeroButton() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
         aria-label="Second button"
-        className="flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none "
+        className="flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none"
       >
         <PeopleGroupIcon className="mb-[0.5px] mr-2" />
         See our team!

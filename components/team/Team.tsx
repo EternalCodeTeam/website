@@ -55,18 +55,18 @@ export default function Team() {
     const fetchMembers = async () => {
       try {
         setLoading(true);
-        
-        const response = await fetch('/api/team', {
+
+        const response = await fetch("/api/team", {
           headers: {
-            'Accept': 'application/json',
-          }
+            Accept: "application/json",
+          },
         });
 
         if (!response.ok) {
           throw new Error(`Failed to fetch team members: ${response.status}`);
         }
 
-        const data = await response.json() as StrapiResponse;
+        const data = (await response.json()) as StrapiResponse;
 
         if (data && Array.isArray(data.data)) {
           setMembers(data.data);
@@ -89,7 +89,7 @@ export default function Team() {
     return (
       <section id="team">
         <div className="mx-auto max-w-screen-xl px-4 py-16">
-          <div className="flex justify-center items-center h-64">
+          <div className="flex h-64 items-center justify-center">
             <div className="text-xl">Loading team data...</div>
           </div>
         </div>
@@ -101,7 +101,7 @@ export default function Team() {
     return (
       <section id="team">
         <div className="mx-auto max-w-screen-xl px-4 py-16">
-          <div className="flex justify-center items-center h-64">
+          <div className="flex h-64 items-center justify-center">
             <div className="text-xl text-red-500">Error: {error}</div>
           </div>
         </div>

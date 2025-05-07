@@ -27,11 +27,11 @@ export default function Projects() {
     const fetchProjects = async () => {
       try {
         setLoading(true);
-        
+
         const response = await fetch("/api/project", {
           headers: {
-            'Accept': 'application/json',
-          }
+            Accept: "application/json",
+          },
         });
 
         if (!response.ok) {
@@ -39,7 +39,7 @@ export default function Projects() {
         }
 
         const data = (await response.json()) as ApiResponse;
-        
+
         if (data && Array.isArray(data.data)) {
           setProjects(data.data);
         } else {
@@ -61,7 +61,7 @@ export default function Projects() {
     return (
       <section id="projects">
         <div className="mx-auto max-w-screen-xl px-4 py-16">
-          <div className="flex justify-center items-center h-64">
+          <div className="flex h-64 items-center justify-center">
             <div className="text-xl">Loading projects...</div>
           </div>
         </div>
@@ -73,7 +73,7 @@ export default function Projects() {
     return (
       <section id="projects">
         <div className="mx-auto max-w-screen-xl px-4 py-16">
-          <div className="flex justify-center items-center h-64">
+          <div className="flex h-64 items-center justify-center">
             <div className="text-xl text-red-500">Error: {error}</div>
           </div>
         </div>

@@ -16,7 +16,7 @@ export default function Faq() {
         },
       },
     }),
-    [],
+    []
   );
 
   const { ref: q1, inView: inViewFAQ1 } = useInView({ triggerOnce: false });
@@ -73,10 +73,12 @@ export default function Faq() {
               Q2: How can I join the team?
             </h3>
             <p className="mt-3 text-gray-500 dark:text-gray-400">
-              Join us by contacting via Discord, where our team interacts and discusses projects. We value not just
-              commitment but also your interests, ideas, and diverse talents. As a member, you'll actively participate
-              in projects, hone skills, and gain experience in a supportive setting. Be part of our exciting team
-              journey, don't hesitate!
+              Join us by contacting via Discord, where our team interacts and
+              discusses projects. We value not just commitment but also your
+              interests, ideas, and diverse talents. As a member, you'll
+              actively participate in projects, hone skills, and gain experience
+              in a supportive setting. Be part of our exciting team journey,
+              don't hesitate!
             </p>
           </motion.div>
 
@@ -91,9 +93,10 @@ export default function Faq() {
               Q3: What are the benefits of joining the team?
             </h3>
             <p className="mt-3 text-gray-500 dark:text-gray-400">
-              Joining us provides valuable experience and has led previous members to their dream IT roles. You'll also
-              be able to extend your professional network, demonstrate your skills, and partake in team game
-              competitions. Don't hesitate, join us!
+              Joining us provides valuable experience and has led previous
+              members to their dream IT roles. You'll also be able to extend
+              your professional network, demonstrate your skills, and partake in
+              team game competitions. Don't hesitate, join us!
             </p>
           </motion.div>
 
@@ -108,9 +111,11 @@ export default function Faq() {
               Q4: What are the requirements for joining the team?
             </h3>
             <p className="mt-3 text-gray-500 dark:text-gray-400">
-              In addition to commitment, we require basic programming knowledge. Our training isn't comprehensive, so
-              it's recommended to have some programming skills. Our team focuses on enhancing existing competencies to
-              aid your professional growth. Currently, we only accept Polish-speaking individuals.
+              In addition to commitment, we require basic programming knowledge.
+              Our training isn't comprehensive, so it's recommended to have some
+              programming skills. Our team focuses on enhancing existing
+              competencies to aid your professional growth. Currently, we only
+              accept Polish-speaking individuals.
             </p>
           </motion.div>
         </div>
