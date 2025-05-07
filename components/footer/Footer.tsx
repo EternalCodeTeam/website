@@ -9,8 +9,49 @@ import DiscordIcon from "@/components/icons/discord";
 import SpigotMcLikeIcon from "@/components/icons/spigotmc";
 import ModrinthIcon from "@/components/icons/modrinth";
 import logo from "@/public/logo.svg";
+import { useEffect, useState } from "react";
+
+interface GitInfo {
+  commitHash: string;
+  lastUpdated: string;
+}
 
 export default function Footer() {
+  const [commitInfo, setCommitInfo] = useState({
+    hash: "",
+    date: "",
+  });
+
+  useEffect(() => {
+    const fetchCommitInfo = async () => {
+      try {
+        const response = await fetch("https://api.github.com/repos/EternalCodeTeam/website/commits/master");
+        if (response.ok) {
+          const data = await response.json() as {
+            sha: string;
+            commit: {
+              committer: {
+                date: string;
+              };
+            };
+          };
+          
+          const commitDate = new Date(data.commit.committer.date);
+          const formattedDate = commitDate.toLocaleString();
+          
+          setCommitInfo({
+            hash: data.sha,
+            date: formattedDate,
+          });
+        }
+      } catch (error) {
+        console.error("Failed to fetch git info:", error);
+      }
+    };
+
+    fetchCommitInfo();
+  }, []);
+
   return (
     <footer className="isolate p-4 text-center sm:p-6 lg:text-left">
       <div className="mx-auto max-w-screen-xl px-4 py-8">
@@ -202,9 +243,23 @@ export default function Footer() {
         <hr className="my-6 border-gray-200 dark:border-gray-700 sm:mx-auto lg:my-8" />
 
         <div className="sm:flex sm:items-center sm:justify-between">
-          <span className="mb-4 block text-sm text-gray-500 dark:text-gray-400 sm:mb-0 sm:text-center">
-            © 2021-present EternalCodeTeam. All rights reserved.
-          </span>
+          <div className="mb-4 sm:mb-0">
+            <span className="block text-sm text-gray-500 dark:text-gray-400 sm:text-center">
+              © 2021-present EternalCodeTeam. All rights reserved.
+              {commitInfo.hash && (
+                <span className="ml-2">
+                  Commit: <a 
+                    href={`https://github.com/EternalCodeTeam/website/commit/${commitInfo.hash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    {commitInfo.hash.substring(0, 7)}
+                  </a> | Last updated: {commitInfo.date}
+                </span>
+              )}
+            </span>
+          </div>
           <div className="flex justify-center space-x-6">
             <a
               aria-label="EternalCode TikTok link"
