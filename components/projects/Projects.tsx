@@ -67,7 +67,7 @@ export default function Projects() {
             title="Our project"
             description="Below you will find a list of our projects."
           />
-          <div className="mt-8 space-y-8 lg:mt-12">
+          <div className="lg:alternate mt-8 space-y-8 lg:mt-12">
             {[...Array(3)].map((_, index) => (
               <div key={index} className="animate-pulse">
                 <div className="flex flex-col lg:flex-row lg:items-center lg:space-x-8">
