@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import SectionTitle from "@/components/SectionTitle";
 import ProjectItem from "@/components/projects/ProjectItem";
+import { motion } from "framer-motion";
 
 interface Project {
   id: string;
@@ -22,6 +23,7 @@ export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [imageError, setImageError] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -61,8 +63,24 @@ export default function Projects() {
     return (
       <section id="projects">
         <div className="mx-auto max-w-screen-xl px-4 py-16">
-          <div className="flex h-64 items-center justify-center">
-            <div className="text-xl">Loading projects...</div>
+          <SectionTitle
+            title="Our project"
+            description="Below you will find a list of our projects."
+          />
+          <div className="lg:alternate mt-8 space-y-8 lg:mt-12">
+            {[...Array(3)].map((_, index) => (
+              <div key={index} className="animate-pulse">
+                <div className="flex flex-col lg:flex-row lg:items-center lg:space-x-8">
+                  <div className="h-64 w-full rounded-lg bg-gray-200 dark:bg-gray-700 lg:w-1/2"></div>
+                  <div className="mt-4 w-full lg:mt-0 lg:w-1/2">
+                    <div className="mb-4 h-8 w-3/4 rounded bg-gray-200 dark:bg-gray-700"></div>
+                    <div className="mb-6 h-4 w-full rounded bg-gray-200 dark:bg-gray-700"></div>
+                    <div className="h-4 w-full rounded bg-gray-200 dark:bg-gray-700"></div>
+                    <div className="mt-8 h-10 w-40 rounded bg-gray-200 dark:bg-gray-700"></div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
