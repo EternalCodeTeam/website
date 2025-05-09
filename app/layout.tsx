@@ -4,11 +4,11 @@ import NextTopLoader from "nextjs-toploader";
 import { Providers } from "./providers";
 import "./globals.css";
 import Navbar from "@/components/header/Navbar";
-import Hero from "@/components/header/hero/Hero";
 import Footer from "@/components/footer/Footer";
 import React from "react";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import "./prism-languages";
 
 const poppins = Poppins({
   weight: ["500"],
@@ -37,7 +37,6 @@ export default function RootLayout({
             <Navbar />
           </header>
 
-          <Hero />
           {children}
           <Analytics />
           <SpeedInsights />

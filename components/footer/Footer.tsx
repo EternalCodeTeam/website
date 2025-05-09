@@ -31,7 +31,8 @@ export default function Footer() {
               </span>
             </Link>
             <p className="mt-2 max-w-md text-sm text-gray-600 dark:text-gray-400">
-              Providing high-quality Minecraft plugins and development solutions since 2021.
+              Providing high-quality Minecraft plugins and development solutions
+              since 2021.
             </p>
           </div>
 

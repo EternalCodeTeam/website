@@ -1,0 +1,26 @@
+import { Alert } from "@/components/docs/Alert";
+import { CodeTabs, CodeTab } from "@/components/docs/CodeTabs";
+import { H1, H2, H3, H4 } from "@/components/docs/AnimatedHeading";
+import remarkGfm from "remark-gfm";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypePrism from "rehype-prism";
+
+export const components = {
+  h1: H1,
+  h2: H2,
+  h3: H3,
+  h4: H4,
+  Alert,
+  CodeTabs,
+  CodeTab,
+};
+
+export const mdxOptions = {
+  remarkPlugins: [remarkGfm],
+  rehypePlugins: [
+    rehypeSlug,
+    [rehypeAutolinkHeadings, { behavior: "wrap" }],
+    rehypePrism,
+  ],
+};

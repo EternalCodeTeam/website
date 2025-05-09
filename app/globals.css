@@ -1,6 +1,22 @@
+@import "./prism-tomorrow.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+code[class*="language-"],
+pre[class*="language-"] {
+  font-family:
+    "Fira Mono", "Consolas", "Menlo", "Monaco", "Liberation Mono",
+    "Courier New", monospace;
+  font-size: 1em;
+}
+
+code,
+pre {
+  font-family:
+    "Fira Mono", "Consolas", "Menlo", "Monaco", "Liberation Mono",
+    "Courier New", monospace;
+}
 
 ::-webkit-scrollbar {
   width: 8px;
@@ -13,4 +29,13 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.prose h1 a,
+.prose h2 a,
+.prose h3 a,
+.prose h4 a {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
 }

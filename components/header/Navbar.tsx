@@ -26,10 +26,10 @@ export default function Navbar() {
       isExternal: true,
     },
     {
-      href: "https://docs.eternalcode.pl/",
+      href: "/docs",
       label: "Documentation",
       text: "Documentation",
-      isExternal: true,
+      isExternal: false,
     },
     {
       href: "https://status.eternalcode.pl/",

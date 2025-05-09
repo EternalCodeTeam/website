@@ -97,8 +97,8 @@ export default function Team() {
             {[...Array(8)].map((_, index) => (
               <div key={index} className="animate-pulse">
                 <div className="mx-auto mb-4 h-36 w-36 rounded-full bg-gray-200 dark:bg-gray-700"></div>
-                <div className="mb-2 h-6 w-3/4 rounded bg-gray-200 dark:bg-gray-700 mx-auto"></div>
-                <div className="mb-4 h-4 w-1/2 rounded bg-gray-200 dark:bg-gray-700 mx-auto"></div>
+                <div className="mx-auto mb-2 h-6 w-3/4 rounded bg-gray-200 dark:bg-gray-700"></div>
+                <div className="mx-auto mb-4 h-4 w-1/2 rounded bg-gray-200 dark:bg-gray-700"></div>
                 <div className="mt-4 flex justify-center space-x-4">
                   <div className="h-6 w-6 rounded bg-gray-200 dark:bg-gray-700"></div>
                   <div className="h-6 w-6 rounded bg-gray-200 dark:bg-gray-700"></div>
