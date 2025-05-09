@@ -39,3 +39,52 @@ pre {
   border-bottom: none !important;
   box-shadow: none !important;
 }
+
+/* Table Styling */
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.prose thead {
+  background-color: #f8fafc;
+  color: white;
+}
+
+.prose th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+}
+
+.prose td {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+}
+
+.prose tbody tr:nth-child(even) td {
+  background-color: #f8fafc;
+}
+
+
+/* Dark mode table styling */
+.dark .prose thead {
+  background-color: #1a202c;
+}
+
+.dark .prose td {
+  border-top: 1px solid #2d3748;
+  background-color: #1a202c;
+}
+
+.dark .prose tbody tr:nth-child(even) td {
+  background-color: #1a202c;
+}

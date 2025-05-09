@@ -6,23 +6,10 @@ export interface DocItem {
 
 export const docsStructure: DocItem[] = [
   {
-    title: "Getting Started",
-    path: "/docs/getting-started",
+    title: "Documentation Editors",
+    path: "/docs/documentation-editors",
     children: [
-      { title: "Introduction", path: "/docs/getting-started/introduction" },
-      { title: "Installation", path: "/docs/getting-started/installation" },
+      { title: "Markdown Guide", path: "/docs/documentation-editors/markdown-guide" },
     ],
-  },
-  {
-    title: "Guides",
-    path: "/docs/guides",
-    children: [
-      { title: "Basic Usage", path: "/docs/guides/basic-usage" },
-      { title: "Advanced Features", path: "/docs/guides/advanced-features" },
-    ],
-  },
-  {
-    title: "Formatting",
-    path: "/docs/formatting",
   },
 ];
