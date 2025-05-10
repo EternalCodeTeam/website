@@ -1,31 +1,39 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Folder from "@/components/icons/folder";
 import { docsStructure, DocItem } from "./sidebar-structure";
 
-export default function DocSidebar() {
+interface DocSidebarProps {
+  className?: string;
+}
+
+const DocSidebar: React.FC<DocSidebarProps> = ({ className = "" }) => {
   const pathname = usePathname();
 
-  const renderDocItem = (item: DocItem, level = 0) => {
+  const renderDocItem = React.useCallback((item: DocItem, level = 0) => {
     const isActive = pathname === item.path;
     const hasChildren = item.children && item.children.length > 0;
 
-    // Styl głównej kategorii
     if (hasChildren) {
       return (
         <div key={item.path} className={level === 0 ? "mb-3" : ""}>
-          <div className={`font-extrabold text-base mb-1 ${level > 0 ? "pl-4" : ""} text-gray-900 dark:text-white`}>{item.title}</div>
-          <div className="space-y-1">
-            {item.children && item.children.map((child) => renderDocItem(child, level + 1))}
+          <div 
+            className={`font-extrabold text-base mb-1 ${level > 0 ? "pl-4" : ""} text-gray-900 dark:text-white`}
+            role="heading"
+            aria-level={level + 1}
+          >
+            {item.title}
+          </div>
+          <div className="space-y-1" role="list">
+            {item.children?.map((child) => renderDocItem(child, level + 1))}
           </div>
         </div>
       );
     }
 
-    // Styl podkategorii
     return (
       <Link
         key={item.path}
@@ -35,17 +43,28 @@ export default function DocSidebar() {
             ? "bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white"
             : "text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
         }`}
+        aria-current={isActive ? "page" : undefined}
       >
         {item.title}
       </Link>
     );
-  };
+  }, [pathname]);
+
+  const sidebarContent = useMemo(() => (
+    <div className="space-y-1">
+      {docsStructure.map((item) => renderDocItem(item))}
+    </div>
+  ), [renderDocItem]);
 
   return (
-    <nav className="sticky top-4">
-      <div className="space-y-1">
-        {docsStructure.map((item) => renderDocItem(item))}
-      </div>
+    <nav 
+      className={`sticky top-4 ${className}`}
+      role="navigation"
+      aria-label="Documentation navigation"
+    >
+      {sidebarContent}
     </nav>
   );
-}
+};
+
+export default React.memo(DocSidebar);

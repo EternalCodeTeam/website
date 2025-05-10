@@ -34,8 +34,8 @@ export default function DocsLayout({
             <DocSidebar />
           </aside>
           <main className="flex min-w-0 flex-1 flex-col items-stretch">
-            <DocCopyEnhancer />
             <div className="w-full">
+              <DocCopyEnhancer />
               {children}
             </div>
             <div

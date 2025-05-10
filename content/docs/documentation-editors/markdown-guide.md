@@ -170,23 +170,48 @@ This is a danger/error alert.
 <Alert type="tip">
 This is a tip/success alert.
 </Alert>
+
+<Alert type="question" title="Question">
+  Have you considered this approach?
+</Alert>
+
+<Alert type="important" title="Important">
+  This is a critical piece of information!
+</Alert>
+
+<Alert type="example" title="Example">
+  Here's how to implement this feature...
+</Alert>
 ```
 
-<Alert type="info">
+<Alert type="info" title="INFO!">
 This is an information alert.
 </Alert>
 
-<Alert type="warning">
+<Alert type="warning" title="Read this!">
 This is a warning alert.
 </Alert>
 
-<Alert type="danger">
+<Alert type="danger" title="Danger!">
 This is a danger/error alert.
 </Alert>
 
-<Alert type="tip">
+<Alert type="tip" title="TIP">
 This is a tip/success alert.
 </Alert>
+
+<Alert type="question" title="Question">
+  Have you considered this approach?
+</Alert>
+
+<Alert type="important" title="Important">
+  This is a critical piece of information!
+</Alert>
+
+<Alert type="example" title="Example">
+  Here's how to implement this feature...
+</Alert>
+
 
 ## Code Blocks
 
