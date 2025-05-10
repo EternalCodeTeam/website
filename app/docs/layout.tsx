@@ -29,9 +29,11 @@ export default function DocsLayout({
       <Navbar />
       <div className="container mx-auto max-w-7xl px-2 py-8 pt-28 min-h-[calc(100vh-7rem)]">
         <div className="flex flex-col gap-8 lg:flex-row">
-          <aside className="w-full flex-shrink-0 overflow-auto lg:w-56">
-            <DocSearch />
-            <DocSidebar />
+          <aside className="w-full flex-shrink-0 lg:w-56">
+            <div className="sticky top-28 z-20 flex flex-col gap-4">
+              <DocSearch />
+              <DocSidebar />
+            </div>
           </aside>
           <main className="flex min-w-0 flex-1 flex-col items-stretch">
             <div className="w-full">

@@ -25,6 +25,7 @@ const DocSidebar: React.FC<DocSidebarProps> = ({ className = "" }) => {
             role="heading"
             aria-level={level + 1}
           >
+            <Folder className="inline-block mr-2 -mt-1 w-5 h-5 text-gray-900 dark:text-gray-200 align-middle" aria-label="folder" />
             {item.title}
           </div>
           <div className="space-y-1" role="list">
@@ -58,7 +59,7 @@ const DocSidebar: React.FC<DocSidebarProps> = ({ className = "" }) => {
 
   return (
     <nav 
-      className={`sticky top-4 ${className}`}
+      className={className}
       role="navigation"
       aria-label="Documentation navigation"
     >

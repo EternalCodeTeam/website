@@ -10,7 +10,11 @@ interface SearchResult {
   excerpt: string;
 }
 
-export default function DocSearch() {
+interface DocSearchProps {
+  className?: string;
+}
+
+export default function DocSearch({ className = "" }: DocSearchProps) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -43,7 +47,7 @@ export default function DocSearch() {
   }, [query]);
 
   return (
-    <div className="relative mb-6">
+    <div className={`relative mb-6 ${className}`}>
       <div className="relative">
         <input
           type="text"
