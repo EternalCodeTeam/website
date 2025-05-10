@@ -27,15 +27,15 @@ export default function DocsLayout({
       className={`${poppins.className} min-h-screen bg-[#eff1f5] dark:bg-[#0d1117]`}
     >
       <Navbar />
-      <div className="container mx-auto max-w-7xl px-2 py-8 pt-28">
+      <div className="container mx-auto max-w-7xl px-2 py-8 pt-28 min-h-[calc(100vh-7rem)]">
         <div className="flex flex-col gap-8 lg:flex-row">
           <aside className="w-full flex-shrink-0 overflow-auto lg:w-56">
             <DocSearch />
             <DocSidebar />
           </aside>
-          <main className="flex min-w-0 flex-1 flex-col items-center">
+          <main className="flex min-w-0 flex-1 flex-col items-stretch">
             <DocCopyEnhancer />
-            <div className="prose mb-8 w-full max-w-4xl rounded-2xl border border-gray-200 bg-white p-8 shadow-lg dark:prose-invert dark:border-gray-800 dark:bg-gray-900">
+            <div className="w-full">
               {children}
             </div>
             <div

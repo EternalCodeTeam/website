@@ -11,7 +11,7 @@ This guide provides a comprehensive overview of all Markdown features available 
 
 Frontmatter is used at the top of Markdown files to define metadata. It's written in YAML format between triple-dashed lines:
 
-```yaml
+```txt
 ---
 title: Page Title
 description: Page description that appears in meta tags
@@ -36,7 +36,7 @@ Link to other pages within the documentation:
 
 ### External Links
 
-Link to external websites:
+Link to external websites:a
 
 ```markdown
 [EternalCode Website](https://eternalcode.pl)
@@ -193,91 +193,11 @@ This is a tip/success alert.
 ### Basic Code Block
 
 ```markdown
-​```javascript
-function greet(name) {
-  return `Hello, ${name}!`;
-}
-​```
-```
-
 ```javascript
 function greet(name) {
   return `Hello, ${name}!`;
 }
 ```
-
-### Line Highlighting in Code Blocks
-
-Highlight specific lines by adding line numbers in curly braces after the language name:
-
-```markdown
-​```javascript {2,4-6}
-function example() {
-  // This line is highlighted
-  const a = 1;
-  // These lines are
-  // also highlighted
-  // as a group
-  return a;
-}
-​```
-```
-
-```javascript {2,4-6}
-function example() {
-  // This line is highlighted
-  const a = 1;
-  // These lines are
-  // also highlighted
-  // as a group
-  return a;
-}
-```
-
-### Focus in Code Blocks
-
-Focus on specific lines while fading others by adding focus-lines in curly braces:
-
-```markdown
-​```javascript focus=3
-function example() {
-  const a = 1;
-  // This line is in focus
-  const b = 2;
-  return a + b;
-}
-​```
-```
-
-```javascript focus=3
-function example() {
-  const a = 1;
-  // This line is in focus
-  const b = 2;
-  return a + b;
-}
-```
-
-### Colored Diffs in Code Blocks
-
-Show additions and deletions in code:
-
-```markdown
-​```diff
-function example() {
-- const oldValue = 'old';
-+ const newValue = 'new';
-  return newValue;
-}
-​```
-```
-
-```diff
-function example() {
-- const oldValue = 'old';
-+ const newValue = 'new';
-  return newValue;
-}
 ```
 
 ## Code Tabs

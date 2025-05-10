@@ -6,6 +6,8 @@ import remarkEmoji from "remark-emoji";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrism from "rehype-prism";
+import DynamicFeaturesTable from "@/components/docs/DynamicFeaturesTable";
+import DynamicCommandsTable from "@/components/docs/DynamicCommandsTable";
 
 export const components = {
   h1: H1,
@@ -17,6 +19,8 @@ export const components = {
   Alert,
   CodeTabs,
   CodeTab,
+  DynamicFeaturesTable,
+  DynamicCommandsTable,
 };
 
 export const mdxOptions = {

@@ -19,17 +19,12 @@ export default function Navbar() {
     { href: "/", label: "Home", text: "Home" },
     { href: "/team", label: "Team", text: "Team" },
     { href: "/projects", label: "Projects", text: "Projects" },
+    { href: "/docs", label: "Documentation", text: "Documentation" },
     {
       href: "https://repo.eternalcode.pl/#/",
       label: "Repository",
       text: "Repository",
       isExternal: true,
-    },
-    {
-      href: "/docs",
-      label: "Documentation",
-      text: "Documentation",
-      isExternal: false,
     },
     {
       href: "https://status.eternalcode.pl/",

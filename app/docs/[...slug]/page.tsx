@@ -15,11 +15,12 @@ function flattenDocs(
 ): { title: string; path: string }[] {
   const result: { title: string; path: string }[] = [];
   for (const item of structure) {
-    result.push({ title: item.title, path: item.path });
-    if (item.children) {
+    if (item.children && item.children.length > 0) {
       for (const child of item.children) {
         result.push({ title: child.title, path: child.path });
       }
+    } else {
+      result.push({ title: item.title, path: item.path });
     }
   }
   return result;
