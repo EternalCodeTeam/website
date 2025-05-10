@@ -143,11 +143,6 @@ export default async function DocPage({ params }: Props) {
             {doc.meta.description}
           </p>
         )}
-        {doc.meta.lastModified && (
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            Last updated: {new Date(doc.meta.lastModified).toLocaleDateString()}
-          </p>
-        )}
         <Suspense fallback={<LoadingFallback />}>
           <MDXRemote
             source={doc.content}

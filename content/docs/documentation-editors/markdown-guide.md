@@ -3,10 +3,6 @@ title: Markdown Documentation Guide
 description: A comprehensive guide to using Markdown in our documentation system
 ---
 
-# Markdown Documentation Guide
-
-This guide provides a comprehensive overview of all Markdown features available in our documentation system.
-
 ## Frontmatter
 
 Frontmatter is used at the top of Markdown files to define metadata. It's written in YAML format between triple-dashed lines:
