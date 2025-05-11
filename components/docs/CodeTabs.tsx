@@ -26,7 +26,7 @@ function getLanguageIcon(label: string) {
 
 export const CodeTabs: React.FC<CodeTabsProps> = ({ children }) => {
   return (
-    <div className="my-8 overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800/80 via-gray-900/80 to-gray-800/60 ring-1 ring-white/10 backdrop-blur-md">
+    <div className="my-8 overflow-hidden rounded-lg bg-white dark:bg-gray-900">
       <TabGroup>
         <TabList className="flex space-x-2 px-4 pt-4 pb-0">
           {React.Children.map(children, (child, idx) => {
@@ -36,11 +36,11 @@ export const CodeTabs: React.FC<CodeTabsProps> = ({ children }) => {
                 <Tab key={label + idx} as={React.Fragment}>
                   {({ selected }: { selected: boolean }) => (
                     <button
-                      className={`relative rounded-xl px-4 py-2 text-sm font-semibold transition-colors duration-150 focus:outline-none
+                      className={`relative rounded-lg px-4 py-2 text-sm font-semibold transition-colors duration-150 focus:outline-none focus:ring-0 focus:border-0
                         ${
                           selected
-                            ? "bg-gray-700/60 text-white shadow-md"
-                            : "text-gray-300 hover:text-white hover:bg-gray-700/60"
+                            ? "bg-gray-200 text-gray-900 dark:bg-[#23272e] dark:text-white"
+                            : "bg-white text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-300 dark:hover:text-white dark:hover:bg-[#23272e]"
                         }
                       `}
                       type="button"
@@ -63,7 +63,7 @@ export const CodeTabs: React.FC<CodeTabsProps> = ({ children }) => {
               return (
                 <TabPanel
                   key={idx}
-                  className="px-4 pb-6 pt-4 transition-all duration-300 bg-gray-900/80 rounded-xl shadow-lg border border-white/10 mt-2 animate-fadein"
+                  className="px-4 pb-6 pt-4 transition-all duration-300 bg-gray-50 dark:bg-[#23272e] rounded-lg mt-2 animate-fadein"
                 >
                   {child.props.children}
                 </TabPanel>

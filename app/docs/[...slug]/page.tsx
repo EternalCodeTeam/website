@@ -7,6 +7,11 @@ import { components, mdxOptions } from "@/lib/mdx";
 import { docsStructure } from "@/components/docs/sidebar-structure";
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { cache } from 'react';
+
+// Enable static generation with revalidation
+export const dynamic = 'force-static';
+export const revalidate = 3600; // Revalidate every hour
 
 interface DocMeta {
   title: string;
@@ -26,35 +31,32 @@ interface DocNavigation {
   next: { title: string; path: string } | null;
 }
 
-function flattenDocs(
-  structure: {
-    title: string;
-    path: string;
-    children?: { title: string; path: string }[];
-  }[]
-): { title: string; path: string }[] {
-  const result: { title: string; path: string }[] = [];
-  for (const item of structure) {
-    if (item.children && item.children.length > 0) {
-      for (const child of item.children) {
-        result.push({ title: child.title, path: child.path });
+// Cache the flattened docs structure
+const getFlatDocs = cache(() => {
+  function flattenDocs(
+    structure: {
+      title: string;
+      path: string;
+      children?: { title: string; path: string }[];
+    }[]
+  ): { title: string; path: string }[] {
+    const result: { title: string; path: string }[] = [];
+    for (const item of structure) {
+      if (item.children && item.children.length > 0) {
+        for (const child of item.children) {
+          result.push({ title: child.title, path: child.path });
+        }
+      } else {
+        result.push({ title: item.title, path: item.path });
       }
-    } else {
-      result.push({ title: item.title, path: item.path });
     }
+    return result;
   }
-  return result;
-}
+  return flattenDocs(docsStructure);
+});
 
-const flatDocs = flattenDocs(docsStructure);
-
-interface Props {
-  params: {
-    slug: string[];
-  };
-}
-
-async function getDocBySlug(slug: string[]): Promise<Doc | null> {
+// Cache the doc content
+const getDocBySlug = cache(async (slug: string[]): Promise<Doc | null> => {
   const docsDirectory = path.join(process.cwd(), "content/docs");
   const fullPath = path.join(docsDirectory, slug.join("/") + ".md");
 
@@ -74,13 +76,21 @@ async function getDocBySlug(slug: string[]): Promise<Doc | null> {
     console.error(`Error reading doc file ${fullPath}:`, error);
     return null;
   }
-}
+});
 
-function getDocNavigation(currentPath: string): DocNavigation {
+// Cache the navigation
+const getDocNavigation = cache((currentPath: string): DocNavigation => {
+  const flatDocs = getFlatDocs();
   const currentIndex = flatDocs.findIndex((d) => d.path === currentPath);
   return {
     prev: currentIndex > 0 ? flatDocs[currentIndex - 1] : null,
     next: currentIndex < flatDocs.length - 1 ? flatDocs[currentIndex + 1] : null,
+  };
+});
+
+interface Props {
+  params: {
+    slug: string[];
   };
 }
 
@@ -111,6 +121,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+// Optimized loading fallback
 function LoadingFallback() {
   return (
     <div className="animate-pulse">
@@ -123,6 +134,14 @@ function LoadingFallback() {
       </div>
     </div>
   );
+}
+
+// Generate static paths for all documentation pages
+export async function generateStaticParams() {
+  const flatDocs = getFlatDocs();
+  return flatDocs.map((doc) => ({
+    slug: doc.path.replace('/docs/', '').split('/'),
+  }));
 }
 
 export default async function DocPage({ params }: Props) {
