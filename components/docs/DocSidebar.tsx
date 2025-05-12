@@ -21,11 +21,11 @@ const DocSidebar: React.FC<DocSidebarProps> = ({ className = "" }) => {
       return (
         <div key={item.path} className={level === 0 ? "mb-3" : ""}>
           <div 
-            className={`font-extrabold text-base mb-1 ${level > 0 ? "pl-4" : ""} text-gray-900 dark:text-white`}
+            className={`font-semibold text-sm mb-1 ${level > 0 ? "pl-4" : ""} text-gray-900 dark:text-white tracking-wide`}
             role="heading"
             aria-level={level + 1}
           >
-            <Folder className="inline-block mr-2 -mt-1 w-5 h-5 text-gray-900 dark:text-gray-200 align-middle" aria-label="folder" />
+            <Folder className="inline-block mr-2 -mt-0.5 w-4 h-4 text-gray-500 dark:text-gray-400 align-middle" aria-label="folder" />
             {item.title}
           </div>
           <div className="space-y-1" role="list">
