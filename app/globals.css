@@ -223,3 +223,5 @@ pre[class*="language-"].line-numbers > code {
 .animate-fadein {
   animation: fadein 0.4s cubic-bezier(0.4, 2, 0.6, 1) both;
 }
+
+pre { position: relative !important; }
