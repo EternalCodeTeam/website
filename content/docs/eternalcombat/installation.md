@@ -1,53 +1,86 @@
 ---
-title: EternalCombat - Installation and Upgrading
+title: Installation Guide
+description: Learn how to install and configure EternalCombat on your Minecraft server
 ---
 
-# 🔧 Installation and upgrading
+## 📋 Prerequisites
 
-## 🛠️ Installation
+Before installing EternalCombat, ensure you have:
 
-### Step 1: Download ⬇️ the plugin and place the jar in the `plugins` folder 📂
+- A Minecraft server running Paper/Spigot 1.17 or newer
+- Access to your server's `plugins` directory
+- Basic knowledge of server administration
+- Backup of your current server configuration
 
-After downloading the EternalCombat JAR file, place it in the "plugins" folder on your Minecraft server. Make sure the file is located in the same directory as other plugins that are already installed.
+## 🚀 Installation Steps
 
-### Step 2: Restart the Minecraft server 🔄
+### 1. Download the Plugin
 
-After placing the JAR file in the plugin folder, restart the Minecraft server. The EternalCombat plugin should be automatically loaded by the server. If the plugin doesn't load correctly, inform us about it in the [Issues](https://github.com/EternalCodeTeam/EternalCombat/issues) tab or on our [discord](https://discord.gg/FQ7jmGBd6c) 😎
+1. Visit our [official download page](https://github.com/EternalCodeTeam/EternalCombat/releases)
+2. Download the latest version of EternalCombat
+3. Verify the file integrity using the provided checksums
 
-### Step 3: Configure the plugin ⚙️
+### 2. Install the Plugin
 
-In `plugins/EternalCombat/config.yml` you can configure the plugin to your liking. There are many options available, so you can customize the plugin to your needs. With any questions feel free to ask.
+1. Stop your Minecraft server
+2. Place the downloaded JAR file in your server's `plugins` directory
+3. Start your server
+4. The plugin will automatically generate its configuration files
 
-## ⚡ Upgrading
+### 3. Initial Configuration
 
-📝 **Note**: Before starting the upgrade, make sure you back up your EternalCombat plugin configuration to avoid potential configuration conflicts.
+After installation, EternalCombat will create the following files:
 
-### Step 1: Download the latest version of the plugin ⬇️
+- `plugins/EternalCombat/config.yml` - Main configuration file
 
-Download the latest version of EternalCombat from the project website.
+## 🔄 Upgrading
 
-### Step 2: Replace the old version with the JAR file of the latest version. 💾
+### Upgrade Process
 
-After downloading the JAR file of the latest version of EternalCombat, place it in the `plugins` folder on your Minecraft server.
+1. **Backup Your Configuration**
+   ```bash
+   cp plugins/EternalCombat/config.yml plugins/EternalCombat/config.yml.backup
+   ```
 
-### Step 3: Restart your Minecraft server 🔄
+2. **Download the New Version**
+   - Download the latest version from our [releases page](https://github.com/EternalCodeTeam/EternalCombat/releases)
 
-After placing the JAR file in the plugins' folder, restart your Minecraft server. The new version of the EternalCombat plugin should be automatically loaded by the server.
+3. **Replace the Old Version**
+   - Stop your server
+   - Replace the old JAR file with the new one
+   - Start your server
 
-### Step 4: Check if the update was successful ✅
+4. **Verify the Upgrade**
+   - Check the console for any error messages
+   - Test the plugin's functionality
+   - Restore your backup if needed
 
-Verify that the EternalCombat plugin works properly and that all functionality is available after the update.
+## ⚠️ Important Notes
 
-📝 **Note**: If you experienced problems after updating the plugin, use a configuration backup to restore the previous settings and avoid data loss.
+- Never use `/reload` or plugins like PlugMan to reload EternalCombat
+- Always restart your server for plugin updates
+- Keep backups of your configuration files
+- Test new versions in a development environment first
 
-By following the steps above, you will update the EternalCombat plugin on your Minecraft server.
+## 🔧 Troubleshooting
 
-👍 We wish you good luck with the plugin update!
+### Common Issues
 
-## 💥 Warning!
+1. **Plugin Not Loading**
+   - Verify you're using a compatible server version
+   - Check the console for error messages
+   - Ensure all dependencies are installed
 
-When managing a Minecraft server, it's important to remember about safety. Therefore, we recommend not using the `/reload` command or plugins reloading in real-time such as PlugMan, as they may cause problems with plugins and lead to unexpected errors.
+2. **Configuration Errors**
+   - Validate your YAML syntax
+   - Check for missing or incorrect values
+   - Restore from backup if needed
 
-Please note that the use of these features is at your own risk, and we are not responsible for any damages caused to the server as a result of their use.
-
-Thank you for using our documentation. We wish you success in deploying the EternalCombat plugin on your Minecraft server! 😊
+3. **Performance Issues**
+   - Adjust particle and border settings
+   - Reduce update frequencies
+   - Monitor server performance
+   
+<Alert type="info">
+ Need help? Join our <a href="https://discord.gg/FQ7jmGBd6c">Discord server</a> or check our <a href="https://github.com/EternalCodeTeam/EternalCombat/issues">GitHub issues</a>.
+</Alert>

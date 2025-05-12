@@ -1,55 +1,97 @@
 ---
-title: Features
-description: Overview of all EternalCombat commands, permissions and features
+title: Features & Commands
+description: Comprehensive guide to EternalCombat features, commands, and permissions
 ---
 
-<Alert type="tip" title="Command Syntax">
-  `<required>` - Required parameter <br></br>
-  `[optional]` - Optional parameter
+## 📋 Command Reference
+
+### Basic Commands
+
+| Command | Description | Permission |
+|---------|-------------|------------|
+| `/combatlog status [player]` | Check combat status of yourself or another player | `eternalcombat.status` |
+| `/combatlog tag <player1> [player2]` | Force players into combat | `eternalcombat.tag` |
+| `/combatlog untag <player>` | Remove a player from combat | `eternalcombat.untag` |
+| `/combatlog reload` | Reload plugin configuration | `eternalcombat.reload` |
+
+## 🔒 Permissions
+
+### Player Permissions
+
+- `eternalcombat.status` - Check combat status
+- `eternalcombat.receiveupdates` - Receive update notifications
+- `eternalcombat.bypass` - Bypass combat restrictions
+
+### Admin Permissions
+
+- `eternalcombat.admin.*` - All admin permissions
+- `eternalcombat.admin.tag` - Tag players in combat
+- `eternalcombat.admin.untag` - Remove players from combat
+- `eternalcombat.admin.reload` - Reload plugin configuration
+
+## ⚔️ Combat Features
+
+### Core Combat System
+
+- **Combat Timer**: Configurable duration for combat state
+- **Anti-Logout**: Prevents players from logging out during combat
+- **Status Tracking**: Real-time combat status monitoring
+- **Manual Tagging**: Admin control over combat states
+
+### Combat Restrictions
+
+- **Block Placement**: Control block placement during combat
+- **Command Usage**: Restrict commands during combat
+- **Inventory Access**: Control inventory access during combat
+- **Elytra Usage**: Manage elytra usage during combat
+- **Flying**: Prevent flying during combat
+
+### Visual Indicators
+
+- **Combat Border**: Visual border around combat area
+- **Particle Effects**: Customizable particle animations
+- **Block Animations**: Animated border blocks
+- **BossBar Timer**: Visual combat timer display
+
+## 🛡️ Protection Features
+
+### Admin Protection
+
+- **Admin Bypass**: Exclude admins from combat
+- **Creative Mode Protection**: Protect creative mode players
+- **Region Protection**: WorldGuard region integration
+- **Spawn Protection**: Protect spawn areas
+
+### Combat Protection
+
+- **Damage Resistance**: Custom damage resistance options
+- **Speed Modifications**: Combat speed adjustments
+- **Potion Effects**: Custom combat effects
+- **Projectile Restrictions**: Control projectile types
+
+## 💰 Drop System
+
+### Item Drops
+
+- **Percentage-Based**: Drop percentage of items
+- **Health-Based**: Drop based on player health
+- **Experience Drops**: Control experience drops
+- **Keep Inventory**: Integration with keep inventory
+
+## 🌍 World Integration
+
+### WorldGuard Features
+
+- **Region Support**: PvP region restrictions
+- **Spawn Protection**: Automatic spawn protection
+- **Custom Regions**: Define custom PvP zones
+
+### World Settings
+
+- **Ignored Worlds**: Worlds where combat is disabled
+- **World-Specific Settings**: Per-world configuration
+- **Border Settings**: World border integration
+
+<Alert type="info">
+ Need help? Join our <a href="https://discord.gg/FQ7jmGBd6c">Discord server</a> or check our <a href="https://github.com/EternalCodeTeam/EternalCombat/issues">GitHub issues</a>.
 </Alert>
-
-| Command | What it does | Permission name |
-|---------|--------------|----------------|
-| /combatlog status `[player]` | See your or someone else's combat status | eternalcombat.status |
-| /combatlog tag `<player1>` `<player2>` | Put players into a fight | eternalcombat.tag |
-| /combatlog untag `<player>` | Remove a player from a fight | eternalcombat.untag |
-| /combatlog reload | Reload the plugin | eternalcombat.reload |
-| (none) | Get updates about new plugin versions | eternalcombat.receiveupdates |
-
-## Features
-
-- ⚔️ Combat system with configurable timer 
-- Anti-logout system during combat
-- Combat status tracking for players
-- Manual player tagging system
-- Admin protection system
-- Ender Pearl cooldown system
-- Combat Ender Pearl restrictions
-- Custom potion effects during combat
-- Speed modifications in combat
-- Damage resistance options
-- Block height restrictions
-- Block type restrictions
-- Elytra usage restrictions
-- Flying restrictions during combat
-- Inventory access restrictions
-- Command restrictions during combat
-- Percentage-based drop system
-- Health-based drop system
-- Experience drop settings
-- Custom combat border blocks
-- Border particle effects
-- Border block animations
-- Plugin reload functionality
-- Player tagging system
-- Admin protection system
-- Combat status checking
-- Knockback customization
-- Damage cause logging
-- Projectile type restrictions
-- BossBar combat timer
-- WorldGuard region support
-- Spawn protection
-- PvP region restrictions
-- Configurable notifications!
-- Creative mode protection 
