@@ -27,7 +27,7 @@ export default function DocsLayout({
       className={`${poppins.className} min-h-screen bg-[#eff1f5] dark:bg-[#0d1117]`}
     >
       <Navbar />
-      <div className="container mx-auto min-h-[calc(100vh-7rem)] max-w-7xl px-6 py-12 pt-32">
+      <div className="mx-auto max-w-screen-xl min-h-[calc(100vh-7rem)] px-4 py-12 pt-32">
         <div className="flex flex-col gap-8 lg:flex-row">
           <aside className="w-full flex-shrink-0 lg:w-64">
             <div className="sticky top-32 z-20 flex flex-col gap-4">

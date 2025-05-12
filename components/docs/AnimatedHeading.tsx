@@ -44,19 +44,20 @@ function createAnimatedHeading(tag: keyof JSX.IntrinsicElements) {
               <a
                 href={`#${id}`}
                 onClick={handleCopy}
-                className="underline-none ml-2 flex select-none items-center text-base text-gray-400 opacity-0 transition-opacity group-hover:opacity-100"
-                aria-label="Kopiuj link do nagłówka"
+                className="underline-none ml-2 inline-flex select-none items-center text-base text-gray-400 opacity-0 transition-opacity group-hover:opacity-100"
+                aria-label="Copy link to heading"
                 style={{
                   textDecoration: "none",
-                  display: "flex",
+                  display: "inline-flex",
                   alignItems: "center",
+                  verticalAlign: "middle", 
                 }}
               >
                 #
               </a>
               {copied && (
                 <span className="animate-fade-in ml-2 text-xs text-green-500">
-                  Skopiowano!
+                  Link copied!
                 </span>
               )}
             </>
