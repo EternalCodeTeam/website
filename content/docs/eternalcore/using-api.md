@@ -96,25 +96,26 @@ dependencies:
   </CodeTab>
 </CodeTabs>
 
-> **Warning**
-> **Remember to add dependency inside `plugin.yml` or `paper-plugin.yml` file, otherwise your plugin will not work!**
+> **Warning** > **Remember to add dependency inside `plugin.yml` or `paper-plugin.yml` file, otherwise your plugin will not work!**
 
 ## 📝 Usage
+
 To use our API you need to create instance of `EternalCoreAPI` class. You can do it by using `EternalCoreApiProvider.provide()` method.
 
 ```java
 EternalCoreAPI eternalCoreAPI = EternalCoreApiProvider.provide();
 ```
+
 After creating instance of api, the User gets access to various classes used in our plugin and methods.
 Our API includes:
 
-| Class                  | Provide method             |
-|------------------------|----------------------------|
-| AfkService             | getAfkService()            |
-| SpawnService           | getSpawnService()          |
-| CatboyService          | getCatboyService()         |
-| TeleportService        | getTeleportService()       |
-| RandomTeleportService  | getRandomTeleportService() |
+| Class                 | Provide method             |
+| --------------------- | -------------------------- |
+| AfkService            | getAfkService()            |
+| SpawnService          | getSpawnService()          |
+| CatboyService         | getCatboyService()         |
+| TeleportService       | getTeleportService()       |
+| RandomTeleportService | getRandomTeleportService() |
 
 ### AfkService usage examples
 
@@ -125,12 +126,12 @@ public class YourPlugin extends JavaPlugin {
 
     private EternalCoreApi eternalCoreApi; // [!code focus]
     private AfkService afkService; // [!code focus]
-    
+
     @Override
     public onEnable() {
         this.eternalCoreApi = EternalCoreProvider.provide(); // [!code focus]
         this.afkService = eternalCoreApi.getAfkService(); // [!code focus]
-        
+
     }
 }
 ```
@@ -145,7 +146,7 @@ if (afkService.isAfk(player.getUniqueId())) {
 }
 ```
 
-Mark the player as afk if the player is not afk yet. 
+Mark the player as afk if the player is not afk yet.
 
 ```java
 if (!afkService.isAfk(player.getUniqueId())) {
@@ -163,12 +164,12 @@ public class YourPlugin extends JavaPlugin {
 
     private EternalCoreApi eternalCoreApi; // [!code focus]
     private CatboyService catboyService; // [!code focus]
-    
+
     @Override
     public onEnable() {
         this.eternalCoreApi = EternalCoreProvider.provide(); // [!code focus]
         this.catboyService = eternalCoreApi.getCatboyService(); // [!code focus]
-        
+
     }
 }
 ```
@@ -179,4 +180,4 @@ Using the instance of `CatboyService` the User is able to mark players as catboy
 if (player.getName().equals("Rollczi")) {
     catboyService.markAsCatboy(player, Cat.Type.BLACK); // [!code focus]
 }
-``` 
+```

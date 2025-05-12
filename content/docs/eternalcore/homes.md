@@ -3,9 +3,11 @@ title: EternalCore - Homes
 ---
 
 # 🏠 EternalCore Homes
+
 EternalCore Homes is a feature that allows players to set their own homes and teleport to them.
 
-## 🔒 Homes limit per permission 
+## 🔒 Homes limit per permission
+
 It is possible to configure the maximum number of homes for a given permission.
 
 ```yaml
@@ -19,4 +21,4 @@ homes:
     # If you want to add more permissions, just add them to the list with eternalcore.home.<unique name>
     # ^^^ Replace <unique name> with a unique name example: eternalcore.home.legend
     eternalcore.home.legend: 4
-``` 
+```

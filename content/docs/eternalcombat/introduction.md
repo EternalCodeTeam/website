@@ -6,4 +6,4 @@ title: EternalCombat - Introduction
 
 - [Installation and upgrading](/docs/eternalcombat/installation)
 - [Features, Command and Usage](/docs/eternalcombat/features)
-- [Using API](/docs/eternalcombat/using-api) 
+- [Using API](/docs/eternalcombat/using-api)

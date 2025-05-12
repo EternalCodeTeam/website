@@ -43,7 +43,6 @@ export default function Navbar() {
     setIsMenuOpen((prev) => !prev);
   }, []);
 
-
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isMenuOpen) {
@@ -67,14 +66,14 @@ export default function Navbar() {
   }, [isMenuOpen]);
 
   return (
-    <nav 
+    <nav
       className="fixed inset-x-0 top-0 z-50 border-gray-200 bg-[#eff1f5]/80 backdrop-blur-md dark:bg-[#0d1117]/80"
       role="navigation"
       aria-label="Main navigation"
     >
       <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-4 py-8">
-        <Link 
-          href="/" 
+        <Link
+          href="/"
           className="flex items-center"
           aria-label="Go to homepage"
         >
@@ -144,7 +143,9 @@ export default function Navbar() {
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {link.text}
-                      {link.isExternal && <NewWindow className="ml-1" aria-hidden="true" />}
+                      {link.isExternal && (
+                        <NewWindow className="ml-1" aria-hidden="true" />
+                      )}
                     </Link>
                   </motion.li>
                 ))}
@@ -165,7 +166,9 @@ export default function Navbar() {
                   rel={link.isExternal ? "noopener noreferrer" : undefined}
                 >
                   {link.text}
-                  {link.isExternal && <NewWindow className="ml-1" aria-hidden="true" />}
+                  {link.isExternal && (
+                    <NewWindow className="ml-1" aria-hidden="true" />
+                  )}
                 </Link>
               </li>
             ))}

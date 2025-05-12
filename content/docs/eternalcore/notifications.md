@@ -11,6 +11,7 @@ This plugin allows sending messages to different parts of Minecraft, including t
 Syntax for sending notifications:
 
 ### Chat + Multiline chat
+
 ```yaml
 # Displays a message in the chat.
 example: "Hello world!" # <- Single one line text
@@ -20,6 +21,7 @@ example2: # <- If you want display multiple lines in the chat, use the following
 ```
 
 ### Actionbar
+
 ```yaml
 # Displays a message in the action bar.
 example:
@@ -27,6 +29,7 @@ example:
 ```
 
 ### Title
+
 ```yaml
 # Displays a message in the title.
 example:
@@ -34,6 +37,7 @@ example:
 ```
 
 ### Subtitle
+
 ```yaml
 # Displays a message in the subtitle.
 example:
@@ -41,6 +45,7 @@ example:
 ```
 
 ### Title with times
+
 ```yaml
 # Displays a message in the title or subtitle with specified times.
 # THIS also working for subtitle
@@ -50,6 +55,7 @@ example:
 ```
 
 ### Sounds
+
 ```yaml
 # Plays a sound with the specified volume and pitch.
 example:
@@ -57,6 +63,7 @@ example:
 ```
 
 ### Sounds + Category
+
 ```yaml
 # Plays a sound with the specified volume and pitch.
 example:
@@ -72,12 +79,14 @@ example:
 👑 Unleash your creativity and design your own custom notifications without any limits!
 
 #### Disable message
+
 ```yaml
 # Does not display a message.
 example: []
 ```
 
 #### Chat + Actionbar
+
 ```yaml
 # Displays a message in the chat and action bar.
 example:
@@ -86,6 +95,7 @@ example:
 ```
 
 #### Title + Subtitle
+
 ```yaml
 # Displays a message in the title and subtitle.
 example:
@@ -94,6 +104,7 @@ example:
 ```
 
 #### Title + Subtitle with specified times
+
 ```yaml
 # Displays a message in the title and subtitle.
 example:
@@ -103,6 +114,7 @@ example:
 ```
 
 #### Chat + Actionbar + Title + Subtitle
+
 ```yaml
 # Displays a message in the chat, action bar, title, and subtitle.
 example:
@@ -113,6 +125,7 @@ example:
 ```
 
 #### Chat + Actionbar + Title + Subtitle with specified times for title and subtitle
+
 ```yaml
 # Displays a message in the chat, action bar, title, and subtitle with specified times for title and subtitle
 example:
@@ -124,6 +137,7 @@ example:
 ```
 
 #### Chat + Actionbar + Title + Subtitle + Sound
+
 ```yaml
 # Displays a message in the chat, action bar, title, and subtitle with specified times for title and subtitle
 example:
@@ -135,6 +149,7 @@ example:
 ```
 
 #### Chat + Actionbar + Title + Subtitle + Sound + Category
+
 ```yaml
 # Displays a message in the chat, action bar, title, and subtitle with specified times for title and subtitle
 example:
@@ -147,8 +162,9 @@ example:
 ```
 
 #### Clear title/subtitle before send new
+
 ```yaml
 # Clears the title and subtitle before sending a new one.
 example:
   titleHide: true
-``` 
+```

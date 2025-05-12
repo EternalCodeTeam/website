@@ -18,4 +18,4 @@ title: EternalCore - Features, Commands and Permissions
 
 Docs system is a tool that allows developers to place information about their code directly into the source file using annotations. These annotations are then processed by the system and converted into JSON files that can be used to create graphical documentation of the project.
 
-For more information, search for [@FeatureDocs](https://github.com/search?q=repo%3AEternalCodeTeam%2FEternalCore%20%40FeatureDocs&type=code) and [@DocsDescription](https://github.com/search?q=repo%3AEternalCodeTeam%2FEternalCore+%40DocsDescription&type=code) annotations in our repository. 
+For more information, search for [@FeatureDocs](https://github.com/search?q=repo%3AEternalCodeTeam%2FEternalCore%20%40FeatureDocs&type=code) and [@DocsDescription](https://github.com/search?q=repo%3AEternalCodeTeam%2FEternalCore+%40DocsDescription&type=code) annotations in our repository.

@@ -96,20 +96,21 @@ dependencies:
   </CodeTab>
 </CodeTabs>
 
-> **Warning**
-> **Remember to add dependency inside `plugin.yml` or `paper-plugin.yml` file, otherwise your plugin will not work!**
+> **Warning** > **Remember to add dependency inside `plugin.yml` or `paper-plugin.yml` file, otherwise your plugin will not work!**
 
 ## 📝 Usage
+
 To use our API you need to create instance of `EternalCombatAPI` class. You can do it by using `EternalCombatAPI.getInstance()` method.
 
 ```java
 EternalCombatAPI eternalCombatApi = EternalCombatProvider.provide();
 ```
+
 After creating instance of api, the User gets access to various classes used in our plugin and methods.
 Our API includes:
 
 | Class                    | Provide method                |
-|--------------------------|-------------------------------|
+| ------------------------ | ----------------------------- |
 | FightManager             | getFightManager()             |
 | RegionProvider           | getRegionProvider()           |
 | FightPearlManager        | getFightPearlManager()        |
@@ -126,13 +127,13 @@ The User can then use the methods of the given classes to create their own use c
 ```java
 public class YourPlugin extends JavaPlugin {
 
-    private EternalCombatApi eternalCombatApi; 
-    private FightManager fightManager; 
-    
+    private EternalCombatApi eternalCombatApi;
+    private FightManager fightManager;
+
     @Override
     public onEnable() {
-        this.eternalCombatApi = EternalCombatProvider.provide(); 
-        this.fightManager = eternalCombatApi.getFightManager(); 
+        this.eternalCombatApi = EternalCombatProvider.provide();
+        this.fightManager = eternalCombatApi.getFightManager();
     }
 }
 ```
@@ -152,7 +153,7 @@ Tag player who is not already in the combat using `FightManager` class. Example:
 ```java
 if (!fightManager.isInCombat(player.getUniqueId())) {
     fightManager.tag(player.getUniqueId(), Duration.of(10, ChronoUnit.SECONDS), CauseOfTag.COMMAND);
-    
+
     FightTag fightTag = fightManager.getTag(player.getUniqueId());
     // tag player
 }
@@ -160,8 +161,8 @@ if (!fightManager.isInCombat(player.getUniqueId())) {
 
 ## Event base API
 
-Our plugin supports two types of events. 
-The first type is the `FightTagEvent` that is called when the player enters the fight or extends duration of the fight. 
+Our plugin supports two types of events.
+The first type is the `FightTagEvent` that is called when the player enters the fight or extends duration of the fight.
 The second type is the `FightUnTagEvent` that is called when the player leaves the fight.
 
 You can access both event types by using `@EventHandler`. In example below we check why the player was untagged.
@@ -175,4 +176,4 @@ public void onUnTag(FightUntagEvent event) {
         Bukkit.getPlayer(event.getPlayer()).sendMessage("You died!");
     }
 }
-``` 
+```

@@ -15,6 +15,7 @@ description: Page description that appears in meta tags
 ```
 
 Available frontmatter fields:
+
 - `title`: The page title (required)
 - `description`: Page description for SEO (recommended)
 
@@ -46,10 +47,15 @@ Create section headings using hash symbols:
 
 ```markdown
 # Heading 1
+
 ## Heading 2
+
 ### Heading 3
+
 #### Heading 4
+
 ##### Heading 5
+
 ###### Heading 6
 ```
 
@@ -57,13 +63,13 @@ Create section headings using hash symbols:
 
 ```markdown
 **Bold text**
-*Italic text*
+_Italic text_
 ~~Strikethrough~~
 `Inline code`
 ```
 
 **Bold text**
-*Italic text*
+_Italic text_
 ~~Strikethrough~~
 `Inline code`
 
@@ -114,6 +120,7 @@ Create tables using pipes and dashes. Tables are automatically styled with enhan
 | Cell 4   | Cell 5   | Cell 6   |
 
 The table styling includes:
+
 - Dark headers with light text
 - Alternating row colors for better readability
 - Hover effects to highlight the current row
@@ -127,14 +134,14 @@ You can align text in columns:
 ```markdown
 | Left-aligned | Center-aligned | Right-aligned |
 | :----------- | :------------: | ------------: |
-| Left         | Center         | Right         |
-| Text         | Text           | Text          |
+| Left         |     Center     |         Right |
+| Text         |      Text      |          Text |
 ```
 
 | Left-aligned | Center-aligned | Right-aligned |
 | :----------- | :------------: | ------------: |
-| Left         | Center         | Right         |
-| Text         | Text           | Text          |
+| Left         |     Center     |         Right |
+| Text         |      Text      |          Text |
 
 ## Emoji
 
@@ -208,18 +215,19 @@ This is a tip/success alert.
   Here's how to implement this feature...
 </Alert>
 
-
 ## Code Blocks
 
 ### Basic Code Block
 
-```markdown
+````markdown
 ```javascript
 function greet(name) {
   return `Hello, ${name}!`;
 }
 ```
-```
+````
+
+````
 
 ## Code Tabs
 
@@ -254,7 +262,7 @@ def hello():
 
   </CodeTab>
 </CodeTabs>
-```
+````
 
 <CodeTabs>
   <CodeTab label="JavaScript">
@@ -289,12 +297,12 @@ def hello():
 
 ```markdown
 > This is a blockquote.
-> 
+>
 > It can span multiple lines.
 ```
 
 > This is a blockquote.
-> 
+>
 > It can span multiple lines.
 
 ## Horizontal Rules

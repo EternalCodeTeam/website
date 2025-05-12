@@ -2,7 +2,7 @@ import Link from "next/link";
 import SectionTitle from "@/components/SectionTitle";
 
 // Enable static generation
-export const dynamic = 'force-static';
+export const dynamic = "force-static";
 export const revalidate = 3600; // Revalidate every hour
 
 // Pre-fetch documentation links
@@ -10,18 +10,19 @@ const docLinks = [
   {
     href: "/docs/getting-started",
     title: "Getting Started",
-    description: "Learn the basics of EternalCode.pl and get started with your first project."
+    description:
+      "Learn the basics of EternalCode.pl and get started with your first project.",
   },
   {
     href: "/docs/guides",
     title: "Guides",
-    description: "Step-by-step guides for common tasks and features."
+    description: "Step-by-step guides for common tasks and features.",
   },
   {
     href: "/docs/api",
     title: "API Reference",
-    description: "Detailed API documentation and examples."
-  }
+    description: "Detailed API documentation and examples.",
+  },
 ];
 
 export default function DocsPage() {

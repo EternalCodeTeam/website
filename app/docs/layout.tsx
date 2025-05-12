@@ -27,10 +27,10 @@ export default function DocsLayout({
       className={`${poppins.className} min-h-screen bg-[#eff1f5] dark:bg-[#0d1117]`}
     >
       <Navbar />
-      <div className="container mx-auto max-w-7xl px-2 py-8 pt-28 min-h-[calc(100vh-7rem)]">
+      <div className="container mx-auto min-h-[calc(100vh-7rem)] max-w-7xl px-6 py-12 pt-32">
         <div className="flex flex-col gap-8 lg:flex-row">
-          <aside className="w-full flex-shrink-0 lg:w-56">
-            <div className="sticky top-28 z-20 flex flex-col gap-4">
+          <aside className="w-full flex-shrink-0 lg:w-64">
+            <div className="sticky top-32 z-20 flex flex-col gap-4">
               <DocSearch />
               <DocSidebar />
             </div>
@@ -42,7 +42,7 @@ export default function DocsLayout({
             </div>
             <div
               id="docs-navigation-buttons"
-              className="flex w-full max-w-4xl justify-between"
+              className="mt-12 flex w-full justify-between"
             >
               {/* Przyciski Next/Previous będą renderowane w page.tsx */}
             </div>

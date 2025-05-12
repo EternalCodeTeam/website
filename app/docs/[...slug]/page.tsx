@@ -6,11 +6,10 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { components, mdxOptions } from "@/lib/mdx";
 import { docsStructure } from "@/components/docs/sidebar-structure";
 import type { Metadata } from "next";
-import { Suspense } from "react";
-import { cache } from 'react';
+import { Suspense, cache } from "react";
 
 // Enable static generation with revalidation
-export const dynamic = 'force-static';
+export const dynamic = "force-static";
 export const revalidate = 3600; // Revalidate every hour
 
 interface DocMeta {
@@ -67,7 +66,7 @@ const getDocBySlug = cache(async (slug: string[]): Promise<Doc | null> => {
 
     return {
       meta: {
-        ...data as DocMeta,
+        ...(data as DocMeta),
         lastModified: stats.mtime.toISOString(),
       },
       content,
@@ -81,10 +80,11 @@ const getDocBySlug = cache(async (slug: string[]): Promise<Doc | null> => {
 // Cache the navigation
 const getDocNavigation = cache((currentPath: string): DocNavigation => {
   const flatDocs = getFlatDocs();
-  const currentIndex = flatDocs.findIndex((d) => d.path === currentPath);
+  const currentIndex = flatDocs.findIndex((doc: { path: string }) => doc.path === currentPath);
   return {
     prev: currentIndex > 0 ? flatDocs[currentIndex - 1] : null,
-    next: currentIndex < flatDocs.length - 1 ? flatDocs[currentIndex + 1] : null,
+    next:
+      currentIndex < flatDocs.length - 1 ? flatDocs[currentIndex + 1] : null,
   };
 });
 
@@ -125,11 +125,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 function LoadingFallback() {
   return (
     <div className="animate-pulse">
-      <div className="h-8 w-3/4 bg-gray-200 dark:bg-gray-700 rounded mb-4" />
-      <div className="h-4 w-1/2 bg-gray-200 dark:bg-gray-700 rounded mb-8" />
+      <div className="mb-4 h-8 w-3/4 rounded bg-gray-200 dark:bg-gray-700" />
+      <div className="mb-8 h-4 w-1/2 rounded bg-gray-200 dark:bg-gray-700" />
       <div className="space-y-4">
         {[...Array(5)].map((_, i) => (
-          <div key={i} className="h-4 bg-gray-200 dark:bg-gray-700 rounded" />
+          <div key={i} className="h-4 rounded bg-gray-200 dark:bg-gray-700" />
         ))}
       </div>
     </div>
@@ -139,8 +139,8 @@ function LoadingFallback() {
 // Generate static paths for all documentation pages
 export async function generateStaticParams() {
   const flatDocs = getFlatDocs();
-  return flatDocs.map((doc) => ({
-    slug: doc.path.replace('/docs/', '').split('/'),
+  return flatDocs.map((doc: { path: string }) => ({
+    slug: doc.path.replace("/docs/", "").split("/"),
   }));
 }
 
@@ -153,15 +153,35 @@ export default async function DocPage({ params }: Props) {
   const currentPath = "/docs/" + params.slug.join("/");
   const { prev, next } = getDocNavigation(currentPath);
 
+  // Find category
+  let category = null;
+  for (const item of docsStructure) {
+    if (currentPath.startsWith(item.path)) {
+      category = item.title;
+      break;
+    }
+  }
+
   return (
     <div>
-      <article className="prose max-w-none dark:prose-invert">
-        <h1>{doc.meta.title}</h1>
+      <article className="prose mx-auto max-w-5xl dark:prose-invert">
+        {category && (
+          <div
+            className="text-muted-foreground mb-1 text-sm uppercase tracking-wide"
+            style={{ letterSpacing: "0.08em" }}
+          >
+            {category}
+          </div>
+        )}
+        <h1 className="mb-2 text-3xl font-extrabold tracking-tight">
+          {doc.meta.title}
+        </h1>
         {doc.meta.description && (
-          <p className="mb-6 text-xl text-gray-600 dark:text-gray-400">
+          <p className="text-muted-foreground mb-2 text-lg">
             {doc.meta.description}
           </p>
         )}
+        <hr className="mt-0 border-t border-neutral-700 dark:border-neutral-700" />
         <Suspense fallback={<LoadingFallback />}>
           <MDXRemote
             source={doc.content}
@@ -172,12 +192,9 @@ export default async function DocPage({ params }: Props) {
           />
         </Suspense>
       </article>
-      <div className="mt-8 flex justify-between">
+      <div className="mx-auto mt-12 flex w-full max-w-5xl justify-between">
         {prev ? (
-          <a
-            href={prev.path}
-            className="rounded-lg border border-gray-200 bg-gray-100 px-4 py-2 no-underline transition-colors hover:bg-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
-          >
+          <a href={prev.path} className="btn btn-outline">
             ← {prev.title}
           </a>
         ) : (
@@ -186,7 +203,7 @@ export default async function DocPage({ params }: Props) {
         {next ? (
           <a
             href={next.path}
-            className="rounded-lg bg-blue-600 px-4 py-2 text-white no-underline transition-colors hover:bg-blue-700"
+            className="btn btn-primary"
           >
             {next.title} →
           </a>
