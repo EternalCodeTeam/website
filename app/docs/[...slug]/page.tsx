@@ -181,7 +181,7 @@ export default async function DocPage({ params }: Props) {
             {doc.meta.description}
           </p>
         )}
-        <hr className="mt-0 border-t border-neutral-700 dark:border-neutral-700" />
+        <hr className="my-6 border-gray-200 dark:border-gray-700 sm:mx-auto lg:my-8" />
         <Suspense fallback={<LoadingFallback />}>
           <MDXRemote
             source={doc.content}
