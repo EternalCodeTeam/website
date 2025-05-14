@@ -45,7 +45,9 @@ export default function Faq() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.15,
+        ease: "easeInOut",
+        duration: 0.5,
       },
     },
   };
@@ -56,7 +58,8 @@ export default function Faq() {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5,
+        duration: 0.4,
+        ease: "easeInOut",
       },
     },
   };
@@ -67,7 +70,7 @@ export default function Faq() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
           ref={sectionRef}
         >
           <SectionTitle
@@ -110,10 +113,10 @@ export default function Faq() {
                 </svg>
               </button>
               <div
-                className={`overflow-hidden transition-all duration-300 ease-in-out ${activeIndex === index ? "max-h-96" : "max-h-0"}`}
+                className={`overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.25, 1, 0.5, 1)] ${activeIndex === index ? "max-h-96" : "max-h-0"}`}
                 id={`faq-panel-${index}`}
               >
-                <div className="bg-[#f5f6f7] p-6 text-gray-700 dark:bg-[#1F2A37] dark:text-gray-400">
+                <div className="bg-[#f5f6f7] p-6 text-gray-700 dark:bg-[#1F2A37] dark:text-gray-400 transition-colors duration-300 ease-[cubic-bezier(0.25, 1, 0.5, 1)]">
                   {item.answer}
                 </div>
               </div>
