@@ -14,7 +14,9 @@ export default function DynamicFeaturesTable() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("https://raw.githubusercontent.com/EternalCodeTeam/EternalCore/refs/heads/master/raw_features_docs.json")
+    fetch(
+      "https://raw.githubusercontent.com/EternalCodeTeam/EternalCore/refs/heads/master/raw_features_docs.json"
+    )
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch features");
         return res.json();
@@ -54,4 +56,4 @@ export default function DynamicFeaturesTable() {
       </table>
     </div>
   );
-} 
+}

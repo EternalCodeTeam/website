@@ -29,7 +29,6 @@ import "prismjs/components/prism-yaml";
 import "prismjs/components/prism-kotlin";
 import "prismjs/components/prism-groovy";
 
-
 // Add custom language support
 Prism.languages.typescript = Prism.languages.extend("javascript", {
   keyword:

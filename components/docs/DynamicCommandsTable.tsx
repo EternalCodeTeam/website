@@ -15,7 +15,9 @@ export default function DynamicCommandsTable() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("https://raw.githubusercontent.com/EternalCodeTeam/EternalCore/refs/heads/master/raw_commands_docs.json")
+    fetch(
+      "https://raw.githubusercontent.com/EternalCodeTeam/EternalCore/refs/heads/master/raw_commands_docs.json"
+    )
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch commands");
         return res.json();
@@ -53,4 +55,4 @@ export default function DynamicCommandsTable() {
       </table>
     </div>
   );
-} 
+}

@@ -34,21 +34,16 @@ export const ReadingTime = memo(function ReadingTime({
   return (
     <div
       className={cn(
-        "flex items-center gap-2 text-sm text-muted-foreground",
+        "text-muted-foreground flex items-center gap-2 text-sm",
         className
       )}
       role="text"
       aria-label={`${readingTime} minute read`}
     >
-      <Clock
-        className={cn("h-4 w-4", iconClassName)}
-        aria-hidden="true"
-      />
-      <span className={cn(textClassName)}>
-        {readingTime} min read
-      </span>
+      <Clock className={cn("h-4 w-4", iconClassName)} aria-hidden="true" />
+      <span className={cn(textClassName)}>{readingTime} min read</span>
     </div>
   );
 });
 
-ReadingTime.displayName = "ReadingTime"; 
+ReadingTime.displayName = "ReadingTime";

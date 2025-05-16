@@ -195,6 +195,15 @@ export default function Footer() {
                     BStats
                   </a>
                 </li>
+                <li className="mb-2">
+                  <a
+                    href="/privacy-policy"
+                    className="hover:underline"
+                    aria-label="Privacy Policy"
+                  >
+                    Privacy Policy
+                  </a>
+                </li>
               </ul>
             </div>
           </div>

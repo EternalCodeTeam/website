@@ -14,6 +14,9 @@ import { ShortLink } from "@/components/docs/ShortLink";
 import type { MDXComponents } from "mdx/types";
 import { ArrowBack } from "@/components/icons/arrow-back";
 import { ArrowForward } from "@/components/icons/arrow-forward";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { DocHeader } from "@/components/docs/DocHeader";
 
 // Enable static generation with revalidation
 export const dynamic = "force-static";
@@ -85,17 +88,19 @@ const getDocNavigation = cache((currentPath: string): DocNavigation => {
   const currentIndex = flatDocs.findIndex((doc) => doc.path === currentPath);
   return {
     prev: currentIndex > 0 ? flatDocs[currentIndex - 1] : null,
-    next: currentIndex < flatDocs.length - 1 ? flatDocs[currentIndex + 1] : null,
+    next:
+      currentIndex < flatDocs.length - 1 ? flatDocs[currentIndex + 1] : null,
   };
 });
 
 interface Props {
-  params: {
+  params: Promise<{
     slug: string[];
-  };
+  }>;
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const doc = await getDocBySlug(params.slug);
   if (!doc) {
     return {
@@ -143,7 +148,8 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function DocPage({ params }: Props) {
+export default async function DocPage(props: Props) {
+  const params = await props.params;
   const doc = await getDocBySlug(params.slug);
   if (!doc) {
     notFound();
@@ -153,38 +159,27 @@ export default async function DocPage({ params }: Props) {
   const { prev, next } = getDocNavigation(currentPath);
 
   // Find category
-  const category = docsStructure.find((item) => currentPath.startsWith(item.path))?.title;
+  const category = docsStructure.find((item) =>
+    currentPath.startsWith(item.path)
+  )?.title;
 
   return (
     <div>
       <article className="prose mx-auto max-w-5xl dark:prose-invert">
         <Breadcrumbs currentPath={currentPath} />
-        
-        {category && (
-          <div
-            className="text-muted-foreground mb-4 text-sm uppercase tracking-wide"
-            style={{ letterSpacing: "0.08em" }}
-          >
-            {category}
-          </div>
-        )}
 
-        <div className="flex items-center justify-between">
-          <h1 className="mb-1 text-4xl font-extrabold tracking-tight">
-            {doc.meta.title}
-          </h1>
-          <div className="flex items-center space-x-4">
-            <ReadingTime content={doc.content} />
-            <ShortLink path={currentPath} />
-            <EditOnGitHub filePath={params.slug.join("/")} />
-          </div>
-        </div>
-
-        {doc.meta.description && (
-          <p className="text-muted-foreground mb-0 mt-0 text-lg">
-            {doc.meta.description}
-          </p>
-        )}
+        <DocHeader
+          category={category}
+          title={doc.meta.title}
+          description={doc.meta.description}
+          actions={
+            <>
+              <ReadingTime content={doc.content} />
+              <ShortLink path={currentPath} />
+              <EditOnGitHub filePath={params.slug.join("/")} />
+            </>
+          }
+        />
 
         <hr className="my-8 border-gray-300 dark:border-gray-600 sm:mx-auto lg:my-10" />
 
@@ -199,26 +194,30 @@ export default async function DocPage({ params }: Props) {
         </Suspense>
       </article>
 
-      <div className="mx-auto mt-12 flex w-full max-w-5xl justify-between">
+      <div className="mx-auto mt-12 flex w-full max-w-5xl justify-between items-center gap-2">
         {prev ? (
-          <a
+          <Link
             href={prev.path}
-            className="group flex items-center gap-2 rounded-lg bg-gray-200 px-6 py-3 text-sm font-medium text-gray-800 shadow-md transition hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+            className="group flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 transition-colors font-normal"
+            prefetch={true}
+            aria-label={`Previous: ${prev.title}`}
           >
-            <ArrowBack className="h-5 w-5 transition-transform group-hover:-translate-x-1" />
-            {prev.title}
-          </a>
+            <span className="inline-block align-middle transition-transform group-hover:-translate-x-0.5">&#8592;</span>
+            <span className="truncate">{prev.title}</span>
+          </Link>
         ) : (
           <div />
         )}
         {next ? (
-          <a
+          <Link
             href={next.path}
-            className="group flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-sm font-medium text-white shadow-md transition hover:bg-blue-700"
+            className="group flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 transition-colors font-normal justify-end"
+            prefetch={true}
+            aria-label={`Next: ${next.title}`}
           >
-            {next.title}
-            <ArrowForward className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-          </a>
+            <span className="truncate">{next.title}</span>
+            <span className="inline-block align-middle transition-transform group-hover:translate-x-0.5">&#8594;</span>
+          </Link>
         ) : (
           <div />
         )}

@@ -113,10 +113,10 @@ export default function Faq() {
                 </svg>
               </button>
               <div
-                className={`overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.25, 1, 0.5, 1)] ${activeIndex === index ? "max-h-96" : "max-h-0"}`}
+                className={`ease-[cubic-bezier(0.25, 1, 0.5, 1)] overflow-hidden transition-all duration-300 ${activeIndex === index ? "max-h-96" : "max-h-0"}`}
                 id={`faq-panel-${index}`}
               >
-                <div className="bg-[#f5f6f7] p-6 text-gray-700 dark:bg-[#1F2A37] dark:text-gray-400 transition-colors duration-300 ease-[cubic-bezier(0.25, 1, 0.5, 1)]">
+                <div className="ease-[cubic-bezier(0.25, 1, 0.5, 1)] bg-[#f5f6f7] p-6 text-gray-700 transition-colors duration-300 dark:bg-[#1F2A37] dark:text-gray-400">
                   {item.answer}
                 </div>
               </div>

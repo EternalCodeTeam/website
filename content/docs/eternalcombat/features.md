@@ -7,12 +7,12 @@ description: Comprehensive guide to EternalCombat features, commands, and permis
 
 ### Basic Commands
 
-| Command | Description | Permission |
-|---------|-------------|------------|
-| `/combatlog status [player]` | Check combat status of yourself or another player | `eternalcombat.status` |
-| `/combatlog tag <player1> [player2]` | Force players into combat | `eternalcombat.tag` |
-| `/combatlog untag <player>` | Remove a player from combat | `eternalcombat.untag` |
-| `/combatlog reload` | Reload plugin configuration | `eternalcombat.reload` |
+| Command                              | Description                                       | Permission             |
+| ------------------------------------ | ------------------------------------------------- | ---------------------- |
+| `/combatlog status [player]`         | Check combat status of yourself or another player | `eternalcombat.status` |
+| `/combatlog tag <player1> [player2]` | Force players into combat                         | `eternalcombat.tag`    |
+| `/combatlog untag <player>`          | Remove a player from combat                       | `eternalcombat.untag`  |
+| `/combatlog reload`                  | Reload plugin configuration                       | `eternalcombat.reload` |
 
 ## 🔒 Permissions
 

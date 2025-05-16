@@ -76,6 +76,9 @@ export default function ProjectItem({
             className="mx-auto hidden rounded-[12px] object-cover sm:block"
             height={500}
             width={1000}
+            priority={index < 2}
+            quality={85}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </motion.div>
       </div>

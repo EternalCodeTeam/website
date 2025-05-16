@@ -19,7 +19,8 @@ export const metadata: Metadata = {
     template: "%s | EternalCode.pl",
     default: "Documentation | EternalCode.pl",
   },
-  description: "Comprehensive documentation for EternalCode.pl projects and services",
+  description:
+    "Comprehensive documentation for EternalCode.pl projects and services",
   metadataBase: new URL("https://eternalcode.pl"),
   openGraph: {
     type: "website",
@@ -44,10 +45,10 @@ export default function DocsLayout({
 }) {
   return (
     <div
-      className={`${poppins.className} min-h-screen bg-[#eff1f5] dark:bg-[#0d1117] transition-colors duration-200`}
+      className={`${poppins.className} min-h-screen bg-[#eff1f5] transition-colors duration-200 dark:bg-[#0d1117]`}
     >
       <Navbar />
-      <div className="mx-auto max-w-screen-xl min-h-[calc(100vh-7rem)] px-4 py-12 pt-32">
+      <div className="mx-auto min-h-[calc(100vh-7rem)] max-w-screen-xl px-4 py-12 pt-32">
         <div className="flex flex-col gap-8 lg:flex-row">
           <aside className="w-full flex-shrink-0 lg:w-64">
             <div className="sticky top-32 z-20 flex flex-col gap-4">

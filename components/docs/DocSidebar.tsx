@@ -19,92 +19,92 @@ interface DocItemProps {
   onItemClick?: (path: string) => void;
 }
 
-const DocItemComponent: React.FC<DocItemProps> = React.memo(({ 
-  item, 
-  level, 
-  isActive,
-  onItemClick 
-}) => {
-  const hasChildren = item.children && item.children.length > 0;
+const DocItemComponent: React.FC<DocItemProps> = React.memo(
+  ({ item, level, isActive, onItemClick }) => {
+    const hasChildren = item.children && item.children.length > 0;
 
-  const handleClick = useCallback(() => {
-    onItemClick?.(item.path);
-  }, [item.path, onItemClick]);
+    const handleClick = useCallback(() => {
+      onItemClick?.(item.path);
+    }, [item.path, onItemClick]);
 
-  if (hasChildren) {
-    return (
-      <div className={cn("mb-3", level === 0 && "first:mt-0")}>
-        <div 
-          className={cn(
-            "font-semibold text-sm mb-1",
-            level > 0 && "pl-4",
-            "text-gray-900 dark:text-white tracking-wide"
-          )}
-          role="heading"
-          aria-level={level + 1}
-        >
-          <Folder 
-            className="inline-block mr-2 -mt-0.5 w-4 h-4 text-gray-500 dark:text-gray-400 align-middle" 
-            aria-hidden="true"
-          />
-          {item.title}
-        </div>
-        <div className="space-y-1" role="list">
-          {item.children?.map((child) => (
-            <DocItemComponent
-              key={child.path}
-              item={child}
-              level={level + 1}
-              isActive={false}
-              onItemClick={onItemClick}
+    if (hasChildren) {
+      return (
+        <div className={cn("mb-3", level === 0 && "first:mt-0")}>
+          <div
+            className={cn(
+              "mb-1 text-sm font-semibold",
+              level > 0 && "pl-4",
+              "tracking-wide text-gray-900 dark:text-white"
+            )}
+            role="heading"
+            aria-level={level + 1}
+          >
+            <Folder
+              className="-mt-0.5 mr-2 inline-block h-4 w-4 align-middle text-gray-500 dark:text-gray-400"
+              aria-hidden="true"
             />
-          ))}
+            {item.title}
+          </div>
+          <div className="space-y-1" role="list">
+            {item.children?.map((child) => (
+              <DocItemComponent
+                key={child.path}
+                item={child}
+                level={level + 1}
+                isActive={false}
+                onItemClick={onItemClick}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      );
+    }
+
+    return (
+      <Link
+        href={item.path}
+        onClick={handleClick}
+        className={cn(
+          "block rounded-lg py-1 pl-4 text-sm font-medium transition-colors",
+          isActive
+            ? "bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white"
+            : "text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+        )}
+        aria-current={isActive ? "page" : undefined}
+      >
+        {item.title}
+      </Link>
     );
   }
-
-  return (
-    <Link
-      href={item.path}
-      onClick={handleClick}
-      className={cn(
-        "block rounded-lg transition-colors font-medium text-sm pl-4 py-1",
-        isActive
-          ? "bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white"
-          : "text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
-      )}
-      aria-current={isActive ? "page" : undefined}
-    >
-      {item.title}
-    </Link>
-  );
-});
+);
 
 DocItemComponent.displayName = "DocItemComponent";
 
-const DocSidebar: React.FC<DocSidebarProps> = ({ 
+const DocSidebar: React.FC<DocSidebarProps> = ({
   className = "",
-  onItemClick 
+  onItemClick,
 }) => {
   const pathname = usePathname();
 
-  const sidebarContent = useMemo(() => (
-    <div className="space-y-1">
-      {docsStructure.map((item) => (
-        <DocItemComponent
-          key={item.path}
-          item={item}
-          level={0}
-          isActive={pathname === item.path}
-          onItemClick={onItemClick}
-        />
-      ))}
-    </div>
-  ), [pathname, onItemClick]);
+  const sidebarContent = useMemo(
+    () => (
+      <div className="space-y-1">
+        {docsStructure.map((item) => (
+          <DocItemComponent
+            key={item.path}
+            item={item}
+            level={0}
+            isActive={pathname === item.path}
+            onItemClick={onItemClick}
+          />
+        ))}
+      </div>
+    ),
+    [pathname, onItemClick]
+  );
 
   return (
-    <nav 
+    <nav
       className={cn("w-full", className)}
       role="navigation"
       aria-label="Documentation navigation"

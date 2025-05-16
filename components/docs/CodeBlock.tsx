@@ -11,13 +11,9 @@ interface CodeBlockProps extends React.ComponentProps<"pre"> {
   language?: string;
 }
 
-const CodeBlock = memo(({ 
-  children, 
-  language,
-  ...props 
-}: CodeBlockProps) => (
+const CodeBlock = memo(({ children, language, ...props }: CodeBlockProps) => (
   <pre
-    className="prose pre rounded-lg bg-[#161b22] p-4 text-sm text-neutral-200 font-mono overflow-x-auto border border-neutral-700 my-4 relative"
+    className="pre prose relative my-4 overflow-x-auto rounded-lg border border-neutral-700 bg-[#161b22] p-4 font-mono text-sm text-neutral-200"
     role="code"
     aria-label={language ? `Code block in ${language}` : "Code block"}
     {...props}
@@ -28,4 +24,4 @@ const CodeBlock = memo(({
 
 CodeBlock.displayName = "CodeBlock";
 
-export { CodeBlock }; 
+export { CodeBlock };

@@ -127,15 +127,15 @@ public class YourPlugin extends JavaPlugin {
 
 ### Available Services
 
-| Service | Description | Access Method |
-|---------|-------------|---------------|
-| FightManager | Manages combat states | `getFightManager()` |
-| RegionProvider | Handles region-based features | `getRegionProvider()` |
-| FightPearlManager | Controls ender pearl mechanics | `getFightPearlManager()` |
-| FightTagOutService | Manages combat tag-out system | `getFightTagOutService()` |
-| FightEffectService | Handles combat effects | `getFightEffectService()` |
-| DropManager | Controls item drops | `getDropManager()` |
-| PluginConfig | Access plugin configuration | `getPluginConfig()` |
+| Service            | Description                    | Access Method             |
+| ------------------ | ------------------------------ | ------------------------- |
+| FightManager       | Manages combat states          | `getFightManager()`       |
+| RegionProvider     | Handles region-based features  | `getRegionProvider()`     |
+| FightPearlManager  | Controls ender pearl mechanics | `getFightPearlManager()`  |
+| FightTagOutService | Manages combat tag-out system  | `getFightTagOutService()` |
+| FightEffectService | Handles combat effects         | `getFightEffectService()` |
+| DropManager        | Controls item drops            | `getDropManager()`        |
+| PluginConfig       | Access plugin configuration    | `getPluginConfig()`       |
 
 ## 💻 Usage Examples
 
@@ -182,6 +182,7 @@ public class CombatTagging {
 ### Available Events
 
 1. **FightTagEvent**
+
    - Triggered when a player enters combat
    - Contains information about the combat cause and duration
 

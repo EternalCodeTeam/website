@@ -38,14 +38,17 @@ After installation, EternalCombat will create the following files:
 ### Upgrade Process
 
 1. **Backup Your Configuration**
+
    ```bash
    cp plugins/EternalCombat/config.yml plugins/EternalCombat/config.yml.backup
    ```
 
 2. **Download the New Version**
+
    - Download the latest version from our [releases page](https://github.com/EternalCodeTeam/EternalCombat/releases)
 
 3. **Replace the Old Version**
+
    - Stop your server
    - Replace the old JAR file with the new one
    - Start your server
@@ -67,11 +70,13 @@ After installation, EternalCombat will create the following files:
 ### Common Issues
 
 1. **Plugin Not Loading**
+
    - Verify you're using a compatible server version
    - Check the console for error messages
    - Ensure all dependencies are installed
 
 2. **Configuration Errors**
+
    - Validate your YAML syntax
    - Check for missing or incorrect values
    - Restore from backup if needed
@@ -80,7 +85,7 @@ After installation, EternalCombat will create the following files:
    - Adjust particle and border settings
    - Reduce update frequencies
    - Monitor server performance
-   
+
 <Alert type="info">
  Need help? Join our <a href="https://discord.gg/FQ7jmGBd6c">Discord server</a> or check our <a href="https://github.com/EternalCodeTeam/EternalCombat/issues">GitHub issues</a>.
 </Alert>

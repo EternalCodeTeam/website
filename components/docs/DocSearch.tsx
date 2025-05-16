@@ -26,7 +26,7 @@ const SearchResultItem: React.FC<{
 }> = React.memo(({ result, onSelect }) => (
   <button
     onClick={() => onSelect(result.path)}
-    className="w-full px-4 py-2 text-left hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:hover:bg-gray-700 dark:focus:bg-gray-700"
+    className="w-full px-4 py-2 text-left hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:hover:bg-gray-700 dark:focus:bg-gray-700"
     role="option"
     aria-selected="false"
   >
@@ -42,7 +42,7 @@ const SearchResultItem: React.FC<{
 SearchResultItem.displayName = "SearchResultItem";
 
 const LoadingSpinner: React.FC = () => (
-  <div 
+  <div
     className="absolute right-3 top-2.5"
     role="status"
     aria-label="Loading search results"
@@ -67,42 +67,48 @@ const DocSearch: React.FC<DocSearchProps> = ({
 
   useClickOutside(searchRef, () => setIsOpen(false));
 
-  const searchDocs = useCallback(async (searchQuery: string) => {
-    if (searchQuery.length < minQueryLength) {
-      setResults([]);
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-      const response = await fetch(
-        `/api/docs/search?q=${encodeURIComponent(searchQuery)}`
-      );
-      
-      if (!response.ok) {
-        throw new Error(`Search failed with status: ${response.status}`);
+  const searchDocs = useCallback(
+    async (searchQuery: string) => {
+      if (searchQuery.length < minQueryLength) {
+        setResults([]);
+        return;
       }
-      
-      const data = (await response.json()) as SearchResult[];
-      setResults(data);
-    } catch (error) {
-      console.error("Search failed:", error);
-      setResults([]);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [minQueryLength]);
+
+      setIsLoading(true);
+      try {
+        const response = await fetch(
+          `/api/docs/search?q=${encodeURIComponent(searchQuery)}`
+        );
+
+        if (!response.ok) {
+          throw new Error(`Search failed with status: ${response.status}`);
+        }
+
+        const data = (await response.json()) as SearchResult[];
+        setResults(data);
+      } catch (error) {
+        console.error("Search failed:", error);
+        setResults([]);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [minQueryLength]
+  );
 
   useEffect(() => {
     searchDocs(debouncedQuery);
   }, [debouncedQuery, searchDocs]);
 
-  const handleSelect = useCallback((path: string) => {
-    router.push(path);
-    setQuery("");
-    setResults([]);
-    setIsOpen(false);
-  }, [router]);
+  const handleSelect = useCallback(
+    (path: string) => {
+      router.push(path);
+      setQuery("");
+      setResults([]);
+      setIsOpen(false);
+    },
+    [router]
+  );
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === "Escape") {
@@ -111,7 +117,7 @@ const DocSearch: React.FC<DocSearchProps> = ({
   }, []);
 
   return (
-    <div 
+    <div
       ref={searchRef}
       className={cn("relative mb-6", className)}
       role="combobox"
@@ -140,8 +146,8 @@ const DocSearch: React.FC<DocSearchProps> = ({
           aria-autocomplete="list"
           aria-controls="search-results"
         />
-        <Search 
-          className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" 
+        <Search
+          className="absolute left-3 top-2.5 h-4 w-4 text-gray-400"
           aria-hidden="true"
         />
       </div>
