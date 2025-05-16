@@ -9,12 +9,32 @@ import DocCopyEnhancer from "@/components/docs/DocCopyEnhancer";
 const poppins = Poppins({
   weight: ["500"],
   subsets: ["latin"],
-  display: "auto",
+  display: "swap",
+  preload: true,
+  fallback: ["system-ui", "arial"],
 });
 
 export const metadata: Metadata = {
-  title: "Documentation | EternalCode.pl",
-  description: "Documentation for EternalCode.pl projects and services",
+  title: {
+    template: "%s | EternalCode.pl",
+    default: "Documentation | EternalCode.pl",
+  },
+  description: "Comprehensive documentation for EternalCode.pl projects and services",
+  metadataBase: new URL("https://eternalcode.pl"),
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://eternalcode.pl/docs",
+    siteName: "EternalCode.pl",
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@eternalcode",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function DocsLayout({
@@ -24,7 +44,7 @@ export default function DocsLayout({
 }) {
   return (
     <div
-      className={`${poppins.className} min-h-screen bg-[#eff1f5] dark:bg-[#0d1117]`}
+      className={`${poppins.className} min-h-screen bg-[#eff1f5] dark:bg-[#0d1117] transition-colors duration-200`}
     >
       <Navbar />
       <div className="mx-auto max-w-screen-xl min-h-[calc(100vh-7rem)] px-4 py-12 pt-32">

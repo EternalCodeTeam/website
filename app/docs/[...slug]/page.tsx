@@ -7,6 +7,13 @@ import { components, mdxOptions } from "@/lib/mdx";
 import { docsStructure } from "@/components/docs/sidebar-structure";
 import type { Metadata } from "next";
 import { Suspense, cache } from "react";
+import { Breadcrumbs } from "@/components/docs/Breadcrumbs";
+import { EditOnGitHub } from "@/components/docs/EditOnGitHub";
+import { ReadingTime } from "@/components/docs/ReadingTime";
+import { ShortLink } from "@/components/docs/ShortLink";
+import type { MDXComponents } from "mdx/types";
+import { ArrowBack } from "@/components/icons/arrow-back";
+import { ArrowForward } from "@/components/icons/arrow-forward";
 
 // Enable static generation with revalidation
 export const dynamic = "force-static";
@@ -39,17 +46,12 @@ const getFlatDocs = cache(() => {
       children?: { title: string; path: string }[];
     }[]
   ): { title: string; path: string }[] {
-    const result: { title: string; path: string }[] = [];
-    for (const item of structure) {
-      if (item.children && item.children.length > 0) {
-        for (const child of item.children) {
-          result.push({ title: child.title, path: child.path });
-        }
-      } else {
-        result.push({ title: item.title, path: item.path });
+    return structure.reduce<{ title: string; path: string }[]>((acc, item) => {
+      if (item.children?.length) {
+        return [...acc, ...item.children];
       }
-    }
-    return result;
+      return [...acc, { title: item.title, path: item.path }];
+    }, []);
   }
   return flattenDocs(docsStructure);
 });
@@ -80,11 +82,10 @@ const getDocBySlug = cache(async (slug: string[]): Promise<Doc | null> => {
 // Cache the navigation
 const getDocNavigation = cache((currentPath: string): DocNavigation => {
   const flatDocs = getFlatDocs();
-  const currentIndex = flatDocs.findIndex((doc: { path: string }) => doc.path === currentPath);
+  const currentIndex = flatDocs.findIndex((doc) => doc.path === currentPath);
   return {
     prev: currentIndex > 0 ? flatDocs[currentIndex - 1] : null,
-    next:
-      currentIndex < flatDocs.length - 1 ? flatDocs[currentIndex + 1] : null,
+    next: currentIndex < flatDocs.length - 1 ? flatDocs[currentIndex + 1] : null,
   };
 });
 
@@ -104,7 +105,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${doc.meta.title} | EternalCode Documentation`,
+    title: doc.meta.title,
     description: doc.meta.description || "EternalCode Documentation",
     openGraph: {
       title: doc.meta.title,
@@ -124,14 +125,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 // Optimized loading fallback
 function LoadingFallback() {
   return (
-    <div className="animate-pulse">
-      <div className="mb-4 h-8 w-3/4 rounded bg-gray-200 dark:bg-gray-700" />
-      <div className="mb-8 h-4 w-1/2 rounded bg-gray-200 dark:bg-gray-700" />
-      <div className="space-y-4">
-        {[...Array(5)].map((_, i) => (
-          <div key={i} className="h-4 rounded bg-gray-200 dark:bg-gray-700" />
-        ))}
-      </div>
+    <div className="animate-pulse space-y-4">
+      <div className="h-8 w-3/4 rounded bg-gray-200 dark:bg-gray-700" />
+      <div className="h-4 w-1/2 rounded bg-gray-200 dark:bg-gray-700" />
+      {[...Array(5)].map((_, i) => (
+        <div key={i} className="h-4 rounded bg-gray-200 dark:bg-gray-700" />
+      ))}
     </div>
   );
 }
@@ -139,7 +138,7 @@ function LoadingFallback() {
 // Generate static paths for all documentation pages
 export async function generateStaticParams() {
   const flatDocs = getFlatDocs();
-  return flatDocs.map((doc: { path: string }) => ({
+  return flatDocs.map((doc) => ({
     slug: doc.path.replace("/docs/", "").split("/"),
   }));
 }
@@ -154,48 +153,60 @@ export default async function DocPage({ params }: Props) {
   const { prev, next } = getDocNavigation(currentPath);
 
   // Find category
-  let category = null;
-  for (const item of docsStructure) {
-    if (currentPath.startsWith(item.path)) {
-      category = item.title;
-      break;
-    }
-  }
+  const category = docsStructure.find((item) => currentPath.startsWith(item.path))?.title;
 
   return (
     <div>
       <article className="prose mx-auto max-w-5xl dark:prose-invert">
+        <Breadcrumbs currentPath={currentPath} />
+        
         {category && (
           <div
-            className="text-muted-foreground mb-1 text-sm uppercase tracking-wide"
+            className="text-muted-foreground mb-4 text-sm uppercase tracking-wide"
             style={{ letterSpacing: "0.08em" }}
           >
             {category}
           </div>
         )}
-        <h1 className="mb-2 text-3xl font-extrabold tracking-tight">
-          {doc.meta.title}
-        </h1>
+
+        <div className="flex items-center justify-between">
+          <h1 className="mb-1 text-4xl font-extrabold tracking-tight">
+            {doc.meta.title}
+          </h1>
+          <div className="flex items-center space-x-4">
+            <ReadingTime content={doc.content} />
+            <ShortLink path={currentPath} />
+            <EditOnGitHub filePath={params.slug.join("/")} />
+          </div>
+        </div>
+
         {doc.meta.description && (
-          <p className="text-muted-foreground mb-2 text-lg">
+          <p className="text-muted-foreground mb-0 mt-0 text-lg">
             {doc.meta.description}
           </p>
         )}
-        <hr className="my-6 border-gray-200 dark:border-gray-700 sm:mx-auto lg:my-8" />
+
+        <hr className="my-8 border-gray-300 dark:border-gray-600 sm:mx-auto lg:my-10" />
+
         <Suspense fallback={<LoadingFallback />}>
           <MDXRemote
             source={doc.content}
-            components={components}
+            components={components as MDXComponents}
             options={{
               mdxOptions,
             }}
           />
         </Suspense>
       </article>
+
       <div className="mx-auto mt-12 flex w-full max-w-5xl justify-between">
         {prev ? (
-          <a href={prev.path} className="btn btn-outline">
-            ← {prev.title}
+          <a
+            href={prev.path}
+            className="group flex items-center gap-2 rounded-lg bg-gray-200 px-6 py-3 text-sm font-medium text-gray-800 shadow-md transition hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+          >
+            <ArrowBack className="h-5 w-5 transition-transform group-hover:-translate-x-1" />
+            {prev.title}
           </a>
         ) : (
           <div />
@@ -203,9 +214,10 @@ export default async function DocPage({ params }: Props) {
         {next ? (
           <a
             href={next.path}
-            className="btn btn-primary"
+            className="group flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-sm font-medium text-white shadow-md transition hover:bg-blue-700"
           >
-            {next.title} →
+            {next.title}
+            <ArrowForward className="h-5 w-5 transition-transform group-hover:translate-x-1" />
           </a>
         ) : (
           <div />

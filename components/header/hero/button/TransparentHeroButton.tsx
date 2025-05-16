@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
-import ArrowForwardIcon from "@/components/icons/arrow-forward";
+import { ArrowForward } from "@/components/icons/arrow-forward";
 
 export default function TransparentHeroButton() {
   return (
@@ -12,7 +12,7 @@ export default function TransparentHeroButton() {
         aria-label="First button"
         className="mb-2 ml-0 flex items-center py-2.5 pr-3 text-left text-sm font-medium text-black dark:text-white"
       >
-        <ArrowForwardIcon className="mb-[0.5px] mr-2" />
+        <ArrowForward className="mb-[0.5px] mr-2" />
         About us
       </motion.button>
     </Link>

@@ -225,3 +225,15 @@ pre[class*="language-"].line-numbers > code {
 }
 
 pre { position: relative !important; }
+
+/* Fix react-hot-toast icon alignment */
+.react-hot-toast__icon {
+  position: static !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 1.5rem !important;
+  min-height: 1.5rem !important;
+}

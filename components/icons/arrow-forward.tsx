@@ -1,18 +1,11 @@
-import { SVGProps } from "react";
+import React from "react";
 
-export default function ArrowForwardIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      {...props}
-    >
-      <path
-        fill="currentColor"
-        d="M17.079 12.5H5v-1h12.079l-5.792-5.792L12 5l7 7l-7 7l-.713-.708z"
-      ></path>
-    </svg>
-  );
+interface ArrowForwardProps extends React.SVGProps<SVGSVGElement> {
+  className?: string;
 }
+
+export const ArrowForward: React.FC<ArrowForwardProps> = ({ className = "", ...props }) => {
+  return (
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M16.175 13H4v-2h12.175l-5.6-5.6L12 4l8 8l-8 8l-1.425-1.4z"/></svg>
+  );
+};

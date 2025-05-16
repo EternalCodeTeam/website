@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^14.1.0",
+    "@next/codemod": "^15.4.0-canary.36",
     "@total-typescript/ts-reset": "^0.6.0",
     "@types/node": "^20.11.20",
     "@types/prismjs": "^1.26.5",
