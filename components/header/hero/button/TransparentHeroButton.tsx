@@ -25,7 +25,7 @@ export default function TransparentHeroButton() {
   }, [handleAnimation]);
 
   return (
-    <Link href="/#about" passHref legacyBehavior>
+    <Link href="/#about">
       <motion.button
         ref={ref}
         initial={{ opacity: 0, y: 20 }}

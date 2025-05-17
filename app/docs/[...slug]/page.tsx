@@ -7,7 +7,6 @@ import { components, mdxOptions } from "@/lib/mdx";
 import { docsStructure } from "@/components/docs/sidebar-structure";
 import type { Metadata } from "next";
 import { Suspense, cache } from "react";
-import { Breadcrumbs } from "@/components/docs/Breadcrumbs";
 import { EditOnGitHub } from "@/components/docs/EditOnGitHub";
 import { ReadingTime } from "@/components/docs/ReadingTime";
 import { ShortLink } from "@/components/docs/ShortLink";
@@ -169,8 +168,6 @@ export default async function DocPage(props: Props) {
   return (
     <div>
       <article className="prose mx-auto max-w-5xl dark:prose-invert">
-        <Breadcrumbs currentPath={currentPath} />
-
         <DocHeader
           category={category}
           title={doc.meta.title}

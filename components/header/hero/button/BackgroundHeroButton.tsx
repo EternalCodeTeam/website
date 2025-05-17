@@ -25,7 +25,7 @@ export default function BackgroundHeroButton() {
   }, [handleAnimation]);
 
   return (
-    <Link href="/team" passHref legacyBehavior>
+    <Link href="/team">
       <motion.button
         ref={ref}
         initial={{ opacity: 0, y: 20 }}
