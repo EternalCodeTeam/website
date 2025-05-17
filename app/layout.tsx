@@ -46,10 +46,7 @@ const defaultOgImageUrl = generateOgImageUrl({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://eternalcode.pl"),
-  title: {
-    template: "%s | EternalCode.pl",
-    default: "EternalCode.pl | Home",
-  },
+  title: "EternalCode.pl | Home",
   description: "EternalCode.pl delivers open source solutions with a focus on quality, performance, and innovation.",
   keywords: ["open source", "Java", "Linux", "Minecraft", "plugins", "development"],
   authors: [{ name: "EternalCode Team" }],
