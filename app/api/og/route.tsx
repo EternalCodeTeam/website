@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
     
     // Get parameters from the URL
     const title = searchParams.get('title') || 'EternalCode.pl';
-    const subtitle = searchParams.get('subtitle') || 'Enterprise-Grade Open Source Solutions';
+    const subtitle = searchParams.get('subtitle') || 'Open Source Solutions';
     const image = searchParams.get('image') || 'https://eternalcode.pl/logo.svg';
     
     // Create the OG image

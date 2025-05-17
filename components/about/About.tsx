@@ -68,7 +68,7 @@ export default function About() {
               width={1000}
               priority={true}
               decoding="async"
-              alt="Enterprise software development team collaborating"
+              alt="Software development team collaborating"
             />
           </motion.div>
           <motion.div
