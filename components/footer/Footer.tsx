@@ -10,20 +10,70 @@ import SpigotMcLikeIcon from "@/components/icons/spigotmc";
 import ModrinthIcon from "@/components/icons/modrinth";
 import logo from "@/public/logo.svg";
 
+interface FooterLink {
+  href: string;
+  label: string;
+  isExternal?: boolean;
+}
+
+interface FooterSection {
+  title: string;
+  links: FooterLink[];
+}
+
 export default function Footer() {
+  const footerSections: FooterSection[] = [
+    {
+      title: "COMPANY",
+      links: [
+        { href: "/#about", label: "About us" },
+        { href: "/team", label: "Team" },
+        { href: "/projects", label: "Projects" },
+      ],
+    },
+    {
+      title: "RESOURCES",
+      links: [
+        { href: "https://github.com/EternalCodeTeam", label: "GitHub", isExternal: true },
+        { href: "https://discord.com/invite/FQ7jmGBd6c", label: "Discord", isExternal: true },
+        { href: "https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q", label: "YouTube", isExternal: true },
+        { href: "https://www.tiktok.com/@eternalcode.pl", label: "TikTok", isExternal: true },
+        { href: "https://www.spigotmc.org/resources/authors/eternalcodeteam.1570200/", label: "SpigotMC", isExternal: true },
+        { href: "https://modrinth.com/organization/eternalcodeteam", label: "Modrinth", isExternal: true },
+      ],
+    },
+    {
+      title: "SEE MORE",
+      links: [
+        { href: "https://repo.eternalcode.pl/#/", label: "Repository", isExternal: true },
+        { href: "https://docs.eternalcode.pl/", label: "Documentation", isExternal: true },
+        { href: "https://status.eternalcode.pl/", label: "Status", isExternal: true },
+        { href: "https://bstats.org/author/vLucky", label: "BStats", isExternal: true },
+        { href: "/privacy-policy", label: "Privacy Policy" },
+      ],
+    },
+  ];
+
+  const socialLinks = [
+    { href: "https://www.tiktok.com/@eternalcode.pl", label: "EternalCode TikTok link", icon: <TikTokIcon /> },
+    { href: "https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q", label: "EternalCode Youtube link", icon: <YouTubeIcon /> },
+    { href: "https://github.com/EternalCodeTeam", label: "EternalCode Github link", icon: <GitHubIcon /> },
+    { href: "https://discord.com/invite/FQ7jmGBd6c", label: "EternalCode Discord link", icon: <DiscordIcon /> },
+  ];
+
   return (
-    <footer className="isolate p-4 text-center sm:p-6 lg:text-left">
+    <footer className="isolate p-4 text-center sm:p-6 lg:text-left" role="contentinfo">
       <div className="mx-auto max-w-screen-xl px-4 py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 flex flex-col items-center md:mb-0 md:items-start">
-            <Link href="/" className="flex items-center">
+            <Link href="/" className="flex items-center" aria-label="Go to homepage">
               <Image
-                className="mr-3 h-8 text-white dark:invert"
-                alt="Eternalcode Logo"
-                aria-label="Eternalcode Logo"
+                className="mr-3 h-8 w-auto text-white dark:invert"
+                alt="EternalCode Logo"
+                aria-label="EternalCode Logo"
                 src={logo}
-                width="32"
-                height="32"
+                width={32}
+                height={32}
                 priority
               />
               <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
@@ -37,175 +87,38 @@ export default function Footer() {
           </div>
 
           <div className="grid grid-cols-2 justify-center gap-8 sm:grid-cols-3 sm:gap-6 md:justify-end">
-            <div className="mb-6 sm:mb-0">
-              <h2 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">
-                TEAM
-              </h2>
-              <ul className="text-gray-600 dark:text-gray-400">
-                <li className="mb-2">
-                  <Link
-                    className="hover:underline"
-                    aria-label="About EternalCode"
-                    href="/#about"
-                  >
-                    About us
-                  </Link>
-                </li>
-                <li className="mb-2">
-                  <Link
-                    className="hover:underline"
-                    aria-label="Our team"
-                    href="/team"
-                  >
-                    Team
-                  </Link>
-                </li>
-                <li className="mb-2">
-                  <Link
-                    className="hover:underline"
-                    aria-label="Projects"
-                    href="/projects"
-                  >
-                    Projects
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h2 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">
-                FOLLOW US
-              </h2>
-              <ul className="text-gray-600 dark:text-gray-400">
-                <li className="mb-2">
-                  <a
-                    href="https://github.com/EternalCodeTeam"
-                    className="hover:underline"
-                    aria-label="EternalCode GitHub"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    GitHub
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a
-                    href="https://discord.com/invite/FQ7jmGBd6c"
-                    className="hover:underline"
-                    aria-label="EternalCode Discord"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Discord
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a
-                    href="https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q"
-                    className="hover:underline"
-                    aria-label="EternalCode YouTube"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    YouTube
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a
-                    href="https://www.tiktok.com/@eternalcode.pl"
-                    className="hover:underline"
-                    aria-label="EternalCode TikTok"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    TikTok
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a
-                    href="https://www.spigotmc.org/resources/authors/eternalcodeteam.1570200/"
-                    className="hover:underline"
-                    aria-label="EternalCode SpigotMC"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    SpigotMC
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a
-                    href="https://modrinth.com/organization/eternalcodeteam"
-                    className="hover:underline"
-                    aria-label="EternalCode Modrinth"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Modrinth
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div className="mb-6 sm:mb-0">
-              <h2 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">
-                SEE MORE
-              </h2>
-              <ul className="text-gray-600 dark:text-gray-400">
-                <li className="mb-2">
-                  <a
-                    href="https://repo.eternalcode.pl/#/"
-                    className="hover:underline"
-                    aria-label="EternalCode Repository"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Repository
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a
-                    href="https://docs.eternalcode.pl/"
-                    className="hover:underline"
-                    aria-label="EternalCode Documentations"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Documentations
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a
-                    href="https://status.eternalcode.pl/"
-                    className="hover:underline"
-                    aria-label="EternalCode Status"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Status
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a
-                    href="https://bstats.org/author/vLucky"
-                    className="hover:underline"
-                    aria-label="EternalCode BStats"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    BStats
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a
-                    href="/privacy-policy"
-                    className="hover:underline"
-                    aria-label="Privacy Policy"
-                  >
-                    Privacy Policy
-                  </a>
-                </li>
-              </ul>
-            </div>
+            {footerSections.map((section, index) => (
+              <div key={index} className={index === 1 ? "" : "mb-6 sm:mb-0"}>
+                <h2 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">
+                  {section.title}
+                </h2>
+                <ul className="text-gray-600 dark:text-gray-400">
+                  {section.links.map((link, linkIndex) => (
+                    <li key={linkIndex} className="mb-2">
+                      {link.isExternal ? (
+                        <a
+                          href={link.href}
+                          className="hover:underline"
+                          aria-label={link.label}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          className="hover:underline"
+                          aria-label={link.label}
+                        >
+                          {link.label}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -213,63 +126,21 @@ export default function Footer() {
 
         <div className="sm:flex sm:items-center sm:justify-between">
           <span className="mb-4 block text-sm text-gray-500 dark:text-gray-400 sm:mb-0 sm:text-center">
-            © 2021-present EternalCodeTeam. All rights reserved.
+            © {new Date().getFullYear()} EternalCodeTeam. All rights reserved.
           </span>
           <div className="flex justify-center space-x-6">
-            <a
-              aria-label="EternalCode TikTok link"
-              className="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
-              href="https://www.tiktok.com/@eternalcode.pl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <TikTokIcon />
-            </a>
-            <a
-              aria-label="EternalCode Youtube link"
-              className="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
-              href="https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <YouTubeIcon />
-            </a>
-            <a
-              aria-label="EternalCode Github link"
-              className="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
-              href="https://github.com/EternalCodeTeam"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <GitHubIcon />
-            </a>
-            <a
-              aria-label="EternalCode Discord link"
-              className="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
-              href="https://discord.com/invite/FQ7jmGBd6c"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <DiscordIcon />
-            </a>
-            <a
-              aria-label="EternalCode SpigotMC link"
-              className="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
-              href="https://www.spigotmc.org/resources/authors/eternalcodeteam.1570200/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <SpigotMcLikeIcon />
-            </a>
-            <a
-              aria-label="EternalCode Modrinth link"
-              className="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
-              href="https://modrinth.com/organization/eternalcodeteam"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <ModrinthIcon />
-            </a>
+            {socialLinks.map((link, index) => (
+              <a
+                key={index}
+                aria-label={link.label}
+                className="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {link.icon}
+              </a>
+            ))}
           </div>
         </div>
       </div>

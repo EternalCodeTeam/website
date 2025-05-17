@@ -31,7 +31,7 @@ export function TerminalTab({ children }: Readonly<TerminalTabProps>) {
             </div>
           </div>
           <div className="text-2xs mx-auto select-none text-center text-gray-800 dark:text-gray-400">
-            <span className="font-medium">EternalCode Terminal</span>
+            <span className="font-medium">EternalCode</span>
           </div>
         </div>
         <div className="flex flex-row">

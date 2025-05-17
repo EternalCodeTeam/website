@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@/public/logo.svg";
@@ -38,15 +38,19 @@ const NAV_LINKS: NavLink[] = [
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
   }, []);
 
+  // Handle escape key to close menu
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isMenuOpen) {
         setIsMenuOpen(false);
+        menuButtonRef.current?.focus();
       }
     };
 
@@ -54,6 +58,7 @@ export default function Navbar() {
     return () => document.removeEventListener("keydown", handleEscape);
   }, [isMenuOpen]);
 
+  // Handle body scroll lock when menu is open
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -65,21 +70,34 @@ export default function Navbar() {
     };
   }, [isMenuOpen]);
 
+  // Handle click outside to close menu
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node) && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isMenuOpen]);
+
   return (
     <nav
-      className="fixed inset-x-0 top-0 z-50 border-gray-200 bg-[#eff1f5]/80 backdrop-blur-md dark:bg-[#0d1117]/80"
+      ref={navRef}
+      className="fixed inset-x-0 top-0 z-50 border-b border-gray-200 bg-[#eff1f5]/90 backdrop-blur-md dark:border-gray-800 dark:bg-[#0d1117]/90"
       role="navigation"
       aria-label="Main navigation"
     >
-      <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-4 py-8">
+      <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-4 py-4 md:py-6">
         <Link
           href="/"
           className="flex items-center"
           aria-label="Go to homepage"
         >
           <Image
-            className="mr-3 h-8 dark:invert"
-            alt="Eternalcode Logo"
+            className="mr-3 h-8 w-auto dark:invert"
+            alt="EternalCode Logo"
             src={logo}
             width={32}
             height={32}
@@ -94,6 +112,7 @@ export default function Navbar() {
           <ThemeSwitchButton />
 
           <button
+            ref={menuButtonRef}
             className="ml-1 inline-flex items-center p-2 text-sm dark:text-white md:hidden"
             type="button"
             aria-label="Toggle menu"
@@ -107,9 +126,9 @@ export default function Navbar() {
               transition={{ duration: 0.2 }}
             >
               {isMenuOpen ? (
-                <ArrowDown className="h-5 w-5" />
+                <ArrowDown className="h-5 w-5" aria-hidden="true" />
               ) : (
-                <Hamburger className="h-5 w-5" />
+                <Hamburger className="h-5 w-5" aria-hidden="true" />
               )}
             </motion.div>
           </button>
@@ -136,7 +155,7 @@ export default function Navbar() {
                   >
                     <Link
                       href={link.href}
-                      className="flex items-center rounded-full py-2 pl-3 pr-4 text-gray-900 dark:text-white"
+                      className="flex items-center rounded-full py-2 pl-3 pr-4 text-gray-900 transition-colors duration-200 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
                       aria-label={link.label}
                       target={link.isExternal ? "_blank" : undefined}
                       rel={link.isExternal ? "noopener noreferrer" : undefined}
@@ -160,7 +179,7 @@ export default function Navbar() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="flex items-center rounded-full py-2 pl-3 pr-4 text-gray-900 dark:text-white"
+                  className="flex items-center rounded-full py-2 pl-3 pr-4 text-gray-900 transition-colors duration-200 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
                   aria-label={link.label}
                   target={link.isExternal ? "_blank" : undefined}
                   rel={link.isExternal ? "noopener noreferrer" : undefined}

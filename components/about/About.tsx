@@ -26,9 +26,21 @@ export default function About() {
     []
   );
 
-  const { ref: section, inView: inView1 } = useInView({ triggerOnce: false });
-  const { ref: div, inView: inView2 } = useInView({ triggerOnce: false });
-  const { ref: img, inView: inView3 } = useInView({ triggerOnce: false });
+  const { ref: section, inView: inView1 } = useInView({ 
+    triggerOnce: false,
+    threshold: 0.1,
+    rootMargin: "0px 0px -100px 0px"
+  });
+  const { ref: div, inView: inView2 } = useInView({ 
+    triggerOnce: false,
+    threshold: 0.1,
+    rootMargin: "0px 0px -100px 0px"
+  });
+  const { ref: img, inView: inView3 } = useInView({ 
+    triggerOnce: false,
+    threshold: 0.1,
+    rootMargin: "0px 0px -100px 0px"
+  });
 
   return (
     <motion.section
@@ -38,6 +50,7 @@ export default function About() {
       variants={combineVariants}
       initial="hidden"
       animate={inView1 ? "show" : "hidden"}
+      aria-labelledby="about-heading"
     >
       <Container>
         <div className="mx-auto items-center gap-x-12 sm:px-4 md:px-0 lg:flex">
@@ -50,12 +63,12 @@ export default function About() {
           >
             <Image
               src={AboutImage}
-              className="mx-auto rounded-[12px]"
+              className="mx-auto rounded-[12px] shadow-lg"
               height={500}
               width={1000}
               priority={true}
               decoding="async"
-              alt="about me presentation"
+              alt="Enterprise software development team collaborating"
             />
           </motion.div>
           <motion.div

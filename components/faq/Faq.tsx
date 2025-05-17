@@ -1,28 +1,33 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import SectionTitle from "../SectionTitle";
 import { useInView } from "react-intersection-observer";
 
-const faqItems = [
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+const faqItems: FaqItem[] = [
   {
-    question: "Q1: What does teamwork look like?",
+    question: "What does teamwork look like?",
     answer:
       "Teamwork is a complex process where all volunteers strive to effectively carry out their assigned tasks. As a team we provide help to each other because everyone is striving for some challenges. There is no better way to learn new things than when mentored by teammate. Approximately every two weeks, we organize meetings to discuss ongoing projects, their progress, and brainstorming sessions where we share ideas about a specific project.",
   },
   {
-    question: "Q2: How can I join the team?",
+    question: "How can I join the team?",
     answer:
       "Join us by contacting via Discord, where our team interacts and discusses projects. We value not just commitment but also your interests, ideas, and diverse talents. As a member, you'll actively participate in projects, hone skills, and gain experience in a supportive setting. Be part of our exciting team journey, don't hesitate!",
   },
   {
-    question: "Q3: What are the benefits of joining the team?",
+    question: "What are the benefits of joining the team?",
     answer:
       "Join our team to learn more about GitHub workflow, understand and use good programming practices like reviewing pull requests. As a team we provide many answers to not so easy questions and everyone of us is a specialist in his own field, meaning problem solving is in our nature. You'll also be able to extend your professional network, demonstrate your skills, and partake in team game competitions. (Shhh! Don't tell anyone about open source licences) Don't hesitate, join us!",
   },
   {
-    question: "Q4: What are the requirements for joining the team?",
+    question: "What are the requirements for joining the team?",
     answer:
       "In addition to commitment, we require basic programming knowledge. Our training isn't comprehensive, so it's recommended to have some programming skills. Our team focuses on enhancing existing competencies to aid your professional growth. Currently, we only accept Polish-speaking individuals.",
   },
@@ -38,9 +43,10 @@ export default function Faq() {
   const { ref: sectionRef, inView: sectionInView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
+    rootMargin: "0px 0px -100px 0px"
   });
 
-  const containerVariants = {
+  const containerVariants = useMemo(() => ({
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -50,9 +56,9 @@ export default function Faq() {
         duration: 0.5,
       },
     },
-  };
+  }), []);
 
-  const itemVariants = {
+  const itemVariants = useMemo(() => ({
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -62,10 +68,10 @@ export default function Faq() {
         ease: "easeInOut",
       },
     },
-  };
+  }), []);
 
   return (
-    <section id="faq" className="py-16">
+    <section id="faq" className="py-16" aria-labelledby="faq-heading">
       <div className="mx-auto max-w-screen-xl px-4 py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -103,6 +109,7 @@ export default function Faq() {
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -115,6 +122,8 @@ export default function Faq() {
               <div
                 className={`ease-[cubic-bezier(0.25, 1, 0.5, 1)] overflow-hidden transition-all duration-300 ${activeIndex === index ? "max-h-96" : "max-h-0"}`}
                 id={`faq-panel-${index}`}
+                role="region"
+                aria-labelledby={`faq-question-${index}`}
               >
                 <div className="ease-[cubic-bezier(0.25, 1, 0.5, 1)] bg-[#f5f6f7] p-6 text-gray-700 transition-colors duration-300 dark:bg-[#1F2A37] dark:text-gray-400">
                   {item.answer}
