@@ -14,6 +14,8 @@ export const ArrowForward: React.FC<ArrowForwardProps> = ({
       width="32"
       height="32"
       viewBox="0 0 24 24"
+      className={className}
+      {...props}
     >
       <path
         fill="currentColor"

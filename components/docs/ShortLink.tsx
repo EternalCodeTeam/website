@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import { Link, Copy, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -17,12 +17,21 @@ export const ShortLink: React.FC<ShortLinkProps> = ({
 }) => {
   const [copied, setCopied] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout>();
 
   const generateShortLink = useCallback(() => {
     const baseUrl = window.location.origin;
     const fullPath = sectionId ? `${path}#${sectionId}` : path;
     return `${baseUrl}${fullPath}`;
   }, [path, sectionId]);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleCopy = async () => {
     if (isLoading) return;
@@ -33,7 +42,7 @@ export const ShortLink: React.FC<ShortLinkProps> = ({
     try {
       await navigator.clipboard.writeText(shortLink);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      timeoutRef.current = setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error("Failed to copy link:", err);
     } finally {
@@ -52,9 +61,7 @@ export const ShortLink: React.FC<ShortLinkProps> = ({
           "flex items-center space-x-1 rounded-md px-2 py-1 text-xs font-medium transition-colors",
           "bg-gray-100 text-gray-600 hover:bg-gray-200",
           "dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700",
-          "disabled:cursor-not-allowed disabled:opacity-50",
-          "focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2",
-          "dark:focus:ring-gray-400"
+          "disabled:cursor-not-allowed disabled:opacity-50"
         )}
       >
         {isLoading ? (

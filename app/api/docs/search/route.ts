@@ -3,6 +3,10 @@ import fs from "fs/promises";
 import path from "path";
 import matter from "gray-matter";
 
+// Enable static generation with revalidation
+export const dynamic = "force-dynamic"; // Search results should always be fresh
+export const revalidate = 0;
+
 interface SearchResult {
   title: string;
   path: string;
@@ -60,15 +64,31 @@ export async function GET(request: Request) {
   const query = searchParams.get("q")?.toLowerCase() || "";
 
   if (!query) {
-    return NextResponse.json([]);
+    return NextResponse.json([], {
+      headers: {
+        'Cache-Control': 'no-store',
+      },
+    });
   }
 
   try {
     const docsDir = path.join(process.cwd(), "content/docs");
     const results = await searchInDirectory(docsDir, query);
-    return NextResponse.json(results);
+    return NextResponse.json(results, {
+      headers: {
+        'Cache-Control': 'no-store',
+      },
+    });
   } catch (error) {
     console.error("Search error:", error);
-    return NextResponse.json({ error: "Search failed" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Search failed" },
+      {
+        status: 500,
+        headers: {
+          'Cache-Control': 'no-store',
+        },
+      }
+    );
   }
 }

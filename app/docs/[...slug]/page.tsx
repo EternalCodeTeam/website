@@ -17,6 +17,7 @@ import { ArrowForward } from "@/components/icons/arrow-forward";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { DocHeader } from "@/components/docs/DocHeader";
+import { ErrorBoundary } from "@/components/docs/ErrorBoundary";
 
 // Enable static generation with revalidation
 export const dynamic = "force-static";
@@ -51,9 +52,11 @@ const getFlatDocs = cache(() => {
   ): { title: string; path: string }[] {
     return structure.reduce<{ title: string; path: string }[]>((acc, item) => {
       if (item.children?.length) {
-        return [...acc, ...item.children];
+        acc.push(...item.children);
+      } else {
+        acc.push({ title: item.title, path: item.path });
       }
-      return [...acc, { title: item.title, path: item.path }];
+      return acc;
     }, []);
   }
   return flattenDocs(docsStructure);
@@ -183,15 +186,17 @@ export default async function DocPage(props: Props) {
 
         <hr className="my-8 border-gray-300 dark:border-gray-600 sm:mx-auto lg:my-10" />
 
-        <Suspense fallback={<LoadingFallback />}>
-          <MDXRemote
-            source={doc.content}
-            components={components as MDXComponents}
-            options={{
-              mdxOptions,
-            }}
-          />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={<LoadingFallback />}>
+            <MDXRemote
+              source={doc.content}
+              components={components as MDXComponents}
+              options={{
+                mdxOptions,
+              }}
+            />
+          </Suspense>
+        </ErrorBoundary>
       </article>
 
       <div className="mx-auto mt-12 flex w-full max-w-5xl justify-between items-center gap-2">

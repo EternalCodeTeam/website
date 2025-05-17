@@ -57,6 +57,7 @@ const nextConfig = {
       allowedOrigins: ["eternalcode.pl", "www.eternalcode.pl"],
     },
   },
+  bundlePagesRouterDependencies: true,
   serverExternalPackages: ["gray-matter"],
 };
 

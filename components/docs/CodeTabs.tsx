@@ -139,7 +139,7 @@ export const CodeTabs: React.FC<CodeTabsProps> = ({
   );
 };
 
-export const CodeTab: React.FC<CodeTabProps> = memo(({ children }) => {
+export const CodeTab = memo(function CodeTab({ children }: CodeTabProps) {
   return <>{children}</>;
 });
 

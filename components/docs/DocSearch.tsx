@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef, memo } from "react";
 import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -51,16 +51,23 @@ const LoadingSpinner: React.FC = () => (
   </div>
 );
 
-const DocSearch: React.FC<DocSearchProps> = ({
+const NoResultsMessage: React.FC = () => (
+  <div className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
+    No results found. Try different keywords or check your spelling.
+  </div>
+);
+
+const DocSearch = memo(function DocSearch({
   className = "",
   placeholder = "Search documentation...",
   minQueryLength = 2,
   debounceTime = 300,
-}) => {
+}: DocSearchProps) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
   const router = useRouter();
   const searchRef = useRef<HTMLDivElement>(null);
   const debouncedQuery = useDebounce(query, debounceTime);
@@ -71,13 +78,20 @@ const DocSearch: React.FC<DocSearchProps> = ({
     async (searchQuery: string) => {
       if (searchQuery.length < minQueryLength) {
         setResults([]);
+        setHasSearched(false);
         return;
       }
 
       setIsLoading(true);
       try {
         const response = await fetch(
-          `/api/docs/search?q=${encodeURIComponent(searchQuery)}`
+          `/api/docs/search?q=${encodeURIComponent(searchQuery)}`,
+          {
+            cache: 'no-store',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
         );
 
         if (!response.ok) {
@@ -86,9 +100,11 @@ const DocSearch: React.FC<DocSearchProps> = ({
 
         const data = (await response.json()) as SearchResult[];
         setResults(data);
+        setHasSearched(true);
       } catch (error) {
         console.error("Search failed:", error);
         setResults([]);
+        setHasSearched(true);
       } finally {
         setIsLoading(false);
       }
@@ -152,27 +168,35 @@ const DocSearch: React.FC<DocSearchProps> = ({
         />
       </div>
 
-      {isOpen && results.length > 0 && (
+      {isOpen && query.length >= minQueryLength && (
         <div
           id="search-results"
           className="absolute z-10 mt-2 w-full rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800"
           role="listbox"
         >
-          {results.map((result) => (
-            <SearchResultItem
-              key={result.path}
-              result={result}
-              onSelect={handleSelect}
-            />
-          ))}
+          {isLoading ? (
+            <div className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
+              Searching...
+            </div>
+          ) : hasSearched && results.length === 0 ? (
+            <NoResultsMessage />
+          ) : (
+            results.map((result) => (
+              <SearchResultItem
+                key={result.path}
+                result={result}
+                onSelect={handleSelect}
+              />
+            ))
+          )}
         </div>
       )}
 
       {isLoading && <LoadingSpinner />}
     </div>
   );
-};
+});
 
 DocSearch.displayName = "DocSearch";
 
-export default React.memo(DocSearch);
+export default DocSearch;

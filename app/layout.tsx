@@ -6,16 +6,19 @@ import "./globals.css";
 import Navbar from "@/components/header/Navbar";
 import Footer from "@/components/footer/Footer";
 import React from "react";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@/components/Analytics";
+import { SpeedInsights } from "@/components/SpeedInsights";
 import "./prism-languages";
 import DocCopyEnhancer from "@/components/docs/DocCopyEnhancer";
-import Script from "next/script";
 import { CookieConsentModal } from "@/components/CookieConsentModal";
 import { CookiePreferencesMenu } from "@/components/CookiePreferencesMenu";
 
+// Enable static generation with revalidation
+export const dynamic = "force-static";
+export const revalidate = 3600; // Revalidate every hour
+
 const poppins = Poppins({
-  weight: ["500"],
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
   display: "swap",
   preload: true,
@@ -25,6 +28,8 @@ const poppins = Poppins({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
 };
 
 export const metadata: Metadata = {
