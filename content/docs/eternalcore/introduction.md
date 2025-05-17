@@ -1,5 +1,6 @@
 ---
-title: EternalCore - Introduction
+title: Introduction
+description: Learn about EternalCore,  a lightweight Minecraft plugin with essential features like teleportation, warps, homes, and chat management.
 ---
 
 # 🛠️ How does it work?

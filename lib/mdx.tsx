@@ -30,7 +30,7 @@ export const components = {
     let content = typeof children === "string" ? children : String(children);
     content = content.replace(/^`+|`+$/g, "");
     if (!content.includes("\n")) {
-      return <Inline children={content} {...rest} />;
+      return <Inline {...rest}>{content}</Inline>;
     }
     return React.createElement("code", { ...rest }, children);
   },

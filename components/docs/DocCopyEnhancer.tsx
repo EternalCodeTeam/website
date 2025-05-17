@@ -139,9 +139,12 @@ export default function DocCopyEnhancer() {
       subtree: true,
     });
 
+    // Capture the current ref value inside the effect
+    const currentCopyStatesRef = copyStatesRef.current;
+
     return () => {
       observer.disconnect();
-      copyStatesRef.current.clear();
+      currentCopyStatesRef.clear();
     };
   }, [addCopyButton, mounted]);
 
