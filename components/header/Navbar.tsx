@@ -145,7 +145,7 @@ export default function Navbar() {
               className="w-full md:hidden"
               role="menu"
             >
-              <ul className="mt-4 flex flex-col space-y-2 p-4">
+              <ul className="mt-4 flex flex-col space-y-1 p-4">
                 {NAV_LINKS.map((link) => (
                   <motion.li
                     key={link.href}
@@ -155,7 +155,7 @@ export default function Navbar() {
                   >
                     <Link
                       href={link.href}
-                      className="flex items-center rounded-full py-2 pl-3 pr-4 text-gray-900 transition-colors duration-200 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
+                      className="flex items-center justify-center rounded-full py-1.5 px-4 text-gray-900 transition-colors duration-200 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
                       aria-label={link.label}
                       target={link.isExternal ? "_blank" : undefined}
                       rel={link.isExternal ? "noopener noreferrer" : undefined}
@@ -174,12 +174,12 @@ export default function Navbar() {
         </AnimatePresence>
 
         <div className="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto">
-          <ul className="mt-4 flex flex-col space-y-2 md:mt-0 md:flex-row md:space-x-4 md:space-y-0 md:p-0">
+          <ul className="mt-4 flex flex-col space-y-2 md:mt-0 md:flex-row md:space-x-2 md:space-y-0 md:p-0">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="flex items-center rounded-full py-2 pl-3 pr-4 text-gray-900 transition-colors duration-200 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
+                  className="flex items-center justify-center rounded-full py-1.5 px-4 text-gray-900 transition-colors duration-200 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
                   aria-label={link.label}
                   target={link.isExternal ? "_blank" : undefined}
                   rel={link.isExternal ? "noopener noreferrer" : undefined}
