@@ -87,9 +87,9 @@ const DocSearch = memo(function DocSearch({
         const response = await fetch(
           `/api/docs/search?q=${encodeURIComponent(searchQuery)}`,
           {
-            cache: 'no-store',
+            cache: "no-store",
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
           }
         );

@@ -43,32 +43,38 @@ export default function Faq() {
   const { ref: sectionRef, inView: sectionInView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
-    rootMargin: "0px 0px -100px 0px"
+    rootMargin: "0px 0px -100px 0px",
   });
 
-  const containerVariants = useMemo(() => ({
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        ease: "easeInOut",
-        duration: 0.5,
+  const containerVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0 },
+      visible: {
+        opacity: 1,
+        transition: {
+          staggerChildren: 0.15,
+          ease: "easeInOut",
+          duration: 0.5,
+        },
       },
-    },
-  }), []);
+    }),
+    []
+  );
 
-  const itemVariants = useMemo(() => ({
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.4,
-        ease: "easeInOut",
+  const itemVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0, y: 20 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          duration: 0.4,
+          ease: "easeInOut",
+        },
       },
-    },
-  }), []);
+    }),
+    []
+  );
 
   return (
     <section id="faq" className="py-16" aria-labelledby="faq-heading">

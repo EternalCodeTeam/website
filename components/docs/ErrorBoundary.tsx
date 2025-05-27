@@ -11,7 +11,10 @@ interface ErrorBoundaryState {
   error: Error | null;
 }
 
-export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+export class ErrorBoundary extends Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false, error: null };
@@ -33,7 +36,8 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             Error Rendering Content
           </h3>
           <p className="mt-2 text-sm text-red-700 dark:text-red-300">
-            There was an error rendering this content. Please try refreshing the page or contact support if the problem persists.
+            There was an error rendering this content. Please try refreshing the
+            page or contact support if the problem persists.
           </p>
           <details className="mt-4 text-sm text-red-600 dark:text-red-400">
             <summary className="cursor-pointer">Technical Details</summary>
@@ -47,4 +51,4 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
     return this.props.children;
   }
-} 
+}

@@ -192,4 +192,4 @@ export const AlertBox = memo(function AlertBox({
   );
 });
 
-AlertBox.displayName = "AlertBox"; 
+AlertBox.displayName = "AlertBox";

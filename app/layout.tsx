@@ -47,8 +47,16 @@ const defaultOgImageUrl = generateOgImageUrl({
 export const metadata: Metadata = {
   metadataBase: new URL("https://eternalcode.pl"),
   title: "EternalCode.pl | Home",
-  description: "EternalCode.pl delivers open source solutions with a focus on quality, performance, and innovation.",
-  keywords: ["open source", "Java", "Linux", "Minecraft", "plugins", "development"],
+  description:
+    "EternalCode.pl delivers open source solutions with a focus on quality, performance, and innovation.",
+  keywords: [
+    "open source",
+    "Java",
+    "Linux",
+    "Minecraft",
+    "plugins",
+    "development",
+  ],
   authors: [{ name: "EternalCode Team" }],
   creator: "EternalCode Team",
   publisher: "EternalCode Team",
@@ -63,7 +71,8 @@ export const metadata: Metadata = {
     url: "https://eternalcode.pl",
     siteName: "EternalCode.pl",
     title: "EternalCode.pl | We are a team creating open source projects!",
-    description: "EternalCode.pl delivers open source solutions with a focus on quality, performance, and innovation.",
+    description:
+      "EternalCode.pl delivers open source solutions with a focus on quality, performance, and innovation.",
     images: [
       {
         url: defaultOgImageUrl,
@@ -78,7 +87,8 @@ export const metadata: Metadata = {
     site: "@eternalcode",
     creator: "@eternalcode",
     title: "EternalCode.pl | We are a team creating open source projects!",
-    description: "EternalCode.pl delivers open source solutions with a focus on quality, performance, and innovation.",
+    description:
+      "EternalCode.pl delivers open source solutions with a focus on quality, performance, and innovation.",
     images: [defaultOgImageUrl],
   },
   robots: {
@@ -108,7 +118,7 @@ export default function RootLayout({
         className={`${poppins.className} min-h-screen bg-[#eff1f5] antialiased dark:bg-[#0d1117]`}
       >
         <Providers>
-          <NextTopLoader 
+          <NextTopLoader
             color="#3b82f6"
             initialPosition={0.08}
             crawlSpeed={200}
@@ -126,7 +136,7 @@ export default function RootLayout({
           <main id="main-content" tabIndex={-1}>
             {children}
           </main>
-          
+
           <Footer />
           <DocCopyEnhancer />
           <Analytics />

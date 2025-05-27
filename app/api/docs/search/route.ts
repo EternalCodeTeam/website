@@ -66,7 +66,7 @@ export async function GET(request: Request) {
   if (!query) {
     return NextResponse.json([], {
       headers: {
-        'Cache-Control': 'no-store',
+        "Cache-Control": "no-store",
       },
     });
   }
@@ -76,7 +76,7 @@ export async function GET(request: Request) {
     const results = await searchInDirectory(docsDir, query);
     return NextResponse.json(results, {
       headers: {
-        'Cache-Control': 'no-store',
+        "Cache-Control": "no-store",
       },
     });
   } catch (error) {
@@ -86,7 +86,7 @@ export async function GET(request: Request) {
       {
         status: 500,
         headers: {
-          'Cache-Control': 'no-store',
+          "Cache-Control": "no-store",
         },
       }
     );

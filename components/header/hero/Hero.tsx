@@ -13,14 +13,21 @@ export default function Hero() {
     threshold: 0.1,
     rootMargin: "0px 0px -100px 0px",
   });
-  
+
   const controls = useAnimation();
-  
-  const animationVariants = useMemo(() => ({
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } }
-  }), []);
-  
+
+  const animationVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0, y: 20 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.55, ease: "easeOut" },
+      },
+    }),
+    []
+  );
+
   const handleAnimation = useCallback(() => {
     if (inView) {
       controls.start("visible");
@@ -28,13 +35,13 @@ export default function Hero() {
       controls.start("hidden");
     }
   }, [inView, controls]);
-  
+
   useEffect(() => {
     handleAnimation();
   }, [handleAnimation]);
 
   return (
-    <section 
+    <section
       className="relative mx-auto mt-10 max-w-screen-xl px-4 pt-14 lg:pt-20"
       aria-labelledby="hero-heading"
     >

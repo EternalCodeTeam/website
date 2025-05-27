@@ -26,20 +26,20 @@ export default function About() {
     []
   );
 
-  const { ref: section, inView: inView1 } = useInView({ 
+  const { ref: section, inView: inView1 } = useInView({
     triggerOnce: false,
     threshold: 0.1,
-    rootMargin: "0px 0px -100px 0px"
+    rootMargin: "0px 0px -100px 0px",
   });
-  const { ref: div, inView: inView2 } = useInView({ 
+  const { ref: div, inView: inView2 } = useInView({
     triggerOnce: false,
     threshold: 0.1,
-    rootMargin: "0px 0px -100px 0px"
+    rootMargin: "0px 0px -100px 0px",
   });
-  const { ref: img, inView: inView3 } = useInView({ 
+  const { ref: img, inView: inView3 } = useInView({
     triggerOnce: false,
     threshold: 0.1,
-    rootMargin: "0px 0px -100px 0px"
+    rootMargin: "0px 0px -100px 0px",
   });
 
   return (

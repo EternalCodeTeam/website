@@ -196,15 +196,17 @@ export default async function DocPage(props: Props) {
         </ErrorBoundary>
       </article>
 
-      <div className="mx-auto mt-12 flex w-full max-w-5xl justify-between items-center gap-2">
+      <div className="mx-auto mt-12 flex w-full max-w-5xl items-center justify-between gap-2">
         {prev ? (
           <Link
             href={prev.path}
-            className="group flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 transition-colors font-normal"
+            className="group flex items-center gap-1 text-sm font-normal text-gray-500 transition-colors hover:text-gray-700"
             prefetch={true}
             aria-label={`Previous: ${prev.title}`}
           >
-            <span className="inline-block align-middle transition-transform group-hover:-translate-x-0.5">&#8592;</span>
+            <span className="inline-block align-middle transition-transform group-hover:-translate-x-0.5">
+              &#8592;
+            </span>
             <span className="truncate">{prev.title}</span>
           </Link>
         ) : (
@@ -213,12 +215,14 @@ export default async function DocPage(props: Props) {
         {next ? (
           <Link
             href={next.path}
-            className="group flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 transition-colors font-normal justify-end"
+            className="group flex items-center justify-end gap-1 text-sm font-normal text-gray-500 transition-colors hover:text-gray-700"
             prefetch={true}
             aria-label={`Next: ${next.title}`}
           >
             <span className="truncate">{next.title}</span>
-            <span className="inline-block align-middle transition-transform group-hover:translate-x-0.5">&#8594;</span>
+            <span className="inline-block align-middle transition-transform group-hover:translate-x-0.5">
+              &#8594;
+            </span>
           </Link>
         ) : (
           <div />

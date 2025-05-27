@@ -34,39 +34,102 @@ export default function Footer() {
     {
       title: "RESOURCES",
       links: [
-        { href: "https://github.com/EternalCodeTeam", label: "GitHub", isExternal: true },
-        { href: "https://discord.com/invite/FQ7jmGBd6c", label: "Discord", isExternal: true },
-        { href: "https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q", label: "YouTube", isExternal: true },
-        { href: "https://www.tiktok.com/@eternalcode.pl", label: "TikTok", isExternal: true },
-        { href: "https://www.spigotmc.org/resources/authors/eternalcodeteam.1570200/", label: "SpigotMC", isExternal: true },
-        { href: "https://modrinth.com/organization/eternalcodeteam", label: "Modrinth", isExternal: true },
+        {
+          href: "https://github.com/EternalCodeTeam",
+          label: "GitHub",
+          isExternal: true,
+        },
+        {
+          href: "https://discord.com/invite/FQ7jmGBd6c",
+          label: "Discord",
+          isExternal: true,
+        },
+        {
+          href: "https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q",
+          label: "YouTube",
+          isExternal: true,
+        },
+        {
+          href: "https://www.tiktok.com/@eternalcode.pl",
+          label: "TikTok",
+          isExternal: true,
+        },
+        {
+          href: "https://www.spigotmc.org/resources/authors/eternalcodeteam.1570200/",
+          label: "SpigotMC",
+          isExternal: true,
+        },
+        {
+          href: "https://modrinth.com/organization/eternalcodeteam",
+          label: "Modrinth",
+          isExternal: true,
+        },
       ],
     },
     {
       title: "SEE MORE",
       links: [
-        { href: "https://repo.eternalcode.pl/#/", label: "Repository", isExternal: true },
-        { href: "https://docs.eternalcode.pl/", label: "Documentation", isExternal: true },
-        { href: "https://status.eternalcode.pl/", label: "Status", isExternal: true },
-        { href: "https://bstats.org/author/vLucky", label: "BStats", isExternal: true },
+        {
+          href: "https://repo.eternalcode.pl/#/",
+          label: "Repository",
+          isExternal: true,
+        },
+        {
+          href: "https://docs.eternalcode.pl/",
+          label: "Documentation",
+          isExternal: true,
+        },
+        {
+          href: "https://status.eternalcode.pl/",
+          label: "Status",
+          isExternal: true,
+        },
+        {
+          href: "https://bstats.org/author/vLucky",
+          label: "BStats",
+          isExternal: true,
+        },
         { href: "/privacy-policy", label: "Privacy Policy" },
       ],
     },
   ];
 
   const socialLinks = [
-    { href: "https://www.tiktok.com/@eternalcode.pl", label: "EternalCode TikTok link", icon: <TikTokIcon /> },
-    { href: "https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q", label: "EternalCode Youtube link", icon: <YouTubeIcon /> },
-    { href: "https://github.com/EternalCodeTeam", label: "EternalCode Github link", icon: <GitHubIcon /> },
-    { href: "https://discord.com/invite/FQ7jmGBd6c", label: "EternalCode Discord link", icon: <DiscordIcon /> },
+    {
+      href: "https://www.tiktok.com/@eternalcode.pl",
+      label: "EternalCode TikTok link",
+      icon: <TikTokIcon />,
+    },
+    {
+      href: "https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q",
+      label: "EternalCode Youtube link",
+      icon: <YouTubeIcon />,
+    },
+    {
+      href: "https://github.com/EternalCodeTeam",
+      label: "EternalCode Github link",
+      icon: <GitHubIcon />,
+    },
+    {
+      href: "https://discord.com/invite/FQ7jmGBd6c",
+      label: "EternalCode Discord link",
+      icon: <DiscordIcon />,
+    },
   ];
 
   return (
-    <footer className="isolate p-4 text-center sm:p-6 lg:text-left" role="contentinfo">
+    <footer
+      className="isolate p-4 text-center sm:p-6 lg:text-left"
+      role="contentinfo"
+    >
       <div className="mx-auto max-w-screen-xl px-4 py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 flex flex-col items-center md:mb-0 md:items-start">
-            <Link href="/" className="flex items-center" aria-label="Go to homepage">
+            <Link
+              href="/"
+              className="flex items-center"
+              aria-label="Go to homepage"
+            >
               <Image
                 className="mr-3 h-8 w-auto text-white dark:invert"
                 alt="EternalCode Logo"

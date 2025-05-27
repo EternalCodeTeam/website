@@ -73,7 +73,11 @@ export default function Navbar() {
   // Handle click outside to close menu
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (navRef.current && !navRef.current.contains(event.target as Node) && isMenuOpen) {
+      if (
+        navRef.current &&
+        !navRef.current.contains(event.target as Node) &&
+        isMenuOpen
+      ) {
         setIsMenuOpen(false);
       }
     };
@@ -155,7 +159,7 @@ export default function Navbar() {
                   >
                     <Link
                       href={link.href}
-                      className="flex items-center justify-center rounded-full py-1.5 px-4 text-gray-900 transition-colors duration-200 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
+                      className="flex items-center justify-center rounded-full px-4 py-1.5 text-gray-900 transition-colors duration-200 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
                       aria-label={link.label}
                       target={link.isExternal ? "_blank" : undefined}
                       rel={link.isExternal ? "noopener noreferrer" : undefined}
@@ -179,7 +183,7 @@ export default function Navbar() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="flex items-center justify-center rounded-full py-1.5 px-4 text-gray-900 transition-colors duration-200 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
+                  className="flex items-center justify-center rounded-full px-4 py-1.5 text-gray-900 transition-colors duration-200 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
                   aria-label={link.label}
                   target={link.isExternal ? "_blank" : undefined}
                   rel={link.isExternal ? "noopener noreferrer" : undefined}

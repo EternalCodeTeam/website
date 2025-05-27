@@ -1,5 +1,5 @@
-import { Metadata } from 'next';
-import { generateOgImageUrl } from '@/lib/og-utils';
+import { Metadata } from "next";
+import { generateOgImageUrl } from "@/lib/og-utils";
 
 interface OgImageProps {
   title: string;
@@ -35,7 +35,7 @@ export function generateOgImageMetadata({
       ],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       images: [ogImageUrl],
     },
   };
@@ -48,4 +48,4 @@ export function generateOgImageMetadata({
 export default function OgImage({ title, subtitle, image }: OgImageProps) {
   // This component doesn't render anything
   return null;
-} 
+}

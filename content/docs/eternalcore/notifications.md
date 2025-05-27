@@ -6,6 +6,10 @@ title: EternalCore - Notifications
 
 This plugin allows sending messages to different parts of Minecraft, including the chat, action bar, title, and subtitle. All messages can be formatted using [🔍 MiniMessages](https://docs.adventure.kyori.net/minimessage/format.html) or standard color codes. You can also use an online [🌐 message viewer](https://webui.adventure.kyori.net/)
 
+## 🛠️ Notification Generator
+
+Try our [interactive notification generator](/notification-generator) to create and preview your notifications before adding them to your configuration!
+
 ## 📝 Example usage
 
 Syntax for sending notifications:

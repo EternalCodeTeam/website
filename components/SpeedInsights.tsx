@@ -26,4 +26,4 @@ export function SpeedInsights() {
   if (!shouldLoad) return null;
 
   return <VercelSpeedInsights />;
-} 
+}

@@ -1,12 +1,10 @@
 import generated from "@next/bundle-analyzer";
 import createMDX from "@next/mdx";
+import { mdxOptions } from "./lib/mdx-config.mjs";
 
 const withMDX = createMDX({
   extension: /\.mdx?$/,
-});
-
-const withBundleAnalyzer = generated({
-  enabled: process.env.ANALYZE === "true",
+  options: mdxOptions,
 });
 
 const nextConfig = {
@@ -61,4 +59,4 @@ const nextConfig = {
   serverExternalPackages: ["gray-matter"],
 };
 
-export default withBundleAnalyzer(withMDX(nextConfig));
+export default withMDX(nextConfig);

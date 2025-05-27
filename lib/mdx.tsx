@@ -3,14 +3,10 @@ import { Inline } from "@/components/docs/Inline";
 import { AlertBox } from "@/components/docs/ui/AlertBox";
 import { CodeTabs, CodeTab } from "@/components/docs/CodeTabs";
 import { H1, H2, H3, H4, H5, H6 } from "@/components/docs/AnimatedHeading";
-import remarkGfm from "remark-gfm";
-import remarkEmoji from "remark-emoji";
-import rehypeSlug from "rehype-slug";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import rehypePrism from "rehype-prism";
 import DynamicFeaturesTable from "@/components/docs/DynamicFeaturesTable";
 import DynamicCommandsTable from "@/components/docs/DynamicCommandsTable";
 import { CodeBlock } from "@/components/docs/CodeBlock";
+import { mdxOptions } from "./mdx-config.mjs";
 
 export const components = {
   h1: H1,
@@ -37,11 +33,5 @@ export const components = {
   pre: CodeBlock,
 };
 
-export const mdxOptions = {
-  remarkPlugins: [remarkGfm, remarkEmoji],
-  rehypePlugins: [
-    rehypeSlug,
-    [rehypeAutolinkHeadings, { behavior: "wrap" }],
-    rehypePrism,
-  ],
-};
+// Re-export the mdxOptions from the shared configuration
+export { mdxOptions };

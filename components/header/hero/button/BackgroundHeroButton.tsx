@@ -9,9 +9,9 @@ export default function BackgroundHeroButton() {
     triggerOnce: false,
     threshold: 0.1,
   });
-  
+
   const controls = useAnimation();
-  
+
   const handleAnimation = useCallback(() => {
     if (inView) {
       controls.start({ opacity: 1, y: 0 });
@@ -19,7 +19,7 @@ export default function BackgroundHeroButton() {
       controls.start({ opacity: 0, y: 20 });
     }
   }, [inView, controls]);
-  
+
   useEffect(() => {
     handleAnimation();
   }, [handleAnimation]);
