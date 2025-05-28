@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NotificationConfig, TabType, FieldType } from "./types";
 import { Tab } from "./form/Tab";
 import { ChatTab } from "./form/ChatTab";
 import { ActionBarTab } from "./form/ActionBarTab";
 import { TitleTab } from "./form/TitleTab";
-import { SoundTab } from "./form/SoundTab";
+import { SoundTab, SoundTabRef } from "./form/SoundTab";
 import { AdvancedTab } from "./form/AdvancedTab";
 import { validateField, validateForm } from "./form/validation";
 
@@ -22,7 +22,7 @@ export function NotificationForm({
 }: NotificationFormProps) {
   const [activeTab, setActiveTab] = useState<TabType>("chat");
   const [errors, setErrors] = useState<Record<string, string>>({});
-
+  const soundTabRef = useRef<SoundTabRef>(null);
 
   const handleChange = useCallback((field: FieldType, value: string | boolean) => {
     setNotification({
@@ -30,7 +30,6 @@ export function NotificationForm({
       [field]: value,
     });
     
-
     if (["fadeIn", "stay", "fadeOut", "volume", "pitch", "sound"].includes(field)) {
       const error = validateField(field, value as string);
       setErrors((prev) => ({
@@ -45,8 +44,10 @@ export function NotificationForm({
     }
   }, [notification, setNotification, errors]);
 
-
   const resetForm = useCallback(() => {
+
+    soundTabRef.current?.stopSound();
+    
     setNotification({
       chat: "",
       actionbar: "",
@@ -64,7 +65,6 @@ export function NotificationForm({
     setErrors({});
   }, [setNotification]);
 
-
   const renderTabContent = () => {
     switch (activeTab) {
       case "chat":
@@ -74,7 +74,7 @@ export function NotificationForm({
       case "title":
         return <TitleTab notification={notification} onChange={handleChange} errors={errors} />;
       case "sound":
-        return <SoundTab notification={notification} onChange={handleChange} errors={errors} />;
+        return <SoundTab ref={soundTabRef} notification={notification} onChange={handleChange} errors={errors} />;
       case "advanced":
         return <AdvancedTab notification={notification} onChange={handleChange} />;
       default:
@@ -122,7 +122,7 @@ export function NotificationForm({
         transition={{ duration: 0.2, delay: 0.1 }}
       >
         <motion.button
-          className="rounded-md bg-gray-200 px-4 py-2 text-gray-800 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+          className="rounded-md bg-gray-200 px-4 py-2 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
           onClick={resetForm}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}

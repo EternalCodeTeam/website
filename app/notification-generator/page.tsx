@@ -184,18 +184,12 @@ export default function NotificationGenerator() {
               className="flex items-center rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3, delay: 0.7 }}
             >
               <motion.svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="mr-2 h-5 w-5"
                 viewBox="0 0 20 20"
                 fill="currentColor"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.2, delay: 0.8 }}
               >
                 <path
                   fillRule="evenodd"
