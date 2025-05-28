@@ -1,5 +1,6 @@
 import { ImageResponse } from "@vercel/og";
 import { NextRequest } from "next/server";
+import Image from "next/image";
 
 export const runtime = "edge";
 
@@ -38,11 +39,11 @@ export async function GET(req: NextRequest) {
               marginBottom: "40px",
             }}
           >
-            <img
+            <Image
               src={image}
               alt="EternalCode Logo"
-              width="120"
-              height="120"
+              width={120}
+              height={120}
               style={{ marginRight: "20px" }}
             />
             <div

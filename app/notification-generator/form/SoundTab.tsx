@@ -87,4 +87,6 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
       </div>
     );
   }
-); 
+);
+
+SoundTab.displayName = 'SoundTab'; 

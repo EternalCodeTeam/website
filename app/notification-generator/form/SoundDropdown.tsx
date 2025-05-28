@@ -68,7 +68,7 @@ export const SoundDropdown = forwardRef<SoundDropdownRef, SoundDropdownProps>(
           const formattedSounds: Sound[] = Object.keys(data)
             .map((key) => {
               const soundEntry = data[key];
-              let path = key.replace(/\./g, "/"); // fallback
+              let path = key.replace(/\./g, "/");
               let category = soundEntry.category || "other";
               
               if (Array.isArray(soundEntry.sounds) && soundEntry.sounds.length > 0) {
@@ -165,7 +165,7 @@ export const SoundDropdown = forwardRef<SoundDropdownRef, SoundDropdownProps>(
       const newAudio = new Audio(`${SOUND_BASE_URL}${selectedSound.path}.ogg`);
       
 
-      let volumeValue = 1.0; // Default value
+      let volumeValue = 1.0;
       if (typeof volume === "string") {
         const parsedVolume = parseFloat(volume);
         if (!isNaN(parsedVolume) && isFinite(parsedVolume)) {
@@ -180,11 +180,11 @@ export const SoundDropdown = forwardRef<SoundDropdownRef, SoundDropdownProps>(
         newAudio.volume = volumeValue;
       } catch (err) {
         console.error("Error setting volume:", err);
-        newAudio.volume = 1.0; // Fallback to default
+        newAudio.volume = 1.0; 
       }
       
 
-      let pitchValue = 1.0; // Default value
+      let pitchValue = 1.0; 
       if (typeof pitch === "string") {
         const parsedPitch = parseFloat(pitch);
         if (!isNaN(parsedPitch) && isFinite(parsedPitch)) {
@@ -295,4 +295,6 @@ export const SoundDropdown = forwardRef<SoundDropdownRef, SoundDropdownProps>(
       </div>
     );
   }
-); 
+);
+
+SoundDropdown.displayName = 'SoundDropdown'; 
