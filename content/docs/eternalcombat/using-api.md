@@ -199,7 +199,7 @@ public void onCombatTag(FightTagEvent event) {
     CauseOfTag cause = event.getCause();
     Duration duration = event.getDuration();
 
-    // Handle the combat tag event
+
     Bukkit.getPlayer(playerId).sendMessage(
         "You entered combat for " + duration.getSeconds() + " seconds!"
     );

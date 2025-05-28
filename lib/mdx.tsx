@@ -33,5 +33,5 @@ export const components = {
   pre: CodeBlock,
 };
 
-// Re-export the mdxOptions from the shared configuration
+
 export { mdxOptions };

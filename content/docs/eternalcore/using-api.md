@@ -142,7 +142,7 @@ Check if the player is Afk by using `AfkService` Example:
 
 ```java
 if (afkService.isAfk(player.getUniqueId())) {
-    // checks if the players is marked as afk
+
 }
 ```
 
@@ -151,7 +151,7 @@ Mark the player as afk if the player is not afk yet.
 ```java
 if (!afkService.isAfk(player.getUniqueId())) {
     Afk afkPlayer = afkService.markAfk(player.getUniqueId(), AfkReason.PLUGIN);
-    // marks player as afk and creates afk instance
+
 }
 ```
 

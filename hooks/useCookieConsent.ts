@@ -25,7 +25,7 @@ export function useCookieConsent() {
     if (savedConsent) {
       try {
         const parsedConsent = JSON.parse(savedConsent) as CookieConsent;
-        // Validate the structure
+
         if (
           typeof parsedConsent === "object" &&
           "necessary" in parsedConsent &&

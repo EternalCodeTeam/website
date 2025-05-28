@@ -3,7 +3,7 @@ import fs from "fs/promises";
 import path from "path";
 import matter from "gray-matter";
 
-// Enable static generation with revalidation
+
 export const dynamic = "force-dynamic"; // Search results should always be fresh
 export const revalidate = 0;
 

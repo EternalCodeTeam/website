@@ -1,39 +1,91 @@
 "use client";
 
-import { useState } from "react";
+import { motion } from "framer-motion";
 
 interface NotificationCodeProps {
   yamlCode: string;
 }
 
 export function NotificationCode({ yamlCode }: NotificationCodeProps) {
-  const [copied, setCopied] = useState(false);
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(yamlCode);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   return (
-    <div>
-      <div className="relative">
-        <pre className="overflow-x-auto rounded-md bg-gray-100 p-4 font-mono text-sm dark:bg-gray-900">
-          <code className="text-gray-800 dark:text-gray-200">{yamlCode}</code>
-        </pre>
-      </div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <motion.div 
+        className="relative"
+        initial={{ y: 20 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.4, type: "spring", stiffness: 100 }}
+      >
+        <motion.pre 
+          className="overflow-x-auto rounded-md bg-gray-100 p-4 font-mono text-sm dark:bg-gray-900"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.1 }}
+        >
+          <motion.code 
+            className="text-gray-800 dark:text-gray-200"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+          >
+            {yamlCode}
+          </motion.code>
+        </motion.pre>
+      </motion.div>
 
-      <div className="mt-4">
-        <h3 className="mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+      <motion.div 
+        className="mt-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.3 }}
+      >
+        <motion.h3 
+          className="mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.2, delay: 0.4 }}
+        >
           How to use this code:
-        </h3>
-        <ol className="list-inside list-decimal space-y-1 text-sm text-gray-600 dark:text-gray-400">
-          <li>Copy the generated YAML code</li>
-          <li>Paste it into your EternalCore configuration file</li>
-          <li>Replace "example" with your desired notification name</li>
-          <li>Save the file and reload your server</li>
-        </ol>
-      </div>
-    </div>
+        </motion.h3>
+        <motion.ol 
+          className="list-inside list-decimal space-y-1 text-sm text-gray-600 dark:text-gray-400"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.5 }}
+        >
+          <motion.li
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.2, delay: 0.6 }}
+          >
+            Copy the generated YAML code
+          </motion.li>
+          <motion.li
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.2, delay: 0.7 }}
+          >
+            Paste it into your EternalCore configuration file
+          </motion.li>
+          <motion.li
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.2, delay: 0.8 }}
+          >
+            Replace "example" with your desired notification name
+          </motion.li>
+          <motion.li
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.2, delay: 0.9 }}
+          >
+            Save the file and reload your server
+          </motion.li>
+        </motion.ol>
+      </motion.div>
+    </motion.div>
   );
 }

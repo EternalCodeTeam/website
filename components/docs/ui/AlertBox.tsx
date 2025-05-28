@@ -153,7 +153,7 @@ export const AlertBox = memo(function AlertBox({
   const styles = alertStyles[type];
   const defaultTitle = defaultTitles[type];
 
-  // Ensure aria-label is always a string
+
   const ariaLabel = typeof title === "string" ? title : `${type} alert`;
 
   return (

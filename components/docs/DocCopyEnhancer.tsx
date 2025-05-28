@@ -91,7 +91,7 @@ export default function DocCopyEnhancer() {
         }
       };
 
-      // Initial button state
+
       updateButtonState(false);
 
       buttonContainer.appendChild(button);
@@ -139,7 +139,7 @@ export default function DocCopyEnhancer() {
       subtree: true,
     });
 
-    // Capture the current ref value inside the effect
+
     const currentCopyStatesRef = copyStatesRef.current;
 
     return () => {

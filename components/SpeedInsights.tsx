@@ -16,7 +16,7 @@ export function SpeedInsights() {
     return () => window.removeEventListener("storage", updateConsent);
   }, [updateConsent]);
 
-  // Also update on tab where consent is changed
+
   useEffect(() => {
     window.addEventListener("cookieConsentChanged", updateConsent);
     return () =>

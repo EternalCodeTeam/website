@@ -12,7 +12,7 @@ export function CookieConsentModal() {
   const [isOpen, setIsOpen] = useState(true);
   const [showDetails, setShowDetails] = useState(false);
 
-  // Show modal only if consent is default (user hasn't set preferences)
+
   const isDefaultConsent =
     consent.necessary === true &&
     consent.analytics === false &&

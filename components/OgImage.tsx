@@ -46,6 +46,6 @@ export function generateOgImageMetadata({
  * This component doesn't render anything, it's just a helper to generate metadata
  */
 export default function OgImage({ title, subtitle, image }: OgImageProps) {
-  // This component doesn't render anything
+
   return null;
 }

@@ -17,15 +17,15 @@ export function generateOgImageUrl({
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://eternalcode.pl";
   const ogImageUrl = new URL(`${baseUrl}/api/og`);
 
-  // Add title parameter
+
   ogImageUrl.searchParams.append("title", title);
 
-  // Add subtitle parameter if provided
+
   if (subtitle) {
     ogImageUrl.searchParams.append("subtitle", subtitle);
   }
 
-  // Add image parameter if provided
+
   if (image) {
     ogImageUrl.searchParams.append("image", image);
   }

@@ -14,7 +14,7 @@ import { CookieConsentModal } from "@/components/CookieConsentModal";
 import { CookiePreferencesMenu } from "@/components/CookiePreferencesMenu";
 import { generateOgImageUrl } from "@/lib/og-utils";
 
-// Enable static generation with revalidation
+
 export const dynamic = "force-static";
 export const revalidate = 3600; // Revalidate every hour
 
@@ -38,7 +38,7 @@ export const viewport: Viewport = {
   ],
 };
 
-// Generate the default OG image URL
+
 const defaultOgImageUrl = generateOgImageUrl({
   title: "EternalCode.pl",
   subtitle: "We are a team creating open source projects!",

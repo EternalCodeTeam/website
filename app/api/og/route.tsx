@@ -7,13 +7,13 @@ export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
 
-    // Get parameters from the URL
+
     const title = searchParams.get("title") || "EternalCode.pl";
     const subtitle = searchParams.get("subtitle") || "Open Source Solutions";
     const image =
       searchParams.get("image") || "https://eternalcode.pl/logo.svg";
 
-    // Create the OG image
+
     return new ImageResponse(
       (
         <div

@@ -18,7 +18,7 @@ import { motion } from "framer-motion";
 import { DocHeader } from "@/components/docs/DocHeader";
 import { ErrorBoundary } from "@/components/docs/ErrorBoundary";
 
-// Enable static generation with revalidation
+
 export const dynamic = "force-static";
 export const revalidate = 3600; // Revalidate every hour
 
@@ -40,7 +40,7 @@ interface DocNavigation {
   next: { title: string; path: string } | null;
 }
 
-// Cache the flattened docs structure
+
 const getFlatDocs = cache(() => {
   function flattenDocs(
     structure: {
@@ -61,7 +61,7 @@ const getFlatDocs = cache(() => {
   return flattenDocs(docsStructure);
 });
 
-// Cache the doc content
+
 const getDocBySlug = cache(async (slug: string[]): Promise<Doc | null> => {
   const docsDirectory = path.join(process.cwd(), "content/docs");
   const fullPath = path.join(docsDirectory, slug.join("/") + ".md");
@@ -84,7 +84,7 @@ const getDocBySlug = cache(async (slug: string[]): Promise<Doc | null> => {
   }
 });
 
-// Cache the navigation
+
 const getDocNavigation = cache((currentPath: string): DocNavigation => {
   const flatDocs = getFlatDocs();
   const currentIndex = flatDocs.findIndex((doc) => doc.path === currentPath);
@@ -129,7 +129,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   };
 }
 
-// Optimized loading fallback
+
 function LoadingFallback() {
   return (
     <div className="animate-pulse space-y-4">
@@ -142,7 +142,7 @@ function LoadingFallback() {
   );
 }
 
-// Generate static paths for all documentation pages
+
 export async function generateStaticParams() {
   const flatDocs = getFlatDocs();
   return flatDocs.map((doc) => ({
@@ -160,7 +160,7 @@ export default async function DocPage(props: Props) {
   const currentPath = "/docs/" + params.slug.join("/");
   const { prev, next } = getDocNavigation(currentPath);
 
-  // Find category
+
   const category = docsStructure.find((item) =>
     currentPath.startsWith(item.path)
   )?.title;

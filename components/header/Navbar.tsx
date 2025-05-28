@@ -9,6 +9,7 @@ import ArrowDown from "../icons/arrow-down";
 import Hamburger from "../icons/hamburger";
 import NewWindow from "../icons/new-window";
 import { AnimatePresence, motion } from "framer-motion";
+import { ToolsDropdown } from "./ToolsDropdown";
 
 interface NavLink {
   href: string;
@@ -45,7 +46,7 @@ export default function Navbar() {
     setIsMenuOpen((prev) => !prev);
   }, []);
 
-  // Handle escape key to close menu
+
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isMenuOpen) {
@@ -58,7 +59,7 @@ export default function Navbar() {
     return () => document.removeEventListener("keydown", handleEscape);
   }, [isMenuOpen]);
 
-  // Handle body scroll lock when menu is open
+
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -70,7 +71,7 @@ export default function Navbar() {
     };
   }, [isMenuOpen]);
 
-  // Handle click outside to close menu
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -150,7 +151,32 @@ export default function Navbar() {
               role="menu"
             >
               <ul className="mt-4 flex flex-col space-y-1 p-4">
-                {NAV_LINKS.map((link) => (
+                {NAV_LINKS.slice(0, 4).map((link) => (
+                  <motion.li
+                    key={link.href}
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Link
+                      href={link.href}
+                      className="flex items-center justify-center rounded-full px-4 py-1.5 text-gray-900 transition-colors duration-200 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
+                      aria-label={link.label}
+                      target={link.isExternal ? "_blank" : undefined}
+                      rel={link.isExternal ? "noopener noreferrer" : undefined}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {link.text}
+                      {link.isExternal && (
+                        <NewWindow className="ml-1" aria-hidden="true" />
+                      )}
+                    </Link>
+                  </motion.li>
+                ))}
+                <motion.li initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.2 }}>
+                  <ToolsDropdown />
+                </motion.li>
+                {NAV_LINKS.slice(4).map((link) => (
                   <motion.li
                     key={link.href}
                     initial={{ x: -20, opacity: 0 }}
@@ -179,7 +205,24 @@ export default function Navbar() {
 
         <div className="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto">
           <ul className="mt-4 flex flex-col space-y-2 md:mt-0 md:flex-row md:space-x-2 md:space-y-0 md:p-0">
-            {NAV_LINKS.map((link) => (
+            {NAV_LINKS.slice(0, 4).map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="flex items-center justify-center rounded-full px-4 py-1.5 text-gray-900 transition-colors duration-200 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
+                  aria-label={link.label}
+                  target={link.isExternal ? "_blank" : undefined}
+                  rel={link.isExternal ? "noopener noreferrer" : undefined}
+                >
+                  {link.text}
+                  {link.isExternal && (
+                    <NewWindow className="ml-1" aria-hidden="true" />
+                  )}
+                </Link>
+              </li>
+            ))}
+            <li><ToolsDropdown /></li>
+            {NAV_LINKS.slice(4).map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
