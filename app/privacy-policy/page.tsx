@@ -1,4 +1,4 @@
-import { AlertBox } from "@/components/docs/ui/AlertBox";
+import { AlertBox } from "@/components/ui/AlertBox";
 import Link from "next/link";
 import { Mail } from "lucide-react";
 

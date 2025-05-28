@@ -1,4 +1,4 @@
-import { AlertBox } from "../../components/docs/ui/AlertBox";
+import { AlertBox } from "../ui/AlertBox";
 
 export function MiniMessageInfoBox() {
   return (

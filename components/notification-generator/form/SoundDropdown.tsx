@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo, useImperativeHandle, forwardRef } from "react";
 import { motion } from "framer-motion";
+import { Dropdown, DropdownOption } from "../../ui/Dropdown";
 
 interface SoundDropdownProps {
   value: string;
@@ -17,8 +18,8 @@ interface Sound {
   category?: string;
 }
 
-const SOUNDS_JSON_URL = "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.5/assets/minecraft/sounds.json";
-const SOUND_BASE_URL = "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.5/assets/minecraft/sounds/";
+const SOUNDS_JSON_URL = "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.21.5/assets/minecraft/sounds.json";
+const SOUND_BASE_URL = "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.21.5/assets/minecraft/sounds/";
 
 const MANUAL_CATEGORIES = [
   "ambient",
@@ -46,7 +47,10 @@ export const SoundDropdown = forwardRef<SoundDropdownRef, SoundDropdownProps>(
     const [playing, setPlaying] = useState(false);
     const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
     const [selectedCategory, setSelectedCategory] = useState<string>("");
-
+    const selectedSound = useMemo(() => 
+      sounds.find((s) => s.id === value),
+      [sounds, value]
+    );
 
     useImperativeHandle(ref, () => ({
       stopSound: () => {
@@ -98,6 +102,7 @@ export const SoundDropdown = forwardRef<SoundDropdownRef, SoundDropdownProps>(
             
           setSounds(formattedSounds);
           setSelectedCategory("");
+          setError("");
           setLoading(false);
         } catch (err) {
           setError("Failed to load sounds. Using default list.");
@@ -112,6 +117,7 @@ export const SoundDropdown = forwardRef<SoundDropdownRef, SoundDropdownProps>(
             { id: "ui.toast.out", name: "UI.TOAST.OUT", path: "ui/toast/out", category: "ui" },
           ]);
           setSelectedCategory("");
+          setError("");
           setLoading(false);
         }
       };
@@ -148,11 +154,6 @@ export const SoundDropdown = forwardRef<SoundDropdownRef, SoundDropdownProps>(
         return catA - catB;
       });
     }, [sounds, selectedCategory]);
-
-    const selectedSound = useMemo(() => 
-      sounds.find((s) => s.id === value),
-      [sounds, value]
-    );
 
     const handlePlaySound = () => {
       if (!selectedSound) return;
@@ -231,37 +232,29 @@ export const SoundDropdown = forwardRef<SoundDropdownRef, SoundDropdownProps>(
         </label>
         <div className="flex flex-col sm:flex-row gap-2">
           <div className="flex flex-col sm:flex-row gap-2 w-full">
-            <select
-              className="w-full sm:w-40 rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-              value={selectedCategory}
-              onChange={e => setSelectedCategory(e.target.value)}
-              disabled={loading}
-            >
-              <option value="">All Categories</option>
-              {categoriesWithSounds.map(cat => (
-                <option key={cat} value={cat}>
-                  {cat.charAt(0).toUpperCase() + cat.slice(1).replace(/_/g, ' ')}
-                </option>
-              ))}
-            </select>
+            <div className="w-full sm:w-40">
+              <Dropdown
+                options={[{ value: "", label: "All Categories" }, ...categoriesWithSounds.map(cat => ({ value: cat, label: cat.charAt(0).toUpperCase() + cat.slice(1).replace(/_/g, ' ') }))] as DropdownOption[]}
+                value={selectedCategory}
+                onChange={(val: string) => setSelectedCategory(val)}
+                placeholder="All Categories"
+                disabled={loading}
+              />
+            </div>
             
             <div className="flex w-full">
-              <select
-                className="w-full rounded-l-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
-                disabled={loading || filteredSounds.length === 0}
-              >
-                <option value="">Select a sound</option>
-                {filteredSounds.map((sound) => (
-                  <option key={sound.id} value={sound.id}>
-                    {sound.name}
-                  </option>
-                ))}
-              </select>
+              <div className="w-full">
+                <Dropdown
+                  options={filteredSounds.map((sound) => ({ value: sound.id, label: sound.name })) as DropdownOption[]}
+                  value={value}
+                  onChange={(val: string) => onChange(val)}
+                  placeholder="Select a sound"
+                  disabled={loading || filteredSounds.length === 0}
+                />
+              </div>
               
               <motion.button
-                className="flex items-center justify-center rounded-r-md border border-l-0 border-gray-300 bg-blue-50 px-3 py-2 text-blue-600 hover:bg-blue-100 dark:border-gray-600 dark:bg-gray-700 dark:text-blue-400 dark:hover:bg-gray-600"
+                className="flex items-center justify-center border border-l-0 border-gray-200 bg-blue-50 px-2 py-1 text-blue-600 hover:bg-blue-100 dark:border-gray-700 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700 rounded-r"
                 onClick={playing ? handleStopSound : handlePlaySound}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

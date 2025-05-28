@@ -1,5 +1,5 @@
 import React from 'react';
-import { parseMinecraftText } from '../../parser/minecraftTextParser';
+import { parseMinecraftText } from './minecraftTextParser';
 
 interface ChatMessageProps {
   message: string;

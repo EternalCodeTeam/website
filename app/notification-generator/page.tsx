@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { MinecraftPreview } from "./MinecraftPreview";
-import { NotificationForm } from "./NotificationForm";
-import { NotificationCode } from "./NotificationCode";
-import { NotificationConfig } from "./types";
+import { MinecraftPreview } from "../../components/notification-generator/MinecraftPreview";
+import { NotificationForm } from "../../components/notification-generator/NotificationForm";
+import { NotificationCode } from "../../components/notification-generator/NotificationCode";
+import { NotificationConfig } from "../../components/notification-generator/types";
 
 export default function NotificationGenerator() {
   const [notification, setNotification] = useState<NotificationConfig>({

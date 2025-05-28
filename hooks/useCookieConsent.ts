@@ -10,7 +10,7 @@ export type CookieConsent = {
 };
 
 const defaultConsent: CookieConsent = {
-  necessary: true, // Always true as these are essential
+  necessary: true,
   analytics: false,
   marketing: false,
   preferences: false,
@@ -63,7 +63,7 @@ export function useCookieConsent() {
 
   const rejectAll = () => {
     const allRejected = {
-      necessary: true, // Keep necessary cookies
+      necessary: true,
       analytics: false,
       marketing: false,
       preferences: false,

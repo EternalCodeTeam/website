@@ -1,6 +1,6 @@
 import React from "react";
 import { Inline } from "@/components/docs/Inline";
-import { AlertBox } from "@/components/docs/ui/AlertBox";
+import { AlertBox } from "@/components/ui/AlertBox";
 import { CodeTabs, CodeTab } from "@/components/docs/CodeTabs";
 import { H1, H2, H3, H4, H5, H6 } from "@/components/docs/AnimatedHeading";
 import DynamicFeaturesTable from "@/components/docs/DynamicFeaturesTable";

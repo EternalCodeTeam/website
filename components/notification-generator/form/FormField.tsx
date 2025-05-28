@@ -26,19 +26,19 @@ export const FormField = ({
   rows = 4,
   helpText,
 }: FormFieldProps) => {
-  const inputClasses = `w-full rounded-md border px-3 py-2 ${
-    error ? "border-red-500" : "border-gray-300 dark:border-gray-600"
-  } shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:bg-gray-700 dark:text-white`;
+  const inputClasses = `w-full border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800 dark:text-white px-2 py-1 text-sm transition-colors duration-150 hover:bg-gray-50 dark:hover:bg-gray-700 rounded ${
+    error ? "border-red-500" : ""
+  }`;
 
   return (
     <motion.div 
-      className="mb-4"
+      className="mb-2"
       initial={{ opacity: 0, y: 5 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.15 }}
     >
       <motion.label 
-        className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"
+        className="mb-0.5 block text-sm font-medium text-gray-700 dark:text-gray-300"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.1 }}
@@ -70,7 +70,7 @@ export const FormField = ({
           whileFocus={{ scale: 1.01 }}
         />
       )}
-      <div className="h-5 mt-1">
+      <div className="h-4 mt-0.5">
         {error ? (
           <motion.p 
             className="text-xs text-red-500"

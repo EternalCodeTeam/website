@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import "./minecraft-font.css";
+import "../../components/notification-generator/minecraft-font.css";
 
 export const metadata: Metadata = {
   title: "EternalCode Notification Generator",

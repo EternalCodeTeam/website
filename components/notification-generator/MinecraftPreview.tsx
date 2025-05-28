@@ -4,11 +4,11 @@ import React, { useMemo } from "react";
 import { AnimatePresence } from "framer-motion";
 import { MinecraftPreviewProps } from "./types";
 import { useTitleAnimation, useSoundEffect } from "./hooks";
-import ChatMessage from "./components/ChatMessage";
-import ActionBar from "./components/ActionBar";
-import Title from "./components/Title";
-import SoundIndicator from "./components/SoundIndicator";
-import BackgroundImage from "./components/BackgroundImage";
+import ChatMessage from "./ChatMessage";
+import ActionBar from "./ActionBar";
+import Title from "./Title";
+import SoundIndicator from "./SoundIndicator";
+import BackgroundImage from "./BackgroundImage";
 
 export function MinecraftPreview({ notification }: MinecraftPreviewProps) {
   const { showTitle, titleOpacity } = useTitleAnimation(notification);

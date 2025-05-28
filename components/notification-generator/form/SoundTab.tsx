@@ -1,12 +1,14 @@
 "use client";
 
-import { useRef, forwardRef, useImperativeHandle } from "react";
+import { useRef, forwardRef, useImperativeHandle, useState, useEffect } from "react";
 import { NotificationConfig, FieldType } from "../types";
 import { FormField } from "./FormField";
 import { SoundInfoBox } from "../SoundInfoBox";
 import { SOUND_CATEGORY_OPTIONS } from "./constants";
 import { SoundDropdown, SoundDropdownRef } from "./SoundDropdown";
 import { SliderField } from "./SliderField";
+import { motion, AnimatePresence } from "framer-motion";
+import { Dropdown, DropdownOption } from "../../ui/Dropdown";
 
 interface SoundTabProps {
   notification: NotificationConfig;
@@ -21,7 +23,6 @@ export interface SoundTabRef {
 export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
   ({ notification, onChange, errors }, ref) => {
     const soundDropdownRef = useRef<SoundDropdownRef>(null);
-
 
     useImperativeHandle(ref, () => ({
       stopSound: () => {
@@ -44,17 +45,12 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
           <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
             Sound Category
           </label>
-          <select
-            className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+          <Dropdown
+            options={SOUND_CATEGORY_OPTIONS as DropdownOption[]}
             value={notification.soundCategory}
-            onChange={(e) => onChange("soundCategory", e.target.value)}
-          >
-            {SOUND_CATEGORY_OPTIONS.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+            onChange={(val: string) => onChange("soundCategory", val)}
+            placeholder="All Categories"
+          />
           <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
             If a player has the sound category set to 0% in game settings, the
             sound will not play.

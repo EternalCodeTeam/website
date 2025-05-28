@@ -25,7 +25,7 @@ export function getCookieConsent(): CookieConsent {
   try {
     const parsedConsent = JSON.parse(savedConsent) as CookieConsent;
     return {
-      necessary: true, // Always true
+      necessary: true,
       analytics: parsedConsent.analytics ?? false,
       marketing: parsedConsent.marketing ?? false,
       preferences: parsedConsent.preferences ?? false,
