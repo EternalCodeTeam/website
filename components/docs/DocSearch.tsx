@@ -6,6 +6,8 @@ import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useClickOutside } from "../../hooks/useClickOutside";
+import { motion, AnimatePresence } from "framer-motion";
+import { fadeInUp } from "./DocHeader";
 
 interface SearchResult {
   title: string;
@@ -24,11 +26,13 @@ const SearchResultItem: React.FC<{
   result: SearchResult;
   onSelect: (path: string) => void;
 }> = React.memo(({ result, onSelect }) => (
-  <button
+  <motion.button
     onClick={() => onSelect(result.path)}
     className="w-full px-4 py-2 text-left hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:hover:bg-gray-700 dark:focus:bg-gray-700"
     role="option"
     aria-selected="false"
+    whileHover={{ x: 3 }}
+    transition={{ type: "spring", stiffness: 400, damping: 10 }}
   >
     <div className="font-medium text-gray-900 dark:text-white">
       {result.title}
@@ -36,25 +40,33 @@ const SearchResultItem: React.FC<{
     <div className="text-sm text-gray-500 dark:text-gray-400">
       {result.excerpt}
     </div>
-  </button>
+  </motion.button>
 ));
 
 SearchResultItem.displayName = "SearchResultItem";
 
 const LoadingSpinner: React.FC = () => (
-  <div
+  <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
     className="absolute right-3 top-2.5"
     role="status"
     aria-label="Loading search results"
   >
     <div className="h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-blue-500" />
-  </div>
+  </motion.div>
 );
 
 const NoResultsMessage: React.FC = () => (
-  <div className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
+  <motion.div 
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400"
+  >
     No results found. Try different keywords or check your spelling.
-  </div>
+  </motion.div>
 );
 
 const DocSearch = memo(function DocSearch({
@@ -133,16 +145,24 @@ const DocSearch = memo(function DocSearch({
   }, []);
 
   return (
-    <div
+    <motion.div
       ref={searchRef}
       className={cn("relative mb-6", className)}
       role="combobox"
       aria-expanded={isOpen}
       aria-haspopup="listbox"
       aria-controls="search-results"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ 
+        type: "spring", 
+        stiffness: 100, 
+        damping: 20,
+        mass: 0.8
+      }}
     >
       <div className="relative">
-        <input
+        <motion.input
           type="text"
           value={query}
           onChange={(e) => {
@@ -161,39 +181,72 @@ const DocSearch = memo(function DocSearch({
           aria-label="Search documentation"
           aria-autocomplete="list"
           aria-controls="search-results"
+          whileFocus={{ scale: 1.01 }}
+          transition={{ type: "spring", stiffness: 400, damping: 10 }}
         />
-        <Search
-          className="absolute left-3 top-2.5 h-4 w-4 text-gray-400"
-          aria-hidden="true"
-        />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          <Search
+            className="absolute left-3 top-2.5 h-4 w-4 text-gray-400"
+            aria-hidden="true"
+          />
+        </motion.div>
       </div>
 
-      {isOpen && query.length >= minQueryLength && (
-        <div
-          id="search-results"
-          className="absolute z-10 mt-2 w-full rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800"
-          role="listbox"
-        >
-          {isLoading ? (
-            <div className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
-              Searching...
-            </div>
-          ) : hasSearched && results.length === 0 ? (
-            <NoResultsMessage />
-          ) : (
-            results.map((result) => (
-              <SearchResultItem
-                key={result.path}
-                result={result}
-                onSelect={handleSelect}
-              />
-            ))
-          )}
-        </div>
-      )}
+      <AnimatePresence>
+        {isOpen && query.length >= minQueryLength && (
+          <motion.div
+            id="search-results"
+            className="absolute z-10 mt-2 w-full rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800"
+            role="listbox"
+            initial={{ opacity: 0, y: -10, height: 0 }}
+            animate={{ opacity: 1, y: 0, height: "auto" }}
+            exit={{ opacity: 0, y: -10, height: 0 }}
+            transition={{ 
+              type: "spring", 
+              stiffness: 300, 
+              damping: 30,
+              mass: 0.8
+            }}
+          >
+            {isLoading ? (
+              <div className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
+                Searching...
+              </div>
+            ) : hasSearched && results.length === 0 ? (
+              <NoResultsMessage />
+            ) : (
+              <motion.div
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+                transition={{ staggerChildren: 0.05 }}
+              >
+                {results.map((result, index) => (
+                  <motion.div
+                    key={result.path}
+                    variants={fadeInUp}
+                    custom={index}
+                  >
+                    <SearchResultItem
+                      result={result}
+                      onSelect={handleSelect}
+                    />
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {isLoading && <LoadingSpinner />}
-    </div>
+      <AnimatePresence>
+        {isLoading && <LoadingSpinner />}
+      </AnimatePresence>
+    </motion.div>
   );
 });
 

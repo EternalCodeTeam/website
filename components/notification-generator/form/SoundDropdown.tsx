@@ -62,6 +62,15 @@ export const SoundDropdown = forwardRef<SoundDropdownRef, SoundDropdownProps>(
       }
     }));
 
+    // Stop sound when value changes (new sound selected)
+    useEffect(() => {
+      if (audio && playing) {
+        audio.pause();
+        audio.currentTime = 0;
+        setPlaying(false);
+      }
+    }, [value]);
+
     useEffect(() => {
       const fetchSounds = async () => {
         try {
@@ -247,7 +256,16 @@ export const SoundDropdown = forwardRef<SoundDropdownRef, SoundDropdownProps>(
                 <Dropdown
                   options={filteredSounds.map((sound) => ({ value: sound.id, label: sound.name })) as DropdownOption[]}
                   value={value}
-                  onChange={(val: string) => onChange(val)}
+                  onChange={(val: string) => {
+                    // Stop current sound if playing
+                    if (audio && playing) {
+                      audio.pause();
+                      audio.currentTime = 0;
+                      setPlaying(false);
+                    }
+                    // Update the selected sound
+                    onChange(val);
+                  }}
                   placeholder="Select a sound"
                   disabled={loading || filteredSounds.length === 0}
                 />

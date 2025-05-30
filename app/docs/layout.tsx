@@ -5,6 +5,7 @@ import Navbar from "@/components/header/Navbar";
 import DocSidebar from "@/components/docs/DocSidebar";
 import DocSearch from "@/components/docs/DocSearch";
 import DocCopyEnhancer from "@/components/docs/DocCopyEnhancer";
+import AnimatedLayout from "@/components/docs/AnimatedLayout";
 
 const poppins = Poppins({
   weight: ["500"],
@@ -48,7 +49,7 @@ export default function DocsLayout({
       className={`${poppins.className} min-h-screen bg-[#eff1f5] transition-colors duration-200 dark:bg-[#0d1117]`}
     >
       <Navbar />
-      <div className="mx-auto min-h-[calc(100vh-7rem)] max-w-screen-xl px-4 py-12 pt-32">
+      <AnimatedLayout>
         <div className="flex flex-col gap-8 lg:flex-row">
           <aside className="w-full flex-shrink-0 lg:w-64">
             <div className="sticky top-32 z-20 flex flex-col gap-4">
@@ -56,7 +57,7 @@ export default function DocsLayout({
               <DocSidebar />
             </div>
           </aside>
-          <main className="flex min-w-0 flex-1 flex-col items-stretch">
+          <div className="flex min-w-0 flex-1 flex-col items-stretch">
             <div className="w-full">
               <DocCopyEnhancer />
               {children}
@@ -67,9 +68,9 @@ export default function DocsLayout({
             >
               {/* Przyciski Next/Previous będą renderowane w page.tsx */}
             </div>
-          </main>
+          </div>
         </div>
-      </div>
+      </AnimatedLayout>
     </div>
   );
 }

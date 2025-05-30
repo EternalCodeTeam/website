@@ -4,6 +4,7 @@ import { useEffect, useCallback, useRef, useState } from "react";
 import { Check, Copy } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { createPortal } from "react-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface CopyButtonProps {
   onClick: () => Promise<void>;
@@ -20,19 +21,47 @@ const CopyButton: React.FC<CopyButtonProps> = ({
   isCopied,
   className,
 }) => (
-  <button
+  <motion.button
     type="button"
     onClick={onClick}
     className={cn(BUTTON_BASE_CLASSES, className)}
     aria-label={isCopied ? "Copied to clipboard" : "Copy to clipboard"}
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+    transition={{ type: "spring", stiffness: 400, damping: 10 }}
   >
-    {isCopied ? (
-      <Check className="h-4 w-4" aria-hidden="true" />
-    ) : (
-      <Copy className="h-4 w-4" aria-hidden="true" />
-    )}
-    <span>{isCopied ? "Copied!" : "Copy"}</span>
-  </button>
+    <AnimatePresence mode="wait">
+      {isCopied ? (
+        <motion.div
+          key="check"
+          initial={{ scale: 0.5, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.5, opacity: 0 }}
+          transition={{ type: "spring", stiffness: 500, damping: 10 }}
+        >
+          <Check className="h-4 w-4" aria-hidden="true" />
+        </motion.div>
+      ) : (
+        <motion.div
+          key="copy"
+          initial={{ scale: 0.5, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.5, opacity: 0 }}
+          transition={{ type: "spring", stiffness: 500, damping: 10 }}
+        >
+          <Copy className="h-4 w-4" aria-hidden="true" />
+        </motion.div>
+      )}
+    </AnimatePresence>
+    <motion.span
+      initial={{ opacity: 0, x: -5 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 5 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+    >
+      {isCopied ? "Copied!" : "Copy"}
+    </motion.span>
+  </motion.button>
 );
 
 export default function DocCopyEnhancer() {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NotificationConfig, TabType, FieldType } from "./types";
 import { Tab } from "./form/Tab";
@@ -45,7 +45,6 @@ export function NotificationForm({
   }, [notification, setNotification, errors]);
 
   const resetForm = useCallback(() => {
-
     soundTabRef.current?.stopSound();
     
     setNotification({
@@ -65,7 +64,8 @@ export function NotificationForm({
     setErrors({});
   }, [setNotification]);
 
-  const renderTabContent = () => {
+  // Memoize tab content to prevent unnecessary re-renders
+  const tabContent = useMemo(() => {
     switch (activeTab) {
       case "chat":
         return <ChatTab notification={notification} onChange={handleChange} />;
@@ -80,7 +80,21 @@ export function NotificationForm({
       default:
         return null;
     }
-  };
+  }, [activeTab, notification, handleChange, errors]);
+
+  // Memoize tabs to prevent unnecessary re-renders
+  const tabs = useMemo(() => {
+    const tabItems: TabType[] = ["chat", "actionbar", "title", "sound", "advanced"];
+    return tabItems.map((tabName) => (
+      <Tab 
+        key={tabName} 
+        activeTab={activeTab} 
+        tabName={tabName} 
+        label={tabName.charAt(0).toUpperCase() + tabName.slice(1)} 
+        onClick={setActiveTab} 
+      />
+    ));
+  }, [activeTab, setActiveTab]);
 
   return (
     <motion.div
@@ -94,12 +108,12 @@ export function NotificationForm({
         animate={{ y: 0 }}
         transition={{ duration: 0.2, type: "spring", stiffness: 100 }}
       >
-        <div className="flex border-b border-gray-200 dark:border-gray-700">
-          <Tab activeTab={activeTab} tabName="chat" label="Chat" onClick={setActiveTab} />
-          <Tab activeTab={activeTab} tabName="actionbar" label="Action Bar" onClick={setActiveTab} />
-          <Tab activeTab={activeTab} tabName="title" label="Title" onClick={setActiveTab} />
-          <Tab activeTab={activeTab} tabName="sound" label="Sound" onClick={setActiveTab} />
-          <Tab activeTab={activeTab} tabName="advanced" label="Advanced" onClick={setActiveTab} />
+        <div 
+          className="flex flex-wrap border-b border-gray-200 dark:border-gray-700"
+          role="tablist"
+          aria-label="Notification type tabs"
+        >
+          {tabs}
         </div>
       </motion.div>
 
@@ -110,8 +124,10 @@ export function NotificationForm({
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -10 }}
           transition={{ duration: 0.15 }}
+          role="tabpanel"
+          aria-labelledby={`tab-${activeTab}`}
         >
-          {renderTabContent()}
+          {tabContent}
         </motion.div>
       </AnimatePresence>
 
@@ -122,10 +138,11 @@ export function NotificationForm({
         transition={{ duration: 0.2, delay: 0.1 }}
       >
         <motion.button
-          className="rounded-md bg-gray-200 px-4 py-2 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+          className="rounded-md bg-gray-200 px-4 py-2 text-gray-800 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
           onClick={resetForm}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          aria-label="Reset form"
         >
           Reset
         </motion.button>

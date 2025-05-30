@@ -5,6 +5,7 @@ import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/react";
 import * as SIIcons from "react-icons/si";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import { fadeInUp } from "./DocHeader";
 
 interface CodeTabsProps {
   children: React.ReactNode;
@@ -56,7 +57,15 @@ export const CodeTabs: React.FC<CodeTabsProps> = ({
   );
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ 
+        type: "spring", 
+        stiffness: 100, 
+        damping: 20,
+        mass: 0.8
+      }}
       className={cn(
         "my-8 overflow-hidden rounded-lg bg-white dark:bg-gray-900",
         className
@@ -91,6 +100,7 @@ export const CodeTabs: React.FC<CodeTabsProps> = ({
                     className="flex items-center gap-1"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   >
                     <LanguageIcon label={label} />
                     {label}
@@ -102,6 +112,8 @@ export const CodeTabs: React.FC<CodeTabsProps> = ({
                           type: "spring",
                           bounce: 0.2,
                           duration: 0.6,
+                          stiffness: 300,
+                          damping: 30
                         }}
                       />
                     )}
@@ -112,30 +124,38 @@ export const CodeTabs: React.FC<CodeTabsProps> = ({
           })}
         </TabList>
         <TabPanels>
-          {React.Children.map(children, (child, idx) => {
-            if (!React.isValidElement<CodeTabProps>(child)) return null;
+          <AnimatePresence mode="wait">
+            {React.Children.map(children, (child, idx) => {
+              if (!React.isValidElement<CodeTabProps>(child)) return null;
 
-            return (
-              <TabPanel
-                key={idx}
-                className={cn(
-                  "px-4 pb-6 pt-4 transition-all duration-300",
-                  "mt-2 rounded-lg bg-gray-50 dark:bg-[#23272e]"
-                )}
-              >
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.2 }}
+              return (
+                <TabPanel
+                  key={idx}
+                  className={cn(
+                    "px-4 pb-6 pt-4 transition-all duration-300",
+                    "mt-2 rounded-lg bg-gray-50 dark:bg-[#23272e]"
+                  )}
                 >
-                  {child.props.children}
-                </motion.div>
-              </TabPanel>
-            );
-          })}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ 
+                      type: "spring", 
+                      stiffness: 100, 
+                      damping: 20,
+                      mass: 0.8
+                    }}
+                  >
+                    {child.props.children}
+                  </motion.div>
+                </TabPanel>
+              );
+            })}
+          </AnimatePresence>
         </TabPanels>
       </TabGroup>
-    </div>
+    </motion.div>
   );
 };
 

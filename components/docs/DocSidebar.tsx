@@ -6,6 +6,8 @@ import { usePathname } from "next/navigation";
 import Folder from "@/components/icons/folder";
 import { docsStructure, DocItem } from "./sidebar-structure";
 import { cn } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
+import { fadeInUp } from "./DocHeader";
 
 interface DocSidebarProps {
   className?: string;
@@ -17,10 +19,38 @@ interface DocItemProps {
   level: number;
   isActive: boolean;
   onItemClick?: (path: string) => void;
+  index: number;
 }
 
+// Custom stagger container that ensures top-to-bottom animation
+const sidebarStaggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+      delayChildren: 0.1
+    }
+  }
+};
+
+// Custom fade in up variant with consistent timing
+const sidebarFadeInUp = {
+  hidden: { opacity: 0, y: 10 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { 
+      type: "spring", 
+      stiffness: 100, 
+      damping: 15,
+      mass: 0.8
+    }
+  }
+};
+
 const DocItemComponent: React.FC<DocItemProps> = React.memo(
-  ({ item, level, isActive, onItemClick }) => {
+  ({ item, level, isActive, onItemClick, index }) => {
     const hasChildren = item.children && item.children.length > 0;
 
     const handleClick = useCallback(() => {
@@ -29,8 +59,12 @@ const DocItemComponent: React.FC<DocItemProps> = React.memo(
 
     if (hasChildren) {
       return (
-        <div className={cn("mb-3", level === 0 && "first:mt-0")}>
-          <div
+        <motion.div 
+          className={cn("mb-3", level === 0 && "first:mt-0")}
+          variants={sidebarFadeInUp}
+          custom={index}
+        >
+          <motion.div
             className={cn(
               "mb-1 text-sm font-semibold",
               level > 0 && "pl-4",
@@ -38,42 +72,69 @@ const DocItemComponent: React.FC<DocItemProps> = React.memo(
             )}
             role="heading"
             aria-level={level + 1}
+            whileHover={{ x: 3 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
           >
             <Folder
               className="-mt-0.5 mr-2 inline-block h-4 w-4 align-middle text-gray-500 dark:text-gray-400"
               aria-hidden="true"
             />
             {item.title}
-          </div>
-          <div className="space-y-1" role="list">
-            {item.children?.map((child) => (
+          </motion.div>
+          <motion.div 
+            className="space-y-1" 
+            role="list"
+            variants={sidebarStaggerContainer}
+            initial="hidden"
+            animate="visible"
+          >
+            {item.children?.map((child, childIndex) => (
               <DocItemComponent
                 key={child.path}
                 item={child}
                 level={level + 1}
                 isActive={false}
                 onItemClick={onItemClick}
+                index={childIndex}
               />
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       );
     }
 
     return (
-      <Link
-        href={item.path}
-        onClick={handleClick}
-        className={cn(
-          "block rounded-lg py-1 pl-4 text-sm font-medium transition-colors",
-          isActive
-            ? "bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white"
-            : "text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
-        )}
-        aria-current={isActive ? "page" : undefined}
+      <motion.div 
+        variants={sidebarFadeInUp}
+        custom={index}
       >
-        {item.title}
-      </Link>
+        <Link
+          href={item.path}
+          onClick={handleClick}
+          className={cn(
+            "block rounded-lg py-1 pl-4 text-sm font-medium transition-colors",
+            isActive
+              ? "bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white"
+              : "text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+          )}
+          aria-current={isActive ? "page" : undefined}
+        >
+          <motion.span
+            className="flex items-center"
+            whileHover={{ x: 3 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          >
+            {item.title}
+            {isActive && (
+              <motion.div
+                layoutId="activeSidebarItem"
+                className="ml-2 h-1.5 w-1.5 rounded-full bg-blue-500"
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+              />
+            )}
+          </motion.span>
+        </Link>
+      </motion.div>
     );
   }
 );
@@ -88,29 +149,38 @@ const DocSidebar: React.FC<DocSidebarProps> = ({
 
   const sidebarContent = useMemo(
     () => (
-      <div className="space-y-1">
-        {docsStructure.map((item) => (
+      <motion.div 
+        className="space-y-1"
+        variants={sidebarStaggerContainer}
+        initial="hidden"
+        animate="visible"
+      >
+        {docsStructure.map((item, index) => (
           <DocItemComponent
             key={item.path}
             item={item}
             level={0}
             isActive={pathname === item.path}
             onItemClick={onItemClick}
+            index={index}
           />
         ))}
-      </div>
+      </motion.div>
     ),
     [pathname, onItemClick]
   );
 
   return (
-    <nav
+    <motion.nav
       className={cn("w-full", className)}
       role="navigation"
       aria-label="Documentation navigation"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
     >
       {sidebarContent}
-    </nav>
+    </motion.nav>
   );
 };
 

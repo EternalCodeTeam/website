@@ -2,6 +2,8 @@
 
 import React, { useState, useCallback, memo } from "react";
 import { Check, Link as LinkIcon } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { fadeInUp } from "./DocHeader";
 
 interface AnimatedHeadingProps extends React.HTMLAttributes<HTMLElement> {
   id?: string;
@@ -52,34 +54,69 @@ const createAnimatedHeading = ({ tag }: HeadingFactoryProps) => {
           style: { textDecoration: "none" },
           ...props,
         },
-        <span className="inline-flex items-center">
+        <motion.span 
+          className="inline-flex items-center"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ 
+            type: "spring", 
+            stiffness: 100, 
+            damping: 20,
+            mass: 0.8
+          }}
+        >
           {children}
           {id && (
-            <div className="ml-2 inline-flex items-center gap-1">
-              <button
+            <motion.div 
+              className="ml-2 inline-flex items-center gap-1"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ 
+                type: "spring", 
+                stiffness: 300, 
+                damping: 20,
+                delay: 0.1
+              }}
+            >
+              <motion.button
                 onClick={handleCopy}
                 className="inline-flex select-none items-center text-base text-gray-400 opacity-0 transition-opacity hover:text-gray-600 group-hover:opacity-100 dark:hover:text-gray-300"
                 aria-label="Copy link to heading"
                 title="Copy link to heading"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
                 {copied ? (
-                  <Check className="h-4 w-4 text-green-500" />
+                  <motion.div
+                    initial={{ scale: 0.5, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ type: "spring", stiffness: 500, damping: 10 }}
+                  >
+                    <Check className="h-4 w-4 text-green-500" />
+                  </motion.div>
                 ) : (
                   <LinkIcon className="h-4 w-4" />
                 )}
-              </button>
-              {copied && (
-                <span
-                  className="animate-fade-in text-xs text-green-500"
-                  role="status"
-                  aria-live="polite"
-                >
-                  Link copied!
-                </span>
-              )}
-            </div>
+              </motion.button>
+              <AnimatePresence>
+                {copied && (
+                  <motion.span
+                    initial={{ opacity: 0, x: -5 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 5 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="text-xs text-green-500"
+                    role="status"
+                    aria-live="polite"
+                  >
+                    Link copied!
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </motion.div>
           )}
-        </span>
+        </motion.span>
       );
     }
   );

@@ -1,9 +1,11 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { NotificationConfig } from './types';
 
 export const useTitleAnimation = (notification: Pick<NotificationConfig, 'title' | 'subtitle' | 'fadeIn' | 'stay' | 'fadeOut'>) => {
   const [showTitle, setShowTitle] = useState(false);
   const [titleOpacity, setTitleOpacity] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const parseTime = useCallback((timeStr: string) => {
     if (!timeStr) return 0;
@@ -22,24 +24,28 @@ export const useTitleAnimation = (notification: Pick<NotificationConfig, 'title'
     setShowTitle(false);
     setTitleOpacity(0);
     
-    const startTimeout = setTimeout(() => {
+    // Clear any existing timeouts/intervals
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    
+    timeoutRef.current = setTimeout(() => {
       setShowTitle(true);
       
-      const fadeInInterval = setInterval(() => {
+      intervalRef.current = setInterval(() => {
         setTitleOpacity((prev) => {
           if (prev >= 1) {
-            clearInterval(fadeInInterval);
+            if (intervalRef.current) clearInterval(intervalRef.current);
             return 1;
           }
           return prev + 0.1;
         });
       }, fadeIn * 100);
       
-      const stayTimeout = setTimeout(() => {
-        const fadeOutInterval = setInterval(() => {
+      timeoutRef.current = setTimeout(() => {
+        intervalRef.current = setInterval(() => {
           setTitleOpacity((prev) => {
             if (prev <= 0) {
-              clearInterval(fadeOutInterval);
+              if (intervalRef.current) clearInterval(intervalRef.current);
               setShowTitle(false);
               return 0;
             }
@@ -47,14 +53,12 @@ export const useTitleAnimation = (notification: Pick<NotificationConfig, 'title'
           });
         }, fadeOut * 100);
       }, (fadeIn + stay) * 1000);
-      
-      return () => {
-        clearTimeout(stayTimeout);
-        clearInterval(fadeInInterval);
-      };
     }, 500);
     
-    return () => clearTimeout(startTimeout);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
   }, [
     notification.title,
     notification.subtitle,
@@ -69,13 +73,19 @@ export const useTitleAnimation = (notification: Pick<NotificationConfig, 'title'
 
 export const useSoundEffect = (sound: string) => {
   const [playSound, setPlaySound] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (sound && playSound) {
-      const timeout = setTimeout(() => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      
+      timeoutRef.current = setTimeout(() => {
         setPlaySound(false);
       }, 1000);
-      return () => clearTimeout(timeout);
+      
+      return () => {
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      };
     }
   }, [sound, playSound]);
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { parseMinecraftText } from './minecraftTextParser';
+import { MinecraftText } from './minecraftTextParser';
 
 interface TitleProps {
   title: string;
@@ -25,14 +25,14 @@ const Title = React.memo(({
         <div 
           className="font-minecraft mb-2 text-3xl font-bold text-white drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]"
         >
-          {parseMinecraftText(title)}
+          <MinecraftText text={title} />
         </div>
       )}
       {subtitle && (
         <div 
           className="font-minecraft text-xl text-gray-300 drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]"
         >
-          {parseMinecraftText(subtitle)}
+          <MinecraftText text={subtitle} />
         </div>
       )}
     </div>

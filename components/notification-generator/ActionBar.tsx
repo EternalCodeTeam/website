@@ -1,4 +1,5 @@
 import React from 'react';
+import { MinecraftText } from './minecraftTextParser';
 
 interface ActionBarProps {
   message: string;
@@ -41,7 +42,7 @@ const ActionBar = React.memo(({ message }: ActionBarProps) => {
           boxShadow: "none",
         }}
       >
-        {message}
+        <MinecraftText text={message} />
       </span>
     </div>
   );
