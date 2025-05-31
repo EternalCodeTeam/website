@@ -28,22 +28,38 @@ const sidebarStaggerContainer = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.05,
-      delayChildren: 0.1
+      staggerChildren: 0.09,
+      delayChildren: 0.15
     }
   }
 };
 
-// Custom fade in up variant with consistent timing
+// Custom fade in left for sidebar
+const sidebarFadeInLeft = {
+  hidden: { opacity: 0, x: -20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      type: "spring",
+      stiffness: 80,
+      damping: 18,
+      duration: 0.6
+    }
+  }
+};
+
+// Custom fade in up variant with scale for items
 const sidebarFadeInUp = {
-  hidden: { opacity: 0, y: 10 },
-  visible: { 
-    opacity: 1, 
+  hidden: { opacity: 0, y: 14, scale: 0.97 },
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: { 
-      type: "spring", 
-      stiffness: 100, 
-      damping: 15,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 120,
+      damping: 16,
       mass: 0.8
     }
   }
@@ -73,7 +89,7 @@ const DocItemComponent: React.FC<DocItemProps> = React.memo(
             role="heading"
             aria-level={level + 1}
             whileHover={{ x: 3 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            transition={{ type: "spring", stiffness: 400, damping: 14 }}
           >
             <Folder
               className="-mt-0.5 mr-2 inline-block h-4 w-4 align-middle text-gray-500 dark:text-gray-400"
@@ -122,7 +138,7 @@ const DocItemComponent: React.FC<DocItemProps> = React.memo(
           <motion.span
             className="flex items-center"
             whileHover={{ x: 3 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            transition={{ type: "spring", stiffness: 400, damping: 14 }}
           >
             {item.title}
             {isActive && (
@@ -175,9 +191,9 @@ const DocSidebar: React.FC<DocSidebarProps> = ({
       className={cn("w-full", className)}
       role="navigation"
       aria-label="Documentation navigation"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      variants={sidebarFadeInLeft}
+      initial="hidden"
+      animate="visible"
     >
       {sidebarContent}
     </motion.nav>

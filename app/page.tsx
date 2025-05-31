@@ -1,7 +1,4 @@
-import About from "@/components/about/About";
-import Faq from "@/components/faq/Faq";
-import Features from "@/components/features/Features";
-import Hero from "@/components/header/hero/Hero";
+import AnimatedHome from "@/components/AnimatedHome";
 import { Metadata } from "next";
 import { generateOgImageMetadata } from "@/components/OgImage";
 
@@ -21,13 +18,6 @@ export const metadata: Metadata = {
   }),
 };
 
-export default async function Home() {
-  return (
-    <main id="main-content" tabIndex={-1}>
-      <Hero />
-      <About />
-      <Features />
-      <Faq />
-    </main>
-  );
+export default function Home() {
+  return <AnimatedHome />;
 }

@@ -24,6 +24,21 @@ export const fadeInUp = {
   }
 };
 
+export const fadeDownScale = {
+  hidden: { opacity: 0, y: -24, scale: 0.97 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 120,
+      damping: 18,
+      mass: 0.8
+    }
+  }
+};
+
 export const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
@@ -51,7 +66,7 @@ export function DocHeader({
       <div className="mb-2 flex items-center justify-between gap-4">
         {category && (
           <motion.div
-            variants={fadeInUp}
+            variants={fadeDownScale}
             className="text-muted-foreground text-sm uppercase tracking-wide"
             style={{ letterSpacing: "0.08em" }}
           >
@@ -60,7 +75,7 @@ export function DocHeader({
         )}
         {actions && (
           <motion.div 
-            variants={fadeInUp}
+            variants={fadeDownScale}
             className="flex items-center gap-2"
           >
             {actions}
@@ -69,14 +84,14 @@ export function DocHeader({
       </div>
       <h1 className="mb-1 text-4xl font-extrabold tracking-tight">
         <motion.span
-          variants={fadeInUp}
+          variants={fadeDownScale}
         >
           {title}
         </motion.span>
       </h1>
       {description && (
         <motion.p
-          variants={fadeInUp}
+          variants={fadeDownScale}
           className="text-muted-foreground mb-0 mt-0 text-lg"
         >
           {description}

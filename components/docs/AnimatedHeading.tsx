@@ -3,7 +3,7 @@
 import React, { useState, useCallback, memo } from "react";
 import { Check, Link as LinkIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { fadeInUp } from "./DocHeader";
+import { fadeInUp, fadeDownScale } from "./DocHeader";
 
 interface AnimatedHeadingProps extends React.HTMLAttributes<HTMLElement> {
   id?: string;
@@ -54,16 +54,11 @@ const createAnimatedHeading = ({ tag }: HeadingFactoryProps) => {
           style: { textDecoration: "none" },
           ...props,
         },
-        <motion.span 
+        <motion.span
           className="inline-flex items-center"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ 
-            type: "spring", 
-            stiffness: 100, 
-            damping: 20,
-            mass: 0.8
-          }}
+          variants={fadeDownScale}
+          initial="hidden"
+          animate="visible"
         >
           {children}
           {id && (
@@ -83,9 +78,9 @@ const createAnimatedHeading = ({ tag }: HeadingFactoryProps) => {
                 className="inline-flex select-none items-center text-base text-gray-400 opacity-0 transition-opacity hover:text-gray-600 group-hover:opacity-100 dark:hover:text-gray-300"
                 aria-label="Copy link to heading"
                 title="Copy link to heading"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                whileHover={{ scale: 1.13 }}
+                whileTap={{ scale: 0.93 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10, delay: 0.08 }}
               >
                 {copied ? (
                   <motion.div

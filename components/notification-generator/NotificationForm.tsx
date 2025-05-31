@@ -10,6 +10,7 @@ import { TitleTab } from "./form/TitleTab";
 import { SoundTab, SoundTabRef } from "./form/SoundTab";
 import { AdvancedTab } from "./form/AdvancedTab";
 import { validateField, validateForm } from "./form/validation";
+import { Button } from "@/components/ui/button";
 
 interface NotificationFormProps {
   notification: NotificationConfig;
@@ -137,15 +138,13 @@ export function NotificationForm({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.2, delay: 0.1 }}
       >
-        <motion.button
-          className="rounded-md bg-gray-200 px-4 py-2 text-gray-800 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+        <Button
+          variant="secondary"
           onClick={resetForm}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
           aria-label="Reset form"
         >
           Reset
-        </motion.button>
+        </Button>
       </motion.div>
     </motion.div>
   );

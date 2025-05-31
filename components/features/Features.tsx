@@ -1,12 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
 import SectionTitle from "@/components/SectionTitle";
 import JavaIcon from "@/components/icons/java";
 import LinuxIcon from "@/components/icons/linux";
 import TabNew from "@/components/icons/tab-new";
-import { useInView } from "react-intersection-observer";
-import { useMemo } from "react";
+import { AnimatedSection, AnimatedElement, AnimatedContainer } from "@/components/animations";
 
 interface Feature {
   icon: React.ReactNode;
@@ -15,40 +13,6 @@ interface Feature {
 }
 
 export default function Features() {
-  const combineVariants = useMemo(
-    () => ({
-      hidden: { opacity: 0 },
-      show: {
-        opacity: 1,
-        transition: {
-          duration: 0.3,
-        },
-      },
-    }),
-    []
-  );
-
-  const { ref: item1, inView: inView1 } = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
-    rootMargin: "0px 0px -100px 0px",
-  });
-  const { ref: item2, inView: inView2 } = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
-    rootMargin: "0px 0px -100px 0px",
-  });
-  const { ref: item3, inView: inView3 } = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
-    rootMargin: "0px 0px -100px 0px",
-  });
-  const { ref: sectionTitle, inView: inView4 } = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
-    rootMargin: "0px 0px -100px 0px",
-  });
-
   const features: Feature[] = [
     {
       icon: <JavaIcon className="h-12 w-12" aria-hidden="true" />,
@@ -71,41 +35,36 @@ export default function Features() {
   ];
 
   return (
-    <section id="features" aria-labelledby="features-heading">
+    <AnimatedSection
+      id="features"
+      className="py-16"
+      animationType="fade"
+      aria-labelledby="features-heading"
+    >
       <div className="mx-auto max-w-screen-xl px-4 py-8">
-        <motion.div
-          ref={sectionTitle}
-          variants={combineVariants}
-          initial="hidden"
-          animate={inView4 ? "show" : "hidden"}
+        <AnimatedElement
+          as="div"
+          animationType="fadeDown"
+          delay={0.1}
         >
           <SectionTitle
             title="What do we do?"
             description="Below you will find information about what we do on a daily basis."
           />
-        </motion.div>
+        </AnimatedElement>
 
-        <div className="mt-8 space-y-8 text-center md:grid md:grid-cols-2 md:flex-col md:gap-12 md:space-y-0 lg:grid-cols-3">
+        <AnimatedContainer
+          className="mt-8 space-y-8 text-center md:grid md:grid-cols-2 md:flex-col md:gap-12 md:space-y-0 lg:grid-cols-3"
+          staggerDelay={0.15}
+          delay={0.2}
+        >
           {features.map((feature, index) => (
-            <motion.div
+            <AnimatedElement
               key={index}
-              ref={index === 0 ? item1 : index === 1 ? item2 : item3}
-              variants={combineVariants}
-              initial="hidden"
-              animate={
-                index === 0
-                  ? inView1
-                    ? "show"
-                    : "hidden"
-                  : index === 1
-                    ? inView2
-                      ? "show"
-                      : "hidden"
-                    : inView3
-                      ? "show"
-                      : "hidden"
-              }
+              as="div"
               className="flex flex-col items-center"
+              animationType={index % 2 === 0 ? "fadeLeft" : "fadeRight"}
+              interactive={true}
             >
               <div className="center bg-primary-100 dark:bg-primary-900 mb-4 flex h-10 w-10 items-center justify-center rounded-full lg:h-12 lg:w-12">
                 {feature.icon}
@@ -118,10 +77,10 @@ export default function Features() {
               <p className="text-gray-500 dark:text-gray-400">
                 {feature.description}
               </p>
-            </motion.div>
+            </AnimatedElement>
           ))}
-        </div>
+        </AnimatedContainer>
       </div>
-    </section>
+    </AnimatedSection>
   );
 }

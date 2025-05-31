@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
-import { motion } from "framer-motion";
+import { useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import SectionTitle from "../SectionTitle";
-import { useInView } from "react-intersection-observer";
+import { AnimatedSection, AnimatedElement, AnimatedContainer } from "@/components/animations";
 
 interface FaqItem {
   question: string;
@@ -40,105 +40,136 @@ export default function Faq() {
     setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
   }, []);
 
-  const { ref: sectionRef, inView: sectionInView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-    rootMargin: "0px 0px -100px 0px",
-  });
-
-  const containerVariants = useMemo(
-    () => ({
-      hidden: { opacity: 0 },
-      visible: {
-        opacity: 1,
-        transition: {
-          staggerChildren: 0.15,
-          ease: "easeInOut",
-          duration: 0.5,
-        },
-      },
-    }),
-    []
-  );
-
-  const itemVariants = useMemo(
-    () => ({
-      hidden: { opacity: 0, y: 20 },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-          duration: 0.4,
-          ease: "easeInOut",
-        },
-      },
-    }),
-    []
-  );
-
   return (
-    <section id="faq" className="py-16" aria-labelledby="faq-heading">
+    <AnimatedSection
+      id="faq"
+      className="py-16"
+      animationType="fade"
+      aria-labelledby="faq-heading"
+    >
       <div className="mx-auto max-w-screen-xl px-4 py-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
-          ref={sectionRef}
+        <AnimatedElement
+          as="div"
+          animationType="fadeDown"
+          delay={0.1}
         >
           <SectionTitle
             title="Frequently Asked Questions"
             description="Here you will find answers to the most frequently asked questions."
           />
-        </motion.div>
+        </AnimatedElement>
 
-        <motion.div
+        <AnimatedContainer
           className="mt-12"
-          variants={containerVariants}
-          initial="hidden"
-          animate={sectionInView ? "visible" : "hidden"}
+          staggerDelay={0.15}
+          delay={0.2}
         >
           {faqItems.map((item, index) => (
-            <motion.div
+            <AnimatedElement
               key={index}
-              variants={itemVariants}
+              as="div"
               className="mb-6 overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700"
+              animationType="fadeUp"
+              interactive={true}
             >
-              <button
+              <motion.button
                 onClick={() => toggleFaq(index)}
                 className="flex w-full items-center justify-between bg-[#f0f1f2] px-6 py-4 text-left text-lg font-medium text-gray-800 transition-colors duration-300 hover:bg-[#e6e7e8] dark:bg-[#1F2A37] dark:text-white dark:hover:bg-[#374151]"
                 aria-expanded={activeIndex === index}
                 aria-controls={`faq-panel-${index}`}
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
                 <span>{item.question}</span>
-                <svg
-                  className={`h-6 w-6 transform transition-transform duration-300 ${activeIndex === index ? "rotate-180" : ""}`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
+                <motion.div
+                  animate={{ 
+                    rotate: activeIndex === index ? 180 : 0,
+                    scale: activeIndex === index ? 1.1 : 1
+                  }}
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 300, 
+                    damping: 20,
+                    duration: 0.3
+                  }}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </button>
-              <div
-                className={`ease-[cubic-bezier(0.25, 1, 0.5, 1)] overflow-hidden transition-all duration-300 ${activeIndex === index ? "max-h-96" : "max-h-0"}`}
-                id={`faq-panel-${index}`}
-                role="region"
-                aria-labelledby={`faq-question-${index}`}
-              >
-                <div className="ease-[cubic-bezier(0.25, 1, 0.5, 1)] bg-[#f5f6f7] p-6 text-gray-700 transition-colors duration-300 dark:bg-[#1F2A37] dark:text-gray-400">
-                  {item.answer}
-                </div>
-              </div>
-            </motion.div>
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </motion.div>
+              </motion.button>
+              <AnimatePresence>
+                {activeIndex === index && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ 
+                      height: "auto", 
+                      opacity: 1,
+                      transition: {
+                        height: { 
+                          type: "spring", 
+                          stiffness: 300, 
+                          damping: 30,
+                          duration: 0.4
+                        },
+                        opacity: { 
+                          duration: 0.3,
+                          delay: 0.1
+                        }
+                      }
+                    }}
+                    exit={{ 
+                      height: 0, 
+                      opacity: 0,
+                      transition: {
+                        height: { 
+                          type: "spring", 
+                          stiffness: 300, 
+                          damping: 30,
+                          duration: 0.3
+                        },
+                        opacity: { 
+                          duration: 0.2
+                        }
+                      }
+                    }}
+                    className="overflow-hidden"
+                    id={`faq-panel-${index}`}
+                    role="region"
+                    aria-labelledby={`faq-question-${index}`}
+                  >
+                    <motion.div 
+                      className="ease-[cubic-bezier(0.25, 1, 0.5, 1)] bg-[#f5f6f7] p-6 text-gray-700 transition-colors duration-300 dark:bg-[#1F2A37] dark:text-gray-400"
+                      initial={{ y: -10, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ 
+                        type: "spring", 
+                        stiffness: 300, 
+                        damping: 25,
+                        delay: 0.1
+                      }}
+                    >
+                      {item.answer}
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </AnimatedElement>
           ))}
-        </motion.div>
+        </AnimatedContainer>
       </div>
-    </section>
+    </AnimatedSection>
   );
 }

@@ -6,6 +6,7 @@ import DocSidebar from "@/components/docs/DocSidebar";
 import DocSearch from "@/components/docs/DocSearch";
 import DocCopyEnhancer from "@/components/docs/DocCopyEnhancer";
 import AnimatedLayout from "@/components/docs/AnimatedLayout";
+import AnimatedSection from "@/components/animations/AnimatedSection";
 
 const poppins = Poppins({
   weight: ["500"],
@@ -54,14 +55,16 @@ export default function DocsLayout({
           <aside className="w-full flex-shrink-0 lg:w-64">
             <div className="sticky top-32 z-20 flex flex-col gap-4">
               <DocSearch />
-              <DocSidebar />
+              <AnimatedSection animationType="fadeLeft">
+                <DocSidebar />
+              </AnimatedSection>
             </div>
           </aside>
           <div className="flex min-w-0 flex-1 flex-col items-stretch">
-            <div className="w-full">
+            <AnimatedSection animationType="fadeUp" className="w-full" style={{ minHeight: '60vh' }}>
               <DocCopyEnhancer />
               {children}
-            </div>
+            </AnimatedSection>
             <div
               id="docs-navigation-buttons"
               className="mt-12 flex w-full justify-between"
