@@ -118,7 +118,7 @@ export default function NotificationGenerator() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4, type: "spring", stiffness: 100 }}
       >
-        EternalCode Notification Generator
+        Notification Generator
       </motion.h1>
 
       <motion.div 

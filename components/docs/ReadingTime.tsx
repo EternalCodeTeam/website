@@ -5,15 +5,10 @@ import { Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface ReadingTimeProps {
-  /** The content to calculate reading time for */
   content: string;
-  /** Words per minute reading speed (default: 200) */
   wordsPerMinute?: number;
-  /** Custom className for the container */
   className?: string;
-  /** Custom className for the text */
   textClassName?: string;
-  /** Custom className for the icon */
   iconClassName?: string;
 }
 

@@ -94,6 +94,13 @@ export default function Navbar() {
       role="navigation"
       aria-label="Main navigation"
     >
+
+      <div className="w-full bg-[#f0f1f2] dark:bg-[#1F2A37] text-gray-800 dark:text-white text-center py-2 px-4 text-sm font-medium flex items-center justify-center gap-2 z-[60] border-b border-gray-200 dark:border-gray-700">
+        <span className="inline-block bg-white/60 dark:bg-white/10 rounded px-2 py-0.5 mr-2 text-xs font-bold uppercase tracking-wide text-blue-700 dark:text-blue-300">New</span>
+        <span className="font-semibold">We launched the new Notification generator, fully interactive and customizable!</span>
+        <a href="/notification-generator" className="ml-2 text-blue-700 dark:text-blue-300 font-semibold underline underline-offset-2 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors">Check it out &rarr;</a>
+      </div>
+
       <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-4 py-4 md:py-6">
         <Link
           href="/"
@@ -241,6 +248,7 @@ export default function Navbar() {
           </ul>
         </div>
       </div>
+
     </nav>
   );
 }

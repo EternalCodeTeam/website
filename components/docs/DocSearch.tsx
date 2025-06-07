@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useRef, memo } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useClickOutside } from "../../hooks/useClickOutside";
 import { motion, AnimatePresence } from "framer-motion";
 import { fadeInUp } from "./DocHeader";
+import { create, insertMultiple, search, Document } from '@orama/orama';
 
 interface SearchResult {
   title: string;
@@ -81,37 +82,81 @@ const DocSearch = memo(function DocSearch({
   const [isOpen, setIsOpen] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
   const searchRef = useRef<HTMLDivElement>(null);
   const debouncedQuery = useDebounce(query, debounceTime);
+  const isFirstRender = useRef(true);
+  const [oramaDb, setOramaDb] = useState<any>(null);
+  const [searchIndex, setSearchIndex] = useState<SearchResult[]>([]);
 
   useClickOutside(searchRef, () => setIsOpen(false));
 
-  const searchDocs = useCallback(
-    async (searchQuery: string) => {
-      if (searchQuery.length < minQueryLength) {
+  useEffect(() => {
+    const initOrama = async () => {
+      try {
+        const response = await fetch('/api/docs/search-index');
+        if (!response.ok) {
+          throw new Error(`Failed to fetch search index: ${response.status}`);
+        }
+        
+        const searchData = await response.json() as SearchResult[];
+        setSearchIndex(searchData);
+        
+        const db = await create({
+          schema: {
+            title: 'string',
+            path: 'string',
+            excerpt: 'string'
+          }
+        });
+        
+        if (searchData.length > 0) {
+          await insertMultiple(db, searchData);
+        }
+        
+        setOramaDb(db);
+      } catch (error) {
+        console.error("Failed to initialize search:", error);
+      }
+    };
+    
+    initOrama();
+  }, []);
+
+  useEffect(() => {
+    if (!isFirstRender.current) {
+      setQuery("");
+      setResults([]);
+      setIsOpen(false);
+    } else {
+      isFirstRender.current = false;
+    }
+  }, [pathname]);
+
+  useEffect(() => {
+    const performSearch = async () => {
+      if (query.length < minQueryLength || !oramaDb) {
         setResults([]);
         setHasSearched(false);
         return;
       }
 
       setIsLoading(true);
+      
       try {
-        const response = await fetch(
-          `/api/docs/search?q=${encodeURIComponent(searchQuery)}`,
-          {
-            cache: "no-store",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(`Search failed with status: ${response.status}`);
-        }
-
-        const data = (await response.json()) as SearchResult[];
-        setResults(data);
+        const searchResults = await search(oramaDb, {
+          term: query,
+          properties: ['title', 'excerpt'],
+          limit: 10
+        });
+        
+        const mappedResults = searchResults.hits.map(hit => ({
+          title: hit.document.title as string,
+          path: hit.document.path as string,
+          excerpt: hit.document.excerpt as string
+        }));
+        
+        setResults(mappedResults);
         setHasSearched(true);
       } catch (error) {
         console.error("Search failed:", error);
@@ -120,13 +165,10 @@ const DocSearch = memo(function DocSearch({
       } finally {
         setIsLoading(false);
       }
-    },
-    [minQueryLength]
-  );
-
-  useEffect(() => {
-    searchDocs(debouncedQuery);
-  }, [debouncedQuery, searchDocs]);
+    };
+    
+    performSearch();
+  }, [debouncedQuery, oramaDb, minQueryLength, query]);
 
   const handleSelect = useCallback(
     (path: string) => {
@@ -200,51 +242,30 @@ const DocSearch = memo(function DocSearch({
         {isOpen && query.length >= minQueryLength && (
           <motion.div
             id="search-results"
-            className="absolute z-10 mt-2 w-full rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800"
+            className="absolute z-50 mt-1 w-full overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800"
             role="listbox"
-            initial={{ opacity: 0, y: -10, height: 0 }}
-            animate={{ opacity: 1, y: 0, height: "auto" }}
-            exit={{ opacity: 0, y: -10, height: 0 }}
-            transition={{ 
-              type: "spring", 
-              stiffness: 300, 
-              damping: 30,
-              mass: 0.8
-            }}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
           >
             {isLoading ? (
-              <div className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
-                Searching...
-              </div>
-            ) : hasSearched && results.length === 0 ? (
-              <NoResultsMessage />
-            ) : (
-              <motion.div
-                variants={fadeInUp}
-                initial="hidden"
-                animate="visible"
-                transition={{ staggerChildren: 0.05 }}
-              >
-                {results.map((result, index) => (
-                  <motion.div
+              <LoadingSpinner />
+            ) : results.length > 0 ? (
+              <div className="max-h-80 overflow-y-auto py-1">
+                {results.map((result) => (
+                  <SearchResultItem
                     key={result.path}
-                    variants={fadeInUp}
-                    custom={index}
-                  >
-                    <SearchResultItem
-                      result={result}
-                      onSelect={handleSelect}
-                    />
-                  </motion.div>
+                    result={result}
+                    onSelect={handleSelect}
+                  />
                 ))}
-              </motion.div>
-            )}
+              </div>
+            ) : hasSearched ? (
+              <NoResultsMessage />
+            ) : null}
           </motion.div>
         )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {isLoading && <LoadingSpinner />}
       </AnimatePresence>
     </motion.div>
   );

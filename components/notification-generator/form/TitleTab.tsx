@@ -36,6 +36,7 @@ export const TitleTab = ({ notification, onChange, errors }: TitleTabProps) => (
         onChange={onChange}
         placeholder="e.g. 1s"
         error={errors.fadeIn}
+        showEditorButtons={false}
       />
 
       <FormField
@@ -45,6 +46,7 @@ export const TitleTab = ({ notification, onChange, errors }: TitleTabProps) => (
         onChange={onChange}
         placeholder="e.g. 2s"
         error={errors.stay}
+        showEditorButtons={false}
       />
 
       <FormField
@@ -54,6 +56,7 @@ export const TitleTab = ({ notification, onChange, errors }: TitleTabProps) => (
         onChange={onChange}
         placeholder="e.g. 1s"
         error={errors.fadeOut}
+        showEditorButtons={false}
       />
     </div>
     <MiniMessageInfoBox />

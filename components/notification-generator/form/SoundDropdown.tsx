@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo, useImperativeHandle, forwardRef } from "react";
 import { motion } from "framer-motion";
 import { Dropdown, DropdownOption } from "../../ui/Dropdown";
+import { SoundTable } from "./SoundTable";
 
 interface SoundDropdownProps {
   value: string;
@@ -11,7 +12,7 @@ interface SoundDropdownProps {
   pitch?: number | string;
 }
 
-interface Sound {
+export interface Sound {
   id: string;
   name: string;
   path: string;
@@ -47,6 +48,7 @@ export const SoundDropdown = forwardRef<SoundDropdownRef, SoundDropdownProps>(
     const [playing, setPlaying] = useState(false);
     const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
     const [selectedCategory, setSelectedCategory] = useState<string>("");
+    const [showTable, setShowTable] = useState(false);
     const selectedSound = useMemo(() => 
       sounds.find((s) => s.id === value),
       [sounds, value]
@@ -62,7 +64,6 @@ export const SoundDropdown = forwardRef<SoundDropdownRef, SoundDropdownProps>(
       }
     }));
 
-    // Stop sound when value changes (new sound selected)
     useEffect(() => {
       if (audio && playing) {
         audio.pause();
@@ -164,17 +165,14 @@ export const SoundDropdown = forwardRef<SoundDropdownRef, SoundDropdownProps>(
       });
     }, [sounds, selectedCategory]);
 
-    const handlePlaySound = () => {
-      if (!selectedSound) return;
-      
+    const handlePlaySound = (sound: Sound) => {
       if (audio) {
         audio.pause();
         audio.currentTime = 0;
       }
       
-      const newAudio = new Audio(`${SOUND_BASE_URL}${selectedSound.path}.ogg`);
+      const newAudio = new Audio(`${SOUND_BASE_URL}${sound.path}.ogg`);
       
-
       let volumeValue = 1.0;
       if (typeof volume === "string") {
         const parsedVolume = parseFloat(volume);
@@ -185,7 +183,6 @@ export const SoundDropdown = forwardRef<SoundDropdownRef, SoundDropdownProps>(
         volumeValue = Math.min(Math.max(volume, 0), 1.0);
       }
       
-
       try {
         newAudio.volume = volumeValue;
       } catch (err) {
@@ -193,7 +190,6 @@ export const SoundDropdown = forwardRef<SoundDropdownRef, SoundDropdownProps>(
         newAudio.volume = 1.0; 
       }
       
-
       let pitchValue = 1.0; 
       if (typeof pitch === "string") {
         const parsedPitch = parseFloat(pitch);
@@ -204,28 +200,31 @@ export const SoundDropdown = forwardRef<SoundDropdownRef, SoundDropdownProps>(
         pitchValue = Math.min(Math.max(pitch, 0.5), 2.0);
       }
       
-
       try {
         newAudio.playbackRate = pitchValue;
       } catch (err) {
-        console.error("Error setting playback rate:", err);
+        console.error("Error setting pitch:", err);
+        newAudio.playbackRate = 1.0;
       }
       
-      newAudio.onended = () => setPlaying(false);
-      newAudio.onerror = () => {
+      newAudio.onended = () => {
         setPlaying(false);
-        setError("This sound is not available for preview.");
       };
       
-      newAudio.play().catch(err => {
+      newAudio.onerror = (e) => {
+        console.error("Error playing sound:", e);
         setPlaying(false);
-        setError("This sound is not available for preview.");
-      });
+      };
       
       setAudio(newAudio);
       setPlaying(true);
+      
+      newAudio.play().catch(err => {
+        console.error("Error playing sound:", err);
+        setPlaying(false);
+      });
     };
-
+    
     const handleStopSound = () => {
       if (audio) {
         audio.pause();
@@ -233,79 +232,104 @@ export const SoundDropdown = forwardRef<SoundDropdownRef, SoundDropdownProps>(
         setPlaying(false);
       }
     };
-
+    
+    const toggleView = () => {
+      setShowTable(!showTable);
+    };
+    
+    const handleSelectSound = (soundId: string) => {
+      onChange(soundId);
+      setShowTable(false);
+    };
+    
+    const handleCategoryChange = (category: string) => {
+      setSelectedCategory(category);
+    };
+    
+    const dropdownOptions: DropdownOption[] = [
+      { value: "", label: "All Categories" },
+      ...categoriesWithSounds.map(cat => ({
+        value: cat,
+        label: cat.charAt(0).toUpperCase() + cat.slice(1).replace(/_/g, ' ')
+      }))
+    ];
+    
     return (
-      <div className="mb-4">
-        <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
-          Sound
-        </label>
-        <div className="flex flex-col sm:flex-row gap-2">
-          <div className="flex flex-col sm:flex-row gap-2 w-full">
-            <div className="w-full sm:w-40">
-              <Dropdown
-                options={[{ value: "", label: "All Categories" }, ...categoriesWithSounds.map(cat => ({ value: cat, label: cat.charAt(0).toUpperCase() + cat.slice(1).replace(/_/g, ' ') }))] as DropdownOption[]}
-                value={selectedCategory}
-                onChange={(val: string) => setSelectedCategory(val)}
-                placeholder="All Categories"
-                disabled={loading}
-              />
-            </div>
-            
-            <div className="flex w-full">
-              <div className="w-full">
-                <Dropdown
-                  options={filteredSounds.map((sound) => ({ value: sound.id, label: sound.name })) as DropdownOption[]}
-                  value={value}
-                  onChange={(val: string) => {
-                    // Stop current sound if playing
-                    if (audio && playing) {
-                      audio.pause();
-                      audio.currentTime = 0;
-                      setPlaying(false);
-                    }
-                    // Update the selected sound
-                    onChange(val);
-                  }}
-                  placeholder="Select a sound"
-                  disabled={loading || filteredSounds.length === 0}
-                />
-              </div>
-              
-              <motion.button
-                className="flex items-center justify-center border border-l-0 border-gray-200 bg-blue-50 px-2 py-1 text-blue-600 hover:bg-blue-100 dark:border-gray-700 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700 rounded-r"
-                onClick={playing ? handleStopSound : handlePlaySound}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                disabled={!value || loading}
-                aria-label={playing ? "Stop sound" : "Play sound"}
-              >
-                {playing ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
-                  </svg>
-                ) : (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
-                  </svg>
-                )}
-              </motion.button>
-            </div>
-          </div>
+      <div className="w-full">
+        <div className="mb-2 flex items-center justify-between">
+          <Dropdown
+            options={dropdownOptions}
+            value={selectedCategory}
+            onChange={handleCategoryChange}
+            placeholder="Select category"
+            className="w-48"
+          />
+          <button
+            type="button"
+            onClick={toggleView}
+            className="text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+          >
+            {showTable ? "Show Dropdown" : "Show Table"}
+          </button>
         </div>
         
-        {filteredSounds.length === 0 && selectedCategory && (
-          <span className="mt-1 text-xs text-gray-500 dark:text-gray-400">No sounds in this category</span>
+        {showTable ? (
+          <SoundTable
+            sounds={filteredSounds}
+            selectedSound={selectedSound}
+            onSelectSound={handleSelectSound}
+            onPlaySound={handlePlaySound}
+            isPlaying={playing}
+            onStopSound={handleStopSound}
+            loading={loading}
+          />
+        ) : (
+          <div className="relative">
+            <select
+              value={value}
+              onChange={(e) => onChange(e.target.value)}
+              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+              disabled={loading}
+            >
+              <option value="">Select a sound</option>
+              {filteredSounds.map((sound) => (
+                <option key={sound.id} value={sound.id}>
+                  {sound.name}
+                </option>
+              ))}
+            </select>
+            
+            {selectedSound && (
+              <div className="mt-2 flex items-center justify-between">
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  {selectedSound.category ? (
+                    <span className="mr-2 rounded bg-gray-100 px-2 py-0.5 text-xs dark:bg-gray-800">
+                      {selectedSound.category.charAt(0).toUpperCase() + selectedSound.category.slice(1).replace(/_/g, ' ')}
+                    </span>
+                  ) : null}
+                  {selectedSound.path}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handlePlaySound(selectedSound)}
+                  className="inline-flex items-center justify-center rounded-md bg-blue-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-700 dark:hover:bg-blue-600"
+                  disabled={playing}
+                >
+                  {playing ? "Playing..." : "Play"}
+                </button>
+              </div>
+            )}
+          </div>
         )}
         
-        {loading && <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Loading sounds...</p>}
-        {error && <p className="mt-1 text-xs text-red-500 dark:text-red-400">{error}</p>}
-        
-        <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-          Select a sound to play in your notification. You can preview it by clicking the play button.
-        </p>
+        {error && (
+          <div className="mt-2 text-sm text-red-500 dark:text-red-400">
+            {error}
+          </div>
+        )}
       </div>
     );
   }
 );
 
-SoundDropdown.displayName = 'SoundDropdown'; 
+SoundDropdown.displayName = "SoundDropdown"; 

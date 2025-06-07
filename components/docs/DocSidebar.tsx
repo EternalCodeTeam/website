@@ -22,7 +22,6 @@ interface DocItemProps {
   index: number;
 }
 
-// Custom stagger container that ensures top-to-bottom animation
 const sidebarStaggerContainer = {
   hidden: { opacity: 0 },
   visible: {
@@ -34,7 +33,6 @@ const sidebarStaggerContainer = {
   }
 };
 
-// Custom fade in left for sidebar
 const sidebarFadeInLeft = {
   hidden: { opacity: 0, x: -20 },
   visible: {
@@ -49,7 +47,6 @@ const sidebarFadeInLeft = {
   }
 };
 
-// Custom fade in up variant with scale for items
 const sidebarFadeInUp = {
   hidden: { opacity: 0, y: 14, scale: 0.97 },
   visible: {
@@ -157,7 +154,7 @@ const DocItemComponent: React.FC<DocItemProps> = React.memo(
 
 DocItemComponent.displayName = "DocItemComponent";
 
-const DocSidebar: React.FC<DocSidebarProps> = ({
+const DocSidebar: React.FC<DocSidebarProps> = React.memo(({
   className = "",
   onItemClick,
 }) => {
@@ -198,8 +195,8 @@ const DocSidebar: React.FC<DocSidebarProps> = ({
       {sidebarContent}
     </motion.nav>
   );
-};
+});
 
 DocSidebar.displayName = "DocSidebar";
 
-export default React.memo(DocSidebar);
+export default DocSidebar;

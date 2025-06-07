@@ -1,26 +1,18 @@
-import React from "react";
+import * as React from "react";
 
-interface ArrowForwardProps extends React.SVGProps<SVGSVGElement> {
-  className?: string;
-}
-
-export const ArrowForward: React.FC<ArrowForwardProps> = ({
-  className = "",
-  ...props
-}) => {
+export function ArrowForward(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
-      viewBox="0 0 24 24"
-      className={className}
+      viewBox="0 0 20 20"
+      fill="currentColor"
       {...props}
     >
       <path
-        fill="currentColor"
-        d="M16.175 13H4v-2h12.175l-5.6-5.6L12 4l8 8l-8 8l-1.425-1.4z"
+        fillRule="evenodd"
+        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+        clipRule="evenodd"
       />
     </svg>
   );
-};
+}

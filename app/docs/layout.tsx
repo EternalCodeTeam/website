@@ -54,8 +54,10 @@ export default function DocsLayout({
         <div className="flex flex-col gap-8 lg:flex-row">
           <aside className="w-full flex-shrink-0 lg:w-64">
             <div className="sticky top-32 z-20 flex flex-col gap-4">
-              <DocSearch />
-              <AnimatedSection animationType="fadeLeft">
+              <AnimatedSection preserveAnimation={true}>
+                <DocSearch />
+              </AnimatedSection>
+              <AnimatedSection animationType="fadeLeft" preserveAnimation={true}>
                 <DocSidebar />
               </AnimatedSection>
             </div>

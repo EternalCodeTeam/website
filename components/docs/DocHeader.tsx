@@ -9,7 +9,6 @@ interface DocHeaderProps {
   actions?: ReactNode;
 }
 
-// Animation variants for consistent animations across components
 export const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { 

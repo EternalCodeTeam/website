@@ -2,19 +2,19 @@ import { Metadata } from "next";
 import "../../components/notification-generator/minecraft-font.css";
 
 export const metadata: Metadata = {
-  title: "EternalCode Notification Generator | Minecraft Plugin Tool",
+  title: "Notification Generator | Minecraft Plugin Tool",
   description:
     "Create and preview Minecraft notifications for EternalCode plugin. Generate YAML code for chat messages, titles, action bars, and sounds.",
   keywords: "Minecraft, EternalCode, notification generator, plugin, YAML, chat, title, action bar, sound",
   openGraph: {
-    title: "EternalCode Notification Generator",
+    title: "Notification Generator",
     description: "Create and preview Minecraft notifications for EternalCode plugin",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "EternalCode Notification Generator",
+    title: "Notification Generator",
     description: "Create and preview Minecraft notifications for EternalCode plugin",
   },
   robots: {
