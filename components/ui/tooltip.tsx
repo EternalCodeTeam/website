@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useId } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -15,6 +15,7 @@ export const Tooltip = ({
 }: TooltipProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const tooltipId = useId();
 
   const handleMouseEnter = () => {
     timeoutRef.current = setTimeout(() => {
@@ -36,14 +37,14 @@ export const Tooltip = ({
       onMouseLeave={handleMouseLeave}
     >
       <div
-        aria-describedby="tooltip"
+        aria-describedby={tooltipId}
       >
         {children}
       </div>
       <AnimatePresence>
         {isVisible && (
           <motion.div
-            id="tooltip"
+            id={tooltipId}
             role="tooltip"
             className={cn(
               "absolute z-20 px-3 py-1 text-sm font-medium text-white rounded-md shadow-sm pointer-events-none",

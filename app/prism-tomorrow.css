@@ -1,8 +1,4 @@
-/**
- * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
- * Based on https://github.com/chriskempson/tomorrow-theme
- * @author Rose Pritchard
- */
+
 
 code[class*="language-"],
 pre[class*="language-"] {
@@ -27,7 +23,6 @@ pre[class*="language-"] {
   hyphens: none;
 }
 
-/* Code blocks */
 pre[class*="language-"] {
   padding: 1em;
   margin: 0.5em 0;
@@ -40,7 +35,6 @@ pre[class*="language-"] {
   background: #23272e;
 }
 
-/* Inline code */
 :not(pre) > code[class*="language-"] {
   padding: 0.1em;
   border-radius: 0.3em;

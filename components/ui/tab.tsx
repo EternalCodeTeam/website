@@ -45,30 +45,6 @@ const Tab = forwardRef<HTMLButtonElement, TabProps>(
       className
     );
 
-    if (animate) {
-      return (
-        <div className="relative">
-          <Button
-            ref={ref}
-            variant={isActive ? "primary" : "ghost"}
-            size="sm"
-            className={tabClasses}
-            animate={false}
-            {...props}
-          >
-            {tabContent}
-          </Button>
-          {isActive && (
-            <motion.div
-              className="absolute bottom-0 left-0 h-0.5 w-full bg-blue-500"
-              layoutId="activeTab"
-              transition={{ type: "spring", stiffness: 300, damping: 30, duration: 0.1 }}
-            />
-          )}
-        </div>
-      );
-    }
-
     return (
       <div className="relative">
         <Button
@@ -76,7 +52,7 @@ const Tab = forwardRef<HTMLButtonElement, TabProps>(
           variant={isActive ? "primary" : "ghost"}
           size="sm"
           className={tabClasses}
-          animate={false}
+          animate={animate}
           {...props}
         >
           {tabContent}

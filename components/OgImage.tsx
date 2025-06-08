@@ -7,11 +7,6 @@ interface OgImageProps {
   image?: string;
 }
 
-/**
- * Generates metadata with a custom OG image for a specific page
- * @param props The props for the OG image
- * @returns Metadata object with custom OG image
- */
 export function generateOgImageMetadata({
   title,
   subtitle,
@@ -41,10 +36,6 @@ export function generateOgImageMetadata({
   };
 }
 
-/**
- * Component to generate a custom OG image for a specific page
- * This component doesn't render anything, it's just a helper to generate metadata
- */
 export default function OgImage({ title, subtitle, image }: OgImageProps) {
 
   return null;

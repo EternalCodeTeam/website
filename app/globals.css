@@ -101,7 +101,6 @@ pre[class*="language-"] {
   cursor: help;
 }
 
-/* Line numbers */
 pre[class*="language-"].line-numbers {
   position: relative;
   padding-left: 3.8em;
@@ -160,7 +159,6 @@ pre[class*="language-"].line-numbers > code {
   box-shadow: none !important;
 }
 
-/* Table Styling */
 .prose table {
   width: 100%;
   border-collapse: collapse;
@@ -196,7 +194,6 @@ pre[class*="language-"].line-numbers > code {
   background-color: #f8fafc;
 }
 
-/* Dark mode table styling */
 .dark .prose thead {
   background-color: #1a202c;
 }
@@ -228,7 +225,6 @@ pre {
   position: relative !important;
 }
 
-/* Fix react-hot-toast icon alignment */
 .react-hot-toast__icon {
   position: static !important;
   margin-right: 0 !important;

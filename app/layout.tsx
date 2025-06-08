@@ -16,7 +16,7 @@ import { generateOgImageUrl } from "@/lib/og-utils";
 
 
 export const dynamic = "force-static";
-export const revalidate = 3600; // Revalidate every hour
+export const revalidate = 3600;
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700"],

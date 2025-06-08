@@ -24,9 +24,9 @@ export default function NotificationGenerator() {
   });
 
   const [yamlCode, setYamlCode] = useState("");
-  const [previewKey, setPreviewKey] = useState(0); // Used to force re-render of preview
+  const [previewKey, setPreviewKey] = useState(0);
 
-  // Memoize the YAML generation to avoid unnecessary recalculations
+ 
   const generateYaml = useCallback(() => {
     const parts = [];
 
@@ -92,7 +92,7 @@ export default function NotificationGenerator() {
     setPreviewKey((prev) => prev + 1);
   }, []);
 
-  // Memoize the form component to prevent unnecessary re-renders
+ 
   const formComponent = useMemo(() => (
     <NotificationForm
       notification={notification}
@@ -100,7 +100,7 @@ export default function NotificationGenerator() {
     />
   ), [notification, setNotification]);
 
-  // Memoize the code component to prevent unnecessary re-renders
+ 
   const codeComponent = useMemo(() => (
     <NotificationCode yamlCode={yamlCode} />
   ), [yamlCode]);

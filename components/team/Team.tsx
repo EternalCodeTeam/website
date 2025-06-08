@@ -10,7 +10,6 @@ import AnimatedSection from "@/components/animations/AnimatedSection";
 import AnimatedElement from "@/components/animations/AnimatedElement";
 import AnimatedContainer from "@/components/animations/AnimatedContainer";
 
-// Animation variants
 const cardVariants = {
   hidden: { opacity: 0, y: 40, scale: 0.95 },
   visible: {
@@ -40,7 +39,7 @@ const avatarHover = {
 
 const iconHover = {
   scale: 1.18,
-  color: "#2563eb", // blue-600
+  color: "#2563eb",
   transition: { type: "spring", stiffness: 400, damping: 15 },
 };
 

@@ -24,7 +24,7 @@ export const useTitleAnimation = (notification: Pick<NotificationConfig, 'title'
     setShowTitle(false);
     setTitleOpacity(0);
     
-    // Clear any existing timeouts/intervals
+   
     if (intervalRef.current) clearInterval(intervalRef.current);
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     

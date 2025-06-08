@@ -20,7 +20,7 @@ import { ErrorBoundary } from "@/components/docs/ErrorBoundary";
 
 
 export const dynamic = "force-static";
-export const revalidate = 3600; // Revalidate every hour
+export const revalidate = 3600;
 
 interface DocMeta {
   title: string;

@@ -28,13 +28,13 @@ export type AlertBoxType =
   | "example";
 
 export interface AlertBoxProps {
-  /** The type of alert to display */
+ 
   type: AlertBoxType;
-  /** The content to display inside the alert */
+ 
   children: ReactNode;
-  /** Optional title for the alert */
+ 
   title?: ReactNode;
-  /** Optional className for custom styling */
+ 
   className?: string;
 }
 
@@ -137,12 +137,6 @@ const defaultTitles = {
   example: "Example",
 } as const;
 
-/**
- * AlertBox component for displaying various types of notifications and messages
- * with animations and icons
- * @param {AlertBoxProps} props - The component props
- * @returns {JSX.Element} The rendered AlertBox component
- */
 export const AlertBox = memo(function AlertBox({
   type,
   children,

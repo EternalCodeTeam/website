@@ -2,7 +2,7 @@
 
 import { Variants } from "framer-motion";
 
-// Shared spring config
+
 const sharedSpring = {
   type: "spring",
   stiffness: 100,
@@ -10,7 +10,7 @@ const sharedSpring = {
   mass: 0.8
 };
 
-// Fade in animation
+
 export const fadeIn: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -22,7 +22,7 @@ export const fadeIn: Variants = {
   }
 };
 
-// Fade in with slide up animation
+
 export const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
@@ -32,7 +32,7 @@ export const fadeInUp: Variants = {
   }
 };
 
-// Fade in with slide down animation
+
 export const fadeInDown: Variants = {
   hidden: { opacity: 0, y: -20 },
   visible: {
@@ -42,7 +42,7 @@ export const fadeInDown: Variants = {
   }
 };
 
-// Fade in with slide left animation
+
 export const fadeInLeft: Variants = {
   hidden: { opacity: 0, x: -20 },
   visible: {
@@ -52,7 +52,7 @@ export const fadeInLeft: Variants = {
   }
 };
 
-// Fade in with slide right animation
+
 export const fadeInRight: Variants = {
   hidden: { opacity: 0, x: 20 },
   visible: {
@@ -62,7 +62,7 @@ export const fadeInRight: Variants = {
   }
 };
 
-// Staggered children animation container
+
 export const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -75,7 +75,7 @@ export const staggerContainer: Variants = {
   }
 };
 
-// Scale animation for buttons and interactive elements
+
 const scaleSpring = {
   type: "spring",
   stiffness: 400,
@@ -94,7 +94,7 @@ export const scaleAnimation: Variants = {
   }
 };
 
-// Page transition animation
+
 export const pageTransition: Variants = {
   initial: { opacity: 0 },
   animate: {

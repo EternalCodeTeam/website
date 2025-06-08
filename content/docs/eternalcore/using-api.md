@@ -124,13 +124,13 @@ The User can then use the methods of the given classes to create their own use c
 ```java
 public class YourPlugin extends JavaPlugin {
 
-    private EternalCoreApi eternalCoreApi; // [!code focus]
-    private AfkService afkService; // [!code focus]
+    private EternalCoreApi eternalCoreApi;
+    private AfkService afkService;
 
     @Override
     public onEnable() {
-        this.eternalCoreApi = EternalCoreProvider.provide(); // [!code focus]
-        this.afkService = eternalCoreApi.getAfkService(); // [!code focus]
+        this.eternalCoreApi = EternalCoreProvider.provide();
+        this.afkService = eternalCoreApi.getAfkService();
 
     }
 }
@@ -162,13 +162,13 @@ The User can get other classes from `EternalCore` and use them in their own use 
 ```java
 public class YourPlugin extends JavaPlugin {
 
-    private EternalCoreApi eternalCoreApi; // [!code focus]
-    private CatboyService catboyService; // [!code focus]
+    private EternalCoreApi eternalCoreApi;
+    private CatboyService catboyService;
 
     @Override
     public onEnable() {
-        this.eternalCoreApi = EternalCoreProvider.provide(); // [!code focus]
-        this.catboyService = eternalCoreApi.getCatboyService(); // [!code focus]
+        this.eternalCoreApi = EternalCoreProvider.provide();
+        this.catboyService = eternalCoreApi.getCatboyService();
 
     }
 }
@@ -178,6 +178,6 @@ Using the instance of `CatboyService` the User is able to mark players as catboy
 
 ```java
 if (player.getName().equals("Rollczi")) {
-    catboyService.markAsCatboy(player, Cat.Type.BLACK); // [!code focus]
+    catboyService.markAsCatboy(player, Cat.Type.BLACK);
 }
 ```

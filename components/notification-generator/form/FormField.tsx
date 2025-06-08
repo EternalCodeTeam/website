@@ -36,10 +36,42 @@ export const FormField = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [isGradient, setIsGradient] = useState(false);
-  const [colors, setColors] = useState(["#000000"]);
+  const [colors, setColors] = useState<string[]>(["#000000"]);
   const [activeColorIndex, setActiveColorIndex] = useState(0);
 
+ 
+  const allowedTags = {
+    basic: {
+      pattern: /^<(b|i|u|st)><\/(b|i|u|st)>$/,
+      tags: ["<b></b>", "<i></i>", "<u></u>", "<st></st>"]
+    },
+    click: {
+      pattern: /^<click:(open_url|run_command|suggest_command):'[^']*'><\/click>$/,
+      tags: ["<click:open_url:'url'></click>", "<click:run_command:'/command'></click>", "<click:suggest_command:'/command'></click>"]
+    },
+    hover: {
+      pattern: /^<hover:show_text:'[^']*'><\/hover>$/,
+      tags: ["<hover:show_text:'text'></hover>"]
+    },
+    color: {
+      pattern: /^<(color|gradient):[^>]*><\/(color|gradient)>$/,
+      tags: ["<color:#000000></color>", "<gradient:#000000,#ffffff></gradient>"]
+    }
+  };
+
+  const isValidTag = (tag: string): boolean => {
+    return Object.values(allowedTags).some(category => 
+      category.pattern.test(tag) || category.tags.includes(tag)
+    );
+  };
+
   const insertTag = (tag: string) => {
+   
+    if (!isValidTag(tag)) {
+      console.warn(`Invalid tag format: ${tag}`);
+      return;
+    }
+
     const input = type === "textarea" ? textareaRef.current : inputRef.current;
     if (!input) return;
 
@@ -53,19 +85,19 @@ export const FormField = ({
     let newCursorPosition;
 
     if (start !== end) {
-      // Wrap selected text
+     
       const selectedText = value.substring(start, end);
       newValue = value.substring(0, start) + tag.replace("></", `>${selectedText}</`) + value.substring(end);
       newCursorPosition = start + tag.replace("></", `>${selectedText}</`).length;
     } else {
-      // Insert tag at cursor
+     
       newValue = value.substring(0, start) + tag + value.substring(end);
       newCursorPosition = start + tag.length;
     }
 
     onChange(name, newValue);
 
-    // Move cursor to the appropriate position after insertion
+   
     requestAnimationFrame(() => {
       if (input) {
         input.selectionStart = newCursorPosition;
@@ -117,6 +149,7 @@ export const FormField = ({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.1 }}
+        htmlFor={`formfield-${name}`}
       >
         {label}
       </motion.label>
@@ -227,11 +260,14 @@ export const FormField = ({
           transition={{ duration: 0.1, delay: 0.05 }}
           whileFocus={{ scale: 1.01 }}
           ref={textareaRef}
+          id={`formfield-${name}`}
+          aria-describedby={error ? `error-${name}` : helpText ? `help-${name}` : undefined}
+          aria-invalid={error ? "true" : "false"}
         />
       ) : (
         <motion.input
-          type="text"
           className={inputClasses}
+          type={type}
           value={value}
           onChange={(e) => onChange(name, e.target.value)}
           placeholder={placeholder}
@@ -240,6 +276,9 @@ export const FormField = ({
           transition={{ duration: 0.1, delay: 0.05 }}
           whileFocus={{ scale: 1.01 }}
           ref={inputRef}
+          id={`formfield-${name}`}
+          aria-describedby={error ? `error-${name}` : helpText ? `help-${name}` : undefined}
+          aria-invalid={error ? "true" : "false"}
         />
       )}
       <div className="h-4 mt-0.5">
@@ -250,6 +289,8 @@ export const FormField = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.1 }}
+            id={`error-${name}`}
+            role="alert"
           >
             {error}
           </motion.p>
@@ -259,6 +300,7 @@ export const FormField = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.1, delay: 0.1 }}
+            id={`help-${name}`}
           >
             {helpText}
           </motion.p>

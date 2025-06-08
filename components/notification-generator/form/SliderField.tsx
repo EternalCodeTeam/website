@@ -86,7 +86,6 @@ export const SliderField = ({
   );
 };
 
-// Custom dropdown component that can be used in the future
 export const CustomDropdown = ({
   label,
   options,

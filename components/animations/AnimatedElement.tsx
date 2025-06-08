@@ -68,7 +68,7 @@ const AnimatedElement: React.FC<AnimatedElementProps> = ({
     ...filteredProps,
   };
 
-  // Use a type-safe approach with conditional rendering
+ 
   switch (as) {
     case "div":
       return <motion.div {...commonProps}>{children}</motion.div>;
@@ -109,7 +109,7 @@ const AnimatedElement: React.FC<AnimatedElementProps> = ({
     case "li":
       return <motion.li {...commonProps}>{children}</motion.li>;
     default:
-      // Default to div if the element type is not supported
+     
       return <motion.div {...commonProps}>{children}</motion.div>;
   }
 };

@@ -16,6 +16,44 @@ interface SearchResult {
   excerpt: string;
 }
 
+const isValidSearchResult = (data: unknown): data is SearchResult => {
+  if (!data || typeof data !== 'object') return false;
+  
+  const result = data as Record<string, unknown>;
+  return (
+    typeof result.title === 'string' &&
+    typeof result.path === 'string' &&
+    typeof result.excerpt === 'string' &&
+    result.title.length > 0 &&
+    result.path.length > 0
+  );
+};
+
+const validateSearchResults = (data: unknown): SearchResult[] => {
+  if (!Array.isArray(data)) {
+    console.error('Search index data is not an array');
+    return [];
+  }
+
+  const validResults: SearchResult[] = [];
+  const invalidResults: unknown[] = [];
+
+  data.forEach((item, index) => {
+    if (isValidSearchResult(item)) {
+      validResults.push(item);
+    } else {
+      invalidResults.push(item);
+      console.warn(`Invalid search result at index ${index}:`, item);
+    }
+  });
+
+  if (invalidResults.length > 0) {
+    console.warn(`Found ${invalidResults.length} invalid search results out of ${data.length} total results`);
+  }
+
+  return validResults;
+};
+
 interface DocSearchProps {
   className?: string;
   placeholder?: string;
@@ -99,7 +137,14 @@ const DocSearch = memo(function DocSearch({
           throw new Error(`Failed to fetch search index: ${response.status}`);
         }
         
-        const searchData = await response.json() as SearchResult[];
+        const rawData = await response.json();
+        const searchData = validateSearchResults(rawData);
+        
+        if (searchData.length === 0) {
+          console.warn('No valid search results found in the index');
+          return;
+        }
+        
         setSearchIndex(searchData);
         
         const db = await create({
@@ -110,13 +155,13 @@ const DocSearch = memo(function DocSearch({
           }
         });
         
-        if (searchData.length > 0) {
-          await insertMultiple(db, searchData);
-        }
-        
+        await insertMultiple(db, searchData);
         setOramaDb(db);
       } catch (error) {
         console.error("Failed to initialize search:", error);
+       
+        setSearchIndex([]);
+        setOramaDb(null);
       }
     };
     

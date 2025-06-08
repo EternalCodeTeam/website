@@ -64,7 +64,12 @@ const sidebarFadeInUp = {
 
 const DocItemComponent: React.FC<DocItemProps> = React.memo(
   ({ item, level, isActive, onItemClick, index }) => {
+    const pathname = usePathname();
     const hasChildren = item.children && item.children.length > 0;
+
+    const isPathActive = useCallback((path: string) => {
+      return pathname === path || pathname.startsWith(`${path}/`);
+    }, [pathname]);
 
     const handleClick = useCallback(() => {
       onItemClick?.(item.path);
@@ -106,7 +111,7 @@ const DocItemComponent: React.FC<DocItemProps> = React.memo(
                 key={child.path}
                 item={child}
                 level={level + 1}
-                isActive={false}
+                isActive={isPathActive(child.path)}
                 onItemClick={onItemClick}
                 index={childIndex}
               />

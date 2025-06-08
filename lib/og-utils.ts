@@ -1,10 +1,4 @@
-/**
- * Generates an Open Graph image URL with the given parameters
- * @param title The title to display on the OG image
- * @param subtitle Optional subtitle to display on the OG image
- * @param image Optional image URL to display on the OG image
- * @returns The URL to the generated OG image
- */
+
 export function generateOgImageUrl({
   title,
   subtitle,

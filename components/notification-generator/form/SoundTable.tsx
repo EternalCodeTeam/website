@@ -1,13 +1,21 @@
 "use client";
 
-import { useState, useEffect, useRef, useMemo } from "react";
-import { motion } from "framer-motion";
-import { Sound } from "./SoundDropdown";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { create, insertMultiple, search } from '@orama/orama';
 import { Button } from "@/components/ui/button";
 import CloseIcon from "@/components/icons/close";
 import { ArrowBack } from "@/components/icons/arrow-back";
 import { ArrowForward } from "@/components/icons/arrow-forward";
+import { Play } from "@/components/icons/play";
+import { Stop } from "@/components/icons/stop";
+import { motion } from "framer-motion";
+
+export interface Sound {
+  id: string;
+  name: string;
+  path: string;
+  category?: string;
+}
 
 interface SoundTableProps {
   sounds: Sound[];
@@ -17,7 +25,18 @@ interface SoundTableProps {
   isPlaying: boolean;
   onStopSound: () => void;
   loading: boolean;
+  currentlyPlayingId: string | null;
 }
+
+interface SoundSchema {
+  id: string;
+  name: string;
+  path: string;
+  category: string;
+}
+
+const ITEMS_PER_PAGE = 10;
+const SEARCH_DEBOUNCE_MS = 300;
 
 export function SoundTable({
   sounds,
@@ -26,20 +45,22 @@ export function SoundTable({
   onPlaySound,
   isPlaying,
   onStopSound,
-  loading
+  loading,
+  currentlyPlayingId
 }: SoundTableProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [sortField, setSortField] = useState<"name" | "category">("name");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
-  const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(null);
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [filteredSounds, setFilteredSounds] = useState<Sound[]>(sounds);
   const [searchLoading, setSearchLoading] = useState(false);
-  const searchInputRef = useRef<HTMLInputElement>(null);
-  const itemsPerPage = 10;
   const [oramaDb, setOramaDb] = useState<any>(null);
+  
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+ 
   useEffect(() => {
     const initOrama = async () => {
       const db = await create({
@@ -48,6 +69,13 @@ export function SoundTable({
           name: 'string',
           path: 'string',
           category: 'string'
+        },
+        components: {
+          tokenizer: {
+            language: 'english',
+            stemming: true,
+            stopWords: false
+          }
         }
       });
 
@@ -61,30 +89,29 @@ export function SoundTable({
     initOrama();
   }, [sounds]);
 
+ 
   useEffect(() => {
-    if (searchInputRef.current) {
-      searchInputRef.current.focus();
-    }
+    searchInputRef.current?.focus();
   }, []);
 
+ 
   useEffect(() => {
-    if (searchTimeout) {
-      clearTimeout(searchTimeout);
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
     }
     
-    const timeout = setTimeout(() => {
+    searchTimeoutRef.current = setTimeout(() => {
       setDebouncedQuery(searchQuery);
-    }, 300);
-    
-    setSearchTimeout(timeout);
+    }, SEARCH_DEBOUNCE_MS);
     
     return () => {
-      if (searchTimeout) {
-        clearTimeout(searchTimeout);
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
       }
     };
   }, [searchQuery]);
 
+ 
   useEffect(() => {
     const performSearch = async () => {
       if (!debouncedQuery.trim() || !oramaDb) {
@@ -98,12 +125,17 @@ export function SoundTable({
         const results = await search(oramaDb, {
           term: debouncedQuery,
           properties: ['name', 'id', 'category'],
-          limit: 100
+          limit: 100,
+          boost: {
+            name: 2,
+            category: 1,
+            id: 0.5
+          }
         });
         
-        const matchedSounds = results.hits.map(hit => {
-          return sounds.find(sound => sound.id === hit.document.id);
-        }).filter(Boolean) as Sound[];
+        const matchedSounds = results.hits
+          .map(hit => sounds.find(sound => sound.id === (hit.document as SoundSchema).id))
+          .filter(Boolean) as Sound[];
         
         setFilteredSounds(matchedSounds);
       } catch (error) {
@@ -117,6 +149,7 @@ export function SoundTable({
     performSearch();
   }, [debouncedQuery, oramaDb, sounds]);
 
+ 
   const sortedSounds = useMemo(() => {
     return [...filteredSounds].sort((a, b) => {
       let comparison = 0;
@@ -133,42 +166,91 @@ export function SoundTable({
     });
   }, [filteredSounds, sortField, sortDirection]);
 
+ 
   const paginatedSounds = useMemo(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    return sortedSounds.slice(startIndex, startIndex + itemsPerPage);
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    return sortedSounds.slice(startIndex, startIndex + ITEMS_PER_PAGE);
   }, [sortedSounds, currentPage]);
 
-  const totalPages = Math.ceil(sortedSounds.length / itemsPerPage);
+  const totalPages = Math.ceil(sortedSounds.length / ITEMS_PER_PAGE);
 
-  const handleSort = (field: "name" | "category") => {
-    if (sortField === field) {
-      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
-    } else {
-      setSortField(field);
-      setSortDirection("asc");
-    }
-  };
+ 
+  const handleSort = useCallback((field: "name" | "category") => {
+    setSortField(prevField => {
+      if (prevField === field) {
+        setSortDirection(prevDir => prevDir === "asc" ? "desc" : "asc");
+        return prevField;
+      } else {
+        setSortDirection("asc");
+        return field;
+      }
+    });
+  }, []);
 
-  const handlePageChange = (page: number) => {
+  const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
-  };
+  }, []);
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
     setCurrentPage(1);
-  };
+  }, []);
 
-  const handleSelectSound = (soundId: string) => {
+  const handleClearSearch = useCallback(() => {
+    setSearchQuery("");
+    setCurrentPage(1);
+  }, []);
+
+  const handleSelectSound = useCallback((soundId: string) => {
     onSelectSound(soundId);
-  };
+  }, [onSelectSound]);
 
-  const handlePlayStopSound = (sound: Sound) => {
-    if (isPlaying && selectedSound?.id === sound.id) {
+  const handlePlayStopSound = useCallback((sound: Sound, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (isPlaying && currentlyPlayingId === sound.id) {
       onStopSound();
     } else {
       onPlaySound(sound);
     }
-  };
+  }, [isPlaying, currentlyPlayingId, onStopSound, onPlaySound]);
+
+ 
+  const paginationButtons = useMemo(() => {
+    const buttons = [];
+    const maxVisiblePages = 5;
+    
+    let startPage = 1;
+    let endPage = Math.min(maxVisiblePages, totalPages);
+    
+    if (totalPages > maxVisiblePages) {
+      if (currentPage <= 3) {
+        startPage = 1;
+        endPage = maxVisiblePages;
+      } else if (currentPage >= totalPages - 2) {
+        startPage = totalPages - maxVisiblePages + 1;
+        endPage = totalPages;
+      } else {
+        startPage = currentPage - 2;
+        endPage = currentPage + 2;
+      }
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+      buttons.push(
+        <Button
+          key={i}
+          variant={currentPage === i ? "primary" : "outline"}
+          size="sm"
+          onClick={() => handlePageChange(i)}
+          className="h-8 w-8 p-0"
+        >
+          {i}
+        </Button>
+      );
+    }
+    
+    return buttons;
+  }, [currentPage, totalPages, handlePageChange]);
 
   return (
     <div className="w-full">
@@ -187,7 +269,7 @@ export function SoundTable({
               variant="ghost"
               size="sm"
               className="absolute right-2 top-1/2 h-6 w-6 -translate-y-1/2"
-              onClick={() => setSearchQuery("")}
+              onClick={handleClearSearch}
             >
               <CloseIcon className="h-4 w-4" />
             </Button>
@@ -211,20 +293,19 @@ export function SoundTable({
               >
                 Category {sortField === "category" && (sortDirection === "asc" ? "↑" : "↓")}
               </th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Path</th>
               <th className="px-4 py-2 text-center text-sm font-medium text-gray-500 dark:text-gray-400">Actions</th>
             </tr>
           </thead>
           <tbody>
             {loading || searchLoading ? (
               <tr>
-                <td colSpan={4} className="px-4 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
+                <td colSpan={3} className="px-4 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
                   Loading sounds...
                 </td>
               </tr>
             ) : paginatedSounds.length === 0 ? (
               <tr>
-                <td colSpan={4} className="px-4 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
+                <td colSpan={3} className="px-4 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
                   No sounds found
                 </td>
               </tr>
@@ -234,7 +315,8 @@ export function SoundTable({
                   key={sound.id} 
                   className={`border-b border-gray-200 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 ${
                     selectedSound?.id === sound.id ? "bg-blue-50 dark:bg-blue-900/20" : ""
-                  }`}
+                  } cursor-pointer`}
+                  onClick={() => handleSelectSound(sound.id)}
                 >
                   <td className="px-4 py-2 text-sm">{sound.name}</td>
                   <td className="px-4 py-2 text-sm">
@@ -246,25 +328,22 @@ export function SoundTable({
                       <span className="text-gray-400 dark:text-gray-500">-</span>
                     )}
                   </td>
-                  <td className="px-4 py-2 text-sm text-gray-500 dark:text-gray-400">{sound.path}</td>
                   <td className="px-4 py-2 text-center">
-                    <div className="flex items-center justify-center space-x-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleSelectSound(sound.id)}
-                        className="h-8 px-2 text-xs"
+                    <div className="flex items-center justify-center">
+                      <motion.button
+                        className="flex items-center justify-center bg-transparent text-blue-600 hover:bg-blue-200 dark:bg-transparent dark:text-blue-400 dark:hover:bg-blue-900 rounded-full transition-colors duration-200 w-10 h-10"
+                        onClick={(e) => handlePlayStopSound(sound, e)}
+                        whileHover={{ scale: 1.08 }}
+                        whileTap={{ scale: 0.96 }}
+                        disabled={loading}
+                        aria-label={currentlyPlayingId === sound.id ? "Stop sound" : "Play sound"}
                       >
-                        Select
-                      </Button>
-                      <Button
-                        variant={isPlaying && selectedSound?.id === sound.id ? "danger" : "primary"}
-                        size="sm"
-                        onClick={() => handlePlayStopSound(sound)}
-                        className="h-8 px-2 text-xs"
-                      >
-                        {isPlaying && selectedSound?.id === sound.id ? "Stop" : "Play"}
-                      </Button>
+                        {currentlyPlayingId === sound.id ? (
+                          <Stop className="h-5 w-5" />
+                        ) : (
+                          <Play className="h-5 w-5" />
+                        )}
+                      </motion.button>
                     </div>
                   </td>
                 </tr>
@@ -277,7 +356,7 @@ export function SoundTable({
       {totalPages > 1 && (
         <div className="mt-4 flex items-center justify-between">
           <div className="text-sm text-gray-500 dark:text-gray-400">
-            Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, sortedSounds.length)} of {sortedSounds.length} sounds
+            Showing {((currentPage - 1) * ITEMS_PER_PAGE) + 1} to {Math.min(currentPage * ITEMS_PER_PAGE, sortedSounds.length)} of {sortedSounds.length} sounds
           </div>
           <div className="flex space-x-1">
             <Button
@@ -289,30 +368,7 @@ export function SoundTable({
             >
               <ArrowBack className="h-4 w-4" />
             </Button>
-            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-              let pageNum;
-              if (totalPages <= 5) {
-                pageNum = i + 1;
-              } else if (currentPage <= 3) {
-                pageNum = i + 1;
-              } else if (currentPage >= totalPages - 2) {
-                pageNum = totalPages - 4 + i;
-              } else {
-                pageNum = currentPage - 2 + i;
-              }
-              
-              return (
-                <Button
-                  key={pageNum}
-                  variant={currentPage === pageNum ? "primary" : "outline"}
-                  size="sm"
-                  onClick={() => handlePageChange(pageNum)}
-                  className="h-8 w-8 p-0"
-                >
-                  {pageNum}
-                </Button>
-              );
-            })}
+            {paginationButtons}
             <Button
               variant="outline"
               size="sm"

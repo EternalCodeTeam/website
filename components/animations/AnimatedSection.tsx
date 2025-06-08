@@ -57,7 +57,7 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
 
   const animationVariant = getAnimationVariant();
 
-  // Filter out animationType from props to prevent it from being passed to DOM elements
+ 
   const { animationType: _, ...filteredProps } = props;
 
   const memoizedChildren = useMemo(() => {

@@ -1,13 +1,9 @@
 import React, { memo } from "react";
 
 interface CodeBlockProps extends React.ComponentProps<"pre"> {
-  /**
-   * The content to be displayed in the code block
-   */
+ 
   children: React.ReactNode;
-  /**
-   * Optional language identifier for syntax highlighting
-   */
+ 
   language?: string;
 }
 

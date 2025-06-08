@@ -65,7 +65,7 @@ export function NotificationForm({
     setErrors({});
   }, [setNotification]);
 
-  // Memoize tab content to prevent unnecessary re-renders
+ 
   const tabContent = useMemo(() => {
     switch (activeTab) {
       case "chat":
@@ -83,7 +83,7 @@ export function NotificationForm({
     }
   }, [activeTab, notification, handleChange, errors]);
 
-  // Memoize tabs to prevent unnecessary re-renders
+ 
   const tabs = useMemo(() => {
     const tabItems: TabType[] = ["chat", "actionbar", "title", "sound", "advanced"];
     return tabItems.map((tabName) => (

@@ -30,7 +30,7 @@ export const MinecraftText: FC<MinecraftTextProps> = ({ text }) => {
 
 function sanitizeInput(input: string): string {
   if (!input) return '';
-  return input.replace(/\x00|\u0000|[\r\v\u2028\u2029]/g, '');
+  return input.replace(/\x00|\u0000|[\r\n\v\u2028\u2029]/g, '');
 }
 
 function convertLegacyToMini(text: string): string {

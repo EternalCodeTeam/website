@@ -14,7 +14,7 @@ export function MinecraftPreview({ notification }: MinecraftPreviewProps) {
   const { showTitle, titleOpacity } = useTitleAnimation(notification);
   const { playSound, setPlaySound } = useSoundEffect(notification.sound);
 
-  // Memoize components to prevent unnecessary re-renders
+ 
   const chatComponent = useMemo(() => {
     if (!notification.chat) return null;
     return (
