@@ -19,6 +19,7 @@ export const ChatTab = ({ notification, onChange }: ChatTabProps) => (
       placeholder="Enter your chat message (use multiple lines for multiline chat)"
       type="textarea"
       helpText="Use multiple lines to create a multiline chat message."
+      editorButtonSet="all"
     />
     <MiniMessageInfoBox />
   </div>

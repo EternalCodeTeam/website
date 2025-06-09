@@ -17,6 +17,7 @@ export const ActionBarTab = ({ notification, onChange }: ActionBarTabProps) => (
       value={notification.actionbar}
       onChange={onChange}
       placeholder="Enter your action bar message"
+      editorButtonSet="basic"
     />
     <MiniMessageInfoBox />
   </div>

@@ -18,6 +18,7 @@ export const TitleTab = ({ notification, onChange, errors }: TitleTabProps) => (
       value={notification.title}
       onChange={onChange}
       placeholder="Enter your title"
+      editorButtonSet="basic"
     />
 
     <FormField
@@ -26,6 +27,7 @@ export const TitleTab = ({ notification, onChange, errors }: TitleTabProps) => (
       value={notification.subtitle}
       onChange={onChange}
       placeholder="Enter your subtitle"
+      editorButtonSet="basic"
     />
 
     <div className="mb-4 grid grid-cols-3 gap-4">
