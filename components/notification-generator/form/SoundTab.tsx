@@ -48,6 +48,7 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
     const [selectedCategory, setSelectedCategory] = useState<string>("");
     const [selectedSoundType, setSelectedSoundType] = useState<string>("");
     const [currentAudioPlayingId, setCurrentAudioPlayingId] = useState<string | null>(null);
+    const [playbackError, setPlaybackError] = useState<string | null>(null);
 
     const selectedSound = useMemo(() => 
       sounds.find((s) => s.id === notification.sound),
@@ -167,6 +168,7 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
         audio.pause();
         audio.currentTime = 0;
       }
+      setPlaybackError(null);
       
       const newAudio = new Audio(`${SOUND_BASE_URL}${sound.path}.ogg`);
       console.log("Attempting to play sound from URL:", newAudio.src);
@@ -217,6 +219,7 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
         console.error("Error playing sound:", e);
         setPlaying(false);
         setCurrentAudioPlayingId(null);
+        setPlaybackError("Failed to play sound. The file might be missing or corrupted.");
       };
       
       setAudio(newAudio);
@@ -229,6 +232,7 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
         console.error("Error playing sound promise:", err);
         setPlaying(false);
         setCurrentAudioPlayingId(null);
+        setPlaybackError("Failed to play sound. Please try again.");
       });
     }, [notification.volume, notification.pitch, notification.sound]);
     
@@ -238,11 +242,13 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
         audio.currentTime = 0;
         setPlaying(false);
         setCurrentAudioPlayingId(null);
+        setPlaybackError(null);
       }
     }, [audio]);
     
     const handleSelectSound = useCallback((soundId: string) => {
       onChange("sound", soundId);
+      setPlaybackError(null);
     }, [onChange]);
     
     const handleCategoryChange = useCallback((category: string) => {
@@ -290,6 +296,7 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
           onStopSound={handleStopSound}
           loading={loading}
           currentlyPlayingId={currentAudioPlayingId}
+          playbackError={playbackError}
         />
 
         <SoundInfoBox />
