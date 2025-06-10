@@ -130,7 +130,7 @@ const DocItemComponent: React.FC<DocItemProps> = React.memo(
           href={item.path}
           onClick={handleClick}
           className={cn(
-            "block rounded-lg py-1 pl-4 text-sm font-medium transition-colors",
+            "relative block rounded-lg py-1 pl-4 pr-8 text-sm font-medium transition-colors",
             isActive
               ? "bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white"
               : "text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
@@ -138,18 +138,11 @@ const DocItemComponent: React.FC<DocItemProps> = React.memo(
           aria-current={isActive ? "page" : undefined}
         >
           <motion.span
-            className="flex items-center"
+            className="flex items-start w-full"
             whileHover={{ x: 3 }}
             transition={{ type: "spring", stiffness: 400, damping: 14 }}
           >
-            {item.title}
-            {isActive && (
-              <motion.div
-                layoutId="activeSidebarItem"
-                className="ml-2 h-1.5 w-1.5 rounded-full bg-blue-500"
-                transition={{ type: "spring", stiffness: 500, damping: 30 }}
-              />
-            )}
+            <span className="flex-1 block">{item.title}</span>
           </motion.span>
         </Link>
       </motion.div>

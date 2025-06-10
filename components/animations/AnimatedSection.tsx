@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { fadeIn, fadeInUp, fadeInDown, fadeInLeft, fadeInRight } from "./AnimationUtils";
@@ -34,11 +34,20 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
   ...props
 }) => {
   const pathname = usePathname();
+  const [hasAnimated, setHasAnimated] = useState(false);
+  
   const { ref, inView } = useInView({
     triggerOnce: preserveAnimation ? true : triggerOnce,
     threshold,
     rootMargin,
   });
+
+  // Track if animation has been triggered
+  useEffect(() => {
+    if (inView && preserveAnimation) {
+      setHasAnimated(true);
+    }
+  }, [inView, preserveAnimation]);
 
   const getAnimationVariant = () => {
     switch (animationType) {
@@ -57,12 +66,12 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
 
   const animationVariant = getAnimationVariant();
 
- 
   const { animationType: _, ...filteredProps } = props;
 
+  // Memoize children to prevent re-renders when pathname changes
   const memoizedChildren = useMemo(() => {
     return children;
-  }, [preserveAnimation ? pathname : null, children]);
+  }, [children]);
 
   return (
     <motion.section
@@ -71,12 +80,12 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
       aria-labelledby={ariaLabelledby}
       className={className}
       variants={animationVariant}
-      initial="hidden"
+      initial={preserveAnimation && hasAnimated ? "visible" : "hidden"}
       animate={inView ? "visible" : "hidden"}
       transition={{ delay }}
       {...filteredProps}
     >
-      {preserveAnimation ? memoizedChildren : children}
+      {memoizedChildren}
     </motion.section>
   );
 };

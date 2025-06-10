@@ -1,22 +1,33 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 interface AnimatedLayoutProps {
   children: React.ReactNode;
 }
 
 const AnimatedLayout: React.FC<AnimatedLayoutProps> = ({ children }) => {
+  const pathname = usePathname();
+  const [hasAnimated, setHasAnimated] = useState(false);
+  
+  // Track if animation has been triggered
+  useEffect(() => {
+    if (!hasAnimated) {
+      setHasAnimated(true);
+    }
+  }, [hasAnimated]);
+
   return (
     <motion.div 
       className="mx-auto min-h-[calc(100vh-7rem)] max-w-screen-xl px-4 py-12 pt-32"
-      initial={{ opacity: 0 }}
+      initial={hasAnimated ? { opacity: 1 } : { opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ 
           type: "spring", 

@@ -50,14 +50,14 @@ export default function DocsLayout({
       className={`${poppins.className} min-h-screen bg-[#eff1f5] transition-colors duration-200 dark:bg-[#0d1117]`}
     >
       <Navbar />
-      <AnimatedLayout>
+      <AnimatedLayout key="docs-layout">
         <div className="flex flex-col gap-8 lg:flex-row">
           <aside className="w-full flex-shrink-0 lg:w-64">
             <div className="sticky top-32 z-20 flex flex-col gap-4">
-              <AnimatedSection preserveAnimation={true}>
+              <AnimatedSection preserveAnimation={true} key="doc-search">
                 <DocSearch />
               </AnimatedSection>
-              <AnimatedSection animationType="fadeLeft" preserveAnimation={true}>
+              <AnimatedSection animationType="fadeLeft" preserveAnimation={true} key="doc-sidebar">
                 <DocSidebar />
               </AnimatedSection>
             </div>
