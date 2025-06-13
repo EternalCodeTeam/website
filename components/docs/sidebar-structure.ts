@@ -19,7 +19,6 @@ export const docsStructure: DocItem[] = [
         title: "Features, Commands and Permissions",
         path: "/docs/eternalcore/features",
       },
-      { title: "Notifications", path: "/docs/eternalcore/notifications" },
       { title: "Homes", path: "/docs/eternalcore/homes" },
       { title: "Placeholders", path: "/docs/eternalcore/placeholders" },
       { title: "Developer API", path: "/docs/eternalcore/using-api" },
@@ -52,5 +51,10 @@ export const docsStructure: DocItem[] = [
     title: "Contribute",
     path: "/docs/contribute",
     children: [{ title: "How to Contribute", path: "/docs/contribute/guide" }],
+  },
+  {
+    title: "Notifications",
+    path: "/docs/notification",
+    children: [{ title: "How to use Notifications?", path: "/docs/notification/notifications" }],
   },
 ];
