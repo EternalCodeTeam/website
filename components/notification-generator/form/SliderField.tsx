@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
 
 interface SliderFieldProps {
   label: string;
@@ -121,25 +122,28 @@ export const CustomDropdown = ({
         {label}
       </label>
       <div className="relative">
-        <button
+        <Button
           type="button"
-          className="w-full flex items-center justify-between rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+          variant="outline"
+          size="sm"
+          className="w-full justify-between"
           onClick={() => setIsOpen(!isOpen)}
           disabled={disabled}
           aria-expanded={isOpen}
           aria-haspopup="listbox"
+          rightIcon={
+            <motion.span
+              animate={{ rotate: isOpen ? 180 : 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </motion.span>
+          }
         >
-          <span>{selectedOption?.label || "Select an option"}</span>
-          <motion.span
-            animate={{ rotate: isOpen ? 180 : 0 }}
-            transition={{ duration: 0.2 }}
-            className="ml-2"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </motion.span>
-        </button>
+          {selectedOption?.label || "Select an option"}
+        </Button>
         
         <AnimatePresence>
           {isOpen && (

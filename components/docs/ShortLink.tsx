@@ -3,6 +3,7 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import { Link, Copy, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 interface ShortLinkProps {
   path: string;
@@ -53,31 +54,18 @@ export const ShortLink: React.FC<ShortLinkProps> = ({
   return (
     <div className={cn("flex items-center space-x-2", className)}>
       <Link className="h-4 w-4 text-gray-400" aria-hidden="true" />
-      <button
+      <Button
         onClick={handleCopy}
         disabled={isLoading}
+        variant="secondary"
+        size="xs"
+        isLoading={isLoading}
+        leftIcon={copied ? <Check className="h-3 w-3" aria-hidden="true" /> : <Copy className="h-3 w-3" aria-hidden="true" />}
         aria-label={copied ? "Link copied" : "Copy link"}
-        className={cn(
-          "flex items-center space-x-1 rounded-md px-2 py-1 text-xs font-medium transition-colors",
-          "bg-gray-100 text-gray-600 hover:bg-gray-200",
-          "dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700",
-          "disabled:cursor-not-allowed disabled:opacity-50"
-        )}
+        className="text-xs"
       >
-        {isLoading ? (
-          <div className="h-3 w-3 animate-spin rounded-full border-2 border-gray-600 border-t-transparent" />
-        ) : copied ? (
-          <>
-            <Check className="h-3 w-3" aria-hidden="true" />
-            <span>Copied!</span>
-          </>
-        ) : (
-          <>
-            <Copy className="h-3 w-3" aria-hidden="true" />
-            <span>Copy link</span>
-          </>
-        )}
-      </button>
+        {copied ? "Copied!" : "Copy link"}
+      </Button>
     </div>
   );
 };

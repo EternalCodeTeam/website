@@ -10,6 +10,7 @@ import Hamburger from "../icons/hamburger";
 import NewWindow from "../icons/new-window";
 import { AnimatePresence, motion } from "framer-motion";
 import { ToolsDropdown } from "./ToolsDropdown";
+import { Button } from "@/components/ui/button";
 
 interface NavLink {
   href: string;
@@ -123,8 +124,10 @@ export default function Navbar() {
         <div className="flex items-center justify-center md:order-2">
           <ThemeSwitchButton />
 
-          <button
+          <Button
             ref={menuButtonRef}
+            variant="ghost"
+            size="sm"
             className="ml-1 inline-flex items-center p-2 text-sm dark:text-white md:hidden"
             type="button"
             aria-label="Toggle menu"
@@ -143,7 +146,7 @@ export default function Navbar() {
                 <Hamburger className="h-5 w-5" aria-hidden="true" />
               )}
             </motion.div>
-          </button>
+          </Button>
         </div>
 
         <AnimatePresence>
