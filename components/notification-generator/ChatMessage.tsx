@@ -36,12 +36,12 @@ const ChatMessage = React.memo(({ message }: ChatMessageProps) => {
           {message.split("\n").map((line, index) => (
             <div
               key={index}
-              className="font-minecraft px-4 text-white drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]"
+              className="font-minecraft px-4 drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]"
               style={{
                 display: 'block',
                 minHeight: 32,
                 lineHeight: '32px',
-                whiteSpace: 'pre-line',
+                whiteSpace: 'pre-wrap !important',
                 wordBreak: 'break-word',
               }}
             >
@@ -51,13 +51,13 @@ const ChatMessage = React.memo(({ message }: ChatMessageProps) => {
         </div>
       ) : (
         <div
-          className="font-minecraft px-4 text-white drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]"
+          className="font-minecraft px-4 drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]"
           style={{
             position: 'relative',
             zIndex: 1,
             minHeight: 32,
             lineHeight: '32px',
-            whiteSpace: 'pre-line',
+            whiteSpace: 'pre-wrap !important',
             wordBreak: 'break-word',
           }}
         >

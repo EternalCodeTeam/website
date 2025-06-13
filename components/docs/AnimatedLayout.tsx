@@ -12,7 +12,7 @@ const AnimatedLayout: React.FC<AnimatedLayoutProps> = ({ children }) => {
   const pathname = usePathname();
   const [hasAnimated, setHasAnimated] = useState(false);
   
-  // Track if animation has been triggered
+ 
   useEffect(() => {
     if (!hasAnimated) {
       setHasAnimated(true);

@@ -27,7 +27,6 @@ const ActionBar = React.memo(({ message }: ActionBarProps) => {
       <span
         className="font-minecraft"
         style={{
-          color: "#fff",
           fontSize: "1.5rem",
           textShadow:
             "2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000",
@@ -40,6 +39,7 @@ const ActionBar = React.memo(({ message }: ActionBarProps) => {
           background: "none",
           border: "none",
           boxShadow: "none",
+          whiteSpace: 'pre-wrap !important',
         }}
       >
         <MinecraftText text={message} />

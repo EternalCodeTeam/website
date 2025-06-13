@@ -42,7 +42,7 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
     rootMargin,
   });
 
-  // Track if animation has been triggered
+ 
   useEffect(() => {
     if (inView && preserveAnimation) {
       setHasAnimated(true);
@@ -68,7 +68,7 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
 
   const { animationType: _, ...filteredProps } = props;
 
-  // Memoize children to prevent re-renders when pathname changes
+ 
   const memoizedChildren = useMemo(() => {
     return children;
   }, [children]);

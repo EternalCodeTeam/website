@@ -55,7 +55,6 @@ const AnimatedContainer: React.FC<AnimatedContainerProps> = ({
     }
   };
 
-  // Create a mapping of valid HTML elements to their motion components
   const motionComponents = {
     div: motion.div,
     section: motion.section,
@@ -78,10 +77,8 @@ const AnimatedContainer: React.FC<AnimatedContainerProps> = ({
     li: motion.li
   };
 
-  // Get the appropriate motion component based on the 'as' prop
   const MotionComponent = motionComponents[as as keyof typeof motionComponents] || motion.div;
 
-  // Render the motion component with common props
   return (
     <MotionComponent
       ref={ref}

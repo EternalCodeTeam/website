@@ -2,10 +2,15 @@
 
 import { motion } from "framer-motion";
 import { FieldType } from "../types";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Bold, Italic, Underline, Strikethrough, Link, Terminal, MessageSquare, Eye, Palette, Trash2, Plus, X } from "lucide-react";
 import { HexColorPicker } from "react-colorful";
+
+type TagCategory = {
+  pattern: RegExp;
+  tags: string[];
+};
 
 interface FormFieldProps {
   label: string;
@@ -48,6 +53,25 @@ export const FormField = ({
     strikethrough: false
   });
 
+  const minecraftColors = useMemo(() => [
+    { name: "Black", hex: "#000000" },
+    { name: "Dark Blue", hex: "#0000AA" },
+    { name: "Dark Green", hex: "#00AA00" },
+    { name: "Dark Aqua", hex: "#00AAAA" },
+    { name: "Dark Red", hex: "#AA0000" },
+    { name: "Dark Purple", hex: "#AA00AA" },
+    { name: "Gold", hex: "#FFAA00" },
+    { name: "Gray", hex: "#AAAAAA" },
+    { name: "Dark Gray", hex: "#555555" },
+    { name: "Blue", hex: "#5555FF" },
+    { name: "Green", hex: "#55FF55" },
+    { name: "Aqua", hex: "#55FFFF" },
+    { name: "Red", hex: "#FF5555" },
+    { name: "Light Purple", hex: "#FF55FF" },
+    { name: "Yellow", hex: "#FFFF55" },
+    { name: "White", hex: "#FFFFFF" },
+  ], []);
+
   useEffect(() => {
     if (isGradient && colors.length > 0) {
       const gradientString = `linear-gradient(to right, ${colors.join(", ")})`;
@@ -55,7 +79,7 @@ export const FormField = ({
     }
   }, [isGradient, colors]);
 
-  const allowedTags = {
+  const allowedTags: Record<string, TagCategory> = {
     basic: {
       pattern: /^<(b|i|u|st)><\/(b|i|u|st)>$/,
       tags: ["<b></b>", "<i></i>", "<u></u>", "<st></st>"]
@@ -71,11 +95,15 @@ export const FormField = ({
     color: {
       pattern: /^<(color|gradient):[^>]*><\/(color|gradient)>$/,
       tags: ["<color:#000000></color>", "<gradient:#000000,#ffffff></gradient>"]
+    },
+    minecraftColor: {
+      pattern: /^<(black|dark_blue|dark_green|dark_aqua|dark_red|dark_purple|gold|gray|dark_gray|blue|green|aqua|red|light_purple|yellow|white)>$/,
+      tags: []
     }
   };
 
   const isValidTag = (tag: string): boolean => {
-    return Object.values(allowedTags).some(category => 
+    return (Object.values(allowedTags) as TagCategory[]).some(category =>
       category.pattern.test(tag) || category.tags.includes(tag)
     );
   };
@@ -236,7 +264,13 @@ export const FormField = ({
   };
 
   const applyColor = () => {
-    const colorTag = isGradient ? `<gradient:${colors.join(":")}></gradient>` : `<color:${colors[0]}></color>`;
+    const selectedHex = colors[0];
+    const minecraftColor = minecraftColors.find(mcColor => mcColor.hex === selectedHex);
+    const colorTag = isGradient 
+      ? `<gradient:${colors.map(c => minecraftColors.find(mc => mc.hex === c)?.name || c).join(":")}></gradient>` 
+      : minecraftColor 
+        ? `<${minecraftColor.name.toLowerCase().replace(/ /g, '_')}>` 
+        : `<color:${selectedHex}>`;
     insertTag(colorTag);
     setShowColorPicker(false);
   };
@@ -338,7 +372,19 @@ export const FormField = ({
                   </>
                 )}
 
-                <HexColorPicker color={colors[activeColorIndex]} onChange={handleColorChange} />
+                <HexColorPicker className="w-full mx-auto" color={colors[activeColorIndex]} onChange={handleColorChange} />
+                <div className="grid grid-cols-8 gap-1 mt-2 mb-2">
+                  {minecraftColors.map((mcColor) => (
+                    <button
+                      key={mcColor.name}
+                      type="button"
+                      className="w-6 h-6 rounded border border-gray-300 dark:border-gray-600 hover:border-blue-500 transition-colors duration-150"
+                      style={{ backgroundColor: mcColor.hex }}
+                      onClick={() => handleColorChange(mcColor.hex)}
+                      title={mcColor.name}
+                    />
+                  ))}
+                </div>
                 <div className="flex justify-between mt-2">
                   <div className="flex items-center">
                     <div 
