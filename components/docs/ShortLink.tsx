@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useCallback, useRef, useEffect } from "react";
-import { Link, Copy, Check } from "lucide-react";
+import { Copy, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
@@ -53,7 +53,6 @@ export const ShortLink: React.FC<ShortLinkProps> = ({
 
   return (
     <div className={cn("flex items-center space-x-2", className)}>
-      <Link className="h-4 w-4 text-gray-400" aria-hidden="true" />
       <Button
         onClick={handleCopy}
         disabled={isLoading}
