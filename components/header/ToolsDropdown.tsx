@@ -44,7 +44,7 @@ export function ToolsDropdown() {
   }, [open]);
 
   return (
-    <div className="relative">
+    <div className="relative flex justify-center">
       <button
         ref={buttonRef}
         className={`flex items-center gap-1 rounded-full px-4 py-1.5 text-gray-900 transition-colors duration-200 hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:text-white dark:hover:bg-gray-800`}
@@ -78,7 +78,7 @@ export function ToolsDropdown() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="absolute left-0 z-30 mt-2 min-w-[210px] rounded-lg bg-white py-2 shadow-xl ring-1 ring-black/10 dark:bg-gray-900 dark:ring-white/10"
+            className="absolute right-50 md:left-0 z-30 mt-10 min-w-[210px] rounded-lg bg-white py-2 shadow-xl ring-1 ring-black/10 dark:bg-gray-900 dark:ring-white/10"
             role="menu"
             aria-label="Tools menu"
           >
