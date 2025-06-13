@@ -4,6 +4,10 @@ title: EternalCore - Features, Commands and Permissions
 
 # 🔥🚀😎 All EternalCore Commands and Features
 
+# 🌟 EternalCore Features
+
+EternalCore is a powerful Minecraft server plugin that provides a wide range of features to enhance your server experience. Below is a comprehensive list of all the features available in EternalCore.
+
 ## 🌟 All EternalCore Features
 
 <DynamicFeaturesTable />
@@ -12,10 +16,8 @@ title: EternalCore - Features, Commands and Permissions
 
 <DynamicCommandsTable />
 
-## 🧙‍♂️📝 The magic docs system for developers
+## 📝 Magic Docs System for Developers
 
-> If you are a developer, you can use our docs system in your [PR's! 😍🙌](https://github.com/EternalCodeTeam/EternalCore/compare)
+EternalCore uses a special documentation system for developers. The source file contains annotations that are processed into JSON files for documentation. This allows for easy maintenance and updates to the documentation.
 
-Docs system is a tool that allows developers to place information about their code directly into the source file using annotations. These annotations are then processed by the system and converted into JSON files that can be used to create graphical documentation of the project.
-
-For more information, search for [@FeatureDocs](https://github.com/search?q=repo%3AEternalCodeTeam%2FEternalCore%20%40FeatureDocs&type=code) and [@DocsDescription](https://github.com/search?q=repo%3AEternalCodeTeam%2FEternalCore+%40DocsDescription&type=code) annotations in our repository.
+The documentation is generated from the source code, ensuring that it is always up to date with the latest features and commands.

@@ -7,6 +7,8 @@ import DynamicFeaturesTable from "@/components/docs/DynamicFeaturesTable";
 import DynamicCommandsTable from "@/components/docs/DynamicCommandsTable";
 import { CodeBlock } from "@/components/docs/CodeBlock";
 import { mdxOptions } from "./mdx-config.mjs";
+import TableWrapper from "@/components/docs/TableWrapper";
+import TableContainer from "@/components/docs/TableContainer";
 
 export const components = {
   h1: H1,
@@ -31,6 +33,8 @@ export const components = {
     return React.createElement("code", { ...rest }, children);
   },
   pre: CodeBlock,
+  TableWrapper,
+  TableContainer,
 };
 
 

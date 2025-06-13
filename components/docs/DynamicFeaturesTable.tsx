@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 interface Feature {
   name: string;
@@ -12,6 +12,7 @@ export default function DynamicFeaturesTable() {
   const [features, setFeatures] = useState<Feature[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const tableRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     fetch(
@@ -26,12 +27,32 @@ export default function DynamicFeaturesTable() {
       .finally(() => setLoading(false));
   }, []);
 
+ 
+  useEffect(() => {
+    if (tableRef.current) {
+     
+      const timer = setTimeout(() => {
+        if (tableRef.current) {
+         
+          tableRef.current.style.visibility = 'hidden';
+          setTimeout(() => {
+            if (tableRef.current) {
+              tableRef.current.style.visibility = 'visible';
+            }
+          }, 50);
+        }
+      }, 2000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   if (loading) return <div>Loading features…</div>;
   if (error) return <div className="text-red-500">Error: {error}</div>;
   if (!features.length) return <div>No features found.</div>;
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto" ref={tableRef} style={{ display: 'block !important', opacity: '1 !important' }}>
       <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700">
         <thead>
           <tr>

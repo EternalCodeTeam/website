@@ -188,9 +188,7 @@ export default async function DocPage(props: Props) {
             <MDXRemote
               source={doc.content}
               components={components as MDXComponents}
-              options={{
-                mdxOptions,
-              }}
+              options={{ mdxOptions }}
             />
           </Suspense>
         </ErrorBoundary>

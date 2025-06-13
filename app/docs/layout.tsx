@@ -5,8 +5,6 @@ import Navbar from "@/components/header/Navbar";
 import DocSidebar from "@/components/docs/DocSidebar";
 import DocSearch from "@/components/docs/DocSearch";
 import DocCopyEnhancer from "@/components/docs/DocCopyEnhancer";
-import AnimatedLayout from "@/components/docs/AnimatedLayout";
-import AnimatedSection from "@/components/animations/AnimatedSection";
 
 const poppins = Poppins({
   weight: ["500"],
@@ -50,23 +48,19 @@ export default function DocsLayout({
       className={`${poppins.className} min-h-screen bg-[#eff1f5] transition-colors duration-200 dark:bg-[#0d1117]`}
     >
       <Navbar />
-      <AnimatedLayout key="docs-layout">
+      <div className="mx-auto min-h-[calc(100vh-7rem)] max-w-screen-xl px-4 py-12 pt-32">
         <div className="flex flex-col gap-8 lg:flex-row">
           <aside className="w-full flex-shrink-0 lg:w-64">
             <div className="sticky top-32 z-20 flex flex-col gap-4">
-              <AnimatedSection preserveAnimation={true} key="doc-search">
-                <DocSearch />
-              </AnimatedSection>
-              <AnimatedSection animationType="fadeLeft" preserveAnimation={true} key="doc-sidebar">
-                <DocSidebar />
-              </AnimatedSection>
+              <DocSearch />
+              <DocSidebar />
             </div>
           </aside>
           <div className="flex min-w-0 flex-1 flex-col items-stretch">
-            <AnimatedSection animationType="fadeUp" className="w-full" style={{ minHeight: '60vh' }}>
+            <div className="w-full" style={{ minHeight: '60vh' }}>
               <DocCopyEnhancer />
               {children}
-            </AnimatedSection>
+            </div>
             <div
               id="docs-navigation-buttons"
               className="mt-12 flex w-full justify-between"
@@ -75,7 +69,7 @@ export default function DocsLayout({
             </div>
           </div>
         </div>
-      </AnimatedLayout>
+      </div>
     </div>
   );
 }
