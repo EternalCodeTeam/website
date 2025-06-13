@@ -4,9 +4,9 @@ import React, { useEffect, useState, useRef } from "react";
 
 interface Command {
   name: string;
-  permission?: string;
+  permission: string;
   description: string;
-  arguments?: string;
+  arguments: string;
 }
 
 export default function DynamicCommandsTable() {
@@ -23,18 +23,50 @@ export default function DynamicCommandsTable() {
         if (!res.ok) throw new Error("Failed to fetch commands");
         return res.json();
       })
-      .then((data) => setCommands(data as Command[]))
-      .catch((e) => setError((e as Error).message))
+      .then((data) => {
+       
+        if (!Array.isArray(data)) {
+          console.error("Expected array of commands, got:", typeof data);
+          setError("Invalid data format received from server");
+          return;
+        }
+        
+       
+        const processedCommands = data.map((cmd: any) => {
+         
+          const permission = Array.isArray(cmd.permissions) && cmd.permissions.length > 0 
+            ? cmd.permissions[0] 
+            : "-";
+            
+          const description = Array.isArray(cmd.descriptions) && cmd.descriptions.length > 0 
+            ? cmd.descriptions[0] 
+            : "-";
+            
+          const args = Array.isArray(cmd.arguments) && cmd.arguments.length > 0 
+            ? cmd.arguments.join(", ") 
+            : "-";
+            
+          return {
+            name: cmd.name || "Unknown",
+            permission,
+            description,
+            arguments: args
+          };
+        });
+        
+        setCommands(processedCommands);
+      })
+      .catch((e) => {
+        console.error("Error fetching commands:", e);
+        setError((e as Error).message);
+      })
       .finally(() => setLoading(false));
   }, []);
 
- 
   useEffect(() => {
     if (tableRef.current) {
-     
       const timer = setTimeout(() => {
         if (tableRef.current) {
-         
           tableRef.current.style.visibility = 'hidden';
           setTimeout(() => {
             if (tableRef.current) {
@@ -66,10 +98,10 @@ export default function DynamicCommandsTable() {
         <tbody>
           {commands.map((c, i) => (
             <tr key={i}>
-              <td className="border px-4 py-2 font-semibold">{c.name}</td>
-              <td className="border px-4 py-2">{c.permission || "-"}</td>
-              <td className="border px-4 py-2">{c.description}</td>
-              <td className="border px-4 py-2">{c.arguments || "-"}</td>
+              <td className="border px-4 py-2 font-semibold whitespace-normal break-words">{c.name}</td>
+              <td className="border px-4 py-2 whitespace-normal break-words">{c.permission}</td>
+              <td className="border px-4 py-2 whitespace-normal break-words">{c.description}</td>
+              <td className="border px-4 py-2 whitespace-normal break-words">{c.arguments}</td>
             </tr>
           ))}
         </tbody>

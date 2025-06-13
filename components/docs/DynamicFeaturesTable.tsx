@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef } from "react";
 
 interface Feature {
   name: string;
-  permission?: string;
+  permission: string;
   description: string[];
 }
 
@@ -22,18 +22,46 @@ export default function DynamicFeaturesTable() {
         if (!res.ok) throw new Error("Failed to fetch features");
         return res.json();
       })
-      .then((data) => setFeatures(data as Feature[]))
-      .catch((e) => setError((e as Error).message))
+      .then((data) => {
+       
+        if (!Array.isArray(data)) {
+          console.error("Expected array of features, got:", typeof data);
+          setError("Invalid data format received from server");
+          return;
+        }
+        
+       
+        const processedFeatures = data.map((feature: any) => {
+         
+          const permission = Array.isArray(feature.permissions) && feature.permissions.length > 0 
+            ? feature.permissions[0] 
+            : "-";
+            
+         
+          const descriptions = Array.isArray(feature.descriptions) && feature.descriptions.length > 0 
+            ? feature.descriptions 
+            : ["-"];
+            
+          return {
+            name: feature.name || "Unknown",
+            permission,
+            description: descriptions
+          };
+        });
+        
+        setFeatures(processedFeatures);
+      })
+      .catch((e) => {
+        console.error("Error fetching features:", e);
+        setError((e as Error).message);
+      })
       .finally(() => setLoading(false));
   }, []);
 
- 
   useEffect(() => {
     if (tableRef.current) {
-     
       const timer = setTimeout(() => {
         if (tableRef.current) {
-         
           tableRef.current.style.visibility = 'hidden';
           setTimeout(() => {
             if (tableRef.current) {
@@ -64,12 +92,12 @@ export default function DynamicFeaturesTable() {
         <tbody>
           {features.map((f, i) => (
             <tr key={i}>
-              <td className="border px-4 py-2 font-semibold">{f.name}</td>
-              <td className="border px-4 py-2">{f.permission || "-"}</td>
+              <td className="border px-4 py-2 font-semibold whitespace-normal break-words">{f.name}</td>
+              <td className="border px-4 py-2 whitespace-normal break-words">{f.permission}</td>
               <td className="border px-4 py-2">
-                {Array.isArray(f.description)
-                  ? f.description.map((d, j) => <div key={j}>{d}</div>)
-                  : f.description}
+                {f.description.map((d: string, j: number) => (
+                  <div key={j} className="mb-1 whitespace-normal break-words">{d}</div>
+                ))}
               </td>
             </tr>
           ))}
