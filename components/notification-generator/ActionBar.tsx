@@ -1,5 +1,6 @@
-import React from 'react';
-import { MinecraftText } from './minecraftTextParser';
+import React from "react";
+
+import { MinecraftText } from "./minecraftTextParser";
 
 interface ActionBarProps {
   message: string;
@@ -7,7 +8,7 @@ interface ActionBarProps {
 
 const ActionBar = React.memo(({ message }: ActionBarProps) => {
   if (!message) return null;
-  
+
   return (
     <div
       className="absolute left-1/2"
@@ -39,7 +40,7 @@ const ActionBar = React.memo(({ message }: ActionBarProps) => {
           background: "none",
           border: "none",
           boxShadow: "none",
-          whiteSpace: 'pre-wrap !important',
+          whiteSpace: "pre-wrap !important",
         }}
       >
         <MinecraftText text={message} />
@@ -48,6 +49,6 @@ const ActionBar = React.memo(({ message }: ActionBarProps) => {
   );
 });
 
-ActionBar.displayName = 'ActionBar';
+ActionBar.displayName = "ActionBar";
 
-export default ActionBar; 
+export default ActionBar;

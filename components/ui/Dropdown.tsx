@@ -1,5 +1,6 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { ReactNode, useEffect, useRef, useState } from "react";
+
 import ArrowDown from "../icons/arrow-down";
 
 export interface DropdownOption {
@@ -37,10 +38,7 @@ export function Dropdown({
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     }

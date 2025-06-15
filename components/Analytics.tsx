@@ -2,6 +2,7 @@
 
 import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import { useEffect, useState, useCallback } from "react";
+
 import { canLoadAnalytics } from "@/lib/cookie-utils";
 
 export function Analytics() {
@@ -16,11 +17,9 @@ export function Analytics() {
     return () => window.removeEventListener("storage", updateConsent);
   }, [updateConsent]);
 
-
   useEffect(() => {
     window.addEventListener("cookieConsentChanged", updateConsent);
-    return () =>
-      window.removeEventListener("cookieConsentChanged", updateConsent);
+    return () => window.removeEventListener("cookieConsentChanged", updateConsent);
   }, [updateConsent]);
 
   if (!shouldLoad) return null;

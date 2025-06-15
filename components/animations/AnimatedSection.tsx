@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useMemo, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import { fadeIn, fadeInUp, fadeInDown, fadeInLeft, fadeInRight } from "./AnimationUtils";
 import { usePathname } from "next/navigation";
+import React, { useMemo, useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
+
+import { fadeIn, fadeInUp, fadeInDown, fadeInLeft, fadeInRight } from "./AnimationUtils";
 
 interface AnimatedSectionProps {
   children: React.ReactNode;
@@ -35,14 +36,13 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
 }) => {
   const pathname = usePathname();
   const [hasAnimated, setHasAnimated] = useState(false);
-  
+
   const { ref, inView } = useInView({
     triggerOnce: preserveAnimation ? true : triggerOnce,
     threshold,
     rootMargin,
   });
 
- 
   useEffect(() => {
     if (inView && preserveAnimation) {
       setHasAnimated(true);
@@ -68,7 +68,6 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
 
   const { animationType: _, ...filteredProps } = props;
 
- 
   const memoizedChildren = useMemo(() => {
     return children;
   }, [children]);
@@ -90,4 +89,4 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
   );
 };
 
-export default AnimatedSection; 
+export default AnimatedSection;

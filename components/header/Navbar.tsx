@@ -1,16 +1,19 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useCallback, useEffect, useRef } from "react";
+
+import { Button } from "@/components/ui/button";
 import logo from "@/public/logo.svg";
-import ThemeSwitchButton from "./ThemeSwitchButton";
+
 import ArrowDown from "../icons/arrow-down";
 import Hamburger from "../icons/hamburger";
 import NewWindow from "../icons/new-window";
-import { AnimatePresence, motion } from "framer-motion";
+
+import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ToolsDropdown } from "./ToolsDropdown";
-import { Button } from "@/components/ui/button";
 
 interface NavLink {
   href: string;
@@ -47,7 +50,6 @@ export default function Navbar() {
     setIsMenuOpen((prev) => !prev);
   }, []);
 
-
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isMenuOpen) {
@@ -60,7 +62,6 @@ export default function Navbar() {
     return () => document.removeEventListener("keydown", handleEscape);
   }, [isMenuOpen]);
 
-
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -72,14 +73,9 @@ export default function Navbar() {
     };
   }, [isMenuOpen]);
 
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        navRef.current &&
-        !navRef.current.contains(event.target as Node) &&
-        isMenuOpen
-      ) {
+      if (navRef.current && !navRef.current.contains(event.target as Node) && isMenuOpen) {
         setIsMenuOpen(false);
       }
     };
@@ -95,19 +91,23 @@ export default function Navbar() {
       role="navigation"
       aria-label="Main navigation"
     >
-
-      <div className="w-full bg-[#f0f1f2] dark:bg-[#1F2A37] text-gray-800 dark:text-white text-center py-2 px-4 text-sm font-medium flex items-center justify-center gap-2 z-[60] border-b border-gray-200 dark:border-gray-700">
-        <span className="inline-block bg-white/60 dark:bg-white/10 rounded px-2 py-0.5 mr-2 text-xs font-bold uppercase tracking-wide text-blue-700 dark:text-blue-300">New</span>
-        <span className="font-semibold">We launched the new Notification generator, fully interactive and customizable!</span>
-        <a href="/notification-generator" className="ml-2 text-blue-700 dark:text-blue-300 font-semibold underline underline-offset-2 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors">Check it out &rarr;</a>
+      <div className="z-[60] flex w-full items-center justify-center gap-2 border-b border-gray-200 bg-[#f0f1f2] px-4 py-2 text-center text-sm font-medium text-gray-800 dark:border-gray-700 dark:bg-[#1F2A37] dark:text-white">
+        <span className="mr-2 inline-block rounded bg-white/60 px-2 py-0.5 text-xs font-bold uppercase tracking-wide text-blue-700 dark:bg-white/10 dark:text-blue-300">
+          New
+        </span>
+        <span className="font-semibold">
+          We launched the new Notification generator, fully interactive and customizable!
+        </span>
+        <a
+          href="/notification-generator"
+          className="ml-2 font-semibold text-blue-700 underline underline-offset-2 transition-colors hover:text-indigo-700 dark:text-blue-300 dark:hover:text-indigo-300"
+        >
+          Check it out &rarr;
+        </a>
       </div>
 
       <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-4 py-4 md:py-6">
-        <Link
-          href="/"
-          className="flex items-center"
-          aria-label="Go to homepage"
-        >
+        <Link href="/" className="flex items-center" aria-label="Go to homepage">
           <Image
             className="mr-3 h-8 w-auto dark:invert"
             alt="EternalCode Logo"
@@ -177,13 +177,15 @@ export default function Navbar() {
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {link.text}
-                      {link.isExternal && (
-                        <NewWindow className="ml-1" aria-hidden="true" />
-                      )}
+                      {link.isExternal && <NewWindow className="ml-1" aria-hidden="true" />}
                     </Link>
                   </motion.li>
                 ))}
-                <motion.li initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.2 }}>
+                <motion.li
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                >
                   <ToolsDropdown />
                 </motion.li>
                 {NAV_LINKS.slice(4).map((link) => (
@@ -202,9 +204,7 @@ export default function Navbar() {
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {link.text}
-                      {link.isExternal && (
-                        <NewWindow className="ml-1" aria-hidden="true" />
-                      )}
+                      {link.isExternal && <NewWindow className="ml-1" aria-hidden="true" />}
                     </Link>
                   </motion.li>
                 ))}
@@ -225,13 +225,13 @@ export default function Navbar() {
                   rel={link.isExternal ? "noopener noreferrer" : undefined}
                 >
                   {link.text}
-                  {link.isExternal && (
-                    <NewWindow className="ml-1" aria-hidden="true" />
-                  )}
+                  {link.isExternal && <NewWindow className="ml-1" aria-hidden="true" />}
                 </Link>
               </li>
             ))}
-            <li><ToolsDropdown /></li>
+            <li>
+              <ToolsDropdown />
+            </li>
             {NAV_LINKS.slice(4).map((link) => (
               <li key={link.href}>
                 <Link
@@ -242,16 +242,13 @@ export default function Navbar() {
                   rel={link.isExternal ? "noopener noreferrer" : undefined}
                 >
                   {link.text}
-                  {link.isExternal && (
-                    <NewWindow className="ml-1" aria-hidden="true" />
-                  )}
+                  {link.isExternal && <NewWindow className="ml-1" aria-hidden="true" />}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
       </div>
-
     </nav>
   );
 }

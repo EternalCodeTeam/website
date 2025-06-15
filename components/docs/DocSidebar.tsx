@@ -1,14 +1,15 @@
 "use client";
 
-import React, { useMemo, useCallback, useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import React, { useMemo, useCallback, useState, useEffect } from "react";
+
 import Folder from "@/components/icons/folder";
-import { docsStructure, DocItem } from "./sidebar-structure";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
-import { fadeInUp } from "./DocHeader";
-import { Menu, X } from "lucide-react";
+
+import { docsStructure, DocItem } from "./sidebar-structure";
 
 interface DocSidebarProps {
   className?: string;
@@ -29,9 +30,9 @@ const sidebarStaggerContainer = {
     opacity: 1,
     transition: {
       staggerChildren: 0.09,
-      delayChildren: 0.15
-    }
-  }
+      delayChildren: 0.15,
+    },
+  },
 };
 
 const sidebarFadeInLeft = {
@@ -43,9 +44,9 @@ const sidebarFadeInLeft = {
       type: "spring",
       stiffness: 80,
       damping: 18,
-      duration: 0.6
-    }
-  }
+      duration: 0.6,
+    },
+  },
 };
 
 const sidebarFadeInUp = {
@@ -58,9 +59,9 @@ const sidebarFadeInUp = {
       type: "spring",
       stiffness: 120,
       damping: 16,
-      mass: 0.8
-    }
-  }
+      mass: 0.8,
+    },
+  },
 };
 
 const DocItemComponent: React.FC<DocItemProps> = React.memo(
@@ -68,9 +69,12 @@ const DocItemComponent: React.FC<DocItemProps> = React.memo(
     const pathname = usePathname();
     const hasChildren = item.children && item.children.length > 0;
 
-    const isPathActive = useCallback((path: string) => {
-      return pathname === path || pathname.startsWith(`${path}/`);
-    }, [pathname]);
+    const isPathActive = useCallback(
+      (path: string) => {
+        return pathname === path || pathname.startsWith(`${path}/`);
+      },
+      [pathname]
+    );
 
     const handleClick = useCallback(() => {
       onItemClick?.(item.path);
@@ -78,7 +82,7 @@ const DocItemComponent: React.FC<DocItemProps> = React.memo(
 
     if (hasChildren) {
       return (
-        <motion.div 
+        <motion.div
           className={cn("mb-3", level === 0 && "first:mt-0")}
           variants={sidebarFadeInUp}
           custom={index}
@@ -100,33 +104,30 @@ const DocItemComponent: React.FC<DocItemProps> = React.memo(
             />
             {item.title}
           </motion.div>
-          <motion.div 
-            className="space-y-1" 
-            role="list"
+          <motion.ul
+            className="list-none space-y-1"
             variants={sidebarStaggerContainer}
             initial="hidden"
             animate="visible"
           >
             {item.children?.map((child, childIndex) => (
-              <DocItemComponent
-                key={child.path}
-                item={child}
-                level={level + 1}
-                isActive={isPathActive(child.path)}
-                onItemClick={onItemClick}
-                index={childIndex}
-              />
+              <li key={child.path}>
+                <DocItemComponent
+                  item={child}
+                  level={level + 1}
+                  isActive={isPathActive(child.path)}
+                  onItemClick={onItemClick}
+                  index={childIndex}
+                />
+              </li>
             ))}
-          </motion.div>
+          </motion.ul>
         </motion.div>
       );
     }
 
     return (
-      <motion.div 
-        variants={sidebarFadeInUp}
-        custom={index}
-      >
+      <motion.div variants={sidebarFadeInUp} custom={index}>
         <Link
           href={item.path}
           onClick={handleClick}
@@ -139,11 +140,11 @@ const DocItemComponent: React.FC<DocItemProps> = React.memo(
           aria-current={isActive ? "page" : undefined}
         >
           <motion.span
-            className="flex items-start w-full"
+            className="flex w-full items-start"
             whileHover={{ x: 3 }}
             transition={{ type: "spring", stiffness: 400, damping: 14 }}
           >
-            <span className="flex-1 block">{item.title}</span>
+            <span className="block flex-1">{item.title}</span>
           </motion.span>
         </Link>
       </motion.div>
@@ -153,15 +154,11 @@ const DocItemComponent: React.FC<DocItemProps> = React.memo(
 
 DocItemComponent.displayName = "DocItemComponent";
 
-const DocSidebar: React.FC<DocSidebarProps> = React.memo(({
-  className = "",
-  onItemClick,
-}) => {
+const DocSidebar: React.FC<DocSidebarProps> = React.memo(({ className = "", onItemClick }) => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
- 
   useEffect(() => {
     const checkIfMobile = () => {
       setIsMobile(window.innerWidth < 1024);
@@ -170,50 +167,47 @@ const DocSidebar: React.FC<DocSidebarProps> = React.memo(({
       }
     };
 
-   
     checkIfMobile();
 
-   
-    window.addEventListener('resize', checkIfMobile);
+    window.addEventListener("resize", checkIfMobile);
 
-   
-    return () => window.removeEventListener('resize', checkIfMobile);
+    return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
 
- 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (isMobile && isOpen) {
-        const sidebar = document.getElementById('doc-sidebar');
-        const toggleButton = document.getElementById('sidebar-toggle');
-        
-        if (sidebar && 
-            !sidebar.contains(event.target as Node) && 
-            toggleButton && 
-            !toggleButton.contains(event.target as Node)) {
+        const sidebar = document.getElementById("doc-sidebar");
+        const toggleButton = document.getElementById("sidebar-toggle");
+
+        if (
+          sidebar &&
+          !sidebar.contains(event.target as Node) &&
+          toggleButton &&
+          !toggleButton.contains(event.target as Node)
+        ) {
           setIsOpen(false);
         }
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isMobile, isOpen]);
 
- 
   useEffect(() => {
     if (isMobile) {
       if (isOpen) {
-        document.body.style.overflow = 'hidden';
+        document.body.style.overflow = "hidden";
       } else {
-        document.body.style.overflow = '';
+        document.body.style.overflow = "";
       }
     }
-    
+
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
   }, [isMobile, isOpen]);
 
@@ -223,28 +217,29 @@ const DocSidebar: React.FC<DocSidebarProps> = React.memo(({
 
   const sidebarContent = useMemo(
     () => (
-      <motion.div 
-        className="space-y-1"
+      <motion.ul
+        className="list-none space-y-1"
         variants={sidebarStaggerContainer}
         initial="hidden"
         animate="visible"
       >
         {docsStructure.map((item, index) => (
-          <DocItemComponent
-            key={item.path}
-            item={item}
-            level={0}
-            isActive={pathname === item.path}
-            onItemClick={(path) => {
-              onItemClick?.(path);
-              if (isMobile) {
-                setIsOpen(false);
-              }
-            }}
-            index={index}
-          />
+          <li key={item.path}>
+            <DocItemComponent
+              item={item}
+              level={0}
+              isActive={pathname === item.path}
+              onItemClick={(path) => {
+                onItemClick?.(path);
+                if (isMobile) {
+                  setIsOpen(false);
+                }
+              }}
+              index={index}
+            />
+          </li>
         ))}
-      </motion.div>
+      </motion.ul>
     ),
     [pathname, onItemClick, isMobile]
   );
@@ -272,14 +267,16 @@ const DocSidebar: React.FC<DocSidebarProps> = React.memo(({
           )}
         </button>
       )}
-      
+
       <AnimatePresence>
         {(isOpen || !isMobile) && (
           <motion.nav
             id="doc-sidebar"
             className={cn(
               "w-full",
-              isMobile ? "fixed inset-y-0 left-0 z-50 w-64 overflow-y-auto bg-white p-4 shadow-lg dark:bg-gray-900" : className
+              isMobile
+                ? "fixed inset-y-0 left-0 z-50 w-64 overflow-y-auto bg-white p-4 shadow-lg dark:bg-gray-900"
+                : className
             )}
             role="navigation"
             aria-label="Documentation navigation"
@@ -293,9 +290,9 @@ const DocSidebar: React.FC<DocSidebarProps> = React.memo(({
           </motion.nav>
         )}
       </AnimatePresence>
-      
+
       {isMobile && isOpen && (
-        <motion.div 
+        <motion.div
           className="fixed inset-0 z-40 bg-black bg-opacity-50"
           onClick={toggleSidebar}
           aria-hidden="true"

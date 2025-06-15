@@ -1,8 +1,9 @@
 "use client";
 
+import { motion } from "framer-motion";
 import React from "react";
-import { motion, Variants, HTMLMotionProps } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+
 import { staggerContainer } from "./AnimationUtils";
 
 interface AnimatedContainerProps {
@@ -40,8 +41,8 @@ const AnimatedContainer: React.FC<AnimatedContainerProps> = ({
       y: 20,
       transition: {
         duration: 0.5,
-        ease: "easeOut"
-      }
+        ease: "easeOut",
+      },
     },
     visible: {
       opacity: 1,
@@ -50,9 +51,9 @@ const AnimatedContainer: React.FC<AnimatedContainerProps> = ({
         delay,
         staggerChildren: staggerDelay,
         ease: "easeInOut",
-        duration: 0.5
-      }
-    }
+        duration: 0.5,
+      },
+    },
   };
 
   const motionComponents = {
@@ -74,7 +75,7 @@ const AnimatedContainer: React.FC<AnimatedContainerProps> = ({
     h6: motion.h6,
     ul: motion.ul,
     ol: motion.ol,
-    li: motion.li
+    li: motion.li,
   };
 
   const MotionComponent = motionComponents[as as keyof typeof motionComponents] || motion.div;
@@ -93,4 +94,4 @@ const AnimatedContainer: React.FC<AnimatedContainerProps> = ({
   );
 };
 
-export default AnimatedContainer; 
+export default AnimatedContainer;

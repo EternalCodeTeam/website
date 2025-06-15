@@ -1,17 +1,16 @@
 "use client";
 
-import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useCookieConsent } from "@/hooks/useCookieConsent";
 import { X, ChevronDown, ChevronUp } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
+
+import { useCookieConsent } from "@/hooks/useCookieConsent";
 
 export function CookieConsentModal() {
-  const { consent, updateConsent, acceptAll, rejectAll, isInitialized } =
-    useCookieConsent();
+  const { consent, updateConsent, acceptAll, rejectAll, isInitialized } = useCookieConsent();
   const [isOpen, setIsOpen] = useState(true);
   const [showDetails, setShowDetails] = useState(false);
-
 
   const isDefaultConsent =
     consent.necessary === true &&
@@ -36,8 +35,8 @@ export function CookieConsentModal() {
                 Cookie Preferences
               </h3>
               <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
-                We use cookies to enhance your browsing experience, serve
-                personalized content, and analyze our traffic.
+                We use cookies to enhance your browsing experience, serve personalized content, and
+                analyze our traffic.
               </p>
             </div>
             <button
@@ -100,9 +99,7 @@ export function CookieConsentModal() {
                     <input
                       type="checkbox"
                       checked={consent.analytics}
-                      onChange={(e) =>
-                        updateConsent({ analytics: e.target.checked })
-                      }
+                      onChange={(e) => updateConsent({ analytics: e.target.checked })}
                       className="h-4 w-4 rounded border-gray-300 text-blue-600"
                     />
                   </div>
@@ -114,17 +111,14 @@ export function CookieConsentModal() {
                       Marketing Cookies
                     </h4>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Used to track visitors across websites for marketing
-                      purposes
+                      Used to track visitors across websites for marketing purposes
                     </p>
                   </div>
                   <div className="flex items-center">
                     <input
                       type="checkbox"
                       checked={consent.marketing}
-                      onChange={(e) =>
-                        updateConsent({ marketing: e.target.checked })
-                      }
+                      onChange={(e) => updateConsent({ marketing: e.target.checked })}
                       className="h-4 w-4 rounded border-gray-300 text-blue-600"
                     />
                   </div>
@@ -143,9 +137,7 @@ export function CookieConsentModal() {
                     <input
                       type="checkbox"
                       checked={consent.preferences}
-                      onChange={(e) =>
-                        updateConsent({ preferences: e.target.checked })
-                      }
+                      onChange={(e) => updateConsent({ preferences: e.target.checked })}
                       className="h-4 w-4 rounded border-gray-300 text-blue-600"
                     />
                   </div>

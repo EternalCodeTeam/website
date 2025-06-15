@@ -1,7 +1,8 @@
-import Link from "next/link";
 import { useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import Link from "next/link";
 import { useEffect, useCallback } from "react";
+import { useInView } from "react-intersection-observer";
+
 import PeopleGroupIcon from "@/components/icons/people-group";
 import { Button } from "@/components/ui/button";
 

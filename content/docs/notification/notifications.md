@@ -137,27 +137,28 @@ advanced_notification:
   chat:
     - "<gradient:gold:yellow>Welcome to the server!</gradient>"
     - "<gray>Use <click:run_command:/help><hover:show_text:Click to see help><gold>/help</gold></hover></click> for assistance.</gray>"
-  
+
   # Action bar notification
   actionbar: "<gradient:aqua:blue>You have <gold>5</gold> unread messages</gradient>"
-  
+
   # Title and subtitle with custom times
   title: "<gradient:red:dark_red>WARNING!</gradient>"
   subtitle: "<gray>You are entering a PvP zone</gray>"
-  times: "0.5s 3s 1s"  # Fade in, stay, fade out
-  
+  times: "0.5s 3s 1s" # Fade in, stay, fade out
+
   # Sound effect with custom volume and pitch
   sound: "ENTITY_ENDER_DRAGON_GROWL MASTER 1.0 0.8"
-  
+
   # Clear any existing title/subtitle before showing this one
   titleHide: true
 ```
 
 This example demonstrates:
+
 - Multi-line chat messages with gradients and clickable elements
 - Action bar notifications with gradients
 - Title and subtitle with custom fade times
 - Sound effects with custom volume and pitch
 - Title clearing before showing new notifications
 
-You can mix and match these elements to create your own custom notifications! 
+You can mix and match these elements to create your own custom notifications!

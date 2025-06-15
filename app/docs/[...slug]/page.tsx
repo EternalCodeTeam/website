@@ -1,23 +1,24 @@
-import { notFound } from "next/navigation";
 import fs from "fs/promises";
 import path from "path";
+
+import { motion } from "framer-motion";
 import matter from "gray-matter";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import { components, mdxOptions } from "@/lib/mdx";
-import { docsStructure } from "@/components/docs/sidebar-structure";
+import type { MDXComponents } from "mdx/types";
 import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { MDXRemote } from "next-mdx-remote/rsc";
 import { Suspense, cache } from "react";
+
+import { DocHeader } from "@/components/docs/DocHeader";
 import { EditOnGitHub } from "@/components/docs/EditOnGitHub";
+import { ErrorBoundary } from "@/components/docs/ErrorBoundary";
 import { ReadingTime } from "@/components/docs/ReadingTime";
 import { ShortLink } from "@/components/docs/ShortLink";
-import type { MDXComponents } from "mdx/types";
+import { docsStructure } from "@/components/docs/sidebar-structure";
 import { ArrowBack } from "@/components/icons/arrow-back";
 import { ArrowForward } from "@/components/icons/arrow-forward";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { DocHeader } from "@/components/docs/DocHeader";
-import { ErrorBoundary } from "@/components/docs/ErrorBoundary";
-
+import { components, mdxOptions } from "@/lib/mdx";
 
 export const dynamic = "force-static";
 export const revalidate = 3600;
@@ -40,7 +41,6 @@ interface DocNavigation {
   next: { title: string; path: string } | null;
 }
 
-
 const getFlatDocs = cache(() => {
   function flattenDocs(
     structure: {
@@ -60,7 +60,6 @@ const getFlatDocs = cache(() => {
   }
   return flattenDocs(docsStructure);
 });
-
 
 const getDocBySlug = cache(async (slug: string[]): Promise<Doc | null> => {
   const docsDirectory = path.join(process.cwd(), "content/docs");
@@ -84,14 +83,12 @@ const getDocBySlug = cache(async (slug: string[]): Promise<Doc | null> => {
   }
 });
 
-
 const getDocNavigation = cache((currentPath: string): DocNavigation => {
   const flatDocs = getFlatDocs();
   const currentIndex = flatDocs.findIndex((doc) => doc.path === currentPath);
   return {
     prev: currentIndex > 0 ? flatDocs[currentIndex - 1] : null,
-    next:
-      currentIndex < flatDocs.length - 1 ? flatDocs[currentIndex + 1] : null,
+    next: currentIndex < flatDocs.length - 1 ? flatDocs[currentIndex + 1] : null,
   };
 });
 
@@ -129,7 +126,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   };
 }
 
-
 function LoadingFallback() {
   return (
     <div className="animate-pulse space-y-4">
@@ -141,7 +137,6 @@ function LoadingFallback() {
     </div>
   );
 }
-
 
 export async function generateStaticParams() {
   const flatDocs = getFlatDocs();
@@ -160,10 +155,7 @@ export default async function DocPage(props: Props) {
   const currentPath = "/docs/" + params.slug.join("/");
   const { prev, next } = getDocNavigation(currentPath);
 
-
-  const category = docsStructure.find((item) =>
-    currentPath.startsWith(item.path)
-  )?.title;
+  const category = docsStructure.find((item) => currentPath.startsWith(item.path))?.title;
 
   return (
     <div>

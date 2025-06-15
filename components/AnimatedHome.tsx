@@ -1,10 +1,11 @@
 "use client";
 import { motion } from "framer-motion";
-import { pageTransition } from "@/components/animations";
-import Hero from "@/components/header/hero/Hero";
+
 import About from "@/components/about/About";
-import Features from "@/components/features/Features";
+import { pageTransition } from "@/components/animations";
 import Faq from "@/components/faq/Faq";
+import Features from "@/components/features/Features";
+import Hero from "@/components/header/hero/Hero";
 
 export default function AnimatedHome() {
   return (
@@ -22,4 +23,4 @@ export default function AnimatedHome() {
       <Faq />
     </motion.div>
   );
-} 
+}

@@ -1,14 +1,16 @@
 import React from "react";
-import { Inline } from "@/components/docs/Inline";
-import { AlertBox } from "@/components/ui/AlertBox";
-import { CodeTabs, CodeTab } from "@/components/docs/CodeTabs";
+
 import { H1, H2, H3, H4, H5, H6 } from "@/components/docs/AnimatedHeading";
-import DynamicFeaturesTable from "@/components/docs/DynamicFeaturesTable";
-import DynamicCommandsTable from "@/components/docs/DynamicCommandsTable";
 import { CodeBlock } from "@/components/docs/CodeBlock";
-import { mdxOptions } from "./mdx-config.mjs";
-import TableWrapper from "@/components/docs/TableWrapper";
+import { CodeTabs, CodeTab } from "@/components/docs/CodeTabs";
+import DynamicCommandsTable from "@/components/docs/DynamicCommandsTable";
+import DynamicFeaturesTable from "@/components/docs/DynamicFeaturesTable";
+import { Inline } from "@/components/docs/Inline";
 import TableContainer from "@/components/docs/TableContainer";
+import TableWrapper from "@/components/docs/TableWrapper";
+import { AlertBox } from "@/components/ui/AlertBox";
+
+import { mdxOptions } from "./mdx-config.mjs";
 
 export const components = {
   h1: H1,
@@ -24,7 +26,7 @@ export const components = {
   DynamicCommandsTable,
   Inline,
   code: (props: React.ComponentProps<"code">) => {
-    let { children, ...rest } = props;
+    const { children, ...rest } = props;
     let content = typeof children === "string" ? children : String(children);
     content = content.replace(/^`+|`+$/g, "");
     if (!content.includes("\n")) {
@@ -36,6 +38,5 @@ export const components = {
   TableWrapper,
   TableContainer,
 };
-
 
 export { mdxOptions };

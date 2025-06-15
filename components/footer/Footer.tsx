@@ -1,13 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
-import TikTokIcon from "@/components/icons/round-tiktok";
-import YouTubeIcon from "@/components/icons/youtube";
-import GitHubIcon from "@/components/icons/github";
+import Link from "next/link";
+
 import DiscordIcon from "@/components/icons/discord";
-import SpigotMcLikeIcon from "@/components/icons/spigotmc";
+import GitHubIcon from "@/components/icons/github";
 import ModrinthIcon from "@/components/icons/modrinth";
+import TikTokIcon from "@/components/icons/round-tiktok";
+import SpigotMcLikeIcon from "@/components/icons/spigotmc";
+import YouTubeIcon from "@/components/icons/youtube";
 import logo from "@/public/logo.svg";
 
 interface FooterLink {
@@ -118,18 +119,11 @@ export default function Footer() {
   ];
 
   return (
-    <footer
-      className="isolate p-4 text-center sm:p-6 lg:text-left"
-      role="contentinfo"
-    >
+    <footer className="isolate p-4 text-center sm:p-6 lg:text-left" role="contentinfo">
       <div className="mx-auto max-w-screen-xl px-4 py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 flex flex-col items-center md:mb-0 md:items-start">
-            <Link
-              href="/"
-              className="flex items-center"
-              aria-label="Go to homepage"
-            >
+            <Link href="/" className="flex items-center" aria-label="Go to homepage">
               <Image
                 className="mr-3 h-8 w-auto text-white dark:invert"
                 alt="EternalCode Logo"
@@ -144,8 +138,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="mt-2 max-w-md text-sm text-gray-600 dark:text-gray-400">
-              Providing high-quality Minecraft plugins and development solutions
-              since 2021.
+              Providing high-quality Minecraft plugins and development solutions since 2021.
             </p>
           </div>
 
@@ -169,11 +162,7 @@ export default function Footer() {
                           {link.label}
                         </a>
                       ) : (
-                        <Link
-                          href={link.href}
-                          className="hover:underline"
-                          aria-label={link.label}
-                        >
+                        <Link href={link.href} className="hover:underline" aria-label={link.label}>
                           {link.label}
                         </Link>
                       )}

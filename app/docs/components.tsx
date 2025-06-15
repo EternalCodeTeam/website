@@ -1,9 +1,10 @@
 "use client";
 
 import React from "react";
-import DynamicFeaturesTable from "@/components/docs/DynamicFeaturesTable";
-import DynamicCommandsTable from "@/components/docs/DynamicCommandsTable";
+
 import AnimationSafeTable from "@/components/docs/AnimationSafeTable";
+import DynamicCommandsTable from "@/components/docs/DynamicCommandsTable";
+import DynamicFeaturesTable from "@/components/docs/DynamicFeaturesTable";
 import TableContainer from "@/components/docs/TableContainer";
 
 export const components = {
@@ -11,4 +12,4 @@ export const components = {
   DynamicCommandsTable,
   AnimationSafeTable,
   TableContainer,
-}; 
+};

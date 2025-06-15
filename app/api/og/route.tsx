@@ -1,6 +1,5 @@
 import { ImageResponse } from "@vercel/og";
 import { NextRequest } from "next/server";
-import Image from "next/image";
 
 export const runtime = "edge";
 
@@ -8,12 +7,9 @@ export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
 
-
     const title = searchParams.get("title") || "EternalCode.pl";
     const subtitle = searchParams.get("subtitle") || "Open Source Solutions";
-    const image =
-      searchParams.get("image") || "https://eternalcode.pl/logo.svg";
-
+    const image = searchParams.get("image") || "https://eternalcode.pl/logo.svg";
 
     return new ImageResponse(
       (
@@ -39,7 +35,7 @@ export async function GET(req: NextRequest) {
               marginBottom: "40px",
             }}
           >
-            <Image
+            <img
               src={image}
               alt="EternalCode Logo"
               width={120}

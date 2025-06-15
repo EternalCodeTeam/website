@@ -1,7 +1,7 @@
 .chatContainer::-webkit-scrollbar {
   height: 8px;
   width: 8px;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
 
@@ -16,5 +16,5 @@
 
 .chatContainer {
   scrollbar-width: thin;
-  scrollbar-color: #444 rgba(0,0,0,0.2);
-} 
+  scrollbar-color: #444 rgba(0, 0, 0, 0.2);
+}

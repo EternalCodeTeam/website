@@ -1,4 +1,3 @@
-
 export const SOUND_CATEGORY_OPTIONS = [
   { value: "", label: "None" },
   { value: "MASTER", label: "Master" },
@@ -11,4 +10,4 @@ export const SOUND_CATEGORY_OPTIONS = [
   { value: "PLAYERS", label: "Players" },
   { value: "AMBIENT", label: "Ambient" },
   { value: "VOICE", label: "Voice" },
-]; 
+];

@@ -1,7 +1,8 @@
-import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+
 import matter from "gray-matter";
+import { NextResponse } from "next/server";
 
 function findMarkdownFiles(dir: string): string[] {
   const files: string[] = [];
@@ -52,9 +53,6 @@ export async function GET() {
     return NextResponse.json(searchIndex);
   } catch (error) {
     console.error("Error generating search index:", error);
-    return NextResponse.json(
-      { error: "Failed to generate search index" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to generate search index" }, { status: 500 });
   }
 }

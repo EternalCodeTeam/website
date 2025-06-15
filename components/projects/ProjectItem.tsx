@@ -1,8 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useInView } from "react-intersection-observer";
+
 import ProjectButton from "./ProjectButton";
 
 interface Project {
@@ -55,11 +56,7 @@ export default function ProjectItem({
           {repo.attributes.description}
         </motion.p>
         <div className="flex justify-center sm:justify-start">
-          <a
-            href={repo.attributes.repository_url}
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a href={repo.attributes.repository_url} target="_blank" rel="noreferrer">
             <ProjectButton title="Repository" />
           </a>
         </div>

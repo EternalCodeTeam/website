@@ -6,8 +6,7 @@
 code[class*="language-"],
 pre[class*="language-"] {
   font-family:
-    "Fira Mono", "Consolas", "Menlo", "Monaco", "Liberation Mono",
-    "Courier New", monospace;
+    "Fira Mono", "Consolas", "Menlo", "Monaco", "Liberation Mono", "Courier New", monospace;
   font-size: 1em;
   text-align: left;
   white-space: pre;

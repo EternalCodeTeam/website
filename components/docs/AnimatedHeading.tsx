@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useCallback, memo } from "react";
-import { Check, Link as LinkIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { fadeInUp, fadeDownScale } from "./DocHeader";
+import { Check, Link as LinkIcon } from "lucide-react";
+import React, { useState, useCallback, memo, useEffect } from "react";
+
+import { fadeDownScale } from "./DocHeader";
 
 interface AnimatedHeadingProps extends React.HTMLAttributes<HTMLElement> {
   id?: string;
@@ -33,18 +34,26 @@ const createAnimatedHeading = ({ tag }: HeadingFactoryProps) => {
             await navigator.clipboard.writeText(url);
             window.location.hash = id;
             setCopied(true);
-
-            const timeoutId = setTimeout(() => {
-              setCopied(false);
-            }, COPY_TIMEOUT);
-
-            return () => clearTimeout(timeoutId);
           } catch (error) {
             console.error("Failed to copy link:", error);
           }
         },
         [id]
       );
+
+      useEffect(() => {
+        let timeoutId: NodeJS.Timeout;
+        if (copied) {
+          timeoutId = setTimeout(() => {
+            setCopied(false);
+          }, COPY_TIMEOUT);
+        }
+        return () => {
+          if (timeoutId) {
+            clearTimeout(timeoutId);
+          }
+        };
+      }, [copied]);
 
       return React.createElement(
         tag,
@@ -62,15 +71,15 @@ const createAnimatedHeading = ({ tag }: HeadingFactoryProps) => {
         >
           {children}
           {id && (
-            <motion.div 
+            <motion.div
               className="ml-2 inline-flex items-center gap-1"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ 
-                type: "spring", 
-                stiffness: 300, 
+              transition={{
+                type: "spring",
+                stiffness: 300,
                 damping: 20,
-                delay: 0.1
+                delay: 0.1,
               }}
             >
               <motion.button

@@ -1,6 +1,5 @@
 import Prism from "prismjs";
 
-
 import "prismjs/components/prism-typescript";
 import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-jsx";
@@ -9,7 +8,6 @@ import "prismjs/components/prism-css";
 import "prismjs/components/prism-scss";
 import "prismjs/components/prism-json";
 import "prismjs/components/prism-markdown";
-
 
 import "prismjs/components/prism-c";
 import "prismjs/components/prism-cpp";
@@ -20,7 +18,6 @@ import "prismjs/components/prism-python";
 import "prismjs/components/prism-rust";
 import "prismjs/components/prism-swift";
 
-
 import "prismjs/components/prism-bash";
 import "prismjs/components/prism-docker";
 import "prismjs/components/prism-git";
@@ -28,7 +25,6 @@ import "prismjs/components/prism-sql";
 import "prismjs/components/prism-yaml";
 import "prismjs/components/prism-kotlin";
 import "prismjs/components/prism-groovy";
-
 
 Prism.languages.typescript = Prism.languages.extend("javascript", {
   keyword:

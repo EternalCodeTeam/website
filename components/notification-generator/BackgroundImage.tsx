@@ -1,5 +1,5 @@
-import React from 'react';
-import Image from 'next/image';
+import Image from "next/image";
+import React from "react";
 
 const BackgroundImage = React.memo(() => {
   return (
@@ -14,6 +14,6 @@ const BackgroundImage = React.memo(() => {
   );
 });
 
-BackgroundImage.displayName = 'BackgroundImage';
+BackgroundImage.displayName = "BackgroundImage";
 
-export default BackgroundImage; 
+export default BackgroundImage;

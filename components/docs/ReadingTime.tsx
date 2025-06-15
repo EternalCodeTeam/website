@@ -1,7 +1,8 @@
 "use client";
 
-import { memo } from "react";
 import { Clock } from "lucide-react";
+import { memo } from "react";
+
 import { cn } from "@/lib/utils";
 
 export interface ReadingTimeProps {
@@ -28,10 +29,7 @@ export const ReadingTime = memo(function ReadingTime({
 
   return (
     <div
-      className={cn(
-        "text-muted-foreground flex items-center gap-2 text-sm",
-        className
-      )}
+      className={cn("text-muted-foreground flex items-center gap-2 text-sm", className)}
       role="text"
       aria-label={`${readingTime} minute read`}
     >

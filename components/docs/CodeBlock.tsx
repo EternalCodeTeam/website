@@ -1,9 +1,8 @@
 import React, { memo } from "react";
 
 interface CodeBlockProps extends React.ComponentProps<"pre"> {
- 
   children: React.ReactNode;
- 
+
   language?: string;
 }
 

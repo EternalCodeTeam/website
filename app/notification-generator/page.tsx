@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
+import { useState, useEffect, useCallback, useMemo } from "react";
+
 import { MinecraftPreview } from "../../components/notification-generator/MinecraftPreview";
-import { NotificationForm } from "../../components/notification-generator/NotificationForm";
 import { NotificationCode } from "../../components/notification-generator/NotificationCode";
+import { NotificationForm } from "../../components/notification-generator/NotificationForm";
 import { NotificationConfig } from "../../components/notification-generator/types";
 
 export default function NotificationGenerator() {
@@ -26,7 +27,6 @@ export default function NotificationGenerator() {
   const [yamlCode, setYamlCode] = useState("");
   const [previewKey, setPreviewKey] = useState(0);
 
- 
   const generateYaml = useCallback(() => {
     const parts = [];
 
@@ -92,18 +92,12 @@ export default function NotificationGenerator() {
     setPreviewKey((prev) => prev + 1);
   }, []);
 
- 
-  const formComponent = useMemo(() => (
-    <NotificationForm
-      notification={notification}
-      setNotification={setNotification}
-    />
-  ), [notification, setNotification]);
+  const formComponent = useMemo(
+    () => <NotificationForm notification={notification} setNotification={setNotification} />,
+    [notification, setNotification]
+  );
 
- 
-  const codeComponent = useMemo(() => (
-    <NotificationCode yamlCode={yamlCode} />
-  ), [yamlCode]);
+  const codeComponent = useMemo(() => <NotificationCode yamlCode={yamlCode} />, [yamlCode]);
 
   return (
     <motion.div
@@ -112,7 +106,7 @@ export default function NotificationGenerator() {
       transition={{ duration: 0.5 }}
       className="w-full"
     >
-      <motion.h1 
+      <motion.h1
         className="mb-6 text-2xl font-bold md:text-3xl"
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -121,19 +115,19 @@ export default function NotificationGenerator() {
         Notification Generator
       </motion.h1>
 
-      <motion.div 
+      <motion.div
         className="grid grid-cols-1 gap-6 md:gap-8 lg:grid-cols-2"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.1 }}
       >
-        <motion.div 
+        <motion.div
           className="rounded-lg bg-white p-4 shadow-md dark:bg-gray-800 md:p-6"
           initial={{ x: -20, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.2 }}
         >
-          <motion.h2 
+          <motion.h2
             className="mb-4 text-lg font-semibold md:text-xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -143,13 +137,13 @@ export default function NotificationGenerator() {
           </motion.h2>
           {formComponent}
         </motion.div>
-        <motion.div 
+        <motion.div
           className="rounded-lg bg-white p-4 shadow-md dark:bg-gray-800 md:p-6"
           initial={{ x: 20, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.3 }}
         >
-          <motion.h2 
+          <motion.h2
             className="mb-4 text-lg font-semibold md:text-xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -159,19 +153,19 @@ export default function NotificationGenerator() {
           </motion.h2>
           {codeComponent}
         </motion.div>
-        <motion.div 
+        <motion.div
           className="col-span-1 rounded-lg bg-white p-4 shadow-md dark:bg-gray-800 md:p-6 lg:col-span-2"
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <motion.div 
+          <motion.div
             className="mb-4 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.5 }}
           >
-            <motion.h2 
+            <motion.h2
               className="text-lg font-semibold md:text-xl"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

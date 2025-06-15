@@ -1,16 +1,19 @@
 "use client";
 
-import { useState, useCallback, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { NotificationConfig, TabType, FieldType } from "./types";
-import { Tab } from "./form/Tab";
-import { ChatTab } from "./form/ChatTab";
-import { ActionBarTab } from "./form/ActionBarTab";
-import { TitleTab } from "./form/TitleTab";
-import { SoundTab, SoundTabRef } from "./form/SoundTab";
-import { AdvancedTab } from "./form/AdvancedTab";
-import { validateField, validateForm } from "./form/validation";
+import { useState, useCallback, useRef, useMemo } from "react";
+
 import { Button } from "@/components/ui/button";
+
+import { ActionBarTab } from "./form/ActionBarTab";
+import { AdvancedTab } from "./form/AdvancedTab";
+import { ChatTab } from "./form/ChatTab";
+import { SoundTab, SoundTabRef } from "./form/SoundTab";
+import { Tab } from "./form/Tab";
+import { TitleTab } from "./form/TitleTab";
+import { validateField, validateForm } from "./form/validation";
+import { NotificationConfig, TabType, FieldType } from "./types";
+
 
 interface NotificationFormProps {
   notification: NotificationConfig;
@@ -65,7 +68,6 @@ export function NotificationForm({
     setErrors({});
   }, [setNotification]);
 
- 
   const tabContent = useMemo(() => {
     switch (activeTab) {
       case "chat":
@@ -83,7 +85,6 @@ export function NotificationForm({
     }
   }, [activeTab, notification, handleChange, errors]);
 
- 
   const tabs = useMemo(() => {
     const tabItems: TabType[] = ["chat", "actionbar", "title", "sound", "advanced"];
     return tabItems.map((tabName) => (

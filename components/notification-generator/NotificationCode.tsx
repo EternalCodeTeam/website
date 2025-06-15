@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+
 import { AlertBox } from "@/components/ui/AlertBox";
 
 interface NotificationCodeProps {

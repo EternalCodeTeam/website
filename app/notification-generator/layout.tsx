@@ -5,7 +5,8 @@ export const metadata: Metadata = {
   title: "Notification Generator | Minecraft Plugin Tool",
   description:
     "Create and preview Minecraft notifications for EternalCode plugin. Generate YAML code for chat messages, titles, action bars, and sounds.",
-  keywords: "Minecraft, EternalCode, notification generator, plugin, YAML, chat, title, action bar, sound",
+  keywords:
+    "Minecraft, EternalCode, notification generator, plugin, YAML, chat, title, action bar, sound",
   openGraph: {
     title: "Notification Generator",
     description: "Create and preview Minecraft notifications for EternalCode plugin",
@@ -23,14 +24,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function NotificationGeneratorLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function NotificationGeneratorLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative mx-auto min-h-screen max-w-screen-xl px-4 py-8 pt-32">
-      {children}
-    </div>
+    <div className="relative mx-auto min-h-screen max-w-screen-xl px-4 py-8 pt-32">{children}</div>
   );
 }

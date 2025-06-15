@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useCookieConsent } from "@/hooks/useCookieConsent";
 import { Settings, X } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
+
+import { useCookieConsent } from "@/hooks/useCookieConsent";
 
 export function CookiePreferencesMenu() {
   const { consent, updateConsent, acceptAll, rejectAll } = useCookieConsent();
@@ -77,9 +78,7 @@ export function CookiePreferencesMenu() {
                   <input
                     type="checkbox"
                     checked={consent.analytics}
-                    onChange={(e) =>
-                      updateConsent({ analytics: e.target.checked })
-                    }
+                    onChange={(e) => updateConsent({ analytics: e.target.checked })}
                     className="h-4 w-4 rounded border-gray-300 text-blue-600"
                   />
                 </div>
@@ -90,16 +89,13 @@ export function CookiePreferencesMenu() {
                       Marketing Cookies
                     </h3>
                     <p className="text-xs text-gray-500 dark:text-gray-400">
-                      Used to track visitors across websites for marketing
-                      purposes
+                      Used to track visitors across websites for marketing purposes
                     </p>
                   </div>
                   <input
                     type="checkbox"
                     checked={consent.marketing}
-                    onChange={(e) =>
-                      updateConsent({ marketing: e.target.checked })
-                    }
+                    onChange={(e) => updateConsent({ marketing: e.target.checked })}
                     className="h-4 w-4 rounded border-gray-300 text-blue-600"
                   />
                 </div>
@@ -116,9 +112,7 @@ export function CookiePreferencesMenu() {
                   <input
                     type="checkbox"
                     checked={consent.preferences}
-                    onChange={(e) =>
-                      updateConsent({ preferences: e.target.checked })
-                    }
+                    onChange={(e) => updateConsent({ preferences: e.target.checked })}
                     className="h-4 w-4 rounded border-gray-300 text-blue-600"
                   />
                 </div>

@@ -15,7 +15,7 @@ export interface NotificationConfig {
 
 export interface MinecraftPreviewProps {
   notification: NotificationConfig;
-} 
+}
 
 export type TabType = "chat" | "actionbar" | "title" | "sound" | "advanced";
-export type FieldType = keyof NotificationConfig; 
+export type FieldType = keyof NotificationConfig;

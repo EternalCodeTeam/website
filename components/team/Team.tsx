@@ -1,14 +1,16 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import SectionTitle from "@/components/SectionTitle";
-import Image from "next/image";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+
+import AnimatedContainer from "@/components/animations/AnimatedContainer";
+import AnimatedElement from "@/components/animations/AnimatedElement";
+import AnimatedSection from "@/components/animations/AnimatedSection";
+import SectionTitle from "@/components/SectionTitle";
+
 import GitHubIcon from "../icons/github";
 import LinkedinIcon from "../icons/linkedin";
-import AnimatedSection from "@/components/animations/AnimatedSection";
-import AnimatedElement from "@/components/animations/AnimatedElement";
-import AnimatedContainer from "@/components/animations/AnimatedContainer";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 40, scale: 0.95 },
@@ -124,7 +126,10 @@ export default function Team() {
               description="EternalCodeTeam is a dedicated group of creative programmers who work on unique open source projects."
             />
           </AnimatedElement>
-          <AnimatedContainer className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" staggerDelay={0.18}>
+          <AnimatedContainer
+            className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+            staggerDelay={0.18}
+          >
             {[...Array(8)].map((_, index) => (
               <AnimatedElement
                 key={index}
@@ -169,13 +174,12 @@ export default function Team() {
             description="EternalCodeTeam is a dedicated group of creative programmers who work on unique open source projects."
           />
         </AnimatedElement>
-        <AnimatedContainer className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" staggerDelay={0.18}>
+        <AnimatedContainer
+          className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+          staggerDelay={0.18}
+        >
           {members.map((member, index) => (
-            <TeamMember
-              key={member.id}
-              member={member.attributes}
-              index={index}
-            />
+            <TeamMember key={member.id} member={member.attributes} index={index} />
           ))}
         </AnimatedContainer>
       </div>
@@ -190,10 +194,16 @@ export function TeamMember({ member, index }: TeamMemberProps) {
       variants={cardVariants}
       initial="hidden"
       animate="visible"
-      style={{ background: "transparent", boxShadow: "none", border: "none", padding: 0, cursor: "pointer" }}
+      style={{
+        background: "transparent",
+        boxShadow: "none",
+        border: "none",
+        padding: 0,
+        cursor: "pointer",
+      }}
     >
       <motion.div
-        className="mx-auto mb-4 h-36 w-36 rounded-full overflow-hidden shadow-md"
+        className="mx-auto mb-4 h-36 w-36 overflow-hidden rounded-full shadow-md"
         whileHover={avatarHover}
         transition={{ type: "spring", stiffness: 300, damping: 18 }}
       >

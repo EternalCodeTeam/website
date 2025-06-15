@@ -2,6 +2,7 @@
 
 import { useTheme } from "next-themes";
 import { useCallback } from "react";
+
 import DarkThemeIcon from "@/components/icons/dark-theme";
 import LightThemeIcon from "@/components/icons/light-theme";
 import { Button } from "@/components/ui/button";

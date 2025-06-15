@@ -1,10 +1,10 @@
 "use client";
 
-import SectionTitle from "@/components/SectionTitle";
+import { AnimatedSection, AnimatedElement, AnimatedContainer } from "@/components/animations";
 import JavaIcon from "@/components/icons/java";
 import LinuxIcon from "@/components/icons/linux";
 import TabNew from "@/components/icons/tab-new";
-import { AnimatedSection, AnimatedElement, AnimatedContainer } from "@/components/animations";
+import SectionTitle from "@/components/SectionTitle";
 
 interface Feature {
   icon: React.ReactNode;
@@ -23,14 +23,12 @@ export default function Features() {
     {
       icon: <LinuxIcon className="h-12 w-12" aria-hidden="true" />,
       title: "Linux",
-      description:
-        "We like to work on operating systems based on the Linux kernel.",
+      description: "We like to work on operating systems based on the Linux kernel.",
     },
     {
       icon: <TabNew className="h-12 w-12" aria-hidden="true" />,
       title: "Other technologies",
-      description:
-        "We are open to learning about new technologies and are eager to learn them.",
+      description: "We are open to learning about new technologies and are eager to learn them.",
     },
   ];
 
@@ -42,11 +40,7 @@ export default function Features() {
       aria-labelledby="features-heading"
     >
       <div className="mx-auto max-w-screen-xl px-4 py-8">
-        <AnimatedElement
-          as="div"
-          animationType="fadeDown"
-          delay={0.1}
-        >
+        <AnimatedElement as="div" animationType="fadeDown" delay={0.1}>
           <SectionTitle
             title="What do we do?"
             description="Below you will find information about what we do on a daily basis."
@@ -70,13 +64,9 @@ export default function Features() {
                 {feature.icon}
               </div>
 
-              <h3 className="mb-2 text-xl font-bold dark:text-white">
-                {feature.title}
-              </h3>
+              <h3 className="mb-2 text-xl font-bold dark:text-white">{feature.title}</h3>
 
-              <p className="text-gray-500 dark:text-gray-400">
-                {feature.description}
-              </p>
+              <p className="text-gray-500 dark:text-gray-400">{feature.description}</p>
             </AnimatedElement>
           ))}
         </AnimatedContainer>

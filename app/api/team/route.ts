@@ -4,15 +4,12 @@ export const revalidate = 3600;
 
 export async function GET(request: Request) {
   try {
-    const res = await fetch(
-      `https://cms.eternalcode.pl/api/team-members?populate=*`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.ETERNALCODE_STRAPI_KEY}`,
-        },
-        next: { revalidate },
-      }
-    );
+    const res = await fetch(`https://cms.eternalcode.pl/api/team-members?populate=*`, {
+      headers: {
+        Authorization: `Bearer ${process.env.ETERNALCODE_STRAPI_KEY}`,
+      },
+      next: { revalidate },
+    });
 
     if (!res.ok) {
       const errorBody = await res.json();
@@ -28,9 +25,6 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     console.error("Error fetching team data:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch team data" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch team data" }, { status: 500 });
   }
 }

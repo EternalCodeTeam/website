@@ -24,36 +24,34 @@ export default function DynamicCommandsTable() {
         return res.json();
       })
       .then((data) => {
-       
         if (!Array.isArray(data)) {
           console.error("Expected array of commands, got:", typeof data);
           setError("Invalid data format received from server");
           return;
         }
-        
-       
+
         const processedCommands = data.map((cmd: any) => {
-         
-          const permission = Array.isArray(cmd.permissions) && cmd.permissions.length > 0 
-            ? cmd.permissions[0] 
-            : "-";
-            
-          const description = Array.isArray(cmd.descriptions) && cmd.descriptions.length > 0 
-            ? cmd.descriptions[0] 
-            : "-";
-            
-          const args = Array.isArray(cmd.arguments) && cmd.arguments.length > 0 
-            ? cmd.arguments.join(", ") 
-            : "-";
-            
+          const permission =
+            Array.isArray(cmd.permissions) && cmd.permissions.length > 0 ? cmd.permissions[0] : "-";
+
+          const description =
+            Array.isArray(cmd.descriptions) && cmd.descriptions.length > 0
+              ? cmd.descriptions[0]
+              : "-";
+
+          const args =
+            Array.isArray(cmd.arguments) && cmd.arguments.length > 0
+              ? cmd.arguments.join(", ")
+              : "-";
+
           return {
             name: cmd.name || "Unknown",
             permission,
             description,
-            arguments: args
+            arguments: args,
           };
         });
-        
+
         setCommands(processedCommands);
       })
       .catch((e) => {
@@ -67,15 +65,15 @@ export default function DynamicCommandsTable() {
     if (tableRef.current) {
       const timer = setTimeout(() => {
         if (tableRef.current) {
-          tableRef.current.style.visibility = 'hidden';
+          tableRef.current.style.visibility = "hidden";
           setTimeout(() => {
             if (tableRef.current) {
-              tableRef.current.style.visibility = 'visible';
+              tableRef.current.style.visibility = "visible";
             }
           }, 50);
         }
       }, 2000);
-      
+
       return () => clearTimeout(timer);
     }
   }, []);
@@ -85,7 +83,11 @@ export default function DynamicCommandsTable() {
   if (!commands.length) return <div>No commands found.</div>;
 
   return (
-    <div className="overflow-x-auto" ref={tableRef} style={{ display: 'block !important', opacity: '1 !important' }}>
+    <div
+      className="overflow-x-auto"
+      ref={tableRef}
+      style={{ display: "block !important", opacity: "1 !important" }}
+    >
       <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700">
         <thead>
           <tr>
@@ -97,11 +99,13 @@ export default function DynamicCommandsTable() {
         </thead>
         <tbody>
           {commands.map((c, i) => (
-            <tr key={i}>
-              <td className="border px-4 py-2 font-semibold whitespace-normal break-words">{c.name}</td>
-              <td className="border px-4 py-2 whitespace-normal break-words">{c.permission}</td>
-              <td className="border px-4 py-2 whitespace-normal break-words">{c.description}</td>
-              <td className="border px-4 py-2 whitespace-normal break-words">{c.arguments}</td>
+            <tr key={c.name}>
+              <td className="whitespace-normal break-words border px-4 py-2 font-semibold">
+                {c.name}
+              </td>
+              <td className="whitespace-normal break-words border px-4 py-2">{c.permission}</td>
+              <td className="whitespace-normal break-words border px-4 py-2">{c.description}</td>
+              <td className="whitespace-normal break-words border px-4 py-2">{c.arguments}</td>
             </tr>
           ))}
         </tbody>

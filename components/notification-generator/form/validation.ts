@@ -7,7 +7,6 @@ export const validateField = (field: FieldType, value: string): string => {
     case "fadeIn":
     case "stay":
     case "fadeOut":
-
       if (!/^\d+(\.\d+)?s$/.test(value)) {
         return "Format: 1s, 0.5s, 2s, etc.";
       }
@@ -30,30 +29,32 @@ export const validateField = (field: FieldType, value: string): string => {
 
 export const validateForm = (
   notification: Record<string, string>,
-  validateFieldFn: (field: FieldType, value: string) => string
+  validateFieldFn: (
+    field: "fadeIn" | "stay" | "fadeOut" | "sound" | "pitch" | "volume",
+    value: string
+  ) => string
 ): Record<string, string> => {
   const errors: Record<string, string> = {};
 
-
   if (notification.fadeIn) {
-    const error = validateFieldFn("fadeIn" as FieldType, notification.fadeIn);
+    const error = validateFieldFn("fadeIn", notification.fadeIn);
     if (error) errors.fadeIn = error;
   }
 
   if (notification.stay) {
-    const error = validateFieldFn("stay" as FieldType, notification.stay);
+    const error = validateFieldFn("stay", notification.stay);
     if (error) errors.stay = error;
   }
 
   if (notification.fadeOut) {
-    const error = validateFieldFn("fadeOut" as FieldType, notification.fadeOut);
+    const error = validateFieldFn("fadeOut", notification.fadeOut);
     if (error) errors.fadeOut = error;
   }
 
   if (notification.sound) {
-    const error = validateFieldFn("sound" as FieldType, notification.sound);
+    const error = validateFieldFn("sound", notification.sound);
     if (error) errors.sound = error;
   }
 
   return errors;
-}; 
+};

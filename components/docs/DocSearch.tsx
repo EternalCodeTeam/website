@@ -1,14 +1,17 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useRef, memo } from "react";
-import { useRouter, usePathname } from "next/navigation";
-import { Search } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useDebounce } from "../../hooks/useDebounce";
-import { useClickOutside } from "../../hooks/useClickOutside";
+import { create, insertMultiple, search, Document } from "@orama/orama";
 import { motion, AnimatePresence } from "framer-motion";
+import { Search } from "lucide-react";
+import { useRouter, usePathname } from "next/navigation";
+import React, { useState, useEffect, useCallback, useRef, memo } from "react";
+
+import { cn } from "@/lib/utils";
+
+import { useClickOutside } from "../../hooks/useClickOutside";
+import { useDebounce } from "../../hooks/useDebounce";
+
 import { fadeInUp } from "./DocHeader";
-import { create, insertMultiple, search, Document } from '@orama/orama';
 
 interface SearchResult {
   title: string;
@@ -17,13 +20,13 @@ interface SearchResult {
 }
 
 const isValidSearchResult = (data: unknown): data is SearchResult => {
-  if (!data || typeof data !== 'object') return false;
-  
+  if (!data || typeof data !== "object") return false;
+
   const result = data as Record<string, unknown>;
   return (
-    typeof result.title === 'string' &&
-    typeof result.path === 'string' &&
-    typeof result.excerpt === 'string' &&
+    typeof result.title === "string" &&
+    typeof result.path === "string" &&
+    typeof result.excerpt === "string" &&
     result.title.length > 0 &&
     result.path.length > 0
   );
@@ -31,7 +34,7 @@ const isValidSearchResult = (data: unknown): data is SearchResult => {
 
 const validateSearchResults = (data: unknown): SearchResult[] => {
   if (!Array.isArray(data)) {
-    console.error('Search index data is not an array');
+    console.error("Search index data is not an array");
     return [];
   }
 
@@ -48,7 +51,9 @@ const validateSearchResults = (data: unknown): SearchResult[] => {
   });
 
   if (invalidResults.length > 0) {
-    console.warn(`Found ${invalidResults.length} invalid search results out of ${data.length} total results`);
+    console.warn(
+      `Found ${invalidResults.length} invalid search results out of ${data.length} total results`
+    );
   }
 
   return validResults;
@@ -73,12 +78,8 @@ const SearchResultItem: React.FC<{
     whileHover={{ x: 3 }}
     transition={{ type: "spring", stiffness: 400, damping: 10 }}
   >
-    <div className="font-medium text-gray-900 dark:text-white">
-      {result.title}
-    </div>
-    <div className="text-sm text-gray-500 dark:text-gray-400">
-      {result.excerpt}
-    </div>
+    <div className="font-medium text-gray-900 dark:text-white">{result.title}</div>
+    <div className="text-sm text-gray-500 dark:text-gray-400">{result.excerpt}</div>
   </motion.button>
 ));
 
@@ -98,7 +99,7 @@ const LoadingSpinner: React.FC = () => (
 );
 
 const NoResultsMessage: React.FC = () => (
-  <motion.div 
+  <motion.div
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     exit={{ opacity: 0 }}
@@ -130,58 +131,54 @@ const DocSearch = memo(function DocSearch({
 
   useClickOutside(searchRef, () => setIsOpen(false));
 
- 
   useEffect(() => {
     const checkIfMobile = () => {
       setIsMobile(window.innerWidth < 1024);
     };
 
-   
     checkIfMobile();
 
-   
-    window.addEventListener('resize', checkIfMobile);
+    window.addEventListener("resize", checkIfMobile);
 
-   
-    return () => window.removeEventListener('resize', checkIfMobile);
+    return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
 
   useEffect(() => {
     const initOrama = async () => {
       try {
-        const response = await fetch('/api/docs/search-index');
+        const response = await fetch("/api/docs/search-index");
         if (!response.ok) {
           throw new Error(`Failed to fetch search index: ${response.status}`);
         }
-        
+
         const rawData = await response.json();
         const searchData = validateSearchResults(rawData);
-        
+
         if (searchData.length === 0) {
-          console.warn('No valid search results found in the index');
+          console.warn("No valid search results found in the index");
           return;
         }
-        
+
         setSearchIndex(searchData);
-        
+
         const db = await create({
           schema: {
-            title: 'string',
-            path: 'string',
-            excerpt: 'string'
-          }
+            title: "string",
+            path: "string",
+            excerpt: "string",
+          },
         });
-        
+
         await insertMultiple(db, searchData);
         setOramaDb(db);
       } catch (error) {
         console.error("Failed to initialize search:", error);
-       
+
         setSearchIndex([]);
         setOramaDb(null);
       }
     };
-    
+
     initOrama();
   }, []);
 
@@ -204,20 +201,20 @@ const DocSearch = memo(function DocSearch({
       }
 
       setIsLoading(true);
-      
+
       try {
         const searchResults = await search(oramaDb, {
           term: query,
-          properties: ['title', 'excerpt'],
-          limit: 10
+          properties: ["title", "excerpt"],
+          limit: 10,
         });
-        
-        const mappedResults = searchResults.hits.map(hit => ({
+
+        const mappedResults = searchResults.hits.map((hit) => ({
           title: hit.document.title as string,
           path: hit.document.path as string,
-          excerpt: hit.document.excerpt as string
+          excerpt: hit.document.excerpt as string,
         }));
-        
+
         setResults(mappedResults);
         setHasSearched(true);
       } catch (error) {
@@ -228,7 +225,7 @@ const DocSearch = memo(function DocSearch({
         setIsLoading(false);
       }
     };
-    
+
     performSearch();
   }, [debouncedQuery, oramaDb, minQueryLength, query]);
 
@@ -249,14 +246,7 @@ const DocSearch = memo(function DocSearch({
   }, []);
 
   return (
-    <div
-      ref={searchRef}
-      className={cn(
-        "relative w-full",
-        isMobile ? "mb-4" : "",
-        className
-      )}
-    >
+    <div ref={searchRef} className={cn("relative w-full", isMobile ? "mb-4" : "", className)}>
       <div className="relative">
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
           <Search className="h-4 w-4 text-gray-400" aria-hidden="true" />
@@ -284,9 +274,7 @@ const DocSearch = memo(function DocSearch({
           role="combobox"
           aria-label="Search documentation"
         />
-        <AnimatePresence>
-          {isLoading && <LoadingSpinner />}
-        </AnimatePresence>
+        <AnimatePresence>{isLoading && <LoadingSpinner />}</AnimatePresence>
       </div>
 
       <AnimatePresence>

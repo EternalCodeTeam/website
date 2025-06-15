@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+
 import { TabType } from "../types";
 
 interface TabProps {
@@ -12,7 +13,7 @@ interface TabProps {
 
 export const Tab = ({ activeTab, tabName, label, onClick }: TabProps) => {
   const isActive = activeTab === tabName;
-  
+
   return (
     <motion.button
       id={`tab-${tabName}`}
@@ -42,4 +43,4 @@ export const Tab = ({ activeTab, tabName, label, onClick }: TabProps) => {
       )}
     </motion.button>
   );
-}; 
+};

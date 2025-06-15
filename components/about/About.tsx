@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import TerminalIcon from "../icons/terminal-fill";
-import AboutImage from "@/public/hero image.png";
+
 import { AnimatedSection, AnimatedElement, AnimatedContainer } from "@/components/animations";
+import AboutImage from "@/public/hero image.png";
+
+import TerminalIcon from "../icons/terminal-fill";
 
 const Container = ({ children }: { children: React.ReactNode }) => (
   <div className="mx-auto max-w-screen-xl px-4 py-8">{children}</div>
@@ -35,7 +37,7 @@ export default function About() {
               alt="Software development team collaborating"
             />
           </AnimatedElement>
-          
+
           <AnimatedContainer
             className="mx-auto mt-6 max-w-xl space-y-3 px-4 sm:px-0 md:mt-0 lg:max-w-2xl"
             animationType="fadeLeft"
@@ -52,15 +54,15 @@ export default function About() {
                 <TerminalIcon className="ml-2" />
               </span>
             </AnimatedElement>
-            
+
             <AnimatedElement
               as="p"
               className="mx-auto text-center text-gray-500 dark:text-gray-400 lg:text-left"
               animationType="fadeUp"
             >
-              We are a team of programmers specializing in open-source projects.
-              This allows us to gain new experiences and share knowledge with
-              each other. We are open to any technology!
+              We are a team of programmers specializing in open-source projects. This allows us to
+              gain new experiences and share knowledge with each other. We are open to any
+              technology!
             </AnimatedElement>
 
             <AnimatedElement
@@ -68,10 +70,9 @@ export default function About() {
               className="mx-auto text-center text-gray-500 dark:text-gray-400 lg:text-left"
               animationType="fadeUp"
             >
-              Special thanks to JetBrains, Sentry.io and Jira Software for
-              providing open-source licenses to our team members. We would also
-              like to express our gratitude to GitHub for providing high-quality
-              software for managing Git repositories.
+              Special thanks to JetBrains, Sentry.io and Jira Software for providing open-source
+              licenses to our team members. We would also like to express our gratitude to GitHub
+              for providing high-quality software for managing Git repositories.
             </AnimatedElement>
           </AnimatedContainer>
         </div>

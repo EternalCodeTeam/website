@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useCallback, useRef, useEffect } from "react";
 import { Copy, Check } from "lucide-react";
-import { cn } from "@/lib/utils";
+import React, { useState, useCallback, useRef, useEffect } from "react";
+
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface ShortLinkProps {
   path: string;
@@ -11,11 +12,7 @@ interface ShortLinkProps {
   className?: string;
 }
 
-export const ShortLink: React.FC<ShortLinkProps> = ({
-  path,
-  sectionId,
-  className,
-}) => {
+export const ShortLink: React.FC<ShortLinkProps> = ({ path, sectionId, className }) => {
   const [copied, setCopied] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout>();
@@ -59,7 +56,13 @@ export const ShortLink: React.FC<ShortLinkProps> = ({
         variant="secondary"
         size="xs"
         isLoading={isLoading}
-        leftIcon={copied ? <Check className="h-3 w-3" aria-hidden="true" /> : <Copy className="h-3 w-3" aria-hidden="true" />}
+        leftIcon={
+          copied ? (
+            <Check className="h-3 w-3" aria-hidden="true" />
+          ) : (
+            <Copy className="h-3 w-3" aria-hidden="true" />
+          )
+        }
         aria-label={copied ? "Link copied" : "Copy link"}
         className="text-xs"
       >

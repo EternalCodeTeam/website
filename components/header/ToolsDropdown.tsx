@@ -1,15 +1,15 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
+import { useState, useRef, useEffect } from "react";
+
 import ArrowDown from "../icons/arrow-down";
 
 export function ToolsDropdown() {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLUListElement>(null);
-
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -29,7 +29,6 @@ export function ToolsDropdown() {
     }
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [open]);
-
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -62,10 +61,7 @@ export function ToolsDropdown() {
         type="button"
       >
         Tools
-        <motion.span
-          animate={{ rotate: open ? 180 : 0 }}
-          transition={{ duration: 0.2 }}
-        >
+        <motion.span animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
           <ArrowDown className="h-4 w-4" aria-hidden="true" />
         </motion.span>
       </button>
@@ -78,14 +74,14 @@ export function ToolsDropdown() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="absolute right-50 md:left-0 z-30 mt-10 min-w-[210px] rounded-lg bg-white py-2 shadow-xl ring-1 ring-black/10 dark:bg-gray-900 dark:ring-white/10"
+            className="right-50 absolute z-30 mt-10 min-w-[210px] rounded-lg bg-white py-2 shadow-xl ring-1 ring-black/10 dark:bg-gray-900 dark:ring-white/10 md:left-0"
             role="menu"
             aria-label="Tools menu"
           >
             <li>
               <Link
                 href="/notification-generator"
-                className="block w-full px-4 py-2 text-left text-gray-900 transition-colors duration-150 hover:bg-blue-50 hover:text-blue-700 focus:bg-blue-100 focus:text-blue-700 dark:text-white dark:hover:bg-gray-800 dark:hover:text-blue-400 dark:focus:bg-gray-800 dark:focus:text-blue-400 rounded-md outline-none"
+                className="block w-full rounded-md px-4 py-2 text-left text-gray-900 outline-none transition-colors duration-150 hover:bg-blue-50 hover:text-blue-700 focus:bg-blue-100 focus:text-blue-700 dark:text-white dark:hover:bg-gray-800 dark:hover:text-blue-400 dark:focus:bg-gray-800 dark:focus:text-blue-400"
                 tabIndex={0}
                 role="menuitem"
                 onClick={() => setOpen(false)}
@@ -98,4 +94,4 @@ export function ToolsDropdown() {
       </AnimatePresence>
     </div>
   );
-} 
+}

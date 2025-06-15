@@ -1,19 +1,21 @@
 import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
-import { Providers } from "./providers";
+
 import "./globals.css";
-import Navbar from "@/components/header/Navbar";
-import Footer from "@/components/footer/Footer";
 import React from "react";
+
 import { Analytics } from "@/components/Analytics";
-import { SpeedInsights } from "@/components/SpeedInsights";
 import "./prism-languages";
-import DocCopyEnhancer from "@/components/docs/DocCopyEnhancer";
 import { CookieConsentModal } from "@/components/CookieConsentModal";
 import { CookiePreferencesMenu } from "@/components/CookiePreferencesMenu";
+import DocCopyEnhancer from "@/components/docs/DocCopyEnhancer";
+import Footer from "@/components/footer/Footer";
+import Navbar from "@/components/header/Navbar";
+import { SpeedInsights } from "@/components/SpeedInsights";
 import { generateOgImageUrl } from "@/lib/og-utils";
 
+import { Providers } from "./providers";
 
 export const dynamic = "force-static";
 export const revalidate = 3600;
@@ -38,7 +40,6 @@ export const viewport: Viewport = {
   ],
 };
 
-
 const defaultOgImageUrl = generateOgImageUrl({
   title: "EternalCode.pl",
   subtitle: "We are a team creating open source projects!",
@@ -49,14 +50,7 @@ export const metadata: Metadata = {
   title: "EternalCode.pl | Home",
   description:
     "EternalCode.pl delivers open source solutions with a focus on quality, performance, and innovation.",
-  keywords: [
-    "open source",
-    "Java",
-    "Linux",
-    "Minecraft",
-    "plugins",
-    "development",
-  ],
+  keywords: ["open source", "Java", "Linux", "Minecraft", "plugins", "development"],
   authors: [{ name: "EternalCode Team" }],
   creator: "EternalCode Team",
   publisher: "EternalCode Team",

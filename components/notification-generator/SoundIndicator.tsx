@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface SoundIndicatorProps {
   sound: string;
@@ -7,11 +7,9 @@ interface SoundIndicatorProps {
 
 const SoundIndicator = React.memo(({ sound, playSound }: SoundIndicatorProps) => {
   if (!sound || !playSound) return null;
-  
+
   return (
-    <div 
-      className="absolute right-4 top-4 flex items-center rounded-md bg-black bg-opacity-50 px-3 py-1 text-sm text-white"
-    >
+    <div className="absolute right-4 top-4 flex items-center rounded-md bg-black bg-opacity-50 px-3 py-1 text-sm text-white">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="mr-1 h-4 w-4"
@@ -24,13 +22,11 @@ const SoundIndicator = React.memo(({ sound, playSound }: SoundIndicatorProps) =>
           clipRule="evenodd"
         />
       </svg>
-      <span>
-        {sound}
-      </span>
+      <span>{sound}</span>
     </div>
   );
 });
 
-SoundIndicator.displayName = 'SoundIndicator';
+SoundIndicator.displayName = "SoundIndicator";
 
-export default SoundIndicator; 
+export default SoundIndicator;

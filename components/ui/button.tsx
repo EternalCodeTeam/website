@@ -1,7 +1,8 @@
 "use client";
 
-import React, { forwardRef } from "react";
 import { motion, HTMLMotionProps } from "framer-motion";
+import React, { forwardRef } from "react";
+
 import { cn } from "@/lib/utils";
 
 export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "link" | "danger";
@@ -40,17 +41,20 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const baseStyles = "inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none";
-    
+    const baseStyles =
+      "inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none";
+
     const variants: Record<ButtonVariant, string> = {
       primary: "bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800",
-      secondary: "bg-gray-200 text-gray-900 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600",
-      outline: "border border-gray-300 bg-transparent hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-800",
+      secondary:
+        "bg-gray-200 text-gray-900 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600",
+      outline:
+        "border border-gray-300 bg-transparent hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-800",
       ghost: "bg-transparent dark:bg-transparent",
       link: "bg-transparent text-blue-600 underline-offset-4 hover:underline dark:text-blue-400",
       danger: "bg-red-600 text-white hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800",
     };
-    
+
     const sizes: Record<ButtonSize, string> = {
       xs: "h-6 px-2 text-xs",
       sm: "h-8 px-3 text-xs",
@@ -58,9 +62,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       lg: "h-12 px-6 py-3 text-base",
       xl: "h-14 px-8 py-4 text-lg",
     };
-    
+
     const widthClass = fullWidth ? "w-full" : "";
-    
+
     const LoadingSpinner = () => (
       <svg
         className="mr-2 h-4 w-4 animate-spin"
@@ -84,28 +88,30 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ></path>
       </svg>
     );
-    
+
     const buttonContent = (
       <>
         {isLoading && <LoadingSpinner />}
-        {!isLoading && leftIcon && <span className="mr-2" aria-hidden="true">{leftIcon}</span>}
+        {!isLoading && leftIcon && (
+          <span className="mr-2" aria-hidden="true">
+            {leftIcon}
+          </span>
+        )}
         {children}
-        {!isLoading && rightIcon && <span className="ml-2" aria-hidden="true">{rightIcon}</span>}
+        {!isLoading && rightIcon && (
+          <span className="ml-2" aria-hidden="true">
+            {rightIcon}
+          </span>
+        )}
       </>
     );
 
-    const buttonClasses = cn(
-      baseStyles,
-      variants[variant],
-      sizes[size],
-      widthClass,
-      className
-    );
+    const buttonClasses = cn(baseStyles, variants[variant], sizes[size], widthClass, className);
 
     const defaultAnimationProps = {
       hover: { scale: 1.05 },
       tap: { scale: 0.95 },
-      transition: { type: "spring", stiffness: 400, damping: 17 }
+      transition: { type: "spring", stiffness: 400, damping: 17 },
     };
 
     const finalAnimationProps = animationProps || defaultAnimationProps;
@@ -162,25 +168,16 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         "aria-valuetext": props["aria-valuetext"],
         onClick: props.onClick,
       } as HTMLMotionProps<"button">;
-      
+
       if (props["data-testid"]) {
         (motionProps as any)["data-testid"] = props["data-testid"];
       }
-      
-      return (
-        <motion.button {...motionProps}>
-          {buttonContent}
-        </motion.button>
-      );
+
+      return <motion.button {...motionProps}>{buttonContent}</motion.button>;
     }
 
     return (
-      <button
-        ref={ref}
-        className={buttonClasses}
-        disabled={isLoading || props.disabled}
-        {...props}
-      >
+      <button ref={ref} className={buttonClasses} disabled={isLoading || props.disabled} {...props}>
         {buttonContent}
       </button>
     );

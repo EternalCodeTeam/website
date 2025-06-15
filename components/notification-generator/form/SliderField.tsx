@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useCallback, useRef } from "react";
+
 import { Button } from "@/components/ui/button";
 
 interface SliderFieldProps {
@@ -29,7 +30,6 @@ export const SliderField = ({
     value ? parseFloat(value) : (min + max) / 2
   );
 
-
   useEffect(() => {
     if (value) {
       const parsedValue = parseFloat(value);
@@ -39,13 +39,14 @@ export const SliderField = ({
     }
   }, [value, min, max]);
 
-
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = parseFloat(e.target.value);
-    setSliderValue(newValue);
-    onChange(name, newValue.toFixed(2));
-  }, [name, onChange]);
-
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = parseFloat(e.target.value);
+      setSliderValue(newValue);
+      onChange(name, newValue.toFixed(2));
+    },
+    [name, onChange]
+  );
 
   const gradientPercentage = ((sliderValue - min) / (max - min)) * 100;
 
@@ -74,7 +75,7 @@ export const SliderField = ({
         />
       </div>
       {error && (
-        <motion.p 
+        <motion.p
           className="mt-1 text-xs text-red-500 dark:text-red-400"
           initial={{ opacity: 0, y: -5 }}
           animate={{ opacity: 1, y: 0 }}
@@ -109,12 +110,12 @@ export const CustomDropdown = ({
         setIsOpen(false);
       }
     }
-    
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const selectedOption = options.find(option => option.value === value);
+  const selectedOption = options.find((option) => option.value === value);
 
   return (
     <div className="mb-4" ref={dropdownRef}>
@@ -132,19 +133,28 @@ export const CustomDropdown = ({
           aria-expanded={isOpen}
           aria-haspopup="listbox"
           rightIcon={
-            <motion.span
-              animate={{ rotate: isOpen ? 180 : 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <motion.span animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6 9L12 15L18 9"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </motion.span>
           }
         >
           {selectedOption?.label || "Select an option"}
         </Button>
-        
+
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -156,9 +166,9 @@ export const CustomDropdown = ({
               role="listbox"
             >
               {options.map((option) => (
-                <div 
+                <div
                   key={option.value}
-                  className="block w-full px-4 py-2 text-left text-gray-900 transition-colors duration-150 hover:bg-blue-50 hover:text-blue-700 focus:bg-blue-100 focus:text-blue-700 dark:text-white dark:hover:bg-gray-800 dark:hover:text-blue-400 dark:focus:bg-gray-800 dark:focus:text-blue-400 rounded-md outline-none cursor-pointer"
+                  className="block w-full cursor-pointer rounded-md px-4 py-2 text-left text-gray-900 outline-none transition-colors duration-150 hover:bg-blue-50 hover:text-blue-700 focus:bg-blue-100 focus:text-blue-700 dark:text-white dark:hover:bg-gray-800 dark:hover:text-blue-400 dark:focus:bg-gray-800 dark:focus:text-blue-400"
                   onClick={() => {
                     onChange(option.value);
                     setIsOpen(false);
@@ -173,4 +183,4 @@ export const CustomDropdown = ({
       </div>
     </div>
   );
-}; 
+};

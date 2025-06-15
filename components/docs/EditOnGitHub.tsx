@@ -1,18 +1,16 @@
-import { FC } from "react";
 import Link from "next/link";
+import { FC } from "react";
+
 import GitHubIcon from "@/components/icons/github";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface EditOnGitHubProps {
   filePath: string;
   className?: string;
 }
 
-export const EditOnGitHub: FC<EditOnGitHubProps> = ({
-  filePath,
-  className,
-}) => {
+export const EditOnGitHub: FC<EditOnGitHubProps> = ({ filePath, className }) => {
   const githubUrl = `https://github.com/EternalCodeTeam/website/edit/main/content/docs/${encodeURIComponent(filePath)}.md`;
 
   return (

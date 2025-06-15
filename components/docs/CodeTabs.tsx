@@ -1,10 +1,12 @@
 "use client";
 
-import React, { memo, useCallback } from "react";
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/react";
-import * as SIIcons from "react-icons/si";
-import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import React, { memo, useCallback } from "react";
+import * as SIIcons from "react-icons/si";
+
+import { cn } from "@/lib/utils";
+
 import { fadeInUp } from "./DocHeader";
 
 interface CodeTabsProps {
@@ -60,22 +62,16 @@ export const CodeTabs: React.FC<CodeTabsProps> = ({
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ 
-        type: "spring", 
-        stiffness: 100, 
+      transition={{
+        type: "spring",
+        stiffness: 100,
         damping: 20,
-        mass: 0.8
+        mass: 0.8,
       }}
-      className={cn(
-        "my-8 overflow-hidden rounded-lg bg-white dark:bg-gray-900",
-        className
-      )}
+      className={cn("my-8 overflow-hidden rounded-lg bg-white dark:bg-gray-900", className)}
     >
       <TabGroup defaultIndex={defaultIndex} onChange={handleChange}>
-        <TabList
-          className="flex space-x-2 px-4 pb-0 pt-4"
-          aria-label="Code language selection"
-        >
+        <TabList className="flex space-x-2 px-4 pb-0 pt-4" aria-label="Code language selection">
           {React.Children.map(children, (child, idx) => {
             if (!React.isValidElement<CodeTabProps>(child)) return null;
 
@@ -113,7 +109,7 @@ export const CodeTabs: React.FC<CodeTabsProps> = ({
                           bounce: 0.2,
                           duration: 0.6,
                           stiffness: 300,
-                          damping: 30
+                          damping: 30,
                         }}
                       />
                     )}
@@ -140,11 +136,11 @@ export const CodeTabs: React.FC<CodeTabsProps> = ({
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    transition={{ 
-                      type: "spring", 
-                      stiffness: 100, 
+                    transition={{
+                      type: "spring",
+                      stiffness: 100,
                       damping: 20,
-                      mass: 0.8
+                      mass: 0.8,
                     }}
                   >
                     {child.props.children}

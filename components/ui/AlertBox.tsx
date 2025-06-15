@@ -1,6 +1,6 @@
 "use client";
 
-import { memo } from "react";
+import { motion } from "framer-motion";
 import {
   Info,
   AlertTriangle,
@@ -12,9 +12,10 @@ import {
   Star,
   BookOpen,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { memo } from "react";
 import type { ReactNode } from "react";
+
+import { cn } from "@/lib/utils";
 
 export type AlertBoxType =
   | "info"
@@ -28,13 +29,12 @@ export type AlertBoxType =
   | "example";
 
 export interface AlertBoxProps {
- 
   type: AlertBoxType;
- 
+
   children: ReactNode;
- 
+
   title?: ReactNode;
- 
+
   className?: string;
 }
 
@@ -56,8 +56,7 @@ const alertStyles = {
     role: "alert",
   },
   danger: {
-    container:
-      "bg-red-500/10 border border-red-500/20 dark:bg-red-500/10 dark:border-red-500/20",
+    container: "bg-red-500/10 border border-red-500/20 dark:bg-red-500/10 dark:border-red-500/20",
     icon: "text-red-500 dark:text-red-400",
     text: "text-red-800 dark:text-red-200",
     title: "text-red-900 dark:text-red-100",
@@ -147,8 +146,10 @@ export const AlertBox = memo(function AlertBox({
   const styles = alertStyles[type];
   const defaultTitle = defaultTitles[type];
 
-
-  const ariaLabel = typeof title === "string" ? title : `${type} alert`;
+  const ariaLabel =
+    typeof title === "string"
+      ? title
+      : `${defaultTitle} - ${type.charAt(0).toUpperCase() + type.slice(1)} alert message`;
 
   return (
     <motion.div
@@ -175,9 +176,7 @@ export const AlertBox = memo(function AlertBox({
           transition={{ delay: 0.1, duration: 0.2 }}
         >
           {(title || defaultTitle) && (
-            <h5 className={`mb-1 font-semibold ${styles.title}`}>
-              {title || defaultTitle}
-            </h5>
+            <h5 className={`mb-1 font-semibold ${styles.title}`}>{title || defaultTitle}</h5>
           )}
           <div className={`prose-sm ${styles.text}`}>{children}</div>
         </motion.div>

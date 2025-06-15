@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import SectionTitle from "../SectionTitle";
+import { useState, useCallback } from "react";
+
 import { AnimatedSection, AnimatedElement, AnimatedContainer } from "@/components/animations";
+
+import SectionTitle from "../SectionTitle";
 
 interface FaqItem {
   question: string;
@@ -41,29 +43,16 @@ export default function Faq() {
   }, []);
 
   return (
-    <AnimatedSection
-      id="faq"
-      className="py-16"
-      animationType="fade"
-      aria-labelledby="faq-heading"
-    >
+    <AnimatedSection id="faq" className="py-16" animationType="fade" aria-labelledby="faq-heading">
       <div className="mx-auto max-w-screen-xl px-4 py-8">
-        <AnimatedElement
-          as="div"
-          animationType="fadeDown"
-          delay={0.1}
-        >
+        <AnimatedElement as="div" animationType="fadeDown" delay={0.1}>
           <SectionTitle
             title="Frequently Asked Questions"
             description="Here you will find answers to the most frequently asked questions."
           />
         </AnimatedElement>
 
-        <AnimatedContainer
-          className="mt-12"
-          staggerDelay={0.15}
-          delay={0.2}
-        >
+        <AnimatedContainer className="mt-12" staggerDelay={0.15} delay={0.2}>
           {faqItems.map((item, index) => (
             <AnimatedElement
               key={index}
@@ -83,15 +72,15 @@ export default function Faq() {
               >
                 <span>{item.question}</span>
                 <motion.div
-                  animate={{ 
+                  animate={{
                     rotate: activeIndex === index ? 180 : 0,
-                    scale: activeIndex === index ? 1.1 : 1
+                    scale: activeIndex === index ? 1.1 : 1,
                   }}
-                  transition={{ 
-                    type: "spring", 
-                    stiffness: 300, 
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
                     damping: 20,
-                    duration: 0.3
+                    duration: 0.3,
                   }}
                 >
                   <svg
@@ -114,51 +103,51 @@ export default function Faq() {
                 {activeIndex === index && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
-                    animate={{ 
-                      height: "auto", 
+                    animate={{
+                      height: "auto",
                       opacity: 1,
                       transition: {
-                        height: { 
-                          type: "spring", 
-                          stiffness: 300, 
+                        height: {
+                          type: "spring",
+                          stiffness: 300,
                           damping: 30,
-                          duration: 0.4
+                          duration: 0.4,
                         },
-                        opacity: { 
+                        opacity: {
                           duration: 0.3,
-                          delay: 0.1
-                        }
-                      }
+                          delay: 0.1,
+                        },
+                      },
                     }}
-                    exit={{ 
-                      height: 0, 
+                    exit={{
+                      height: 0,
                       opacity: 0,
                       transition: {
-                        height: { 
-                          type: "spring", 
-                          stiffness: 300, 
+                        height: {
+                          type: "spring",
+                          stiffness: 300,
                           damping: 30,
-                          duration: 0.3
+                          duration: 0.3,
                         },
-                        opacity: { 
-                          duration: 0.2
-                        }
-                      }
+                        opacity: {
+                          duration: 0.2,
+                        },
+                      },
                     }}
                     className="overflow-hidden"
                     id={`faq-panel-${index}`}
                     role="region"
                     aria-labelledby={`faq-question-${index}`}
                   >
-                    <motion.div 
+                    <motion.div
                       className="ease-[cubic-bezier(0.25, 1, 0.5, 1)] bg-[#f5f6f7] p-6 text-gray-700 transition-colors duration-300 dark:bg-[#1F2A37] dark:text-gray-400"
                       initial={{ y: -10, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
-                      transition={{ 
-                        type: "spring", 
-                        stiffness: 300, 
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
                         damping: 25,
-                        delay: 0.1
+                        delay: 0.1,
                       }}
                     >
                       {item.answer}

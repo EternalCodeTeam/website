@@ -1,5 +1,3 @@
-
-
 .font-minecraft b,
 .font-minecraft strong,
 .minecraft-bold {
@@ -31,7 +29,7 @@
 .font-minecraft del::after,
 .font-minecraft [style*="text-decoration: line-through"]::after,
 .minecraft-strikethrough::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 50%;
@@ -49,22 +47,70 @@
   display: inline-block !important;
 }
 
-.minecraft-color-0 { color: #000000 !important; display: inline-block !important; }
-.minecraft-color-1 { color: #0000AA !important; display: inline-block !important; }
-.minecraft-color-2 { color: #00AA00 !important; display: inline-block !important; }
-.minecraft-color-3 { color: #00AAAA !important; display: inline-block !important; }
-.minecraft-color-4 { color: #AA0000 !important; display: inline-block !important; }
-.minecraft-color-5 { color: #AA00AA !important; display: inline-block !important; }
-.minecraft-color-6 { color: #FFAA00 !important; display: inline-block !important; }
-.minecraft-color-7 { color: #AAAAAA !important; display: inline-block !important; }
-.minecraft-color-8 { color: #555555 !important; display: inline-block !important; }
-.minecraft-color-9 { color: #5555FF !important; display: inline-block !important; }
-.minecraft-color-a { color: #55FF55 !important; display: inline-block !important; }
-.minecraft-color-b { color: #55FFFF !important; display: inline-block !important; }
-.minecraft-color-c { color: #FF5555 !important; display: inline-block !important; }
-.minecraft-color-d { color: #FF55FF !important; display: inline-block !important; }
-.minecraft-color-e { color: #FFFF55 !important; display: inline-block !important; }
-.minecraft-color-f { color: #FFFFFF !important; display: inline-block !important; }
+.minecraft-color-0 {
+  color: #000000 !important;
+  display: inline-block !important;
+}
+.minecraft-color-1 {
+  color: #0000aa !important;
+  display: inline-block !important;
+}
+.minecraft-color-2 {
+  color: #00aa00 !important;
+  display: inline-block !important;
+}
+.minecraft-color-3 {
+  color: #00aaaa !important;
+  display: inline-block !important;
+}
+.minecraft-color-4 {
+  color: #aa0000 !important;
+  display: inline-block !important;
+}
+.minecraft-color-5 {
+  color: #aa00aa !important;
+  display: inline-block !important;
+}
+.minecraft-color-6 {
+  color: #ffaa00 !important;
+  display: inline-block !important;
+}
+.minecraft-color-7 {
+  color: #aaaaaa !important;
+  display: inline-block !important;
+}
+.minecraft-color-8 {
+  color: #555555 !important;
+  display: inline-block !important;
+}
+.minecraft-color-9 {
+  color: #5555ff !important;
+  display: inline-block !important;
+}
+.minecraft-color-a {
+  color: #55ff55 !important;
+  display: inline-block !important;
+}
+.minecraft-color-b {
+  color: #55ffff !important;
+  display: inline-block !important;
+}
+.minecraft-color-c {
+  color: #ff5555 !important;
+  display: inline-block !important;
+}
+.minecraft-color-d {
+  color: #ff55ff !important;
+  display: inline-block !important;
+}
+.minecraft-color-e {
+  color: #ffff55 !important;
+  display: inline-block !important;
+}
+.minecraft-color-f {
+  color: #ffffff !important;
+  display: inline-block !important;
+}
 
 .minecraft-reset {
   color: inherit !important;
@@ -85,7 +131,7 @@
 .minecraft-bold.minecraft-strikethrough::after,
 .minecraft-italic.minecraft-strikethrough::after,
 .minecraft-bold.minecraft-italic.minecraft-strikethrough::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 50%;
@@ -93,4 +139,4 @@
   height: 2px;
   background-color: currentColor;
   transform: translateY(-50%);
-} 
+}

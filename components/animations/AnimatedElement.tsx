@@ -1,9 +1,17 @@
 "use client";
 
+import { motion } from "framer-motion";
 import React from "react";
-import { motion, HTMLMotionProps } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { fadeIn, fadeInUp, fadeInDown, fadeInLeft, fadeInRight, scaleAnimation } from "./AnimationUtils";
+
+import {
+  fadeIn,
+  fadeInUp,
+  fadeInDown,
+  fadeInLeft,
+  fadeInRight,
+  scaleAnimation,
+} from "./AnimationUtils";
 
 interface AnimatedElementProps {
   children: React.ReactNode;
@@ -54,22 +62,21 @@ const AnimatedElement: React.FC<AnimatedElementProps> = ({
   };
 
   const animationVariant = getAnimationVariant();
-  
+
   const { animationType: _, ...filteredProps } = props;
-  
+
   const commonProps = {
     ref,
     className,
     variants: animationVariant,
     initial: interactive ? "initial" : "hidden",
-    animate: inView ? (interactive ? "initial" : "visible") : (interactive ? "initial" : "hidden"),
+    animate: inView ? (interactive ? "initial" : "visible") : interactive ? "initial" : "hidden",
     whileHover: interactive ? "hover" : undefined,
     whileTap: interactive ? "tap" : undefined,
     transition: { delay },
     ...filteredProps,
   };
 
- 
   switch (as) {
     case "div":
       return <motion.div {...commonProps}>{children}</motion.div>;
@@ -110,9 +117,8 @@ const AnimatedElement: React.FC<AnimatedElementProps> = ({
     case "li":
       return <motion.li {...commonProps}>{children}</motion.li>;
     default:
-     
       return <motion.div {...commonProps}>{children}</motion.div>;
   }
 };
 
-export default AnimatedElement; 
+export default AnimatedElement;

@@ -1,11 +1,26 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FieldType } from "../types";
+import {
+  Bold,
+  Italic,
+  Underline,
+  Strikethrough,
+  Link,
+  Terminal,
+  MessageSquare,
+  Eye,
+  Palette,
+  Trash2,
+  Plus,
+  X,
+} from "lucide-react";
 import { useRef, useState, useEffect, useMemo } from "react";
-import { Button } from "@/components/ui/button";
-import { Bold, Italic, Underline, Strikethrough, Link, Terminal, MessageSquare, Eye, Palette, Trash2, Plus, X } from "lucide-react";
 import { HexColorPicker } from "react-colorful";
+
+import { Button } from "@/components/ui/button";
+
+import { FieldType } from "../types";
 
 type TagCategory = {
   pattern: RegExp;
@@ -50,27 +65,30 @@ export const FormField = ({
     bold: false,
     italic: false,
     underline: false,
-    strikethrough: false
+    strikethrough: false,
   });
 
-  const minecraftColors = useMemo(() => [
-    { name: "Black", hex: "#000000" },
-    { name: "Dark Blue", hex: "#0000AA" },
-    { name: "Dark Green", hex: "#00AA00" },
-    { name: "Dark Aqua", hex: "#00AAAA" },
-    { name: "Dark Red", hex: "#AA0000" },
-    { name: "Dark Purple", hex: "#AA00AA" },
-    { name: "Gold", hex: "#FFAA00" },
-    { name: "Gray", hex: "#AAAAAA" },
-    { name: "Dark Gray", hex: "#555555" },
-    { name: "Blue", hex: "#5555FF" },
-    { name: "Green", hex: "#55FF55" },
-    { name: "Aqua", hex: "#55FFFF" },
-    { name: "Red", hex: "#FF5555" },
-    { name: "Light Purple", hex: "#FF55FF" },
-    { name: "Yellow", hex: "#FFFF55" },
-    { name: "White", hex: "#FFFFFF" },
-  ], []);
+  const minecraftColors = useMemo(
+    () => [
+      { name: "Black", hex: "#000000" },
+      { name: "Dark Blue", hex: "#0000AA" },
+      { name: "Dark Green", hex: "#00AA00" },
+      { name: "Dark Aqua", hex: "#00AAAA" },
+      { name: "Dark Red", hex: "#AA0000" },
+      { name: "Dark Purple", hex: "#AA00AA" },
+      { name: "Gold", hex: "#FFAA00" },
+      { name: "Gray", hex: "#AAAAAA" },
+      { name: "Dark Gray", hex: "#555555" },
+      { name: "Blue", hex: "#5555FF" },
+      { name: "Green", hex: "#55FF55" },
+      { name: "Aqua", hex: "#55FFFF" },
+      { name: "Red", hex: "#FF5555" },
+      { name: "Light Purple", hex: "#FF55FF" },
+      { name: "Yellow", hex: "#FFFF55" },
+      { name: "White", hex: "#FFFFFF" },
+    ],
+    []
+  );
 
   useEffect(() => {
     if (isGradient && colors.length > 0) {
@@ -82,29 +100,34 @@ export const FormField = ({
   const allowedTags: Record<string, TagCategory> = {
     basic: {
       pattern: /^<(b|i|u|st)><\/(b|i|u|st)>$/,
-      tags: ["<b></b>", "<i></i>", "<u></u>", "<st></st>"]
+      tags: ["<b></b>", "<i></i>", "<u></u>", "<st></st>"],
     },
     click: {
       pattern: /^<click:(open_url|run_command|suggest_command):'[^']*'><\/click>$/,
-      tags: ["<click:open_url:'url'></click>", "<click:run_command:'/command'></click>", "<click:suggest_command:'/command'></click>"]
+      tags: [
+        "<click:open_url:'url'></click>",
+        "<click:run_command:'/command'></click>",
+        "<click:suggest_command:'/command'></click>",
+      ],
     },
     hover: {
       pattern: /^<hover:show_text:'[^']*'><\/hover>$/,
-      tags: ["<hover:show_text:'text'></hover>"]
+      tags: ["<hover:show_text:'text'></hover>"],
     },
     color: {
       pattern: /^<(color|gradient):[^>]*><\/(color|gradient)>$/,
-      tags: ["<color:#000000></color>", "<gradient:#000000,#ffffff></gradient>"]
+      tags: ["<color:#000000></color>", "<gradient:#000000,#ffffff></gradient>"],
     },
     minecraftColor: {
-      pattern: /^<(black|dark_blue|dark_green|dark_aqua|dark_red|dark_purple|gold|gray|dark_gray|blue|green|aqua|red|light_purple|yellow|white)>$/,
-      tags: []
-    }
+      pattern:
+        /^<(black|dark_blue|dark_green|dark_aqua|dark_red|dark_purple|gold|gray|dark_gray|blue|green|aqua|red|light_purple|yellow|white)>$/,
+      tags: [],
+    },
   };
 
   const isValidTag = (tag: string): boolean => {
-    return (Object.values(allowedTags) as TagCategory[]).some(category =>
-      category.pattern.test(tag) || category.tags.includes(tag)
+    return (Object.values(allowedTags) as TagCategory[]).some(
+      (category) => category.pattern.test(tag) || category.tags.includes(tag)
     );
   };
 
@@ -118,14 +141,14 @@ export const FormField = ({
 
     const text = input.value;
     const selectedText = text.substring(start, end);
-    
+
     const formats = {
       bold: /<b>.*?<\/b>/.test(selectedText),
       italic: /<i>.*?<\/i>/.test(selectedText),
       underline: /<u>.*?<\/u>/.test(selectedText),
-      strikethrough: /<st>.*?<\/st>/.test(selectedText)
+      strikethrough: /<st>.*?<\/st>/.test(selectedText),
     };
-    
+
     setActiveFormats(formats);
   };
 
@@ -139,34 +162,33 @@ export const FormField = ({
 
     const text = input.value;
     const selectedText = text.substring(start, end);
-    
+
     let newValue = text;
     let newCursorPosition = end;
-    
-    const formatTags: Record<string, { open: string, close: string }> = {
+
+    const formatTags: Record<string, { open: string; close: string }> = {
       bold: { open: "<b>", close: "</b>" },
       italic: { open: "<i>", close: "</i>" },
       underline: { open: "<u>", close: "</u>" },
-      strikethrough: { open: "<st>", close: "</st>" }
+      strikethrough: { open: "<st>", close: "</st>" },
     };
-    
+
     const { open, close } = formatTags[format];
-    
+
     const regex = new RegExp(`^${open}.*?${close}$`);
     if (regex.test(selectedText)) {
-      newValue = text.substring(0, start) + 
-                 selectedText.substring(open.length, selectedText.length - close.length) + 
-                 text.substring(end);
+      newValue =
+        text.substring(0, start) +
+        selectedText.substring(open.length, selectedText.length - close.length) +
+        text.substring(end);
       newCursorPosition = end - (open.length + close.length);
     } else {
-      newValue = text.substring(0, start) + 
-                 open + selectedText + close + 
-                 text.substring(end);
+      newValue = text.substring(0, start) + open + selectedText + close + text.substring(end);
       newCursorPosition = end + open.length + close.length;
     }
-    
+
     onChange(name, newValue);
-    
+
     requestAnimationFrame(() => {
       if (input) {
         input.selectionStart = newCursorPosition;
@@ -174,10 +196,10 @@ export const FormField = ({
         input.focus();
       }
     });
-    
-    setActiveFormats(prev => ({
+
+    setActiveFormats((prev) => ({
       ...prev,
-      [format]: !prev[format]
+      [format]: !prev[format],
     }));
   };
 
@@ -204,7 +226,8 @@ export const FormField = ({
 
     if (start !== end) {
       const selectedText = value.substring(start, end);
-      newValue = value.substring(0, start) + tag.replace("></", `>${selectedText}</`) + value.substring(end);
+      newValue =
+        value.substring(0, start) + tag.replace("></", `>${selectedText}</`) + value.substring(end);
       newCursorPosition = start + tag.replace("></", `>${selectedText}</`).length;
     } else {
       newValue = value.substring(0, start) + tag + value.substring(end);
@@ -228,15 +251,15 @@ export const FormField = ({
 
     const start = input.selectionStart;
     const end = input.selectionEnd;
-    
+
     if (start === null || end === null || start === end) {
       const formatTags: Record<string, string> = {
         bold: "<b></b>",
         italic: "<i></i>",
         underline: "<u></u>",
-        strikethrough: "<st></st>"
+        strikethrough: "<st></st>",
       };
-      
+
       insertTag(formatTags[format]);
     } else {
       toggleFormatting(format);
@@ -265,11 +288,11 @@ export const FormField = ({
 
   const applyColor = () => {
     const selectedHex = colors[0];
-    const minecraftColor = minecraftColors.find(mcColor => mcColor.hex === selectedHex);
-    const colorTag = isGradient 
-      ? `<gradient:${colors.map(c => minecraftColors.find(mc => mc.hex === c)?.name || c).join(":")}></gradient>` 
-      : minecraftColor 
-        ? `<${minecraftColor.name.toLowerCase().replace(/ /g, '_')}>` 
+    const minecraftColor = minecraftColors.find((mcColor) => mcColor.hex === selectedHex);
+    const colorTag = isGradient
+      ? `<gradient:${colors.map((c) => minecraftColors.find((mc) => mc.hex === c)?.name || c).join(":")}></gradient>`
+      : minecraftColor
+        ? `<${minecraftColor.name.toLowerCase().replace(/ /g, "_")}>`
         : `<color:${selectedHex}>`;
     insertTag(colorTag);
     setShowColorPicker(false);
@@ -280,13 +303,13 @@ export const FormField = ({
   }`;
 
   return (
-    <motion.div 
+    <motion.div
       className="mb-2"
       initial={{ opacity: 0, y: 5 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.15 }}
     >
-      <motion.label 
+      <motion.label
         className="mb-0.5 block text-sm font-medium text-gray-700 dark:text-gray-300"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -295,13 +318,21 @@ export const FormField = ({
       >
         {label}
       </motion.label>
-      <div className="flex space-x-1 mb-1">
+      <div className="mb-1 flex space-x-1">
         {showEditorButtons && (
           <>
-            <Button type="button" variant="outline" size="sm" onClick={() => setShowColorPicker(!showColorPicker)} title="Color Picker"><Palette className="h-4 w-4" /></Button>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => setShowColorPicker(!showColorPicker)}
+              title="Color Picker"
+            >
+              <Palette className="h-4 w-4" />
+            </Button>
             {showColorPicker && (
-              <div className="absolute z-10 mt-2 p-2 bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700">
-                <div className="flex justify-between items-center mb-2">
+              <div className="absolute z-10 mt-2 rounded-md border border-gray-200 bg-white p-2 shadow-lg dark:border-gray-700 dark:bg-gray-800">
+                <div className="mb-2 flex items-center justify-between">
                   <label className="flex items-center space-x-2 text-sm">
                     <input
                       type="checkbox"
@@ -311,24 +342,24 @@ export const FormField = ({
                     />
                     <span>Gradient</span>
                   </label>
-                  <Button 
-                    type="button" 
-                    variant="ghost" 
-                    size="sm" 
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
                     onClick={() => setShowColorPicker(false)}
                     className="h-6 w-6 p-0"
                   >
                     <X className="h-4 w-4" />
                   </Button>
                 </div>
-                
+
                 {isGradient && (
                   <>
-                    <div className="flex flex-wrap gap-2 mb-2">
+                    <div className="mb-2 flex flex-wrap gap-2">
                       {colors.map((color, index) => (
-                        <div key={index} className="relative group">
+                        <div key={index} className="group relative">
                           <div
-                            className={`w-8 h-8 rounded cursor-pointer border-2 ${
+                            className={`h-8 w-8 cursor-pointer rounded border-2 ${
                               activeColorIndex === index
                                 ? "border-blue-500"
                                 : "border-gray-300 dark:border-gray-600"
@@ -341,11 +372,11 @@ export const FormField = ({
                               type="button"
                               variant="danger"
                               size="xs"
-                              className="absolute -top-1 -right-1 w-4 h-4 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                              className="absolute -right-1 -top-1 h-4 w-4 p-0 opacity-0 transition-opacity group-hover:opacity-100"
                               onClick={() => removeColor(index)}
                               title="Remove Color"
                             >
-                              <Trash2 className="w-3 h-3" />
+                              <Trash2 className="h-3 w-3" />
                             </Button>
                           )}
                         </div>
@@ -354,104 +385,135 @@ export const FormField = ({
                         type="button"
                         variant="outline"
                         size="sm"
-                        className="w-8 h-8 p-0 border-dashed"
+                        className="h-8 w-8 border-dashed p-0"
                         onClick={addColor}
                         title="Add Color"
                       >
-                        <Plus className="w-4 h-4" />
+                        <Plus className="h-4 w-4" />
                       </Button>
                     </div>
-                    
+
                     <div className="mb-2">
-                      <label className="block text-xs mb-1">Gradient Preview</label>
-                      <div 
-                        className="w-full h-10 rounded border border-gray-300 dark:border-gray-600"
+                      <label className="mb-1 block text-xs">Gradient Preview</label>
+                      <div
+                        className="h-10 w-full rounded border border-gray-300 dark:border-gray-600"
                         style={{ background: gradientPreview }}
                       />
                     </div>
                   </>
                 )}
 
-                <HexColorPicker className="w-full mx-auto" color={colors[activeColorIndex]} onChange={handleColorChange} />
-                <div className="grid grid-cols-8 gap-1 mt-2 mb-2">
+                <HexColorPicker
+                  className="mx-auto w-full"
+                  color={colors[activeColorIndex]}
+                  onChange={handleColorChange}
+                />
+                <div className="mb-2 mt-2 grid grid-cols-8 gap-1">
                   {minecraftColors.map((mcColor) => (
                     <button
                       key={mcColor.name}
                       type="button"
-                      className="w-6 h-6 rounded border border-gray-300 dark:border-gray-600 hover:border-blue-500 transition-colors duration-150"
+                      className="h-6 w-6 rounded border border-gray-300 transition-colors duration-150 hover:border-blue-500 dark:border-gray-600"
                       style={{ backgroundColor: mcColor.hex }}
                       onClick={() => handleColorChange(mcColor.hex)}
                       title={mcColor.name}
                     />
                   ))}
                 </div>
-                <div className="flex justify-between mt-2">
+                <div className="mt-2 flex justify-between">
                   <div className="flex items-center">
-                    <div 
-                      className="w-6 h-6 rounded border border-gray-300 dark:border-gray-600 mr-2" 
+                    <div
+                      className="mr-2 h-6 w-6 rounded border border-gray-300 dark:border-gray-600"
                       style={{ backgroundColor: colors[activeColorIndex] }}
                     />
                     <input
                       type="text"
                       value={colors[activeColorIndex]}
                       onChange={(e) => handleColorChange(e.target.value)}
-                      className="w-20 px-2 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 dark:text-white"
+                      className="w-20 rounded border border-gray-300 bg-white px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-white"
                       placeholder="#000000"
                     />
                   </div>
-                  <Button 
-                    type="button"
-                    variant="primary" 
-                    size="sm" 
-                    onClick={applyColor}
-                  >
+                  <Button type="button" variant="primary" size="sm" onClick={applyColor}>
                     Apply
                   </Button>
                 </div>
               </div>
             )}
-            <Button 
-              type="button" 
-              variant="outline" 
-              size="sm" 
-              onClick={() => handleFormatButtonClick("bold")} 
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => handleFormatButtonClick("bold")}
               title="Bold"
             >
               <Bold className="h-4 w-4" />
             </Button>
-            <Button 
-              type="button" 
-              variant="outline" 
-              size="sm" 
-              onClick={() => handleFormatButtonClick("italic")} 
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => handleFormatButtonClick("italic")}
               title="Italic"
             >
               <Italic className="h-4 w-4" />
             </Button>
-            <Button 
-              type="button" 
-              variant="outline" 
-              size="sm" 
-              onClick={() => handleFormatButtonClick("underline")} 
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => handleFormatButtonClick("underline")}
               title="Underline"
             >
               <Underline className="h-4 w-4" />
             </Button>
-            <Button 
-              type="button" 
-              variant="outline" 
-              size="sm" 
-              onClick={() => handleFormatButtonClick("strikethrough")} 
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => handleFormatButtonClick("strikethrough")}
               title="Strikethrough"
             >
               <Strikethrough className="h-4 w-4" />
             </Button>
             {editorButtonSet === "all" && (
               <>
-                <Button type="button" variant="outline" size="sm" onClick={() => insertTag("<click:open_url:'url'></click>")} title="Add Link"><Link className="h-4 w-4" /></Button>
-                <Button type="button" variant="outline" size="sm" onClick={() => insertTag("<click:run_command:'/command'></click>")} title="Run Command"><Terminal className="h-4 w-4" /></Button>
-                <Button type="button" variant="outline" size="sm" onClick={() => insertTag("<click:suggest_command:'/command'></click>")} title="Suggest Command"><MessageSquare className="h-4 w-4" /></Button>
-                <Button type="button" variant="outline" size="sm" onClick={() => insertTag("<hover:show_text:'text'></hover>")} title="Hover"><Eye className="h-4 w-4" /></Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => insertTag("<click:open_url:'url'></click>")}
+                  title="Add Link"
+                >
+                  <Link className="h-4 w-4" />
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => insertTag("<click:run_command:'/command'></click>")}
+                  title="Run Command"
+                >
+                  <Terminal className="h-4 w-4" />
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => insertTag("<click:suggest_command:'/command'></click>")}
+                  title="Suggest Command"
+                >
+                  <MessageSquare className="h-4 w-4" />
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => insertTag("<hover:show_text:'text'></hover>")}
+                  title="Hover"
+                >
+                  <Eye className="h-4 w-4" />
+                </Button>
               </>
             )}
           </>
@@ -492,9 +554,9 @@ export const FormField = ({
           aria-invalid={error ? "true" : "false"}
         />
       )}
-      <div className="h-4 mt-0.5">
+      <div className="mt-0.5 h-4">
         {error ? (
-          <motion.p 
+          <motion.p
             className="text-xs text-red-500"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -506,7 +568,7 @@ export const FormField = ({
             {error}
           </motion.p>
         ) : helpText ? (
-          <motion.p 
+          <motion.p
             className="text-xs text-gray-500 dark:text-gray-400"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -519,4 +581,4 @@ export const FormField = ({
       </div>
     </motion.div>
   );
-}; 
+};

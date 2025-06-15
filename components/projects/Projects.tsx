@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import SectionTitle from "@/components/SectionTitle";
-import ProjectItem from "@/components/projects/ProjectItem";
 import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+
+import ProjectItem from "@/components/projects/ProjectItem";
+import SectionTitle from "@/components/SectionTitle";
 
 interface Project {
   id: string;

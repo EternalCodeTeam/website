@@ -1,6 +1,7 @@
-import Link from "next/link";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { useInView } from "react-intersection-observer";
+
 import ArrowForwardHeroIcon from "@/components/icons/arrow-forward-hero";
 import { Button } from "@/components/ui/button";
 

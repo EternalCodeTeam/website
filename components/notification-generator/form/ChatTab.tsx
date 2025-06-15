@@ -1,8 +1,9 @@
 "use client";
 
-import { NotificationConfig, FieldType } from "../types";
-import { FormField } from "./FormField";
 import { MiniMessageInfoBox } from "../MiniMessageInfoBox";
+import { NotificationConfig, FieldType } from "../types";
+
+import { FormField } from "./FormField";
 
 interface ChatTabProps {
   notification: NotificationConfig;
@@ -23,4 +24,4 @@ export const ChatTab = ({ notification, onChange }: ChatTabProps) => (
     />
     <MiniMessageInfoBox />
   </div>
-); 
+);

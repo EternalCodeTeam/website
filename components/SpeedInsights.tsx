@@ -2,6 +2,7 @@
 
 import { SpeedInsights as VercelSpeedInsights } from "@vercel/speed-insights/next";
 import { useEffect, useState, useCallback } from "react";
+
 import { canLoadAnalytics } from "@/lib/cookie-utils";
 
 export function SpeedInsights() {
@@ -16,11 +17,9 @@ export function SpeedInsights() {
     return () => window.removeEventListener("storage", updateConsent);
   }, [updateConsent]);
 
-
   useEffect(() => {
     window.addEventListener("cookieConsentChanged", updateConsent);
-    return () =>
-      window.removeEventListener("cookieConsentChanged", updateConsent);
+    return () => window.removeEventListener("cookieConsentChanged", updateConsent);
   }, [updateConsent]);
 
   if (!shouldLoad) return null;

@@ -1,6 +1,7 @@
-import React from 'react';
-import { MinecraftText } from './minecraftTextParser';
-import styles from './ChatMessage.module.css';
+import React from "react";
+
+import styles from "./ChatMessage.module.css";
+import { MinecraftText } from "./minecraftTextParser";
 
 interface ChatMessageProps {
   message: string;
@@ -13,13 +14,13 @@ const ChatMessage = React.memo(({ message }: ChatMessageProps) => {
     <div
       className={`relative flex items-center ${styles.chatContainer}`}
       style={{
-        width: '100%',
-        maxWidth: '50vw',
+        width: "100%",
+        maxWidth: "50vw",
         minWidth: 200,
-        overflowX: 'unset',
-        overflowY: 'auto',
-        whiteSpace: 'pre-line',
-        height: 'auto',
+        overflowX: "unset",
+        overflowY: "auto",
+        whiteSpace: "pre-line",
+        height: "auto",
       }}
     >
       <div
@@ -27,22 +28,22 @@ const ChatMessage = React.memo(({ message }: ChatMessageProps) => {
         style={{
           zIndex: 0,
           borderRadius: 0,
-          width: '100%',
-          height: '100%',
+          width: "100%",
+          height: "100%",
         }}
       />
       {message.includes("\n") ? (
-        <div style={{ position: 'relative', zIndex: 1, width: '100%' }}>
+        <div style={{ position: "relative", zIndex: 1, width: "100%" }}>
           {message.split("\n").map((line, index) => (
             <div
-              key={index}
+              key={`${line}-${index}`}
               className="font-minecraft px-4 drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]"
               style={{
-                display: 'block',
+                display: "block",
                 minHeight: 32,
-                lineHeight: '32px',
-                whiteSpace: 'pre-wrap !important',
-                wordBreak: 'break-word',
+                lineHeight: "32px",
+                whiteSpace: "pre-wrap !important",
+                wordBreak: "break-word",
               }}
             >
               <MinecraftText text={line} />
@@ -53,12 +54,12 @@ const ChatMessage = React.memo(({ message }: ChatMessageProps) => {
         <div
           className="font-minecraft px-4 drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]"
           style={{
-            position: 'relative',
+            position: "relative",
             zIndex: 1,
             minHeight: 32,
-            lineHeight: '32px',
-            whiteSpace: 'pre-wrap !important',
-            wordBreak: 'break-word',
+            lineHeight: "32px",
+            whiteSpace: "pre-wrap !important",
+            wordBreak: "break-word",
           }}
         >
           <MinecraftText text={message} />
@@ -68,6 +69,6 @@ const ChatMessage = React.memo(({ message }: ChatMessageProps) => {
   );
 });
 
-ChatMessage.displayName = 'ChatMessage';
+ChatMessage.displayName = "ChatMessage";
 
-export default ChatMessage; 
+export default ChatMessage;

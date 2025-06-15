@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useCallback } from "react";
+
 import { cn } from "@/lib/utils";
+
 import { Tab } from "./tab";
 
 export interface TabsProps {
@@ -20,12 +22,7 @@ export interface TabItemProps {
   rightIcon?: React.ReactNode;
 }
 
-export const Tabs: React.FC<TabsProps> = ({
-  children,
-  defaultIndex = 0,
-  onChange,
-  className,
-}) => {
+export const Tabs: React.FC<TabsProps> = ({ children, defaultIndex = 0, onChange, className }) => {
   const [activeIndex, setActiveIndex] = useState(defaultIndex);
 
   const handleChange = useCallback(
@@ -40,16 +37,13 @@ export const Tabs: React.FC<TabsProps> = ({
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ 
-        type: "spring", 
-        stiffness: 100, 
+      transition={{
+        type: "spring",
+        stiffness: 100,
         damping: 20,
-        mass: 0.8
+        mass: 0.8,
       }}
-      className={cn(
-        "my-8 overflow-hidden rounded-lg bg-white dark:bg-gray-900",
-        className
-      )}
+      className={cn("my-8 overflow-hidden rounded-lg bg-white dark:bg-gray-900", className)}
     >
       <div className="flex space-x-2 px-4 pb-0 pt-4" role="tablist">
         {React.Children.map(children, (child, idx) => {
@@ -76,7 +70,7 @@ export const Tabs: React.FC<TabsProps> = ({
           );
         })}
       </div>
-      <div className="mt-2 rounded-lg bg-gray-50 dark:bg-[#23272e] px-4 pb-6 pt-4">
+      <div className="mt-2 rounded-lg bg-gray-50 px-4 pb-6 pt-4 dark:bg-[#23272e]">
         <AnimatePresence mode="wait">
           {React.Children.map(children, (child, idx) => {
             if (!React.isValidElement<TabItemProps>(child)) return null;
@@ -88,11 +82,11 @@ export const Tabs: React.FC<TabsProps> = ({
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                transition={{ 
-                  type: "spring", 
-                  stiffness: 100, 
+                transition={{
+                  type: "spring",
+                  stiffness: 100,
                   damping: 20,
-                  mass: 0.8
+                  mass: 0.8,
                 }}
                 role="tabpanel"
                 aria-labelledby={`tab-${idx}`}
@@ -111,4 +105,4 @@ export const TabItem = React.memo(function TabItem({ children }: TabItemProps) {
   return <>{children}</>;
 });
 
-TabItem.displayName = "TabItem"; 
+TabItem.displayName = "TabItem";

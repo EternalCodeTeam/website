@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useCallback, useRef, useState } from "react";
-import { Check, Copy } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { Check, Copy } from "lucide-react";
+import { useEffect, useCallback, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+
+import { cn } from "@/lib/utils";
 
 interface CopyButtonProps {
   onClick: () => Promise<void>;
@@ -16,11 +17,7 @@ const COPY_TIMEOUT = 1200;
 const BUTTON_BASE_CLASSES =
   "absolute z-10 flex items-center gap-1 rounded-md bg-[#23272e] text-gray-300 border border-gray-700 px-3 py-1 text-xs font-medium opacity-70 hover:opacity-100 hover:bg-[#181c23] hover:text-white transition-all shadow pointer-events-auto";
 
-const CopyButton: React.FC<CopyButtonProps> = ({
-  onClick,
-  isCopied,
-  className,
-}) => (
+const CopyButton: React.FC<CopyButtonProps> = ({ onClick, isCopied, className }) => (
   <motion.button
     type="button"
     onClick={onClick}
@@ -68,20 +65,17 @@ export default function DocCopyEnhancer() {
   const [mounted, setMounted] = useState(false);
   const copyStatesRef = useRef<Map<HTMLElement, boolean>>(new Map());
 
-  const copyToClipboard = useCallback(
-    async (codeElement: HTMLElement | null) => {
-      if (!codeElement?.textContent) return;
+  const copyToClipboard = useCallback(async (codeElement: HTMLElement | null) => {
+    if (!codeElement?.textContent) return;
 
-      try {
-        await navigator.clipboard.writeText(codeElement.textContent);
-        return true;
-      } catch (error) {
-        console.error("Failed to copy text:", error);
-        return false;
-      }
-    },
-    []
-  );
+    try {
+      await navigator.clipboard.writeText(codeElement.textContent);
+      return true;
+    } catch (error) {
+      console.error("Failed to copy text:", error);
+      return false;
+    }
+  }, []);
 
   const addCopyButton = useCallback(
     (preEl: HTMLElement) => {
@@ -90,9 +84,7 @@ export default function DocCopyEnhancer() {
       const buttonContainer = document.createElement("div");
       buttonContainer.className = "copy-btn";
 
-      const isInTabPanel = preEl.closest(
-        '.tab-panel-class, .tab-panel, [role="tabpanel"]'
-      );
+      const isInTabPanel = preEl.closest('.tab-panel-class, .tab-panel, [role="tabpanel"]');
       const buttonPosition = isInTabPanel ? "top-2 right-2" : "top-3 right-4";
 
       const button = document.createElement("button");
@@ -119,7 +111,6 @@ export default function DocCopyEnhancer() {
           }, COPY_TIMEOUT);
         }
       };
-
 
       updateButtonState(false);
 
@@ -167,7 +158,6 @@ export default function DocCopyEnhancer() {
       childList: true,
       subtree: true,
     });
-
 
     const currentCopyStatesRef = copyStatesRef.current;
 

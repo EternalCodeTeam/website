@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState, useMemo, useCallback, useRef } from "react";
 import { motion, useAnimation } from "framer-motion";
+import { useEffect, useState, useMemo, useCallback, useRef } from "react";
+import { useInView } from "react-intersection-observer";
+
 import { TerminalLine, Line } from "./TerminalLine";
 import { TerminalTab } from "./TerminalTab";
-import { useInView } from "react-intersection-observer";
 
 export default function Terminal() {
   const { ref, inView } = useInView({
@@ -250,24 +251,22 @@ export default function Terminal() {
   }, [inView, currentIndex, controls, processNextLine, resetAnimation]);
 
   useEffect(() => {
-    const newVisibleLines = lines
-      .slice(0, currentIndex + 1)
-      .map((line, index) => {
-        const isCommand = line.isCommand;
-        const isCurrentlyTyping = index === currentCommandIndex;
-        const isCompleted = completedCommands.includes(index);
+    const newVisibleLines = lines.slice(0, currentIndex + 1).map((line, index) => {
+      const isCommand = line.isCommand;
+      const isCurrentlyTyping = index === currentCommandIndex;
+      const isCompleted = completedCommands.includes(index);
 
-        return {
-          key: index,
-          line:
-            isCurrentlyTyping && typeof line.line === "string"
-              ? { ...line, line: typingText || "" }
-              : isCommand && isCompleted
-                ? { ...line, line: line.line }
-                : line,
-          isVisible: true,
-        };
-      });
+      return {
+        key: index,
+        line:
+          isCurrentlyTyping && typeof line.line === "string"
+            ? { ...line, line: typingText || "" }
+            : isCommand && isCompleted
+              ? { ...line, line: line.line }
+              : line,
+        isVisible: true,
+      };
+    });
 
     setVisibleLines(newVisibleLines);
   }, [lines, currentIndex, currentCommandIndex, typingText, completedCommands]);

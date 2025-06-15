@@ -23,32 +23,30 @@ export default function DynamicFeaturesTable() {
         return res.json();
       })
       .then((data) => {
-       
         if (!Array.isArray(data)) {
           console.error("Expected array of features, got:", typeof data);
           setError("Invalid data format received from server");
           return;
         }
-        
-       
+
         const processedFeatures = data.map((feature: any) => {
-         
-          const permission = Array.isArray(feature.permissions) && feature.permissions.length > 0 
-            ? feature.permissions[0] 
-            : "-";
-            
-         
-          const descriptions = Array.isArray(feature.descriptions) && feature.descriptions.length > 0 
-            ? feature.descriptions 
-            : ["-"];
-            
+          const permission =
+            Array.isArray(feature.permissions) && feature.permissions.length > 0
+              ? feature.permissions[0]
+              : "-";
+
+          const descriptions =
+            Array.isArray(feature.descriptions) && feature.descriptions.length > 0
+              ? feature.descriptions
+              : ["-"];
+
           return {
             name: feature.name || "Unknown",
             permission,
-            description: descriptions
+            description: descriptions,
           };
         });
-        
+
         setFeatures(processedFeatures);
       })
       .catch((e) => {
@@ -62,15 +60,15 @@ export default function DynamicFeaturesTable() {
     if (tableRef.current) {
       const timer = setTimeout(() => {
         if (tableRef.current) {
-          tableRef.current.style.visibility = 'hidden';
+          tableRef.current.style.visibility = "hidden";
           setTimeout(() => {
             if (tableRef.current) {
-              tableRef.current.style.visibility = 'visible';
+              tableRef.current.style.visibility = "visible";
             }
           }, 50);
         }
       }, 2000);
-      
+
       return () => clearTimeout(timer);
     }
   }, []);
@@ -80,7 +78,7 @@ export default function DynamicFeaturesTable() {
   if (!features.length) return <div>No features found.</div>;
 
   return (
-    <div className="overflow-x-auto" ref={tableRef} style={{ display: 'block !important', opacity: '1 !important' }}>
+    <div className="overflow-x-auto" ref={tableRef} style={{ display: "block", opacity: 1 }}>
       <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700">
         <thead>
           <tr>
@@ -92,11 +90,15 @@ export default function DynamicFeaturesTable() {
         <tbody>
           {features.map((f, i) => (
             <tr key={i}>
-              <td className="border px-4 py-2 font-semibold whitespace-normal break-words">{f.name}</td>
-              <td className="border px-4 py-2 whitespace-normal break-words">{f.permission}</td>
+              <td className="whitespace-normal break-words border px-4 py-2 font-semibold">
+                {f.name}
+              </td>
+              <td className="whitespace-normal break-words border px-4 py-2">{f.permission}</td>
               <td className="border px-4 py-2">
                 {f.description.map((d: string, j: number) => (
-                  <div key={j} className="mb-1 whitespace-normal break-words">{d}</div>
+                  <div key={j} className="mb-1 whitespace-normal break-words">
+                    {d}
+                  </div>
                 ))}
               </td>
             </tr>

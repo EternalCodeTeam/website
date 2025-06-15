@@ -1,20 +1,20 @@
 "use client";
 
-import React, { useMemo } from "react";
 import { AnimatePresence } from "framer-motion";
-import { MinecraftPreviewProps } from "./types";
-import { useTitleAnimation, useSoundEffect } from "./hooks";
-import ChatMessage from "./ChatMessage";
+import React, { useMemo } from "react";
+
 import ActionBar from "./ActionBar";
-import Title from "./Title";
-import SoundIndicator from "./SoundIndicator";
 import BackgroundImage from "./BackgroundImage";
+import ChatMessage from "./ChatMessage";
+import { useTitleAnimation, useSoundEffect } from "./hooks";
+import SoundIndicator from "./SoundIndicator";
+import Title from "./Title";
+import { MinecraftPreviewProps } from "./types";
 
 export function MinecraftPreview({ notification }: MinecraftPreviewProps) {
   const { showTitle, titleOpacity } = useTitleAnimation(notification);
   const { playSound, setPlaySound } = useSoundEffect(notification.sound);
 
- 
   const chatComponent = useMemo(() => {
     if (!notification.chat) return null;
     return (
@@ -37,11 +37,11 @@ export function MinecraftPreview({ notification }: MinecraftPreviewProps) {
     if (!showTitle) return null;
     return (
       <div>
-        <Title 
-          title={notification.title} 
-          subtitle={notification.subtitle} 
-          showTitle={showTitle} 
-          titleOpacity={titleOpacity} 
+        <Title
+          title={notification.title}
+          subtitle={notification.subtitle}
+          showTitle={showTitle}
+          titleOpacity={titleOpacity}
         />
       </div>
     );
@@ -70,21 +70,13 @@ export function MinecraftPreview({ notification }: MinecraftPreviewProps) {
     >
       <BackgroundImage />
 
-      <AnimatePresence>
-        {chatComponent}
-      </AnimatePresence>
+      <AnimatePresence>{chatComponent}</AnimatePresence>
 
-      <AnimatePresence>
-        {actionBarComponent}
-      </AnimatePresence>
+      <AnimatePresence>{actionBarComponent}</AnimatePresence>
 
-      <AnimatePresence>
-        {titleComponent}
-      </AnimatePresence>
-      
-      <AnimatePresence>
-        {soundComponent}
-      </AnimatePresence>
+      <AnimatePresence>{titleComponent}</AnimatePresence>
+
+      <AnimatePresence>{soundComponent}</AnimatePresence>
     </div>
   );
 }

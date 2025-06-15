@@ -18,13 +18,10 @@ export const AdvancedTab = ({ notification, onChange }: AdvancedTabProps) => (
           checked={notification.titleHide}
           onChange={(e) => onChange("titleHide", e.target.checked)}
         />
-        <label
-          htmlFor="titleHide"
-          className="ml-2 block text-sm text-gray-700 dark:text-gray-300"
-        >
+        <label htmlFor="titleHide" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
           Clear title/subtitle before sending new one
         </label>
       </div>
     </div>
   </div>
-); 
+);

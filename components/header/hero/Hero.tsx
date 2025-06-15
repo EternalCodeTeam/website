@@ -1,10 +1,12 @@
 "use client";
 
 import { useMemo } from "react";
-import Terminal from "./terminal/Terminal";
-import TransparentHeroButton from "@/components/header/hero/button/TransparentHeroButton";
-import BackgroundHeroButton from "@/components/header/hero/button/BackgroundHeroButton";
+
 import { AnimatedSection, AnimatedElement, AnimatedContainer } from "@/components/animations";
+import BackgroundHeroButton from "@/components/header/hero/button/BackgroundHeroButton";
+import TransparentHeroButton from "@/components/header/hero/button/TransparentHeroButton";
+
+import Terminal from "./terminal/Terminal";
 
 export default function Hero() {
   return (
@@ -24,7 +26,7 @@ export default function Hero() {
           >
             EternalCode.pl
           </AnimatedElement>
-          
+
           <AnimatedElement
             as="p"
             className="mb-6 ml-[3px] max-w-2xl font-light text-gray-500 dark:text-gray-400 md:text-lg lg:mb-8 lg:text-xl"
@@ -33,25 +35,17 @@ export default function Hero() {
           >
             We are a team creating open source projects!
           </AnimatedElement>
-          
+
           <AnimatedContainer
             className="flex flex-row justify-center lg:justify-start"
             staggerDelay={0.1}
             delay={0.3}
           >
-            <AnimatedElement
-              as="div"
-              animationType="fadeLeft"
-              interactive={true}
-            >
+            <AnimatedElement as="div" animationType="fadeLeft" interactive={true}>
               <TransparentHeroButton />
             </AnimatedElement>
-            
-            <AnimatedElement
-              as="div"
-              animationType="fadeRight"
-              interactive={true}
-            >
+
+            <AnimatedElement as="div" animationType="fadeRight" interactive={true}>
               <BackgroundHeroButton />
             </AnimatedElement>
           </AnimatedContainer>
