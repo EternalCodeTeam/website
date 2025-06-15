@@ -126,8 +126,25 @@ const DocSearch = memo(function DocSearch({
   const isFirstRender = useRef(true);
   const [oramaDb, setOramaDb] = useState<any>(null);
   const [searchIndex, setSearchIndex] = useState<SearchResult[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
 
   useClickOutside(searchRef, () => setIsOpen(false));
+
+ 
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+   
+    checkIfMobile();
+
+   
+    window.addEventListener('resize', checkIfMobile);
+
+   
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
 
   useEffect(() => {
     const initOrama = async () => {
@@ -232,87 +249,81 @@ const DocSearch = memo(function DocSearch({
   }, []);
 
   return (
-    <motion.div
+    <div
       ref={searchRef}
-      className={cn("relative mb-6", className)}
-      role="combobox"
-      aria-expanded={isOpen}
-      aria-haspopup="listbox"
-      aria-controls="search-results"
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ 
-        type: "spring", 
-        stiffness: 100, 
-        damping: 20,
-        mass: 0.8
-      }}
+      className={cn(
+        "relative w-full",
+        isMobile ? "mb-4" : "",
+        className
+      )}
     >
       <div className="relative">
-        <motion.input
+        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+          <Search className="h-4 w-4 text-gray-400" aria-hidden="true" />
+        </div>
+        <input
           type="text"
+          className={cn(
+            "block w-full rounded-lg border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-400 dark:focus:ring-blue-400",
+            isOpen && "rounded-b-none"
+          )}
+          placeholder={placeholder}
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
             setIsOpen(true);
           }}
-          onKeyDown={handleKeyDown}
-          placeholder={placeholder}
-          className={cn(
-            "w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pl-10 text-sm",
-            "shadow-sm transition-shadow focus:border-gray-400 focus:shadow-lg",
-            "focus:outline-none focus:ring-0",
-            "dark:border-gray-700 dark:bg-gray-800 dark:text-white",
-            "dark:focus:border-gray-500"
-          )}
-          aria-label="Search documentation"
-          aria-autocomplete="list"
+          onFocus={() => {
+            if (query.length >= minQueryLength) {
+              setIsOpen(true);
+            }
+          }}
+          aria-expanded={isOpen}
           aria-controls="search-results"
-          whileFocus={{ scale: 1.01 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          aria-autocomplete="list"
+          role="combobox"
+          aria-label="Search documentation"
         />
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-        >
-          <Search
-            className="absolute left-3 top-2.5 h-4 w-4 text-gray-400"
-            aria-hidden="true"
-          />
-        </motion.div>
+        <AnimatePresence>
+          {isLoading && <LoadingSpinner />}
+        </AnimatePresence>
       </div>
 
       <AnimatePresence>
-        {isOpen && query.length >= minQueryLength && (
+        {isOpen && (
           <motion.div
             id="search-results"
-            className="absolute z-50 mt-1 w-full overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800"
-            role="listbox"
+            className={cn(
+              "absolute z-50 mt-0.5 w-full overflow-hidden rounded-b-lg border border-t-0 border-gray-300 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800",
+              isMobile ? "max-h-[70vh]" : "max-h-[60vh]"
+            )}
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            transition={{ duration: 0.2 }}
           >
-            {isLoading ? (
-              <LoadingSpinner />
-            ) : results.length > 0 ? (
-              <div className="max-h-80 overflow-y-auto py-1">
-                {results.map((result) => (
-                  <SearchResultItem
-                    key={result.path}
-                    result={result}
-                    onSelect={handleSelect}
-                  />
-                ))}
-              </div>
-            ) : hasSearched ? (
-              <NoResultsMessage />
-            ) : null}
+            <div className="max-h-[inherit] overflow-y-auto">
+              {results.length > 0 ? (
+                <div className="py-1" role="listbox">
+                  {results.map((result, index) => (
+                    <SearchResultItem
+                      key={`${result.path}-${index}`}
+                      result={result}
+                      onSelect={(path) => {
+                        router.push(path);
+                        setIsOpen(false);
+                      }}
+                    />
+                  ))}
+                </div>
+              ) : hasSearched ? (
+                <NoResultsMessage />
+              ) : null}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </div>
   );
 });
 

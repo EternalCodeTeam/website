@@ -54,6 +54,7 @@ const AnimatedElement: React.FC<AnimatedElementProps> = ({
   };
 
   const animationVariant = getAnimationVariant();
+  
   const { animationType: _, ...filteredProps } = props;
   
   const commonProps = {

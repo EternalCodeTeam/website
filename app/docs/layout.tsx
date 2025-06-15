@@ -50,12 +50,20 @@ export default function DocsLayout({
       <Navbar />
       <div className="mx-auto min-h-[calc(100vh-7rem)] max-w-screen-xl px-4 py-12 pt-32">
         <div className="flex flex-col gap-8 lg:flex-row">
-          <aside className="w-full flex-shrink-0 lg:w-64">
+          {/* Desktop sidebar */}
+          <aside className="hidden w-full flex-shrink-0 lg:block lg:w-64">
             <div className="sticky top-32 z-20 flex flex-col gap-4">
               <DocSearch />
               <DocSidebar />
             </div>
           </aside>
+          
+          {/* Mobile sidebar - rendered directly in DocSidebar component */}
+          <div className="lg:hidden">
+            <DocSearch />
+            <DocSidebar />
+          </div>
+          
           <div className="flex min-w-0 flex-1 flex-col items-stretch">
             <div className="w-full" style={{ minHeight: '60vh' }}>
               <DocCopyEnhancer />
