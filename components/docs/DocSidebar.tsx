@@ -86,6 +86,7 @@ const DocItemComponent: React.FC<DocItemProps> = React.memo(
           className={cn("mb-3", level === 0 && "first:mt-0")}
           variants={sidebarFadeInUp}
           custom={index}
+          layout
         >
           <motion.div
             className={cn(
@@ -97,6 +98,7 @@ const DocItemComponent: React.FC<DocItemProps> = React.memo(
             aria-level={level + 1}
             whileHover={{ x: 3 }}
             transition={{ type: "spring", stiffness: 400, damping: 14 }}
+            layout
           >
             <Folder
               className="-mt-0.5 mr-2 inline-block h-4 w-4 align-middle text-gray-500 dark:text-gray-400"
@@ -107,8 +109,7 @@ const DocItemComponent: React.FC<DocItemProps> = React.memo(
           <motion.ul
             className="list-none space-y-1"
             variants={sidebarStaggerContainer}
-            initial="hidden"
-            animate="visible"
+            layout
           >
             {item.children?.map((child, childIndex) => (
               <li key={child.path}>
@@ -127,7 +128,7 @@ const DocItemComponent: React.FC<DocItemProps> = React.memo(
     }
 
     return (
-      <motion.div variants={sidebarFadeInUp} custom={index}>
+      <motion.div variants={sidebarFadeInUp} custom={index} layout>
         <Link
           href={item.path}
           onClick={handleClick}
@@ -143,6 +144,7 @@ const DocItemComponent: React.FC<DocItemProps> = React.memo(
             className="flex w-full items-start"
             whileHover={{ x: 3 }}
             transition={{ type: "spring", stiffness: 400, damping: 14 }}
+            layout
           >
             <span className="block flex-1">{item.title}</span>
           </motion.span>
@@ -158,6 +160,7 @@ const DocSidebar: React.FC<DocSidebarProps> = React.memo(({ className = "", onIt
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isFirstRender, setIsFirstRender] = useState(true);
 
   useEffect(() => {
     const checkIfMobile = () => {
@@ -211,6 +214,13 @@ const DocSidebar: React.FC<DocSidebarProps> = React.memo(({ className = "", onIt
     };
   }, [isMobile, isOpen]);
 
+  // Set isFirstRender to false after the first render
+  useEffect(() => {
+    if (isFirstRender) {
+      setIsFirstRender(false);
+    }
+  }, [isFirstRender]);
+
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -220,8 +230,9 @@ const DocSidebar: React.FC<DocSidebarProps> = React.memo(({ className = "", onIt
       <motion.ul
         className="list-none space-y-1"
         variants={sidebarStaggerContainer}
-        initial="hidden"
-        animate="visible"
+        initial={isFirstRender ? "hidden" : false}
+        animate={isFirstRender ? "visible" : false}
+        layout
       >
         {docsStructure.map((item, index) => (
           <li key={item.path}>
@@ -241,7 +252,7 @@ const DocSidebar: React.FC<DocSidebarProps> = React.memo(({ className = "", onIt
         ))}
       </motion.ul>
     ),
-    [pathname, onItemClick, isMobile]
+    [pathname, onItemClick, isMobile, isFirstRender]
   );
 
   return (
@@ -281,10 +292,11 @@ const DocSidebar: React.FC<DocSidebarProps> = React.memo(({ className = "", onIt
             role="navigation"
             aria-label="Documentation navigation"
             variants={sidebarFadeInLeft}
-            initial="hidden"
-            animate="visible"
+            initial={isFirstRender ? "hidden" : false}
+            animate={isFirstRender ? "visible" : false}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.2 }}
+            layout
           >
             {sidebarContent}
           </motion.nav>

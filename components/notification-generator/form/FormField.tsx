@@ -233,10 +233,18 @@ export const FormField = ({
     const text = input.value;
     const selectedText = text.substring(start, end);
 
+    const formatToTag: Record<string, string> = {
+      bold: "b",
+      italic: "i",
+      underline: "u",
+      strikethrough: "st"
+    };
+
     if (selectedText) {
       toggleFormatting(format);
     } else {
-      insertTag(`<${format}></${format}>`);
+      const tag = formatToTag[format] || format;
+      insertTag(`<${tag}></${tag}>`);
     }
   };
 

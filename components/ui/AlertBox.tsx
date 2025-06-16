@@ -157,7 +157,7 @@ export const AlertBox = memo(function AlertBox({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
       role={styles.role}
-      aria-label={ariaLabel}
+      {...(ariaLabel && { "aria-label": ariaLabel })}
       className={cn(
         "my-6 rounded-lg p-4 shadow-sm backdrop-blur-sm transition-colors duration-200",
         styles.container,

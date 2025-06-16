@@ -132,10 +132,10 @@ export default function RootLayout({
 
           <Footer />
           <DocCopyEnhancer />
-          <Analytics />
-          <SpeedInsights />
           <CookieConsentModal />
           <CookiePreferencesMenu />
+          <Analytics />
+          <SpeedInsights />
         </Providers>
       </body>
     </html>
