@@ -1,6 +1,6 @@
-import React, { memo } from "react";
+import React, { memo, ComponentProps } from "react";
 
-interface CodeBlockProps extends React.ComponentProps<"pre"> {
+interface CodeBlockProps extends ComponentProps<"pre"> {
   children: React.ReactNode;
 
   language?: string;

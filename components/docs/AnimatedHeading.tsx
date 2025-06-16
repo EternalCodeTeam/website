@@ -2,11 +2,18 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, Link as LinkIcon } from "lucide-react";
-import React, { useState, useCallback, memo, useEffect } from "react";
+import React, {
+  useState,
+  useCallback,
+  memo,
+  useEffect,
+  HTMLAttributes,
+  createElement,
+} from "react";
 
 import { fadeDownScale } from "./DocHeader";
 
-interface AnimatedHeadingProps extends React.HTMLAttributes<HTMLElement> {
+interface AnimatedHeadingProps extends HTMLAttributes<HTMLElement> {
   id?: string;
   children: React.ReactNode;
 }
@@ -55,7 +62,7 @@ const createAnimatedHeading = ({ tag }: HeadingFactoryProps) => {
         };
       }, [copied]);
 
-      return React.createElement(
+      return createElement(
         tag,
         {
           id,

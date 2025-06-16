@@ -1,22 +1,12 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  useRef,
-  forwardRef,
-  useImperativeHandle,
-  useState,
-  useEffect,
-  useMemo,
-  useCallback,
-} from "react";
+import { forwardRef, useImperativeHandle, useState, useEffect, useMemo, useCallback } from "react";
 
 import { Dropdown, DropdownOption } from "../../ui/Dropdown";
 import { SoundInfoBox } from "../SoundInfoBox";
 import { NotificationConfig, FieldType } from "../types";
 
 import { SOUND_CATEGORY_OPTIONS } from "./constants";
-import { FormField } from "./FormField";
 import { SliderField } from "./SliderField";
 import { SoundTable, Sound } from "./SoundTable";
 
@@ -53,7 +43,7 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
   ({ notification, onChange, errors }, ref) => {
     const [sounds, setSounds] = useState<Sound[]>([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
     const [playing, setPlaying] = useState(false);
     const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
     const [selectedCategory, setSelectedCategory] = useState<string>("");
@@ -82,11 +72,14 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
         try {
           setLoading(true);
           const response = await fetch(SOUNDS_JSON_URL);
-          const data = (await response.json()) as Record<string, any>;
+          const data = (await response.json()) as Record<string, unknown>;
 
           const formattedSounds: Sound[] = Object.keys(data)
             .map((key) => {
-              const soundEntry = data[key];
+              const soundEntry = data[key] as {
+                category?: string;
+                sounds?: Array<string | { name: string }>;
+              };
               let path = key.replace(/\./g, "/");
               let category = soundEntry.category || "other";
 
@@ -117,10 +110,11 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
 
           setSounds(formattedSounds);
           setSelectedCategory("");
-          setError("");
+          setErrorMessage("");
           setLoading(false);
-        } catch (err) {
-          setError("Failed to load sounds. Using default list.");
+        } catch (fetchError) {
+          console.error("Error fetching sounds:", fetchError);
+          setErrorMessage("Failed to load sounds. Using default list.");
           setSounds([
             {
               id: "entity.player.levelup",
@@ -157,7 +151,7 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
             { id: "ui.toast.out", name: "UI.TOAST.OUT", path: "ui/toast/out", category: "ui" },
           ]);
           setSelectedCategory("");
-          setError("");
+          setErrorMessage("");
           setLoading(false);
         }
       };
@@ -166,7 +160,7 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
     }, []);
 
     useEffect(() => {
-      setError("");
+      setErrorMessage("");
     }, [notification.sound]);
 
     const categoriesWithSounds = useMemo(() => {
@@ -206,7 +200,6 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
         setPlaybackError(null);
 
         const newAudio = new Audio(`${SOUND_BASE_URL}${sound.path}.ogg`);
-        console.log("Attempting to play sound from URL:", newAudio.src);
 
         let volumeValue = 1.0;
         if (typeof notification.volume === "string") {
@@ -220,9 +213,8 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
 
         try {
           newAudio.volume = volumeValue;
-          console.log("Set volume to:", newAudio.volume);
-        } catch (err) {
-          console.error("Error setting volume:", err);
+        } catch (error) {
+          console.error("Error setting volume:", error);
           newAudio.volume = 1.0;
         }
 
@@ -238,20 +230,17 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
 
         try {
           newAudio.playbackRate = pitchValue;
-          console.log("Set pitch to:", newAudio.playbackRate);
-        } catch (err) {
-          console.error("Error setting pitch:", err);
+        } catch (error) {
+          console.error("Error setting pitch:", error);
           newAudio.playbackRate = 1.0;
         }
 
         newAudio.onended = () => {
-          console.log("Sound playback ended.");
           setPlaying(false);
           setCurrentAudioPlayingId(null);
         };
 
-        newAudio.onerror = (e) => {
-          console.error("Error playing sound:", e);
+        newAudio.onerror = () => {
           setPlaying(false);
           setCurrentAudioPlayingId(null);
           setPlaybackError("Failed to play sound. The file might be missing or corrupted.");
@@ -261,19 +250,14 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
         setPlaying(true);
         setCurrentAudioPlayingId(sound.id);
 
-        newAudio
-          .play()
-          .then(() => {
-            console.log("Sound playback started successfully.");
-          })
-          .catch((err) => {
-            console.error("Error playing sound promise:", err);
-            setPlaying(false);
-            setCurrentAudioPlayingId(null);
-            setPlaybackError("Failed to play sound. Please try again.");
-          });
+        newAudio.play().catch((error) => {
+          console.error("Error playing sound:", error);
+          setPlaying(false);
+          setCurrentAudioPlayingId(null);
+          setPlaybackError("Failed to play sound. Please try again.");
+        });
       },
-      [notification.volume, notification.pitch, notification.sound]
+      [notification.volume, notification.pitch, audio]
     );
 
     const handleStopSound = useCallback(() => {
@@ -294,10 +278,6 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
       [onChange]
     );
 
-    const handleCategoryChange = useCallback((category: string) => {
-      setSelectedCategory(category);
-    }, []);
-
     const handleSoundTypeChange = useCallback((type: string) => {
       setSelectedSoundType(type);
     }, []);
@@ -315,15 +295,24 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
 
     return (
       <div>
+        {errorMessage && (
+          <div className="mb-4 rounded-md bg-red-50 p-3 text-sm text-red-700 dark:bg-red-900/30 dark:text-red-400">
+            {errorMessage}
+          </div>
+        )}
         <div className="mb-4">
-          <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <div
+            id="sound-type-label"
+            className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"
+          >
             Sound Type
-          </label>
+          </div>
           <Dropdown
             options={soundTypeOptions}
             value={selectedSoundType}
             onChange={handleSoundTypeChange}
             placeholder="All Types"
+            aria-labelledby="sound-type-label"
           />
           <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
             Filter sounds by their type.
@@ -345,14 +334,18 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
         <SoundInfoBox />
 
         <div className="mb-4">
-          <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <div
+            id="sound-category-label"
+            className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"
+          >
             Sound Category
-          </label>
+          </div>
           <Dropdown
             options={SOUND_CATEGORY_OPTIONS as DropdownOption[]}
             value={notification.soundCategory}
             onChange={(val: string) => onChange("soundCategory", val)}
             placeholder="All Categories"
+            aria-labelledby="sound-category-label"
           />
           <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
             If a player has the sound category set to 0% in game settings, the sound will not play.
@@ -363,8 +356,8 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
           <SliderField
             label="Volume"
             name="volume"
-            value={notification.volume}
-            onChange={(name, value) => onChange(name as FieldType, value)}
+            value={parseFloat(notification.volume || "1.0")}
+            onChange={(name, value) => onChange(name as FieldType, value.toString())}
             min={0.0}
             max={1.0}
             step={0.1}
@@ -374,8 +367,8 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
           <SliderField
             label="Pitch"
             name="pitch"
-            value={notification.pitch}
-            onChange={(name, value) => onChange(name as FieldType, value)}
+            value={parseFloat(notification.pitch || "1.0")}
+            onChange={(name, value) => onChange(name as FieldType, value.toString())}
             min={0.5}
             max={2.0}
             step={0.1}

@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 import AnimationSafeTable from "@/components/docs/AnimationSafeTable";
 import DynamicCommandsTable from "@/components/docs/DynamicCommandsTable";
 import DynamicFeaturesTable from "@/components/docs/DynamicFeaturesTable";

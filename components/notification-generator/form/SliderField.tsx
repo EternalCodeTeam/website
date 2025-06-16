@@ -168,10 +168,20 @@ export const CustomDropdown = ({
               {options.map((option) => (
                 <div
                   key={option.value}
+                  role="option"
+                  aria-selected={option.value === value}
+                  tabIndex={0}
                   className="block w-full cursor-pointer rounded-md px-4 py-2 text-left text-gray-900 outline-none transition-colors duration-150 hover:bg-blue-50 hover:text-blue-700 focus:bg-blue-100 focus:text-blue-700 dark:text-white dark:hover:bg-gray-800 dark:hover:text-blue-400 dark:focus:bg-gray-800 dark:focus:text-blue-400"
                   onClick={() => {
                     onChange(option.value);
                     setIsOpen(false);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      onChange(option.value);
+                      setIsOpen(false);
+                    }
                   }}
                 >
                   {option.label}

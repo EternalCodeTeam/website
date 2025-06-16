@@ -139,7 +139,6 @@ export default function Terminal() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [typingText, setTypingText] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
   const [currentCommandIndex, setCurrentCommandIndex] = useState(-1);
   const [completedCommands, setCompletedCommands] = useState<number[]>([]);
   const [visibleLines, setVisibleLines] = useState<
@@ -149,7 +148,6 @@ export default function Terminal() {
   const resetAnimation = useCallback(() => {
     setCurrentIndex(0);
     setTypingText("");
-    setIsTyping(false);
     setCurrentCommandIndex(-1);
     setCompletedCommands([]);
     setVisibleLines([]);
@@ -172,7 +170,6 @@ export default function Terminal() {
 
   const typeCommand = useCallback(
     (command: string, index: number) => {
-      setIsTyping(true);
       setCurrentCommandIndex(index);
       setTypingText("");
 
@@ -190,7 +187,6 @@ export default function Terminal() {
             charIndex++;
             lastTimestamp = timestamp;
           } else {
-            setIsTyping(false);
             setCompletedCommands((prev) => [...prev, index]);
             const delay = lines[index].endLine ? 500 : 0;
             lineTimerRef.current = setTimeout(() => {

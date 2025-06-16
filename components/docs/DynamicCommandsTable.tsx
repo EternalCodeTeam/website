@@ -9,6 +9,13 @@ interface Command {
   arguments: string;
 }
 
+interface RawCommand {
+  name?: string;
+  permissions?: string[];
+  descriptions?: string[];
+  arguments?: string[];
+}
+
 export default function DynamicCommandsTable() {
   const [commands, setCommands] = useState<Command[]>([]);
   const [loading, setLoading] = useState(true);
@@ -23,29 +30,32 @@ export default function DynamicCommandsTable() {
         if (!res.ok) throw new Error("Failed to fetch commands");
         return res.json();
       })
-      .then((data) => {
+      .then((data: unknown) => {
         if (!Array.isArray(data)) {
           console.error("Expected array of commands, got:", typeof data);
           setError("Invalid data format received from server");
           return;
         }
 
-        const processedCommands = data.map((cmd: any) => {
+        const processedCommands = data.map((cmd: unknown) => {
+          const rawCmd = cmd as RawCommand;
           const permission =
-            Array.isArray(cmd.permissions) && cmd.permissions.length > 0 ? cmd.permissions[0] : "-";
+            Array.isArray(rawCmd.permissions) && rawCmd.permissions.length > 0
+              ? rawCmd.permissions[0]
+              : "-";
 
           const description =
-            Array.isArray(cmd.descriptions) && cmd.descriptions.length > 0
-              ? cmd.descriptions[0]
+            Array.isArray(rawCmd.descriptions) && rawCmd.descriptions.length > 0
+              ? rawCmd.descriptions[0]
               : "-";
 
           const args =
-            Array.isArray(cmd.arguments) && cmd.arguments.length > 0
-              ? cmd.arguments.join(", ")
+            Array.isArray(rawCmd.arguments) && rawCmd.arguments.length > 0
+              ? rawCmd.arguments.join(", ")
               : "-";
 
           return {
-            name: cmd.name || "Unknown",
+            name: rawCmd.name || "Unknown",
             permission,
             description,
             arguments: args,
@@ -98,7 +108,7 @@ export default function DynamicCommandsTable() {
           </tr>
         </thead>
         <tbody>
-          {commands.map((c, i) => (
+          {commands.map((c, _i) => (
             <tr key={c.name}>
               <td className="whitespace-normal break-words border px-4 py-2 font-semibold">
                 {c.name}

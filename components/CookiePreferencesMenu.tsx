@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useCookieConsent } from "@/hooks/useCookieConsent";
 
 export function CookiePreferencesMenu() {
-  const { consent, updateConsent, acceptAll, rejectAll } = useCookieConsent();
+  const { consent, updateConsent, acceptAll } = useCookieConsent();
   const [isOpen, setIsOpen] = useState(false);
 
   return (

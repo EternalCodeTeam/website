@@ -1,7 +1,6 @@
 import fs from "fs/promises";
 import path from "path";
 
-import { motion } from "framer-motion";
 import matter from "gray-matter";
 import type { MDXComponents } from "mdx/types";
 import type { Metadata } from "next";
@@ -16,8 +15,6 @@ import { ErrorBoundary } from "@/components/docs/ErrorBoundary";
 import { ReadingTime } from "@/components/docs/ReadingTime";
 import { ShortLink } from "@/components/docs/ShortLink";
 import { docsStructure } from "@/components/docs/sidebar-structure";
-import { ArrowBack } from "@/components/icons/arrow-back";
-import { ArrowForward } from "@/components/icons/arrow-forward";
 import { components, mdxOptions } from "@/lib/mdx";
 
 export const dynamic = "force-static";
@@ -28,7 +25,7 @@ interface DocMeta {
   description?: string;
   lastModified?: string;
   author?: string;
-  [key: string]: any;
+  [key: string]: string | undefined;
 }
 
 interface Doc {

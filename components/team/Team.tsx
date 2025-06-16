@@ -28,12 +28,6 @@ const cardVariants = {
   },
 };
 
-const cardHover = {
-  scale: 1.03,
-  boxShadow: "0 8px 32px 0 rgba(31, 41, 55, 0.12)",
-  transition: { type: "spring", stiffness: 300, damping: 18 },
-};
-
 const avatarHover = {
   scale: 1.08,
   transition: { type: "spring", stiffness: 300, damping: 18 },
@@ -81,7 +75,7 @@ interface Member {
 
 interface StrapiResponse {
   data: Member[];
-  meta?: any;
+  meta?: Record<string, unknown>;
 }
 
 export default function Team() {
@@ -187,7 +181,7 @@ export default function Team() {
   );
 }
 
-export function TeamMember({ member, index }: TeamMemberProps) {
+export function TeamMember({ member }: TeamMemberProps) {
   return (
     <motion.div
       className="text-center text-gray-500 dark:text-gray-400"

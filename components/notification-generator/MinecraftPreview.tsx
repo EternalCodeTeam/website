@@ -13,7 +13,7 @@ import { MinecraftPreviewProps } from "./types";
 
 export function MinecraftPreview({ notification }: MinecraftPreviewProps) {
   const { showTitle, titleOpacity } = useTitleAnimation(notification);
-  const { playSound, setPlaySound } = useSoundEffect(notification.sound);
+  const { playSound } = useSoundEffect(notification.sound);
 
   const chatComponent = useMemo(() => {
     if (!notification.chat) return null;

@@ -2,12 +2,10 @@
 
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/react";
 import { motion, AnimatePresence } from "framer-motion";
-import React, { memo, useCallback } from "react";
+import React, { memo, useCallback, Children, isValidElement } from "react";
 import * as SIIcons from "react-icons/si";
 
 import { cn } from "@/lib/utils";
-
-import { fadeInUp } from "./DocHeader";
 
 interface CodeTabsProps {
   children: React.ReactNode;
@@ -30,7 +28,7 @@ const LanguageIcon = memo(({ label }: { label: string }) => {
       .toLowerCase()
       .replace(/^./, (c) => c.toUpperCase());
 
-  const Icon = (SIIcons as any)[iconName];
+  const Icon = (SIIcons as Record<string, React.ComponentType<any>>)[iconName];
 
   if (Icon) {
     return <Icon className="mr-1" title={label} size={18} aria-hidden="true" />;
@@ -72,8 +70,8 @@ export const CodeTabs: React.FC<CodeTabsProps> = ({
     >
       <TabGroup defaultIndex={defaultIndex} onChange={handleChange}>
         <TabList className="flex space-x-2 px-4 pb-0 pt-4" aria-label="Code language selection">
-          {React.Children.map(children, (child, idx) => {
-            if (!React.isValidElement<CodeTabProps>(child)) return null;
+          {Children.map(children, (child, idx) => {
+            if (!isValidElement<CodeTabProps>(child)) return null;
 
             const { label, disabled } = child.props;
 
@@ -121,8 +119,8 @@ export const CodeTabs: React.FC<CodeTabsProps> = ({
         </TabList>
         <TabPanels>
           <AnimatePresence mode="wait">
-            {React.Children.map(children, (child, idx) => {
-              if (!React.isValidElement<CodeTabProps>(child)) return null;
+            {Children.map(children, (child, idx) => {
+              if (!isValidElement<CodeTabProps>(child)) return null;
 
               return (
                 <TabPanel

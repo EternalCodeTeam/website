@@ -12,8 +12,7 @@ import {
   Star,
   BookOpen,
 } from "lucide-react";
-import { memo } from "react";
-import type { ReactNode } from "react";
+import { memo, type ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 

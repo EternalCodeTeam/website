@@ -5,9 +5,7 @@ import Link from "next/link";
 
 import DiscordIcon from "@/components/icons/discord";
 import GitHubIcon from "@/components/icons/github";
-import ModrinthIcon from "@/components/icons/modrinth";
 import TikTokIcon from "@/components/icons/round-tiktok";
-import SpigotMcLikeIcon from "@/components/icons/spigotmc";
 import YouTubeIcon from "@/components/icons/youtube";
 import logo from "@/public/logo.svg";
 

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export const revalidate = 3600;
 
-export async function GET(request: Request) {
+export async function GET(_request: Request) {
   try {
     const res = await fetch(`https://cms.eternalcode.pl/api/team-members?populate=*`, {
       headers: {

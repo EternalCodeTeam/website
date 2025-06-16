@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { usePathname } from "next/navigation";
 import React, { useMemo, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
@@ -18,7 +17,7 @@ interface AnimatedSectionProps {
   preserveAnimation?: boolean;
   id?: string;
   "aria-labelledby"?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 const AnimatedSection: React.FC<AnimatedSectionProps> = ({
@@ -34,7 +33,6 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
   "aria-labelledby": ariaLabelledby,
   ...props
 }) => {
-  const pathname = usePathname();
   const [hasAnimated, setHasAnimated] = useState(false);
 
   const { ref, inView } = useInView({
@@ -66,7 +64,7 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
 
   const animationVariant = getAnimationVariant();
 
-  const { animationType: _, ...filteredProps } = props;
+  const filteredProps = props;
 
   const memoizedChildren = useMemo(() => {
     return children;

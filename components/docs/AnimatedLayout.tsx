@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
 interface AnimatedLayoutProps {
@@ -9,7 +8,6 @@ interface AnimatedLayoutProps {
 }
 
 const AnimatedLayout: React.FC<AnimatedLayoutProps> = ({ children }) => {
-  const pathname = usePathname();
   const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {

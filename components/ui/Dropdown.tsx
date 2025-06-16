@@ -19,6 +19,7 @@ interface DropdownProps {
   buttonClassName?: string;
   optionClassName?: string;
   children?: ReactNode;
+  "aria-labelledby"?: string;
 }
 
 export function Dropdown({
@@ -31,6 +32,7 @@ export function Dropdown({
   buttonClassName = "",
   optionClassName = "",
   children,
+  "aria-labelledby": ariaLabelledBy,
 }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -47,6 +49,18 @@ export function Dropdown({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const handleOptionSelect = (optionValue: string) => {
+    onChange(optionValue);
+    setIsOpen(false);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent, optionValue: string) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleOptionSelect(optionValue);
+    }
+  };
+
   return (
     <div className={`relative ${className}`} ref={dropdownRef}>
       <button
@@ -56,6 +70,7 @@ export function Dropdown({
         disabled={disabled}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
+        aria-labelledby={ariaLabelledBy}
         style={{ outline: "none", boxShadow: "none" }}
       >
         <span className="flex items-center gap-2 truncate">
@@ -99,12 +114,11 @@ export function Dropdown({
                 key={option.value}
                 className={`block w-full cursor-pointer rounded-md px-4 py-2 text-left text-gray-900 outline-none transition-colors duration-150 hover:bg-blue-50 hover:text-blue-700 dark:text-white dark:hover:bg-gray-800 dark:hover:text-blue-400 ${optionClassName}`}
                 style={{ outline: "none", boxShadow: "none" }}
-                onClick={() => {
-                  onChange(option.value);
-                  setIsOpen(false);
-                }}
+                onClick={() => handleOptionSelect(option.value)}
+                onKeyDown={(e) => handleKeyDown(e, option.value)}
                 role="option"
                 aria-selected={option.value === value}
+                tabIndex={0}
               >
                 <span className="flex items-center gap-2">
                   {option.icon}

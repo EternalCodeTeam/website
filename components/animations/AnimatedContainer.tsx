@@ -4,8 +4,6 @@ import { motion } from "framer-motion";
 import React from "react";
 import { useInView } from "react-intersection-observer";
 
-import { staggerContainer } from "./AnimationUtils";
-
 interface AnimatedContainerProps {
   children: React.ReactNode;
   className?: string;
@@ -15,7 +13,7 @@ interface AnimatedContainerProps {
   triggerOnce?: boolean;
   staggerDelay?: number;
   as?: keyof JSX.IntrinsicElements;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 const AnimatedContainer: React.FC<AnimatedContainerProps> = ({

@@ -30,7 +30,6 @@ export const ReadingTime = memo(function ReadingTime({
   return (
     <div
       className={cn("text-muted-foreground flex items-center gap-2 text-sm", className)}
-      role="text"
       aria-label={`${readingTime} minute read`}
     >
       <Clock className={cn("h-4 w-4", iconClassName)} aria-hidden="true" />

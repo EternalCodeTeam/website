@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useCookieConsent } from "@/hooks/useCookieConsent";
 
 export function CookieConsentModal() {
-  const { consent, updateConsent, acceptAll, rejectAll, isInitialized } = useCookieConsent();
+  const { consent, updateConsent, acceptAll, isInitialized } = useCookieConsent();
   const [isOpen, setIsOpen] = useState(true);
   const [showDetails, setShowDetails] = useState(false);
 

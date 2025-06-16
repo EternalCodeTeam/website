@@ -3,7 +3,6 @@ import { FC } from "react";
 
 import GitHubIcon from "@/components/icons/github";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 interface EditOnGitHubProps {
   filePath: string;

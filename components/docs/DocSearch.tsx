@@ -1,6 +1,6 @@
 "use client";
 
-import { create, insertMultiple, search, Document } from "@orama/orama";
+import { create, insertMultiple, search, AnyOrama } from "@orama/orama";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
@@ -10,8 +10,6 @@ import { cn } from "@/lib/utils";
 
 import { useClickOutside } from "../../hooks/useClickOutside";
 import { useDebounce } from "../../hooks/useDebounce";
-
-import { fadeInUp } from "./DocHeader";
 
 interface SearchResult {
   title: string;
@@ -69,7 +67,7 @@ interface DocSearchProps {
 const SearchResultItem: React.FC<{
   result: SearchResult;
   onSelect: (path: string) => void;
-}> = React.memo(({ result, onSelect }) => (
+}> = memo(({ result, onSelect }) => (
   <motion.button
     onClick={() => onSelect(result.path)}
     className="w-full px-4 py-2 text-left hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:hover:bg-gray-700 dark:focus:bg-gray-700"
@@ -125,8 +123,7 @@ const DocSearch = memo(function DocSearch({
   const searchRef = useRef<HTMLDivElement>(null);
   const debouncedQuery = useDebounce(query, debounceTime);
   const isFirstRender = useRef(true);
-  const [oramaDb, setOramaDb] = useState<any>(null);
-  const [searchIndex, setSearchIndex] = useState<SearchResult[]>([]);
+  const [oramaDb, setOramaDb] = useState<unknown>(null);
   const [isMobile, setIsMobile] = useState(false);
 
   useClickOutside(searchRef, () => setIsOpen(false));
@@ -159,8 +156,6 @@ const DocSearch = memo(function DocSearch({
           return;
         }
 
-        setSearchIndex(searchData);
-
         const db = await create({
           schema: {
             title: "string",
@@ -173,8 +168,6 @@ const DocSearch = memo(function DocSearch({
         setOramaDb(db);
       } catch (error) {
         console.error("Failed to initialize search:", error);
-
-        setSearchIndex([]);
         setOramaDb(null);
       }
     };
@@ -203,7 +196,7 @@ const DocSearch = memo(function DocSearch({
       setIsLoading(true);
 
       try {
-        const searchResults = await search(oramaDb, {
+        const searchResults = await search(oramaDb as AnyOrama, {
           term: query,
           properties: ["title", "excerpt"],
           limit: 10,
@@ -248,66 +241,41 @@ const DocSearch = memo(function DocSearch({
   return (
     <div ref={searchRef} className={cn("relative w-full", isMobile ? "mb-4" : "", className)}>
       <div className="relative">
-        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-          <Search className="h-4 w-4 text-gray-400" aria-hidden="true" />
-        </div>
         <input
           type="text"
-          className={cn(
-            "block w-full rounded-lg border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-400 dark:focus:ring-blue-400",
-            isOpen && "rounded-b-none"
-          )}
-          placeholder={placeholder}
           value={query}
-          onChange={(e) => {
-            setQuery(e.target.value);
-            setIsOpen(true);
-          }}
-          onFocus={() => {
-            if (query.length >= minQueryLength) {
-              setIsOpen(true);
-            }
-          }}
+          onChange={(e) => setQuery(e.target.value)}
+          onFocus={() => setIsOpen(true)}
+          onKeyDown={handleKeyDown}
+          placeholder={placeholder}
+          className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pl-10 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+          aria-label="Search documentation"
+          role="combobox"
           aria-expanded={isOpen}
           aria-controls="search-results"
           aria-autocomplete="list"
-          role="combobox"
-          aria-label="Search documentation"
         />
-        <AnimatePresence>{isLoading && <LoadingSpinner />}</AnimatePresence>
+        <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+        {isLoading && <LoadingSpinner />}
       </div>
-
       <AnimatePresence>
-        {isOpen && (
+        {isOpen && (query.length >= minQueryLength || hasSearched) && (
           <motion.div
-            id="search-results"
-            className={cn(
-              "absolute z-50 mt-0.5 w-full overflow-hidden rounded-b-lg border border-t-0 border-gray-300 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800",
-              isMobile ? "max-h-[70vh]" : "max-h-[60vh]"
-            )}
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="absolute z-50 mt-2 w-full rounded-lg border border-gray-300 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800"
+            role="listbox"
+            id="search-results"
           >
-            <div className="max-h-[inherit] overflow-y-auto">
-              {results.length > 0 ? (
-                <div className="py-1" role="listbox">
-                  {results.map((result, index) => (
-                    <SearchResultItem
-                      key={`${result.path}-${index}`}
-                      result={result}
-                      onSelect={(path) => {
-                        router.push(path);
-                        setIsOpen(false);
-                      }}
-                    />
-                  ))}
-                </div>
-              ) : hasSearched ? (
-                <NoResultsMessage />
-              ) : null}
-            </div>
+            {results.length > 0 ? (
+              results.map((result, index) => (
+                <SearchResultItem key={index} result={result} onSelect={handleSelect} />
+              ))
+            ) : (
+              <NoResultsMessage />
+            )}
           </motion.div>
         )}
       </AnimatePresence>

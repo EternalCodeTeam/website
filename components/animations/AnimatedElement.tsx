@@ -23,7 +23,7 @@ interface AnimatedElementProps {
   triggerOnce?: boolean;
   as?: keyof JSX.IntrinsicElements;
   interactive?: boolean;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 const AnimatedElement: React.FC<AnimatedElementProps> = ({
@@ -63,7 +63,7 @@ const AnimatedElement: React.FC<AnimatedElementProps> = ({
 
   const animationVariant = getAnimationVariant();
 
-  const { animationType: _, ...filteredProps } = props;
+  const filteredProps = props;
 
   const commonProps = {
     ref,

@@ -33,6 +33,10 @@ export function generateOgImageMetadata({ title, subtitle, image }: OgImageProps
   };
 }
 
-export default function OgImage({ title, subtitle, image }: OgImageProps) {
+export default function OgImage({
+  title: _title,
+  subtitle: _subtitle,
+  image: _image,
+}: OgImageProps) {
   return null;
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 
 import ProjectItem from "@/components/projects/ProjectItem";
@@ -24,7 +23,6 @@ export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [imageError, setImageError] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchProjects = async () => {

@@ -1,6 +1,3 @@
-import { Mail } from "lucide-react";
-import Link from "next/link";
-
 import { AlertBox } from "@/components/ui/AlertBox";
 
 export default function PrivacyPolicyPage() {

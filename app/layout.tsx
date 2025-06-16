@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
-
 import "./globals.css";
 import React from "react";
 

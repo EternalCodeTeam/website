@@ -1,7 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
-
 import { AnimatedSection, AnimatedElement, AnimatedContainer } from "@/components/animations";
 import BackgroundHeroButton from "@/components/header/hero/button/BackgroundHeroButton";
 import TransparentHeroButton from "@/components/header/hero/button/TransparentHeroButton";

@@ -61,12 +61,6 @@ export const FormField = ({
   const [colors, setColors] = useState<string[]>(["#000000"]);
   const [activeColorIndex, setActiveColorIndex] = useState(0);
   const [gradientPreview, setGradientPreview] = useState("");
-  const [activeFormats, setActiveFormats] = useState<Record<string, boolean>>({
-    bold: false,
-    italic: false,
-    underline: false,
-    strikethrough: false,
-  });
 
   const minecraftColors = useMemo(
     () => [
@@ -137,19 +131,7 @@ export const FormField = ({
 
     const start = input.selectionStart;
     const end = input.selectionEnd;
-    if (start === null || end === null || start === end) return;
-
-    const text = input.value;
-    const selectedText = text.substring(start, end);
-
-    const formats = {
-      bold: /<b>.*?<\/b>/.test(selectedText),
-      italic: /<i>.*?<\/i>/.test(selectedText),
-      underline: /<u>.*?<\/u>/.test(selectedText),
-      strikethrough: /<st>.*?<\/st>/.test(selectedText),
-    };
-
-    setActiveFormats(formats);
+    if (start === null || end === null) return;
   };
 
   const toggleFormatting = (format: string) => {
@@ -196,11 +178,6 @@ export const FormField = ({
         input.focus();
       }
     });
-
-    setActiveFormats((prev) => ({
-      ...prev,
-      [format]: !prev[format],
-    }));
   };
 
   const handleSelectionChange = () => {
@@ -251,18 +228,15 @@ export const FormField = ({
 
     const start = input.selectionStart;
     const end = input.selectionEnd;
+    if (start === null || end === null) return;
 
-    if (start === null || end === null || start === end) {
-      const formatTags: Record<string, string> = {
-        bold: "<b></b>",
-        italic: "<i></i>",
-        underline: "<u></u>",
-        strikethrough: "<st></st>",
-      };
+    const text = input.value;
+    const selectedText = text.substring(start, end);
 
-      insertTag(formatTags[format]);
-    } else {
+    if (selectedText) {
       toggleFormatting(format);
+    } else {
+      insertTag(`<${format}></${format}>`);
     }
   };
 
@@ -278,47 +252,34 @@ export const FormField = ({
   };
 
   const removeColor = (index: number) => {
-    const newColors = [...colors];
-    newColors.splice(index, 1);
+    if (colors.length <= 1) return;
+    const newColors = colors.filter((_, i) => i !== index);
     setColors(newColors);
-    if (index === activeColorIndex) {
-      setActiveColorIndex(0);
-    }
+    setActiveColorIndex(Math.min(activeColorIndex, newColors.length - 1));
   };
 
   const applyColor = () => {
-    const selectedHex = colors[0];
-    const minecraftColor = minecraftColors.find((mcColor) => mcColor.hex === selectedHex);
-    const colorTag = isGradient
-      ? `<gradient:${colors.map((c) => minecraftColors.find((mc) => mc.hex === c)?.name || c).join(":")}></gradient>`
-      : minecraftColor
-        ? `<${minecraftColor.name.toLowerCase().replace(/ /g, "_")}>`
-        : `<color:${selectedHex}>`;
-    insertTag(colorTag);
+    if (isGradient) {
+      insertTag(`<gradient:${colors.join(",")}></gradient>`);
+    } else {
+      insertTag(`<color:${colors[0]}></color>`);
+    }
     setShowColorPicker(false);
   };
 
-  const inputClasses = `w-full border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800 dark:text-white px-2 py-1 text-sm transition-colors duration-150 hover:bg-gray-50 dark:hover:bg-gray-700 rounded ${
-    error ? "border-red-500" : ""
+  const inputClasses = `w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 ${
+    error ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""
   }`;
 
   return (
-    <motion.div
-      className="mb-2"
-      initial={{ opacity: 0, y: 5 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.15 }}
-    >
-      <motion.label
-        className="mb-0.5 block text-sm font-medium text-gray-700 dark:text-gray-300"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.1 }}
+    <div className="mb-4">
+      <label
         htmlFor={`formfield-${name}`}
+        className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"
       >
         {label}
-      </motion.label>
-      <div className="mb-1 flex space-x-1">
+      </label>
+      <div className="mb-2 flex flex-wrap gap-1">
         {showEditorButtons && (
           <>
             <Button
@@ -326,22 +287,28 @@ export const FormField = ({
               variant="outline"
               size="sm"
               onClick={() => setShowColorPicker(!showColorPicker)}
-              title="Color Picker"
+              title="Color"
             >
               <Palette className="h-4 w-4" />
             </Button>
             {showColorPicker && (
-              <div className="absolute z-10 mt-2 rounded-md border border-gray-200 bg-white p-2 shadow-lg dark:border-gray-700 dark:bg-gray-800">
+              <div className="absolute z-10 mt-10 rounded-lg border border-gray-300 bg-white p-4 shadow-lg dark:border-gray-600 dark:bg-gray-800">
                 <div className="mb-2 flex items-center justify-between">
-                  <label className="flex items-center space-x-2 text-sm">
+                  <div className="flex items-center">
                     <input
                       type="checkbox"
+                      id="gradient-toggle"
                       checked={isGradient}
                       onChange={(e) => setIsGradient(e.target.checked)}
-                      className="rounded border-gray-300 dark:border-gray-600"
+                      className="mr-2 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
                     />
-                    <span>Gradient</span>
-                  </label>
+                    <label
+                      htmlFor="gradient-toggle"
+                      className="text-sm text-gray-700 dark:text-gray-300"
+                    >
+                      Gradient
+                    </label>
+                  </div>
                   <Button
                     type="button"
                     variant="ghost"
@@ -366,6 +333,14 @@ export const FormField = ({
                             }`}
                             style={{ backgroundColor: color }}
                             onClick={() => setActiveColorIndex(index)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" || e.key === " ") {
+                                setActiveColorIndex(index);
+                              }
+                            }}
+                            role="button"
+                            tabIndex={0}
+                            aria-label={`Select color ${index + 1}`}
                           />
                           {colors.length > 1 && (
                             <Button
@@ -394,8 +369,11 @@ export const FormField = ({
                     </div>
 
                     <div className="mb-2">
-                      <label className="mb-1 block text-xs">Gradient Preview</label>
+                      <label htmlFor="gradient-preview" className="mb-1 block text-xs">
+                        Gradient Preview
+                      </label>
                       <div
+                        id="gradient-preview"
                         className="h-10 w-full rounded border border-gray-300 dark:border-gray-600"
                         style={{ background: gradientPreview }}
                       />
@@ -554,31 +532,28 @@ export const FormField = ({
           aria-invalid={error ? "true" : "false"}
         />
       )}
-      <div className="mt-0.5 h-4">
-        {error ? (
-          <motion.p
-            className="text-xs text-red-500"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.1 }}
-            id={`error-${name}`}
-            role="alert"
-          >
-            {error}
-          </motion.p>
-        ) : helpText ? (
-          <motion.p
-            className="text-xs text-gray-500 dark:text-gray-400"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.1, delay: 0.1 }}
-            id={`help-${name}`}
-          >
-            {helpText}
-          </motion.p>
-        ) : null}
-      </div>
-    </motion.div>
+      {error && (
+        <motion.p
+          id={`error-${name}`}
+          className="mt-1 text-xs text-red-500 dark:text-red-400"
+          initial={{ opacity: 0, y: -5 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          {error}
+        </motion.p>
+      )}
+      {helpText && !error && (
+        <motion.p
+          id={`help-${name}`}
+          className="mt-1 text-xs text-gray-500 dark:text-gray-400"
+          initial={{ opacity: 0, y: -5 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          {helpText}
+        </motion.p>
+      )}
+    </div>
   );
 };
