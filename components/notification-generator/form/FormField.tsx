@@ -109,8 +109,8 @@ export const FormField = ({
       tags: ["<hover:show_text:'text'></hover>"],
     },
     color: {
-      pattern: /^<(color|gradient):[^>]*><\/(color|gradient)>$/,
-      tags: ["<color:#000000></color>", "<gradient:#000000,#ffffff></gradient>"],
+      pattern: /^<(color):#[0-9a-fA-F]{6}><\/(color)>$|^<(gradient):#[0-9a-fA-F]{6}(?::#[0-9a-fA-F]{6})*><\/(gradient)>$/,
+      tags: ["<color:#000000></color>", "<gradient:#000000:#ffffff></gradient>"],
     },
     minecraftColor: {
       pattern:
@@ -260,9 +260,17 @@ export const FormField = ({
 
   const applyColor = () => {
     if (isGradient) {
-      insertTag(`<gradient:${colors.join(",")}></gradient>`);
+      insertTag(`<gradient:${colors.join(":")}></gradient>`);
     } else {
-      insertTag(`<color:${colors[0]}></color>`);
+      const selectedHex = colors[0];
+      const matchingMinecraftColor = minecraftColors.find(
+        (mcColor) => mcColor.hex.toLowerCase() === selectedHex.toLowerCase()
+      );
+      if (matchingMinecraftColor) {
+        insertTag(`<${matchingMinecraftColor.name.toLowerCase().replace(/ /g, '_')}>`);
+      } else {
+        insertTag(`<color:${selectedHex}></color>`);
+      }
     }
     setShowColorPicker(false);
   };
@@ -386,18 +394,6 @@ export const FormField = ({
                   color={colors[activeColorIndex]}
                   onChange={handleColorChange}
                 />
-                <div className="mb-2 mt-2 grid grid-cols-8 gap-1">
-                  {minecraftColors.map((mcColor) => (
-                    <button
-                      key={mcColor.name}
-                      type="button"
-                      className="h-6 w-6 rounded border border-gray-300 transition-colors duration-150 hover:border-blue-500 dark:border-gray-600"
-                      style={{ backgroundColor: mcColor.hex }}
-                      onClick={() => handleColorChange(mcColor.hex)}
-                      title={mcColor.name}
-                    />
-                  ))}
-                </div>
                 <div className="mt-2 flex justify-between">
                   <div className="flex items-center">
                     <div
