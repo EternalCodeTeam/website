@@ -356,7 +356,7 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
           <SliderField
             label="Volume"
             name="volume"
-            value={parseFloat(notification.volume || "1.0")}
+            value={notification.volume || "1.0"}
             onChange={(name, value) => onChange(name as FieldType, value.toString())}
             min={0.0}
             max={1.0}
@@ -367,7 +367,7 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
           <SliderField
             label="Pitch"
             name="pitch"
-            value={parseFloat(notification.pitch || "1.0")}
+            value={notification.pitch || "1.0"}
             onChange={(name, value) => onChange(name as FieldType, value.toString())}
             min={0.5}
             max={2.0}
