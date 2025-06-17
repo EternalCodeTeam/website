@@ -11,19 +11,27 @@ const SidebarWrapper = () => {
   const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
-    // Check if we've already animated before
+   
     const hasAnimatedBefore = localStorage.getItem("sidebarHasAnimated") === "true";
     setHasAnimated(hasAnimatedBefore);
     setIsMounted(true);
 
-    // If we haven't animated before, set the flag after animation completes
-    if (!hasAnimatedBefore) {
-      const timer = setTimeout(() => {
+   
+    if (!hasAnimatedBefore && sidebarRef.current) {
+      const handleAnimationEnd = () => {
         localStorage.setItem("sidebarHasAnimated", "true");
         setHasAnimated(true);
-      }, 1000); // Give enough time for animation to complete
+      };
 
-      return () => clearTimeout(timer);
+     
+      sidebarRef.current.addEventListener('animationend', handleAnimationEnd);
+
+     
+      return () => {
+        if (sidebarRef.current) {
+          sidebarRef.current.removeEventListener('animationend', handleAnimationEnd);
+        }
+      };
     }
   }, []);
 

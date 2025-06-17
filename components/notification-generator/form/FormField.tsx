@@ -93,7 +93,7 @@ export const FormField = ({
 
   const allowedTags: Record<string, TagCategory> = {
     basic: {
-      pattern: /^<(b|i|u|st)><\/(b|i|u|st)>$/,
+      pattern: /^<(b|i|u|st)><\/\1>$/,
       tags: ["<b></b>", "<i></i>", "<u></u>", "<st></st>"],
     },
     click: {
