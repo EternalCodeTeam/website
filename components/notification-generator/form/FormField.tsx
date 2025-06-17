@@ -62,6 +62,10 @@ export const FormField = ({
   const [activeColorIndex, setActiveColorIndex] = useState(0);
   const [gradientPreview, setGradientPreview] = useState("");
 
+  // Generate unique IDs for form elements
+  const gradientToggleId = `gradient-toggle-${name}`;
+  const gradientPreviewId = `gradient-preview-${name}`;
+
   const minecraftColors = useMemo(
     () => [
       { name: "Black", hex: "#000000" },
@@ -313,13 +317,13 @@ export const FormField = ({
                   <div className="flex items-center">
                     <input
                       type="checkbox"
-                      id="gradient-toggle"
+                      id={gradientToggleId}
                       checked={isGradient}
                       onChange={(e) => setIsGradient(e.target.checked)}
                       className="mr-2 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
                     />
                     <label
-                      htmlFor="gradient-toggle"
+                      htmlFor={gradientToggleId}
                       className="text-sm text-gray-700 dark:text-gray-300"
                     >
                       Gradient
@@ -385,11 +389,11 @@ export const FormField = ({
                     </div>
 
                     <div className="mb-2">
-                      <label htmlFor="gradient-preview" className="mb-1 block text-xs">
+                      <label htmlFor={gradientPreviewId} className="mb-1 block text-xs">
                         Gradient Preview
                       </label>
                       <div
-                        id="gradient-preview"
+                        id={gradientPreviewId}
                         className="h-10 w-full rounded border border-gray-300 dark:border-gray-600"
                         style={{ background: gradientPreview }}
                       />
