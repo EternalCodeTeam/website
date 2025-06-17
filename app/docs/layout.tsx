@@ -3,9 +3,8 @@ import { Poppins } from "next/font/google";
 import React from "react";
 
 import DocCopyEnhancer from "@/components/docs/DocCopyEnhancer";
-import DocSearch from "@/components/docs/DocSearch";
-import DocSidebar from "@/components/docs/DocSidebar";
 import Navbar from "@/components/header/Navbar";
+import SidebarWrapper from "@/components/docs/SidebarWrapper";
 
 const poppins = Poppins({
   weight: ["500"],
@@ -46,19 +45,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
       <Navbar />
       <div className="mx-auto min-h-[calc(100vh-7rem)] max-w-screen-xl px-4 py-12 pt-32">
         <div className="flex flex-col gap-8 lg:flex-row">
-          {/* Desktop sidebar */}
-          <aside className="hidden w-full flex-shrink-0 lg:block lg:w-64">
-            <div className="sticky top-32 z-20 flex flex-col gap-4">
-              <DocSearch />
-              <DocSidebar />
-            </div>
-          </aside>
-
-          {/* Mobile sidebar - rendered directly in DocSidebar component */}
-          <div className="lg:hidden">
-            <DocSearch />
-            <DocSidebar />
-          </div>
+          <SidebarWrapper />
 
           <div className="flex min-w-0 flex-1 flex-col items-stretch">
             <div className="w-full" style={{ minHeight: "60vh" }}>

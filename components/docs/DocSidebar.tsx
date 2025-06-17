@@ -14,6 +14,7 @@ import { docsStructure, DocItem } from "./sidebar-structure";
 interface DocSidebarProps {
   className?: string;
   onItemClick?: (path: string) => void;
+  hasAnimated?: boolean;
 }
 
 interface DocItemProps {
@@ -156,11 +157,10 @@ const DocItemComponent: React.FC<DocItemProps> = React.memo(
 
 DocItemComponent.displayName = "DocItemComponent";
 
-const DocSidebar: React.FC<DocSidebarProps> = React.memo(({ className = "", onItemClick }) => {
+const DocSidebar: React.FC<DocSidebarProps> = React.memo(({ className = "", onItemClick, hasAnimated = false }) => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [isFirstRender, setIsFirstRender] = useState(true);
 
   useEffect(() => {
     const checkIfMobile = () => {
@@ -214,13 +214,6 @@ const DocSidebar: React.FC<DocSidebarProps> = React.memo(({ className = "", onIt
     };
   }, [isMobile, isOpen]);
 
-  // Set isFirstRender to false after the first render
-  useEffect(() => {
-    if (isFirstRender) {
-      setIsFirstRender(false);
-    }
-  }, [isFirstRender]);
-
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -230,8 +223,8 @@ const DocSidebar: React.FC<DocSidebarProps> = React.memo(({ className = "", onIt
       <motion.ul
         className="list-none space-y-1"
         variants={sidebarStaggerContainer}
-        initial={isFirstRender ? "hidden" : false}
-        animate={isFirstRender ? "visible" : false}
+        initial={!hasAnimated ? "hidden" : false}
+        animate={!hasAnimated ? "visible" : false}
         layout
       >
         {docsStructure.map((item, index) => (
@@ -252,7 +245,7 @@ const DocSidebar: React.FC<DocSidebarProps> = React.memo(({ className = "", onIt
         ))}
       </motion.ul>
     ),
-    [pathname, onItemClick, isMobile, isFirstRender]
+    [pathname, onItemClick, isMobile, hasAnimated]
   );
 
   return (
@@ -292,8 +285,8 @@ const DocSidebar: React.FC<DocSidebarProps> = React.memo(({ className = "", onIt
             role="navigation"
             aria-label="Documentation navigation"
             variants={sidebarFadeInLeft}
-            initial={isFirstRender ? "hidden" : false}
-            animate={isFirstRender ? "visible" : false}
+            initial={!hasAnimated ? "hidden" : false}
+            animate={!hasAnimated ? "visible" : false}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.2 }}
             layout
