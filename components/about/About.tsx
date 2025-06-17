@@ -29,7 +29,7 @@ export default function About() {
           >
             <Image
               src={AboutImage}
-              className="mx-auto rounded-[12px] shadow-lg"
+              className="mx-auto rounded-xl shadow-lg"
               height={500}
               width={1000}
               priority={true}

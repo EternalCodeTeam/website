@@ -24,12 +24,12 @@ pre[class*="language-"] {
   padding: 1em;
   margin: 0;
   overflow: auto;
-  border-radius: 0.3em;
+  border-radius: 0.375rem;
 }
 
 :not(pre) > code[class*="language-"] {
   padding: 0.1em;
-  border-radius: 0.3em;
+  border-radius: 0.25rem;
   white-space: normal;
 }
 
@@ -142,7 +142,7 @@ pre[class*="language-"].line-numbers > code {
 
 ::-webkit-scrollbar-thumb {
   background: #4b4b4b;
-  border-radius: 12px;
+  border-radius: 0.75rem;
 }
 
 ::-webkit-scrollbar-thumb:hover {

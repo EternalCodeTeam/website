@@ -133,11 +133,11 @@ export default function Team() {
                 style={{ minHeight: 320 }}
               >
                 <div className="mx-auto mb-4 h-36 w-36 rounded-full bg-gray-200 dark:bg-gray-700"></div>
-                <div className="mx-auto mb-2 h-6 w-3/4 rounded bg-gray-200 dark:bg-gray-700"></div>
-                <div className="mx-auto mb-4 h-4 w-1/2 rounded bg-gray-200 dark:bg-gray-700"></div>
+                <div className="mx-auto mb-2 h-6 w-3/4 rounded-md bg-gray-200 dark:bg-gray-700"></div>
+                <div className="mx-auto mb-4 h-4 w-1/2 rounded-md bg-gray-200 dark:bg-gray-700"></div>
                 <div className="mt-4 flex justify-center space-x-4">
-                  <div className="h-6 w-6 rounded bg-gray-200 dark:bg-gray-700"></div>
-                  <div className="h-6 w-6 rounded bg-gray-200 dark:bg-gray-700"></div>
+                  <div className="h-6 w-6 rounded-md bg-gray-200 dark:bg-gray-700"></div>
+                  <div className="h-6 w-6 rounded-md bg-gray-200 dark:bg-gray-700"></div>
                 </div>
               </AnimatedElement>
             ))}

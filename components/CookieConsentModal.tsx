@@ -81,7 +81,7 @@ export function CookieConsentModal() {
                       type="checkbox"
                       checked={consent.necessary}
                       disabled
-                      className="h-4 w-4 rounded border-gray-300 text-blue-600"
+                      className="h-4 w-4 rounded-sm border-gray-300 text-blue-600"
                     />
                   </div>
                 </div>
@@ -100,7 +100,7 @@ export function CookieConsentModal() {
                       type="checkbox"
                       checked={consent.analytics}
                       onChange={(e) => updateConsent({ analytics: e.target.checked })}
-                      className="h-4 w-4 rounded border-gray-300 text-blue-600"
+                      className="h-4 w-4 rounded-sm border-gray-300 text-blue-600"
                     />
                   </div>
                 </div>
@@ -119,7 +119,7 @@ export function CookieConsentModal() {
                       type="checkbox"
                       checked={consent.marketing}
                       onChange={(e) => updateConsent({ marketing: e.target.checked })}
-                      className="h-4 w-4 rounded border-gray-300 text-blue-600"
+                      className="h-4 w-4 rounded-sm border-gray-300 text-blue-600"
                     />
                   </div>
                 </div>
@@ -138,7 +138,7 @@ export function CookieConsentModal() {
                       type="checkbox"
                       checked={consent.preferences}
                       onChange={(e) => updateConsent({ preferences: e.target.checked })}
-                      className="h-4 w-4 rounded border-gray-300 text-blue-600"
+                      className="h-4 w-4 rounded-sm border-gray-300 text-blue-600"
                     />
                   </div>
                 </div>

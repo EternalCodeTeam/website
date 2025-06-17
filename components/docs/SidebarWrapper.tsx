@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
+
 import DocSearch from "./DocSearch";
 import DocSidebar from "./DocSidebar";
 

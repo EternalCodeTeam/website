@@ -70,7 +70,7 @@ export default function ProjectItem({
           <Image
             alt={`${repo.attributes.name} project image`}
             src={repo.attributes.banner_url}
-            className="mx-auto hidden rounded-[12px] object-cover sm:block"
+            className="mx-auto hidden rounded-xl object-cover sm:block"
             height={500}
             width={1000}
             priority={index < 2}

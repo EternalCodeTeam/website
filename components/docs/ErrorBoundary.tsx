@@ -38,7 +38,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
           </p>
           <details className="mt-4 text-sm text-red-600 dark:text-red-400">
             <summary className="cursor-pointer">Technical Details</summary>
-            <pre className="mt-2 whitespace-pre-wrap rounded bg-red-100 p-2 dark:bg-red-900">
+            <pre className="mt-2 whitespace-pre-wrap rounded-md bg-red-100 p-2 dark:bg-red-900">
               {this.state.error?.message}
             </pre>
           </details>
