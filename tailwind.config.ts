@@ -23,6 +23,19 @@ const config: Config = {
         '3xl': '1.5rem',    
         'full': '9999px',   
       },
+      fontFamily: {
+        mono: [
+          'JetBrains Mono',
+          'ui-monospace',
+          'SFMono-Regular',
+          'Menlo',
+          'Monaco',
+          'Consolas',
+          '"Liberation Mono"',
+          '"Courier New"',
+          'monospace'
+        ],
+      },
     },
   },
   plugins: [require("@tailwindcss/container-queries"), require("@tailwindcss/typography")],

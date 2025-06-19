@@ -287,9 +287,8 @@ export const FormField = ({
     setShowColorPicker(false);
   };
 
-  const inputClasses = `w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 ${
-    error ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""
-  }`;
+  const inputClasses = `w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 
+  ${error ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}`;
 
   return (
     <div className="mb-4">
@@ -507,7 +506,7 @@ export const FormField = ({
       </div>
       {type === "textarea" ? (
         <motion.textarea
-          className={inputClasses}
+          className={inputClasses + " font-mono"}
           rows={rows}
           value={value}
           onChange={(e) => onChange(name, e.target.value)}
