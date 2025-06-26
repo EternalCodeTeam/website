@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-import AnimatedHome from "@/components/AnimatedHome";
+import AnimatedHome from "@/components/page/home/AnimatedHome";
 import { generateOgImageMetadata } from "@/components/OgImage";
 
 export const dynamic = "force-static";

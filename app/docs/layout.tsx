@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import React from "react";
 
-import DocCopyEnhancer from "@/components/docs/DocCopyEnhancer";
-import SidebarWrapper from "@/components/docs/SidebarWrapper";
-import Navbar from "@/components/header/Navbar";
+import DocCopyEnhancer from "@/components/page/docs/code/DocCopyEnhancer";
+import SidebarWrapper from "@/components/page/docs/sidebar/SidebarWrapper";
+import Navbar from "@/components/page/header/Navbar";
 
 const poppins = Poppins({
   weight: ["500"],
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className={`${poppins.className} min-h-screen bg-[#eff1f5] transition-colors duration-200 dark:bg-[#0d1117]`}
+      className={`${poppins.className} min-h-screen bg-lightGray-100 antialiased dark:bg-gray-900 transition-colors duration-200`}
     >
       <Navbar />
       <div className="mx-auto min-h-[calc(100vh-7rem)] max-w-screen-xl px-4 py-12 pt-36">

@@ -1,12 +1,12 @@
-@import "./prism-tomorrow.css";
+@import "../node_modules/@south-paw/typeface-minecraft/index.css";
+@import "prism-tomorrow.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 code[class*="language-"],
 pre[class*="language-"] {
-  font-family:
-    "Fira Mono", "Consolas", "Menlo", "Monaco", "Liberation Mono", "Courier New", monospace;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace !important;
   font-size: 1em;
   text-align: left;
   white-space: pre;
@@ -31,73 +31,6 @@ pre[class*="language-"] {
   padding: 0.1em;
   border-radius: 0.25rem;
   white-space: normal;
-}
-
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-  color: #6a9955;
-}
-
-.token.punctuation {
-  color: #d4d4d4;
-}
-
-.token.property,
-.token.tag,
-.token.boolean,
-.token.number,
-.token.constant,
-.token.symbol,
-.token.deleted {
-  color: #b5cea8;
-}
-
-.token.selector,
-.token.attr-name,
-.token.string,
-.token.char,
-.token.builtin,
-.token.inserted {
-  color: #ce9178;
-}
-
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string {
-  color: #d4d4d4;
-}
-
-.token.atrule,
-.token.attr-value,
-.token.keyword {
-  color: #569cd6;
-}
-
-.token.function {
-  color: #dcdcaa;
-}
-
-.token.regex,
-.token.important,
-.token.variable {
-  color: #d16969;
-}
-
-.token.important,
-.token.bold {
-  font-weight: bold;
-}
-
-.token.italic {
-  font-style: italic;
-}
-
-.token.entity {
-  cursor: help;
 }
 
 pre[class*="language-"].line-numbers {
@@ -164,14 +97,14 @@ pre[class*="language-"].line-numbers > code {
   margin: 1.5rem 0;
   overflow: hidden;
   border-radius: 0.5rem;
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+  background-color: #f3f4f6;
+  box-shadow: none;
 }
 
 .prose thead {
-  background-color: #f8fafc;
-  color: white;
+  background-color: #e5e7eb;
+  color: #22223b;
 }
 
 .prose th {
@@ -181,29 +114,37 @@ pre[class*="language-"].line-numbers > code {
   text-transform: uppercase;
   font-size: 0.875rem;
   letter-spacing: 0.05em;
+  background-color: #f3f4f6;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .prose td {
   padding: 0.75rem 1rem;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid #e5e7eb;
   background-color: #f8fafc;
+  color: #22223b;
 }
 
-.prose tbody tr:nth-child(even) td {
-  background-color: #f8fafc;
+.dark .prose table {
+  background-color: #181a20;
+  border: 1px solid #23272e;
 }
 
 .dark .prose thead {
-  background-color: #1a202c;
+  background-color: #181a20;
+  color: #f3f4f6;
+}
+
+.dark .prose th {
+  background-color: #181a20;
+  border-bottom: 1px solid #23272e;
+  color: #bfc6d1;
 }
 
 .dark .prose td {
-  border-top: 1px solid #2d3748;
-  background-color: #1a202c;
-}
-
-.dark .prose tbody tr:nth-child(even) td {
-  background-color: #1a202c;
+  border-top: 1px solid #23272e;
+  background-color: #181a20;
+  color: #f3f4f6;
 }
 
 @keyframes fadein {
@@ -233,4 +174,21 @@ pre {
   justify-content: center !important;
   min-width: 1.5rem !important;
   min-height: 1.5rem !important;
+}
+
+.prose {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-weight: 400;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+  font-weight: 700;
+}
+
+.prose strong {
+  font-weight: 600;
+}
+
+pre, code, .prose pre, .prose code {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace !important;
 }

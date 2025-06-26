@@ -1,5 +1,5 @@
-import generated from "@next/bundle-analyzer";
 import createMDX from "@next/mdx";
+
 import { mdxOptions } from "./lib/mdx-config.mjs";
 
 const withMDX = createMDX({

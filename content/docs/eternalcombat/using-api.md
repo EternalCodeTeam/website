@@ -10,7 +10,7 @@ description: Developer guide for integrating with EternalCombat's API
 Add our repository to your build configuration:
 
 <CodeTabs>
-  <CodeTab label="Gradle (KTS)">
+  <CodeTab label="Gradle.kts">
 
 ```kotlin
 repositories {
@@ -19,7 +19,7 @@ repositories {
 ```
 
   </CodeTab>
-  <CodeTab label="Gradle (Groovy)">
+  <CodeTab label="Gradle">
 
 ```groovy
 repositories {
@@ -48,7 +48,7 @@ repositories {
 Add the EternalCombat API dependency:
 
 <CodeTabs>
-  <CodeTab label="Gradle (KTS)">
+  <CodeTab label="Gradle.kts">
 
 ```kotlin
 dependencies {
@@ -57,7 +57,7 @@ dependencies {
 ```
 
   </CodeTab>
-  <CodeTab label="Gradle (Groovy)">
+  <CodeTab label="Gradle">
 
 ```groovy
 dependencies {

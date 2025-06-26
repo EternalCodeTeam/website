@@ -70,7 +70,7 @@ export const Tabs: React.FC<TabsProps> = ({ children, defaultIndex = 0, onChange
           );
         })}
       </div>
-      <div className="mt-2 rounded-lg bg-gray-50 px-4 pb-6 pt-4 dark:bg-[#23272e]">
+      <div className="mt-2 rounded-lg bg-gray-50 px-4 pb-6 pt-4 dark:bg-gray-800">
         <AnimatePresence mode="wait">
           {React.Children.map(children, (child, idx) => {
             if (!React.isValidElement<TabItemProps>(child)) return null;

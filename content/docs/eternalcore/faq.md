@@ -1,20 +1,13 @@
 ---
-title: EternalCore - FAQ
+title: Frequently Asked Questions
+description: Frequently Asked Questions about EternalCore.
 ---
 
-# ❓ Frequently Asked Questions
+## Disabling commands
 
-## ⛔ How to disable command in EternalCore?
+If a command from EternalCore conflicts with a command from another plugin, you can disable it. To do this, locate the command in the `commands.yml` file and set the `enabled` property to `false`.
 
-### Problem:
-
-Command from my other plugin is clashing against EternalCore command.
-
-### Solution:
-
-You can disable command in `commands.yml` file.
-
-### Example:
+**Example:**
 
 ```yaml
 rtp:
@@ -25,33 +18,21 @@ rtp:
   subCommands: []
 ```
 
-## 🎨 How do I format text in chat?
+## Formatting text in chat
 
-### Problem:
+You can format chat messages with colors and styles using MiniMessage. For a live preview and help with formatting, check out the [MiniMessage Viewer](https://webui.advntr.dev/).
 
-I want to format text in chat. I want to style it, color it, etc.
-
-### Solution:
-
-You can use MiniMessage formatting. Check out the [MiniMessage Viewer](https://webui.advntr.dev/).
-
-### Example:
+**Example:**
 
 ```yaml
 message: "<gradient:#ff00ee:#f79459>Example message</gradient>"
 ```
 
-## 🏃💨 How do I stop my title from flickering?
+## Preventing title flicker
 
-### Problem:
+When creating in-game titles with timers, you might notice flickering. To fix this, use the `times` key in your configuration. This allows you to define the fade-in, stay, and fade-out durations for the title, which prevents flickering.
 
-I want to create in game title with timer, but it keeps flickering on users screen.
-
-### Solution:
-
-You can use `times` key in configuration file.
-
-### Example:
+**Example:**
 
 ```yaml
 teleportTimerFormat:
@@ -59,5 +40,6 @@ teleportTimerFormat:
   chat: "<green>► <white>Teleporting in <green>{TIME}"
   title: "<white>Teleporting..."
   subtitle: "<green>{TIME}"
-  times: "1s 2s 1s" # No flickering
+  # Fade-in, stay, and fade-out times. Prevents flickering.
+  times: "1s 2s 1s"
 ```

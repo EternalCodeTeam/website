@@ -1,14 +1,13 @@
 import React from "react";
 
-import { H1, H2, H3, H4, H5, H6 } from "@/components/docs/AnimatedHeading";
-import { CodeBlock } from "@/components/docs/CodeBlock";
-import { CodeTabs, CodeTab } from "@/components/docs/CodeTabs";
-import DynamicCommandsTable from "@/components/docs/DynamicCommandsTable";
-import DynamicFeaturesTable from "@/components/docs/DynamicFeaturesTable";
-import { Inline } from "@/components/docs/Inline";
-import TableContainer from "@/components/docs/TableContainer";
-import TableWrapper from "@/components/docs/TableWrapper";
-import { AlertBox } from "@/components/ui/AlertBox";
+import { H1, H2, H3, H4, H5, H6 } from "@/components/page/docs/content/DocsContentHeading";
+import { CodeBlock } from "@/components/page/docs/code/CodeBlock";
+import { CodeTabs, CodeTab } from "@/components/page/docs/code/CodeTabs";
+import DynamicCommandsTable from "@/components/page/docs/eternalcore/DynamicCommandsTable";
+import DynamicFeaturesTable from "@/components/page/docs/eternalcore/DynamicFeaturesTable";
+import { Inline } from "@/components/page/docs/inline/Inline";
+import TableWrapper from "@/components/page/docs/table/TableWrapper";
+import { AlertBox } from "@/components/ui/alert-box";
 
 import { mdxOptions } from "./mdx-config.mjs";
 
@@ -36,7 +35,7 @@ export const components = {
   },
   pre: CodeBlock,
   TableWrapper,
-  TableContainer,
+  TableContainer: (props: any) => <TableWrapper {...props} delay={2000} />,
 };
 
 export { mdxOptions };

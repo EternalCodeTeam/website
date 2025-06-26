@@ -8,9 +8,9 @@ import { Analytics } from "@/components/Analytics";
 import "./prism-languages";
 import { CookieConsentModal } from "@/components/CookieConsentModal";
 import { CookiePreferencesMenu } from "@/components/CookiePreferencesMenu";
-import DocCopyEnhancer from "@/components/docs/DocCopyEnhancer";
-import Footer from "@/components/footer/Footer";
-import Navbar from "@/components/header/Navbar";
+import DocCopyEnhancer from "@/components/page/docs/code/DocCopyEnhancer";
+import Footer from "@/components/page/footer/Footer";
+import Navbar from "@/components/page/header/Navbar";
 import { SpeedInsights } from "@/components/SpeedInsights";
 import { generateOgImageUrl } from "@/lib/og-utils";
 
@@ -108,7 +108,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={poppins.variable}>
       <body
-        className={`${poppins.className} min-h-screen bg-[#eff1f5] antialiased dark:bg-[#0d1117]`}
+        className={`${poppins.className} min-h-screen bg-lightGray-100 antialiased dark:bg-gray-900`}
       >
         <Providers>
           <NextTopLoader

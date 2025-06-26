@@ -9,12 +9,12 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { Suspense, cache } from "react";
 
-import { DocHeader } from "@/components/docs/DocHeader";
-import { EditOnGitHub } from "@/components/docs/EditOnGitHub";
-import { ErrorBoundary } from "@/components/docs/ErrorBoundary";
-import { ReadingTime } from "@/components/docs/ReadingTime";
-import { ShortLink } from "@/components/docs/ShortLink";
-import { docsStructure } from "@/components/docs/sidebar-structure";
+import { DocsHeader } from "@/components/page/docs/content/DocsHeader";
+import { EditOnGitHub } from "@/components/page/docs/content/EditOnGitHub";
+import { ErrorBoundary } from "@/components/page/docs/content/ErrorBoundary";
+import { ReadingTime } from "@/components/page/docs/content/ReadingTime";
+import { ShortLink } from "@/components/page/docs/content/ShortLink";
+import { docsStructure } from "@/components/page/docs/sidebar-structure";
 import { components, mdxOptions } from "@/lib/mdx";
 
 export const dynamic = "force-static";
@@ -157,7 +157,7 @@ export default async function DocPage(props: Props) {
   return (
     <div>
       <article className="prose mx-auto max-w-5xl dark:prose-invert">
-        <DocHeader
+        <DocsHeader
           category={category}
           title={doc.meta.title}
           description={doc.meta.description}

@@ -1,5 +1,7 @@
 import { Metadata } from "next";
-import "../../components/notification-generator/minecraft-font.css";
+import "../../components/notification-generator/preview/minecraft-font.css";
+
+import { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "Notification Generator | Minecraft Plugin Tool",
@@ -24,8 +26,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function NotificationGeneratorLayout({ children }: { children: React.ReactNode }) {
+export default function NotificationGeneratorLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="relative mx-auto min-h-screen max-w-screen-xl px-4 py-8 pt-32">{children}</div>
+    <div className="relative mx-auto min-h-screen max-w-screen-xl px-4 py-8 pt-32 bg-lightGray-100 antialiased dark:bg-gray-900">{children}</div>
   );
 }

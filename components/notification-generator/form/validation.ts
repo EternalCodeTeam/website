@@ -13,7 +13,7 @@ export const validateField = (field: FieldType, value: string): string => {
       break;
     case "sound":
       if (value && !/^[A-Z_]+(\s+[A-Z_]+)?$/.test(value)) {
-        return "Invalid sound format";
+        return "Invalid sound formatting";
       }
       break;
     case "pitch":
@@ -27,34 +27,3 @@ export const validateField = (field: FieldType, value: string): string => {
   return "";
 };
 
-export const validateForm = (
-  notification: Record<string, string>,
-  validateFieldFn: (
-    field: "fadeIn" | "stay" | "fadeOut" | "sound" | "pitch" | "volume",
-    value: string
-  ) => string
-): Record<string, string> => {
-  const errors: Record<string, string> = {};
-
-  if (notification.fadeIn) {
-    const error = validateFieldFn("fadeIn", notification.fadeIn);
-    if (error) errors.fadeIn = error;
-  }
-
-  if (notification.stay) {
-    const error = validateFieldFn("stay", notification.stay);
-    if (error) errors.stay = error;
-  }
-
-  if (notification.fadeOut) {
-    const error = validateFieldFn("fadeOut", notification.fadeOut);
-    if (error) errors.fadeOut = error;
-  }
-
-  if (notification.sound) {
-    const error = validateFieldFn("sound", notification.sound);
-    if (error) errors.sound = error;
-  }
-
-  return errors;
-};

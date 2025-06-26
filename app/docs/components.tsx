@@ -1,13 +1,14 @@
 "use client";
 
-import AnimationSafeTable from "@/components/docs/AnimationSafeTable";
-import DynamicCommandsTable from "@/components/docs/DynamicCommandsTable";
-import DynamicFeaturesTable from "@/components/docs/DynamicFeaturesTable";
-import TableContainer from "@/components/docs/TableContainer";
+import DynamicCommandsTable from "@/components/page/docs/eternalcore/DynamicCommandsTable";
+import DynamicFeaturesTable from "@/components/page/docs/eternalcore/DynamicFeaturesTable";
+import TableWrapper from "@/components/page/docs/table/TableWrapper";
 
 export const components = {
   DynamicFeaturesTable,
   DynamicCommandsTable,
-  AnimationSafeTable,
-  TableContainer,
+  // Use TableWrapper with a delay of 2000ms to replace AnimationSafeTable
+  AnimationSafeTable: (props: any) => <TableWrapper {...props} delay={2000} />,
+  // Use TableWrapper with a delay of 2000ms to replace TableContainer
+  TableContainer: (props: any) => <TableWrapper {...props} delay={2000} />,
 };

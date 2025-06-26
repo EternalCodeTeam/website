@@ -1,4 +1,4 @@
-import { AlertBox } from "@/components/ui/AlertBox";
+import { AlertBox } from "@/components/ui/alert-box";
 
 export default function PrivacyPolicyPage() {
   return (

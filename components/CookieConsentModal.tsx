@@ -13,10 +13,7 @@ export function CookieConsentModal() {
   const [showDetails, setShowDetails] = useState(false);
 
   const isDefaultConsent =
-    consent.necessary === true &&
-    consent.analytics === false &&
-    consent.marketing === false &&
-    consent.preferences === false;
+    consent.necessary && !consent.analytics && !consent.marketing && !consent.preferences;
 
   if (!isInitialized || !isOpen || !isDefaultConsent) return null;
 

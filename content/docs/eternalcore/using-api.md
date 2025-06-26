@@ -14,14 +14,14 @@ To use latest release check [maven repository](https://repo.eternalcode.pl/#/rel
 ### Add repository:
 
 <CodeTabs>
-  <CodeTab label="Gradle (KTS)">
+  <CodeTab label="Gradle.kts">
 
 ```kotlin
 maven("https://repo.eternalcode.pl/releases")
 ```
 
   </CodeTab>
-  <CodeTab label="Gradle (Groovy)">
+  <CodeTab label="Gradle">
 
 ```groovy
 maven { url = "https://repo.eternalcode.pl/releases" }
@@ -44,14 +44,14 @@ maven { url = "https://repo.eternalcode.pl/releases" }
 ### Add dependency:
 
 <CodeTabs>
-  <CodeTab label="Gradle (KTS)">
+  <CodeTab label="Gradle.kts">
 
 ```kotlin
 compileOnly("com.eternalcode:eternalcore-api:1.1.0")
 ```
 
   </CodeTab>
-  <CodeTab label="Gradle (Groovy)">
+  <CodeTab label="Gradle">
 
 ```groovy
 compileOnly("com.eternalcode:eternalcore-api:1.1.0")
