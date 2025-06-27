@@ -10,11 +10,7 @@ export interface ReadingTimeProps {
   className?: string;
 }
 
-export const ReadingTime = ({
-  content,
-  wordsPerMinute = 200,
-  className,
-}: ReadingTimeProps) => {
+export const ReadingTime = ({ content, wordsPerMinute = 200, className }: ReadingTimeProps) => {
   const words = content.trim().split(/\s+/).length;
   const readingTime = Math.ceil(words / wordsPerMinute);
 

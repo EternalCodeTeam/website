@@ -16,4 +16,4 @@ export default function ProjectsError({ error }: ProjectsErrorProps) {
       </div>
     </section>
   );
-} 
+}

@@ -62,9 +62,9 @@ export const sidebarFadeInUp: Variants = {
  */
 export const sidebarItemHover: Variants = {
   x: 3,
-  transition: { 
-    type: "spring", 
-    stiffness: 400, 
-    damping: 14 
-  }
-}; 
+  transition: {
+    type: "spring",
+    stiffness: 400,
+    damping: 14,
+  },
+};

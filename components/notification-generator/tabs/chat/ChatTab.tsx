@@ -1,9 +1,8 @@
 "use client";
 
-import { MiniMessageInfoBox } from "../MiniMessageInfoBox";
-import { NotificationConfig, FieldType } from "../../types";
-
 import { FormField } from "../../form/FormField";
+import { NotificationConfig, FieldType } from "../../types";
+import { MiniMessageInfoBox } from "../MiniMessageInfoBox";
 
 interface ChatTabProps {
   notification: NotificationConfig;

@@ -33,4 +33,4 @@ export interface TextFormattingProps {
   onFormat: (format: string) => void;
   onInsertTag: (tag: string) => void;
   editorButtonSet?: "all" | "basic";
-} 
+}

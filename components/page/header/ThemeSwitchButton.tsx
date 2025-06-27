@@ -19,7 +19,7 @@ export default function ThemeChanger() {
       variant="ghost"
       size="sm"
       className="rounded-full p-2"
-      aria-label={`Change to ${theme === "dark" ? "light" : "dark"} mode`}
+      aria-label={`Change to ${resolvedTheme === "dark" ? "light" : "dark"} mode`}
       onClick={toggleTheme}
       type="button"
     >

@@ -34,7 +34,7 @@ export const allowedTags: Record<string, TagCategory> = {
   },
   minecraftColor: {
     pattern: /<[a-z_]+>/,
-    tags: minecraftColors.map(color => `<${color.name.toLowerCase().replace(/ /g, '_')}>`),
+    tags: minecraftColors.map((color) => `<${color.name.toLowerCase().replace(/ /g, "_")}>`),
   },
   clickUrl: {
     pattern: /<click:open_url:'[^']*'><\/click>/,

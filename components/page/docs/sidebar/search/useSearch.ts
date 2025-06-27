@@ -1,8 +1,10 @@
-import { useState, useEffect, useCallback } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { SearchResult } from "./types";
-import { SearchEngine } from "./searchEngine";
+import { useState, useEffect, useCallback } from "react";
+
 import { useDebounce } from "@/hooks/useDebounce";
+
+import { SearchEngine } from "./searchEngine";
+import { SearchResult } from "./types";
 
 export const useSearch = (
   minQueryLength: number = 2,
@@ -54,7 +56,7 @@ export const useSearch = (
     };
 
     performSearch();
-  }, [debouncedQuery, minQueryLength, query, searchEngine, resultLimit]);
+  }, [debouncedQuery, minQueryLength, searchEngine, resultLimit]);
 
   const handleSelect = useCallback(
     (path: string) => {

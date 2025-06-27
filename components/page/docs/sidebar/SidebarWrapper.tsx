@@ -28,11 +28,11 @@ const SidebarWrapper = () => {
         setHasAnimated(true);
       };
 
-      sidebarRef.current.addEventListener('animationend', handleAnimationEnd);
+      sidebarRef.current.addEventListener("animationend", handleAnimationEnd);
 
       return () => {
         if (sidebarRef.current) {
-          sidebarRef.current.removeEventListener('animationend', handleAnimationEnd);
+          sidebarRef.current.removeEventListener("animationend", handleAnimationEnd);
         }
       };
     }

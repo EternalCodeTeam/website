@@ -48,7 +48,7 @@ export default function ProjectItem({ repo, index }: ProjectItemProps) {
           </a>
         </div>
       </div>
-      
+
       {/* Project image with animation */}
       <div className="w-full overflow-hidden md:w-1/2 lg:w-1/2">
         <motion.div

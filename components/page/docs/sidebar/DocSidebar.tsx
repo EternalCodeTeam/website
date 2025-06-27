@@ -4,13 +4,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useMemo, useCallback } from "react";
+import React, { useMemo, useCallback, useEffect } from "react";
 
 import Folder from "@/components/icons/folder";
 import { cn } from "@/lib/utils";
 
 import { docsStructure, DocItem } from "../sidebar-structure";
-import { sidebarStaggerContainer, sidebarFadeInLeft, sidebarFadeInUp, sidebarItemHover } from "./animations";
+
+import {
+  sidebarStaggerContainer,
+  sidebarFadeInLeft,
+  sidebarFadeInUp,
+  sidebarItemHover,
+} from "./animations";
 import { useMobileSidebar } from "./useMobileSidebar";
 
 /**
@@ -83,11 +89,7 @@ const DocItemComponent: React.FC<DocItemProps> = React.memo(
             />
             {item.title}
           </motion.div>
-          <motion.ul
-            className="list-none space-y-1"
-            variants={sidebarStaggerContainer}
-            layout
-          >
+          <motion.ul className="list-none space-y-1" variants={sidebarStaggerContainer} layout>
             {item.children?.map((child, childIndex) => (
               <li key={child.path}>
                 <DocItemComponent
@@ -117,11 +119,7 @@ const DocItemComponent: React.FC<DocItemProps> = React.memo(
           )}
           aria-current={isActive ? "page" : undefined}
         >
-          <motion.span
-            className="flex w-full items-start"
-            whileHover={sidebarItemHover}
-            layout
-          >
+          <motion.span className="flex w-full items-start" whileHover={sidebarItemHover} layout>
             <span className="block flex-1">{item.title}</span>
           </motion.span>
         </Link>
@@ -134,120 +132,129 @@ DocItemComponent.displayName = "DocItemComponent";
 
 /**
  * Documentation sidebar component
- * 
+ *
  * Renders the navigation sidebar for the documentation pages
  * with support for both desktop and mobile views
  */
-const DocSidebar: React.FC<DocSidebarProps> = React.memo(({ 
-  className = "", 
-  onItemClick, 
-  hasAnimated = false 
-}) => {
-  const pathname = usePathname();
-  const {
-    isOpen,
-    isMobile,
-    toggleSidebar,
-    sidebarRef,
-    toggleButtonRef,
-    setIsOpen,
-  } = useMobileSidebar();
+const DocSidebar: React.FC<DocSidebarProps> = React.memo(
+  ({ className = "", onItemClick, hasAnimated = false }) => {
+    const pathname = usePathname();
+    const { isOpen, isMobile, toggleSidebar, sidebarRef, toggleButtonRef, setIsOpen } =
+      useMobileSidebar();
 
-  const sidebarContent = useMemo(
-    () => (
-      <motion.ul
-        className="list-none space-y-1"
-        variants={sidebarStaggerContainer}
-        initial={!hasAnimated ? "hidden" : false}
-        animate={!hasAnimated ? "visible" : false}
-        layout
-      >
-        {docsStructure.map((item, index) => (
-          <li key={item.path}>
-            <DocItemComponent
-              item={item}
-              level={0}
-              isActive={pathname === item.path}
-              onItemClick={(path) => {
-                onItemClick?.(path);
-                if (isMobile) setIsOpen(false);
-              }}
-              index={index}
-            />
-          </li>
-        ))}
-      </motion.ul>
-    ),
-    [pathname, onItemClick, isMobile, hasAnimated, setIsOpen]
-  );
+    // Add event listener for Escape key to close sidebar (for accessibility)
+    useEffect(() => {
+      const handleEscapeKey = (event: KeyboardEvent) => {
+        if (event.key === "Escape" && isOpen && isMobile) {
+          toggleSidebar();
+        }
+      };
 
-  return (
-    <>
-      {/* Mobile sidebar toggle button */}
-      {isMobile && (
-        <button
-          ref={toggleButtonRef}
-          id="sidebar-toggle"
-          onClick={toggleSidebar}
-          className="mb-4 flex w-full items-center justify-center gap-2 rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-900 dark:bg-gray-800 dark:text-white"
-          aria-expanded={isOpen}
-          aria-controls="doc-sidebar"
+      // Add event listener
+      document.addEventListener("keydown", handleEscapeKey);
+
+      // Clean up event listener on unmount
+      return () => {
+        document.removeEventListener("keydown", handleEscapeKey);
+      };
+    }, [isOpen, isMobile, toggleSidebar]);
+
+    const sidebarContent = useMemo(
+      () => (
+        <motion.ul
+          className="list-none space-y-1"
+          variants={sidebarStaggerContainer}
+          initial={!hasAnimated ? "hidden" : false}
+          animate={!hasAnimated ? "visible" : false}
+          layout
         >
-          {isOpen ? (
-            <>
-              <X className="h-4 w-4" />
-              <span>Close Navigation</span>
-            </>
-          ) : (
-            <>
-              <Menu className="h-4 w-4" />
-              <span>Open Navigation</span>
-            </>
-          )}
-        </button>
-      )}
+          {docsStructure.map((item, index) => (
+            <li key={item.path}>
+              <DocItemComponent
+                item={item}
+                level={0}
+                isActive={pathname === item.path}
+                onItemClick={(path) => {
+                  onItemClick?.(path);
+                  if (isMobile) setIsOpen(false);
+                }}
+                index={index}
+              />
+            </li>
+          ))}
+        </motion.ul>
+      ),
+      [pathname, onItemClick, isMobile, hasAnimated, setIsOpen]
+    );
 
-      {/* Sidebar navigation */}
-      <AnimatePresence>
-        {(isOpen || !isMobile) && (
-          <motion.nav
-            ref={sidebarRef}
-            id="doc-sidebar"
-            className={cn(
-              "w-full",
-              isMobile
-                ? "fixed inset-y-0 left-0 z-50 w-64 overflow-y-auto bg-white p-4 shadow-lg dark:bg-gray-900"
-                : className
-            )}
-            role="navigation"
-            aria-label="Documentation navigation"
-            variants={sidebarFadeInLeft}
-            initial={!hasAnimated ? "hidden" : false}
-            animate={!hasAnimated ? "visible" : false}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.2 }}
-            layout
+    return (
+      <>
+        {/* Mobile sidebar toggle button */}
+        {isMobile && (
+          <button
+            ref={toggleButtonRef}
+            id="sidebar-toggle"
+            onClick={toggleSidebar}
+            className="mb-4 flex w-full items-center justify-center gap-2 rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-900 dark:bg-gray-800 dark:text-white"
+            aria-expanded={isOpen}
+            aria-controls="doc-sidebar"
           >
-            {sidebarContent}
-          </motion.nav>
+            {isOpen ? (
+              <>
+                <X className="h-4 w-4" />
+                <span>Close Navigation</span>
+              </>
+            ) : (
+              <>
+                <Menu className="h-4 w-4" />
+                <span>Open Navigation</span>
+              </>
+            )}
+          </button>
         )}
-      </AnimatePresence>
 
-      {/* Mobile sidebar backdrop */}
-      {isMobile && isOpen && (
-        <motion.div
-          className="fixed inset-0 z-40 bg-black bg-opacity-50"
-          onClick={toggleSidebar}
-          aria-hidden="true"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-        />
-      )}
-    </>
-  );
-});
+        {/* Sidebar navigation */}
+        <AnimatePresence>
+          {(isOpen || !isMobile) && (
+            <motion.nav
+              ref={sidebarRef}
+              id="doc-sidebar"
+              className={cn(
+                "w-full",
+                isMobile
+                  ? "fixed inset-y-0 left-0 z-50 w-64 overflow-y-auto bg-white p-4 shadow-lg dark:bg-gray-900"
+                  : className
+              )}
+              role="navigation"
+              aria-label="Documentation navigation"
+              variants={sidebarFadeInLeft}
+              initial={!hasAnimated ? "hidden" : false}
+              animate={!hasAnimated ? "visible" : false}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.2 }}
+              layout
+            >
+              {sidebarContent}
+            </motion.nav>
+          )}
+        </AnimatePresence>
+
+        {/* Mobile sidebar backdrop */}
+        {isMobile && isOpen && (
+          <motion.div
+            className="fixed inset-0 z-40 bg-black bg-opacity-50"
+            onClick={toggleSidebar}
+            aria-hidden="true"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          />
+        )}
+      </>
+    );
+  }
+);
 
 DocSidebar.displayName = "DocSidebar";
 

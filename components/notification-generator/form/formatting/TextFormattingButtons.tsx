@@ -18,7 +18,8 @@ import { Button } from "@/components/ui/button";
 import { ColorPicker } from "../color-picker/ColorPicker";
 import { TextFormattingProps } from "../types";
 
-const formattingButtonClass = "h-8 w-8 rounded-full p-0 text-blue-600 dark:text-blue-400 flex items-center justify-center";
+const formattingButtonClass =
+  "h-8 w-8 rounded-full p-0 text-blue-600 dark:text-blue-400 flex items-center justify-center";
 
 export const TextFormattingButtons = ({
   onFormat,
@@ -47,15 +48,31 @@ export const TextFormattingButtons = ({
   const extraButtons =
     editorButtonSet === "all"
       ? [
-          { title: "Add Link", icon: Link, onClick: () => onInsertTag("<click:open_url:'url'></click>") },
-          { title: "Run Command", icon: Terminal, onClick: () => onInsertTag("<click:run_command:'/command'></click>") },
-          { title: "Suggest Command", icon: MessageSquare, onClick: () => onInsertTag("<click:suggest_command:'/command'></click>") },
-          { title: "Hover", icon: Eye, onClick: () => onInsertTag("<hover:show_text:'text'></hover>") },
+          {
+            title: "Add Link",
+            icon: Link,
+            onClick: () => onInsertTag("<click:open_url:'url'></click>"),
+          },
+          {
+            title: "Run Command",
+            icon: Terminal,
+            onClick: () => onInsertTag("<click:run_command:'/command'></click>"),
+          },
+          {
+            title: "Suggest Command",
+            icon: MessageSquare,
+            onClick: () => onInsertTag("<click:suggest_command:'/command'></click>"),
+          },
+          {
+            title: "Hover",
+            icon: Eye,
+            onClick: () => onInsertTag("<hover:show_text:'text'></hover>"),
+          },
         ]
       : [];
 
   return (
-    <div className="flex gap-1 mb-2">
+    <div className="mb-2 flex gap-1">
       {showColorPicker && (
         <ColorPicker
           onApplyAction={handleColorApply}

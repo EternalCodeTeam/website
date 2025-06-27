@@ -3,11 +3,11 @@
 import { forwardRef, useImperativeHandle, useState, useEffect, useMemo, useCallback } from "react";
 
 import { Dropdown, DropdownOption } from "../../../ui/dropdown";
-import { SoundInfoBox } from "./SoundInfoBox";
+import { SliderField } from "../../form/SliderField";
 import { NotificationConfig, FieldType } from "../../types";
 
 import { SOUND_CATEGORY_OPTIONS } from "./sound-contant";
-import { SliderField } from "../../form/SliderField";
+import { SoundInfoBox } from "./SoundInfoBox";
 import { SoundTable, Sound } from "./SoundTable";
 
 const SOUNDS_JSON_URL =
@@ -204,10 +204,13 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
         let volumeValue = 1.0;
         if (typeof notification.volume === "string") {
           const parsedVolume = parseFloat(notification.volume);
-          if (!isNaN(parsedVolume) && isFinite(parsedVolume)) {
+          if (!isNaN(parsedVolume) && Number.isFinite(parsedVolume)) {
             volumeValue = Math.min(Math.max(parsedVolume, 0), 1.0);
           }
-        } else if (typeof notification.volume === "number" && isFinite(notification.volume)) {
+        } else if (
+          typeof notification.volume === "number" &&
+          Number.isFinite(notification.volume)
+        ) {
           volumeValue = Math.min(Math.max(notification.volume, 0), 1.0);
         }
 
@@ -221,10 +224,10 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
         let pitchValue = 1.0;
         if (typeof notification.pitch === "string") {
           const parsedPitch = parseFloat(notification.pitch);
-          if (!isNaN(parsedPitch) && isFinite(parsedPitch)) {
+          if (!isNaN(parsedPitch) && Number.isFinite(parsedPitch)) {
             pitchValue = Math.min(Math.max(parsedPitch, 0.5), 2.0);
           }
-        } else if (typeof notification.pitch === "number" && isFinite(notification.pitch)) {
+        } else if (typeof notification.pitch === "number" && Number.isFinite(notification.pitch)) {
           pitchValue = Math.min(Math.max(notification.pitch, 0.5), 2.0);
         }
 

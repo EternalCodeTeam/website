@@ -1,15 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useEffect, useCallback, useMemo } from "react";
-import { Play } from "@/components/icons/play";
-import React, { ReactNode } from "react";
+import React, { useState, useEffect, useCallback, useMemo, ReactNode } from "react";
 
-import { MinecraftPreview } from "../../components/notification-generator/preview/MinecraftPreview";
+import { Play } from "@/components/icons/play";
+
+import AnimatedElement from "../../components/animations/AnimatedElement";
 import { NotificationGeneratedCode } from "../../components/notification-generator/NotificationGeneratedCode";
 import { NotificationGenerator as NotificationGeneratorForm } from "../../components/notification-generator/NotificationGenerator";
+import { MinecraftPreview } from "../../components/notification-generator/preview/MinecraftPreview";
 import { NotificationConfig } from "../../components/notification-generator/types";
-import AnimatedElement from "../../components/animations/AnimatedElement";
 
 interface PanelProps {
   title: ReactNode;
@@ -168,11 +168,16 @@ export default function NotificationGeneratorPage() {
   }, []);
 
   const formComponent = useMemo(
-    () => <NotificationGeneratorForm notification={notification} setNotification={setNotification} />,
+    () => (
+      <NotificationGeneratorForm notification={notification} setNotification={setNotification} />
+    ),
     [notification, setNotification]
   );
 
-  const codeComponent = useMemo(() => <NotificationGeneratedCode yamlCode={yamlCode} />, [yamlCode]);
+  const codeComponent = useMemo(
+    () => <NotificationGeneratedCode yamlCode={yamlCode} />,
+    [yamlCode]
+  );
 
   return (
     <AnimatedElement

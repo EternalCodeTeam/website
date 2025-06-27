@@ -19,4 +19,4 @@ export interface ProjectButtonProps {
 
 export interface ApiResponse {
   data: Project[];
-} 
+}

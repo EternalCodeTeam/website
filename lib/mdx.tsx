@@ -1,8 +1,8 @@
 import React from "react";
 
-import { H1, H2, H3, H4, H5, H6 } from "@/components/page/docs/content/DocsContentHeading";
 import { CodeBlock } from "@/components/page/docs/code/CodeBlock";
 import { CodeTabs, CodeTab } from "@/components/page/docs/code/CodeTabs";
+import { H1, H2, H3, H4, H5, H6 } from "@/components/page/docs/content/DocsContentHeading";
 import DynamicCommandsTable from "@/components/page/docs/eternalcore/DynamicCommandsTable";
 import DynamicFeaturesTable from "@/components/page/docs/eternalcore/DynamicFeaturesTable";
 import { Inline } from "@/components/page/docs/inline/Inline";

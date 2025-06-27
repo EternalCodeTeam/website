@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+
 import { Play } from "@/components/icons/play";
 import { Stop } from "@/components/icons/stop";
 import { Button } from "@/components/ui/button";
@@ -40,10 +41,11 @@ export function SoundTable({
   const ITEMS_PER_PAGE = 10;
 
   // Simple filtering based on search query
-  const filteredSounds = sounds.filter(sound =>
-    !searchQuery ||
-    sound.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    (sound.category && sound.category.toLowerCase().includes(searchQuery.toLowerCase()))
+  const filteredSounds = sounds.filter(
+    (sound) =>
+      !searchQuery ||
+      sound.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (sound.category && sound.category.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   // Get paginated sounds
@@ -208,7 +210,8 @@ export function SoundTable({
             {filteredSounds.length > 0 ? (
               <>
                 {(currentPage - 1) * ITEMS_PER_PAGE + 1}-
-                {Math.min(currentPage * ITEMS_PER_PAGE, filteredSounds.length)} of {filteredSounds.length}
+                {Math.min(currentPage * ITEMS_PER_PAGE, filteredSounds.length)} of{" "}
+                {filteredSounds.length}
               </>
             ) : (
               "0 items"

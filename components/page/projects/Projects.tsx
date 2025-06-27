@@ -4,10 +4,11 @@ import React, { useEffect, useState } from "react";
 
 import ProjectItem from "@/components/page/projects/ProjectItem";
 import SectionTitle from "@/components/SectionTitle";
-import { Project } from "./types";
-import ProjectsSkeleton from "./ProjectsSkeleton";
+
 import ProjectsError from "./ProjectsError";
 import { fetchProjects } from "./projectService";
+import ProjectsSkeleton from "./ProjectsSkeleton";
+import { Project } from "./types";
 
 export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -20,13 +21,11 @@ export default function Projects() {
         setLoading(true);
         const data = await fetchProjects();
         setProjects(data);
-      } 
-      catch (error) {
+      } catch (error) {
         const err = error as Error;
         setError(err.message);
         console.error("Error fetching projects:", err);
-      } 
-      finally {
+      } finally {
         setLoading(false);
       }
     };

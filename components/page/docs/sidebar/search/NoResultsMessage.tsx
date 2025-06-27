@@ -9,4 +9,4 @@ export const NoResultsMessage = () => (
   >
     No results found. Try different keywords or check your spelling.
   </motion.div>
-); 
+);

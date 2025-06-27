@@ -2,7 +2,7 @@
 export const buttonAnimations = {
   whileHover: { scale: 1.01 },
   whileTap: { scale: 0.99 },
-  transition: { type: "spring", stiffness: 400, damping: 17 }
+  transition: { type: "spring", stiffness: 400, damping: 17 },
 };
 
 // Animation for the FAQ answer panel
@@ -38,7 +38,7 @@ export const panelAnimations = {
         duration: 0.2,
       },
     },
-  }
+  },
 };
 
 // Animation for the FAQ answer content
@@ -52,6 +52,6 @@ export const contentAnimations = {
       stiffness: 300,
       damping: 25,
       delay: 0.1,
-    }
-  }
+    },
+  },
 };

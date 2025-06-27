@@ -4,12 +4,14 @@ import { AnimatePresence } from "framer-motion";
 import React, { useMemo } from "react";
 
 import ActionBar from "@/components/notification-generator/tabs/actionbar/ActionBar";
-import BackgroundImage from "./BackgroundImage";
 import ChatMessage from "@/components/notification-generator/tabs/chat/ChatMessage";
-import { useTitleAnimation, useSoundEffect } from "../hooks";
 import SoundIndicator from "@/components/notification-generator/tabs/sound/SoundIndicator";
 import Title from "@/components/notification-generator/tabs/title/Title";
+
+import { useTitleAnimation, useSoundEffect } from "../hooks";
 import { MinecraftPreviewProps } from "../types";
+
+import BackgroundImage from "./BackgroundImage";
 
 export function MinecraftPreview({ notification }: MinecraftPreviewProps) {
   const { showTitle, titleOpacity } = useTitleAnimation(notification);
@@ -58,7 +60,7 @@ export function MinecraftPreview({ notification }: MinecraftPreviewProps) {
 
   return (
     <div
-      className="font-minecraft relative overflow-hidden rounded-lg shadow-lg bg-gray-900"
+      className="font-minecraft relative overflow-hidden rounded-lg bg-gray-900 shadow-lg"
       style={{
         width: "100%",
         aspectRatio: "16/9",

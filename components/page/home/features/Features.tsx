@@ -39,7 +39,7 @@ export default function Features() {
       id="features"
       className="py-16"
       animationType="fade"
-      aria-labelledby="features-heading"
+      aria-labelledby="Features section"
     >
       <div className="mx-auto max-w-screen-xl px-4 py-8">
         <AnimatedElement as="div" animationType="fadeDown" delay={0.1}>
@@ -62,7 +62,7 @@ export default function Features() {
               animationType={index % 2 === 0 ? "fadeLeft" : "fadeRight"}
               interactive={true}
             >
-              <div className="center bg-primary-100 dark:bg-primary-900 mb-4 flex h-10 w-10 items-center justify-center rounded-full lg:h-12 lg:w-12">
+              <div className="bg-primary-100 dark:bg-primary-900 mb-4 flex h-10 w-10 items-center justify-center rounded-full lg:h-12 lg:w-12">
                 {feature.icon}
               </div>
 

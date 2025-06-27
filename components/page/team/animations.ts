@@ -25,4 +25,4 @@ export const iconHover = {
   scale: 1.18,
   color: "#2563eb",
   transition: { type: "spring", stiffness: 400, damping: 15 },
-}; 
+};

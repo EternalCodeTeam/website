@@ -6,7 +6,7 @@
 
 code[class*="language-"],
 pre[class*="language-"] {
-  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace !important;
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important;
   font-size: 1em;
   text-align: left;
   white-space: pre;
@@ -177,11 +177,16 @@ pre {
 }
 
 .prose {
-  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
   font-weight: 400;
 }
 
-.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
   font-weight: 700;
 }
 
@@ -189,6 +194,9 @@ pre {
   font-weight: 600;
 }
 
-pre, code, .prose pre, .prose code {
-  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace !important;
+pre,
+code,
+.prose pre,
+.prose code {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important;
 }

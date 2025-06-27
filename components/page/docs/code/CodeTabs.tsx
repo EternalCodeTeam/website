@@ -41,15 +41,34 @@ const ICON_EXCEPTIONS: Record<string, string> = {
 
 function getIconComponent(label: string) {
   const key = label.trim().toLowerCase();
-  const iconName = ICON_EXCEPTIONS[key] ||
-    ("Si" + key.replace(/[^a-z0-9]/gi, "").replace(/^./, c => c.toUpperCase()));
-  return (SIIcons as Record<string, React.ComponentType<any>>)[iconName];
+  if (ICON_EXCEPTIONS[key]) {
+    return (SIIcons as Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>>)[
+      ICON_EXCEPTIONS[key]
+    ];
+  }
+
+  const sanitizedKey = key.replace(/[^a-z0-9]/gi, "");
+
+  const capitalizedKey =
+    sanitizedKey.length > 0 ? sanitizedKey.charAt(0).toUpperCase() + sanitizedKey.slice(1) : "";
+
+  const iconName = "Si" + capitalizedKey;
+
+  const iconExists = Object.prototype.hasOwnProperty.call(SIIcons, iconName);
+
+  return iconExists
+    ? (SIIcons as Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>>)[iconName]
+    : undefined;
 }
 
 function LanguageIcon({ label }: { label: string }) {
   const Icon = getIconComponent(label);
   if (Icon) return <Icon className="mr-1" title={label} size={18} aria-hidden="true" />;
-  return <span className="mr-1" title={label} aria-hidden="true">📄</span>;
+  return (
+    <span className="mr-1" title={label} aria-hidden="true">
+      📄
+    </span>
+  );
 }
 
 export const CodeTabs = ({
@@ -104,7 +123,13 @@ export const CodeTabs = ({
                       <motion.div
                         layoutId="activeTab"
                         className="absolute inset-0 -z-10 rounded-lg bg-gray-200 dark:bg-gray-850"
-                        transition={{ type: "spring", bounce: 0.2, duration: 0.6, stiffness: 300, damping: 30 }}
+                        transition={{
+                          type: "spring",
+                          bounce: 0.2,
+                          duration: 0.6,
+                          stiffness: 300,
+                          damping: 30,
+                        }}
                       />
                     )}
                   </motion.span>
@@ -143,6 +168,14 @@ export const CodeTabs = ({
   );
 };
 
-export function CodeTab({ children }: { label: string; children: React.ReactNode; disabled?: boolean }) {
+export function CodeTab({
+  label: _label,
+  children,
+  disabled: _disabled,
+}: {
+  label: string;
+  children: React.ReactNode;
+  disabled?: boolean;
+}) {
   return <>{children}</>;
 }

@@ -17,8 +17,7 @@ export async function fetchProjects(): Promise<Project[]> {
   // Validate response structure
   if (data && Array.isArray(data.data)) {
     return data.data;
-  } 
-  else {
+  } else {
     throw new Error("Invalid data structure in API response");
   }
-} 
+}

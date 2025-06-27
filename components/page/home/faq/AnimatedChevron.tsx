@@ -25,13 +25,8 @@ export default function AnimatedChevron({ isExpanded }: AnimatedChevronProps) {
         stroke="currentColor"
         aria-hidden="true"
       >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M19 9l-7 7-7-7"
-        />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
       </svg>
     </motion.div>
   );
-} 
+}

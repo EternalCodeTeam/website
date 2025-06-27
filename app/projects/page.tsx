@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-import Hero from "@/components/page/header/Hero";
 import { generateOgImageMetadata } from "@/components/OgImage";
+import Hero from "@/components/page/header/Hero";
 import Project from "@/components/page/projects/Projects";
 
 export const dynamic = "force-dynamic";

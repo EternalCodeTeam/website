@@ -1,4 +1,4 @@
-import { useAnimation } from "framer-motion";
+import { useAnimation, motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useCallback } from "react";
 import { useInView } from "react-intersection-observer";
@@ -28,14 +28,15 @@ export default function BackgroundHeroButton() {
 
   return (
     <Link href="/team">
-      <Button
-        ref={ref}
-        variant="primary"
-        leftIcon={<PeopleGroupIcon className="mb-[0.5px]" aria-hidden="true" />}
-        aria-label="View our team"
-      >
-        See our team!
-      </Button>
+      <motion.div ref={ref} animate={controls} initial={{ opacity: 0, y: 20 }}>
+        <Button
+          variant="primary"
+          leftIcon={<PeopleGroupIcon className="mb-[0.5px]" aria-hidden="true" />}
+          aria-label="View our team"
+        >
+          See our team!
+        </Button>
+      </motion.div>
     </Link>
   );
 }

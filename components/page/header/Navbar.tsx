@@ -107,7 +107,7 @@ export default function Navbar() {
       </div>
 
       <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-4 py-4 md:py-6">
-        <Link href="/public" className="flex items-center" aria-label="Go to homepage">
+        <Link href="/" className="flex items-center" aria-label="Go to homepage">
           <Image
             className="mr-3 h-8 w-auto dark:invert"
             alt="EternalCode Logo"

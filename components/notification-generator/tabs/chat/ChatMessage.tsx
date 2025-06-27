@@ -1,7 +1,8 @@
 import React from "react";
 
-import styles from "./ChatMessage.module.css";
 import { MinecraftText } from "../../preview/minecraftTextParser";
+
+import styles from "./ChatMessage.module.css";
 
 interface ChatMessageProps {
   message: string;

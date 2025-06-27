@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+
 import { useTableVisibility } from "./useTableVisibility";
 
 /**
@@ -19,15 +20,15 @@ interface TableWrapperProps {
 
 /**
  * TableWrapper component that handles visibility and animation of table content
- * 
+ *
  * This component ensures tables are properly displayed and animated in the documentation.
  * It uses a MutationObserver to prevent tables from being hidden by other scripts.
  */
-export default function TableWrapper({ 
-  children, 
-  id, 
+export default function TableWrapper({
+  children,
+  id,
   delay = 1500,
-  className = "" 
+  className = "",
 }: TableWrapperProps) {
   const { isVisible, wrapperRef } = useTableVisibility(delay);
 

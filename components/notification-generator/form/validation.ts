@@ -26,4 +26,3 @@ export const validateField = (field: FieldType, value: string): string => {
 
   return "";
 };
-

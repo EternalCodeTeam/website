@@ -38,21 +38,13 @@ const SearchBox = ({
   const inputId = useId();
   const listboxId = useId();
 
-  const {
-    query,
-    setQuery,
-    results,
-    isLoading,
-    isOpen,
-    setIsOpen,
-    handleSelect,
-    handleKeyDown,
-  } = useSearch(minQueryLength, debounceTime, customSearchEngine, searchEndpoint, resultLimit);
+  const { query, setQuery, results, isLoading, isOpen, setIsOpen, handleSelect, handleKeyDown } =
+    useSearch(minQueryLength, debounceTime, customSearchEngine, searchEndpoint, resultLimit);
 
   useClickOutside(searchRef, () => setIsOpen(false));
 
   const handleResultSelect = (path: string) => {
-    const selectedResult = results.find(result => result.path === path);
+    const selectedResult = results.find((result) => result.path === path);
     if (selectedResult && onResultSelect) {
       onResultSelect(selectedResult);
     } else {
@@ -94,11 +86,7 @@ const SearchBox = ({
           >
             {results.length > 0 ? (
               results.map((result, index) => (
-                <SearchResultItem
-                  key={index}
-                  result={result}
-                  onSelect={handleResultSelect}
-                />
+                <SearchResultItem key={index} result={result} onSelect={handleResultSelect} />
               ))
             ) : (
               <NoResultsMessage />

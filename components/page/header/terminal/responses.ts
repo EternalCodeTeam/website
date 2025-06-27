@@ -7,24 +7,11 @@ const responses: Record<string, string[]> = {
     "  about - About EternalCode",
     "  github - Our GitHub repositories",
   ],
-  projects: [
-    "See our projects here: https://eternalcode.pl/projects",
-  ],
-  team: [
-    "See our team here: https://eternalcode.pl/team",
-  ],
-  docs: [
-    "Documentation:",
-    "https://docs.eternalcode.pl/",
-  ],
-  about: [
-    "EternalCode is a open-source team.",
-    "Learn more: https://eternalcode.pl/",
-  ],
-  github: [
-    "Check out our GitHub repositories:",
-    "https://github.com/EternalCodeTeam",
-  ],
+  projects: ["See our projects here: https://eternalcode.pl/projects"],
+  team: ["See our team here: https://eternalcode.pl/team"],
+  docs: ["Documentation:", "https://docs.eternalcode.pl/"],
+  about: ["EternalCode is a open-source team.", "Learn more: https://eternalcode.pl/"],
+  github: ["Check out our GitHub repositories:", "https://github.com/EternalCodeTeam"],
 };
 
 export default responses;

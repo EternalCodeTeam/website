@@ -4,10 +4,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useCallback } from "react";
 
 import { AnimatedSection, AnimatedElement, AnimatedContainer } from "@/components/animations";
-import AnimatedChevron from "./AnimatedChevron";
-import { buttonAnimations, panelAnimations, contentAnimations } from "./animations";
 
 import SectionTitle from "../../../SectionTitle";
+
+import AnimatedChevron from "./AnimatedChevron";
+import { buttonAnimations, panelAnimations, contentAnimations } from "./animations";
 
 // FAQ item structure with question and answer
 interface FaqItem {
@@ -74,6 +75,7 @@ export default function Faq() {
                 className="flex w-full items-center justify-between bg-lightGray-200 px-6 py-4 text-left text-lg font-medium text-gray-800 transition-colors duration-300 hover:bg-lightGray-300 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                 aria-expanded={activeIndex === index}
                 aria-controls={`faq-panel-${index}`}
+                id={`faq-question-${index}`}
                 {...buttonAnimations}
               >
                 <span>{item.question}</span>

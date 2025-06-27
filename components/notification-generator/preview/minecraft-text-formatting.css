@@ -3,9 +3,12 @@
 .minecraft-bold {
   font-weight: bold;
   text-shadow:
-    1px 0 0 #000, 0 1px 0 #000,
-    1px 1px 0 #000, -1px 0 0 #000,
-    0 -1px 0 #000, -1px -1px 0 #000;
+    1px 0 0 #000,
+    0 1px 0 #000,
+    1px 1px 0 #000,
+    -1px 0 0 #000,
+    0 -1px 0 #000,
+    -1px -1px 0 #000;
   letter-spacing: 0.5px;
   display: inline-block !important;
 }
@@ -30,9 +33,11 @@
 .font-minecraft del::after,
 .font-minecraft [style*="text-decoration: line-through"]::after,
 .minecraft-strikethrough::after {
-  content: '';
+  content: "";
   position: absolute;
-  left: 0; right: 0; top: 50%;
+  left: 0;
+  right: 0;
+  top: 50%;
   height: 1.5px;
   background: currentColor;
   transform: translateY(-50%);

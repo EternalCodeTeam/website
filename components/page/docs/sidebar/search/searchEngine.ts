@@ -17,7 +17,7 @@ export class SearchEngine {
         throw new Error(`Failed to fetch search index: ${response.status}`);
       }
 
-      const searchData = await response.json() as SearchResult[];
+      const searchData = (await response.json()) as SearchResult[];
 
       this.db = create({
         schema: {

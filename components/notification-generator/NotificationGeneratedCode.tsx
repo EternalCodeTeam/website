@@ -20,10 +20,17 @@ export function NotificationGeneratedCode({ yamlCode }: NotificationCodeProps) {
       </AlertBox>
 
       <AnimatedElement animationType="fadeUp" delay={0.1} className="relative">
-        <AnimatedElement as="pre" animationType="fade" delay={0.2}
-          className="overflow-x-auto rounded-md bg-gray-100 p-4 font-mono text-sm dark:bg-gray-900">
-          <AnimatedElement as="code" animationType="fade" delay={0.3}
-            className="text-gray-800 dark:text-gray-200 whitespace-pre"
+        <AnimatedElement
+          as="pre"
+          animationType="fade"
+          delay={0.2}
+          className="overflow-x-auto rounded-md bg-gray-100 p-4 font-mono text-sm dark:bg-gray-900"
+        >
+          <AnimatedElement
+            as="code"
+            animationType="fade"
+            delay={0.3}
+            className="whitespace-pre text-gray-800 dark:text-gray-200"
           >
             {yamlCode}
           </AnimatedElement>
@@ -31,13 +38,21 @@ export function NotificationGeneratedCode({ yamlCode }: NotificationCodeProps) {
       </AnimatedElement>
 
       <AnimatedElement animationType="fadeUp" delay={0.4} className="mt-4">
-        <AnimatedElement as="h3" animationType="fade" delay={0.5}
-          className="mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+        <AnimatedElement
+          as="h3"
+          animationType="fade"
+          delay={0.5}
+          className="mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+        >
           How to use this code:
         </AnimatedElement>
 
-        <AnimatedContainer as="ol" staggerDelay={0.1} delay={0.6}
-          className="list-inside list-decimal space-y-1 text-sm text-gray-600 dark:text-gray-400">
+        <AnimatedContainer
+          as="ol"
+          staggerDelay={0.1}
+          delay={0.6}
+          className="list-inside list-decimal space-y-1 text-sm text-gray-600 dark:text-gray-400"
+        >
           <AnimatedElement as="li" animationType="fadeLeft">
             Copy the generated YAML code
           </AnimatedElement>

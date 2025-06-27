@@ -4,15 +4,15 @@ import { AnimatePresence } from "framer-motion";
 import { useState, useCallback, useRef, useMemo } from "react";
 
 import AnimatedElement from "@/components/animations/AnimatedElement";
-import { Button } from "@/components/ui/button";
-
 import { ActionBarTab } from "@/components/notification-generator/tabs/actionbar/ActionBarTab";
-import { AdvancedTab } from "./tabs/advanced/AdvancedTab";
 import { ChatTab } from "@/components/notification-generator/tabs/chat/ChatTab";
 import { SoundTab, SoundTabRef } from "@/components/notification-generator/tabs/sound/SoundTab";
-import { Tab } from "./tabs/Tab";
 import { TitleTab } from "@/components/notification-generator/tabs/title/TitleTab";
+import { Button } from "@/components/ui/button";
+
 import { validateField } from "./form/validation";
+import { AdvancedTab } from "./tabs/advanced/AdvancedTab";
+import { Tab } from "./tabs/Tab";
 import { NotificationConfig, TabType, FieldType } from "./types";
 
 interface NotificationFormProps {

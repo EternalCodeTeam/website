@@ -14,4 +14,5 @@ export interface DocSearchProps {
 export interface SearchResultItemProps {
   result: SearchResult;
   onSelect: (path: string) => void;
-} 
+  selected?: boolean;
+}

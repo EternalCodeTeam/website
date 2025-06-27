@@ -24,13 +24,11 @@ export default function Team() {
         setLoading(true);
         const data = await fetchTeamMembers();
         setMembers(data);
-      }
-      catch (error) {
+      } catch (error) {
         const err = error as Error;
         setError(err.message);
         console.error("Error fetching team members:", err);
-      }
-      finally {
+      } finally {
         setLoading(false);
       }
     };

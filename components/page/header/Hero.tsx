@@ -3,7 +3,6 @@
 import { AnimatedSection, AnimatedElement, AnimatedContainer } from "@/components/animations";
 import BackgroundHeroButton from "@/components/page/header/button/BackgroundHeroButton";
 import TransparentHeroButton from "@/components/page/header/button/TransparentHeroButton";
-
 import Terminal from "@/components/page/header/terminal/Terminal";
 
 export default function Hero() {

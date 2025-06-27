@@ -12,7 +12,7 @@ export default function ProjectsSkeleton() {
           title="Our project"
           description="Below you will find a list of our projects."
         />
-        
+
         {/* Project fake cards */}
         <div className="lg:alternate mt-8 space-y-8 lg:mt-12">
           {[...Array(3)].map((_, index) => (
@@ -36,4 +36,4 @@ export default function ProjectsSkeleton() {
       </div>
     </section>
   );
-} 
+}

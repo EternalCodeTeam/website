@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className={`${poppins.className} min-h-screen bg-lightGray-100 antialiased dark:bg-gray-900 transition-colors duration-200`}
+      className={`${poppins.className} min-h-screen bg-lightGray-100 antialiased transition-colors duration-200 dark:bg-gray-900`}
     >
       <Navbar />
       <div className="mx-auto min-h-[calc(100vh-7rem)] max-w-screen-xl px-4 py-12 pt-36">

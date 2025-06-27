@@ -14,7 +14,7 @@ const NotFound: FC = () => {
       </p>
       <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
         <Link
-          href="/public"
+          href="/"
           className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-700 focus:outline-none dark:bg-blue-500 dark:hover:bg-blue-600"
         >
           Go to Homepage
