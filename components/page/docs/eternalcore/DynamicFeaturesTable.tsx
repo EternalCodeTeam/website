@@ -36,7 +36,7 @@ export default function DynamicFeaturesTable() {
           return;
         }
 
-        const processedFeatures = data.map((feature: RawFeature) => {
+        const processedFeatures = (data as RawFeature[]).map((feature) => {
           const permission =
             Array.isArray(feature.permissions) && feature.permissions.length > 0
               ? feature.permissions[0]

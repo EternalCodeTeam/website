@@ -63,7 +63,7 @@ function getIconComponent(label: string) {
 
 function LanguageIcon({ label }: { label: string }) {
   const Icon = getIconComponent(label);
-  if (Icon) return <Icon className="mr-1" title={label} size={18} aria-hidden="true" />;
+  if (Icon) return <Icon className="mr-1" aria-label={label} width={18} height={18} aria-hidden="true" />;
   return (
     <span className="mr-1" title={label} aria-hidden="true">
       📄

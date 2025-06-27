@@ -9,7 +9,7 @@ export const SearchResultItem = memo(
       onClick={() => onSelect(result.path)}
       className="w-full px-4 py-2 text-left hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:hover:bg-gray-700 dark:focus:bg-gray-700"
       role="option"
-      aria-selected={selected.toString()}
+      aria-selected={selected}
       whileHover={{ x: 3 }}
       transition={{ type: "spring", stiffness: 400, damping: 10 }}
     >

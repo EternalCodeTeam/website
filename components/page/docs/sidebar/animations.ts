@@ -60,7 +60,7 @@ export const sidebarFadeInUp: Variants = {
  * Hover animation for sidebar items
  * Used for interactive elements in the sidebar
  */
-export const sidebarItemHover: Variants = {
+export const sidebarItemHover = {
   x: 3,
   transition: {
     type: "spring",
