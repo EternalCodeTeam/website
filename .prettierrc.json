@@ -4,5 +4,10 @@
   "tabWidth": 2,
   "singleQuote": false,
   "jsxSingleQuote": false,
+  "printWidth": 100,
+  "bracketSpacing": true,
+  "arrowParens": "always",
+  "endOfLine": "lf",
+  "bracketSameLine": false,
   "plugins": ["prettier-plugin-tailwindcss"]
 }

@@ -1,0 +1,17 @@
+@import "@south-paw/typeface-minecraft/index.css";
+
+.font-minecraft {
+  font-family: "Minecraft", monospace;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: inherit !important;
+}
+
+.font-minecraft-obfuscated {
+  font-family: "Minecraft", monospace;
+  letter-spacing: 0.1em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

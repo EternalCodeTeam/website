@@ -1,0 +1,46 @@
+---
+title: Introduction
+description: Welcome to EternalCombat - A powerful combat logging and PvP management plugin for Minecraft servers
+---
+
+## 🎯 Key Features
+
+- **Combat Logging Prevention**: Automatically tracks players in combat and prevents them from logging out
+- **Customizable Combat Timer**: Set your own combat duration with configurable timers
+- **Advanced PvP Management**: Control PvP zones, block placement, and command usage during combat
+- **Visual Combat Indicators**: Beautiful border effects and particle animations
+- **Admin Protection System**: Special commands and permissions for server administrators
+- **WorldGuard Integration**: Seamless compatibility with WorldGuard regions
+- **Extensive API**: Developer-friendly API for custom integrations
+
+## 📚 Documentation Sections
+
+- [Installation Guide](/docs/eternalcombat/installation) - Learn how to install and configure EternalCombat
+- [Features & Commands](/docs/eternalcombat/features) - Explore all available features and commands
+- [API Documentation](/docs/eternalcombat/using-api) - Integrate EternalCombat with your own plugins
+
+## 🚀 Getting Started
+
+1. [Install the plugin](/docs/eternalcombat/installation)
+2. Configure your settings in `config.yml`
+3. Set up permissions for your staff
+4. Test the features in a controlled environment
+
+## 💡 Tips
+
+- Always backup your configuration before making changes
+- Test new features in a development environment first
+- Keep the plugin updated to the latest version
+- Join our [Discord community](https://discord.gg/FQ7jmGBd6c) for support and updates
+
+## 🔧 Support
+
+Need help? Here are your options:
+
+- Join our [Discord server](https://discord.gg/FQ7jmGBd6c)
+- Report issues on [GitHub](https://github.com/EternalCodeTeam/EternalCombat/issues)
+- Check our [FAQ section](/docs/eternalcombat/faq)
+
+## 📝 License
+
+EternalCombat is licensed under the MIT License. See our [GitHub repository](https://github.com/EternalCodeTeam/EternalCombat) for more information.

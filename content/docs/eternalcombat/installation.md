@@ -1,0 +1,91 @@
+---
+title: Installation Guide
+description: Learn how to install and configure EternalCombat on your Minecraft server
+---
+
+## 📋 Prerequisites
+
+Before installing EternalCombat, ensure you have:
+
+- A Minecraft server running Paper/Spigot 1.17 or newer
+- Access to your server's `plugins` directory
+- Basic knowledge of server administration
+- Backup of your current server configuration
+
+## 🚀 Installation Steps
+
+### 1. Download the Plugin
+
+1. Visit our [official download page](https://github.com/EternalCodeTeam/EternalCombat/releases)
+2. Download the latest version of EternalCombat
+3. Verify the file integrity using the provided checksums
+
+### 2. Install the Plugin
+
+1. Stop your Minecraft server
+2. Place the downloaded JAR file in your server's `plugins` directory
+3. Start your server
+4. The plugin will automatically generate its configuration files
+
+### 3. Initial Configuration
+
+After installation, EternalCombat will create the following files:
+
+- `plugins/EternalCombat/config.yml` - Main configuration file
+
+## 🔄 Upgrading
+
+### Upgrade Process
+
+1. **Backup Your Configuration**
+
+   ```bash
+   cp plugins/EternalCombat/config.yml plugins/EternalCombat/config.yml.backup
+   ```
+
+2. **Download the New Version**
+
+   - Download the latest version from our [releases page](https://github.com/EternalCodeTeam/EternalCombat/releases)
+
+3. **Replace the Old Version**
+
+   - Stop your server
+   - Replace the old JAR file with the new one
+   - Start your server
+
+4. **Verify the Upgrade**
+   - Check the console for any error messages
+   - Test the plugin's functionality
+   - Restore your backup if needed
+
+## ⚠️ Important Notes
+
+- Never use `/reload` or plugins like PlugMan to reload EternalCombat
+- Always restart your server for plugin updates
+- Keep backups of your configuration files
+- Test new versions in a development environment first
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+1. **Plugin Not Loading**
+
+   - Verify you're using a compatible server version
+   - Check the console for error messages
+   - Ensure all dependencies are installed
+
+2. **Configuration Errors**
+
+   - Validate your YAML syntax
+   - Check for missing or incorrect values
+   - Restore from backup if needed
+
+3. **Performance Issues**
+   - Adjust particle and border settings
+   - Reduce update frequencies
+   - Monitor server performance
+
+<Alert type="info">
+ Need help? Join our <a href="https://discord.gg/FQ7jmGBd6c">Discord server</a> or check our <a href="https://github.com/EternalCodeTeam/EternalCombat/issues">GitHub issues</a>.
+</Alert>
