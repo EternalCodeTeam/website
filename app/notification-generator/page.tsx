@@ -96,7 +96,7 @@ export default function NotificationGeneratorPage() {
     soundCategory: "",
     titleHide: false,
     pitch: "1.0",
-    volume: "2.0",
+    volume: "1.0",
   });
 
   const [yamlCode, setYamlCode] = useState("");
@@ -137,8 +137,12 @@ export default function NotificationGeneratorPage() {
     }
 
     if (notification.sound) {
-      const volume = notification.volume || "2.0";
-      const pitch = notification.pitch || "1.0";
+      const volumeValue = notification.volume || "1.0";
+      const pitchValue = notification.pitch || "1.0";
+
+      const volume = parseFloat(volumeValue).toFixed(1);
+      const pitch = parseFloat(pitchValue).toFixed(1);
+
       if (notification.soundCategory) {
         parts.push(
           `sound: "${notification.sound} ${notification.soundCategory} ${volume} ${pitch}"`
