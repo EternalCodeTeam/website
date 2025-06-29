@@ -7,9 +7,10 @@ import { Pagination } from "@/components/ui/pagination";
 import { getAuthorBySlug, getBlogPostsByAuthor } from "@/lib/strapi";
 import { getImageUrl } from "@/lib/utils";
 
-export async function generateMetadata(props: { params: { slug: string } }) {
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
   const { params } = await props;
-  const author = await getAuthorBySlug(params.slug);
+  const { slug } = await params;
+  const author = await getAuthorBySlug(slug);
   if (!author) {
     return {
       title: "Author Not Found | EternalCode.pl",
@@ -43,15 +44,16 @@ export async function generateMetadata(props: { params: { slug: string } }) {
   };
 }
 
-export default async function AuthorPage(props: { params: { slug: string }, searchParams: { page?: string } }) {
+export default async function AuthorPage(props: { params: Promise<{ slug: string }>, searchParams: Promise<{ page?: string }> }) {
   const { params, searchParams } = await props;
-  const { slug } = params;
+  const { slug } = await params;
+  const resolvedSearchParams = await searchParams;
   if (!slug) notFound();
   const author = await getAuthorBySlug(slug);
   if (!author) notFound();
   const posts = await getBlogPostsByAuthor(slug);
   const ITEMS_PER_PAGE = 6;
-  const currentPage = Math.max(1, parseInt(searchParams?.page || "1", 10));
+  const currentPage = Math.max(1, parseInt(resolvedSearchParams?.page || "1", 10));
   const totalPages = Math.ceil(posts.length / ITEMS_PER_PAGE);
   const paginatedPosts = posts.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
