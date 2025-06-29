@@ -40,10 +40,16 @@ export interface StrapiBlogPost {
 
 interface StrapiResponse<T> {
   data: T[];
-  meta: any;
+  meta: {
+    pagination?: {
+      page: number;
+      pageSize: number;
+      pageCount: number;
+      total: number;
+    };
+  };
 }
 
-// Strapi API configuration
 const STRAPI_URL = process.env.ETERNALCODE_STRAPI_URL || "http://localhost:1337";
 const STRAPI_API_TOKEN = process.env.ETERNALCODE_STRAPI_KEY;
 
@@ -55,7 +61,6 @@ if (!STRAPI_API_TOKEN) {
   throw new Error("STRAPI_API_TOKEN environment variable is required");
 }
 
-// Helper function to make API requests
 async function fetchFromStrapi<T>(endpoint: string): Promise<T> {
   const url = `${STRAPI_URL}/api${endpoint}`;
   
@@ -64,7 +69,7 @@ async function fetchFromStrapi<T>(endpoint: string): Promise<T> {
       "Authorization": `Bearer ${STRAPI_API_TOKEN}`,
       "Content-Type": "application/json",
     },
-    next: { revalidate: 3600 }, // Cache for 1 hour
+    next: { revalidate: 3600 },
   });
 
   if (!response.ok) {
@@ -74,10 +79,49 @@ async function fetchFromStrapi<T>(endpoint: string): Promise<T> {
   return response.json() as Promise<T>;
 }
 
-// Fetch all blog posts
 export async function getBlogPosts(): Promise<StrapiBlogPost[]> {
   try {
-    const response = await fetchFromStrapi<StrapiResponse<any>>(
+    const response = await fetchFromStrapi<StrapiResponse<{
+      id: number;
+      attributes: {
+        title: string;
+        slug: string;
+        excerpt: string;
+        content: string;
+        publishedAt: string;
+        updatedAt: string;
+        readingTime?: number;
+        featuredImage?: {
+          data?: {
+            id: number;
+            attributes: StrapiImage;
+          };
+        };
+        author?: {
+          data?: {
+            id: number;
+            attributes: {
+              name: string;
+              slug: string;
+              email?: string;
+              bio?: string;
+              avatar?: {
+                data?: {
+                  id: number;
+                  attributes: StrapiImage;
+                };
+              };
+            };
+          };
+        };
+        tags?: {
+          data?: Array<{
+            id: number;
+            attributes: StrapiTag;
+          }>;
+        };
+      };
+    }>>(
       "/blog-posts?" +
       "populate[featuredImage][populate]=*&" +
       "populate[author][fields][0]=name&" +
@@ -88,28 +132,45 @@ export async function getBlogPosts(): Promise<StrapiBlogPost[]> {
       "populate[tags][populate]=*&sort=publishedAt:desc"
     );
 
-    return response.data.map((item: any) => {
+    return response.data.map((item) => {
       const post = item.attributes;
       return {
         id: item.id,
-        ...post,
+        title: post.title,
+        slug: post.slug,
+        excerpt: post.excerpt,
+        content: post.content,
+        publishedAt: post.publishedAt,
+        updatedAt: post.updatedAt,
+        readingTime: post.readingTime || Math.ceil((post.content || '').split(' ').length / 200),
         featuredImage: post.featuredImage?.data ? {
           id: post.featuredImage.data.id,
-          ...post.featuredImage.data.attributes,
+          url: post.featuredImage.data.attributes.url,
+          alternativeText: post.featuredImage.data.attributes.alternativeText,
+          caption: post.featuredImage.data.attributes.caption,
+          width: post.featuredImage.data.attributes.width,
+          height: post.featuredImage.data.attributes.height,
         } : undefined,
         author: post.author?.data ? {
           id: post.author.data.id,
-          ...post.author.data.attributes,
+          name: post.author.data.attributes.name,
+          slug: post.author.data.attributes.slug,
+          email: post.author.data.attributes.email,
+          bio: post.author.data.attributes.bio,
           avatar: post.author.data.attributes.avatar?.data ? {
             id: post.author.data.attributes.avatar.data.id,
-            ...post.author.data.attributes.avatar.data.attributes,
+            url: post.author.data.attributes.avatar.data.attributes.url,
+            alternativeText: post.author.data.attributes.avatar.data.attributes.alternativeText,
+            caption: post.author.data.attributes.avatar.data.attributes.caption,
+            width: post.author.data.attributes.avatar.data.attributes.width,
+            height: post.author.data.attributes.avatar.data.attributes.height,
           } : undefined,
         } : undefined,
-        tags: post.tags?.data ? post.tags.data.map((tag: any) => ({
+        tags: post.tags?.data ? post.tags.data.map((tag) => ({
           id: tag.id,
-          ...tag.attributes,
+          name: tag.attributes.name,
+          slug: tag.attributes.slug,
         })) : [],
-        readingTime: post.readingTime || Math.ceil((post.content || '').split(' ').length / 200),
       };
     });
   } catch (error) {
@@ -118,10 +179,49 @@ export async function getBlogPosts(): Promise<StrapiBlogPost[]> {
   }
 }
 
-// Fetch a single blog post by slug
 export async function getBlogPost(slug: string): Promise<StrapiBlogPost | null> {
   try {
-    const response = await fetchFromStrapi<StrapiResponse<any>>(
+    const response = await fetchFromStrapi<StrapiResponse<{
+      id: number;
+      attributes: {
+        title: string;
+        slug: string;
+        excerpt: string;
+        content: string;
+        publishedAt: string;
+        updatedAt: string;
+        readingTime?: number;
+        featuredImage?: {
+          data?: {
+            id: number;
+            attributes: StrapiImage;
+          };
+        };
+        author?: {
+          data?: {
+            id: number;
+            attributes: {
+              name: string;
+              slug: string;
+              email?: string;
+              bio?: string;
+              avatar?: {
+                data?: {
+                  id: number;
+                  attributes: StrapiImage;
+                };
+              };
+            };
+          };
+        };
+        tags?: {
+          data?: Array<{
+            id: number;
+            attributes: StrapiTag;
+          }>;
+        };
+      };
+    }>>(
       `/blog-posts?filters[slug][$eq]=${slug}` +
       "&populate[featuredImage][populate]=*" +
       "&populate[author][fields][0]=name" +
@@ -141,24 +241,41 @@ export async function getBlogPost(slug: string): Promise<StrapiBlogPost | null> 
     
     const processedPost = {
       id: item.id,
-      ...post,
+      title: post.title,
+      slug: post.slug,
+      excerpt: post.excerpt,
+      content: post.content,
+      publishedAt: post.publishedAt,
+      updatedAt: post.updatedAt,
+      readingTime: post.readingTime || Math.ceil((post.content || '').split(' ').length / 200),
       featuredImage: post.featuredImage?.data ? {
         id: post.featuredImage.data.id,
-        ...post.featuredImage.data.attributes,
+        url: post.featuredImage.data.attributes.url,
+        alternativeText: post.featuredImage.data.attributes.alternativeText,
+        caption: post.featuredImage.data.attributes.caption,
+        width: post.featuredImage.data.attributes.width,
+        height: post.featuredImage.data.attributes.height,
       } : undefined,
       author: post.author?.data ? {
         id: post.author.data.id,
-        ...post.author.data.attributes,
+        name: post.author.data.attributes.name,
+        slug: post.author.data.attributes.slug,
+        email: post.author.data.attributes.email,
+        bio: post.author.data.attributes.bio,
         avatar: post.author.data.attributes.avatar?.data ? {
           id: post.author.data.attributes.avatar.data.id,
-          ...post.author.data.attributes.avatar.data.attributes,
+          url: post.author.data.attributes.avatar.data.attributes.url,
+          alternativeText: post.author.data.attributes.avatar.data.attributes.alternativeText,
+          caption: post.author.data.attributes.avatar.data.attributes.caption,
+          width: post.author.data.attributes.avatar.data.attributes.width,
+          height: post.author.data.attributes.avatar.data.attributes.height,
         } : undefined,
       } : undefined,
-      tags: post.tags?.data ? post.tags.data.map((tag: any) => ({
+      tags: post.tags?.data ? post.tags.data.map((tag) => ({
         id: tag.id,
-        ...tag.attributes,
+        name: tag.attributes.name,
+        slug: tag.attributes.slug,
       })) : [],
-      readingTime: post.readingTime || Math.ceil((post.content || '').split(' ').length / 200),
     };
     
     return processedPost;
@@ -168,35 +285,91 @@ export async function getBlogPost(slug: string): Promise<StrapiBlogPost | null> 
   }
 }
 
-// Fetch blog posts by tag
 export async function getBlogPostsByTag(tagSlug: string): Promise<StrapiBlogPost[]> {
   try {
-    const response = await fetchFromStrapi<StrapiResponse<any>>(
+    const response = await fetchFromStrapi<StrapiResponse<{
+      id: number;
+      attributes: {
+        title: string;
+        slug: string;
+        excerpt: string;
+        content: string;
+        publishedAt: string;
+        updatedAt: string;
+        readingTime?: number;
+        featuredImage?: {
+          data?: {
+            id: number;
+            attributes: StrapiImage;
+          };
+        };
+        author?: {
+          data?: {
+            id: number;
+            attributes: {
+              name: string;
+              slug: string;
+              email?: string;
+              bio?: string;
+              avatar?: {
+                data?: {
+                  id: number;
+                  attributes: StrapiImage;
+                };
+              };
+            };
+          };
+        };
+        tags?: {
+          data?: Array<{
+            id: number;
+            attributes: StrapiTag;
+          }>;
+        };
+      };
+    }>>(
       `/blog-posts?filters[tags][slug][$eq]=${tagSlug}&populate[featuredImage][populate]=*&populate[author][populate]=*&populate[tags][populate]=*&sort=publishedAt:desc`
     );
 
-    return response.data.map((item: any) => {
+    return response.data.map((item) => {
       const post = item.attributes;
       return {
         id: item.id,
-        ...post,
+        title: post.title,
+        slug: post.slug,
+        excerpt: post.excerpt,
+        content: post.content,
+        publishedAt: post.publishedAt,
+        updatedAt: post.updatedAt,
+        readingTime: post.readingTime || Math.ceil((post.content || '').split(' ').length / 200),
         featuredImage: post.featuredImage?.data ? {
           id: post.featuredImage.data.id,
-          ...post.featuredImage.data.attributes,
+          url: post.featuredImage.data.attributes.url,
+          alternativeText: post.featuredImage.data.attributes.alternativeText,
+          caption: post.featuredImage.data.attributes.caption,
+          width: post.featuredImage.data.attributes.width,
+          height: post.featuredImage.data.attributes.height,
         } : undefined,
         author: post.author?.data ? {
           id: post.author.data.id,
-          ...post.author.data.attributes,
+          name: post.author.data.attributes.name,
+          slug: post.author.data.attributes.slug,
+          email: post.author.data.attributes.email,
+          bio: post.author.data.attributes.bio,
           avatar: post.author.data.attributes.avatar?.data ? {
             id: post.author.data.attributes.avatar.data.id,
-            ...post.author.data.attributes.avatar.data.attributes,
+            url: post.author.data.attributes.avatar.data.attributes.url,
+            alternativeText: post.author.data.attributes.avatar.data.attributes.alternativeText,
+            caption: post.author.data.attributes.avatar.data.attributes.caption,
+            width: post.author.data.attributes.avatar.data.attributes.width,
+            height: post.author.data.attributes.avatar.data.attributes.height,
           } : undefined,
         } : undefined,
-        tags: post.tags?.data ? post.tags.data.map((tag: any) => ({
+        tags: post.tags?.data ? post.tags.data.map((tag) => ({
           id: tag.id,
-          ...tag.attributes,
+          name: tag.attributes.name,
+          slug: tag.attributes.slug,
         })) : [],
-        readingTime: post.readingTime || Math.ceil((post.content || '').split(' ').length / 200),
       };
     });
   } catch (error) {
@@ -205,7 +378,6 @@ export async function getBlogPostsByTag(tagSlug: string): Promise<StrapiBlogPost
   }
 }
 
-// Fetch all tags
 export async function getBlogTags(): Promise<StrapiTag[]> {
   try {
     const response = await fetchFromStrapi<StrapiResponse<StrapiTag>>("/tags");
@@ -216,10 +388,49 @@ export async function getBlogTags(): Promise<StrapiTag[]> {
   }
 }
 
-// Fetch author by slug
 export async function getAuthorBySlug(slug: string): Promise<StrapiAuthor | null> {
   try {
-    const response = await fetchFromStrapi<StrapiResponse<any>>(
+    const response = await fetchFromStrapi<StrapiResponse<{
+      id: number;
+      attributes: {
+        name: string;
+        slug: string;
+        email?: string;
+        bio?: string;
+        avatar?: {
+          data?: {
+            id: number;
+            attributes: StrapiImage;
+          };
+        };
+        blog_posts?: {
+          data?: Array<{
+            id: number;
+            attributes: {
+              title: string;
+              slug: string;
+              excerpt: string;
+              content: string;
+              publishedAt: string;
+              updatedAt: string;
+              readingTime?: number;
+              featuredImage?: {
+                data?: {
+                  id: number;
+                  attributes: StrapiImage;
+                };
+              };
+              tags?: {
+                data?: Array<{
+                  id: number;
+                  attributes: StrapiTag;
+                }>;
+              };
+            };
+          }>;
+        };
+      };
+    }>>(
       `/authors?filters[slug][$eq]=${slug}&populate=avatar,blog_posts,blog_posts.featuredImage,blog_posts.tags`
     );
     if (!response.data || response.data.length === 0) return null;
@@ -227,24 +438,45 @@ export async function getAuthorBySlug(slug: string): Promise<StrapiAuthor | null
     const author = item.attributes;
     return {
       id: item.id,
-      ...author,
+      name: author.name,
+      slug: author.slug,
+      email: author.email,
+      bio: author.bio,
       avatar: author.avatar?.data
-        ? { id: author.avatar.data.id, ...author.avatar.data.attributes }
+        ? {
+            id: author.avatar.data.id,
+            url: author.avatar.data.attributes.url,
+            alternativeText: author.avatar.data.attributes.alternativeText,
+            caption: author.avatar.data.attributes.caption,
+            width: author.avatar.data.attributes.width,
+            height: author.avatar.data.attributes.height,
+          }
         : undefined,
       blog_posts: author.blog_posts?.data
-        ? author.blog_posts.data.map((post: any) => ({
+        ? author.blog_posts.data.map((post) => ({
             id: post.id,
-            ...post.attributes,
+            title: post.attributes.title,
+            slug: post.attributes.slug,
+            excerpt: post.attributes.excerpt,
+            content: post.attributes.content,
+            publishedAt: post.attributes.publishedAt,
+            updatedAt: post.attributes.updatedAt,
+            readingTime: post.attributes.readingTime || Math.ceil((post.attributes.content || '').split(' ').length / 200),
             featuredImage: post.attributes.featuredImage?.data
               ? {
                   id: post.attributes.featuredImage.data.id,
-                  ...post.attributes.featuredImage.data.attributes,
+                  url: post.attributes.featuredImage.data.attributes.url,
+                  alternativeText: post.attributes.featuredImage.data.attributes.alternativeText,
+                  caption: post.attributes.featuredImage.data.attributes.caption,
+                  width: post.attributes.featuredImage.data.attributes.width,
+                  height: post.attributes.featuredImage.data.attributes.height,
                 }
               : undefined,
             tags: post.attributes.tags?.data
-              ? post.attributes.tags.data.map((tag: any) => ({
+              ? post.attributes.tags.data.map((tag) => ({
                   id: tag.id,
-                  ...tag.attributes,
+                  name: tag.attributes.name,
+                  slug: tag.attributes.slug,
                 }))
               : [],
           }))
@@ -256,25 +488,47 @@ export async function getAuthorBySlug(slug: string): Promise<StrapiAuthor | null
   }
 }
 
-// Fetch blog posts by author (using relation from author)
 export async function getBlogPostsByAuthor(slug: string): Promise<StrapiBlogPost[]> {
   const author = await getAuthorBySlug(slug);
   return author?.blog_posts || [];
 }
 
-// Fetch all authors (not used, but keep for possible future use)
 export async function getAuthors(): Promise<StrapiAuthor[]> {
   try {
-    const response = await fetchFromStrapi<StrapiResponse<any>>(
+    const response = await fetchFromStrapi<StrapiResponse<{
+      id: number;
+      attributes: {
+        name: string;
+        slug: string;
+        email?: string;
+        bio?: string;
+        avatar?: {
+          data?: {
+            id: number;
+            attributes: StrapiImage;
+          };
+        };
+      };
+    }>>(
       "/authors?populate=avatar"
     );
-    return response.data.map((item: any) => {
+    return response.data.map((item) => {
       const author = item.attributes;
       return {
         id: item.id,
-        ...author,
+        name: author.name,
+        slug: author.slug,
+        email: author.email,
+        bio: author.bio,
         avatar: author.avatar?.data
-          ? { id: author.avatar.data.id, ...author.avatar.data.attributes }
+          ? {
+              id: author.avatar.data.id,
+              url: author.avatar.data.attributes.url,
+              alternativeText: author.avatar.data.attributes.alternativeText,
+              caption: author.avatar.data.attributes.caption,
+              width: author.avatar.data.attributes.width,
+              height: author.avatar.data.attributes.height,
+            }
           : undefined,
       };
     });

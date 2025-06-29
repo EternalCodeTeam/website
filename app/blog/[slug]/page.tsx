@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
-import { generateOgImageUrl } from "@/lib/og-utils";
-
-import { getBlogPost } from "@/lib/strapi";
-import BlogPostContent from "@/components/blog/BlogPostContent";
 import { AnimatedSection } from "@/components/animations";
+import BlogPostContent from "@/components/blog/BlogPostContent";
+import { generateOgImageUrl } from "@/lib/og-utils";
+import { getBlogPost, StrapiTag } from "@/lib/strapi";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 3600; 
@@ -28,10 +27,10 @@ function getImageUrl(url: string) {
   return `${base}${url}`;
 }
 
-function getTagsArray(tags: any): any[] {
+function getTagsArray(tags: StrapiTag[] | { data: StrapiTag[] } | undefined): StrapiTag[] {
   if (!tags) return [];
   if (Array.isArray(tags)) return tags;
-  if (Array.isArray(tags.data)) return tags.data;
+  if ('data' in tags && Array.isArray(tags.data)) return tags.data;
   return [];
 }
 
@@ -58,7 +57,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return {
       title: `${post.title} | EternalCode.pl`,
       description: post.excerpt,
-      keywords: tagsArr.map((tag: any) => tag.attributes?.name || tag.name) || [],
+      keywords: tagsArr.map((tag: StrapiTag) => tag.name) || [],
       authors: [{ name: post.author?.name || "EternalCode Team" }],
       openGraph: {
         type: "article",
@@ -78,7 +77,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         publishedTime: post.publishedAt,
         modifiedTime: post.updatedAt,
         authors: [post.author?.name || "EternalCode Team"],
-        tags: tagsArr.map((tag: any) => tag.attributes?.name || tag.name) || [],
+        tags: tagsArr.map((tag: StrapiTag) => tag.name) || [],
       },
       twitter: {
         card: "summary_large_image",
@@ -154,12 +153,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </div>
             {tagsArr.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-6">
-                {tagsArr.map((tag: any) => (
+                {tagsArr.map((tag: StrapiTag) => (
                   <span
                     key={tag.id}
                     className="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200"
                   >
-                    {tag.attributes?.name || tag.name}
+                    {tag.name}
                   </span>
                 ))}
               </div>

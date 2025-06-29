@@ -1,10 +1,11 @@
-import { notFound } from "next/navigation";
 import Image from "next/image";
-import { getAuthorBySlug, getBlogPostsByAuthor } from "@/lib/strapi";
-import { getImageUrl } from "@/lib/utils";
+import { notFound } from "next/navigation";
+
+import { AnimatedSection, AnimatedContainer, AnimatedElement } from "@/components/animations";
 import BlogPostCard from "@/components/blog/BlogPostCard";
 import { Pagination } from "@/components/ui/pagination";
-import { AnimatedSection, AnimatedContainer, AnimatedElement } from "@/components/animations";
+import { getAuthorBySlug, getBlogPostsByAuthor } from "@/lib/strapi";
+import { getImageUrl } from "@/lib/utils";
 
 export async function generateMetadata(props: { params: { slug: string } }) {
   const { params } = await props;
@@ -56,8 +57,6 @@ export default async function AuthorPage(props: { params: { slug: string }, sear
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
-
-  const getPageHref = (page: number) => `/author/${slug}?page=${page}`;
 
   return (
     <div className="min-h-screen bg-lightGray-100 dark:bg-gray-900 px-4 pt-40 pb-12">

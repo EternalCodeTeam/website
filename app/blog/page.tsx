@@ -1,9 +1,9 @@
-import { Metadata } from "next";
-import { getBlogPosts, getBlogTags, getAuthors } from "@/lib/strapi";
-import BlogPostCard from "@/components/blog/BlogPostCard";
 import { BookOpen, Users, Tag } from "lucide-react";
-import Hero from "@/components/page/header/Hero";
+import { Metadata } from "next";
+
 import { AnimatedSection, AnimatedContainer, AnimatedElement } from "@/components/animations";
+import BlogPostCard from "@/components/blog/BlogPostCard";
+import { getBlogPosts, getBlogTags, getAuthors } from "@/lib/strapi";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 3600; // Revalidate every hour

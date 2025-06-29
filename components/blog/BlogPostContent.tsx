@@ -1,10 +1,11 @@
 "use client";
 
 import { MDXRemote } from "next-mdx-remote/rsc";
+
 import { components } from "@/lib/mdx";
 
 interface BlogPostContentProps {
-  content: any;
+  content: string;
 }
 
 export default function BlogPostContent({ content }: BlogPostContentProps) {

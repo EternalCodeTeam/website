@@ -1,8 +1,8 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { Mail, BookOpen } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 import { StrapiAuthor } from "@/lib/strapi";
 import { getImageUrl } from "@/lib/utils";
