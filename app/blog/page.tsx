@@ -83,7 +83,7 @@ export default async function BlogPage() {
           {posts.length > 0 ? (
             <AnimatedContainer as="div" staggerDelay={0.12} className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {posts.map((post, i) => (
-                <AnimatedElement key={post.id} animationType="fadeUp" delay={i * 0.05}>
+                <AnimatedElement key={post.documentId} animationType="fadeUp" delay={i * 0.05}>
                   <BlogPostCard post={post} />
                 </AnimatedElement>
               ))}

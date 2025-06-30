@@ -1,6 +1,6 @@
 // Types for Strapi CMS integration
 export interface StrapiImage {
-  id: number;
+  documentId: string;
   url: string;
   alternativeText?: string;
   caption?: string;
@@ -9,7 +9,7 @@ export interface StrapiImage {
 }
 
 export interface StrapiAuthor {
-  id: number;
+  documentId: string;
   name: string;
   slug: string;
   email?: string;
@@ -19,13 +19,13 @@ export interface StrapiAuthor {
 }
 
 export interface StrapiTag {
-  id: number;
+  documentId: string;
   name: string;
   slug: string;
 }
 
 export interface StrapiBlogPost {
-  id: number;
+  documentId: string;
   title: string;
   slug: string;
   excerpt: string;
@@ -83,95 +83,46 @@ async function fetchFromStrapi<T>(endpoint: string): Promise<T> {
 
 export async function getBlogPosts(): Promise<StrapiBlogPost[]> {
   try {
-    const response = await fetchFromStrapi<StrapiResponse<{
-      id: number;
-      attributes: {
-        title: string;
-        slug: string;
-        excerpt: string;
-        content: string;
-        publishedAt: string;
-        updatedAt: string;
-        readingTime?: number;
-        featuredImage?: {
-          data?: {
-            id: number;
-            attributes: StrapiImage;
-          };
-        };
-        author?: {
-          data?: {
-            id: number;
-            attributes: {
-              name: string;
-              slug: string;
-              email?: string;
-              bio?: string;
-              avatar?: {
-                data?: {
-                  id: number;
-                  attributes: StrapiImage;
-                };
-              };
-            };
-          };
-        };
-        tags?: {
-          data?: Array<{
-            id: number;
-            attributes: StrapiTag;
-          }>;
-        };
-      };
-    }>>(
-      "/blog-posts?" +
-      "populate[featuredImage][populate]=*&" +
-      "populate[author][fields][0]=name&" +
-      "populate[author][fields][1]=slug&" +
-      "populate[author][fields][2]=email&" +
-      "populate[author][fields][3]=bio&" +
-      "populate[author][populate][avatar][fields][0]=url&" +
-      "populate[tags][populate]=*&sort=publishedAt:desc"
+    const response = await fetchFromStrapi<StrapiResponse<any>>(
+      "/blog-posts?populate=*&sort=publishedAt:desc"
     );
-
-    return response.data.map((item) => {
-      const post = item.attributes;
+    return response.data.map((item: any) => {
       return {
-        id: item.id,
-        title: post.title,
-        slug: post.slug,
-        excerpt: post.excerpt,
-        content: post.content,
-        publishedAt: post.publishedAt,
-        updatedAt: post.updatedAt,
-        readingTime: post.readingTime || Math.ceil((post.content || '').split(' ').length / 200),
-        featuredImage: post.featuredImage?.data ? {
-          id: post.featuredImage.data.id,
-          url: post.featuredImage.data.attributes.url,
-          alternativeText: post.featuredImage.data.attributes.alternativeText,
-          caption: post.featuredImage.data.attributes.caption,
-          width: post.featuredImage.data.attributes.width,
-          height: post.featuredImage.data.attributes.height,
+        documentId: item.documentId,
+        title: item.title,
+        slug: item.slug,
+        excerpt: item.excerpt,
+        content: item.content,
+        publishedAt: item.publishedAt,
+        updatedAt: item.updatedAt,
+        readingTime: item.readingTime || Math.ceil((item.content || '').split(' ').length / 200),
+        featuredImage: item.featuredImage ? {
+          documentId: item.featuredImage.documentId,
+          url: item.featuredImage.url,
+          alternativeText: item.featuredImage.alternativeText,
+          caption: item.featuredImage.caption,
+          width: item.featuredImage.width,
+          height: item.featuredImage.height,
         } : undefined,
-        author: post.author?.data ? {
-          id: post.author.data.id,
-          name: post.author.data.attributes.name,
-          slug: post.author.data.attributes.slug,
-          email: post.author.data.attributes.email,
-          bio: post.author.data.attributes.bio,
-          avatar: post.author.data.attributes.avatar?.data ? {
-            id: post.author.data.attributes.avatar.data.id,
-            url: post.author.data.attributes.avatar.data.attributes.url,
-            alternativeText: post.author.data.attributes.avatar.data.attributes.alternativeText,
-            caption: post.author.data.attributes.avatar.data.attributes.caption,
-            width: post.author.data.attributes.avatar.data.attributes.width,
-            height: post.author.data.attributes.avatar.data.attributes.height,
+        author: item.author ? {
+          documentId: item.author.documentId,
+          name: item.author.name,
+          slug: item.author.slug,
+          email: item.author.email,
+          bio: item.author.bio,
+          avatar: item.author.avatar ? {
+            documentId: item.author.avatar.documentId,
+            url: item.author.avatar.url,
+            alternativeText: item.author.avatar.alternativeText,
+            caption: item.author.avatar.caption,
+            width: item.author.avatar.width,
+            height: item.author.avatar.height,
           } : undefined,
         } : undefined,
-        tags: post.tags?.data ? post.tags.data.map((tag) => ({
-          id: tag.id,
-          name: tag.attributes.name,
-          slug: tag.attributes.slug,
+        tags: item.tags ? item.tags.map((tag: any) => ({
+          documentId: tag.documentId,
+          name: tag.name,
+          slug: tag.slug,
         })) : [],
       };
     });
@@ -183,104 +134,51 @@ export async function getBlogPosts(): Promise<StrapiBlogPost[]> {
 
 export async function getBlogPost(slug: string): Promise<StrapiBlogPost | null> {
   try {
-    const response = await fetchFromStrapi<StrapiResponse<{
-      id: number;
-      attributes: {
-        title: string;
-        slug: string;
-        excerpt: string;
-        content: string;
-        publishedAt: string;
-        updatedAt: string;
-        readingTime?: number;
-        featuredImage?: {
-          data?: {
-            id: number;
-            attributes: StrapiImage;
-          };
-        };
-        author?: {
-          data?: {
-            id: number;
-            attributes: {
-              name: string;
-              slug: string;
-              email?: string;
-              bio?: string;
-              avatar?: {
-                data?: {
-                  id: number;
-                  attributes: StrapiImage;
-                };
-              };
-            };
-          };
-        };
-        tags?: {
-          data?: Array<{
-            id: number;
-            attributes: StrapiTag;
-          }>;
-        };
-      };
-    }>>(
-      `/blog-posts?filters[slug][$eq]=${slug}` +
-      "&populate[featuredImage][populate]=*" +
-      "&populate[author][fields][0]=name" +
-      "&populate[author][fields][1]=slug" +
-      "&populate[author][fields][2]=email" +
-      "&populate[author][fields][3]=bio" +
-      "&populate[author][populate][avatar][fields][0]=url" +
-      "&populate[tags][populate]=*"
+    const response = await fetchFromStrapi<StrapiResponse<any>>(
+      `/blog-posts?filters[slug][$eq]=${slug}&populate=*`
     );
-
     if (!response.data || response.data.length === 0) {
       return null;
     }
-
     const item = response.data[0];
-    const post = item.attributes;
-    
-    const processedPost = {
-      id: item.id,
-      title: post.title,
-      slug: post.slug,
-      excerpt: post.excerpt,
-      content: post.content,
-      publishedAt: post.publishedAt,
-      updatedAt: post.updatedAt,
-      readingTime: post.readingTime || Math.ceil((post.content || '').split(' ').length / 200),
-      featuredImage: post.featuredImage?.data ? {
-        id: post.featuredImage.data.id,
-        url: post.featuredImage.data.attributes.url,
-        alternativeText: post.featuredImage.data.attributes.alternativeText,
-        caption: post.featuredImage.data.attributes.caption,
-        width: post.featuredImage.data.attributes.width,
-        height: post.featuredImage.data.attributes.height,
+    return {
+      documentId: item.documentId,
+      title: item.title,
+      slug: item.slug,
+      excerpt: item.excerpt,
+      content: item.content,
+      publishedAt: item.publishedAt,
+      updatedAt: item.updatedAt,
+      readingTime: item.readingTime || Math.ceil((item.content || '').split(' ').length / 200),
+      featuredImage: item.featuredImage ? {
+        documentId: item.featuredImage.documentId,
+        url: item.featuredImage.url,
+        alternativeText: item.featuredImage.alternativeText,
+        caption: item.featuredImage.caption,
+        width: item.featuredImage.width,
+        height: item.featuredImage.height,
       } : undefined,
-      author: post.author?.data ? {
-        id: post.author.data.id,
-        name: post.author.data.attributes.name,
-        slug: post.author.data.attributes.slug,
-        email: post.author.data.attributes.email,
-        bio: post.author.data.attributes.bio,
-        avatar: post.author.data.attributes.avatar?.data ? {
-          id: post.author.data.attributes.avatar.data.id,
-          url: post.author.data.attributes.avatar.data.attributes.url,
-          alternativeText: post.author.data.attributes.avatar.data.attributes.alternativeText,
-          caption: post.author.data.attributes.avatar.data.attributes.caption,
-          width: post.author.data.attributes.avatar.data.attributes.width,
-          height: post.author.data.attributes.avatar.data.attributes.height,
+      author: item.author ? {
+        documentId: item.author.documentId,
+        name: item.author.name,
+        slug: item.author.slug,
+        email: item.author.email,
+        bio: item.author.bio,
+        avatar: item.author.avatar ? {
+          documentId: item.author.avatar.documentId,
+          url: item.author.avatar.url,
+          alternativeText: item.author.avatar.alternativeText,
+          caption: item.author.avatar.caption,
+          width: item.author.avatar.width,
+          height: item.author.avatar.height,
         } : undefined,
       } : undefined,
-      tags: post.tags?.data ? post.tags.data.map((tag) => ({
-        id: tag.id,
-        name: tag.attributes.name,
-        slug: tag.attributes.slug,
+      tags: item.tags ? item.tags.map((tag: any) => ({
+        documentId: tag.documentId,
+        name: tag.name,
+        slug: tag.slug,
       })) : [],
     };
-    
-    return processedPost;
   } catch (error) {
     console.error("Error fetching blog post:", error);
     return null;
@@ -289,88 +187,46 @@ export async function getBlogPost(slug: string): Promise<StrapiBlogPost | null> 
 
 export async function getBlogPostsByTag(tagSlug: string): Promise<StrapiBlogPost[]> {
   try {
-    const response = await fetchFromStrapi<StrapiResponse<{
-      id: number;
-      attributes: {
-        title: string;
-        slug: string;
-        excerpt: string;
-        content: string;
-        publishedAt: string;
-        updatedAt: string;
-        readingTime?: number;
-        featuredImage?: {
-          data?: {
-            id: number;
-            attributes: StrapiImage;
-          };
-        };
-        author?: {
-          data?: {
-            id: number;
-            attributes: {
-              name: string;
-              slug: string;
-              email?: string;
-              bio?: string;
-              avatar?: {
-                data?: {
-                  id: number;
-                  attributes: StrapiImage;
-                };
-              };
-            };
-          };
-        };
-        tags?: {
-          data?: Array<{
-            id: number;
-            attributes: StrapiTag;
-          }>;
-        };
-      };
-    }>>(
-      `/blog-posts?filters[tags][slug][$eq]=${tagSlug}&populate[featuredImage][populate]=*&populate[author][populate]=*&populate[tags][populate]=*&sort=publishedAt:desc`
+    const response = await fetchFromStrapi<StrapiResponse<any>>(
+      `/blog-posts?filters[tags][slug][$eq]=${tagSlug}&populate=*&sort=publishedAt:desc`
     );
-
-    return response.data.map((item) => {
-      const post = item.attributes;
+    return response.data.map((item: any) => {
       return {
-        id: item.id,
-        title: post.title,
-        slug: post.slug,
-        excerpt: post.excerpt,
-        content: post.content,
-        publishedAt: post.publishedAt,
-        updatedAt: post.updatedAt,
-        readingTime: post.readingTime || Math.ceil((post.content || '').split(' ').length / 200),
-        featuredImage: post.featuredImage?.data ? {
-          id: post.featuredImage.data.id,
-          url: post.featuredImage.data.attributes.url,
-          alternativeText: post.featuredImage.data.attributes.alternativeText,
-          caption: post.featuredImage.data.attributes.caption,
-          width: post.featuredImage.data.attributes.width,
-          height: post.featuredImage.data.attributes.height,
+        documentId: item.documentId,
+        title: item.title,
+        slug: item.slug,
+        excerpt: item.excerpt,
+        content: item.content,
+        publishedAt: item.publishedAt,
+        updatedAt: item.updatedAt,
+        readingTime: item.readingTime || Math.ceil((item.content || '').split(' ').length / 200),
+        featuredImage: item.featuredImage ? {
+          documentId: item.featuredImage.documentId,
+          url: item.featuredImage.url,
+          alternativeText: item.featuredImage.alternativeText,
+          caption: item.featuredImage.caption,
+          width: item.featuredImage.width,
+          height: item.featuredImage.height,
         } : undefined,
-        author: post.author?.data ? {
-          id: post.author.data.id,
-          name: post.author.data.attributes.name,
-          slug: post.author.data.attributes.slug,
-          email: post.author.data.attributes.email,
-          bio: post.author.data.attributes.bio,
-          avatar: post.author.data.attributes.avatar?.data ? {
-            id: post.author.data.attributes.avatar.data.id,
-            url: post.author.data.attributes.avatar.data.attributes.url,
-            alternativeText: post.author.data.attributes.avatar.data.attributes.alternativeText,
-            caption: post.author.data.attributes.avatar.data.attributes.caption,
-            width: post.author.data.attributes.avatar.data.attributes.width,
-            height: post.author.data.attributes.avatar.data.attributes.height,
+        author: item.author ? {
+          documentId: item.author.documentId,
+          name: item.author.name,
+          slug: item.author.slug,
+          email: item.author.email,
+          bio: item.author.bio,
+          avatar: item.author.avatar ? {
+            documentId: item.author.avatar.documentId,
+            url: item.author.avatar.url,
+            alternativeText: item.author.avatar.alternativeText,
+            caption: item.author.avatar.caption,
+            width: item.author.avatar.width,
+            height: item.author.avatar.height,
           } : undefined,
         } : undefined,
-        tags: post.tags?.data ? post.tags.data.map((tag) => ({
-          id: tag.id,
-          name: tag.attributes.name,
-          slug: tag.attributes.slug,
+        tags: item.tags ? item.tags.map((tag: any) => ({
+          documentId: tag.documentId,
+          name: tag.name,
+          slug: tag.slug,
         })) : [],
       };
     });
@@ -382,8 +238,12 @@ export async function getBlogPostsByTag(tagSlug: string): Promise<StrapiBlogPost
 
 export async function getBlogTags(): Promise<StrapiTag[]> {
   try {
-    const response = await fetchFromStrapi<StrapiResponse<StrapiTag>>("/tags");
-    return response.data;
+    const response = await fetchFromStrapi<StrapiResponse<any>>("/tags");
+    return response.data.map((tag: any) => ({
+      documentId: tag.documentId,
+      name: tag.name,
+      slug: tag.slug,
+    }));
   } catch (error) {
     console.error("Error fetching tags:", error);
     return [];
@@ -392,97 +252,48 @@ export async function getBlogTags(): Promise<StrapiTag[]> {
 
 export async function getAuthorBySlug(slug: string): Promise<StrapiAuthor | null> {
   try {
-    const response = await fetchFromStrapi<StrapiResponse<{
-      id: number;
-      attributes: {
-        name: string;
-        slug: string;
-        email?: string;
-        bio?: string;
-        avatar?: {
-          data?: {
-            id: number;
-            attributes: StrapiImage;
-          };
-        };
-        blog_posts?: {
-          data?: Array<{
-            id: number;
-            attributes: {
-              title: string;
-              slug: string;
-              excerpt: string;
-              content: string;
-              publishedAt: string;
-              updatedAt: string;
-              readingTime?: number;
-              featuredImage?: {
-                data?: {
-                  id: number;
-                  attributes: StrapiImage;
-                };
-              };
-              tags?: {
-                data?: Array<{
-                  id: number;
-                  attributes: StrapiTag;
-                }>;
-              };
-            };
-          }>;
-        };
-      };
-    }>>(
-      `/authors?filters[slug][$eq]=${slug}&populate=avatar,blog_posts,blog_posts.featuredImage,blog_posts.tags`
+    const response = await fetchFromStrapi<StrapiResponse<any>>(
+      `/authors?filters[slug][$eq]=${slug}&populate=blog_posts,avatar,blog_posts.featuredImage,blog_posts.tags`
     );
     if (!response.data || response.data.length === 0) return null;
     const item = response.data[0];
-    const author = item.attributes;
     return {
-      id: item.id,
-      name: author.name,
-      slug: author.slug,
-      email: author.email,
-      bio: author.bio,
-      avatar: author.avatar?.data
-        ? {
-            id: author.avatar.data.id,
-            url: author.avatar.data.attributes.url,
-            alternativeText: author.avatar.data.attributes.alternativeText,
-            caption: author.avatar.data.attributes.caption,
-            width: author.avatar.data.attributes.width,
-            height: author.avatar.data.attributes.height,
-          }
-        : undefined,
-      blog_posts: author.blog_posts?.data
-        ? author.blog_posts.data.map((post) => ({
-            id: post.id,
-            title: post.attributes.title,
-            slug: post.attributes.slug,
-            excerpt: post.attributes.excerpt,
-            content: post.attributes.content,
-            publishedAt: post.attributes.publishedAt,
-            updatedAt: post.attributes.updatedAt,
-            readingTime: post.attributes.readingTime || Math.ceil((post.attributes.content || '').split(' ').length / 200),
-            featuredImage: post.attributes.featuredImage?.data
-              ? {
-                  id: post.attributes.featuredImage.data.id,
-                  url: post.attributes.featuredImage.data.attributes.url,
-                  alternativeText: post.attributes.featuredImage.data.attributes.alternativeText,
-                  caption: post.attributes.featuredImage.data.attributes.caption,
-                  width: post.attributes.featuredImage.data.attributes.width,
-                  height: post.attributes.featuredImage.data.attributes.height,
-                }
-              : undefined,
-            tags: post.attributes.tags?.data
-              ? post.attributes.tags.data.map((tag) => ({
-                  id: tag.id,
-                  name: tag.attributes.name,
-                  slug: tag.attributes.slug,
-                }))
-              : [],
-          }))
-        : [],
+      documentId: item.documentId,
+      name: item.name,
+      slug: item.slug,
+      email: item.email,
+      bio: item.bio,
+      avatar: item.avatar ? {
+        documentId: item.avatar.documentId,
+        url: item.avatar.url,
+        alternativeText: item.avatar.alternativeText,
+        caption: item.avatar.caption,
+        width: item.avatar.width,
+        height: item.avatar.height,
+      } : undefined,
+      blog_posts: item.blog_posts ? item.blog_posts.map((post: any) => ({
+        documentId: post.documentId,
+        title: post.title,
+        slug: post.slug,
+        excerpt: post.excerpt,
+        content: post.content,
+        publishedAt: post.publishedAt,
+        updatedAt: post.updatedAt,
+        readingTime: post.readingTime || Math.ceil((post.content || '').split(' ').length / 200),
+        featuredImage: post.featuredImage ? {
+          documentId: post.featuredImage.documentId,
+          url: post.featuredImage.url,
+          alternativeText: post.featuredImage.alternativeText,
+          caption: post.featuredImage.caption,
+          width: post.featuredImage.width,
+          height: post.featuredImage.height,
+        } : undefined,
+        tags: post.tags ? post.tags.map((tag: any) => ({
+          documentId: tag.documentId,
+          name: tag.name,
+          slug: tag.slug,
+        })) : [],
+      })) : [],
     };
   } catch (error) {
     console.error("Error fetching author:", error);
@@ -497,43 +308,24 @@ export async function getBlogPostsByAuthor(slug: string): Promise<StrapiBlogPost
 
 export async function getAuthors(): Promise<StrapiAuthor[]> {
   try {
-    const response = await fetchFromStrapi<StrapiResponse<{
-      id: number;
-      attributes: {
-        name: string;
-        slug: string;
-        email?: string;
-        bio?: string;
-        avatar?: {
-          data?: {
-            id: number;
-            attributes: StrapiImage;
-          };
-        };
-      };
-    }>>(
+    const response = await fetchFromStrapi<StrapiResponse<any>>(
       "/authors?populate=avatar"
     );
-    return response.data.map((item) => {
-      const author = item.attributes;
-      return {
-        id: item.id,
-        name: author.name,
-        slug: author.slug,
-        email: author.email,
-        bio: author.bio,
-        avatar: author.avatar?.data
-          ? {
-              id: author.avatar.data.id,
-              url: author.avatar.data.attributes.url,
-              alternativeText: author.avatar.data.attributes.alternativeText,
-              caption: author.avatar.data.attributes.caption,
-              width: author.avatar.data.attributes.width,
-              height: author.avatar.data.attributes.height,
-            }
-          : undefined,
-      };
-    });
+    return response.data.map((item: any) => ({
+      documentId: item.documentId,
+      name: item.name,
+      slug: item.slug,
+      email: item.email,
+      bio: item.bio,
+      avatar: item.avatar ? {
+        documentId: item.avatar.documentId,
+        url: item.avatar.url,
+        alternativeText: item.avatar.alternativeText,
+        caption: item.avatar.caption,
+        width: item.avatar.width,
+        height: item.avatar.height,
+      } : undefined,
+    }));
   } catch (error) {
     console.error("Error fetching authors:", error);
     return [];

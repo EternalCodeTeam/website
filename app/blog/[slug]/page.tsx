@@ -155,7 +155,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <div className="flex flex-wrap gap-2 mb-6">
                 {tagsArr.map((tag: StrapiTag) => (
                   <span
-                    key={tag.id}
+                    key={tag.documentId}
                     className="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200"
                   >
                     {tag.name}

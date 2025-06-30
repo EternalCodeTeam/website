@@ -53,7 +53,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
             <div className="mb-2 flex flex-wrap gap-2">
               {post.tags.slice(0, 3).map((tag) => (
                 <span
-                  key={tag.id}
+                  key={tag.documentId}
                   className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200"
                 >
                   {tag.name}
