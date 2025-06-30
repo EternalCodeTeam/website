@@ -69,7 +69,9 @@ async function fetchFromStrapi<T>(endpoint: string): Promise<T> {
       "Authorization": `Bearer ${STRAPI_API_TOKEN}`,
       "Content-Type": "application/json",
     },
-    next: { revalidate: 3600 },
+    next: { 
+      revalidate: 60
+    },
   });
 
   if (!response.ok) {
