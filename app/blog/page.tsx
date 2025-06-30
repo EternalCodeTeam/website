@@ -48,7 +48,7 @@ export default async function BlogPage() {
 
   return (
     <div className="min-h-screen bg-lightGray-100 dark:bg-gray-900">
-      <AnimatedSection animationType="fadeDown" className="relative overflow-hidden bg-lightGray-100 dark:bg-gray-900 px-0 pt-32 md:pt-40 pb-0">
+      <AnimatedSection animationType="fadeDown" className="relative overflow-hidden bg-lightGray-100 dark:bg-gray-900 px-0 pt-40 md:pt-48 pb-0">
         <div className="mx-auto max-w-screen-xl px-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div className="flex-1 min-w-0">

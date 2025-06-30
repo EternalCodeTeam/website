@@ -113,7 +113,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     return (
       <div className="min-h-screen bg-lightGray-100 dark:bg-gray-900">
         {/* Hero Section */}
-        <AnimatedSection animationType="fadeDown" className="pt-32 md:pt-40 pb-0">
+        <AnimatedSection animationType="fadeDown" className="pt-40 md:pt-48 pb-0">
           <div className="mx-auto max-w-screen-xl px-4">
             <h1 className="mb-4 text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white text-left">
               {post.title}
