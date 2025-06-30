@@ -95,7 +95,7 @@ export default async function AuthorPage(props: { params: Promise<{ slug: string
               <AnimatedContainer as="div" staggerDelay={0.12} className="grid gap-8 md:grid-cols-2 mb-8">
                 {paginatedPosts.map((post, i) => (
                   <AnimatedElement key={post.id} animationType="fadeUp" delay={i * 0.05}>
-                    <BlogPostCard post={post} minimalist={true} />
+                    <BlogPostCard post={post} />
                   </AnimatedElement>
                 ))}
               </AnimatedContainer>
