@@ -9,7 +9,7 @@ import { generateOgImageUrl } from "@/lib/og-utils";
 import { getBlogPost, StrapiTag } from "@/lib/strapi";
 
 export const dynamic = "force-dynamic";
-export const revalidate = 60;
+export const revalidate = 5;
 
 export async function generateStaticParams() {
   try {

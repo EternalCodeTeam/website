@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export const revalidate = 60;
+export const revalidate = 5;
 
 export async function GET(_request: Request) {
   try {
@@ -20,7 +20,7 @@ export async function GET(_request: Request) {
 
     return NextResponse.json(body, {
       headers: {
-        "Cache-Control": "public, max-age=60, stale-while-revalidate=60",
+        "Cache-Control": "public, max-age=5, stale-while-revalidate=5",
       },
     });
   } catch (error) {

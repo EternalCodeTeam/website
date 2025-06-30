@@ -70,7 +70,7 @@ async function fetchFromStrapi<T>(endpoint: string): Promise<T> {
       "Content-Type": "application/json",
     },
     next: { 
-      revalidate: 60
+      revalidate: 5
     },
   });
 

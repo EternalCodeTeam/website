@@ -6,7 +6,7 @@ import BlogPostCard from "@/components/blog/BlogPostCard";
 import { getBlogPosts, getBlogTags, getAuthors } from "@/lib/strapi";
 
 export const dynamic = "force-dynamic";
-export const revalidate = 60; // Revalidate every minute instead of every hour
+export const revalidate = 5; // Revalidate every 5 seconds
 
 export const metadata: Metadata = {
   title: "Blog | EternalCode.pl",

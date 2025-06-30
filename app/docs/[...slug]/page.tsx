@@ -18,7 +18,7 @@ import { docsStructure } from "@/components/page/docs/sidebar-structure";
 import { components, mdxOptions } from "@/lib/mdx";
 
 export const dynamic = "force-static";
-export const revalidate = 60;
+export const revalidate = 5;
 
 interface DocMeta {
   title: string;
