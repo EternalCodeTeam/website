@@ -36,6 +36,11 @@ export const components = {
   pre: CodeBlock,
   TableWrapper,
   TableContainer: (props: any) => <TableWrapper {...props} delay={2000} />,
+  hr: (props: any) => <hr className="border-gray-200 dark:border-gray-700 my-8" {...props} />,
+  ul: (props: any) => <ul className="pl-6 list-disc space-y-1" {...props} />,
+  ol: (props: any) => <ol className="pl-8 list-decimal space-y-1" {...props} />,
+  li: (props: any) => <li className="py-0.5" {...props} />,
+  img: (props: any) => <img className="inline-block rounded-md shadow-sm my-4" {...props} />,
 };
 
 export { mdxOptions };

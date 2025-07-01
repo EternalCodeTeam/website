@@ -23,11 +23,11 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="group relative h-full"
+      className="group relative h-full flex flex-col"
     >
       <Link
         href={`/blog/${post.slug}`}
-        className="block h-full rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 overflow-hidden"
+        className="block h-full flex flex-col rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 overflow-hidden"
         tabIndex={0}
       >
         {/* Obrazek lub placeholder */}
@@ -47,7 +47,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
             <span className="text-gray-400 dark:text-gray-600 text-4xl">📰</span>
           </div>
         )}
-        <div className="flex flex-col h-full p-6">
+        <div className="flex flex-col flex-1 p-6">
           {/* Tagi */}
           {post.tags && post.tags.length > 0 && (
             <div className="mb-2 flex flex-wrap gap-2">
@@ -62,17 +62,15 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
             </div>
           )}
           {/* Tytuł */}
-          <h3 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white leading-tight">
+          <h3 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white leading-tight line-clamp-2">
             {post.title}
           </h3>
           {/* Excerpt - nie ucinamy */}
-          <p className="mb-4 text-gray-600 dark:text-gray-300 text-base">
+          <p className="mb-4 text-gray-600 dark:text-gray-300 text-base line-clamp-3">
             {post.excerpt}
           </p>
-          {/* Spacer */}
-          <div className="flex-grow" />
           {/* Meta: autor, data, czas - zawsze widoczne */}
-          <div className="flex items-center gap-3 mt-auto text-sm text-gray-500 dark:text-gray-400">
+          <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
             <span className="flex items-center gap-2">
               {post.author && post.author.slug ? (
                 <Link href={`/author/${post.author.slug}`} className="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
