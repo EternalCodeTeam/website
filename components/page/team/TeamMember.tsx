@@ -47,8 +47,8 @@ export default function TeamMember({ member }: TeamMemberProps) {
       </h3>
 
       {/* Member roles */}
-      {member.team_roles.data.map((role, roleIndex) => (
-        <p key={roleIndex}>{role.attributes.name}</p>
+      {(member.team_roles?.data ?? []).map((role, roleIndex) => (
+        <p key={roleIndex}>{role.name}</p>
       ))}
 
       {/* Social links with hover animations */}

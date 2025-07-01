@@ -16,7 +16,7 @@ export default function ProjectItem({ repo, index }: ProjectItemProps) {
   return (
     <motion.div
       ref={ref}
-      key={repo.id}
+      key={repo.documentId}
       className={`flex flex-col items-center justify-between gap-12 text-center sm:flex-row sm:text-left ${
         index % 2 === 0 ? "sm:flex-row-reverse" : ""
       }`}
@@ -32,7 +32,7 @@ export default function ProjectItem({ repo, index }: ProjectItemProps) {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.3 }}
         >
-          {repo.attributes.name}
+          {repo.name}
         </motion.h1>
         <motion.p
           className="mb-6 max-w-2xl font-light text-gray-500 dark:text-gray-400 md:text-lg lg:mb-8 lg:text-xl"
@@ -40,10 +40,10 @@ export default function ProjectItem({ repo, index }: ProjectItemProps) {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.3 }}
         >
-          {repo.attributes.description}
+          {repo.description}
         </motion.p>
         <div className="flex justify-center sm:justify-start">
-          <a href={repo.attributes.repository_url} target="_blank" rel="noreferrer">
+          <a href={repo.repository_url} target="_blank" rel="noreferrer">
             <ProjectButton title="Repository" />
           </a>
         </div>
@@ -57,8 +57,8 @@ export default function ProjectItem({ repo, index }: ProjectItemProps) {
           transition={{ duration: 0.3 }}
         >
           <Image
-            alt={`${repo.attributes.name} project image`}
-            src={repo.attributes.banner_url}
+            alt={`${repo.name} project image`}
+            src={repo.banner_url}
             className="mx-auto hidden rounded-xl object-cover sm:block"
             height={500}
             width={1000}

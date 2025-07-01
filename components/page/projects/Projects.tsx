@@ -52,7 +52,7 @@ export default function Projects() {
         {/* Projects list with alternating layout */}
         <div className="lg:alternate mt-8 space-y-8 lg:mt-12">
           {projects.map((repo, index) => (
-            <ProjectItem key={repo.id} repo={repo} index={index} />
+            <ProjectItem key={repo.documentId} repo={repo} index={index} />
           ))}
         </div>
       </div>

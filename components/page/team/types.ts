@@ -1,27 +1,19 @@
 export interface TeamRole {
-  attributes: {
-    name: string;
-  };
+  name: string;
 }
 
-export interface MemberData {
+export interface Member {
+  documentId: string;
   avatar_url: string;
   name: string;
-  team_roles: {
-    data: TeamRole[];
-  };
+  team_roles: { data: TeamRole[] };
   github?: string;
   linkedin?: string;
 }
 
 export interface TeamMemberProps {
-  member: MemberData;
+  member: Member;
   index: number;
-}
-
-export interface Member {
-  id: string;
-  attributes: MemberData;
 }
 
 export interface StrapiResponse {

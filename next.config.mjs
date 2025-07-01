@@ -28,6 +28,11 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "private-user-images.githubusercontent.com",
+        port: "",
+      },
+      {
+        protocol: "https",
         hostname: "i.imgur.com",
         port: "",
       },

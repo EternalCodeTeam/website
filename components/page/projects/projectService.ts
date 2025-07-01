@@ -14,7 +14,7 @@ export async function fetchProjects(): Promise<Project[]> {
 
   const data = (await response.json()) as ApiResponse;
 
-  // Validate response structure
+  // Now data.data is already an array of Project (no attributes nesting)
   if (data && Array.isArray(data.data)) {
     return data.data;
   } else {

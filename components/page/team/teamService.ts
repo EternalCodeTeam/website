@@ -12,7 +12,7 @@ export async function fetchTeamMembers(): Promise<Member[]> {
 
   const data = (await response.json()) as StrapiResponse;
 
-  // Validate response structure
+  // Now data.data is already an array of Member (no attributes nesting)
   if (data && Array.isArray(data.data)) {
     return data.data;
   } else {

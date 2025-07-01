@@ -60,7 +60,7 @@ export default function Team() {
           staggerDelay={0.18}
         >
           {members.map((member, index) => (
-            <TeamMember key={member.id} member={member.attributes} index={index} />
+            <TeamMember key={member.documentId || index} member={member} index={index} />
           ))}
         </AnimatedContainer>
       </div>
