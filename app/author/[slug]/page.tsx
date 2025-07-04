@@ -61,57 +61,59 @@ export default async function AuthorPage(props: { params: Promise<{ slug: string
   );
 
   return (
-    <div className="min-h-screen bg-lightGray-100 dark:bg-gray-900 px-4 pt-40 pb-12">
-      <div className="mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-12">
-        {/* avatar, bio, email - STICKY */}
-        <aside className="md:col-span-1">
-          <AnimatedSection animationType="fadeLeft" className="sticky top-32 flex flex-col items-center md:items-start">
-            {author.avatar && author.avatar.url && (
-              <Image
-                src={getImageUrl(author.avatar.url)}
-                alt={author.name}
-                width={160}
-                height={160}
-                className="rounded-full border-4 border-white shadow-lg dark:border-gray-700 mb-6"
-              />
-            )}
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{author.name}</h1>
-            {author.bio && (
-              <p className="mb-4 text-gray-600 dark:text-gray-300 text-center md:text-left">{author.bio}</p>
-            )}
-            {author.email && (
-              <a href={`mailto:${author.email}`} className="text-blue-600 dark:text-blue-400 hover:underline mb-2">
-                {author.email}
-              </a>
-            )}
-          </AnimatedSection>
-        </aside>
+    <div className="min-h-screen bg-lightGray-100 dark:bg-gray-900 pt-40 pb-12">
+      <div className="mx-auto max-w-screen-xl px-4">
+        <div className="mx-auto max-w-screen-xl grid grid-cols-1 md:grid-cols-3 gap-12">
+          {/* avatar, bio, email - STICKY */}
+          <aside className="md:col-span-1">
+            <AnimatedSection animationType="fadeLeft" className="sticky top-32 flex flex-col items-start">
+              {author.avatar && author.avatar.url && (
+                <Image
+                  src={getImageUrl(author.avatar.url)}
+                  alt={author.name}
+                  width={160}
+                  height={160}
+                  className="rounded-full border-4 border-white shadow-lg dark:border-gray-700 mb-6"
+                />
+              )}
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{author.name}</h1>
+              {author.bio && (
+                <p className="mb-4 text-gray-600 dark:text-gray-300 text-center md:text-left">{author.bio}</p>
+              )}
+              {author.email && (
+                <a href={`mailto:${author.email}`} className="text-blue-600 dark:text-blue-400 hover:underline mb-2">
+                  {author.email}
+                </a>
+              )}
+            </AnimatedSection>
+          </aside>
 
-        {/* articles */}
-        <main className="md:col-span-2">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Articles</h2>
-          {posts.length > 0 ? (
-            <>
-              <AnimatedContainer as="div" staggerDelay={0.12} className="grid gap-8 md:grid-cols-2 mb-8">
-                {paginatedPosts.map((post, i) => (
-                  <AnimatedElement key={post.documentId} animationType="fadeUp" delay={i * 0.05}>
-                    <BlogPostCard post={post} />
-                  </AnimatedElement>
-                ))}
-              </AnimatedContainer>
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                totalItems={posts.length}
-                itemsPerPage={ITEMS_PER_PAGE}
-                slug={slug}
-                className="mt-8"
-              />
-            </>
-          ) : (
-            <div className="text-gray-500 dark:text-gray-400 italic">No articles found for this author <span className="not-italic">(yet!)</span></div>
-          )}
-        </main>
+          {/* articles */}
+          <main className="md:col-span-2">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Articles</h2>
+            {posts.length > 0 ? (
+              <>
+                <AnimatedContainer as="div" staggerDelay={0.12} className="grid gap-8 md:grid-cols-2 mb-8">
+                  {paginatedPosts.map((post, i) => (
+                    <AnimatedElement key={post.documentId} animationType="fadeUp" delay={i * 0.05}>
+                      <BlogPostCard post={post} />
+                    </AnimatedElement>
+                  ))}
+                </AnimatedContainer>
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  totalItems={posts.length}
+                  itemsPerPage={ITEMS_PER_PAGE}
+                  slug={slug}
+                  className="mt-8"
+                />
+              </>
+            ) : (
+              <div className="text-gray-500 dark:text-gray-400 italic">No articles found for this author <span className="not-italic">(yet!)</span></div>
+            )}
+          </main>
+        </div>
       </div>
     </div>
   );

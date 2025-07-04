@@ -84,7 +84,7 @@ async function fetchFromStrapi<T>(endpoint: string): Promise<T> {
 export async function getBlogPosts(): Promise<StrapiBlogPost[]> {
   try {
     const response = await fetchFromStrapi<StrapiResponse<any>>(
-      "/blog-posts?populate=*&sort=publishedAt:desc"
+      "/blog-posts?populate[0]=author&populate[1]=author.avatar&populate[2]=featuredImage&populate[3]=tags&sort=publishedAt:desc"
     );
     return response.data.map((item: any) => {
       return {
@@ -135,7 +135,7 @@ export async function getBlogPosts(): Promise<StrapiBlogPost[]> {
 export async function getBlogPost(slug: string): Promise<StrapiBlogPost | null> {
   try {
     const response = await fetchFromStrapi<StrapiResponse<any>>(
-      `/blog-posts?filters[slug][$eq]=${slug}&populate=*`
+      `/blog-posts?filters[slug][$eq]=${slug}&populate[0]=author&populate[1]=author.avatar&populate[2]=featuredImage&populate[3]=tags`
     );
     if (!response.data || response.data.length === 0) {
       return null;
@@ -188,7 +188,7 @@ export async function getBlogPost(slug: string): Promise<StrapiBlogPost | null> 
 export async function getBlogPostsByTag(tagSlug: string): Promise<StrapiBlogPost[]> {
   try {
     const response = await fetchFromStrapi<StrapiResponse<any>>(
-      `/blog-posts?filters[tags][slug][$eq]=${tagSlug}&populate=*&sort=publishedAt:desc`
+      `/blog-posts?filters[tags][slug][$eq]=${tagSlug}&populate[0]=author&populate[1]=author.avatar&populate[2]=featuredImage&populate[3]=tags&sort=publishedAt:desc`
     );
     return response.data.map((item: any) => {
       return {
@@ -238,7 +238,7 @@ export async function getBlogPostsByTag(tagSlug: string): Promise<StrapiBlogPost
 
 export async function getBlogTags(): Promise<StrapiTag[]> {
   try {
-    const response = await fetchFromStrapi<StrapiResponse<any>>("/tags");
+    const response = await fetchFromStrapi<StrapiResponse<any>>("/tags?populate=*");
     return response.data.map((tag: any) => ({
       documentId: tag.documentId,
       name: tag.name,
@@ -253,7 +253,7 @@ export async function getBlogTags(): Promise<StrapiTag[]> {
 export async function getAuthorBySlug(slug: string): Promise<StrapiAuthor | null> {
   try {
     const response = await fetchFromStrapi<StrapiResponse<any>>(
-      `/authors?filters[slug][$eq]=${slug}&populate=blog_posts,avatar,blog_posts.featuredImage,blog_posts.tags`
+      `/authors?filters[slug][$eq]=${slug}&populate[0]=avatar&populate[1]=blog_posts&populate[2]=blog_posts.featuredImage&populate[3]=blog_posts.tags&populate[4]=blog_posts.author&populate[5]=blog_posts.author.avatar`
     );
     if (!response.data || response.data.length === 0) return null;
     const item = response.data[0];
@@ -288,6 +288,21 @@ export async function getAuthorBySlug(slug: string): Promise<StrapiAuthor | null
           width: post.featuredImage.width,
           height: post.featuredImage.height,
         } : undefined,
+        author: post.author ? {
+          documentId: post.author.documentId,
+          name: post.author.name,
+          slug: post.author.slug,
+          email: post.author.email,
+          bio: post.author.bio,
+          avatar: post.author.avatar ? {
+            documentId: post.author.avatar.documentId,
+            url: post.author.avatar.url,
+            alternativeText: post.author.avatar.alternativeText,
+            caption: post.author.avatar.caption,
+            width: post.author.avatar.width,
+            height: post.author.avatar.height,
+          } : undefined,
+        } : undefined,
         tags: post.tags ? post.tags.map((tag: any) => ({
           documentId: tag.documentId,
           name: tag.name,
@@ -309,7 +324,7 @@ export async function getBlogPostsByAuthor(slug: string): Promise<StrapiBlogPost
 export async function getAuthors(): Promise<StrapiAuthor[]> {
   try {
     const response = await fetchFromStrapi<StrapiResponse<any>>(
-      "/authors?populate=avatar"
+      "/authors?populate=*"
     );
     return response.data.map((item: any) => ({
       documentId: item.documentId,
