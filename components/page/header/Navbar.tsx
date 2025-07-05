@@ -27,6 +27,7 @@ const NAV_LINKS: NavLink[] = [
   { href: "/team", label: "Team", text: "Team" },
   { href: "/projects", label: "Projects", text: "Projects" },
   { href: "/docs", label: "Documentation", text: "Documentation" },
+  { href: "/blog", label: "Blog", text: "Blog" },
   {
     href: "https://repo.eternalcode.pl/#/",
     label: "Repository",
@@ -161,7 +162,7 @@ export default function Navbar() {
               role="menu"
             >
               <ul className="mt-4 flex flex-col space-y-1 p-4">
-                {NAV_LINKS.slice(0, 4).map((link) => (
+                {NAV_LINKS.slice(0, 5).map((link) => (
                   <motion.li
                     key={link.href}
                     initial={{ x: -20, opacity: 0 }}
@@ -188,7 +189,7 @@ export default function Navbar() {
                 >
                   <ToolsDropdown />
                 </motion.li>
-                {NAV_LINKS.slice(4).map((link) => (
+                {NAV_LINKS.slice(5).map((link) => (
                   <motion.li
                     key={link.href}
                     initial={{ x: -20, opacity: 0 }}
@@ -215,7 +216,7 @@ export default function Navbar() {
 
         <div className="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto">
           <ul className="mt-4 flex flex-col space-y-2 md:mt-0 md:flex-row md:space-x-2 md:space-y-0 md:p-0">
-            {NAV_LINKS.slice(0, 4).map((link) => (
+            {NAV_LINKS.slice(0, 5).map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
@@ -232,7 +233,7 @@ export default function Navbar() {
             <li>
               <ToolsDropdown />
             </li>
-            {NAV_LINKS.slice(4).map((link) => (
+            {NAV_LINKS.slice(5).map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
