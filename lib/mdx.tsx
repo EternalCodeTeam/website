@@ -40,7 +40,7 @@ export const components = {
   ul: (props: any) => <ul className="pl-6 list-disc space-y-1" {...props} />,
   ol: (props: any) => <ol className="pl-8 list-decimal space-y-1" {...props} />,
   li: (props: any) => <li className="py-0.5" {...props} />,
-  img: (props: any) => <img className="inline-block rounded-md shadow-sm my-4" {...props} />,
+  img: (props: any) => <img className="inline-block rounded-md shadow-sm my-4" alt={props.alt || "Image"} {...props} />,
 };
 
 export { mdxOptions };
