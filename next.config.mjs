@@ -60,6 +60,7 @@ const nextConfig = {
     serverActions: {
       allowedOrigins: ["eternalcode.pl", "www.eternalcode.pl"],
     },
+    mdxRs: true,
   },
   bundlePagesRouterDependencies: true,
   serverExternalPackages: ["gray-matter"],

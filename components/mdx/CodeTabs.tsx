@@ -1,13 +1,13 @@
 "use client";
 
-import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/react";
-import { motion, AnimatePresence } from "framer-motion";
-import React, { useCallback, Children, isValidElement } from "react";
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Children, isValidElement, useCallback, useState } from "react";
 import * as SIIcons from "react-icons/si";
 
 import { cn } from "@/lib/utils";
 
-const ICON_EXCEPTIONS: Record<string, string> = {
+const ICONS: Record<string, string> = {
   maven: "SiApachemaven",
   gradle: "SiGradle",
   "gradle.kts": "SiGradle",
@@ -39,37 +39,23 @@ const ICON_EXCEPTIONS: Record<string, string> = {
   spigot: "SiSpigot",
 };
 
-function getIconComponent(label: string) {
+const getIcon = (label: string) => {
   const key = label.trim().toLowerCase();
-  if (ICON_EXCEPTIONS[key]) {
-    return (SIIcons as Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>>)[
-      ICON_EXCEPTIONS[key]
-    ];
-  }
+  const iconName =
+    ICONS[key] ?? `Si${key.replace(/[^a-z0-9]/gi, "").replace(/^./, (c) => c.toUpperCase())}`;
+  return (SIIcons as Record<string, React.ComponentType<any>>)[iconName];
+};
 
-  const sanitizedKey = key.replace(/[^a-z0-9]/gi, "");
-
-  const capitalizedKey =
-    sanitizedKey.length > 0 ? sanitizedKey.charAt(0).toUpperCase() + sanitizedKey.slice(1) : "";
-
-  const iconName = "Si" + capitalizedKey;
-
-  const iconExists = Object.prototype.hasOwnProperty.call(SIIcons, iconName);
-
-  return iconExists
-    ? (SIIcons as Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>>)[iconName]
-    : undefined;
-}
-
-function LanguageIcon({ label }: { label: string }) {
-  const Icon = getIconComponent(label);
-  if (Icon) return <Icon className="mr-1" aria-label={label} width={18} height={18} aria-hidden="true" />;
+const LanguageIcon = ({ label }: { label: string }) => {
+  const Icon = getIcon(label);
+  if (Icon)
+    return <Icon className="mr-1" aria-label={label} width={18} height={18} aria-hidden="true" />;
   return (
     <span className="mr-1" title={label} aria-hidden="true">
       📄
     </span>
   );
-}
+};
 
 export const CodeTabs = ({
   children,
@@ -82,7 +68,15 @@ export const CodeTabs = ({
   onChange?: (index: number) => void;
   className?: string;
 }) => {
-  const handleChange = useCallback((index: number) => onChange?.(index), [onChange]);
+  const [selectedIndex, setSelectedIndex] = useState(defaultIndex);
+
+  const handleChange = useCallback(
+    (index: number) => {
+      setSelectedIndex(index);
+      onChange?.(index);
+    },
+    [onChange]
+  );
 
   return (
     <motion.div
@@ -91,7 +85,7 @@ export const CodeTabs = ({
       transition={{ type: "spring", stiffness: 100, damping: 20, mass: 0.8 }}
       className={cn("my-8 overflow-hidden rounded-lg bg-white dark:bg-gray-800", className)}
     >
-      <TabGroup defaultIndex={defaultIndex} onChange={handleChange}>
+      <TabGroup selectedIndex={selectedIndex} onChange={handleChange}>
         <TabList className="flex space-x-2 px-4 pb-0 pt-4" aria-label="Code language selection">
           {Children.map(children, (child, idx) => {
             if (!isValidElement(child)) return null;
@@ -102,7 +96,7 @@ export const CodeTabs = ({
                 disabled={disabled}
                 className={({ selected }) =>
                   cn(
-                    "relative rounded-lg px-4 py-2 text-sm font-semibold transition-colors duration-150",
+                    "relative rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
                     "disabled:cursor-not-allowed disabled:opacity-50",
                     selected
                       ? "bg-gray-200 text-gray-900 dark:bg-gray-850 dark:text-white"
@@ -169,9 +163,9 @@ export const CodeTabs = ({
 };
 
 export function CodeTab({
-  label: _label,
+  label,
   children,
-  disabled: _disabled,
+  disabled,
 }: {
   label: string;
   children: React.ReactNode;

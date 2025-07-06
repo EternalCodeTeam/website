@@ -2,23 +2,19 @@ import fs from "fs/promises";
 import path from "path";
 
 import matter from "gray-matter";
-import type { MDXComponents } from "mdx/types";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { Suspense, cache } from "react";
 
+import { components, mdxOptions } from "@/components/mdx/mdx-components";
 import { DocsHeader } from "@/components/page/docs/content/DocsHeader";
 import { EditOnGitHub } from "@/components/page/docs/content/EditOnGitHub";
 import { ErrorBoundary } from "@/components/page/docs/content/ErrorBoundary";
 import { ReadingTime } from "@/components/page/docs/content/ReadingTime";
 import { ShortLink } from "@/components/page/docs/content/ShortLink";
 import { docsStructure } from "@/components/page/docs/sidebar-structure";
-import { components, mdxOptions } from "@/lib/mdx";
-
-export const dynamic = "force-static";
-export const revalidate = 5;
 
 interface DocMeta {
   title: string;
@@ -95,9 +91,9 @@ interface Props {
   }>;
 }
 
-export async function generateMetadata(props: Props): Promise<Metadata> {
-  const params = await props.params;
-  const doc = await getDocBySlug(params.slug);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = await params;
+  const doc = await getDocBySlug(resolvedParams.slug);
   if (!doc) {
     return {
       title: "Documentation Not Found",
@@ -142,14 +138,12 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function DocPage(props: Props) {
-  const params = await props.params;
-  const doc = await getDocBySlug(params.slug);
-  if (!doc) {
-    notFound();
-  }
+export default async function DocPage({ params }: Props) {
+  const resolvedParams = await params;
+  const doc = await getDocBySlug(resolvedParams.slug);
+  if (!doc) notFound();
 
-  const currentPath = "/docs/" + params.slug.join("/");
+  const currentPath = "/docs/" + resolvedParams.slug.join("/");
   const { prev, next } = getDocNavigation(currentPath);
 
   const category = docsStructure.find((item) => currentPath.startsWith(item.path))?.title;
@@ -165,7 +159,7 @@ export default async function DocPage(props: Props) {
             <>
               <ReadingTime content={doc.content} />
               <ShortLink path={currentPath} />
-              <EditOnGitHub filePath={params.slug.join("/")} />
+              <EditOnGitHub filePath={resolvedParams.slug.join("/")} />
             </>
           }
         />
@@ -176,7 +170,7 @@ export default async function DocPage(props: Props) {
           <Suspense fallback={<LoadingFallback />}>
             <MDXRemote
               source={doc.content}
-              components={components as MDXComponents}
+              components={components}
               options={{ mdxOptions }}
             />
           </Suspense>

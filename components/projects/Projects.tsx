@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 
-import ProjectItem from "@/components/page/projects/ProjectItem";
+import ProjectItem from "@/components/projects/ProjectItem";
 import SectionTitle from "@/components/SectionTitle";
 
 import ProjectsError from "./ProjectsError";

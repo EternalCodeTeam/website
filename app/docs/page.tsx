@@ -1,8 +1,19 @@
 import { redirect } from "next/navigation";
+import { docsStructure } from "@/components/page/docs/sidebar-structure";
 
-export const dynamic = "force-static";
-export const revalidate = 5;
+function flattenDocs(structure: typeof docsStructure) {
+  return structure.flatMap(item =>
+    item.children?.length
+      ? item.children
+      : [{ title: item.title, path: item.path }]
+  );
+}
 
 export default function DocsPage() {
-  redirect("/docs/eternalcore/introduction");
+  const flatDocs = flattenDocs(docsStructure);
+  const firstDoc = flatDocs[0];
+  if (!firstDoc) {
+    return null;
+  }
+  redirect(firstDoc.path);
 }

@@ -2,7 +2,7 @@
 
 import { MDXRemote } from "next-mdx-remote/rsc";
 
-import { components } from "@/lib/mdx";
+import { components } from "@/components/mdx/mdx-components";
 
 interface BlogPostContentProps {
   content: string;
@@ -16,4 +16,4 @@ export default function BlogPostContent({ content }: BlogPostContentProps) {
       <MDXRemote source={content} components={components} />
     </div>
   );
-} 
+}

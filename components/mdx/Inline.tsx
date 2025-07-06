@@ -1,13 +1,11 @@
-import { type ReactNode } from "react";
-
+import { HTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-interface InlineProps {
-  children: ReactNode;
-  className?: string;
+interface InlineProps extends HTMLAttributes<HTMLElement> {
+  children?: ReactNode;
 }
 
-export const Inline = ({ children, className }: InlineProps) => {
+export const Inline = ({ children, className, ...rest }: InlineProps) => {
   return (
     <span
       className={cn(
@@ -18,6 +16,7 @@ export const Inline = ({ children, className }: InlineProps) => {
         "font-mono",
         className
       )}
+      {...rest}
     >
       {children}
     </span>

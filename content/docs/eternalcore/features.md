@@ -8,10 +8,6 @@ title: EternalCore - Features, Commands and Permissions
 
 EternalCore is a powerful Minecraft server plugin that provides a wide range of features to enhance your server experience. Below is a comprehensive list of all the features available in EternalCore.
 
-## 🌟 All EternalCore Features
-
-<DynamicFeaturesTable />
-
 ## 🤖👨‍💻💬 All EternalCore Commands
 
 <DynamicCommandsTable />

@@ -8,8 +8,7 @@ import { Analytics } from "@/components/Analytics";
 import "./prism-languages";
 import { CookieConsentModal } from "@/components/CookieConsentModal";
 import { CookiePreferencesMenu } from "@/components/CookiePreferencesMenu";
-import DocCopyEnhancer from "@/components/page/docs/code/DocCopyEnhancer";
-import Footer from "@/components/page/footer/Footer";
+import Footer from "@/components/footer/Footer";
 import Navbar from "@/components/page/header/Navbar";
 import { SpeedInsights } from "@/components/SpeedInsights";
 import { generateOgImageUrl } from "@/lib/og-utils";
@@ -131,7 +130,6 @@ export default function RootLayout({
           </main>
 
           <Footer />
-          <DocCopyEnhancer />
           <CookieConsentModal />
           <CookiePreferencesMenu />
           <Analytics />

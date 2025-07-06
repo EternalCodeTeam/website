@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { generateOgImageMetadata } from "@/components/OgImage";
 import Hero from "@/components/page/header/Hero";
-import Project from "@/components/page/projects/Projects";
+import Project from "@/components/projects/Projects";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-cache";
