@@ -14,6 +14,13 @@ export const docsStructure: DocItem[] = [
         title: "Installation and Upgrading",
         path: "/docs/eternalcore/installation",
       },
+      {
+        title: "Features",
+        path: "/docs/eternalcore/features",
+        children: [
+          { title: "Butcher Command", path: "/docs/eternalcore/features/butcher-command" },
+        ],
+      },
       { title: "FAQ", path: "/docs/eternalcore/faq" },
       {
         title: "Features, Commands and Permissions",
