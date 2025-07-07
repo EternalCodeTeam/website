@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+
 import { docsStructure } from "@/components/page/docs/sidebar-structure";
 
 function flattenDocs(structure: typeof docsStructure) {
