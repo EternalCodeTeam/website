@@ -2,7 +2,7 @@
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Children, isValidElement, useCallback, useState } from "react";
+import React, { Children, ComponentType, isValidElement, ReactNode, useCallback, useState } from "react";
 import * as SIIcons from "react-icons/si";
 
 import { cn } from "@/lib/utils";
@@ -43,7 +43,7 @@ const getIcon = (label: string) => {
   const key = label.trim().toLowerCase();
   const iconName =
     ICONS[key] ?? `Si${key.replace(/[^a-z0-9]/gi, "").replace(/^./, (c) => c.toUpperCase())}`;
-  return (SIIcons as Record<string, React.ComponentType<any>>)[iconName];
+  return (SIIcons as Record<string, ComponentType<any>>)[iconName];
 };
 
 const LanguageIcon = ({ label }: { label: string }) => {
@@ -63,7 +63,7 @@ export const CodeTabs = ({
   onChange,
   className,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   defaultIndex?: number;
   onChange?: (index: number) => void;
   className?: string;
@@ -163,12 +163,10 @@ export const CodeTabs = ({
 };
 
 export function CodeTab({
-  label,
   children,
-  disabled,
 }: {
   label: string;
-  children: React.ReactNode;
+  children: ReactNode;
   disabled?: boolean;
 }) {
   return <>{children}</>;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import type { MDXComponents } from "mdx/types";
 import React from "react";
 
@@ -10,8 +11,6 @@ import { AlertBox } from "@/components/ui/alert-box";
 
 type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>;
 
-// @ts-ignore
-// @ts-ignore
 export const components: MDXComponents = {
   h1: (props: HeadingProps) => (
     <Heading
@@ -73,7 +72,8 @@ export const components: MDXComponents = {
 
     return <code {...rest}>{children}</code>;
   },
-  // @ts-expect-error
+
+  // @ts-expect-error idk
   pre: CodeBlock,
 
   blockquote: (props) => (
