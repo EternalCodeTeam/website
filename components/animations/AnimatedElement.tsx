@@ -1,124 +1,88 @@
-"use client";
-
-import { motion } from "framer-motion";
-import React from "react";
+import { motion, MotionProps, Variants } from "framer-motion";
+import {
+  ComponentPropsWithoutRef,
+  ComponentType,
+  ElementType,
+  ReactNode,
+  useMemo,
+} from "react";
 import { useInView } from "react-intersection-observer";
 
 import {
   fadeIn,
-  fadeInUp,
   fadeInDown,
   fadeInLeft,
   fadeInRight,
+  fadeInUp,
   scaleAnimation,
 } from "./AnimationUtils";
 
-interface AnimatedElementProps {
-  children: React.ReactNode;
-  className?: string;
-  animationType?: "fade" | "fadeUp" | "fadeDown" | "fadeLeft" | "fadeRight" | "scale";
+type AnimationType = "fade" | "fadeUp" | "fadeDown" | "fadeLeft" | "fadeRight" | "scale";
+
+const getAnimationVariant = (animationType: AnimationType): Variants => {
+  switch (animationType) {
+    case "fadeUp":
+      return fadeInUp;
+    case "fadeDown":
+      return fadeInDown;
+    case "fadeLeft":
+      return fadeInLeft;
+    case "fadeRight":
+      return fadeInRight;
+    case "scale":
+      return scaleAnimation;
+    default:
+      return fadeIn;
+  }
+};
+
+type AnimatedElementProps<T extends ElementType> = {
+  children: ReactNode;
+  animationType?: AnimationType;
   delay?: number;
   threshold?: number;
   rootMargin?: string;
   triggerOnce?: boolean;
-  as?: keyof JSX.IntrinsicElements;
   interactive?: boolean;
-  [key: string]: unknown;
-}
+  as?: T;
+} & MotionProps &
+  Omit<ComponentPropsWithoutRef<T>, keyof MotionProps>;
 
-const AnimatedElement: React.FC<AnimatedElementProps> = ({
+const AnimatedElement = <T extends ElementType = "div">({
   children,
-  className = "",
   animationType = "fade",
   delay = 0,
-  threshold = 0.1,
-  rootMargin = "0px 0px -100px 0px",
+  threshold = 0.05,
+  rootMargin = "0px 0px -20px 0px", // próg wejscia animacji, -20 powoduje ze animacja wchodzi od razu i nie buguje sie
   triggerOnce = false,
-  as = "div",
   interactive = false,
-  ...props
-}) => {
+  as,
+  ...restProps
+}: AnimatedElementProps<T>) => {
   const { ref, inView } = useInView({
     triggerOnce,
     threshold,
     rootMargin,
   });
 
-  const getAnimationVariant = () => {
-    switch (animationType) {
-      case "fadeUp":
-        return fadeInUp;
-      case "fadeDown":
-        return fadeInDown;
-      case "fadeLeft":
-        return fadeInLeft;
-      case "fadeRight":
-        return fadeInRight;
-      case "scale":
-        return scaleAnimation;
-      default:
-        return fadeIn;
-    }
-  };
+  const variants = getAnimationVariant(animationType);
 
-  const animationVariant = getAnimationVariant();
+  const Component = useMemo(() => motion(as || "div"), [as]) as ComponentType<any>;
 
-  const filteredProps = props;
-
-  const commonProps = {
-    ref,
-    className,
-    variants: animationVariant,
-    initial: interactive ? "initial" : "hidden",
-    animate: inView ? (interactive ? "initial" : "visible") : interactive ? "initial" : "hidden",
-    whileHover: interactive ? "hover" : undefined,
-    whileTap: interactive ? "tap" : undefined,
-    transition: { delay },
-    ...filteredProps,
-  };
-
-  switch (as) {
-    case "div":
-      return <motion.div {...commonProps}>{children}</motion.div>;
-    case "section":
-      return <motion.section {...commonProps}>{children}</motion.section>;
-    case "article":
-      return <motion.article {...commonProps}>{children}</motion.article>;
-    case "main":
-      return <motion.main {...commonProps}>{children}</motion.main>;
-    case "header":
-      return <motion.header {...commonProps}>{children}</motion.header>;
-    case "footer":
-      return <motion.footer {...commonProps}>{children}</motion.footer>;
-    case "nav":
-      return <motion.nav {...commonProps}>{children}</motion.nav>;
-    case "aside":
-      return <motion.aside {...commonProps}>{children}</motion.aside>;
-    case "span":
-      return <motion.span {...commonProps}>{children}</motion.span>;
-    case "p":
-      return <motion.p {...commonProps}>{children}</motion.p>;
-    case "h1":
-      return <motion.h1 {...commonProps}>{children}</motion.h1>;
-    case "h2":
-      return <motion.h2 {...commonProps}>{children}</motion.h2>;
-    case "h3":
-      return <motion.h3 {...commonProps}>{children}</motion.h3>;
-    case "h4":
-      return <motion.h4 {...commonProps}>{children}</motion.h4>;
-    case "h5":
-      return <motion.h5 {...commonProps}>{children}</motion.h5>;
-    case "h6":
-      return <motion.h6 {...commonProps}>{children}</motion.h6>;
-    case "ul":
-      return <motion.ul {...commonProps}>{children}</motion.ul>;
-    case "ol":
-      return <motion.ol {...commonProps}>{children}</motion.ol>;
-    case "li":
-      return <motion.li {...commonProps}>{children}</motion.li>;
-    default:
-      return <motion.div {...commonProps}>{children}</motion.div>;
-  }
+  return (
+    <Component
+      ref={ref}
+      variants={variants}
+      initial={interactive ? "initial" : "hidden"}
+      animate={interactive ? "initial" : inView ? "visible" : "hidden"}
+      whileHover={interactive ? "hover" : undefined}
+      whileTap={interactive ? "tap" : undefined}
+      transition={{ delay }}
+      {...restProps}
+    >
+      {children}
+    </Component>
+  );
 };
 
 export default AnimatedElement;
