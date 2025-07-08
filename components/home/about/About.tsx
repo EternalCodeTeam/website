@@ -6,7 +6,7 @@ import React from "react";
 import { AnimatedSection, AnimatedElement, AnimatedContainer } from "@/components/animations";
 import AboutImage from "@/public/hero image.png";
 
-import TerminalIcon from "../../../icons/terminal-fill";
+import TerminalIcon from "../../icons/terminal-fill";
 
 // Reusable container component for consistent spacing
 const Container = ({ children }: { children: React.ReactNode }) => (

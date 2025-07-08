@@ -9,7 +9,7 @@ import "./prism-languages";
 import { CookieConsentModal } from "@/components/CookieConsentModal";
 import { CookiePreferencesMenu } from "@/components/CookiePreferencesMenu";
 import Footer from "@/components/footer/Footer";
-import Navbar from "@/components/page/header/Navbar";
+import Navbar from "@/components/hero/Navbar";
 import { SpeedInsights } from "@/components/SpeedInsights";
 import { generateOgImageUrl } from "@/lib/og-utils";
 

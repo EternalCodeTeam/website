@@ -9,12 +9,12 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { Suspense, cache } from "react";
 
 import { components, mdxOptions } from "@/components/mdx/mdx-components";
-import { DocsHeader } from "@/components/page/docs/content/DocsHeader";
-import { EditOnGitHub } from "@/components/page/docs/content/EditOnGitHub";
-import { ErrorBoundary } from "@/components/page/docs/content/ErrorBoundary";
-import { ReadingTime } from "@/components/page/docs/content/ReadingTime";
-import { ShortLink } from "@/components/page/docs/content/ShortLink";
-import { docsStructure } from "@/components/page/docs/sidebar/sidebar-structure";
+import { DocsHeader } from "@/components/docs/content/DocsHeader";
+import { EditOnGitHub } from "@/components/docs/content/EditOnGitHub";
+import { ErrorBoundary } from "@/components/docs/content/ErrorBoundary";
+import { ReadingTime } from "@/components/docs/content/ReadingTime";
+import { ShortLink } from "@/components/docs/content/ShortLink";
+import { docsStructure } from "@/components/docs/sidebar/sidebar-structure";
 
 interface DocMeta {
   title: string;

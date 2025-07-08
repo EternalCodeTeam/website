@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 
-import ArrowDown from "../../icons/arrow-down";
+import ArrowDown from "../icons/arrow-down";
 
 export function ToolsDropdown() {
   const [open, setOpen] = useState(false);

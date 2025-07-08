@@ -12,7 +12,7 @@ export default function TransparentHeroButton() {
   });
 
   return (
-    <Link href="/#about">
+    <Link href="/public#about">
       <motion.div
         ref={ref}
         initial={{ opacity: 0, y: 20 }}

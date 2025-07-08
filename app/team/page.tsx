@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { generateOgImageMetadata } from "@/components/OgImage";
-import Hero from "@/components/page/header/Hero";
+import Hero from "@/components/hero/Hero";
 import Team from "@/components/team/Team";
 
 export const metadata: Metadata = {

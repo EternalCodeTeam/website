@@ -5,7 +5,7 @@ import { useState, useCallback } from "react";
 
 import { AnimatedSection, AnimatedElement, AnimatedContainer } from "@/components/animations";
 
-import SectionTitle from "../../../SectionTitle";
+import SectionTitle from "../../SectionTitle";
 
 import AnimatedChevron from "./AnimatedChevron";
 import { buttonAnimations, panelAnimations, contentAnimations } from "./animations";

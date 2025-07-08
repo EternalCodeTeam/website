@@ -2,10 +2,10 @@
 import { motion } from "framer-motion";
 
 import { pageTransition } from "@/components/animations";
-import Hero from "@/components/page/header/Hero";
-import About from "@/components/page/home/about/About";
-import Faq from "@/components/page/home/faq/Faq";
-import Features from "@/components/page/home/features/Features";
+import Hero from "@/components/hero/Hero";
+import About from "@/components/home/about/About";
+import Faq from "@/components/home/faq/Faq";
+import Features from "@/components/home/features/Features";
 
 export default function AnimatedHome() {
   return (

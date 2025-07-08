@@ -1,10 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Check, Link as LinkIcon } from "lucide-react";
 import { createElement, type ElementType, type HTMLAttributes, useState } from "react";
 
-import { fadeDownScale } from "@/components/page/docs/content/DocsHeader";
 import { cn } from "@/lib/utils";
 
 interface HeadingProps extends HTMLAttributes<HTMLElement> {
@@ -37,12 +35,7 @@ export const Heading = ({ children, id, tag, className, ...props }: HeadingProps
       className: cn("group relative scroll-mt-24 hover:cursor-pointer", className),
       ...props,
     },
-    <motion.span
-      className="inline-flex items-center"
-      variants={fadeDownScale}
-      initial="hidden"
-      animate="visible"
-    >
+    <span className="inline-flex items-center">
       {children}
       {id && (
         <button
@@ -58,6 +51,6 @@ export const Heading = ({ children, id, tag, className, ...props }: HeadingProps
           )}
         </button>
       )}
-    </motion.span>
+    </span>
   );
 };

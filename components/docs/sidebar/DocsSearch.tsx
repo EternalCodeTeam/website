@@ -1,8 +1,8 @@
 "use client";
 
-import SearchBox from "@/components/page/docs/sidebar/search/SearchBox";
+import SearchBox from "@/components/docs/search/SearchBox";
 
-import { DocSearchProps } from "./search/types";
+import { DocSearchProps } from "@/components/docs/search/types";
 
 const DocsSearch = ({
   className = "",
