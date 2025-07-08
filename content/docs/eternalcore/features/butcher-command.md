@@ -1,8 +1,10 @@
 ---
-title: Butcher command
-description: Let's clean your world!
+title: Butcher Command  
+description: Instantly remove mobs from your world to reduce lag and keep it clean with the /butcher command.
 ---
 
-The `/butcher` command quickly removes all nearby mobs from your world, helping keep it clean and optimized.
+## Remove Mobs Instantly with butcher command
+
+The `/butcher` command removes all nearby mobs in a given radius, helping you keep your world clean, reduce lag, and maintain optimal server performance.
 
 ![butcher.gif](/docs/eternalcore/butcher.gif)

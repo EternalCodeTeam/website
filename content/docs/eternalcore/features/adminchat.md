@@ -1,0 +1,11 @@
+---
+title: Admin Chat Command  
+description: Send private messages to staff members with the /adminchat command — perfect for internal server communication.
+---
+
+## Private Staff Communication with adminchat command
+
+The `/adminchat` command allows server staff to communicate privately, keeping sensitive discussions out of the public chat.  
+It's ideal for coordination, moderation, and behind-the-scenes conversations between admins and moderators.
+
+![adminchat.gif](/docs/eternalcore/adminchat.gif)

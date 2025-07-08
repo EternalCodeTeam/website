@@ -22,7 +22,7 @@ export const components: MDXComponents = {
   h2: (props: HeadingProps) => (
     <Heading
       tag="h2"
-      className="text-3xl font-semibold tracking-tight mt-10 mb-4 border-b border-neutral-200 pb-2 dark:border-neutral-700"
+      className="text-3xl font-semibold tracking-tight mt-10 mb-4"
       {...props}
     />
   ),
