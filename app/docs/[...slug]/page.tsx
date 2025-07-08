@@ -14,7 +14,7 @@ import { EditOnGitHub } from "@/components/page/docs/content/EditOnGitHub";
 import { ErrorBoundary } from "@/components/page/docs/content/ErrorBoundary";
 import { ReadingTime } from "@/components/page/docs/content/ReadingTime";
 import { ShortLink } from "@/components/page/docs/content/ShortLink";
-import { docsStructure } from "@/components/page/docs/sidebar-structure";
+import { docsStructure } from "@/components/page/docs/sidebar/sidebar-structure";
 
 interface DocMeta {
   title: string;

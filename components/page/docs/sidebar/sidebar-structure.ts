@@ -1,8 +1,4 @@
-export interface DocItem {
-  title: string;
-  path: string;
-  children?: DocItem[];
-}
+import { DocItem } from './types';
 
 export const docsStructure: DocItem[] = [
   {
