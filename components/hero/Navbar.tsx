@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import logo from "@/public/logo.svg";
@@ -14,6 +14,7 @@ import NewWindow from "../icons/new-window";
 
 import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ToolsDropdown } from "./ToolsDropdown";
+import AnnouncementBanner from "@/components/hero/AnnouncementBanner";
 
 interface NavLink {
   href: string;
@@ -92,20 +93,7 @@ export default function Navbar() {
       role="navigation"
       aria-label="Main navigation"
     >
-      <div className="z-[60] flex w-full items-center justify-center gap-2 border-b border-gray-200 bg-lightGray-200 px-4 py-2 text-center text-sm font-medium text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-white">
-        <span className="mr-2 inline-block rounded bg-white/60 px-2 py-0.5 text-xs font-bold uppercase tracking-wide text-blue-700 dark:bg-white/10 dark:text-blue-300">
-          New
-        </span>
-        <span className="font-semibold">
-          We launched the new Notification generator, fully interactive and customizable!
-        </span>
-        <a
-          href="/notification-generator"
-          className="ml-2 font-semibold text-blue-700 underline underline-offset-2 transition-colors hover:text-indigo-700 dark:text-blue-300 dark:hover:text-indigo-300"
-        >
-          Check it out &rarr;
-        </a>
-      </div>
+      <AnnouncementBanner />
 
       <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-4 py-4 md:py-6">
         <Link href="/" className="flex items-center" aria-label="Go to homepage">
