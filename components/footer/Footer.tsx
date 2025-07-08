@@ -121,7 +121,7 @@ export default function Footer() {
       <div className="mx-auto max-w-screen-xl px-4 py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 flex flex-col items-center md:mb-0 md:items-start">
-            <Link href="/public" className="flex items-center" aria-label="Go to homepage">
+            <Link href="/" className="flex items-center" aria-label="Go to homepage">
               <Image
                 className="mr-3 h-8 w-auto text-white dark:invert"
                 alt="EternalCode Logo"
