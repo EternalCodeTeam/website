@@ -1,7 +1,6 @@
 "use client";
 
 import SearchBox from "@/components/docs/search/SearchBox";
-
 import { DocSearchProps } from "@/components/docs/search/types";
 
 const DocsSearch = ({
