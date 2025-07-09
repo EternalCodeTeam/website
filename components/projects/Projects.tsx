@@ -24,7 +24,6 @@ export default function Projects() {
       } catch (error) {
         const err = error as Error;
         setError(err.message);
-        console.error("Error fetching projects:", err);
       } finally {
         setLoading(false);
       }
@@ -33,24 +32,19 @@ export default function Projects() {
     loadProjects();
   }, []);
 
-  if (loading) {
-    return <ProjectsSkeleton />;
-  }
-
-  if (error) {
-    return <ProjectsError error={error} />;
-  }
+  if (loading) return <ProjectsSkeleton />;
+  if (error) return <ProjectsError error={error} />;
 
   return (
-    <section id="projects">
-      <div className="mx-auto max-w-screen-xl px-4 py-16">
+    <section id="projects" className="relative isolate overflow-hidden">
+
+      <div className="relative z-10 mx-auto max-w-screen-xl px-4 py-20">
         <SectionTitle
-          title="Our project"
-          description="Below you will find a list of our projects."
+          title="Our Projects"
+          description="Crafted with passion, loved by the community — explore our work below."
         />
 
-        {/* Projects list with alternating layout */}
-        <div className="lg:alternate mt-8 space-y-8 lg:mt-12">
+        <div className="mt-12 space-y-16">
           {projects.map((repo, index) => (
             <ProjectItem key={repo.documentId} repo={repo} index={index} />
           ))}

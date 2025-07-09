@@ -36,31 +36,37 @@ export default function Team() {
     loadTeamMembers();
   }, []);
 
-  if (loading) {
-    return <TeamSkeleton />;
-  }
-
-  if (error) {
-    return <TeamError error={error} />;
-  }
+  if (loading) return <TeamSkeleton />;
+  if (error) return <TeamError error={error} />;
 
   return (
     <AnimatedSection id="team" animationType="fadeUp">
-      <div className="mx-auto max-w-screen-xl px-4 py-16">
+      <div className="relative mx-auto max-w-screen-xl px-4 py-20">
+        {/* Decorative blurred circles */}
+        <div className="pointer-events-none absolute -top-20 left-10 z-0 h-48 w-48 rounded-full bg-blue-300 opacity-30 blur-3xl dark:bg-blue-800" />
+        <div className="pointer-events-none absolute -bottom-10 right-0 z-0 h-64 w-64 rounded-full bg-indigo-300 opacity-20 blur-2xl dark:bg-indigo-700" />
+
         <AnimatedElement as="div" animationType="fadeDown" delay={0.1}>
           <SectionTitle
-            title="Our Team"
-            description="EternalCodeTeam is a dedicated group of creative programmers who work on unique open source projects."
+            title="Meet the Team"
+            description="EternalCodeTeam is a creative collective of open-source developers pushing the limits of Minecraft innovation."
           />
         </AnimatedElement>
 
-        {/* Grid of team members with staggered animation */}
+        {/* Grid with nice hover effects and spacing */}
         <AnimatedContainer
-          className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-          staggerDelay={0.18}
+          className="relative z-10 mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+          staggerDelay={0.15}
         >
           {members.map((member, index) => (
-            <TeamMember key={member.documentId || index} member={member} index={index} />
+            <AnimatedElement
+              key={member.documentId || index}
+              animationType="fadeUp"
+              delay={index * 0.05}
+              className="transform transition duration-300 hover:scale-[1.03]"
+            >
+              <TeamMember member={member} index={index} />
+            </AnimatedElement>
           ))}
         </AnimatedContainer>
       </div>

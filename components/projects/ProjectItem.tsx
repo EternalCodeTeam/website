@@ -8,63 +8,58 @@ import ProjectButton from "./ProjectButton";
 import { ProjectItemProps } from "./types";
 
 export default function ProjectItem({ repo, index }: ProjectItemProps) {
-  // Track if component is in viewport for animation
-  const { ref, inView } = useInView({
-    triggerOnce: false,
-  });
+  const { ref, inView } = useInView({ triggerOnce: true });
+
+  const isReversed = index % 2 === 0;
 
   return (
     <motion.div
       ref={ref}
-      key={repo.documentId}
-      className={`flex flex-col items-center justify-between gap-12 text-center sm:flex-row sm:text-left ${
-        index % 2 === 0 ? "sm:flex-row-reverse" : ""
+      className={`flex flex-col-reverse items-center justify-between gap-12 sm:flex-row ${
+        isReversed ? "sm:flex-row-reverse" : ""
       }`}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: inView ? 1 : 0 }}
-      transition={{ duration: 0.3 }}
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 50 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      {/* Project content - alternates left/right based on index */}
-      <div className="mx-auto w-full md:w-1/2 lg:w-1/2">
-        <motion.h1
-          className="mb-4 max-w-2xl text-4xl font-extrabold leading-none tracking-tight dark:text-white md:text-5xl xl:text-6xl"
-          initial={{ y: -50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.3 }}
+      <div className="w-full sm:w-1/2">
+        <motion.h2
+          className="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : -20 }}
+          transition={{ delay: 0.1, duration: 0.4 }}
         >
           {repo.name}
-        </motion.h1>
+        </motion.h2>
+
         <motion.p
-          className="mb-6 max-w-2xl font-light text-gray-500 dark:text-gray-400 md:text-lg lg:mb-8 lg:text-xl"
-          initial={{ y: -50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.3 }}
+          className="mb-6 text-gray-600 dark:text-gray-400"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : -20 }}
+          transition={{ delay: 0.2, duration: 0.4 }}
         >
           {repo.description}
         </motion.p>
-        <div className="flex justify-center sm:justify-start">
-          <a href={repo.repository_url} target="_blank" rel="noreferrer">
-            <ProjectButton title="Repository" />
-          </a>
-        </div>
+
+        <a href={repo.repository_url} target="_blank" rel="noreferrer">
+          <ProjectButton title="Repository" />
+        </a>
       </div>
 
-      {/* Project image with animation */}
-      <div className="w-full overflow-hidden md:w-1/2 lg:w-1/2">
+      <div className="w-full sm:w-1/2 overflow-hidden rounded-xl shadow-lg">
         <motion.div
-          initial={{ y: -50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.3 }}
+          className="group relative"
+          initial={{ scale: 0.98, opacity: 0 }}
+          animate={{ scale: inView ? 1 : 0.98, opacity: inView ? 1 : 0 }}
+          transition={{ delay: 0.1, duration: 0.5 }}
         >
           <Image
-            alt={`${repo.name} project image`}
             src={repo.banner_url}
-            className="mx-auto hidden rounded-xl object-cover sm:block"
-            height={500}
+            alt={repo.name}
             width={1000}
-            priority={index < 2}
+            height={500}
+            className="h-auto w-full transform object-cover transition-transform duration-500 group-hover:scale-105"
             quality={85}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </motion.div>
       </div>

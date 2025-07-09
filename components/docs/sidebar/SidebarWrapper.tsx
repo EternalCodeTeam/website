@@ -15,7 +15,7 @@ const SidebarWrapper: FC = () => {
       </aside>
 
       {/* Mobile sidebar */}
-      <div className="lg:hidden">
+      <div className="lg:hidden flex flex-col gap-4">
         <DocsSearch />
         <DocSidebar />
       </div>

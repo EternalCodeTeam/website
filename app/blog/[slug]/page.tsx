@@ -38,14 +38,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   try {
     const { slug } = await params;
     const post = await getBlogPost(slug);
-    
+
     if (!post) {
       return {
         title: "Post Not Found | EternalCode.pl",
       };
     }
 
-    const ogImageUrl = post.featuredImage?.url 
+    const ogImageUrl = post.featuredImage?.url
       ? getImageUrl(post.featuredImage.url)
       : generateOgImageUrl({
           title: post.title,
@@ -178,4 +178,4 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     console.error("Error fetching blog post:", error);
     notFound();
   }
-} 
+}

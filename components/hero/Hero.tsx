@@ -8,7 +8,7 @@ import Terminal from "@/components/hero/terminal/Terminal";
 export default function Hero() {
   return (
     <AnimatedSection
-      className="relative mx-auto mt-16 max-w-screen-xl px-4 pt-20 lg:pt-28"
+      className="relative mx-auto mt-16 max-w-screen-xl px-4 pt-28"
       animationType="fade"
       aria-labelledby="hero-heading"
     >
