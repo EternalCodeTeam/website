@@ -141,7 +141,7 @@ export const CodeTabs = ({
                   key={idx}
                   className={cn(
                     "px-4 pb-6 pt-4 transition-all duration-300",
-                    "mt-2 rounded-lg bg-gray-50 dark:bg-gray-850"
+                    "mt-2 rounded-lg bg-gray-100 dark:bg-gray-850"
                   )}
                 >
                   <motion.div

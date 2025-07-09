@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import AnnouncementBanner from "@/components/hero/AnnouncementBanner";
 import { Button } from "@/components/ui/button";
 import logo from "@/public/logo.svg";
 
@@ -14,7 +15,6 @@ import NewWindow from "../icons/new-window";
 
 import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ToolsDropdown } from "./ToolsDropdown";
-import AnnouncementBanner from "@/components/hero/AnnouncementBanner";
 
 interface NavLink {
   href: string;

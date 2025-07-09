@@ -1,3 +1,5 @@
+import containerQueries from "@tailwindcss/container-queries";
+import typography from "@tailwindcss/typography";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -17,34 +19,33 @@ const config: Config = {
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        // Custom gray palette based on EternalCode.pl design
         gray: {
-          50: "#f7f8fa", // Lightest (for text on dark backgrounds)
-          100: "#eef1f5", // Very light
-          200: "#dde2ea", // Light
-          300: "#c4cdd8", // Medium light
-          400: "#8d99a9", // Medium
-          500: "#5d6b7c", // Base gray
-          600: "#3e4a59", // Medium dark
-          700: "#2a3441", // Dark
-          800: "#141a23", // Your base color (main background)
-          850: "#131720", // Custom shade (darker sections)
-          900: "#0c1218", // Darkest (header/navigation background)
-          950: "#080c11", // Ultra dark
+          50: "#f7f8fa",
+          100: "#eef1f5",
+          200: "#dde2ea",
+          300: "#c4cdd8",
+          400: "#8d99a9",
+          500: "#5d6b7c",
+          600: "#3e4a59",
+          700: "#2a3441",
+          800: "#141a23",
+          850: "#131720",
+          900: "#0c1218",
+          950: "#080c11",
         },
         lightGray: {
           50: "#ffffff",
-          100: "#f7f8fa",
-          200: "#eef1f5",
-          300: "#dde2ea",
-          400: "#c4cdd8",
-          500: "#8d99a9",
-          600: "#5d6b7c",
-          700: "#3e4a59",
-          800: "#2a3441",
-          850: "#141a23",
-          900: "#10161e",
-          950: "#0c1218",
+          100: "#fafbfc",
+          200: "#f4f6f8",
+          300: "#e8ecf1",
+          400: "#d3d9e0",
+          500: "#b4bcc8",
+          600: "#8f99a8",
+          700: "#6e7a8c",
+          800: "#4e5b6e",
+          850: "#3a4655",
+          900: "#2a3441",
+          950: "#1a1f27",
         },
       },
       borderRadius: {
@@ -59,10 +60,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    require("@tailwindcss/container-queries"),
-    require("@tailwindcss/typography"),
-    require("@tailwindcss/line-clamp")
-  ],
+  plugins: [containerQueries, typography],
 };
 export default config;
