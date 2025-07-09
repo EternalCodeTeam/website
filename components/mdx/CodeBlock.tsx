@@ -31,7 +31,7 @@ export const CodeBlock = memo(({ children, language, className }: CodeBlockProps
       ref={preRef}
       role="region"
       aria-label={language ? `Code block in ${language}` : "Code block"}
-      className={`relative my-4 overflow-x-auto rounded-lg border border-neutral-700 bg-gray-900 p-4 font-mono text-sm text-neutral-200 ${className ?? ""}`}
+      className={`relative my-4 overflow-x-auto rounded-lg bg-gray-900 p-4 font-mono text-sm text-neutral-200 ${className ?? ""}`}
     >
       <button
         type="button"
