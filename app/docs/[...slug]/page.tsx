@@ -13,7 +13,7 @@ import { EditOnGitHub } from "@/components/docs/content/EditOnGitHub";
 import { ErrorBoundary } from "@/components/docs/content/ErrorBoundary";
 import { ReadingTime } from "@/components/docs/content/ReadingTime";
 import { ShortLink } from "@/components/docs/content/ShortLink";
-import { docsStructure } from "@/components/docs/sidebar/sidebar-structure";
+import { docsStructure } from "@/lib/sidebar-structure";
 import { components, mdxOptions } from "@/components/mdx/mdx-components";
 
 interface DocMeta {
@@ -68,7 +68,7 @@ function getFlatDocs(): { title: string; path: string }[] {
 
 async function getDocBySlug(slug: string[]): Promise<Doc | null> {
   const docsDirectory = path.join(process.cwd(), "content/docs");
-  const fullPath = path.join(docsDirectory, slug.join("/") + ".md");
+  const fullPath = path.join(docsDirectory, slug.join("/") + ".mdx");
 
   try {
     const fileContents = await fs.readFile(fullPath, "utf8");

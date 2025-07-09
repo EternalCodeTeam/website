@@ -1,4 +1,4 @@
-import { DocItem } from './types';
+import { DocItem } from "@/components/docs/sidebar/types";
 
 export const docsStructure: DocItem[] = [
   {
@@ -36,20 +36,6 @@ export const docsStructure: DocItem[] = [
       },
       { title: "Features", path: "/docs/eternalcombat/features" },
       { title: "Using API", path: "/docs/eternalcombat/using-api" },
-    ],
-  },
-  {
-    title: "Documentation Editors",
-    path: "/docs/documentation-editors",
-    children: [
-      {
-        title: "Markdown Guide",
-        path: "/docs/documentation-editors/markdown-guide",
-      },
-      {
-        title: "Documentation Style Guide",
-        path: "/docs/documentation-editors/documentation-style-guide",
-      },
     ],
   },
   {

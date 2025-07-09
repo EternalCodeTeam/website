@@ -6,7 +6,7 @@ import React, { useEffect } from "react";
 
 import { cn } from "@/lib/utils";
 
-import { docsStructure } from "./sidebar-structure";
+import { docsStructure } from "../../../lib/sidebar-structure";
 import SidebarItem from "./SidebarItem";
 import { DocSidebarProps } from "./types";
 import { useMobileSidebar } from './useMobileSidebar';

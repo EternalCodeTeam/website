@@ -12,7 +12,7 @@ function findMarkdownFiles(dir: string): string[] {
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
       files.push(...findMarkdownFiles(fullPath));
-    } else if (entry.isFile() && entry.name.endsWith(".md")) {
+    } else if (entry.isFile() && entry.name.endsWith(".mdx")) {
       files.push(fullPath);
     }
   }
@@ -29,7 +29,7 @@ function generateSearchIndex() {
     const content = fs.readFileSync(file, "utf8");
     const { data, content: markdownContent } = matter(content);
     const relativePath = path.relative(docsDir, file);
-    const urlPath = `/docs/${relativePath.replace(/\.md$/, "")}`;
+    const urlPath = `/docs/${relativePath.replace(/\.mdx$/, "")}`;
 
     const excerpt = markdownContent
       .replace(/[#*`_~]/g, "")
@@ -38,7 +38,7 @@ function generateSearchIndex() {
       .substring(0, 150);
 
     searchIndex.push({
-      title: data.title || path.basename(file, ".md"),
+      title: data.title || path.basename(file, ".mdx"),
       path: urlPath,
       excerpt,
     });

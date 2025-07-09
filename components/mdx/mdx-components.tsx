@@ -56,7 +56,7 @@ export const components: MDXComponents = {
   ),
 
   // Custom components
-  Alert: AlertBox,
+  AlertBox: AlertBox,
   CodeTabs,
   CodeTab,
   DynamicCommandsTable,
