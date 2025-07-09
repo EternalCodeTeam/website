@@ -13,8 +13,8 @@ import { EditOnGitHub } from "@/components/docs/content/EditOnGitHub";
 import { ErrorBoundary } from "@/components/docs/content/ErrorBoundary";
 import { ReadingTime } from "@/components/docs/content/ReadingTime";
 import { ShortLink } from "@/components/docs/content/ShortLink";
-import { docsStructure } from "@/lib/sidebar-structure";
 import { components, mdxOptions } from "@/components/mdx/mdx-components";
+import { docsStructure } from "@/lib/sidebar-structure";
 
 interface DocMeta {
   title: string;

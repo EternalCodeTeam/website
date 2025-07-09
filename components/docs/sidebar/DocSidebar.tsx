@@ -4,9 +4,10 @@ import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import React, { useEffect } from "react";
 
+import { docsStructure } from "@/lib/sidebar-structure";
 import { cn } from "@/lib/utils";
 
-import { docsStructure } from "../../../lib/sidebar-structure";
+
 import SidebarItem from "./SidebarItem";
 import { DocSidebarProps } from "./types";
 import { useMobileSidebar } from './useMobileSidebar';
