@@ -5,7 +5,7 @@ import matter from "gray-matter";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { Suspense, cache } from "react";
+import { Suspense } from "react";
 
 import { DocsHeader } from "@/components/docs/content/DocsHeader";
 import { DocsNavigation } from "@/components/docs/content/DocsNavigation";
@@ -34,27 +34,39 @@ interface DocNavigation {
   next: { title: string; path: string } | null;
 }
 
-const getFlatDocs = cache(() => {
+function getFlatDocs(): { title: string; path: string }[] {
   function flattenDocs(
     structure: {
       title: string;
       path: string;
-      children?: { title: string; path: string }[];
+      children?: {
+        title: string;
+        path: string;
+        children?: any[];
+      }[];
     }[]
   ): { title: string; path: string }[] {
-    return structure.reduce<{ title: string; path: string }[]>((acc, item) => {
-      if (item.children?.length) {
-        acc.push(...item.children);
-      } else {
-        acc.push({ title: item.title, path: item.path });
-      }
-      return acc;
-    }, []);
-  }
-  return flattenDocs(docsStructure);
-});
+    const result: { title: string; path: string }[] = [];
 
-const getDocBySlug = cache(async (slug: string[]): Promise<Doc | null> => {
+    for (const item of structure) {
+      const hasChildren = item.children && item.children.length > 0;
+
+      if (hasChildren) {
+        result.push(...flattenDocs(item.children!));
+      }
+
+      if (!hasChildren) {
+        result.push({ title: item.title, path: item.path });
+      }
+    }
+
+    return result;
+  }
+
+  return flattenDocs(docsStructure);
+}
+
+async function getDocBySlug(slug: string[]): Promise<Doc | null> {
   const docsDirectory = path.join(process.cwd(), "content/docs");
   const fullPath = path.join(docsDirectory, slug.join("/") + ".md");
 
@@ -74,16 +86,16 @@ const getDocBySlug = cache(async (slug: string[]): Promise<Doc | null> => {
     console.error(`Error reading doc file ${fullPath}:`, error);
     return null;
   }
-});
+}
 
-const getDocNavigation = cache((currentPath: string): DocNavigation => {
+function getDocNavigation(currentPath: string): DocNavigation {
   const flatDocs = getFlatDocs();
   const currentIndex = flatDocs.findIndex((doc) => doc.path === currentPath);
   return {
     prev: currentIndex > 0 ? flatDocs[currentIndex - 1] : null,
     next: currentIndex < flatDocs.length - 1 ? flatDocs[currentIndex + 1] : null,
   };
-});
+}
 
 interface Props {
   params: Promise<{
