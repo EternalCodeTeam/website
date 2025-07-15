@@ -42,10 +42,6 @@ export default function Team() {
   return (
     <AnimatedSection id="team" animationType="fadeUp">
       <div className="relative mx-auto max-w-screen-xl px-4 py-20">
-        {/* Decorative blurred circles */}
-        <div className="pointer-events-none absolute -top-20 left-10 z-0 h-48 w-48 rounded-full bg-blue-300 opacity-30 blur-3xl dark:bg-blue-800" />
-        <div className="pointer-events-none absolute -bottom-10 right-0 z-0 h-64 w-64 rounded-full bg-indigo-300 opacity-20 blur-2xl dark:bg-indigo-700" />
-
         <AnimatedElement as="div" animationType="fadeDown" delay={0.1}>
           <SectionTitle
             title="Meet the Team"
