@@ -167,26 +167,32 @@ export const AlertBox = memo(function AlertBox({
         className
       )}
     >
-      <div className="flex items-start gap-3">
+      <div className="flex flex-wrap items-start gap-3">
         {/* Alert icon */}
-        <div className="mt-0.5" aria-hidden="true">
+        <div className="mt-0.5 shrink-0" aria-hidden="true">
           <Icon className={`h-5 w-5 ${styles.icon}`} />
         </div>
+
         {/* Alert content */}
         <motion.div
-          className="flex-1"
+          className="flex-1 min-w-0"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.1, duration: 0.2 }}
         >
-          {/* Alert title */}
           {(title || defaultTitle) && (
-            <h5 className={`mb-1 font-semibold ${styles.title}`}>{title || defaultTitle}</h5>
+            <h5 className={`mb-1 font-semibold text-sm md:text-base ${styles.title}`}>
+              {title || defaultTitle}
+            </h5>
           )}
-          {/* Main alert text */}
-          <div className={`prose-sm ${styles.text}`}>{children}</div>
+          <div
+            className={`prose-sm md:prose-base break-words overflow-x-auto max-w-full ${styles.text}`}
+          >
+            {children}
+          </div>
         </motion.div>
       </div>
+
     </motion.div>
   );
 });
