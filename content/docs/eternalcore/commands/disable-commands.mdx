@@ -1,0 +1,58 @@
+---
+title: Disabling Commands
+description: Learn how to disable specific commands in EternalCore or other EternalCode plugins using the `commands.yml` file.
+---
+
+## ❌ Disable Commands in EternalCore
+
+EternalCore (and most EternalCode plugins) allows you to disable specific commands using the `commands.yml` configuration file.
+
+import { AlertBox } from "../../../components/ui/alert-box";
+
+<AlertBox type="important">
+  You must **restart the server** after making any changes to this file. Reload is not enough.
+</AlertBox>
+
+
+---
+
+## 🗂️ Location of the file
+
+```text
+/plugins/EternalCore/commands.yml
+```
+
+---
+
+## 🚫 How to disable a command
+
+To disable a specific command — for example, `/rtp` — you need to add a section like this in `commands.yml`:
+
+```yaml
+rtp:
+  name: []
+  enabled: false
+  aliases: []
+  permissions: []
+  subCommands: []
+```
+
+📌 In this case, `rtp` is the **original command name**, not an alias.
+
+---
+
+## ⚠️ Warnings and Tips
+
+* ❗ **Do not use an alias.** You must use the original command name exactly as it is defined by the plugin.
+* 🔁 Changes require a **server restart** to take effect.
+* ✅ You can safely disable *any* built-in command if you want to replace it with your own or just remove access.
+
+---
+
+## 📄 Find all available commands
+
+<AlertBox type="info">
+  A full list of EternalCore permissions and commands is available here:
+  https://www.eternalcode.pl/docs/eternalcore/features/permissions
+</AlertBox>
+

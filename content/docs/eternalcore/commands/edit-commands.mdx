@@ -1,0 +1,75 @@
+---
+title: Edit Commands
+description: Learn how to rename commands, change aliases and permissions, and customize subcommands in EternalCore using commands.yml.
+---
+
+## ✏️ Edit Commands in EternalCore
+
+EternalCore allows you to fully customize command names, aliases, permissions, and subcommands through the `commands.yml` file.
+
+<AlertBox type="important">
+  You must <strong>restart the server</strong> after making any changes to this file. Reload is not enough.
+</AlertBox>
+
+---
+
+## 🗂️ Location of the file
+
+```text
+/plugins/EternalCore/commands.yml
+```
+
+---
+
+## 🧩 What can be changed?
+
+You can modify:
+
+* Command name (e.g. `/eternalcore` → `/eternal-core`)
+* Aliases (e.g. `/ec`, `/eternal`)
+* Required permissions
+* Subcommands (name, aliases, permissions, or disable entirely)
+
+---
+
+## 🔧 Example configuration
+
+```yaml
+commands:
+  eternalcore:
+    name: "eternal-core"
+    enabled: true
+    aliases:
+      - "eternal"
+    permissions:
+      - "eternalcore.eternalcore"
+    subCommands:
+      reload:
+        name: "reload"
+        enabled: true
+        aliases:
+          - "rl"
+        permissions:
+          - "eternalcore.reload"
+```
+
+---
+
+## ✅ Result of this configuration
+
+* `/eternalcore` becomes `/eternal-core`
+* New alias `/eternal` is added
+* The `/eternal-core reload` command can now also be run using `/eternal-core rl`
+* Both commands require custom permissions
+
+---
+
+## 🛑 Disable a subcommand (optional)
+
+You can also disable a specific subcommand by setting:
+
+```yaml
+enabled: false
+```
+
+inside the subcommand section.
