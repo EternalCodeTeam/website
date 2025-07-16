@@ -37,20 +37,20 @@ You can modify:
 ```yaml
 commands:
   eternalcore:
-    name: "eternal-core"
+    name: "eternal-core" # this is the new main command name
     enabled: true
     aliases:
-      - "eternal"
+      - "eternal" # list of new aliases for the main command
     permissions:
-      - "eternalcore.eternalcore"
+      - "eternalcore.eternalcore" # permission required to use the main command
     subCommands:
-      reload:
-        name: "reload"
+      reload: # this must match the name of the subcommand you want to edit
+        name: "reload" # this is the new subcommand name (keep the same if unchanged)
         enabled: true
         aliases:
-          - "rl"
+          - "rl" # list of new aliases for the subcommand
         permissions:
-          - "eternalcore.reload"
+          - "eternalcore.reload" # permission required to use the subcommand
 ```
 
 ---
