@@ -12,7 +12,6 @@ import { DocsNavigation } from "@/components/docs/content/DocsNavigation";
 import { EditOnGitHub } from "@/components/docs/content/EditOnGitHub";
 import { ErrorBoundary } from "@/components/docs/content/ErrorBoundary";
 import { ReadingTime } from "@/components/docs/content/ReadingTime";
-import { ShortLink } from "@/components/docs/content/ShortLink";
 import { components, mdxOptions } from "@/components/mdx/mdx-components";
 import { docsStructure } from "@/lib/sidebar-structure";
 
@@ -170,7 +169,6 @@ export default async function DocPage({ params }: Props) {
           actions={
             <>
               <ReadingTime content={doc.content} />
-              <ShortLink path={currentPath} />
               <EditOnGitHub filePath={resolvedParams.slug.join("/")} />
             </>
           }
