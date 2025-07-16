@@ -72,6 +72,12 @@ A player with the permission `eternalcore.home.vip` can set **up to 2 homes**.
 
 The `/homeadmin` command group allows server staff and administrators to fully manage homes for other players, regardless of their permission limits or online status.
 
+import { AlertBox } from "../../../components/ui/alert-box";
+
+<AlertBox type="warning" title="⚙️ Offline player support is coming in EternalCore 2.0!">
+  You'll be able to view, modify, and teleport to homes of offline players seamlessly.
+</AlertBox>
+
 ### 💡 Examples
 
 ```text
@@ -95,7 +101,9 @@ The `/homeadmin` command group allows server staff and administrators to fully m
 ## ❓ FAQ
 
 **Q: What happens if a player loses permission to a higher home tier?**
+
 A: The player will no longer be able to create new homes above their new limit, but existing homes are not deleted.
 
 **Q: Can I disable teleport delay?**
+
 A: Yes. Set `teleportTimeToHomes: "0s"` to disable the delay completely.
