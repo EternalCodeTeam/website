@@ -1,0 +1,109 @@
+---
+title: Homes
+description: Homes are a powerful feature that allows players to set, manage, and teleport to custom home locations with optional permissions-based limits.
+---
+
+## 🏠 Homes — teleport to personal locations
+
+Homes allow players to set their own defined locations in any world and teleport to them using simple commands. This system is permission-based and highly configurable.
+
+```yaml
+homes:
+  # Default home name
+  defaultHomeName: "home"
+  # Time of teleportation to homes
+  teleportTimeToHomes: "5s"
+```
+
+## 🔒 Limit homes based on permissions
+
+You can assign a maximum number of homes to specific permissions using the `maxHomes` section.
+
+It is possible to configure the maximum number of homes for a given permission.
+
+```yaml
+# Homes Section
+homes:
+  # Home limits per permission
+  maxHomes:
+    eternalcore.home.default: 1     # Default players: 1 home
+    eternalcore.home.vip: 2         # VIP players: 2 homes
+    eternalcore.home.premium: 3     # Premium players: 3 homes
+    eternalcore.home.legend: 4      # Legend players: 4 homes
+    # You can define more with the format: eternalcore.home.<unique_name>
+```
+
+🎯 Example:
+A player with the permission `eternalcore.home.vip` can set **up to 2 homes**.
+
+📌 The plugin automatically uses the highest value from all permissions a player has.
+
+⚠️ **If a player has no matching permission, they won't be able to use the homes feature.**
+
+---
+
+## 🎬 Homes in action
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+  <div className="overflow-hidden">
+    <img className="inline-block rounded-md shadow-sm my-4" src="/docs/eternalcore/homes/sethome.gif" alt="Setting home" />
+    <div className="p-2 text-center text-sm font-medium bg-muted">Setting a home with `/sethome`</div>
+  </div>
+
+  <div className="overflow-hidden">
+    <img className="inline-block rounded-md shadow-sm my-4" src="/docs/eternalcore/homes/home-limit-reached.gif" alt="Home limit reached" />
+    <div className="p-2 text-center text-sm font-medium bg-muted">Home limit reached message</div>
+  </div>
+
+  <div className="overflow-hidden">
+    <img className="inline-block rounded-md shadow-sm my-4" src="/docs/eternalcore/homes/delhome.gif" alt="Deleting home" />
+    <div className="p-2 text-center text-sm font-medium bg-muted">Deleting a home with `/delhome`</div>
+  </div>
+
+  <div className="overflow-hidden">
+    <img className="inline-block rounded-md shadow-sm my-4" src="/docs/eternalcore/homes/home-list.gif" alt="Listing homes" />
+    <div className="p-2 text-center text-sm font-medium bg-muted">Listing homes with just `/home`</div>
+  </div>
+</div>
+
+---
+
+## 🛠️ Manage player homes with `/homeadmin`
+
+The `/homeadmin` command group allows server staff and administrators to fully manage homes for other players, regardless of their permission limits or online status.
+
+import { AlertBox } from "../../../components/ui/alert-box";
+
+<AlertBox type="warning" title="⚙️ Offline player support is coming in EternalCore 2.0!">
+  You'll be able to view, modify, and teleport to homes of offline players seamlessly.
+</AlertBox>
+
+### 💡 Examples
+
+```text
+/homeadmin list Steve
+→ Shows all homes Steve has set
+
+/homeadmin home Alex base
+→ Teleports you to Alex’s “base” home
+
+/homeadmin sethome Notch cave
+→ Sets Notch's home named "cave" at your current location
+
+/homeadmin delhome Herobrine lava
+→ Deletes Herobrine's home named "lava"
+```
+
+![homeadmin.gif](/docs/eternalcore/homes/homeadmin.gif)
+
+---
+
+## ❓ FAQ
+
+**Q: What happens if a player loses permission to a higher home tier?**
+
+A: The player will no longer be able to create new homes above their new limit, but existing homes won't be deleted.
+
+**Q: Can I disable teleport delay?**
+
+A: Yes, you can. To do that, set `teleportTimeToHomes: "0s"`.
