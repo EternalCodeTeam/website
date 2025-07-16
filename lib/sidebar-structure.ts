@@ -20,6 +20,14 @@ export const docsStructure: DocItem[] = [
           { title: "Homes", path: "/docs/eternalcore/features/homes" },
         ],
       },
+      {
+        title: "Commands",
+        path: "/docs/eternalcore/commands",
+        children: [
+          { title: "Disable commands", path: "/docs/eternalcore/commands/disable-commands" },
+          { title: "Edit commands", path: "/docs/eternalcore/commands/edit-commands" },
+        ],
+      },
       { title: "FAQ", path: "/docs/eternalcore/faq" },
       { title: "Placeholders", path: "/docs/eternalcore/placeholders" },
       { title: "Developer API", path: "/docs/eternalcore/using-api" },
