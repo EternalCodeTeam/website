@@ -9,7 +9,7 @@ interface EditOnGitHubProps {
 }
 
 export const EditOnGitHub = ({ filePath, className }: EditOnGitHubProps) => {
-  const githubUrl = `https://github.com/EternalCodeTeam/website/edit/main/content/docs/${filePath}.mdx`;
+  const githubUrl = `https://github.com/EternalCodeTeam/website/edit/master/content/docs/${filePath}.mdx`;
 
   return (
     <Link href={githubUrl} target="_blank" rel="noopener noreferrer">
