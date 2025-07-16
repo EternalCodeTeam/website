@@ -1,3 +1,5 @@
+"use client";
+
 import { motion, MotionProps, Variants } from "framer-motion";
 import {
   ComponentPropsWithoutRef,
