@@ -11,36 +11,24 @@ const ActionBar = React.memo(({ message }: ActionBarProps) => {
 
   return (
     <div
-      className="absolute left-1/2"
       style={{
-        bottom: "12%",
-        transform: "translateX(-50%)",
-        width: "100%",
-        textAlign: "center",
         pointerEvents: "none",
         zIndex: 10,
-        background: "none",
-        border: "none",
-        boxShadow: "none",
-        padding: 0,
+        width: "100%",
+        textAlign: "center",
       }}
     >
       <span
         className="font-minecraft"
         style={{
-          fontSize: "1.5rem",
-          textShadow:
-            "2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000",
+          fontSize: "calc(14px * var(--mc-scale))",
+          lineHeight: "calc(16px * var(--mc-scale))",
           fontWeight: "normal",
-          lineHeight: 1.2,
-          padding: 0,
-          margin: 0,
           letterSpacing: 0,
           userSelect: "none",
-          background: "none",
-          border: "none",
-          boxShadow: "none",
           whiteSpace: "pre-wrap !important",
+          textShadow:
+            "var(--mc-shadow) 0 0 #000, calc(-1 * var(--mc-shadow)) 0 0 #000, 0 var(--mc-shadow) 0 #000, 0 calc(-1 * var(--mc-shadow)) 0 #000",
         }}
       >
         <MinecraftText text={message} />

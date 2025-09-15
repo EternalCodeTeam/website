@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence } from "framer-motion";
-import React, { useMemo } from "react";
+import React, { useMemo, useRef, useLayoutEffect, useState } from "react";
 
 import ActionBar from "@/components/notification-generator/tabs/actionbar/ActionBar";
 import ChatMessage from "@/components/notification-generator/tabs/chat/ChatMessage";
@@ -17,10 +17,48 @@ export function MinecraftPreview({ notification }: MinecraftPreviewProps) {
   const { showTitle, titleOpacity } = useTitleAnimation(notification);
   const { playSound } = useSoundEffect(notification.sound);
 
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const [scaleVars, setScaleVars] = useState<React.CSSProperties>({});
+
+  useLayoutEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+
+    const rect = el.getBoundingClientRect();
+    const baseHeight = 540;
+    const scale = Math.max(0.5, rect.height / baseHeight);
+
+    const cssVars: React.CSSProperties = {
+      ["--mc-scale" as any]: scale.toString(),
+      ["--mc-font-size" as any]: `calc(8px * var(--mc-scale))`,
+      ["--mc-line-height" as any]: `calc(9px * var(--mc-scale))`,
+      ["--mc-shadow" as any]: `calc(1px * var(--mc-scale))`,
+
+      ["--mc-chat-left" as any]: `calc(4px * var(--mc-scale))`,
+      ["--mc-chat-bottom" as any]: `calc(48px * var(--mc-scale))`,
+      ["--mc-chat-width" as any]: `calc(320px * var(--mc-scale))`,
+
+      ["--mc-actionbar-bottom" as any]: `calc(67px * var(--mc-scale))`,
+
+      ["--mc-title-font-size" as any]: `calc(32px * var(--mc-scale))`,
+      ["--mc-subtitle-font-size" as any]: `calc(16px * var(--mc-scale))`,
+    };
+
+    setScaleVars(cssVars);
+  }, []);
+
   const chatComponent = useMemo(() => {
     if (!notification.chat) return null;
     return (
-      <div className="absolute bottom-4 left-0">
+      <div
+        className="absolute"
+        style={{
+          left: "var(--mc-chat-left)",
+          bottom: "var(--mc-chat-bottom)",
+          width: "var(--mc-chat-width)",
+          zIndex: 5,
+        }}
+      >
         <ChatMessage message={notification.chat} />
       </div>
     );
@@ -29,7 +67,16 @@ export function MinecraftPreview({ notification }: MinecraftPreviewProps) {
   const actionBarComponent = useMemo(() => {
     if (!notification.actionbar) return null;
     return (
-      <div>
+      <div
+        className="absolute left-1/2"
+        style={{
+          bottom: "var(--mc-actionbar-bottom)",
+          transform: "translateX(-50%)",
+          width: "100%",
+          maxWidth: "100%",
+          zIndex: 10,
+        }}
+      >
         <ActionBar message={notification.actionbar} />
       </div>
     );
@@ -60,12 +107,14 @@ export function MinecraftPreview({ notification }: MinecraftPreviewProps) {
 
   return (
     <div
+      ref={rootRef}
       className="font-minecraft relative overflow-hidden rounded-lg bg-gray-900 shadow-lg"
       style={{
         width: "100%",
         aspectRatio: "16/9",
         maxWidth: "1280px",
         margin: "0 auto",
+        ...scaleVars,
       }}
       role="img"
       aria-label="Minecraft notification preview"

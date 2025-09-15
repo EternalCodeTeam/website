@@ -16,9 +16,8 @@ const ChatMessage = React.memo(({ message }: ChatMessageProps) => {
       className={`relative flex items-center ${styles.chatContainer}`}
       style={{
         width: "100%",
-        maxWidth: "50vw",
-        minWidth: 200,
-        overflowX: "unset",
+        maxWidth: "100%",
+        overflowX: "hidden",
         overflowY: "auto",
         whiteSpace: "pre-line",
         height: "auto",
@@ -38,13 +37,18 @@ const ChatMessage = React.memo(({ message }: ChatMessageProps) => {
           {message.split("\n").map((line, index) => (
             <div
               key={`${line}-${index}`}
-              className="font-minecraft px-4 drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]"
+              className="font-minecraft"
               style={{
                 display: "block",
-                minHeight: 32,
-                lineHeight: "32px",
+                minHeight: "var(--mc-line-height)",
+                lineHeight: "var(--mc-line-height)",
+                fontSize: "var(--mc-font-size)",
                 whiteSpace: "pre-wrap !important",
                 wordBreak: "break-word",
+                paddingLeft: "calc(4px * var(--mc-scale))",
+                paddingRight: "calc(4px * var(--mc-scale))",
+                textShadow:
+                  "var(--mc-shadow) 0 0 #000, calc(-1 * var(--mc-shadow)) 0 0 #000, 0 var(--mc-shadow) 0 #000, 0 calc(-1 * var(--mc-shadow)) 0 #000",
               }}
             >
               <MinecraftText text={line} />
@@ -53,14 +57,19 @@ const ChatMessage = React.memo(({ message }: ChatMessageProps) => {
         </div>
       ) : (
         <div
-          className="font-minecraft px-4 drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]"
+          className="font-minecraft"
           style={{
             position: "relative",
             zIndex: 1,
-            minHeight: 32,
-            lineHeight: "32px",
+            minHeight: "var(--mc-line-height)",
+            lineHeight: "var(--mc-line-height)",
+            fontSize: "var(--mc-font-size)",
             whiteSpace: "pre-wrap !important",
             wordBreak: "break-word",
+            paddingLeft: "calc(4px * var(--mc-scale))",
+            paddingRight: "calc(4px * var(--mc-scale))",
+            textShadow:
+              "var(--mc-shadow) 0 0 #000, calc(-1 * var(--mc-shadow)) 0 0 #000, 0 var(--mc-shadow) 0 #000, 0 calc(-1 * var(--mc-shadow)) 0 #000",
           }}
         >
           <MinecraftText text={message} />

@@ -23,7 +23,18 @@ export const MinecraftText: FC<MinecraftTextProps> = ({ text }) => {
     }
   }, [cleanedText]);
 
-  return <span className="font-minecraft" dangerouslySetInnerHTML={{ __html: htmlOutput }} />;
+  return (
+    <span
+      className="font-minecraft"
+      style={{
+        imageRendering: "pixelated",
+        textRendering: "optimizeSpeed",
+        WebkitFontSmoothing: "none",
+        MozOsxFontSmoothing: "grayscale",
+      }}
+      dangerouslySetInnerHTML={{ __html: htmlOutput }}
+    />
+  );
 };
 
 function sanitizeInput(input: string): string {
@@ -56,6 +67,7 @@ function convertLegacyToMini(text: string): string {
     k: "obfuscated",
     r: "reset",
   };
+
   return text.replace(/[§&]([0-9A-FK-OR])/gi, (_, code) => {
     const key = code.toLowerCase();
     const tag = codeToTag[key];
