@@ -18,6 +18,8 @@ export const docsStructure: DocItem[] = [
           { title: "Butcher Command", path: "/docs/eternalcore/features/butcher-command" },
           { title: "AdminChat Command", path: "/docs/eternalcore/features/adminchat" },
           { title: "Homes", path: "/docs/eternalcore/features/homes" },
+          { title: "Burn", path: "/docs/eternalcore/features/burn" },
+          { title: "Fireball", path: "/docs/eternalcore/features/fireball" }
         ],
       },
       { title: "FAQ", path: "/docs/eternalcore/faq" },
