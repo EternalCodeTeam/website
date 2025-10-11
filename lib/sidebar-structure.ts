@@ -29,7 +29,6 @@ export const docsStructure: DocItem[] = [
           { title: "Heal", path: "/docs/eternalcore/features/heal" },
           { title: "Lightning", path: "/docs/eternalcore/features/lightning" },
           { title: "Message of the Day", path: "/docs/eternalcore/features/motd" },
-          { title: "Ping command", path: "/docs/eternalcore/features/ping" },
           { title: "Private messages", path: "/docs/eternalcore/features/pm" },
           { title: "Random teleport", path: "/docs/eternalcore/features/randomtp" },
           { title: "Repair", path: "/docs/eternalcore/features/repair" },
