@@ -1,0 +1,46 @@
+---
+title: Clear
+description: Clears player inventory or specific item stacks from a player's inventory using `/clear`.
+---
+
+## 🧹 Clear — remove items from inventory
+
+The `/clear` command removes items from a player's inventory. It can be used to clear everything, remove specific item types, or target a specific player (requires proper permissions).
+
+### ✅ Basic usage
+
+```text
+/clear
+→ Clears your entire inventory
+
+/clear <player>
+→ Clears the specified player's inventory (requires permission)
+```
+
+### 🎯 Examples
+
+```text
+/clear
+→ Clears your inventory
+→ Required permission: `eternalcore.clear`
+
+/clear Notch
+→ Notch's inventory has been cleared
+→ Required permission: `eternalcore.clear.other`
+```
+
+---
+
+## 🎬 Clear in action
+
+![clear.gif](/docs/eternalcore/clear.gif)
+
+---
+
+
+
+import { AlertBox } from "../../../components/ui/alert-box";
+
+<AlertBox type="warning" title="⚠️ Be careful!">
+  Inventory clearing is a potentially destructive action and cannot be undone in-game.
+</AlertBox>

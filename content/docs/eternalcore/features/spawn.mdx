@@ -1,0 +1,53 @@
+---
+title: Spawn
+description: Teleport to the server spawn point using `/spawn`.
+---
+
+## 🏠 Spawn — teleport to spawn point
+
+The `/spawn` command teleports you or another player to the server's spawn point. This is useful for returning to the main hub or starting area.
+
+### ✅ Basic usage
+
+```text
+/spawn [player]
+```
+
+- Without `[player]`, teleports yourself to spawn.
+- Providing `[player]` teleports that player to spawn (requires permission).
+
+### 🎯 Examples
+
+```text
+/spawn
+→ Teleporting to spawn... (requires `eternalcore.spawn` permission).
+If the player does not have the `eternalcore.spawn.bypass` permission, a cooldown may apply (configurable).
+
+/spawn Notch
+→ Teleported Notch to spawn (requires `eternalcore.spawn.other` permission)
+```
+
+---
+
+### 🛠️ Setting the spawn
+
+Staff members can set the spawn location using:
+
+```text
+/setspawn
+→ Sets the spawn point to your current location
+```
+
+---
+
+![spawn.gif](/docs/eternalcore/spawn.gif)
+
+---
+
+## ℹ️ Notes
+
+- Permission: `eternalcore.spawn` (teleport to spawn), `eternalcore.spawn.other` (teleport others).
+- Permission to set spawn: `eternalcore.setspawn`
+- May have a cooldown period before teleport (configurable).
+- Teleport is canceled if you move or take damage during warmup.
+
