@@ -21,12 +21,12 @@ interface SearchBoxProps {
 }
 
 const SearchBox = ({
-                     className = "",
-                     placeholder = "Search documentation...",
-                     minQueryLength = 2,
-                     debounceTime = 300,
-                     searchEndpoint = "/api/docs/search-index",
-                   }: SearchBoxProps) => {
+  className = "",
+  placeholder = "Search documentation...",
+  minQueryLength = 2,
+  debounceTime = 300,
+  searchEndpoint = "/api/docs/search-index",
+}: SearchBoxProps) => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -133,23 +133,23 @@ const SearchBox = ({
             type="text"
             value={query}
             onChange={(e) => {
-              setQuery(e.target.value)
-              setIsOpen(true)
-              setSelectedIndex(0)
+              setQuery(e.target.value);
+              setIsOpen(true);
+              setSelectedIndex(0);
             }}
             onFocus={() => {
-              setIsOpen(true)
-              setIsFocused(true)
+              setIsOpen(true);
+              setIsFocused(true);
             }}
             onBlur={() => setIsFocused(false)}
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
             className={cn(
-              "w-full rounded-lg border bg-white px-4 py-2.5 pl-10 pr-10 text-sm transition-all duration-200 select-none outline-none",
+              "w-full select-none rounded-lg border bg-white px-4 py-2.5 pl-10 pr-10 text-sm outline-none transition-all duration-200",
               isFocused || isOpen
-                ? "border-blue-500 ring-2 ring-blue-500/50 shadow-lg shadow-blue-500/20 dark:shadow-blue-500/10"
+                ? "border-blue-500 shadow-lg shadow-blue-500/20 ring-2 ring-blue-500/50 dark:shadow-blue-500/10"
                 : "border-gray-300 shadow-sm dark:border-gray-700",
-              "dark:bg-gray-800 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
+              "placeholder:text-gray-400 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500"
             )}
             aria-label="Search documentation"
           />
@@ -217,7 +217,7 @@ const SearchBox = ({
             className="absolute z-50 mt-2 w-full overflow-hidden rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-800"
           >
             {results.length > 0 ? (
-              <div className="max-h-96 overflow-y-auto scrollbar-hide">
+              <div className="scrollbar-hide max-h-96 overflow-y-auto">
                 {results.map((result, index) => (
                   <motion.button
                     key={result.path}
@@ -230,7 +230,7 @@ const SearchBox = ({
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.03 }}
                     className={cn(
-                      "w-full px-4 py-3 text-left transition-all select-none",
+                      "w-full select-none px-4 py-3 text-left transition-all",
                       selectedIndex === index
                         ? "bg-blue-50 dark:bg-blue-900/20"
                         : "hover:bg-gray-50 dark:hover:bg-gray-700/50"
@@ -251,11 +251,11 @@ const SearchBox = ({
                       >
                         <Sparkles className="h-4 w-4" />
                       </motion.div>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-semibold text-gray-900 dark:text-white truncate">
+                      <div className="min-w-0 flex-1">
+                        <div className="truncate font-semibold text-gray-900 dark:text-white">
                           {result.title}
                         </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mt-0.5">
+                        <div className="mt-0.5 line-clamp-2 text-xs text-gray-500 dark:text-gray-400">
                           {result.excerpt}
                         </div>
                       </div>
@@ -287,7 +287,7 @@ const SearchBox = ({
                 <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   No results found
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
                   Try different keywords
                 </p>
               </motion.div>
