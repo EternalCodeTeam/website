@@ -1,0 +1,52 @@
+---
+title: Powertool
+description: Bind commands to items so that using an item executes a command automatically.
+---
+
+# Powertool
+
+The Powertool feature lets you bind a command to a specific item in hand. When a player uses that item (left or right-click), the bound command is executed automatically. This is useful for shortcuts, tools, or custom item behaviours without creating custom items.
+
+## Key points
+- Binds a command to an item type (and optionally to item meta).
+- Command is executed when the player uses the item.
+- Supports placeholders (player, location, item info).
+
+## Commands
+
+Common commands (adjust names to your server's commands if different):
+
+- Bind a command to the item in hand:
+    ```
+    /powertool set <command...>
+    ```
+    Example:
+    ```
+    /powertool set warp home
+    ```
+    This binds `warp home` to the currently held item.
+
+- Unbind the powertool for the item in hand:
+    ```
+    /powertool
+    ```
+
+Notes:
+- Commands typed after `set` are the command that will run when the item is used.
+- If your command requires a leading slash, omit it in the binding (the plugin will add it when executing).
+
+## Permissions
+
+- `eternalcore.powertool.use` — allows using powertools.
+- `eternalcore.powertool.assign` — allows binding commands to items.
+
+## Placeholders
+
+When binding a command you can use placeholders which will be replaced when the command runs. Typical placeholders:
+
+- `{player}` — player's name
+- `{WORLD}` - player's world name
+- `{x}`, `{y}`, `{z}`, `yaw`, `pitch` — player's coordinates
+- `{world}` — player's world name
+- `{ITEM_TYPE}` — item material (e.g., DIAMOND_SWORD)
+- `{ITEM_NAME}` — the name of the item
