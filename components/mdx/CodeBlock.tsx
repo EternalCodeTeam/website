@@ -16,7 +16,7 @@ export const CodeBlock = memo(({ children, language, className }: CodeBlockProps
   const copyToClipboard = async () => {
     if (!preRef.current) return;
     try {
-      const codeElement = preRef.current.querySelector('code');
+      const codeElement = preRef.current.querySelector("code");
       const textToCopy = codeElement ? codeElement.textContent : preRef.current.innerText;
       await navigator.clipboard.writeText(textToCopy || "");
       setCopied(true);

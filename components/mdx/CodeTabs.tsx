@@ -2,7 +2,14 @@
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { AnimatePresence, motion } from "framer-motion";
-import React, { Children, ComponentType, isValidElement, ReactNode, useCallback, useState } from "react";
+import React, {
+  Children,
+  ComponentType,
+  isValidElement,
+  ReactNode,
+  useCallback,
+  useState,
+} from "react";
 import * as SIIcons from "react-icons/si";
 
 import { cn } from "@/lib/utils";
@@ -162,12 +169,6 @@ export const CodeTabs = ({
   );
 };
 
-export function CodeTab({
-  children,
-}: {
-  label: string;
-  children: ReactNode;
-  disabled?: boolean;
-}) {
+export function CodeTab({ children }: { label: string; children: ReactNode; disabled?: boolean }) {
   return <>{children}</>;
 }

@@ -3,10 +3,8 @@ import { redirect } from "next/navigation";
 import { docsStructure } from "@/lib/sidebar-structure";
 
 function flattenDocs(structure: typeof docsStructure) {
-  return structure.flatMap(item =>
-    item.children?.length
-      ? item.children
-      : [{ title: item.title, path: item.path }]
+  return structure.flatMap((item) =>
+    item.children?.length ? item.children : [{ title: item.title, path: item.path }]
   );
 }
 

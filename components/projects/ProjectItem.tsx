@@ -46,7 +46,7 @@ export default function ProjectItem({ repo, index }: ProjectItemProps) {
         </a>
       </div>
 
-      <div className="w-full sm:w-1/2 overflow-hidden rounded-xl shadow-lg">
+      <div className="w-full overflow-hidden rounded-xl shadow-lg sm:w-1/2">
         <motion.div
           className="group relative"
           initial={{ scale: 0.98, opacity: 0 }}

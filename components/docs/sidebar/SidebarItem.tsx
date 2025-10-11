@@ -36,7 +36,7 @@ const SidebarItem: FC<DocItemProps> = memo(({ item, level, onItemClick }) => {
       <div className="mb-0.5">
         <motion.div
           className={cn(
-            "flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium cursor-pointer transition-all group select-none",
+            "group flex cursor-pointer select-none items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all",
             isChildActive
               ? "bg-blue-50/50 text-blue-700 dark:bg-blue-900/10 dark:text-blue-400"
               : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
@@ -107,9 +107,9 @@ const SidebarItem: FC<DocItemProps> = memo(({ item, level, onItemClick }) => {
     <Link href={item.path} onClick={handleClick}>
       <motion.div
         className={cn(
-          "group flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all mb-0.5 select-none",
+          "group mb-0.5 flex select-none items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all",
           isActive
-            ? "bg-blue-600 text-white font-medium shadow-sm dark:bg-blue-600"
+            ? "bg-blue-600 font-medium text-white shadow-sm dark:bg-blue-600"
             : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
         )}
         style={{ paddingLeft }}
@@ -119,7 +119,9 @@ const SidebarItem: FC<DocItemProps> = memo(({ item, level, onItemClick }) => {
         <FileText
           className={cn(
             "h-4 w-4 flex-shrink-0",
-            isActive ? "text-white" : "text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-400"
+            isActive
+              ? "text-white"
+              : "text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-400"
           )}
         />
         <span className="flex-1 truncate">{item.title}</span>

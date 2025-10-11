@@ -72,7 +72,7 @@ export function Pagination({
             <Link
               key={pageNumber}
               href={getPageHref(slug, pageNumber)}
-              className={`${baseBtn} ${currentPage === pageNumber ? primaryBtn : outlineBtn} h-8 w-8 p-0 justify-center ${currentPage === pageNumber ? "aria-[current=page]" : ""}`}
+              className={`${baseBtn} ${currentPage === pageNumber ? primaryBtn : outlineBtn} h-8 w-8 justify-center p-0 ${currentPage === pageNumber ? "aria-[current=page]" : ""}`}
               aria-current={currentPage === pageNumber ? "page" : undefined}
             >
               {pageNumber}
@@ -90,4 +90,4 @@ export function Pagination({
       </div>
     </div>
   );
-} 
+}

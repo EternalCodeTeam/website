@@ -41,9 +41,7 @@ export default function AuthorCard({ author, postCount, compact = false }: Autho
               {author.name}
             </h3>
             {author.bio && (
-              <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
-                {author.bio}
-              </p>
+              <p className="line-clamp-2 text-sm text-gray-600 dark:text-gray-300">{author.bio}</p>
             )}
           </div>
         </motion.div>
@@ -86,11 +84,7 @@ export default function AuthorCard({ author, postCount, compact = false }: Autho
         </Link>
 
         {/* Bio */}
-        {author.bio && (
-          <p className="mb-4 text-gray-600 dark:text-gray-300">
-            {author.bio}
-          </p>
-        )}
+        {author.bio && <p className="mb-4 text-gray-600 dark:text-gray-300">{author.bio}</p>}
 
         {/* Stats */}
         <div className="mb-4 flex justify-center gap-4 text-sm text-gray-500 dark:text-gray-400">
@@ -101,9 +95,9 @@ export default function AuthorCard({ author, postCount, compact = false }: Autho
             </div>
           )}
           {author.email && (
-            <a 
+            <a
               href={`mailto:${author.email}`}
-              className="flex items-center gap-1 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              className="flex items-center gap-1 transition-colors hover:text-blue-600 dark:hover:text-blue-400"
             >
               <Mail size={16} />
               <span>Email</span>
@@ -113,4 +107,4 @@ export default function AuthorCard({ author, postCount, compact = false }: Autho
       </div>
     </motion.div>
   );
-} 
+}

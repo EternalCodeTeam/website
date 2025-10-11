@@ -175,24 +175,23 @@ export const AlertBox = memo(function AlertBox({
 
         {/* Alert content */}
         <motion.div
-          className="flex-1 min-w-0"
+          className="min-w-0 flex-1"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.1, duration: 0.2 }}
         >
           {(title || defaultTitle) && (
-            <h5 className={`mb-1 font-semibold text-sm md:text-base ${styles.title}`}>
+            <h5 className={`mb-1 text-sm font-semibold md:text-base ${styles.title}`}>
               {title || defaultTitle}
             </h5>
           )}
           <div
-            className={`prose-sm md:prose-base break-words overflow-x-auto max-w-full ${styles.text}`}
+            className={`prose-sm max-w-full overflow-x-auto break-words md:prose-base ${styles.text}`}
           >
             {children}
           </div>
         </motion.div>
       </div>
-
     </motion.div>
   );
 });
