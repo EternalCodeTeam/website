@@ -19,6 +19,8 @@ export const docsStructure: DocItem[] = [
           { title: "AFK", path: "/docs/eternalcore/features/afk" },
           { title: "Burn", path: "/docs/eternalcore/features/burn" },
           { title: "Butcher", path: "/docs/eternalcore/features/butcher-command" },
+          { title: "Clear inventory", path: "/docs/eternalcore/features/clear" },
+          { title: "Container inventories", path: "/docs/eternalcore/features/container" },
           { title: "Fireball", path: "/docs/eternalcore/features/fireball" },
           { title: "Homes", path: "/docs/eternalcore/features/homes" },
           { title: "Teleport ask-here", path: "/docs/eternalcore/features/tpahere" },
