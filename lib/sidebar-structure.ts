@@ -18,7 +18,7 @@ export const docsStructure: DocItem[] = [
           { title: "AdminChat", path: "/docs/eternalcore/features/adminchat" },
           { title: "AFK", path: "/docs/eternalcore/features/afk" },
           { title: "Burn", path: "/docs/eternalcore/features/burn" },
-          { title: "Butcher", path: "/docs/eternalcore/features/butcher-command" },
+          { title: "Butcher", path: "/docs/eternalcore/features/butcher" },
           { title: "Clear inventory", path: "/docs/eternalcore/features/clear" },
           { title: "Container inventories", path: "/docs/eternalcore/features/container" },
           { title: "Fireball", path: "/docs/eternalcore/features/fireball" },
