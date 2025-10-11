@@ -1,0 +1,50 @@
+---
+title: Speed
+description: Adjust player movement and flight speed using `/speed`.
+---
+
+## 🏃 Speed — adjust movement speed
+
+The `/speed` command modifies a player's walking or flying speed. This is useful for staff, builders, or players with special permissions.
+
+### ✅ Basic usage
+
+```text
+/speed <1-10> [player]
+/speed <walk|fly> <1-10> [player]
+```
+
+- Speed values range from 1 (normal) to 10 (very fast).
+- Without specifying `walk` or `fly`, adjusts the current movement type.
+- Default speed is 1 (normal Minecraft speed).
+
+### 🎯 Examples
+
+```text
+/speed 5
+→ Your movement speed has been set to 5
+
+/speed walk 3
+→ Your walking speed has been set to 3
+
+/speed fly 7 Notch
+→ Notch's flying speed has been set to 7
+
+/speed 1
+→ Reset to normal speed
+```
+
+---
+
+![speed.gif](/docs/eternalcore/speed.gif)
+
+---
+
+## ℹ️ Notes
+
+- Permission: `eternalcore.speed` (self), `eternalcore.speed.other` (others).
+- Speed affects both walking and flying depending on the current mode.
+- Very high speeds can make controls difficult and may cause lag (e.g. chunks render is too slow compared to player's speed).
+- Speed 1 is the normal Minecraft speed; speed 10 is approximately 10x faster.
+- Decimal points are allowed (e.g. `/speed 2.5`).
+

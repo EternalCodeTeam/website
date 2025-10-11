@@ -1,0 +1,44 @@
+---
+title: Random teleport
+description: Teleport to a random location in the world using `/rtp` or `/randomtp`.
+---
+
+## 🎲 Random Teleport — explore random locations
+
+The `/rtp` (Random Teleport) command teleports you to a random safe location within a configured radius. Perfect for survival servers to help players spread out and explore.
+
+### ✅ Basic usage
+
+```text
+/rtp [player]
+/randomtp [player]
+```
+
+- Without `[player]`, teleports yourself to a random location. Requires `eternalcore.rtp` permission.
+- Providing `[player]` teleports that player (requires `eternalcore.rtp.other` permission).
+
+### 🎯 Examples
+
+```text
+/rtp
+→ Teleporting to a random location...
+→ You have been teleported to X: 1234, Z: -5678
+
+/randomtp Notch
+→ Notch has been teleported to a random location
+```
+
+---
+
+![randomtp.gif](/docs/eternalcore/randomtp.gif)
+
+---
+
+## ℹ️ Notes
+
+- Permission: `eternalcore.rtp` (self), `eternalcore.rtp.other` (others).
+- The command finds a safe location (not in lava, water, or mid-air).
+- Radius and world boundaries can be configured in the plugin settings.
+- Has a default cooldown to prevent abuse (configurable). Apply `eternalcore.rtp.bypass` permission to skip cooldown.
+- The teleport is canceled if no safe location is found after several attempts.
+
