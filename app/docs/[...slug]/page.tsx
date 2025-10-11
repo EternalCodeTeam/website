@@ -178,11 +178,7 @@ export default async function DocPage({ params }: Props) {
 
         <ErrorBoundary>
           <Suspense fallback={<LoadingFallback />}>
-            <MDXRemote
-              source={doc.content}
-              components={components}
-              options={{ mdxOptions }}
-            />
+            <MDXRemote source={doc.content} components={components} options={{ mdxOptions }} />
           </Suspense>
         </ErrorBoundary>
       </article>

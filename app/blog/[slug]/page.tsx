@@ -21,20 +21,24 @@ export async function generateStaticParams() {
 }
 
 function getImageUrl(url: string) {
-  if (!url) return '';
-  if (url.startsWith('http')) return url;
-  const base = process.env.NEXT_PUBLIC_ETERNALCODE_STRAPI_URL || '';
+  if (!url) return "";
+  if (url.startsWith("http")) return url;
+  const base = process.env.NEXT_PUBLIC_ETERNALCODE_STRAPI_URL || "";
   return `${base}${url}`;
 }
 
 function getTagsArray(tags: StrapiTag[] | { data: StrapiTag[] } | undefined): StrapiTag[] {
   if (!tags) return [];
   if (Array.isArray(tags)) return tags;
-  if ('data' in tags && Array.isArray(tags.data)) return tags.data;
+  if ("data" in tags && Array.isArray(tags.data)) return tags.data;
   return [];
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   try {
     const { slug } = await params;
     const post = await getBlogPost(slug);
@@ -113,17 +117,20 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     return (
       <div className="min-h-screen bg-lightGray-100 dark:bg-gray-900">
         {/* Hero Section */}
-        <AnimatedSection animationType="fadeDown" className="pt-40 md:pt-48 pb-0">
+        <AnimatedSection animationType="fadeDown" className="pb-0 pt-40 md:pt-48">
           <div className="mx-auto max-w-screen-xl px-4">
-            <h1 className="mb-4 text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white text-left">
+            <h1 className="mb-4 text-left text-4xl font-extrabold text-gray-900 dark:text-white md:text-5xl">
               {post.title}
             </h1>
-            <p className="mb-4 text-lg text-gray-600 dark:text-gray-300 text-left">
+            <p className="mb-4 text-left text-lg text-gray-600 dark:text-gray-300">
               {post.excerpt}
             </p>
-            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-4">
+            <div className="mb-4 flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
               {post.author && post.author.slug && (
-                <Link href={`/author/${post.author.slug}`} className="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                <Link
+                  href={`/author/${post.author.slug}`}
+                  className="flex items-center gap-2 transition-colors hover:text-blue-600 dark:hover:text-blue-400"
+                >
                   {post.author.avatar && (
                     <Image
                       src={getImageUrl(post.author.avatar.url)}
@@ -152,7 +159,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               )}
             </div>
             {tagsArr.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-6">
+              <div className="mb-6 flex flex-wrap gap-2">
                 {tagsArr.map((tag: StrapiTag) => (
                   <span
                     key={tag.documentId}

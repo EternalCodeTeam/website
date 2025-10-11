@@ -27,9 +27,7 @@ export function DocsHeader({ category, title, description, actions }: DocHeaderP
         <span>{title}</span>
       </h1>
 
-      {description && (
-        <p className="text-muted-foreground mt-0 mb-0 text-lg">{description}</p>
-      )}
+      {description && <p className="text-muted-foreground mb-0 mt-0 text-lg">{description}</p>}
     </div>
   );
 }

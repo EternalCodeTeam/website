@@ -1,13 +1,7 @@
 "use client";
 
 import { motion, MotionProps, Variants } from "framer-motion";
-import {
-  ComponentPropsWithoutRef,
-  ComponentType,
-  ElementType,
-  ReactNode,
-  useMemo,
-} from "react";
+import { ComponentPropsWithoutRef, ComponentType, ElementType, ReactNode, useMemo } from "react";
 import { useInView } from "react-intersection-observer";
 
 import {

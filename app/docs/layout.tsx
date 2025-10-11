@@ -48,7 +48,6 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
             <div className="w-full" style={{ minHeight: "60vh" }}>
               {children}
             </div>
-            {/* Możesz tutaj dodać globalne elementy np. nawigację */}
           </main>
         </div>
       </div>

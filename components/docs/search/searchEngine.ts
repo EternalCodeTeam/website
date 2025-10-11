@@ -4,13 +4,16 @@ import { SearchResult } from "./types";
 
 export class SearchEngine {
   private db: AnyOrama | null = null;
-  private endpoint: string;
+  private readonly endpoint: string;
+  private initialized: boolean = false;
 
   constructor(endpoint: string = "/api/docs/search-index") {
     this.endpoint = endpoint;
   }
 
   async initialize(): Promise<void> {
+    if (this.initialized) return;
+
     try {
       const response = await fetch(this.endpoint);
       if (!response.ok) {
@@ -28,13 +31,14 @@ export class SearchEngine {
       });
 
       await insertMultiple(this.db, searchData);
+      this.initialized = true;
     } catch (error) {
       console.error("Failed to initialize search:", error);
       this.db = null;
     }
   }
 
-  async search(query: string, limit: number = 10): Promise<SearchResult[]> {
+  async search(query: string, limit: number = 8): Promise<SearchResult[]> {
     if (!this.db || query.length < 2) {
       return [];
     }
@@ -44,6 +48,9 @@ export class SearchEngine {
         term: query,
         properties: ["title", "excerpt"],
         limit,
+        boost: {
+          title: 2,
+        },
       });
 
       return searchResults.hits.map((hit) => ({

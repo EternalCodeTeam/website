@@ -1,4 +1,5 @@
-import { ChevronRight, Folder } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronRight, FileText, Folder, FolderOpen } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, memo, useCallback, useState, MouseEvent } from "react";
@@ -7,88 +8,135 @@ import { cn } from "@/lib/utils";
 
 import { DocItemProps } from "./types";
 
-const SidebarItem: FC<DocItemProps> = memo(
-  ({ item, level, onItemClick }) => {
-    const pathname = usePathname();
-    const [isExpanded, setIsExpanded] = useState(true);
-    const hasChildren = item.children && item.children.length > 0;
+const SidebarItem: FC<DocItemProps> = memo(({ item, level, onItemClick }) => {
+  const pathname = usePathname();
+  const [isExpanded, setIsExpanded] = useState(true);
+  const hasChildren = item.children && item.children.length > 0;
 
-    const isActive = pathname === item.path;
+  const isActive = pathname === item.path;
+  const isChildActive = item.children?.some((child) => pathname.startsWith(child.path));
 
-    const handleClick = useCallback(() => {
-      onItemClick?.(item.path);
-    }, [item.path, onItemClick]);
+  const handleClick = useCallback(() => {
+    onItemClick?.(item.path);
+  }, [item.path, onItemClick]);
 
-    const toggleExpanded = useCallback((event: MouseEvent<HTMLDivElement>) => {
+  const toggleExpanded = useCallback(
+    (event: MouseEvent<HTMLDivElement>) => {
       event.preventDefault();
       event.stopPropagation();
       setIsExpanded(!isExpanded);
-    }, [isExpanded]);
+    },
+    [isExpanded]
+  );
 
-    const paddingLeft = level * 16 + 8;
+  const paddingLeft = level * 12 + 12;
 
-    if (hasChildren) {
-      return (
-        <div className="mb-1">
-          <div
-            className={cn(
-              "flex items-center gap-2 px-2 py-1.5 text-sm font-medium rounded-md cursor-pointer transition-colors"
-            )}
-            style={{ paddingLeft }}
-            onClick={toggleExpanded}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                toggleExpanded(e as unknown as MouseEvent<HTMLDivElement>);
-              }
-            }}
-            role="button"
-            tabIndex={0}
-          >
-            <ChevronRight
-              className={cn(
-                "h-4 w-4 transition-transform duration-200",
-                isExpanded ? "rotate-90" : "rotate-0"
-              )}
-            />
-            <Folder className="h-4 w-4" />
-            <span className="flex-1">{item.title}</span>
-          </div>
-
-          {isExpanded && (
-            <div className="mt-1">
-              {item.children?.map((child, childIndex) => (
-                <SidebarItem
-                  key={child.path}
-                  item={child}
-                  level={level + 1}
-                  isActive={pathname === child.path}
-                  onItemClick={onItemClick}
-                  index={childIndex}
-                />
-              ))}
-            </div>
-          )}
-        </div>
-      );
-    }
-
+  if (hasChildren) {
     return (
-      <Link
-        href={item.path}
-        onClick={handleClick}
+      <div className="mb-0.5">
+        <motion.div
+          className={cn(
+            "group flex cursor-pointer select-none items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all",
+            isChildActive
+              ? "bg-blue-50/50 text-blue-700 dark:bg-blue-900/10 dark:text-blue-400"
+              : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+          )}
+          style={{ paddingLeft }}
+          onClick={toggleExpanded}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              toggleExpanded(e as unknown as MouseEvent<HTMLDivElement>);
+            }
+          }}
+          role="button"
+          tabIndex={0}
+          whileHover={{ x: 2 }}
+          transition={{ type: "spring", stiffness: 400, damping: 25 }}
+        >
+          <motion.div
+            animate={{ rotate: isExpanded ? 90 : 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <ChevronRight className="h-4 w-4 flex-shrink-0" />
+          </motion.div>
+
+          {isExpanded ? (
+            <FolderOpen className="h-4 w-4 flex-shrink-0 text-blue-500 dark:text-blue-400" />
+          ) : (
+            <Folder className="h-4 w-4 flex-shrink-0 text-gray-400 dark:text-gray-500" />
+          )}
+
+          <span className="flex-1 truncate">{item.title}</span>
+
+          {item.children && (
+            <span className="ml-auto flex h-5 min-w-[20px] items-center justify-center rounded-full bg-gray-200 px-1.5 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300">
+              {item.children.length}
+            </span>
+          )}
+        </motion.div>
+
+        <AnimatePresence initial={false}>
+          {isExpanded && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2, ease: "easeInOut" }}
+              className="overflow-hidden"
+            >
+              <div className="mt-0.5 space-y-0.5">
+                {item.children?.map((child, childIndex) => (
+                  <SidebarItem
+                    key={child.path}
+                    item={child}
+                    level={level + 1}
+                    isActive={pathname === child.path}
+                    onItemClick={onItemClick}
+                    index={childIndex}
+                  />
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  }
+
+  return (
+    <Link href={item.path} onClick={handleClick}>
+      <motion.div
         className={cn(
-          "flex items-center gap-2 px-2 py-1.5 text-sm rounded-md transition-colors mb-1",
+          "group mb-0.5 flex select-none items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all",
           isActive
-            ? "bg-blue-50 text-blue-700 font-medium dark:bg-blue-900/20 dark:text-blue-400"
+            ? "bg-blue-600 font-medium text-white shadow-sm dark:bg-blue-600"
             : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
         )}
         style={{ paddingLeft }}
+        whileHover={{ x: isActive ? 0 : 4 }}
+        transition={{ type: "spring", stiffness: 400, damping: 25 }}
       >
-        <span className="flex-1">{item.title}</span>
-      </Link>
-    );
-  }
-);
+        <FileText
+          className={cn(
+            "h-4 w-4 flex-shrink-0",
+            isActive
+              ? "text-white"
+              : "text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-400"
+          )}
+        />
+        <span className="flex-1 truncate">{item.title}</span>
+
+        {isActive && (
+          <motion.div
+            layoutId="activeIndicator"
+            className="h-2 w-2 rounded-full bg-white"
+            transition={{ type: "spring", stiffness: 380, damping: 30 }}
+          />
+        )}
+      </motion.div>
+    </Link>
+  );
+});
 
 SidebarItem.displayName = "SidebarItem";
 

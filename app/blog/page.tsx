@@ -50,15 +50,15 @@ export default async function BlogPage() {
     <div className="min-h-screen bg-lightGray-100 dark:bg-gray-900">
       <AnimatedSection
         animationType="fadeDown"
-        className="relative overflow-hidden bg-lightGray-100 dark:bg-gray-900 px-0 pt-56 md:pt-60 pb-0"
+        className="relative overflow-hidden bg-lightGray-100 px-0 pb-0 pt-56 dark:bg-gray-900 md:pt-60"
       >
         <div className="mx-auto max-w-screen-xl px-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-            <div className="flex-1 min-w-0">
-              <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-2 text-left">
+            <div className="min-w-0 flex-1">
+              <h1 className="mb-2 text-left text-4xl font-extrabold text-gray-900 dark:text-white md:text-5xl">
                 Blog
               </h1>
-              <div className="flex flex-wrap gap-6 text-sm mb-2 mt-2">
+              <div className="mb-2 mt-2 flex flex-wrap gap-6 text-sm">
                 <span className="flex items-center gap-1 text-gray-700 dark:text-gray-200">
                   <BookOpen className="h-4 w-4 text-blue-500" /> {posts.length} articles
                 </span>
@@ -72,8 +72,8 @@ export default async function BlogPage() {
                 </span>
               </div>
             </div>
-            <div className="flex-1 min-w-0 mt-6 md:mt-0 md:ml-8 text-right">
-              <p className="text-lg text-gray-500 dark:text-gray-400 max-w-xl md:text-right text-left">
+            <div className="mt-6 min-w-0 flex-1 text-right md:ml-8 md:mt-0">
+              <p className="max-w-xl text-left text-lg text-gray-500 dark:text-gray-400 md:text-right">
                 Discover the latest insights, tutorials, and articles from our team of experts.
               </p>
             </div>
@@ -84,15 +84,24 @@ export default async function BlogPage() {
       <section className="px-0 py-16">
         <div className="mx-auto max-w-screen-xl px-4">
           {posts.length > 0 ? (
-            <AnimatedContainer as="div" staggerDelay={0.12} className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <AnimatedContainer
+              as="div"
+              staggerDelay={0.12}
+              className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+            >
               {posts.map((post, i) => (
-                <AnimatedElement key={post.documentId} animationType="fadeUp" delay={i * 0.05} className="h-full flex flex-col">
+                <AnimatedElement
+                  key={post.documentId}
+                  animationType="fadeUp"
+                  delay={i * 0.05}
+                  className="flex h-full flex-col"
+                >
                   <BlogPostCard post={post} />
                 </AnimatedElement>
               ))}
             </AnimatedContainer>
           ) : (
-            <div className="text-center py-12">
+            <div className="py-12 text-center">
               <BookOpen size={64} className="mx-auto mb-4 text-gray-400 dark:text-gray-600" />
               <h3 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
                 No articles yet

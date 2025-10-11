@@ -44,7 +44,10 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   };
 }
 
-export default async function AuthorPage(props: { params: Promise<{ slug: string }>, searchParams: Promise<{ page?: string }> }) {
+export default async function AuthorPage(props: {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ page?: string }>;
+}) {
   const { params, searchParams } = await props;
   const { slug } = await params;
   const resolvedSearchParams = await searchParams;
@@ -61,27 +64,37 @@ export default async function AuthorPage(props: { params: Promise<{ slug: string
   );
 
   return (
-    <div className="min-h-screen bg-lightGray-100 dark:bg-gray-900 pt-40 pb-12">
+    <div className="min-h-screen bg-lightGray-100 pb-12 pt-40 dark:bg-gray-900">
       <div className="mx-auto max-w-screen-xl px-4">
-        <div className="mx-auto max-w-screen-xl grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="mx-auto grid max-w-screen-xl grid-cols-1 gap-12 md:grid-cols-3">
           {/* avatar, bio, email - STICKY */}
           <aside className="md:col-span-1">
-            <AnimatedSection animationType="fadeLeft" className="sticky top-32 flex flex-col items-start">
+            <AnimatedSection
+              animationType="fadeLeft"
+              className="sticky top-32 flex flex-col items-start"
+            >
               {author.avatar && author.avatar.url && (
                 <Image
                   src={getImageUrl(author.avatar.url)}
                   alt={author.name}
                   width={160}
                   height={160}
-                  className="rounded-full border-4 border-white shadow-lg dark:border-gray-700 mb-6"
+                  className="mb-6 rounded-full border-4 border-white shadow-lg dark:border-gray-700"
                 />
               )}
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{author.name}</h1>
+              <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
+                {author.name}
+              </h1>
               {author.bio && (
-                <p className="mb-4 text-gray-600 dark:text-gray-300 text-center md:text-left">{author.bio}</p>
+                <p className="mb-4 text-center text-gray-600 dark:text-gray-300 md:text-left">
+                  {author.bio}
+                </p>
               )}
               {author.email && (
-                <a href={`mailto:${author.email}`} className="text-blue-600 dark:text-blue-400 hover:underline mb-2">
+                <a
+                  href={`mailto:${author.email}`}
+                  className="mb-2 text-blue-600 hover:underline dark:text-blue-400"
+                >
                   {author.email}
                 </a>
               )}
@@ -90,10 +103,14 @@ export default async function AuthorPage(props: { params: Promise<{ slug: string
 
           {/* articles */}
           <main className="md:col-span-2">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Articles</h2>
+            <h2 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">Articles</h2>
             {posts.length > 0 ? (
               <>
-                <AnimatedContainer as="div" staggerDelay={0.12} className="grid gap-8 md:grid-cols-2 mb-8">
+                <AnimatedContainer
+                  as="div"
+                  staggerDelay={0.12}
+                  className="mb-8 grid gap-8 md:grid-cols-2"
+                >
                   {paginatedPosts.map((post, i) => (
                     <AnimatedElement key={post.documentId} animationType="fadeUp" delay={i * 0.05}>
                       <BlogPostCard post={post} />
@@ -110,11 +127,13 @@ export default async function AuthorPage(props: { params: Promise<{ slug: string
                 />
               </>
             ) : (
-              <div className="text-gray-500 dark:text-gray-400 italic">No articles found for this author <span className="not-italic">(yet!)</span></div>
+              <div className="italic text-gray-500 dark:text-gray-400">
+                No articles found for this author <span className="not-italic">(yet!)</span>
+              </div>
             )}
           </main>
         </div>
       </div>
     </div>
   );
-} 
+}

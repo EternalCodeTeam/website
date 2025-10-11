@@ -37,7 +37,6 @@ export default function Projects() {
 
   return (
     <section id="projects" className="relative isolate overflow-hidden">
-
       <div className="relative z-10 mx-auto max-w-screen-xl px-4 py-20">
         <SectionTitle
           title="Our Projects"
