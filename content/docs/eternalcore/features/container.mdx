@@ -1,0 +1,54 @@
+---
+title: Container Inventories
+description: Open various container-type inventories (anvil, stonecutter, workbench, etc.) with simple commands.
+---
+
+## 🧰 Container Inventories — open special inventories with commands
+
+You can open many different container-style inventories via commands. Each command opens the corresponding inventory for yourself or for another player (if you have permission).
+
+Permissions follow the pattern `eternalcore.<type>` for self-use and `eternalcore.<type>.other` for opening inventories of other players. Replace `<type>` with the name, for example `eternalcore.anvil`.
+
+### ✅ Command format
+
+```text
+/{INVENTORY_TYPE} [player]
+```
+- If `[player]` is omitted, the inventory opens for the command sender.
+- If `[player]` is provided, the command requires the `.other` permission to open the target player's inventory.
+
+### 🔹 Supported types
+
+- anvil
+- disposal
+- stonecutter
+- grindstone
+- workbench
+- loom
+- cartography
+- enderchest
+- smithingtable
+
+### 🎯 Examples
+
+```text
+/anvil
+→ Opens an anvil for you
+
+/workbench Alex
+→ Opens a workbench for player Alex (requires `eternalcore.workbench.other`)
+
+/enderchest
+→ Opens your ender chest
+```
+
+---
+
+![container.gif](/docs/eternalcore/container.gif)
+
+---
+
+## ℹ️ Notes
+
+- Commands require the permission `eternalcore.<type>`; opening another player's inventory requires `eternalcore.<type>.other`.
+- These commands only open the UI client-side for the target player; any changes (like placing items) occur as normal within the opened inventory.
