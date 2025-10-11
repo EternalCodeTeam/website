@@ -14,12 +14,13 @@ export const docsStructure: DocItem[] = [
         title: "Features",
         path: "/docs/eternalcore/features",
         children: [
-          { title: "Commands and Permissions", path: "/docs/eternalcore/features/permissions" },
-          { title: "Butcher Command", path: "/docs/eternalcore/features/butcher-command" },
-          { title: "AdminChat Command", path: "/docs/eternalcore/features/adminchat" },
-          { title: "Homes", path: "/docs/eternalcore/features/homes" },
+          { title: "All Commands and Permissions", path: "/docs/eternalcore/features/permissions" },
+          { title: "AdminChat", path: "/docs/eternalcore/features/adminchat" },
           { title: "Burn", path: "/docs/eternalcore/features/burn" },
-          { title: "Fireball", path: "/docs/eternalcore/features/fireball" }
+          { title: "Butcher", path: "/docs/eternalcore/features/butcher-command" },
+          { title: "Fireball", path: "/docs/eternalcore/features/fireball" },
+          { title: "Homes", path: "/docs/eternalcore/features/homes" },
+          { title: "Teleport ask-here", path: "/docs/eternalcore/features/tpahere" },
         ],
       },
       { title: "FAQ", path: "/docs/eternalcore/faq" },
