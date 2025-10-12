@@ -28,7 +28,7 @@
     "@vercel/og": "^0.8.0",
     "@vercel/speed-insights": "^1.2.0",
     "critters": "^0.0.25",
-    "framer-motion": "^11.0.6",
+    "framer-motion": "^12.0.0",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.545.0",
     "minimessage-js": "^1.1.3",
