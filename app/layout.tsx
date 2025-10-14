@@ -107,7 +107,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={poppins.variable}>
       <body
-        className={`${poppins.className} min-h-screen bg-lightGray-100 antialiased dark:bg-gray-900`}
+        className={`${poppins.className} relative min-h-screen bg-lightGray-100 antialiased dark:bg-gray-900`}
       >
         <Providers>
           <NextTopLoader

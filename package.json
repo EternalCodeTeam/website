@@ -27,6 +27,7 @@
     "@vercel/analytics": "^1.5.0",
     "@vercel/og": "^0.8.0",
     "@vercel/speed-insights": "^1.2.0",
+    "caniuse-lite": "^1.0.30001750",
     "critters": "^0.0.25",
     "framer-motion": "^11.0.6",
     "gray-matter": "^4.0.3",
