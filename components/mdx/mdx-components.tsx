@@ -8,6 +8,7 @@ import { CodeTabs, CodeTab } from "@/components/mdx/CodeTabs";
 import { Heading } from "@/components/mdx/Heading";
 import { Inline } from "@/components/mdx/Inline";
 import { AlertBox } from "@/components/ui/alert-box";
+import DynamicPlaceholdersTable from "@/components/docs/eternalcore/DynamicPlaceholdersTable";
 
 type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>;
 
@@ -44,6 +45,7 @@ export const components: MDXComponents = {
   CodeTabs,
   CodeTab,
   DynamicCommandsTable,
+  DynamicPlaceholdersTable,
 
   code: (props: React.ComponentProps<"code">) => {
     const { children, ...rest } = props;
