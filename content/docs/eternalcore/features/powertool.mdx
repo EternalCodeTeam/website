@@ -3,9 +3,15 @@ title: Powertool
 description: Bind commands to items so that using an item executes a command automatically.
 ---
 
-# Powertool
 
-The Powertool feature lets you bind a command to a specific item in hand. When a player uses that item (left or right-click), the bound command is executed automatically. This is useful for shortcuts, tools, or custom item behaviours without creating custom items.
+
+
+import { AlertBox } from "../../../../components/ui/alert-box";
+
+## 🔨✨ Powertools
+
+The Powertool feature lets you bind a command to a specific item in hand.
+When a player uses that item (left or right-click), the bound command is executed automatically. This is particularly useful for shortcuts, tools, or custom item behaviours without creating custom items.
 
 ## Key points
 - Binds a command to an item type (and optionally to item meta).
@@ -17,23 +23,25 @@ The Powertool feature lets you bind a command to a specific item in hand. When a
 Common commands (adjust names to your server's commands if different):
 
 - Bind a command to the item in hand:
-    ```
-    /powertool set <command...>
-    ```
-    Example:
-    ```
-    /powertool set warp home
-    ```
-    This binds `warp home` to the currently held item.
+```
+/powertool set <command...>
+```
+Example:
+```
+  /powertool set warp home
+```
+This binds `warp home` to the currently held item.
 
 - Unbind the powertool for the item in hand:
-    ```
-    /powertool
-    ```
+```
+/powertool
+```
 
-Notes:
-- Commands typed after `set` are the command that will run when the item is used.
-- If your command requires a leading slash, omit it in the binding (the plugin will add it when executing).
+<AlertBox type="info">
+  - Commands typed after `set` are the command that will run when the item is used.
+  - Omit the slash in the binding (the plugin will add it automatically when executing). Exceptions are WorldEdit
+  commands which require double slashes (e.g., `//wand`)
+</AlertBox>
 
 ## Permissions
 

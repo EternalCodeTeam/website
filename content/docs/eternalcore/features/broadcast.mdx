@@ -1,0 +1,36 @@
+---
+title: Broadcast
+description: Learn how to use the `/broadcast` command to send messages to all players on your Minecraft server.
+---
+
+
+
+
+
+import { AlertBox } from "../../../../components/ui/alert-box";
+
+## 📢 Broadcast messages — send messages to all players
+The `/broadcast` command allows you to send messages to all players on your server.
+This is useful for making announcements, sharing important information, or simply communicating with everyone at once.
+Required permission: `eternalcore.broadcast`
+
+<AlertBox type="info">
+  <strong>Tip:</strong> You can use color codes and MiniMessage formatting in your broadcast messages to make them more
+  visually appealing.
+  <b>Try out our notification generator: https://www.eternalcode.pl/notification-generator</b>
+</AlertBox>
+
+### ✅ Usage
+
+```
+/broadcast [actionbar/title/subtitle/bossbar] [time] [-raw] <message>
+```
+
+<AlertBox type="warning">
+  <strong>Note:</strong> If you do not specify the [actionbar/title/subtitle/bossbar] argument, the message will be sent
+  as a standard chat message.
+</AlertBox>
+
+### 📷 Showcase
+[!broadcast.gif](/docs/eternalcore/broadcast.gif)
+

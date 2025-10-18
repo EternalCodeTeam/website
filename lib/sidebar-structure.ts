@@ -21,6 +21,13 @@ export const docsStructure: DocItem[] = [
           { title: "Butcher", path: "/docs/eternalcore/features/butcher" },
           { title: "Clear inventory", path: "/docs/eternalcore/features/clear" },
           { title: "Container inventories", path: "/docs/eternalcore/features/container" },
+          {
+            title: "Fun Commands",
+            path: "docs/eternalcore/features/fun",
+            children: [
+              { title: "Elder Guardian", path: "/docs/eternalcore/features/elderguardian" },
+            ],
+          },
           { title: "Fireball", path: "/docs/eternalcore/features/fireball" },
           { title: "Fly", path: "/docs/eternalcore/features/fly" },
           { title: "Gamemode", path: "/docs/eternalcore/features/gamemode" },

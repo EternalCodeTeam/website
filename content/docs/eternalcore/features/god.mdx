@@ -3,36 +3,34 @@ title: God mode
 description: Toggle invincibility for a player using `/god`.
 ---
 
+
+
+
+
+
+
+
+import { AlertBox } from "../../../../components/ui/alert-box";
+
 ## 🛡️ God mode — toggle invincibility
 
-The `/god` command toggles god mode (invincibility) for yourself or for a target player. When enabled, the player will not take any damage from any source.
-
-### ✅ Basic usage
+The `/god` command toggles god mode (invincibility) for yourself or for a target player. When enabled, the player will not take any damage from any source and will not be targeted by hostile entities.
+Required permissions:
+- `eternalcore.god` - to toggle god mode for yourself.
+- `eternalcore.god.other` - to toggle god mode for other players.
+### ✅ Usage
 
 ```text
 /god [player]
 ```
 
-- Omitting `[player]` toggles god mode for the sender.
-- Targeting another player requires `eternalcore.god.other` permission.
+<AlertBox type="warning">
+  - Omitting `[player]` toggles god mode for the sender.
+  - Targeting another player requires `eternalcore.god.other` permission.
+</AlertBox>
 
-### 🎯 Examples
-
-```text
-/god
-→ God mode enabled/disabled for you
-
-/god Notch
-→ God mode enabled/disabled for Notch
-```
-
----
+### 📷 Showcase
 
 ![god.gif](/docs/eternalcore/god.gif)
 
 ---
-
-## ℹ️ Notes
-
-- Permission: `eternalcore.god` (self), `eternalcore.god.other` (others).
-- While in god mode, players are immune to all damage including void damage, fire, fall damage, and PvP.
