@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { FC, memo, useCallback, useState, MouseEvent } from "react";
 
 import { cn } from "@/lib/utils";
+import { DocIcon } from "@/components/docs/content/DocIcon";
 
 import { DocItemProps } from "./types";
 
@@ -116,14 +117,27 @@ const SidebarItem: FC<DocItemProps> = memo(({ item, level, onItemClick }) => {
         whileHover={{ x: isActive ? 0 : 4 }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
       >
-        <FileText
-          className={cn(
-            "h-4 w-4 flex-shrink-0",
-            isActive
-              ? "text-white"
-              : "text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-400"
-          )}
-        />
+        {item.icon ? (
+          <DocIcon
+            iconName={item.icon}
+            className={cn(
+              "h-4 w-4 flex-shrink-0",
+              isActive
+                ? "text-white"
+                : "text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-400"
+            )}
+            size={16}
+          />
+        ) : (
+          <FileText
+            className={cn(
+              "h-4 w-4 flex-shrink-0",
+              isActive
+                ? "text-white"
+                : "text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-400"
+            )}
+          />
+        )}
         <span className="flex-1 truncate">{item.title}</span>
 
         {isActive && (

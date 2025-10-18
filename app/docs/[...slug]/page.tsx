@@ -20,6 +20,7 @@ interface DocMeta {
   description?: string;
   lastModified?: string;
   author?: string;
+  icon?: string;
   [key: string]: string | undefined;
 }
 
@@ -166,6 +167,7 @@ export default async function DocPage({ params }: Props) {
           category={category}
           title={doc.meta.title}
           description={doc.meta.description}
+          icon={doc.meta.icon}
           actions={
             <>
               <ReadingTime content={doc.content} />

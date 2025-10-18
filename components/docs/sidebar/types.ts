@@ -1,6 +1,7 @@
 export interface DocItem {
   title: string;
   path: string;
+  icon?: string;
   children?: DocItem[];
 }
 

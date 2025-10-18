@@ -17,7 +17,6 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
   const pathname = usePathname();
   const { isOpen, isMobile, toggleSidebar, sidebarRef, toggleButtonRef, setIsOpen } =
     useMobileSidebar();
-
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === "Escape" && isOpen && isMobile) {
