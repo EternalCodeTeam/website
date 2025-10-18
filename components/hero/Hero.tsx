@@ -94,7 +94,7 @@ export default function Hero() {
                 <motion.div ref={bgRef} animate={bgControls} initial={{ opacity: 0, y: 20 }}>
                   <Button
                     variant="primary"
-                    className="w-full sm:w-auto flex items-center justify-center gap-2"
+                    className="flex w-full items-center justify-center gap-2 sm:w-auto"
                     leftIcon={<PeopleGroupIcon className="h-5 w-5" />}
                   >
                     See our team!
@@ -113,7 +113,7 @@ export default function Hero() {
                 >
                   <Button
                     variant="outline"
-                    className="w-full sm:w-auto group flex items-center justify-center gap-2"
+                    className="group flex w-full items-center justify-center gap-2 sm:w-auto"
                     rightIcon={
                       <ArrowForwardHeroIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     }
@@ -125,10 +125,14 @@ export default function Hero() {
             </AnimatedElement>
 
             <AnimatedElement as="div" animationType="fadeRight" interactive>
-              <Link href="https://github.com/EternalCodeTeam" target="_blank" rel="noopener noreferrer">
+              <Link
+                href="https://github.com/EternalCodeTeam"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Button
                   variant="outline"
-                  className="w-full sm:w-auto flex items-center justify-center gap-2"
+                  className="flex w-full items-center justify-center gap-2 sm:w-auto"
                   leftIcon={<Github className="h-4 w-4" />}
                 >
                   GitHub
