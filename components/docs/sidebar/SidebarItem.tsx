@@ -4,8 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, memo, useCallback, useState, MouseEvent } from "react";
 
-import { cn } from "@/lib/utils";
 import { DocIcon } from "@/components/docs/content/DocIcon";
+import { cn } from "@/lib/utils";
 
 import { DocItemProps } from "./types";
 
