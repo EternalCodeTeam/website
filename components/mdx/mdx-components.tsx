@@ -3,12 +3,12 @@ import type { MDXComponents } from "mdx/types";
 import React from "react";
 
 import DynamicCommandsTable from "@/components/docs/eternalcore/DynamicCommandsTable";
+import DynamicPlaceholdersTable from "@/components/docs/eternalcore/placeholder/DynamicPlaceholdersTable";
 import { CodeBlock } from "@/components/mdx/CodeBlock";
 import { CodeTabs, CodeTab } from "@/components/mdx/CodeTabs";
 import { Heading } from "@/components/mdx/Heading";
 import { Inline } from "@/components/mdx/Inline";
 import { AlertBox } from "@/components/ui/alert-box";
-import DynamicPlaceholdersTable from "@/components/docs/eternalcore/DynamicPlaceholdersTable";
 
 type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>;
 
