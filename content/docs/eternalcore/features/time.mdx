@@ -1,0 +1,64 @@
+---
+title: Time
+description: Change or add world time instantly with simple commands (set, add, day, night, noon, midnight).
+---
+
+## ⏰ Time — set or add time in a world
+
+The `time` command lets you change the in-game time for the world you're in or for a specified world. You can set an exact time, add an amount to the current time, or use shortcuts for common values like day or night.
+
+### ✅ Usage
+
+```text
+/time set <time>
+→ Sets the world time to the specified value (e.g. `/time set 6000` sets noon).
+
+/time add <time>
+→ Adds the specified amount to the current time (e.g. `/time add 1000` advances time by 1000 ticks).
+
+# Shortcuts (no arguments)
+/time set day
+→ Sets time to day (1000)
+
+/time set night
+→ Sets time to night (13000)
+
+/time set noon
+→ Sets time to noon (6000)
+
+/time set midnight
+→ Sets time to midnight (18000)
+
+# Specify world (optional)
+/time set <time> <world>
+→ Sets the given world's time
+
+/time add <time> <world>
+→ Adds time to the given world's time
+```
+
+### 🎯 Examples
+
+```text
+/time set 1000
+→ You're now at day in this world
+
+/time add 2000
+→ Time advanced by 2000 ticks in this world
+
+/time set night world_nether
+→ Night set in world_nether
+```
+
+---
+
+## 🎬 Time in action
+
+![time.gif](/docs/eternalcore/time.gif)
+
+---
+
+## ℹ️ Notes
+
+- Commands require the permission `eternalcore.time`.
+- Use numeric tick values (0–24000) for precise control. Common values: 1000 (day), 6000 (noon), 13000 (night), 18000 (midnight).
