@@ -7,12 +7,12 @@ import { AnimatedContainer, AnimatedElement, AnimatedSection } from "@/component
 import { notFound } from "next/navigation";
 
 interface AuthorPageProps {
-  params: { slug: string };
-  searchParams?: { page?: string };
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ page?: string }>;
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const author = await getAuthorBySlug(slug);
 
   if (!author) {
@@ -48,7 +48,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function AuthorPage({ params, searchParams }: AuthorPageProps) {
-  const { slug } = params;
+  const { slug } = await params;
+  const { page } = await searchParams;
 
   if (!slug) notFound();
 
@@ -57,7 +58,7 @@ export default async function AuthorPage({ params, searchParams }: AuthorPagePro
 
   const posts = await getBlogPostsByAuthor(slug);
   const ITEMS_PER_PAGE = 6;
-  const currentPage = Math.max(1, parseInt(searchParams?.page || "1", 10));
+  const currentPage = Math.max(1, parseInt(page || "1", 10));
   const totalPages = Math.ceil(posts.length / ITEMS_PER_PAGE);
   const paginatedPosts = posts.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
