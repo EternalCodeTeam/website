@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 
 export default function NotificationGeneratorLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="relative mx-auto min-h-screen max-w-screen-xl bg-lightGray-100 px-4 py-8 pt-32 antialiased dark:bg-gray-900">
+    <div className="relative mx-auto min-h-screen max-w-(--breakpoint-xl) bg-light-gray-100 px-4 py-8 pt-32 antialiased dark:bg-gray-900">
       {children}
     </div>
   );

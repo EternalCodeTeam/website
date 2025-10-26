@@ -118,7 +118,7 @@ export default function Footer() {
 
   return (
     <footer className="isolate p-4 text-center sm:p-6 lg:text-left">
-      <div className="mx-auto max-w-screen-xl px-4 py-8">
+      <div className="mx-auto max-w-(--breakpoint-xl) px-4 py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 flex flex-col items-center md:mb-0 md:items-start">
             <Link href="/" className="flex items-center" aria-label="Go to homepage">

@@ -86,7 +86,7 @@ export const components: MDXComponents = {
   li: (props) => <li className="py-0.5" {...props} />,
   img: (props) => (
     // biome-ignore lint/performance/noImgElement: it's for docs only.
-    <img className="my-4 inline-block rounded-md shadow-sm" alt={props.alt || "Image"} {...props} />
+    <img className="my-4 inline-block rounded-md shadow-xs" alt={props.alt || "Image"} {...props} />
   ),
 };
 

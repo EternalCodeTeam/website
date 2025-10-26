@@ -66,9 +66,9 @@ export default async function AuthorPage({ params, searchParams }: AuthorPagePro
   );
 
   return (
-    <div className="min-h-screen bg-lightGray-100 pb-12 pt-40 dark:bg-gray-900">
-      <div className="mx-auto max-w-screen-xl px-4">
-        <div className="mx-auto grid max-w-screen-xl grid-cols-1 gap-12 md:grid-cols-3">
+    <div className="min-h-screen bg-light-gray-100 pb-12 pt-40 dark:bg-gray-900">
+      <div className="mx-auto max-w-(--breakpoint-xl) px-4">
+        <div className="mx-auto grid max-w-(--breakpoint-xl) grid-cols-1 gap-12 md:grid-cols-3">
           <aside className="md:col-span-1">
             <AnimatedSection
               animationType="fadeLeft"

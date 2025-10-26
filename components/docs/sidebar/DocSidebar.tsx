@@ -31,11 +31,11 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
   const sidebarContent = (
     <>
       {/* Sidebar Header */}
-      <div className="flex flex-shrink-0 items-center gap-3 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-white px-4 py-4 dark:border-gray-700 dark:from-gray-800 dark:to-gray-900">
+      <div className="flex shrink-0 items-center gap-3 border-b border-gray-200 bg-linear-to-r from-blue-50 to-white px-4 py-4 dark:border-gray-700 dark:from-gray-800 dark:to-gray-900">
         <motion.div
           whileHover={{ scale: 1.1, rotate: 5 }}
           transition={{ duration: 0.3 }}
-          className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 shadow-sm dark:bg-blue-500"
+          className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 shadow-xs dark:bg-blue-500"
         >
           <BookOpen className="h-5 w-5 text-white" />
         </motion.div>
@@ -65,7 +65,7 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
       </div>
 
       {/* Sidebar Footer - Simple & Clean */}
-      <div className="flex-shrink-0 border-t border-gray-200 bg-gray-50 px-4 py-3 dark:border-gray-700 dark:bg-gray-800/50">
+      <div className="shrink-0 border-t border-gray-200 bg-gray-50 px-4 py-3 dark:border-gray-700 dark:bg-gray-800/50">
         <div className="flex items-center justify-between">
           {/* Status */}
           <div className="flex items-center gap-2">
@@ -99,7 +99,7 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
         <motion.button
           ref={toggleButtonRef}
           onClick={toggleSidebar}
-          className="group mb-4 flex w-full items-center justify-between gap-3 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-gray-900 shadow-sm transition-all hover:border-blue-300 hover:shadow-md dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:border-blue-700 lg:hidden"
+          className="group mb-4 flex w-full items-center justify-between gap-3 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-gray-900 shadow-xs transition-all hover:border-blue-300 hover:shadow-md dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:border-blue-700 lg:hidden"
           aria-expanded={isOpen}
           aria-controls="doc-sidebar"
           whileHover={{ scale: 1.01 }}
@@ -158,7 +158,7 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-xs lg:hidden"
           onClick={toggleSidebar}
           aria-hidden="true"
         />

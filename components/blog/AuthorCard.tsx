@@ -21,7 +21,7 @@ export default function AuthorCard({ author, postCount, compact = false }: Autho
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="group flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
+          className="group flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 shadow-xs transition-all duration-200 hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
         >
           {author.avatar ? (
             <Image
@@ -32,7 +32,7 @@ export default function AuthorCard({ author, postCount, compact = false }: Autho
               className="rounded-full"
             />
           ) : (
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-lg font-bold text-white">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-linear-to-br from-blue-500 to-purple-600 text-lg font-bold text-white">
               {author.name.charAt(0).toUpperCase()}
             </div>
           )}
@@ -69,7 +69,7 @@ export default function AuthorCard({ author, postCount, compact = false }: Autho
                 className="rounded-full border-4 border-white shadow-lg transition-transform hover:scale-105 dark:border-gray-700"
               />
             ) : (
-              <div className="flex h-20 w-20 items-center justify-center rounded-full border-4 border-white bg-gradient-to-br from-blue-500 to-purple-600 text-2xl font-bold text-white shadow-lg transition-transform hover:scale-105 dark:border-gray-700">
+              <div className="flex h-20 w-20 items-center justify-center rounded-full border-4 border-white bg-linear-to-br from-blue-500 to-purple-600 text-2xl font-bold text-white shadow-lg transition-transform hover:scale-105 dark:border-gray-700">
                 {author.name.charAt(0).toUpperCase()}
               </div>
             )}

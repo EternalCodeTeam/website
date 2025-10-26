@@ -41,7 +41,7 @@ export default function Team() {
 
   return (
     <AnimatedSection id="team" animationType="fadeUp">
-      <div className="relative mx-auto max-w-screen-xl px-4 py-20">
+      <div className="relative mx-auto max-w-(--breakpoint-xl) px-4 py-20">
         <AnimatedElement as="div" animationType="fadeDown" delay={0.1}>
           <SectionTitle
             title="Meet the Team"

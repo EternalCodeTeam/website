@@ -29,7 +29,7 @@ export default function Hero() {
   return (
     <div className="relative overflow-hidden">
       <motion.div
-        className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-gradient-to-br from-blue-400/20 to-blue-600/15 blur-3xl sm:h-64 sm:w-64"
+        className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-linear-to-br from-blue-400/20 to-blue-600/15 blur-3xl sm:h-64 sm:w-64"
         animate={{
           x: [0, 15, -10, 20, 0],
           y: [0, -12, 18, -8, 0],
@@ -39,7 +39,7 @@ export default function Hero() {
       />
 
       <AnimatedSection
-        className="relative mx-auto max-w-screen-xl px-5 pb-24 pt-72 sm:px-8 sm:pb-28 sm:pt-52 md:pt-60 lg:flex lg:items-center lg:justify-between lg:gap-12"
+        className="relative mx-auto max-w-(--breakpoint-xl) px-5 pb-24 pt-72 sm:px-8 sm:pb-28 sm:pt-52 md:pt-60 lg:flex lg:items-center lg:justify-between lg:gap-12"
         animationType="fade"
         aria-labelledby="hero-heading"
       >
@@ -63,11 +63,11 @@ export default function Hero() {
           <AnimatedElement
             as="h1"
             id="hero-heading"
-            className="max-w-2xl break-words text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
+            className="max-w-2xl wrap-break-word text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
             animationType="fadeDown"
             delay={0.1}
           >
-            <span className="bg-gradient-to-r from-blue-700 via-blue-600 to-blue-800 bg-clip-text text-transparent dark:from-blue-300 dark:via-blue-200 dark:to-blue-400">
+            <span className="bg-linear-to-r from-blue-700 via-blue-600 to-blue-800 bg-clip-text text-transparent dark:from-blue-300 dark:via-blue-200 dark:to-blue-400">
               EternalCode.pl
             </span>
           </AnimatedElement>

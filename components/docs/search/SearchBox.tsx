@@ -144,10 +144,10 @@ const SearchBox = ({
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
             className={cn(
-              "w-full select-none rounded-lg border bg-white px-4 py-2.5 pl-10 pr-10 text-sm outline-none transition-all duration-200",
+              "w-full select-none rounded-lg border bg-white px-4 py-2.5 pl-10 pr-10 text-sm outline-hidden transition-all duration-200",
               isFocused || isOpen
                 ? "border-blue-500 shadow-lg shadow-blue-500/20 ring-2 ring-blue-500/50 dark:shadow-blue-500/10"
-                : "border-gray-300 shadow-sm dark:border-gray-700",
+                : "border-gray-300 shadow-xs dark:border-gray-700",
               "placeholder:text-gray-400 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500"
             )}
             aria-label="Search documentation"
@@ -199,7 +199,7 @@ const SearchBox = ({
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               exit={{ scaleX: 0 }}
-              className="absolute bottom-0 left-0 h-0.5 w-full origin-left rounded-full bg-gradient-to-r from-blue-500 to-purple-500"
+              className="absolute bottom-0 left-0 h-0.5 w-full origin-left rounded-full bg-linear-to-r from-blue-500 to-purple-500"
             />
           )}
         </AnimatePresence>
@@ -242,7 +242,7 @@ const SearchBox = ({
                         }}
                         transition={{ duration: 0.3 }}
                         className={cn(
-                          "mt-0.5 flex-shrink-0",
+                          "mt-0.5 shrink-0",
                           selectedIndex === index
                             ? "text-blue-600 dark:text-blue-400"
                             : "text-gray-400"
@@ -264,7 +264,7 @@ const SearchBox = ({
                             initial={{ opacity: 0, scale: 0 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0 }}
-                            className="flex-shrink-0 rounded bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
+                            className="shrink-0 rounded-sm bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
                           >
                             Enter
                           </motion.div>

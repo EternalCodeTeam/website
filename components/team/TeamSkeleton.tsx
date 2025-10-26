@@ -10,7 +10,7 @@ export default function TeamSkeleton() {
 
   return (
     <AnimatedSection id="team" animationType="fadeUp">
-      <div className="mx-auto max-w-screen-xl px-4 py-16">
+      <div className="mx-auto max-w-(--breakpoint-xl) px-4 py-16">
         <AnimatedElement as="div" animationType="fadeDown" delay={0.1}>
           <SectionTitle
             title="Our Team"

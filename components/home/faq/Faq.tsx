@@ -51,7 +51,7 @@ export default function Faq() {
 
   return (
     <AnimatedSection id="faq" className="py-16" animationType="fade" aria-labelledby="faq-heading">
-      <div className="mx-auto max-w-screen-xl px-4 py-8">
+      <div className="mx-auto max-w-(--breakpoint-xl) px-4 py-8">
         <AnimatedElement as="div" animationType="fadeDown" delay={0.1}>
           <SectionTitle
             title="Frequently Asked Questions"
@@ -71,7 +71,7 @@ export default function Faq() {
             >
               <motion.button
                 onClick={() => toggleFaq(faqItems.indexOf(item))}
-                className="flex w-full items-center justify-between bg-lightGray-200 px-6 py-4 text-left text-lg font-medium text-gray-800 transition-colors duration-300 hover:bg-lightGray-300 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+                className="flex w-full items-center justify-between bg-light-gray-200 px-6 py-4 text-left text-lg font-medium text-gray-800 transition-colors duration-300 hover:bg-light-gray-300 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                 aria-expanded={activeIndex === faqItems.indexOf(item)}
                 aria-controls={`faq-panel-${faqItems.indexOf(item)}`}
                 id={`faq-question-${faqItems.indexOf(item)}`}
@@ -90,7 +90,7 @@ export default function Faq() {
                     aria-labelledby={`faq-question-${faqItems.indexOf(item)}`}
                   >
                     <motion.div
-                      className="ease-[cubic-bezier(0.25, 1, 0.5, 1)] bg-lightGray-100 p-6 text-gray-700 transition-colors duration-300 dark:bg-gray-800 dark:text-gray-400"
+                      className="ease-[cubic-bezier(0.25, 1, 0.5, 1)] bg-light-gray-100 p-6 text-gray-700 transition-colors duration-300 dark:bg-gray-800 dark:text-gray-400"
                       {...contentAnimations}
                     >
                       {item.answer}

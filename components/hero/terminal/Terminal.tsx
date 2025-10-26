@@ -25,8 +25,8 @@ const initialHistory: HistoryItem[] = [
 
 const themes = {
   dark: {
-    container: "bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700",
-    titleBar: "bg-gradient-to-r from-gray-800 to-gray-700 border-b border-gray-700",
+    container: "bg-linear-to-br from-gray-900 to-gray-800 border border-gray-700",
+    titleBar: "bg-linear-to-r from-gray-800 to-gray-700 border-b border-gray-700",
     titleText: "text-gray-400",
     terminalText: "text-gray-100",
     outputText: "text-gray-400",
@@ -35,8 +35,8 @@ const themes = {
     commandText: "text-blue-400",
   },
   light: {
-    container: "bg-gradient-to-br from-gray-100 to-white border border-gray-300",
-    titleBar: "bg-gradient-to-r from-gray-200 to-gray-100 border-b border-gray-300",
+    container: "bg-linear-to-br from-gray-100 to-white border border-gray-300",
+    titleBar: "bg-linear-to-r from-gray-200 to-gray-100 border-b border-gray-300",
     titleText: "text-gray-700",
     terminalText: "text-gray-800",
     outputText: "text-gray-600",
@@ -154,7 +154,7 @@ export default function Terminal() {
           <span className={currentTheme.promptText}>eternalcode@cli:~$</span>
           <input
             ref={inputRef}
-            className={`ml-2 flex-1 border-none bg-transparent font-mono text-sm outline-none ${currentTheme.inputText}`}
+            className={`ml-2 flex-1 border-none bg-transparent font-mono text-sm outline-hidden ${currentTheme.inputText}`}
             value={input}
             onChange={handleInput}
             onKeyDown={handleKeyDown}

@@ -27,7 +27,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
     >
       <Link
         href={`/blog/${post.slug}`}
-        className="flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-blue-500 dark:border-gray-700 dark:bg-gray-800"
+        className="flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xs transition-all duration-300 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-blue-500 dark:border-gray-700 dark:bg-gray-800"
         tabIndex={0}
       >
         {/* Obrazek lub placeholder */}

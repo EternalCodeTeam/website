@@ -99,7 +99,7 @@ export function SoundTable({
             value={searchQuery}
             onChange={handleSearch}
             placeholder="Search sounds..."
-            className="w-full rounded-md border border-gray-200 bg-white px-3 py-1.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+            className="w-full rounded-md border border-gray-200 bg-white px-3 py-1.5 text-sm focus:border-blue-500 focus:outline-hidden focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
           />
           {searchQuery && (
             <Button
@@ -120,7 +120,7 @@ export function SoundTable({
         </div>
       )}
 
-      <div className="w-full rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+      <div className="w-full rounded-lg border border-gray-200 bg-white shadow-xs dark:border-gray-700 dark:bg-gray-800">
         <div className="w-full overflow-hidden rounded-lg">
           <table className="w-full border-collapse">
             <thead>
@@ -171,7 +171,7 @@ export function SoundTable({
                     </td>
                     <td className="px-2 py-1.5 text-xs">
                       {sound.category ? (
-                        <span className="rounded bg-gray-100 px-1.5 py-0.5 text-xs dark:bg-gray-800">
+                        <span className="rounded-sm bg-gray-100 px-1.5 py-0.5 text-xs dark:bg-gray-800">
                           {sound.category.charAt(0).toUpperCase() +
                             sound.category.slice(1).replace(/_/g, " ")}
                         </span>
@@ -244,7 +244,7 @@ export function SoundTable({
               return (
                 <Button
                   key={pageNumber}
-                  variant={currentPage === pageNumber ? "primary" : "outline"}
+                  variant={currentPage === pageNumber ? "primary" : "outline-solid"}
                   size="sm"
                   onClick={() => handlePageChange(pageNumber)}
                   className="h-8 w-8 p-0"

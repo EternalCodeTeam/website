@@ -8,7 +8,7 @@ import TerminalIcon from "../../icons/terminal-fill";
 
 // Reusable container component for consistent spacing
 const Container = ({ children }: { children: ReactNode }) => (
-  <div className="mx-auto max-w-screen-xl px-4 py-8">{children}</div>
+  <div className="mx-auto max-w-(--breakpoint-xl) px-4 py-8">{children}</div>
 );
 
 export default function About() {

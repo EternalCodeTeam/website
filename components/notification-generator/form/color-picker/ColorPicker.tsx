@@ -77,7 +77,7 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
             id="gradient-toggle"
             checked={isGradient}
             onChange={(e) => setIsGradient(e.target.checked)}
-            className="mr-2 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
+            className="mr-2 h-4 w-4 rounded-sm border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
           />
           <label htmlFor="gradient-toggle" className="text-sm text-gray-700 dark:text-gray-300">
             Gradient
@@ -103,7 +103,7 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
                 <div key={key} className="group relative">
                   <button
                     type="button"
-                    className={`h-8 w-8 cursor-pointer rounded border-2 focus:outline-none ${
+                    className={`h-8 w-8 cursor-pointer rounded border-2 focus:outline-hidden ${
                       activeColorIndex === idx
                         ? "border-blue-500"
                         : "border-gray-300 dark:border-gray-600"
@@ -149,7 +149,7 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
             </label>
             <div
               id="gradient-preview"
-              className="h-10 w-full rounded border border-gray-300 dark:border-gray-600"
+              className="h-10 w-full rounded-sm border border-gray-300 dark:border-gray-600"
               style={gradientStyle}
             />
           </div>
@@ -165,7 +165,7 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
       <div className="mt-2 flex justify-between">
         <div className="flex items-center">
           <div
-            className="mr-2 h-6 w-6 rounded border border-gray-300 dark:border-gray-600"
+            className="mr-2 h-6 w-6 rounded-sm border border-gray-300 dark:border-gray-600"
             style={{ backgroundColor: currentColor }}
           />
           <div className="relative flex flex-col">
@@ -179,7 +179,7 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
               placeholder="#000000"
             />
             {colorError && (
-              <div className="absolute top-8 z-20 w-48 rounded bg-red-100 p-1 text-xs text-red-700 dark:bg-red-900 dark:text-red-200">
+              <div className="absolute top-8 z-20 w-48 rounded-sm bg-red-100 p-1 text-xs text-red-700 dark:bg-red-900 dark:text-red-200">
                 {colorError}
               </div>
             )}

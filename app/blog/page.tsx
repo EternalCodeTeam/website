@@ -47,12 +47,12 @@ export default async function BlogPage() {
   const authors = await getAuthors();
 
   return (
-    <div className="min-h-screen bg-lightGray-100 dark:bg-gray-900">
+    <div className="min-h-screen bg-light-gray-100 dark:bg-gray-900">
       <AnimatedSection
         animationType="fadeDown"
-        className="relative overflow-hidden bg-lightGray-100 px-0 pb-0 pt-56 dark:bg-gray-900 md:pt-60"
+        className="relative overflow-hidden bg-light-gray-100 px-0 pb-0 pt-56 dark:bg-gray-900 md:pt-60"
       >
-        <div className="mx-auto max-w-screen-xl px-4">
+        <div className="mx-auto max-w-(--breakpoint-xl) px-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div className="min-w-0 flex-1">
               <h1 className="mb-2 text-left text-4xl font-extrabold text-gray-900 dark:text-white md:text-5xl">
@@ -82,7 +82,7 @@ export default async function BlogPage() {
       </AnimatedSection>
 
       <section className="px-0 py-16">
-        <div className="mx-auto max-w-screen-xl px-4">
+        <div className="mx-auto max-w-(--breakpoint-xl) px-4">
           {posts.length > 0 ? (
             <AnimatedContainer
               as="div"

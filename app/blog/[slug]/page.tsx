@@ -115,10 +115,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     const tagsArr = getTagsArray(post.tags);
 
     return (
-      <div className="min-h-screen bg-lightGray-100 dark:bg-gray-900">
+      <div className="min-h-screen bg-light-gray-100 dark:bg-gray-900">
         {/* Hero Section */}
         <AnimatedSection animationType="fadeDown" className="pb-0 pt-40 md:pt-48">
-          <div className="mx-auto max-w-screen-xl px-4">
+          <div className="mx-auto max-w-(--breakpoint-xl) px-4">
             <h1 className="mb-4 text-left text-4xl font-extrabold text-gray-900 dark:text-white md:text-5xl">
               {post.title}
             </h1>
@@ -175,7 +175,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {/* Blog Content */}
         <AnimatedSection animationType="fadeUp" className="py-16">
-          <div className="mx-auto max-w-screen-xl px-4">
+          <div className="mx-auto max-w-(--breakpoint-xl) px-4">
             <BlogPostContent content={post.content} />
           </div>
         </AnimatedSection>

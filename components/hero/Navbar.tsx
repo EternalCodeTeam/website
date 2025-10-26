@@ -89,12 +89,12 @@ export default function Navbar() {
   return (
     <nav
       ref={navRef}
-      className="fixed inset-x-0 top-0 z-50 border-b border-gray-200 bg-lightGray-100 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900"
+      className="fixed inset-x-0 top-0 z-50 border-b border-gray-200 bg-light-gray-100 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900"
       aria-label="Main navigation"
     >
       <AnnouncementBanner />
 
-      <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-4 py-4 md:py-6">
+      <div className="mx-auto flex max-w-(--breakpoint-xl) flex-wrap items-center justify-between px-4 py-4 md:py-6">
         <Link href="/" className="flex items-center" aria-label="Go to homepage">
           <Image
             className="mr-3 h-8 w-auto dark:invert"

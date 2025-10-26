@@ -12,9 +12,9 @@ interface PaginationProps {
 }
 
 const baseBtn =
-  "inline-flex items-center justify-center font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border text-xs rounded-sm";
+  "inline-flex items-center justify-center font-medium transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border text-xs rounded-xs";
 const outlineBtn =
-  "border-gray-300 bg-transparent hover:bg-lightGray-200 text-gray-900 dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-200";
+  "border-gray-300 bg-transparent hover:bg-light-gray-200 text-gray-900 dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-200";
 const primaryBtn =
   "bg-blue-600 text-white hover:bg-blue-700 border-blue-600 dark:bg-blue-500 dark:hover:bg-blue-600 dark:border-blue-500";
 

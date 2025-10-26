@@ -162,7 +162,7 @@ export const AlertBox = memo(function AlertBox({
       role={styles.role}
       {...(ariaLabel && { "aria-label": ariaLabel })}
       className={cn(
-        "my-6 rounded-lg p-4 shadow-sm backdrop-blur-sm transition-colors duration-200",
+        "my-6 rounded-lg p-4 shadow-xs backdrop-blur-xs transition-colors duration-200",
         styles.container,
         className
       )}
@@ -186,7 +186,7 @@ export const AlertBox = memo(function AlertBox({
             </h5>
           )}
           <div
-            className={`prose-sm max-w-full overflow-x-auto break-words md:prose-base ${styles.text}`}
+            className={`prose-sm max-w-full overflow-x-auto wrap-break-word md:prose-base ${styles.text}`}
           >
             {children}
           </div>
