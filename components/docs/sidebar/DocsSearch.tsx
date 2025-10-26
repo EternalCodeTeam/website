@@ -1,6 +1,7 @@
 "use client";
 
 import SearchBox from "@/components/docs/search/SearchBox";
+
 const DocsSearch = ({
   className = "",
   placeholder = "Search something...",

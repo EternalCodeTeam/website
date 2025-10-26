@@ -1,15 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
-
-import { AnimatedSection, AnimatedElement, AnimatedContainer } from "@/components/animations";
+import type { ReactNode } from "react";
+import { AnimatedContainer, AnimatedElement, AnimatedSection } from "@/components/animations";
 import AboutImage from "@/public/hero image.png";
-
 import TerminalIcon from "../../icons/terminal-fill";
 
 // Reusable container component for consistent spacing
-const Container = ({ children }: { children: React.ReactNode }) => (
+const Container = ({ children }: { children: ReactNode }) => (
   <div className="mx-auto max-w-screen-xl px-4 py-8">{children}</div>
 );
 

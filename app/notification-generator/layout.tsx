@@ -1,9 +1,8 @@
-// eslint-disable-next-line import/order
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 import "../../components/notification-generator/preview/minecraft-font.css";
 
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "Notification Generator | Minecraft Plugin Tool",

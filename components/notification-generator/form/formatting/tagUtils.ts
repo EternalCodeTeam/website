@@ -1,4 +1,4 @@
-import { allowedTags, minecraftColors } from "../colorConstants";
+import { allowedTags } from "../colorConstants";
 
 export const isValidTag = (tag: string): boolean =>
   Object.values(allowedTags).some(
@@ -57,13 +57,4 @@ export const insertTag = (
     newValue: text.substring(0, start) + tag + text.substring(end),
     newCursorPosition: start + tag.length,
   };
-};
-
-export const getMinecraftColorTag = (hexColor: string): string => {
-  const mcColor = minecraftColors.find(
-    (mcColor) => mcColor.hex.toLowerCase() === hexColor.toLowerCase()
-  );
-  return mcColor
-    ? `<${mcColor.name.toLowerCase().replace(/ /g, "_")}>`
-    : `<color:${hexColor}></color>`;
 };

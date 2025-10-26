@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import { AnimatedSection } from "@/components/animations";
 import BlogPostContent from "@/components/blog/BlogPostContent";
 import { generateOgImageUrl } from "@/lib/og-utils";
-import { getBlogPost, StrapiTag } from "@/lib/strapi";
+import { getBlogPost, type StrapiTag } from "@/lib/strapi";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 5;
@@ -126,7 +126,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {post.excerpt}
             </p>
             <div className="mb-4 flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
-              {post.author && post.author.slug && (
+              {post.author?.slug && (
                 <Link
                   href={`/author/${post.author.slug}`}
                   className="flex items-center gap-2 transition-colors hover:text-blue-600 dark:hover:text-blue-400"

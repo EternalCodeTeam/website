@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-import { TabType } from "../types";
+import type { TabType } from "../types";
 
 interface TabProps {
   activeTab: TabType;

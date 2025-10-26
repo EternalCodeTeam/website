@@ -1,7 +1,7 @@
 "use client";
 
-import { Copy, Check } from "lucide-react";
-import { memo, ReactNode, useState, useRef } from "react";
+import { Check, Copy } from "lucide-react";
+import { memo, type ReactNode, useRef, useState } from "react";
 
 interface CodeBlockProps {
   children: ReactNode;
@@ -9,7 +9,7 @@ interface CodeBlockProps {
   className?: string;
 }
 
-export const CodeBlock = memo(({ children, language, className }: CodeBlockProps) => {
+export const CodeBlock = memo(({ children, language: _language, className }: CodeBlockProps) => {
   const [copied, setCopied] = useState(false);
   const preRef = useRef<HTMLPreElement>(null);
 
@@ -29,8 +29,6 @@ export const CodeBlock = memo(({ children, language, className }: CodeBlockProps
   return (
     <pre
       ref={preRef}
-      role="region"
-      aria-label={language ? `Code block in ${language}` : "Code block"}
       className={`relative my-4 overflow-x-auto rounded-lg bg-gray-900 p-4 font-mono text-sm text-neutral-200 ${className ?? ""}`}
     >
       <button

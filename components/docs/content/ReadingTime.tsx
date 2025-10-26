@@ -15,10 +15,7 @@ export const ReadingTime = ({ content, wordsPerMinute = 200, className }: Readin
   const readingTime = Math.ceil(words / wordsPerMinute);
 
   return (
-    <div
-      className={cn("text-muted-foreground flex items-center gap-2 text-sm", className)}
-      aria-label={`${readingTime} minute read`}
-    >
+    <div className={cn("text-muted-foreground flex items-center gap-2 text-sm", className)}>
       <Clock className="h-4 w-4" aria-hidden="true" />
       <span>{readingTime} min read</span>
     </div>

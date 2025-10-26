@@ -40,6 +40,7 @@ export function CookiePreferencesMenu() {
                   Cookie Preferences
                 </h2>
                 <button
+                  type="button"
                   onClick={() => setIsOpen(false)}
                   className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
                   aria-label="Close cookie preferences"
@@ -120,6 +121,7 @@ export function CookiePreferencesMenu() {
 
               <div className="mt-6 flex w-full flex-row gap-3">
                 <button
+                  type="button"
                   onClick={() => {
                     acceptAll();
                     setIsOpen(false);
@@ -129,6 +131,7 @@ export function CookiePreferencesMenu() {
                   Accept All
                 </button>
                 <button
+                  type="button"
                   onClick={() => setIsOpen(false)}
                   className="inline-flex flex-1 items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
                 >

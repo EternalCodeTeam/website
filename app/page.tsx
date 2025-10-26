@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 import AnimatedHome from "@/components/home/AnimatedHome";
 import { generateOgImageMetadata } from "@/components/OgImage";

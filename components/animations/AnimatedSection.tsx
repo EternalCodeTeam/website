@@ -1,10 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React, { useMemo, useEffect, useState } from "react";
+import type React from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
-import { fadeIn, fadeInUp, fadeInDown, fadeInLeft, fadeInRight } from "./AnimationUtils";
+import { fadeIn, fadeInDown, fadeInLeft, fadeInRight, fadeInUp } from "./AnimationUtils";
 
 interface AnimatedSectionProps {
   children: React.ReactNode;

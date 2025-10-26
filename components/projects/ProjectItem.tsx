@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useInView } from "react-intersection-observer";
 
 import ProjectButton from "./ProjectButton";
-import { ProjectItemProps } from "./types";
+import type { ProjectItemProps } from "./types";
 
 export default function ProjectItem({ repo, index }: ProjectItemProps) {
   const { ref, inView } = useInView({ triggerOnce: true });

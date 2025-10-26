@@ -90,7 +90,6 @@ export default function Navbar() {
     <nav
       ref={navRef}
       className="fixed inset-x-0 top-0 z-50 border-b border-gray-200 bg-lightGray-100 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900"
-      role="navigation"
       aria-label="Main navigation"
     >
       <AnnouncementBanner />

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import type { FC } from "react";
 
 import DocSidebar from "./DocSidebar";
 import DocsSearch from "./DocsSearch";

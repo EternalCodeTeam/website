@@ -1,7 +1,13 @@
 "use client";
 
-import { motion, MotionProps, Variants } from "framer-motion";
-import { ComponentPropsWithoutRef, ComponentType, ElementType, ReactNode, useMemo } from "react";
+import { type MotionProps, motion, type Variants } from "framer-motion";
+import {
+  type ComponentPropsWithoutRef,
+  type ComponentType,
+  type ElementType,
+  type ReactNode,
+  useMemo,
+} from "react";
 import { useInView } from "react-intersection-observer";
 
 import {
@@ -63,7 +69,9 @@ const AnimatedElement = <T extends ElementType = "div">({
 
   const variants = getAnimationVariant(animationType);
 
-  const Component = useMemo(() => motion(as || "div"), [as]) as ComponentType<any>;
+  const Component = useMemo(() => motion(as || "div"), [as]) as ComponentType<
+    React.HTMLAttributes<HTMLElement>
+  >;
 
   return (
     <Component

@@ -61,36 +61,33 @@ export default function Faq() {
 
         {/* FAQ items with staggered animations */}
         <AnimatedContainer className="mt-12" staggerDelay={0.15} delay={0.2}>
-          {faqItems.map((item, index) => (
+          {faqItems.map((item) => (
             <AnimatedElement
-              key={index}
+              key={item.question.replace(/\s+/g, "-").toLowerCase()}
               as="div"
               className="mb-6 overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700"
               animationType="fadeUp"
               interactive={true}
             >
-              {/* FAQ question button with hover and tap animations */}
               <motion.button
-                onClick={() => toggleFaq(index)}
+                onClick={() => toggleFaq(faqItems.indexOf(item))}
                 className="flex w-full items-center justify-between bg-lightGray-200 px-6 py-4 text-left text-lg font-medium text-gray-800 transition-colors duration-300 hover:bg-lightGray-300 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
-                aria-expanded={activeIndex === index}
-                aria-controls={`faq-panel-${index}`}
-                id={`faq-question-${index}`}
+                aria-expanded={activeIndex === faqItems.indexOf(item)}
+                aria-controls={`faq-panel-${faqItems.indexOf(item)}`}
+                id={`faq-question-${faqItems.indexOf(item)}`}
                 {...buttonAnimations}
               >
                 <span>{item.question}</span>
-                {/* Animated chevron icon that rotates when expanded */}
-                <AnimatedChevron isExpanded={activeIndex === index} />
+                <AnimatedChevron isExpanded={activeIndex === faqItems.indexOf(item)} />
               </motion.button>
-              {/* Animated answer panel with height and opacity transitions */}
               <AnimatePresence>
-                {activeIndex === index && (
+                {activeIndex === faqItems.indexOf(item) && (
                   <motion.div
                     {...panelAnimations}
                     className="overflow-hidden"
-                    id={`faq-panel-${index}`}
+                    id={`faq-panel-${faqItems.indexOf(item)}`}
                     role="region"
-                    aria-labelledby={`faq-question-${index}`}
+                    aria-labelledby={`faq-question-${faqItems.indexOf(item)}`}
                   >
                     <motion.div
                       className="ease-[cubic-bezier(0.25, 1, 0.5, 1)] bg-lightGray-100 p-6 text-gray-700 transition-colors duration-300 dark:bg-gray-800 dark:text-gray-400"

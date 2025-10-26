@@ -1,6 +1,6 @@
-import { create, insertMultiple, search, AnyOrama } from "@orama/orama";
+import { create, insertMultiple, search, type AnyOrama } from "@orama/orama";
 
-import { SearchResult } from "./types";
+import type { SearchResult } from "./types";
 
 export class SearchEngine {
   private db: AnyOrama | null = null;

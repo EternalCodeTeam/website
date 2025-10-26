@@ -1,5 +1,3 @@
-import React from "react";
-
 interface SectionTitleProps {
   title: string;
   description: string;
@@ -15,10 +13,7 @@ export default function SectionTitle({ title, description, id }: Readonly<Sectio
         </h2>
       </div>
       <div className="lg:w-1/2">
-        <p
-          className="break-words text-center text-xl font-light text-gray-500 dark:text-gray-400 lg:text-right"
-          aria-label={`Description for ${title}`}
-        >
+        <p className="break-words text-center text-xl font-light text-gray-500 dark:text-gray-400 lg:text-right">
           {description}
         </p>
       </div>

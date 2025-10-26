@@ -1,6 +1,6 @@
 "use client";
 
-import { NotificationConfig, FieldType } from "../../types";
+import type { FieldType, NotificationConfig } from "../../types";
 
 interface AdvancedTabProps {
   notification: NotificationConfig;

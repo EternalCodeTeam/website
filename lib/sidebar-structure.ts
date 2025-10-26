@@ -1,4 +1,4 @@
-import { DocItem } from "@/components/docs/sidebar/types";
+import type { DocItem } from "@/components/docs/sidebar/types";
 
 export const docsStructure: DocItem[] = [
   {

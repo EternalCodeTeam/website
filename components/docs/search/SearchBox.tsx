@@ -1,16 +1,16 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Search, X, Sparkles } from "lucide-react";
-import { useRouter, usePathname } from "next/navigation";
-import { useState, useEffect, useRef, useCallback } from "react";
-
+import { Search, Sparkles, X } from "lucide-react";
+import { useRouter } from "next/navigation";
+import type { KeyboardEvent } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { useDebounce } from "@/hooks/useDebounce";
 import { cn } from "@/lib/utils";
 
 import { SearchEngine } from "./searchEngine";
-import { SearchResult } from "./types";
+import type { SearchResult } from "./types";
 
 interface SearchBoxProps {
   className?: string;
@@ -38,7 +38,6 @@ const SearchBox = ({
   const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const pathname = usePathname();
   const debouncedQuery = useDebounce(query, debounceTime);
 
   // Initialize search engine
@@ -52,7 +51,7 @@ const SearchBox = ({
     setResults([]);
     setIsOpen(false);
     setIsFocused(false);
-  }, [pathname]);
+  }, []);
 
   // Perform search
   useEffect(() => {
@@ -99,7 +98,7 @@ const SearchBox = ({
   );
 
   const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
+    (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setIsOpen(false);
         setIsFocused(false);
@@ -180,7 +179,7 @@ const SearchBox = ({
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 onMouseDown={(e) => {
-                  e.preventDefault(); // Prevent blur on click
+                  e.preventDefault();
                   clearSearch();
                 }}
                 className="absolute right-3 top-2.5 rounded-full p-0.5 hover:bg-gray-100 dark:hover:bg-gray-700"

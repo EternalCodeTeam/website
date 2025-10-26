@@ -1,7 +1,7 @@
 "use client";
 
-import { create, insert, search, type AnyOrama } from "@orama/orama";
-import { motion, AnimatePresence } from "framer-motion";
+import { type AnyOrama, create, insert, search } from "@orama/orama";
+import { AnimatePresence, motion } from "framer-motion";
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -171,9 +171,9 @@ export default function DynamicCommandsTable() {
           </thead>
           <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
             <AnimatePresence>
-              {filtered.map((c, i) => (
+              {filtered.map((c) => (
                 <motion.tr
-                  key={i}
+                  key={c.name}
                   initial={{ opacity: 0, y: 3 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -3 }}
@@ -181,7 +181,10 @@ export default function DynamicCommandsTable() {
                   className="transition-colors hover:bg-gray-50 dark:hover:bg-gray-900"
                 >
                   {[c.name, c.permission, c.description, c.arguments].map((v, j) => (
-                    <td key={j} className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300">
+                    <td
+                      key={`${c.name}-${j}`}
+                      className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300"
+                    >
                       {v}
                     </td>
                   ))}

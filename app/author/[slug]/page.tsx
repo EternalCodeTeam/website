@@ -1,22 +1,27 @@
-import Image from "next/image";
-import { notFound } from "next/navigation";
-
-import { AnimatedSection, AnimatedContainer, AnimatedElement } from "@/components/animations";
-import BlogPostCard from "@/components/blog/BlogPostCard";
 import { Pagination } from "@/components/ui/pagination";
 import { getAuthorBySlug, getBlogPostsByAuthor } from "@/lib/strapi";
+import BlogPostCard from "@/components/blog/BlogPostCard";
 import { getImageUrl } from "@/lib/utils";
+import Image from "next/image";
+import { AnimatedContainer, AnimatedElement, AnimatedSection } from "@/components/animations";
+import { notFound } from "next/navigation";
 
-export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
-  const { params } = await props;
-  const { slug } = await params;
+interface AuthorPageProps {
+  params: { slug: string };
+  searchParams?: { page?: string };
+}
+
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const { slug } = params;
   const author = await getAuthorBySlug(slug);
+
   if (!author) {
     return {
       title: "Author Not Found | EternalCode.pl",
       description: "This author does not exist on EternalCode.pl.",
     };
   }
+
   return {
     title: `${author.name} – Author | EternalCode.pl`,
     description: author.bio || `Read articles by ${author.name} on EternalCode.pl`,
@@ -26,11 +31,9 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
       type: "profile",
       url: `https://eternalcode.pl/author/${author.slug}`,
       images: author.avatar?.url ? [getImageUrl(author.avatar.url)] : [],
-      profile: {
-        firstName: author.name.split(" ")[0],
-        lastName: author.name.split(" ").slice(1).join(" ") || undefined,
-        username: author.slug,
-      },
+      firstName: author.name.split(" ")[0],
+      lastName: author.name.split(" ").slice(1).join(" ") || undefined,
+      username: author.slug,
     },
     twitter: {
       card: "summary",
@@ -44,19 +47,17 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   };
 }
 
-export default async function AuthorPage(props: {
-  params: Promise<{ slug: string }>;
-  searchParams: Promise<{ page?: string }>;
-}) {
-  const { params, searchParams } = await props;
-  const { slug } = await params;
-  const resolvedSearchParams = await searchParams;
+export default async function AuthorPage({ params, searchParams }: AuthorPageProps) {
+  const { slug } = params;
+
   if (!slug) notFound();
+
   const author = await getAuthorBySlug(slug);
   if (!author) notFound();
+
   const posts = await getBlogPostsByAuthor(slug);
   const ITEMS_PER_PAGE = 6;
-  const currentPage = Math.max(1, parseInt(resolvedSearchParams?.page || "1", 10));
+  const currentPage = Math.max(1, parseInt(searchParams?.page || "1", 10));
   const totalPages = Math.ceil(posts.length / ITEMS_PER_PAGE);
   const paginatedPosts = posts.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
@@ -67,13 +68,12 @@ export default async function AuthorPage(props: {
     <div className="min-h-screen bg-lightGray-100 pb-12 pt-40 dark:bg-gray-900">
       <div className="mx-auto max-w-screen-xl px-4">
         <div className="mx-auto grid max-w-screen-xl grid-cols-1 gap-12 md:grid-cols-3">
-          {/* avatar, bio, email - STICKY */}
           <aside className="md:col-span-1">
             <AnimatedSection
               animationType="fadeLeft"
               className="sticky top-32 flex flex-col items-start"
             >
-              {author.avatar && author.avatar.url && (
+              {author.avatar?.url && (
                 <Image
                   src={getImageUrl(author.avatar.url)}
                   alt={author.name}
@@ -101,7 +101,6 @@ export default async function AuthorPage(props: {
             </AnimatedSection>
           </aside>
 
-          {/* articles */}
           <main className="md:col-span-2">
             <h2 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">Articles</h2>
             {posts.length > 0 ? (

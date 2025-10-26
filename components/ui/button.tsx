@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, HTMLMotionProps } from "framer-motion";
-import React, { forwardRef } from "react";
+import { motion, type HTMLMotionProps } from "framer-motion";
+import type React from "react";
+import { forwardRef } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -16,9 +17,9 @@ export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
   fullWidth?: boolean;
   animate?: boolean;
   animationProps?: {
-    hover?: Record<string, any>;
-    tap?: Record<string, any>;
-    transition?: Record<string, any>;
+    hover?: Record<string, unknown>;
+    tap?: Record<string, unknown>;
+    transition?: Record<string, unknown>;
   };
   "data-testid"?: string;
 }
@@ -143,7 +144,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       } as HTMLMotionProps<"button">;
 
       if (props["data-testid"]) {
-        (motionProps as any)["data-testid"] = props["data-testid"];
+        (motionProps as HTMLMotionProps<"button"> & { "data-testid"?: string })["data-testid"] =
+          props["data-testid"];
       }
 
       return <motion.button {...motionProps}>{buttonContent}</motion.button>;

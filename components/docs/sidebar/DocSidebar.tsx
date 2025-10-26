@@ -4,13 +4,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { BookOpen, ChevronLeft, Github, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FC, useEffect } from "react";
+import { type FC, useEffect } from "react";
 
 import { docsStructure } from "@/lib/sidebar-structure";
 import { cn } from "@/lib/utils";
 
 import SidebarItem from "./SidebarItem";
-import { DocSidebarProps } from "./types";
+import type { DocSidebarProps } from "./types";
 import { useMobileSidebar } from "./useMobileSidebar";
 
 const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
@@ -127,7 +127,6 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
         <nav
           id="doc-sidebar"
           className={cn("flex h-full flex-col", className)}
-          role="navigation"
           aria-label="Documentation navigation"
         >
           {sidebarContent}

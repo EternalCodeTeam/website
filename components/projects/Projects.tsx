@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import ProjectItem from "@/components/projects/ProjectItem";
 import SectionTitle from "@/components/SectionTitle";
@@ -8,7 +8,7 @@ import SectionTitle from "@/components/SectionTitle";
 import ProjectsError from "./ProjectsError";
 import { fetchProjects } from "./projectService";
 import ProjectsSkeleton from "./ProjectsSkeleton";
-import { Project } from "./types";
+import type { Project } from "./types";
 
 export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);

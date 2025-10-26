@@ -2,12 +2,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ChevronRight, FileText, Folder, FolderOpen } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FC, memo, useCallback, useState, MouseEvent } from "react";
+import { type FC, type MouseEvent, memo, useCallback, useState } from "react";
 
 import { DocIcon } from "@/components/docs/content/DocIcon";
 import { cn } from "@/lib/utils";
 
-import { DocItemProps } from "./types";
+import type { DocItemProps } from "./types";
 
 const SidebarItem: FC<DocItemProps> = memo(({ item, level, onItemClick }) => {
   const pathname = usePathname();

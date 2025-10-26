@@ -16,7 +16,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 import { ColorPicker } from "../color-picker/ColorPicker";
-import { TextFormattingProps } from "../types";
+import type { TextFormattingProps } from "../types";
 
 const formattingButtonClass =
   "h-8 w-8 rounded-full p-0 text-blue-600 dark:text-blue-400 flex items-center justify-center";

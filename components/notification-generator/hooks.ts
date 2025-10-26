@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-import { NotificationConfig } from "./types";
+import type { NotificationConfig } from "./types";
 
 export const useTitleAnimation = (
   notification: Pick<NotificationConfig, "title" | "subtitle" | "fadeIn" | "stay" | "fadeOut">

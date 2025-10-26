@@ -1,12 +1,12 @@
 "use client";
 
 import { motion, useAnimation } from "framer-motion";
-import { Github, Users, Rocket, CheckCircle, Zap } from "lucide-react";
+import { CheckCircle, Github, Rocket, Users, Zap } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
-import { AnimatedSection, AnimatedElement, AnimatedContainer } from "@/components/animations";
+import { AnimatedContainer, AnimatedElement, AnimatedSection } from "@/components/animations";
 import Terminal from "@/components/hero/terminal/Terminal";
 import ArrowForwardHeroIcon from "@/components/icons/arrow-forward-hero";
 import PeopleGroupIcon from "@/components/icons/people-group";

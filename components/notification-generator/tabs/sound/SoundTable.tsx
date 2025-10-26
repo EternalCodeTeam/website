@@ -1,5 +1,6 @@
 "use client";
 
+import type React from "react";
 import { useState } from "react";
 
 import { Play } from "@/components/icons/play";
@@ -45,7 +46,7 @@ export function SoundTable({
     (sound) =>
       !searchQuery ||
       sound.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (sound.category && sound.category.toLowerCase().includes(searchQuery.toLowerCase()))
+      sound.category?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   // Get paginated sounds
@@ -229,7 +230,7 @@ export function SoundTable({
             </Button>
 
             {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-              let pageNumber;
+              let pageNumber: number;
               if (totalPages <= 5) {
                 pageNumber = i + 1;
               } else if (currentPage <= 3) {

@@ -37,6 +37,7 @@ export function CookieConsentModal() {
               </p>
             </div>
             <button
+              type="button"
               onClick={() => setIsOpen(false)}
               className="ml-4 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
             >
@@ -46,6 +47,7 @@ export function CookieConsentModal() {
 
           <div className="mt-4">
             <button
+              type="button"
               onClick={() => setShowDetails(!showDetails)}
               className="flex items-center text-sm text-blue-600 hover:underline dark:text-blue-400"
             >
@@ -145,6 +147,7 @@ export function CookieConsentModal() {
 
           <div className="mt-6 flex flex-col gap-3">
             <button
+              type="button"
               onClick={() => {
                 acceptAll();
                 setIsOpen(false);
@@ -154,6 +157,7 @@ export function CookieConsentModal() {
               Accept All
             </button>
             <button
+              type="button"
               onClick={() => setIsOpen(false)}
               className="inline-flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
             >

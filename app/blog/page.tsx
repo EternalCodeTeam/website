@@ -1,5 +1,5 @@
 import { BookOpen, Users, Tag } from "lucide-react";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 import { AnimatedSection, AnimatedContainer, AnimatedElement } from "@/components/animations";
 import BlogPostCard from "@/components/blog/BlogPostCard";

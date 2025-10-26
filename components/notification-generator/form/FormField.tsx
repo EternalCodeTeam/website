@@ -7,7 +7,7 @@ import AnimatedElement from "@/components/animations/AnimatedElement";
 import { TextFormattingButtons } from "@/components/notification-generator/form/formatting/TextFormattingButtons";
 
 import { insertTag, toggleFormatting } from "./formatting/tagUtils";
-import { FormFieldProps } from "./types";
+import type { FormFieldProps } from "./types";
 
 export const FormField = ({
   label,

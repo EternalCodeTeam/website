@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 import AnimatedSection from "@/components/animations/AnimatedSection";
 
 interface TeamErrorProps {

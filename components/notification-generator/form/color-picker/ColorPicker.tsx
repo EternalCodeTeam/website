@@ -6,7 +6,7 @@ import { HexColorPicker } from "react-colorful";
 
 import { Button } from "@/components/ui/button";
 
-import { ColorPickerProps } from "../types";
+import type { ColorPickerProps } from "../types";
 
 export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) => {
   const [isGradient, setIsGradient] = useState(false);
@@ -97,36 +97,40 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
       {isGradient && (
         <>
           <div className="mb-2 flex flex-wrap gap-2">
-            {colors.map((color, index) => (
-              <div key={index} className="group relative">
-                <button
-                  type="button"
-                  className={`h-8 w-8 cursor-pointer rounded border-2 focus:outline-none ${
-                    activeColorIndex === index
-                      ? "border-blue-500"
-                      : "border-gray-300 dark:border-gray-600"
-                  }`}
-                  style={{ backgroundColor: color }}
-                  onClick={() => {
-                    setActiveColorIndex(index);
-                    setColorError(null);
-                  }}
-                  aria-label={`Select color ${index + 1}`}
-                />
-                {colors.length > 1 && (
-                  <Button
+            {colors.map((color, idx) => {
+              const key = `${color}-${idx}`;
+              return (
+                <div key={key} className="group relative">
+                  <button
                     type="button"
-                    variant="danger"
-                    size="xs"
-                    className="absolute -right-1 -top-1 h-4 w-4 p-0 opacity-0 transition-opacity group-hover:opacity-100"
-                    onClick={() => removeColor(index)}
-                    title="Remove Color"
-                  >
-                    <Trash2 className="h-3 w-3" />
-                  </Button>
-                )}
-              </div>
-            ))}
+                    className={`h-8 w-8 cursor-pointer rounded border-2 focus:outline-none ${
+                      activeColorIndex === idx
+                        ? "border-blue-500"
+                        : "border-gray-300 dark:border-gray-600"
+                    }`}
+                    style={{ backgroundColor: color }}
+                    onClick={() => {
+                      setActiveColorIndex(idx);
+                      setColorError(null);
+                    }}
+                    aria-label={`Select color ${idx + 1}`}
+                  />
+                  {colors.length > 1 && (
+                    <Button
+                      type="button"
+                      variant="danger"
+                      size="xs"
+                      className="absolute -right-1 -top-1 h-4 w-4 p-0 opacity-0 transition-opacity group-hover:opacity-100"
+                      onClick={() => removeColor(idx)}
+                      title="Remove Color"
+                    >
+                      <Trash2 className="h-3 w-3" />
+                    </Button>
+                  )}
+                </div>
+              );
+            })}
+
             <Button
               type="button"
               variant="outline"

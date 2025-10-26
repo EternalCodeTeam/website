@@ -1,12 +1,11 @@
-import React from "react";
-
 import { MinecraftText } from "../../preview/minecraftTextParser";
+import { memo } from "react";
 
 interface ActionBarProps {
   message: string;
 }
 
-const ActionBar = React.memo(({ message }: ActionBarProps) => {
+const ActionBar = memo(({ message }: ActionBarProps) => {
   if (!message) return null;
 
   return (

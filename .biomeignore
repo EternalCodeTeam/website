@@ -10,7 +10,6 @@ bun.lockb
 
 # Cache
 .cache/
-.eslintcache
 
 # Logs
 *.log
@@ -29,4 +28,5 @@ yarn-error.log*
 .DS_Store
 *.pem
 coverage/
-.vercel 
+.vercel
+

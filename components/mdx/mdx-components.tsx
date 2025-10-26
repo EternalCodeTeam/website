@@ -1,15 +1,13 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import type { MDXComponents } from "mdx/types";
-import React from "react";
-
+import type { ComponentProps, HTMLAttributes } from "react";
 import DynamicCommandsTable from "@/components/docs/eternalcore/DynamicCommandsTable";
 import { CodeBlock } from "@/components/mdx/CodeBlock";
-import { CodeTabs, CodeTab } from "@/components/mdx/CodeTabs";
+import { CodeTab, CodeTabs } from "@/components/mdx/CodeTabs";
 import { Heading } from "@/components/mdx/Heading";
 import { Inline } from "@/components/mdx/Inline";
 import { AlertBox } from "@/components/ui/alert-box";
 
-type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>;
+type HeadingProps = HTMLAttributes<HTMLHeadingElement>;
 
 export const components: MDXComponents = {
   h1: (props: HeadingProps) => (
@@ -45,7 +43,7 @@ export const components: MDXComponents = {
   CodeTab,
   DynamicCommandsTable,
 
-  code: (props: React.ComponentProps<"code">) => {
+  code: (props: ComponentProps<"code">) => {
     const { children, ...rest } = props;
     let content = typeof children === "string" ? children : String(children);
     content = content.replace(/^`+|`+$/g, "");
@@ -87,7 +85,7 @@ export const components: MDXComponents = {
   ol: (props) => <ol className="list-decimal space-y-1 pl-8" {...props} />,
   li: (props) => <li className="py-0.5" {...props} />,
   img: (props) => (
-    // eslint-disable-next-line @next/next/no-img-element
+    // biome-ignore lint/performance/noImgElement: it's for docs only.
     <img className="my-4 inline-block rounded-md shadow-sm" alt={props.alt || "Image"} {...props} />
   ),
 };

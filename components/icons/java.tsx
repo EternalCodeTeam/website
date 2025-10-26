@@ -1,4 +1,4 @@
-import { SVGProps } from "react";
+import type { SVGProps } from "react";
 
 export default function JavaIcon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -7,8 +7,10 @@ export default function JavaIcon(props: SVGProps<SVGSVGElement>) {
       width="0.74em"
       height="1em"
       viewBox="0 0 256 346"
+      aria-label="Java"
       {...props}
     >
+      <title>Java</title>
       <path
         fill="#5382A1"
         d="M82.554 267.473s-13.198 7.675 9.393 10.272c27.369 3.122 41.356 2.675 71.517-3.034c0 0 7.93 4.972 19.003 9.279c-67.611 28.977-153.019-1.679-99.913-16.517m-8.262-37.814s-14.803 10.958 7.805 13.296c29.236 3.016 52.324 3.263 92.276-4.43c0 0 5.526 5.602 14.215 8.666c-81.747 23.904-172.798 1.885-114.296-17.532"

@@ -24,7 +24,9 @@ export default function AnnouncementBanner() {
             className="h-3.5 w-3.5 animate-pulse text-blue-500 dark:text-blue-400"
             fill="currentColor"
             viewBox="0 0 8 8"
+            role="img"
           >
+            <title>Status indicator</title>
             <circle cx="4" cy="4" r="3" />
           </svg>
           New feature
