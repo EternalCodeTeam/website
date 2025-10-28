@@ -6,7 +6,7 @@ import { forwardRef } from "react";
 
 import { cn } from "@/lib/utils";
 
-export type ButtonVariant = "primary" | "secondary" | "outline-solid" | "ghost" | "link" | "danger";
+export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "link" | "danger";
 export type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
 
 export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "size"> {
