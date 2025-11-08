@@ -1,7 +1,7 @@
 "use client";
 
-import { create, insert, search, type AnyOrama } from "@orama/orama";
-import { motion, AnimatePresence } from "framer-motion";
+import { type AnyOrama, create, insert, search } from "@orama/orama";
+import { AnimatePresence, motion } from "framer-motion";
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -144,10 +144,10 @@ export default function DynamicCommandsTable() {
             onBlur={() => setFocused(false)}
             placeholder="Search for commands and permissions..."
             className={cn(
-              "w-full select-none rounded-lg border bg-white px-4 py-2.5 pl-10 pr-10 text-sm outline-none transition-all duration-200",
+              "w-full select-none rounded-lg border bg-white px-4 py-2.5 pl-10 pr-10 text-sm outline-hidden transition-all duration-200",
               focused
                 ? "border-blue-500 shadow-lg shadow-blue-500/20 ring-2 ring-blue-500/50 dark:shadow-blue-500/10"
-                : "border-gray-300 shadow-sm dark:border-gray-700",
+                : "border-gray-300 shadow-xs dark:border-gray-700",
               "placeholder:text-gray-400 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500"
             )}
           />
@@ -171,9 +171,9 @@ export default function DynamicCommandsTable() {
           </thead>
           <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
             <AnimatePresence>
-              {filtered.map((c, i) => (
+              {filtered.map((c) => (
                 <motion.tr
-                  key={i}
+                  key={c.name}
                   initial={{ opacity: 0, y: 3 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -3 }}
@@ -181,7 +181,10 @@ export default function DynamicCommandsTable() {
                   className="transition-colors hover:bg-gray-50 dark:hover:bg-gray-900"
                 >
                   {[c.name, c.permission, c.description, c.arguments].map((v, j) => (
-                    <td key={j} className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300">
+                    <td
+                      key={`${c.name}-${j}`}
+                      className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300"
+                    >
                       {v}
                     </td>
                   ))}

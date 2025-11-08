@@ -1,16 +1,13 @@
 "use client";
 
 import { AnimatePresence } from "framer-motion";
-import React, { useMemo, useRef, useLayoutEffect, useState } from "react";
-
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import ActionBar from "@/components/notification-generator/tabs/actionbar/ActionBar";
 import ChatMessage from "@/components/notification-generator/tabs/chat/ChatMessage";
 import SoundIndicator from "@/components/notification-generator/tabs/sound/SoundIndicator";
 import Title from "@/components/notification-generator/tabs/title/Title";
-
-import { useTitleAnimation, useSoundEffect } from "../hooks";
-import { MinecraftPreviewProps } from "../types";
-
+import { useSoundEffect, useTitleAnimation } from "../hooks";
+import type { MinecraftPreviewProps } from "../types";
 import BackgroundImage from "./BackgroundImage";
 
 export function MinecraftPreview({ notification }: MinecraftPreviewProps) {
@@ -18,7 +15,7 @@ export function MinecraftPreview({ notification }: MinecraftPreviewProps) {
   const { playSound } = useSoundEffect(notification.sound);
 
   const rootRef = useRef<HTMLDivElement | null>(null);
-  const [scaleVars, setScaleVars] = useState<React.CSSProperties>({});
+  const [scaleVars, setScaleVars] = useState<Record<string, string>>({});
 
   useLayoutEffect(() => {
     const el = rootRef.current;
@@ -28,20 +25,20 @@ export function MinecraftPreview({ notification }: MinecraftPreviewProps) {
     const baseHeight = 540;
     const scale = Math.max(0.5, rect.height / baseHeight);
 
-    const cssVars: React.CSSProperties = {
-      ["--mc-scale" as any]: scale.toString(),
-      ["--mc-font-size" as any]: `calc(8px * var(--mc-scale))`,
-      ["--mc-line-height" as any]: `calc(9px * var(--mc-scale))`,
-      ["--mc-shadow" as any]: `calc(1px * var(--mc-scale))`,
+    const cssVars: Record<string, string> = {
+      "--mc-scale": scale.toString(),
+      "--mc-font-size": `calc(8px * var(--mc-scale))`,
+      "--mc-line-height": `calc(9px * var(--mc-scale))`,
+      "--mc-shadow": `calc(1px * var(--mc-scale))`,
 
-      ["--mc-chat-left" as any]: `calc(4px * var(--mc-scale))`,
-      ["--mc-chat-bottom" as any]: `calc(48px * var(--mc-scale))`,
-      ["--mc-chat-width" as any]: `calc(320px * var(--mc-scale))`,
+      "--mc-chat-left": `calc(4px * var(--mc-scale))`,
+      "--mc-chat-bottom": `calc(48px * var(--mc-scale))`,
+      "--mc-chat-width": `calc(320px * var(--mc-scale))`,
 
-      ["--mc-actionbar-bottom" as any]: `calc(67px * var(--mc-scale))`,
+      "--mc-actionbar-bottom": `calc(67px * var(--mc-scale))`,
 
-      ["--mc-title-font-size" as any]: `calc(32px * var(--mc-scale))`,
-      ["--mc-subtitle-font-size" as any]: `calc(16px * var(--mc-scale))`,
+      "--mc-title-font-size": `calc(32px * var(--mc-scale))`,
+      "--mc-subtitle-font-size": `calc(16px * var(--mc-scale))`,
     };
 
     setScaleVars(cssVars);

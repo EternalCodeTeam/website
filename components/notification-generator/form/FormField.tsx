@@ -7,7 +7,7 @@ import AnimatedElement from "@/components/animations/AnimatedElement";
 import { TextFormattingButtons } from "@/components/notification-generator/form/formatting/TextFormattingButtons";
 
 import { insertTag, toggleFormatting } from "./formatting/tagUtils";
-import { FormFieldProps } from "./types";
+import type { FormFieldProps } from "./types";
 
 export const FormField = ({
   label,
@@ -84,12 +84,12 @@ export const FormField = ({
     handleInsertTag(tag);
   };
 
-  const inputClasses = `w-full rounded-md border border-gray-200 bg-white px-3 py-1.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white ${error ? "focus:ring-red-500" : ""}`;
+  const inputClasses = `w-full rounded-md border border-gray-200 bg-white px-3 py-1.5 text-sm focus:border-blue-500 focus:outline-hidden focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white ${error ? "focus:ring-red-500" : ""}`;
 
-  const textareaClasses = `w-full rounded-md border border-gray-200 bg-white px-3 py-1.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white ${error ? "focus:ring-red-500" : ""}`;
+  const textareaClasses = `w-full rounded-md border border-gray-200 bg-white px-3 py-1.5 text-sm focus:border-blue-500 focus:outline-hidden focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white ${error ? "focus:ring-red-500" : ""}`;
 
   return (
-    <div className="mb-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+    <div className="mb-4 rounded-lg border border-gray-200 bg-white p-4 shadow-xs dark:border-gray-700 dark:bg-gray-800">
       <label
         htmlFor={`formfield-${name}`}
         className="mb-1 block text-xs text-gray-500 dark:text-gray-400"

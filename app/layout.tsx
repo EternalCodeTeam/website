@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
-import React from "react";
+import type React from "react";
 
 import { Analytics } from "@/components/Analytics";
 import "./prism-languages";
@@ -107,7 +107,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={poppins.variable}>
       <body
-        className={`${poppins.className} relative min-h-screen bg-lightGray-100 antialiased dark:bg-gray-900`}
+        className={`${poppins.className} relative min-h-screen bg-light-gray-100 antialiased dark:bg-gray-900`}
       >
         <Providers>
           <NextTopLoader

@@ -1,8 +1,16 @@
-import { SVGProps } from "react";
+import type { SVGProps } from "react";
 
 export default function LinkedinIcon(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      aria-label="LinkedIn"
+      {...props}
+    >
+      <title>LinkedIn</title>
       <path
         fill="currentColor"
         fillRule="evenodd"

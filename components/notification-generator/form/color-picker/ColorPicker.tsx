@@ -6,7 +6,7 @@ import { HexColorPicker } from "react-colorful";
 
 import { Button } from "@/components/ui/button";
 
-import { ColorPickerProps } from "../types";
+import type { ColorPickerProps } from "../types";
 
 export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) => {
   const [isGradient, setIsGradient] = useState(false);
@@ -77,7 +77,7 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
             id="gradient-toggle"
             checked={isGradient}
             onChange={(e) => setIsGradient(e.target.checked)}
-            className="mr-2 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
+            className="mr-2 h-4 w-4 rounded-sm border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
           />
           <label htmlFor="gradient-toggle" className="text-sm text-gray-700 dark:text-gray-300">
             Gradient
@@ -97,36 +97,40 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
       {isGradient && (
         <>
           <div className="mb-2 flex flex-wrap gap-2">
-            {colors.map((color, index) => (
-              <div key={index} className="group relative">
-                <button
-                  type="button"
-                  className={`h-8 w-8 cursor-pointer rounded border-2 focus:outline-none ${
-                    activeColorIndex === index
-                      ? "border-blue-500"
-                      : "border-gray-300 dark:border-gray-600"
-                  }`}
-                  style={{ backgroundColor: color }}
-                  onClick={() => {
-                    setActiveColorIndex(index);
-                    setColorError(null);
-                  }}
-                  aria-label={`Select color ${index + 1}`}
-                />
-                {colors.length > 1 && (
-                  <Button
+            {colors.map((color, idx) => {
+              const key = `${color}-${idx}`;
+              return (
+                <div key={key} className="group relative">
+                  <button
                     type="button"
-                    variant="danger"
-                    size="xs"
-                    className="absolute -right-1 -top-1 h-4 w-4 p-0 opacity-0 transition-opacity group-hover:opacity-100"
-                    onClick={() => removeColor(index)}
-                    title="Remove Color"
-                  >
-                    <Trash2 className="h-3 w-3" />
-                  </Button>
-                )}
-              </div>
-            ))}
+                    className={`h-8 w-8 cursor-pointer rounded border-2 focus:outline-hidden ${
+                      activeColorIndex === idx
+                        ? "border-blue-500"
+                        : "border-gray-300 dark:border-gray-600"
+                    }`}
+                    style={{ backgroundColor: color }}
+                    onClick={() => {
+                      setActiveColorIndex(idx);
+                      setColorError(null);
+                    }}
+                    aria-label={`Select color ${idx + 1}`}
+                  />
+                  {colors.length > 1 && (
+                    <Button
+                      type="button"
+                      variant="danger"
+                      size="xs"
+                      className="absolute -right-1 -top-1 h-4 w-4 p-0 opacity-0 transition-opacity group-hover:opacity-100"
+                      onClick={() => removeColor(idx)}
+                      title="Remove Color"
+                    >
+                      <Trash2 className="h-3 w-3" />
+                    </Button>
+                  )}
+                </div>
+              );
+            })}
+
             <Button
               type="button"
               variant="outline"
@@ -145,7 +149,7 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
             </label>
             <div
               id="gradient-preview"
-              className="h-10 w-full rounded border border-gray-300 dark:border-gray-600"
+              className="h-10 w-full rounded-sm border border-gray-300 dark:border-gray-600"
               style={gradientStyle}
             />
           </div>
@@ -161,7 +165,7 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
       <div className="mt-2 flex justify-between">
         <div className="flex items-center">
           <div
-            className="mr-2 h-6 w-6 rounded border border-gray-300 dark:border-gray-600"
+            className="mr-2 h-6 w-6 rounded-sm border border-gray-300 dark:border-gray-600"
             style={{ backgroundColor: currentColor }}
           />
           <div className="relative flex flex-col">
@@ -175,7 +179,7 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
               placeholder="#000000"
             />
             {colorError && (
-              <div className="absolute top-8 z-20 w-48 rounded bg-red-100 p-1 text-xs text-red-700 dark:bg-red-900 dark:text-red-200">
+              <div className="absolute top-8 z-20 w-48 rounded-sm bg-red-100 p-1 text-xs text-red-700 dark:bg-red-900 dark:text-red-200">
                 {colorError}
               </div>
             )}

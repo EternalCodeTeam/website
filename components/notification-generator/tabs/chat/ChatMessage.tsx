@@ -1,15 +1,30 @@
-import React from "react";
+import { nanoid } from "nanoid";
+import { type CSSProperties, memo } from "react";
 
 import { MinecraftText } from "../../preview/minecraftTextParser";
-
 import styles from "./ChatMessage.module.css";
 
 interface ChatMessageProps {
   message: string;
 }
 
-const ChatMessage = React.memo(({ message }: ChatMessageProps) => {
+const ChatMessage = memo(({ message }: ChatMessageProps) => {
   if (!message) return null;
+
+  const linesWithId = message.split("\n").map((line) => ({ id: nanoid(), text: line }));
+
+  const lineStyles: CSSProperties = {
+    display: "block",
+    minHeight: "var(--mc-line-height)",
+    lineHeight: "var(--mc-line-height)",
+    fontSize: "var(--mc-font-size)",
+    whiteSpace: "pre-wrap",
+    wordBreak: "break-word",
+    paddingLeft: "calc(4px * var(--mc-scale))",
+    paddingRight: "calc(4px * var(--mc-scale))",
+    textShadow:
+      "var(--mc-shadow) 0 0 #000, calc(-1 * var(--mc-shadow)) 0 0 #000, 0 var(--mc-shadow) 0 #000, 0 calc(-1 * var(--mc-shadow)) 0 #000",
+  };
 
   return (
     <div
@@ -25,56 +40,15 @@ const ChatMessage = React.memo(({ message }: ChatMessageProps) => {
     >
       <div
         className="absolute left-0 top-0 h-full bg-black/40"
-        style={{
-          zIndex: 0,
-          borderRadius: 0,
-          width: "100%",
-          height: "100%",
-        }}
+        style={{ zIndex: 0, borderRadius: 0, width: "100%", height: "100%" }}
       />
-      {message.includes("\n") ? (
-        <div style={{ position: "relative", zIndex: 1, width: "100%" }}>
-          {message.split("\n").map((line, index) => (
-            <div
-              key={`${line}-${index}`}
-              className="font-minecraft"
-              style={{
-                display: "block",
-                minHeight: "var(--mc-line-height)",
-                lineHeight: "var(--mc-line-height)",
-                fontSize: "var(--mc-font-size)",
-                whiteSpace: "pre-wrap !important",
-                wordBreak: "break-word",
-                paddingLeft: "calc(4px * var(--mc-scale))",
-                paddingRight: "calc(4px * var(--mc-scale))",
-                textShadow:
-                  "var(--mc-shadow) 0 0 #000, calc(-1 * var(--mc-shadow)) 0 0 #000, 0 var(--mc-shadow) 0 #000, 0 calc(-1 * var(--mc-shadow)) 0 #000",
-              }}
-            >
-              <MinecraftText text={line} />
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div
-          className="font-minecraft"
-          style={{
-            position: "relative",
-            zIndex: 1,
-            minHeight: "var(--mc-line-height)",
-            lineHeight: "var(--mc-line-height)",
-            fontSize: "var(--mc-font-size)",
-            whiteSpace: "pre-wrap !important",
-            wordBreak: "break-word",
-            paddingLeft: "calc(4px * var(--mc-scale))",
-            paddingRight: "calc(4px * var(--mc-scale))",
-            textShadow:
-              "var(--mc-shadow) 0 0 #000, calc(-1 * var(--mc-shadow)) 0 0 #000, 0 var(--mc-shadow) 0 #000, 0 calc(-1 * var(--mc-shadow)) 0 #000",
-          }}
-        >
-          <MinecraftText text={message} />
-        </div>
-      )}
+      <div style={{ position: "relative", zIndex: 1, width: "100%" }}>
+        {linesWithId.map(({ id, text }) => (
+          <div key={id} className="font-minecraft" style={lineStyles}>
+            <MinecraftText text={text} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 });

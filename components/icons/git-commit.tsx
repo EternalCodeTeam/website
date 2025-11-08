@@ -1,4 +1,4 @@
-import { SVGProps } from "react";
+import type { SVGProps } from "react";
 
 export default function GitCommitIcon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -7,8 +7,10 @@ export default function GitCommitIcon(props: SVGProps<SVGSVGElement>) {
       width="1em"
       height="1em"
       viewBox="0 0 256 256"
+      aria-label="Git commit"
       {...props}
     >
+      <title>Git commit</title>
       <path
         fill="currentColor"
         d="M244 116h-57.21a60 60 0 0 0-117.58 0H12a12 12 0 0 0 0 24h57.21a60 60 0 0 0 117.58 0H244a12 12 0 0 0 0-24m-116 48a36 36 0 1 1 36-36a36 36 0 0 1-36 36"

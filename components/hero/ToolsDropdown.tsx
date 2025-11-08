@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import ArrowDown from "../icons/arrow-down";
 
@@ -46,7 +46,7 @@ export function ToolsDropdown() {
     <div className="relative flex justify-center">
       <button
         ref={buttonRef}
-        className={`flex items-center gap-1 rounded-full px-4 py-1.5 text-gray-900 transition-colors duration-200 hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:text-white dark:hover:bg-gray-800`}
+        className={`flex items-center gap-1 rounded-full px-4 py-1.5 text-gray-900 transition-colors duration-200 hover:bg-gray-100 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 dark:text-white dark:hover:bg-gray-800`}
         aria-haspopup="menu"
         aria-expanded={open}
         aria-controls="tools-dropdown-menu"
@@ -81,7 +81,7 @@ export function ToolsDropdown() {
             <li>
               <Link
                 href="/notification-generator"
-                className="block w-full rounded-md px-4 py-2 text-left text-gray-900 outline-none transition-colors duration-150 hover:bg-blue-50 hover:text-blue-700 focus:bg-blue-100 focus:text-blue-700 dark:text-white dark:hover:bg-gray-800 dark:hover:text-blue-400 dark:focus:bg-gray-800 dark:focus:text-blue-400"
+                className="block w-full rounded-md px-4 py-2 text-left text-gray-900 outline-hidden transition-colors duration-150 hover:bg-blue-50 hover:text-blue-700 focus:bg-blue-100 focus:text-blue-700 dark:text-white dark:hover:bg-gray-800 dark:hover:text-blue-400 dark:focus:bg-gray-800 dark:focus:text-blue-400"
                 tabIndex={0}
                 role="menuitem"
                 onClick={() => setOpen(false)}

@@ -1,11 +1,12 @@
 "use client";
 
-import { motion, HTMLMotionProps } from "framer-motion";
-import React, { forwardRef } from "react";
+import { motion, type HTMLMotionProps } from "framer-motion";
+import type React from "react";
+import { forwardRef } from "react";
 
 import { cn } from "@/lib/utils";
 
-export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "link" | "danger";
+export type ButtonVariant = "primary" | "secondary" | "outline-solid" | "ghost" | "link" | "danger";
 export type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
 
 export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "size"> {
@@ -16,9 +17,9 @@ export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
   fullWidth?: boolean;
   animate?: boolean;
   animationProps?: {
-    hover?: Record<string, any>;
-    tap?: Record<string, any>;
-    transition?: Record<string, any>;
+    hover?: Record<string, unknown>;
+    tap?: Record<string, unknown>;
+    transition?: Record<string, unknown>;
   };
   "data-testid"?: string;
 }
@@ -40,22 +41,22 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const baseStyles =
-      "inline-flex items-center justify-center font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none";
+      "inline-flex items-center justify-center font-medium transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none";
 
     const variants: Record<ButtonVariant, string> = {
       primary: "bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600",
       secondary:
-        "bg-lightGray-300 text-gray-900 hover:bg-lightGray-400 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700",
+        "bg-light-gray-300 text-gray-900 hover:bg-light-gray-400 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700",
       outline:
-        "border border-gray-300 bg-transparent hover:bg-lightGray-200 dark:border-gray-700 dark:hover:bg-gray-800",
+        "border border-gray-300 bg-transparent hover:bg-light-gray-200 dark:border-gray-700 dark:hover:bg-gray-800",
       ghost: "bg-transparent dark:bg-transparent",
       link: "bg-transparent text-blue-600 underline-offset-4 hover:underline dark:text-blue-400",
       danger: "bg-red-600 text-white hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800",
     };
 
     const sizes: Record<ButtonSize, string> = {
-      xs: "h-6 px-2 text-xs rounded-sm",
-      sm: "h-8 px-3 text-xs rounded-sm",
+      xs: "h-6 px-2 text-xs rounded-xs",
+      sm: "h-8 px-3 text-xs rounded-xs",
       md: "h-10 px-4 py-2 text-sm rounded-md",
       lg: "h-12 px-6 py-3 text-base rounded-lg",
       xl: "h-14 px-8 py-4 text-lg rounded-xl",
@@ -143,7 +144,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       } as HTMLMotionProps<"button">;
 
       if (props["data-testid"]) {
-        (motionProps as any)["data-testid"] = props["data-testid"];
+        (motionProps as HTMLMotionProps<"button"> & { "data-testid"?: string })["data-testid"] =
+          props["data-testid"];
       }
 
       return <motion.button {...motionProps}>{buttonContent}</motion.button>;

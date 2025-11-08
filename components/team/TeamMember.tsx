@@ -2,13 +2,12 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import React from "react";
 
 import GitHubIcon from "@/components/icons/github";
 import LinkedinIcon from "@/components/icons/linkedin";
 
 import { avatarHover, cardVariants, iconHover } from "./animations";
-import { TeamMemberProps } from "./types";
+import type { TeamMemberProps } from "./types";
 
 export default function TeamMember({ member }: TeamMemberProps) {
   return (
@@ -48,7 +47,7 @@ export default function TeamMember({ member }: TeamMemberProps) {
 
       {/* Member roles */}
       {(member.team_roles?.data ?? []).map((role, roleIndex) => (
-        <p key={roleIndex}>{role.name}</p>
+        <p key={`${member.documentId ?? member.name}-role-${roleIndex}`}>{role.name}</p>
       ))}
 
       {/* Social links with hover animations */}

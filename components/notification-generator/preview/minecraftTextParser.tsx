@@ -1,5 +1,7 @@
+"use client";
+
 import MiniMessage from "minimessage-js";
-import React, { FC, useMemo } from "react";
+import { type FC, useMemo } from "react";
 import "./minecraft-text-formatting.css";
 
 interface MinecraftTextProps {
@@ -9,17 +11,16 @@ interface MinecraftTextProps {
 export const MinecraftText: FC<MinecraftTextProps> = ({ text }) => {
   const cleanedText = useMemo(() => sanitizeInput(text), [text]);
 
-  const htmlOutput = useMemo(() => {
+  const parsedElements = useMemo(() => {
     try {
       const miniMessageString = convertLegacyToMini(cleanedText);
-      console.log("MiniMessage Input:", miniMessageString);
       const deserialized = MiniMessage.miniMessage().deserialize(miniMessageString);
       const html = MiniMessage.toHTML(deserialized);
-      console.log("MiniMessage HTML Output:", html);
-      return html;
-    } catch (error) {
-      console.warn("MiniMessage parse failed:", error);
-      return `<span>${cleanedText}</span>`;
+
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: it's safe here
+      return <span dangerouslySetInnerHTML={{ __html: html }} />;
+    } catch {
+      return <span>{cleanedText}</span>;
     }
   }, [cleanedText]);
 
@@ -32,14 +33,21 @@ export const MinecraftText: FC<MinecraftTextProps> = ({ text }) => {
         WebkitFontSmoothing: "none",
         MozOsxFontSmoothing: "grayscale",
       }}
-      dangerouslySetInnerHTML={{ __html: htmlOutput }}
-    />
+    >
+      {parsedElements}
+    </span>
   );
 };
 
 function sanitizeInput(input: string): string {
   if (!input) return "";
-  return input.replace(/\x00|\u0000|[\r\n\v\u2028\u2029]/g, "");
+  return input
+    .replaceAll("\0", "")
+    .replaceAll("\r", "")
+    .replaceAll("\n", "")
+    .replaceAll("\v", "")
+    .replaceAll("\u2028", "")
+    .replaceAll("\u2029", "");
 }
 
 function convertLegacyToMini(text: string): string {

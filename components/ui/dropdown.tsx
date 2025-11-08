@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 
 import ArrowDown from "../icons/arrow-down";
 
@@ -65,7 +65,7 @@ export function Dropdown({
     <div className={`relative ${className}`} ref={dropdownRef}>
       <button
         type="button"
-        className={`flex w-full items-center justify-between rounded border border-gray-200 bg-white px-2 py-1 text-sm transition-colors duration-150 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 ${buttonClassName}`}
+        className={`flex w-full items-center justify-between rounded-sm border border-gray-200 bg-white px-2 py-1 text-sm transition-colors duration-150 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 ${buttonClassName}`}
         onClick={() => setIsOpen((v) => !v)}
         disabled={disabled}
         aria-expanded={isOpen}
@@ -112,7 +112,7 @@ export function Dropdown({
             {options.map((option) => (
               <div
                 key={option.value}
-                className={`block w-full cursor-pointer rounded-md px-4 py-2 text-left text-gray-900 outline-none transition-colors duration-150 hover:bg-blue-50 hover:text-blue-700 dark:text-white dark:hover:bg-gray-800 dark:hover:text-blue-400 ${optionClassName}`}
+                className={`block w-full cursor-pointer rounded-md px-4 py-2 text-left text-gray-900 outline-hidden transition-colors duration-150 hover:bg-blue-50 hover:text-blue-700 dark:text-white dark:hover:bg-gray-800 dark:hover:text-blue-400 ${optionClassName}`}
                 style={{ outline: "none", boxShadow: "none" }}
                 onClick={() => handleOptionSelect(option.value)}
                 onKeyDown={(e) => handleKeyDown(e, option.value)}

@@ -1,6 +1,6 @@
 "use client";
 
-import { Variants } from "framer-motion";
+import type { Variants } from "framer-motion";
 
 const sharedSpring = {
   type: "spring",
@@ -53,18 +53,6 @@ export const fadeInRight: Variants = {
     opacity: 1,
     x: 0,
     transition: sharedSpring,
-  },
-};
-
-export const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      ease: "easeInOut",
-      duration: 0.5,
-    },
   },
 };
 

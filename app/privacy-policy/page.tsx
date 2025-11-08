@@ -2,7 +2,7 @@ import { AlertBox } from "@/components/ui/alert-box";
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="relative mx-auto max-w-screen-xl px-4 py-8">
+    <div className="relative mx-auto max-w-(--breakpoint-xl) px-4 py-8">
       <h1 className="mb-8 text-3xl font-bold text-gray-900 dark:text-white">Privacy Policy</h1>
 
       <div className="prose max-w-none dark:prose-invert">

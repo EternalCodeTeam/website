@@ -2,11 +2,12 @@
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { AnimatePresence, motion } from "framer-motion";
-import React, {
+import {
   Children,
-  ComponentType,
+  type ComponentType,
   isValidElement,
-  ReactNode,
+  type ReactNode,
+  type SVGProps,
   useCallback,
   useState,
 } from "react";
@@ -50,7 +51,8 @@ const getIcon = (label: string) => {
   const key = label.trim().toLowerCase();
   const iconName =
     ICONS[key] ?? `Si${key.replace(/[^a-z0-9]/gi, "").replace(/^./, (c) => c.toUpperCase())}`;
-  return (SIIcons as Record<string, ComponentType<any>>)[iconName];
+
+  return (SIIcons as Record<string, ComponentType<SVGProps<SVGSVGElement>>>)[iconName];
 };
 
 const LanguageIcon = ({ label }: { label: string }) => {
@@ -94,12 +96,12 @@ export const CodeTabs = ({
     >
       <TabGroup selectedIndex={selectedIndex} onChange={handleChange}>
         <TabList className="flex space-x-2 px-4 pb-0 pt-4" aria-label="Code language selection">
-          {Children.map(children, (child, idx) => {
+          {Children.map(children, (child) => {
             if (!isValidElement(child)) return null;
             const { label, disabled } = child.props;
             return (
               <Tab
-                key={`${label}-${idx}`}
+                key={label}
                 disabled={disabled}
                 className={({ selected }) =>
                   cn(
@@ -141,11 +143,11 @@ export const CodeTabs = ({
         </TabList>
         <TabPanels>
           <AnimatePresence mode="wait">
-            {Children.map(children, (child, idx) => {
+            {Children.map(children, (child) => {
               if (!isValidElement(child)) return null;
               return (
                 <TabPanel
-                  key={idx}
+                  key={child.props.label}
                   className={cn(
                     "px-4 pb-6 pt-4 transition-all duration-300",
                     "mt-2 rounded-lg bg-gray-100 dark:bg-gray-850"

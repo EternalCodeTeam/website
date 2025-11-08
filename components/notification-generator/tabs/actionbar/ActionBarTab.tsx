@@ -1,7 +1,7 @@
 "use client";
 
 import { FormField } from "../../form/FormField";
-import { NotificationConfig, FieldType } from "../../types";
+import type { FieldType, NotificationConfig } from "../../types";
 import { MiniMessageInfoBox } from "../MiniMessageInfoBox";
 
 interface ActionBarTabProps {
