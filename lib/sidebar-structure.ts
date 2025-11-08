@@ -38,7 +38,7 @@ export const docsStructure: DocItem[] = [
           { title: "Container inventories", path: "/docs/eternalcore/features/container", icon: "PackageOpen" },
           {
             title: "Fun Commands",
-            path: "docs/eternalcore/features/fun",
+            path: "/docs/eternalcore/features/fun",
             children: [
               { title: "Elder Guardian", path: "/docs/eternalcore/features/elderguardian", icon: "ScanEye" },
             ],
