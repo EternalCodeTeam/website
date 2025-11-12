@@ -61,7 +61,7 @@
     "@next/codemod": "^15.4.0-canary.36",
     "@tailwindcss/postcss": "^4.1.16",
     "@total-typescript/ts-reset": "^0.6.0",
-    "@types/node": "^20.11.20",
+    "@types/node": "^22.0.0",
     "@types/prismjs": "^1.26.5",
     "@types/react": "^18.2.58",
     "@types/react-dom": "^18.2.19",
