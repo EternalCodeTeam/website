@@ -46,7 +46,7 @@ export function ToolsDropdown() {
     <div className="relative flex justify-center">
       <button
         ref={buttonRef}
-        className={`flex items-center gap-1 rounded-full px-4 py-1.5 text-gray-900 transition-colors duration-200 hover:bg-gray-100 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 dark:text-white dark:hover:bg-gray-800`}
+        className={`cursor-pointer flex items-center gap-1 rounded-full px-4 py-1.5 text-gray-900 transition-colors duration-200 hover:bg-gray-100 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 dark:text-white dark:hover:bg-gray-800`}
         aria-haspopup="menu"
         aria-expanded={open}
         aria-controls="tools-dropdown-menu"

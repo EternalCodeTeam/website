@@ -71,7 +71,7 @@ export default function Faq() {
             >
               <motion.button
                 onClick={() => toggleFaq(faqItems.indexOf(item))}
-                className="flex w-full items-center justify-between bg-light-gray-200 px-6 py-4 text-left text-lg font-medium text-gray-800 transition-colors duration-300 hover:bg-light-gray-300 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+                className="cursor-pointer flex w-full items-center justify-between bg-light-gray-200 px-6 py-4 text-left text-lg font-medium text-gray-800 transition-colors duration-300 hover:bg-light-gray-300 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                 aria-expanded={activeIndex === faqItems.indexOf(item)}
                 aria-controls={`faq-panel-${faqItems.indexOf(item)}`}
                 id={`faq-question-${faqItems.indexOf(item)}`}
