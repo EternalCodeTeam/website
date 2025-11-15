@@ -244,7 +244,7 @@ export function SoundTable({
               return (
                 <Button
                   key={pageNumber}
-                  variant={currentPage === pageNumber ? "primary" : "outline-solid"}
+                  variant={currentPage === pageNumber ? "primary" : "outline"}
                   size="sm"
                   onClick={() => handlePageChange(pageNumber)}
                   className="h-8 w-8 p-0"
