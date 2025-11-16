@@ -68,11 +68,14 @@ A player with the permission `eternalcore.home.vip` can set **up to 2 homes**.
   />
   <div className="bg-muted p-2 text-center text-sm font-medium">
     Deleting a home with `/delhome`
+
   </div>
-</div>
 
   <div className="overflow-hidden">
-    <img className="inline-block rounded-md shadow-xs my-4" src="/docs/eternalcore/homes/home-list.gif" alt="Listing homes" />
+
+    <img className="inline-block rounded-md shadow-sm my-4" src="/docs/eternalcore/homes/home-list.gif"
+         alt="Listing homes" />
+
     <div className="p-2 text-center text-sm font-medium bg-muted">Listing homes with just `/home`</div>
   </div>
 </div>
@@ -83,7 +86,10 @@ A player with the permission `eternalcore.home.vip` can set **up to 2 homes**.
 
 The `/homeadmin` command group allows server staff and administrators to fully manage homes for other players, regardless of their permission limits or online status.
 
-import { AlertBox } from "../../../components/ui/alert-box";
+
+
+
+import { AlertBox } from "../../../../components/ui/alert-box";
 
 <AlertBox type="warning" title="⚙️ Offline player support is coming in EternalCore 2.0!">
   You'll be able to view, modify, and teleport to homes of offline players seamlessly.

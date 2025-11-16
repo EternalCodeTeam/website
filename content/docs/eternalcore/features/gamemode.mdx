@@ -1,0 +1,59 @@
+---
+title: Gamemode
+description: Change a player's game mode using `/gamemode` or shortcuts (`/gms`, `/gmc`, `/gma`, `/gmsp`).
+---
+
+
+
+import { AlertBox } from "../../../../components/ui/alert-box";
+
+## 🎮 Gamemode — switch player game modes
+
+Use `/gamemode` to change the target player's game mode. Shortcuts are available for quick switching.
+Permissions:
+- `eternalcore.gamemode` - required to change your own gamemode.
+- `eternalcore.gamemode.other` - required to change other players' gamemodes.
+
+### ✅ Usage
+
+```text
+/gamemode <survival|creative|adventure|spectator> [player]
+```
+
+Shortcuts:
+
+<AlertBox type="note">
+  <strong>💡 PRO TIP:</strong> Use shortcuts for quick single-argument changes.
+</AlertBox>
+
+```text
+/gms  → /gamemode survival
+/gmc  → /gamemode creative
+/gma  → /gamemode adventure
+/gmsp → /gamemode spectator
+```
+
+<AlertBox type="warning">
+  - If `[player]` is omitted, the sender's gamemode will be changed.
+  - Changing another player's gamemode requires `eternalcore.gamemode.other` permission.
+</AlertBox>
+
+
+### 🎯 Examples
+
+```text
+/gamemode creative
+→ Your gamemode changed to creative
+
+/gamemode survival Notch
+→ Notch's gamemode changed to survival
+
+/gmc Alex
+→ Sets Alex to creative (shortcut)
+```
+
+---
+
+![gamemode.gif](/docs/eternalcore/gamemode.gif)
+
+---

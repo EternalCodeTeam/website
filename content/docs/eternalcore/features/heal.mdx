@@ -1,0 +1,33 @@
+---
+title: Heal
+description: Heal a player to full health and restore their hunger to maximum using `/heal`.
+---
+
+
+
+
+
+import { AlertBox } from "../../../../components/ui/alert-box";
+
+## ❤️ Heal — restore health and hunger
+
+The `/heal` command instantly heals a player to their maximum health and refills their hunger bar. It can be used on yourself or on another player (if you have permission).
+Required permissions:
+- `eternalcore.heal` - to heal yourself.
+- `eternalcore.heal.other` - to heal other players.
+
+### ✅ Usage
+
+```text
+/heal [player]
+```
+<AlertBox type="warning">
+  - Without `[player]` the command heals the executor.
+  - Providing `[player]` requires the `eternalcore.heal.other` permission.
+</AlertBox>
+
+---
+
+![heal.gif](/docs/eternalcore/heal.gif)
+
+---
