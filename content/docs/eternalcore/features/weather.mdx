@@ -1,26 +1,28 @@
 ---
-title: Change weather in worlds using weather commands
-description: Learn how to use the weather commands to change the weather conditions in different worlds
+title: Change weather
+description: Change weather conditions in different worlds.
+icon: CloudRain
 ---
 
+import { AlertBox } from "../../../components/ui/alert-box";
 
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the [Commands & Permissions](/docs/eternalcore/commands-and-permissions) page for a full list of commands and permissions.
+</AlertBox>
 
+## Introduction
 
-import { AlertBox } from "../../../../components/ui/alert-box";
-
-## ☀️🌧️ Change weather
 The `/rain`, `/thunder` and `/sun` commands allow you to change the weather conditions in different worlds on your server.
 
+## Usage
 
-### ✅ Usage
-
-```
+```text
 /sun [world]
 /rain [world]
 /thunder [world]
 ```
 
-<AlertBox type="info">
+<AlertBox type="info" title="Note">
   - Without `[world]`, changes the weather in your current world.
   - Providing `[world]` changes the weather in that specified world.
 </AlertBox>

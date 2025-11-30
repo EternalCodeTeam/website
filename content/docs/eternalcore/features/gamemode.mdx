@@ -1,29 +1,27 @@
 ---
 title: Gamemode
 description: Change a player's game mode using `/gamemode` or shortcuts (`/gms`, `/gmc`, `/gma`, `/gmsp`).
+icon: Gamepad
 ---
 
+import { AlertBox } from "../../../components/ui/alert-box";
 
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the [Commands & Permissions](/docs/eternalcore/commands-and-permissions) page for a full list of commands and permissions.
+</AlertBox>
 
-import { AlertBox } from "../../../../components/ui/alert-box";
-
-## 🎮 Gamemode — switch player game modes
+## Introduction
 
 Use `/gamemode` to change the target player's game mode. Shortcuts are available for quick switching.
-Permissions:
-- `eternalcore.gamemode` - required to change your own gamemode.
-- `eternalcore.gamemode.other` - required to change other players' gamemodes.
 
-### ✅ Usage
+## Usage
 
 ```text
 /gamemode <survival|creative|adventure|spectator> [player]
 ```
 
-Shortcuts:
-
-<AlertBox type="note">
-  <strong>💡 PRO TIP:</strong> Use shortcuts for quick single-argument changes.
+<AlertBox type="note" title="Pro Tip">
+  Use shortcuts for quick single-argument changes.
 </AlertBox>
 
 ```text
@@ -33,13 +31,11 @@ Shortcuts:
 /gmsp → /gamemode spectator
 ```
 
-<AlertBox type="warning">
-  - If `[player]` is omitted, the sender's gamemode will be changed.
-  - Changing another player's gamemode requires `eternalcore.gamemode.other` permission.
+<AlertBox type="warning" title="Note">
+  If `[player]` is omitted, the sender's gamemode will be changed.
 </AlertBox>
 
-
-### 🎯 Examples
+## Examples
 
 ```text
 /gamemode creative
@@ -52,8 +48,6 @@ Shortcuts:
 → Sets Alex to creative (shortcut)
 ```
 
----
+## Showcase
 
 ![gamemode.gif](/docs/eternalcore/gamemode.gif)
-
----

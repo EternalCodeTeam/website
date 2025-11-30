@@ -1,33 +1,35 @@
 ---
-title: Near command - find nearby entities
+title: Near command
 description: Use the /near command to locate nearby entities within a specified radius.
+icon: Navigation
 ---
 
+import { AlertBox } from "../../../components/ui/alert-box";
 
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the [Commands & Permissions](/docs/eternalcore/commands-and-permissions) page for a full list of commands and permissions.
+</AlertBox>
 
+## Introduction
 
-import { AlertBox } from "../../../../components/ui/alert-box";
-
-## Find Nearby Entities with /near Command
 The `/near` command allows you to find and list entities within a specified radius around you or another player.
 This can be useful for locating mobs, players, or other entities near you.
 
-Required permission: `eternalcore.near`
+## Usage
 
-### ✅ Usage
-
-```
+```text
 /near [entityScope] [radius]
 ```
 
 Available entity scopes: `ALL`, `PLAYER`, `HOSTILE`, `PASSIVE`, `RAIDER`, `LIVING`, `LEASHED`
 
-<AlertBox type="tip">
+<AlertBox type="tip" title="Tip">
   - Use this command to find source of lags (e.g. massive entity farms).
   - Default radius is 100 blocks.
   - If no entity scope is provided, it defaults to `PLAYER`.
 </AlertBox>
 
-### 📷 Showcase
+## Showcase
+
 ![near.gif](/docs/eternalcore/near.gif)
 

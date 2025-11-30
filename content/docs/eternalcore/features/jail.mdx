@@ -1,28 +1,40 @@
 ---
-title: Jail players using /jail command
-description: Learn how to use the `/jail` command to confine players to a designated jail area on your Minecraft server.
+title: Jail players
+description: Learn how to use the `/jail` command to confine players to a designated jail area.
+icon: Lock
 ---
 
+import { AlertBox } from "../../../components/ui/alert-box";
 
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the [Commands & Permissions](/docs/eternalcore/commands-and-permissions) page for a full list of commands and permissions.
+</AlertBox>
 
-
-import { AlertBox } from "../../../../components/ui/alert-box";
-
-## 🚓 Jail players — confine players to a designated jail area
-The `/jail` root command has the following subcommands:
-- `/jail setup` - Sets up the jail area at the administator's current location. Required permission: `eternalcore.jail.setup`
-- `/jail detain <player> <time>` - Jails a player for a specified duration with an optional reason. Required permission: `eternalcore.jail.detain`
-- `/jail release <player>` - Releases a jailed player from jail. Required permission: `eternalcore.jail.release`
-- `/jail remove` - Removes the jail area. Required permission: `eternalcore.jail.remove`
-- `/jail list` - Lists all currently jailed players. Required permission: `eternalcore.jail.list`
+## Introduction
 
 Upon being jailed, players are teleported to the designated jail area and are restricted from leaving until their jail time expires or they are released by an administrator.
 Once the jail time is over, players are automatically released and teleported back to their original location before being jailed.
 
-<AlertBox type="note">
+## Usage
+
+```text
+/jail setup
+/jail detain <player> <time>
+/jail release <player>
+/jail remove
+/jail list
+```
+
+- `setup` - Sets up the jail area at the administator's current location.
+- `detain` - Jails a player for a specified duration with an optional reason.
+- `release` - Releases a jailed player from jail.
+- `remove` - Removes the jail area.
+- `list` - Lists all currently jailed players.
+
+<AlertBox type="note" title="Bypass">
   Players can get immune from jailing through the permission: `eternalcore.jail.bypass`
 </AlertBox>
 
+## Showcase
 
-### 📷 Showcase
 ![jail.gif](/docs/eternalcore/jail.gif)

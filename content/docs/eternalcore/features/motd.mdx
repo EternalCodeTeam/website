@@ -1,29 +1,27 @@
 ---
 title: Message of the Day
 description: Display a custom message to players when they join the server.
+icon: Calendar
 ---
 
+import { AlertBox } from "../../../components/ui/alert-box";
 
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the [Commands & Permissions](/docs/eternalcore/commands-and-permissions) page for a full list of commands and permissions.
+</AlertBox>
 
-
-
-
-
-import { AlertBox } from "../../../../components/ui/alert-box";
-
-## 📢 MOTD — Message of the Day
+## Introduction
 
 The Message of the Day (MOTD) feature displays a custom welcome message to players when they join the server. This can include server rules, announcements, or greetings.
 
-### ⚙️ Configuration
+## Configuration
 
-The MOTD is configured in the EternalCore's appropriate messages files, e.g. `en_messages.yml`, `pl_messages.yml`
+The MOTD is configured in the EternalCore's appropriate messages files, e.g. `en_messages.yml`, `pl_messages.yml`.
 
 You can customize:
 - The message content (supports color codes and placeholders)
 - Formatting and styling
 
-Default configuration:
 ```yaml
 # This section is responsible for the messages of the MOTD feature.
 motd:
@@ -45,7 +43,7 @@ motd:
     sound: "block.note_block.pling"
 ```
 
-### 🎯 Example MOTD
+## Example MOTD
 
 ```text
 Welcome to the server, {PLAYER}!
@@ -54,14 +52,11 @@ Welcome to the server, {PLAYER}!
 → Type /help for commands
 ```
 
----
+## Showcase
 
 ![motd.gif](/docs/eternalcore/motd.gif)
 
----
-
-<AlertBox type="info">
-  <strong>Tip:</strong>
+<AlertBox type="tip" title="Tip">
   - MOTD supports MiniMessage formatting for colors and styles.
   - Placeholders like `{PLAYER}`, `{WORLD}` can be used.
 </AlertBox>

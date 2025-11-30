@@ -1,17 +1,23 @@
 ---
 title: Ignoring players
-description: Learn how to use the `/ignore` command to block messages and other interactions from specific players on your Minecraft server.
+description: Learn how to use the `/ignore` command to block messages and other interactions from specific players.
+icon: UserMinus
 ---
 
-## 🚫 Ignore players — block messages and interactions
+import { AlertBox } from "../../../components/ui/alert-box";
+
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the [Commands & Permissions](/docs/eternalcore/commands-and-permissions) page for a full list of commands and permissions.
+</AlertBox>
+
+## Introduction
+
 The `/ignore` command allows you to block messages and interactions from specific players on your server.
 This is useful for avoiding unwanted communication, flood or harassment.
 
-Required permission: `eternalcore.ignore`
+## Usage
 
-### ✅ Usage
-
-```
+```text
 /ignore <player>
 /unignore <player>
 /ignore -all
@@ -22,7 +28,9 @@ Required permission: `eternalcore.ignore`
 - You will not see private messages from the ignored player (/msg, /tell, /whisper).
 - You will not receive any teleportation requests from the ignored player (/tpa, /tpahere).
 
-### 📷 Ignoring in action
+## Showcase
+
+### Ignoring
 ![ignore.gif](/docs/eternalcore/ignore/ignore.gif)
 
 ### Unignoring

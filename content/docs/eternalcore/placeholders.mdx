@@ -1,23 +1,30 @@
 ---
-title: EternalCore - Placeholders
+title: Placeholders
+description: List of available PlaceholderAPI placeholders.
+icon: Braces
 ---
 
-# 📌 PlaceholderAPI-based placeholders
+import { AlertBox } from "../../components/ui/alert-box";
 
-EternalCore has placeholder-api support. You can use placeholders with other plugins!
-If you have a suggestion to add new placeholders, please create an issue on [GitHub](https://github.com/EternalCodeTeam/EternalCore/issues)
+## PlaceholderAPI Support
 
-## 🌐 General
+EternalCore has full PlaceholderAPI support, allowing you to use placeholders in other plugins.
 
-- `%eternalcore_online%` - 🕹️ Show online players of the server
+<AlertBox type="info" title="Suggestions">
+  If you have a suggestion to add new placeholders, please create an issue on [GitHub](https://github.com/EternalCodeTeam/EternalCore/issues).
+</AlertBox>
 
-## 😴 Afk
+## General
 
-- `%eternalcore_afk%` - 🚫 Show if a player is afk
+- `%eternalcore_online%` - Show online players count
 
-## 🏡 Home
+## Afk
 
-- `%eternalcore_homes_owned%` - 🏠 Houses owned by the player
-- `%eternalcore_homes_count%` - 📊 Number of houses owned by the player
-- `%eternalcore_homes_limit%` - 📅 Limit of the maximum houses for a specific player
-- `%eternalcore_homes_left%` - ⬅️ Number of left houses that the player can create
+- `%eternalcore_afk%` - Show if a player is AFK
+
+## Home
+
+- `%eternalcore_homes_owned%` - Houses owned by the player
+- `%eternalcore_homes_count%` - Number of houses owned by the player
+- `%eternalcore_homes_limit%` - Maximum homes limit for the player
+- `%eternalcore_homes_left%` - Number of homes the player can still create

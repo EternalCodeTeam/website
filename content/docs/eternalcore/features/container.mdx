@@ -1,23 +1,28 @@
 ---
 title: Container Inventories
 description: Open various container-type inventories (anvil, stonecutter, workbench, etc.) with simple commands.
+icon: Box
 ---
 
-## 🧰 Container Inventories — open special inventories with commands
+import { AlertBox } from "../../../components/ui/alert-box";
 
-You can open many different container-style inventories via commands. Each command opens the corresponding inventory for yourself or for another player (if you have permission).
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the [Commands & Permissions](/docs/eternalcore/commands-and-permissions) page for a full list of commands and permissions.
+</AlertBox>
 
-Permissions follow the pattern `eternalcore.<type>` for self-use and `eternalcore.<type>.other` for opening inventories of other players. Replace `<type>` with the name, for example `eternalcore.anvil`.
+## Introduction
 
-### ✅ Command format
+You can open many different container-style inventories via commands. Each command opens the corresponding inventory for yourself or for another player.
+
+## Usage
 
 ```text
 /{INVENTORY_TYPE} [player]
 ```
 - If `[player]` is omitted, the inventory opens for the command sender.
-- If `[player]` is provided, the command requires the `.other` permission to open the target player's inventory.
+- If `[player]` is provided, the command opens the target player's inventory.
 
-### 🔹 Supported types
+### Supported types
 
 - anvil
 - disposal
@@ -29,27 +34,23 @@ Permissions follow the pattern `eternalcore.<type>` for self-use and `eternalcor
 - enderchest
 - smithingtable
 
-### 🎯 Examples
+## Examples
 
 ```text
 /anvil
 → Opens an anvil for you
 
 /workbench Alex
-→ Opens a workbench for player Alex (requires `eternalcore.workbench.other`)
+→ Opens a workbench for player Alex
 
 /enderchest
 → Opens your ender chest
 ```
 
----
-### 🎬 Showcase of container inventories
+## Showcase
 
 ![container.gif](/docs/eternalcore/container.gif)
 
----
+## Notes
 
-## ℹ️ Notes
-
-- Commands require the permission `eternalcore.<type>`; opening another player's inventory requires `eternalcore.<type>.other`.
 - These commands only open the UI client-side for the target player; any changes (like placing items) occur as normal within the opened inventory.

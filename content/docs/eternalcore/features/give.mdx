@@ -1,23 +1,27 @@
 ---
-title: Giving items via /give and /item commands.
-description: Learn how to use the `/give` and `/item` commands to provide items to yourself or other players on your Minecraft server.
+title: Give Command
+description: Learn how to use the `/give` and `/item` commands to provide items to yourself or other players.
+icon: Gift
 ---
 
-## 🎁 Give items — provide items to players
-The `/give` command allow you to provide items to yourself or other players on your server. This is useful for server admins, moderators, or players with appropriate permissions to obtain items quickly.
-The `/item` command, on the other hand can be used __**only to give items to yourself**__.
+import { AlertBox } from "../../../components/ui/alert-box";
 
-### ✅ Usage
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the [Commands & Permissions](/docs/eternalcore/commands-and-permissions) page for a full list of commands and permissions.
+</AlertBox>
+
+## Introduction
+
+The `/give` command allow you to provide items to yourself or other players on your server. This is useful for server admins, moderators, or players with appropriate permissions to obtain items quickly.
+The `/item` command, on the other hand can be used **only to give items to yourself**.
+
+## Usage
 
 ```text
 /give <player> <item> [amount]
 /item <item> [amount]
 ```
 
-Permissions:
+## Showcase
 
-`eternalcore.give` - to give items using `/give`
-`eternalcore.item` - to give items to yourself using `/item`
-
-### 📷 Showcase
 ![give.gif](/docs/eternalcore/give.gif)

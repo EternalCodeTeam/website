@@ -1,13 +1,20 @@
 ---
 title: Repair
 description: Repair items in your hand or inventory using `/repair`.
+icon: Wrench
 ---
 
-## 🔧 Repair — restore item durability
+import { AlertBox } from "../../../components/ui/alert-box";
+
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the [Commands & Permissions](/docs/eternalcore/commands-and-permissions) page for a full list of commands and permissions.
+</AlertBox>
+
+## Introduction
 
 The `/repair` command repairs damaged items, restoring them to full durability. You can repair the item in your hand or all items in your inventory.
 
-### ✅ Usage
+## Usage
 
 ```text
 /repair
@@ -20,16 +27,12 @@ The `/repair` command repairs damaged items, restoring them to full durability. 
 → Repairs all items in your inventory
 ```
 
----
+## Showcase
 
-### 🎬 Showcase of /repair
 ![repair.gif](/docs/eternalcore/repair.gif)
 
----
+## Notes
 
-## ℹ️ Notes
-
-- Permission: `eternalcore.repair` (hand), `eternalcore.repair.all` (all items).
 - The command has a configurable cooldown to prevent abuse.
 - Only items with durability can be repaired.
 - Enchantments and custom names are preserved during repair.

@@ -1,39 +1,39 @@
 ---
-title: Random teleport
+title: Random Teleport
 description: Teleport to a random location in the world using `/rtp` or `/randomtp`.
+icon: Shuffle
 ---
 
+import { AlertBox } from "../../../components/ui/alert-box";
 
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the [Commands & Permissions](/docs/eternalcore/commands-and-permissions) page for a full list of commands and permissions.
+</AlertBox>
 
-
-import { AlertBox } from "../../../../components/ui/alert-box";
-
-## 🎲 Random Teleport — explore random locations
+## Introduction
 
 The `/rtp` (Random Teleport) command teleports you to a random safe location within a configured radius. Perfect for survival servers to help players spread out and explore.
 
-### ✅ Usage
+## Usage
 
 ```text
 /rtp [player]
 /randomtp [player]
 ```
 
-<AlertBox type="warning">
-  - Without `[player]`, teleports yourself to a random location. Requires `eternalcore.rtp` permission.
-  - Providing `[player]` teleports that player (requires `eternalcore.rtp.other` permission).
+<AlertBox type="warning" title="Note">
+  - Without `[player]`, teleports yourself to a random location.
+  - Providing `[player]` teleports that player.
 </AlertBox>
 
----
+## Showcase
 
 ![randomtp.gif](/docs/eternalcore/randomtp.gif)
 
----
-
-## ℹ️ Notes
+## Notes
 
 - The command finds a safe location (not in lava, water, or mid-air).
 - Radius and world boundaries can be configured in the plugin settings.
-- Has a default cooldown to prevent abuse (configurable). Apply `eternalcore.rtp.bypass` permission to skip cooldown.
+- Has a default cooldown to prevent abuse (configurable).
 - The teleport is canceled if no safe location is found after several attempts.
 

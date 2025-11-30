@@ -1,22 +1,35 @@
 ---
-title: Teleportask-here command
+title: Teleport Ask Here
 description: Teleport a player to your location with the /tpahere command.
+icon: ArrowDown
 ---
 
-## /tpahere command
+import { AlertBox } from "../../../components/ui/alert-box";
+
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the [Commands & Permissions](/docs/eternalcore/commands-and-permissions) page for a full list of commands and permissions.
+</AlertBox>
+
+## Introduction
+
 The `/tpahere` command allows you to request another player to teleport to your current location.
 This is particularly useful for quickly gathering players together without needing to move to their location.
 
-### ✅ Usage
-To use the command, type `/tpahere <player>`, replacing `<player>` with the target player's name.
+## Usage
+
+```text
+/tpahere <player>
+```
 The targeted player will receive a teleport request and can choose to accept or deny it.
 
 ### Accepting/denying the request
 - To accept the teleport request, the targeted player can use the command `/tpahereaccept <player>`.
 - To deny the request, they can use `/tpaheredeny <player>`.
 
-### Ignoring requests
-Players can ignore teleport requests from specific players by using the command `/ignore <player>` command.
-For more information, see the [Ignore](/docs/eternalcore/features/ignore) feature documentation.
+## Showcase
 
 ![tpahere.gif](/docs/eternalcore/tpahere.gif)
+
+## Notes
+
+- Players can ignore teleport requests from specific players by using the `/ignore` command.

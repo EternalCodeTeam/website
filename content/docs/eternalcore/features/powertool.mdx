@@ -1,17 +1,16 @@
 ---
 title: Powertool
 description: Bind commands to items so that using an item executes a command automatically.
+icon: Hammer
 ---
 
+import { AlertBox } from "../../../components/ui/alert-box";
 
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the [Commands & Permissions](/docs/eternalcore/commands-and-permissions) page for a full list of commands and permissions.
+</AlertBox>
 
-
-
-
-
-import { AlertBox } from "../../../../components/ui/alert-box";
-
-## 🔨✨ Powertools
+## Introduction
 
 The Powertool feature lets you bind a command to a specific item in hand.
 When a player uses that item (left or right-click), the bound command is executed automatically. This is particularly useful for shortcuts, tools, or custom item behaviours without creating custom items.
@@ -23,33 +22,26 @@ When a player uses that item (left or right-click), the bound command is execute
 
 ## Commands
 
-Common commands (adjust names to your server's commands if different):
-
-- Bind a command to the item in hand:
-```
+### Bind a command
+```text
 /powertool set <command...>
 ```
+
 Example:
-```
-  /powertool set warp home
+```text
+/powertool set warp home
 ```
 This binds `warp home` to the currently held item.
 
-- Unbind the powertool for the item in hand:
-```
+### Unbind a command
+```text
 /powertool
 ```
 
-<AlertBox type="info">
+<AlertBox type="info" title="Note">
   - Commands typed after `set` are the command that will run when the item is used.
-  - Omit the slash in the binding (the plugin will add it automatically when executing). Exceptions are WorldEdit
-  commands which require double slashes (e.g., `//wand`)
+  - Omit the slash in the binding (the plugin will add it automatically when executing). Exceptions are WorldEdit commands which require double slashes (e.g., `//wand`)
 </AlertBox>
-
-## Permissions
-
-- `eternalcore.powertool.use` — allows using powertools.
-- `eternalcore.powertool.assign` — allows binding commands to items.
 
 ## Placeholders
 

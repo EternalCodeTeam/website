@@ -1,43 +1,43 @@
 ---
 title: Time
-description: Change or add world time instantly with simple commands (set, add, day, night, noon, midnight).
+description: Change or add world time instantly with simple commands.
+icon: Sun
 ---
 
-## ⏰ Time — set or add time in a world
+import { AlertBox } from "../../../components/ui/alert-box";
+
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the [Commands & Permissions](/docs/eternalcore/commands-and-permissions) page for a full list of commands and permissions.
+</AlertBox>
+
+## Introduction
 
 The `time` command lets you change the in-game time for the world you're in or for a specified world. You can set an exact time, add an amount to the current time, or use shortcuts for common values like day or night.
 
-### ✅ Usage
+## Usage
 
 ```text
 /time set <time>
-→ Sets the world time to the specified value (e.g. `/time set 6000` sets noon).
-
 /time add <time>
-→ Adds the specified amount to the current time (e.g. `/time add 1000` advances time by 1000 ticks).
-
-# Shortcuts (no arguments)
-/time set day
-→ Sets time to day (1000)
-
-/time set night
-→ Sets time to night (13000)
-
-/time set noon
-→ Sets time to noon (6000)
-
-/time set midnight
-→ Sets time to midnight (18000)
-
-# Specify world (optional)
-/time set <time> <world>
-→ Sets the given world's time
-
-/time add <time> <world>
-→ Adds time to the given world's time
 ```
 
-### 🎯 Examples
+### Shortcuts
+
+```text
+/time set day       → 1000
+/time set night     → 13000
+/time set noon      → 6000
+/time set midnight  → 18000
+```
+
+### Specify world (optional)
+
+```text
+/time set <time> <world>
+/time add <time> <world>
+```
+
+## Examples
 
 ```text
 /time set 1000
@@ -50,15 +50,10 @@ The `time` command lets you change the in-game time for the world you're in or f
 → Night set in world_nether
 ```
 
----
-
-## 🎬 Time in action
+## Showcase
 
 ![time.gif](/docs/eternalcore/time.gif)
 
----
+## Notes
 
-## ℹ️ Notes
-
-- Commands require the permission `eternalcore.time`.
-- Use numeric tick values (0–24000) for precise control. Common values: 1000 (day), 6000 (noon), 13000 (night), 18000 (midnight).
+- Use numeric tick values (0–24000) for precise control.
