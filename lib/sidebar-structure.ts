@@ -14,7 +14,7 @@ export const docsStructure: DocItem[] = [
       },
       {
         title: "Commands & Permissions",
-        path: "/docs/eternalcore/features/permissions",
+        path: "/docs/eternalcore/commands-and-permissions",
         icon: "List",
       },
       {
