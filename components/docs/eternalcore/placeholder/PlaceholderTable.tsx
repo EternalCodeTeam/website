@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 
-import { type Placeholder } from "@/components/docs/eternalcore/placeholder/types";
+import type { Placeholder } from "@/components/docs/eternalcore/placeholder/types";
 import { cn } from "@/lib/utils";
 
 interface PlaceholderTableProps {

@@ -17,6 +17,7 @@ export const docsStructure: DocItem[] = [
         path: "/docs/eternalcore/commands-and-permissions",
         icon: "List",
       },
+      { title: "Placeholders", path: "/docs/eternalcore/placeholders", icon: "Hash" },
       {
         title: "Features",
         path: "/docs/eternalcore/features",
@@ -109,7 +110,6 @@ export const docsStructure: DocItem[] = [
         ],
       },
       { title: "FAQ", path: "/docs/eternalcore/faq", icon: "HelpCircle" },
-      { title: "Placeholders", path: "/docs/eternalcore/placeholders", icon: "Hash" },
       { title: "Developer API", path: "/docs/eternalcore/using-api", icon: "Code" },
     ],
   },

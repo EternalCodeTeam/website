@@ -3,7 +3,7 @@
 import { create, insert, type Orama, search } from "@orama/orama";
 import { useEffect, useState } from "react";
 
-import { type Placeholder } from "@/components/docs/eternalcore/placeholder/types";
+import type { Placeholder } from "@/components/docs/eternalcore/placeholder/types";
 
 const placeholderSchema = {
   name: "string",
