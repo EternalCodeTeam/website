@@ -18,7 +18,7 @@ export function CookiePreferencesMenu() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
         onClick={() => setIsOpen((v) => !v)}
-        className="fixed bottom-6 right-6 z-50 rounded-full bg-blue-600 p-3 text-white shadow-xl hover:bg-blue-700"
+        className="fixed cursor-pointer bottom-6 right-6 z-50 rounded-full bg-blue-600 p-3 text-white shadow-xl hover:bg-blue-700"
         aria-label="Cookie Preferences"
         style={{ boxShadow: "0 4px 24px 0 rgba(0,0,0,0.18)" }}
       >
@@ -42,7 +42,7 @@ export function CookiePreferencesMenu() {
                 <button
                   type="button"
                   onClick={() => setIsOpen(false)}
-                  className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
+                  className="text-gray-400 cursor-pointer hover:text-gray-500 dark:hover:text-gray-300"
                   aria-label="Close cookie preferences"
                 >
                   <X className="h-5 w-5" />
@@ -126,14 +126,14 @@ export function CookiePreferencesMenu() {
                     acceptAll();
                     setIsOpen(false);
                   }}
-                  className="inline-flex flex-1 items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+                  className="cursor-pointer inline-flex flex-1 items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
                 >
                   Accept All
                 </button>
                 <button
                   type="button"
                   onClick={() => setIsOpen(false)}
-                  className="inline-flex flex-1 items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+                  className="cursor-pointer inline-flex flex-1 items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
                 >
                   Save
                 </button>
