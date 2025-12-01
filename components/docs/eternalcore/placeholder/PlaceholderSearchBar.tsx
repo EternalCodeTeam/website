@@ -31,10 +31,11 @@ export function PlaceholderSearchBar({
           onBlur={() => setIsInputFocused(false)}
           placeholder="Search placeholders..."
           className={cn(
-            "w-full rounded-lg border bg-white px-4 py-2.5 pl-10 text-sm transition-all duration-200 placeholder:text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500",
+            "w-full select-none rounded-lg border bg-white px-4 py-2.5 pl-10 pr-10 text-sm outline-hidden transition-all duration-200",
             isInputFocused
-              ? "border-blue-500 shadow-lg ring-2 ring-blue-500/50"
-              : "border-gray-300 shadow-sm"
+              ? "border-blue-500 shadow-lg shadow-blue-500/20 ring-2 ring-blue-500/50 dark:shadow-blue-500/10"
+              : "border-gray-300 shadow-xs dark:border-gray-700",
+            "placeholder:text-gray-400 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500"
           )}
         />
       </div>
