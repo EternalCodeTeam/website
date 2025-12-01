@@ -12,7 +12,7 @@ interface PlaceholderTableProps {
 export function PlaceholderTable({ placeholders }: PlaceholderTableProps) {
   return (
     <div className="overflow-x-auto rounded-lg">
-      <table className="w-ful text-left text-sm">
+      <table className="w-full text-left text-sm">
         <thead className="bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100">
           <tr>
             {["Placeholder", "Description", "Example", "Type", "Category", "Player Context"].map(
