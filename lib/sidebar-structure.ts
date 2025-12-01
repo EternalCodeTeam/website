@@ -111,6 +111,7 @@ export const docsStructure: DocItem[] = [
       { title: "FAQ", path: "/docs/eternalcore/faq", icon: "HelpCircle" },
       { title: "Placeholders", path: "/docs/eternalcore/placeholders", icon: "Hash" },
       { title: "Developer API", path: "/docs/eternalcore/using-api", icon: "Code" },
+      { title: "2.0 Changelog", path: "/docs/eternalcore/v2-changelog", icon: "History" },
     ],
   },
   {
