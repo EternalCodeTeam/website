@@ -7,7 +7,7 @@ icon: MapPin
 import { AlertBox } from "../../../components/ui/alert-box";
 
 <AlertBox type="info" title="Commands & Permissions">
-  Check out the [Commands & Permissions](/docs/eternalcore/commands-and-permissions) page for a full list of commands and permissions.
+  Check out the **[Commands & Permissions](/docs/eternalcore/commands-and-permissions)** page for a full list of commands and permissions.
 </AlertBox>
 
 ## Introduction
@@ -88,27 +88,30 @@ The `/homeadmin` command group allows server staff and administrators to fully m
 
 ## Showcase
 
-<div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-  <div className="overflow-hidden">
-    <img className="inline-block rounded-md shadow-xs my-4" src="/docs/eternalcore/homes/sethome.gif" alt="Setting home" />
-    <div className="p-2 text-center text-sm font-medium bg-muted">Setting a home with `/sethome`</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+  <div class="overflow-hidden">
+    <img class="inline-block rounded-md shadow-xs my-4" src="/docs/eternalcore/homes/sethome.gif" alt="Setting home" />
+    <div class="p-2 text-center text-sm font-medium bg-muted">Setting a home with `/sethome`</div>
+  </div>
+
+  <div class="overflow-hidden">
+    <img class="my-4 inline-block rounded-md shadow-xs" src="/docs/eternalcore/homes/home-limit-reached.gif" alt="Home limit reached" />
+    <div class="bg-muted p-2 text-center text-sm font-medium">Home limit reached message</div>
+  </div>
+
+  <div class="overflow-hidden">
+    <img class="my-4 inline-block rounded-md shadow-xs" src="/docs/eternalcore/homes/delhome.gif" alt="Deleting home" />
+    <div class="bg-muted p-2 text-center text-sm font-medium">Deleting a home with `/delhome`</div>
+  </div>
+
+  <div class="overflow-hidden">
+    <img class="inline-block rounded-md shadow-xs my-4" src="/docs/eternalcore/homes/home-list.gif" alt="Listing homes" />
+    <div class="p-2 text-center text-sm font-medium bg-muted">Listing homes with just `/home`</div>
   </div>
 </div>
 
-<div className="overflow-hidden">
-  <img className="my-4 inline-block rounded-md shadow-xs" src="/docs/eternalcore/homes/home-limit-reached.gif" alt="Home limit reached" />
-  <div className="bg-muted p-2 text-center text-sm font-medium">Home limit reached message</div>
-</div>
-
-<div className="overflow-hidden">
-  <img className="my-4 inline-block rounded-md shadow-xs" src="/docs/eternalcore/homes/delhome.gif" alt="Deleting home" />
-  <div className="bg-muted p-2 text-center text-sm font-medium">Deleting a home with `/delhome`</div>
-</div>
-
-<div className="overflow-hidden">
-  <img className="inline-block rounded-md shadow-sm my-4" src="/docs/eternalcore/homes/home-list.gif" alt="Listing homes" />
-  <div className="p-2 text-center text-sm font-medium bg-muted">Listing homes with just `/home`</div>
-</div>
+## Home Admin Example
+It's easy to manage homes for other players using the `/homeadmin` command group.
 
 ![homeadmin.gif](/docs/eternalcore/homes/homeadmin.gif)
 

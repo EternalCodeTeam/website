@@ -1,5 +1,7 @@
 import type { MDXComponents } from "mdx/types";
 import type { ComponentProps, HTMLAttributes } from "react";
+import Image from "next/image";
+
 import DynamicCommandsTable from "@/components/docs/eternalcore/DynamicCommandsTable";
 import { CodeBlock } from "@/components/mdx/CodeBlock";
 import { CodeTab, CodeTabs } from "@/components/mdx/CodeTabs";
@@ -37,8 +39,7 @@ export const components: MDXComponents = {
     />
   ),
 
-  // Custom components
-  AlertBox: AlertBox,
+  AlertBox,
   CodeTabs,
   CodeTab,
   DynamicCommandsTable,
@@ -55,7 +56,7 @@ export const components: MDXComponents = {
     return <code {...rest}>{children}</code>;
   },
 
-  // @ts-expect-error idk
+  // @ts-expect-error mdx
   pre: CodeBlock,
 
   blockquote: (props) => (
@@ -64,11 +65,13 @@ export const components: MDXComponents = {
       {...props}
     />
   ),
+
   table: (props) => (
     <div className="my-6 overflow-x-auto rounded-lg">
       <table className="w-full border-collapse text-left text-sm" {...props} />
     </div>
   ),
+
   thead: (props) => (
     <thead className="bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100" {...props} />
   ),
@@ -84,10 +87,23 @@ export const components: MDXComponents = {
   ul: (props) => <ul className="list-disc space-y-1 pl-6" {...props} />,
   ol: (props) => <ol className="list-decimal space-y-1 pl-8" {...props} />,
   li: (props) => <li className="py-0.5" {...props} />,
-  img: (props) => (
-    // biome-ignore lint/performance/noImgElement: it's for docs only.
-    <img className="my-4 inline-block rounded-md shadow-xs" alt={props.alt || "Image"} {...props} />
-  ),
+
+  img: (props) => {
+    const alt = props.alt || "Image";
+
+    return (
+      <div className="my-6 w-full overflow-hidden rounded-md">
+        <Image
+          src={props.src || ""}
+          alt={alt}
+          width={900}
+          height={500}
+          sizes="100vw"
+          className="rounded-md shadow-sm w-full h-auto"
+        />
+      </div>
+    );
+  },
 };
 
 export { mdxOptions } from "../../lib/mdx-config.mjs";
