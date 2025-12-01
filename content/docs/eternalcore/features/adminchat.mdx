@@ -12,17 +12,37 @@ import { AlertBox } from "../../../components/ui/alert-box";
 
 ## Introduction
 
-The `/adminchat` command allows server staff to communicate privately, keeping sensitive discussions out of the public chat.
-It's ideal for coordination, moderation, and behind-the-scenes conversations between admins and moderators.
+The `/adminchat` command lets your staff communicate privately without cluttering public chat.
+It's useful for moderation, coordination, and any behind-the-scenes discussion between team members.
+
+With EternalCore 2.0, AdminChat now supports **two modes**:
+1. **Quick message mode** — send a single message to staff.
+2. **Channel mode** — enable a persistent admin-only chat channel until you turn it off.
 
 ## Usage
 
-To send a message to the admin chat, simply use the command followed by your message.
+### Quick Message
+Use this when you just want to send one message to the staff channel:
 
 ```text
 /adminchat <message>
+````
+
+### Channel Mode (Toggle)
+
+You can also enter a dedicated admin chat channel.
+While it’s enabled, everything you type goes directly to staff members.
+
+```text
+/adminchat
 ```
+
+Run the command again to leave the channel.
 
 ## Showcase
 
 ![adminchat.gif](/docs/eternalcore/adminchat.gif)
+![adminchat2.gif](/docs/eternalcore/adminchat-channel.gif)
+
+```
+

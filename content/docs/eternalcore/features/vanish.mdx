@@ -1,0 +1,42 @@
+---
+title: Vanish Command
+description: Hide yourself from other players and control visibility with the /vanish command.
+icon: EyeOff
+---
+
+import { AlertBox } from "../../../components/ui/alert-box";
+
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the **[Commands & Permissions](/docs/eternalcore/commands-and-permissions)** page for full details on who can use /vanish and related permissions.
+</AlertBox>
+
+## Introduction
+
+The `/vanish` command allows staff to become invisible to regular players.
+It's perfect for moderation, monitoring, or just moving around the server without being noticed.
+
+With EternalCore 2.0, vanish is fully customizable via `config.yml`, giving you control over:
+
+- Silent join
+- Godmode
+- Night vision
+- Silent inventory access
+- Glow effect color
+- Block item drop / pickup
+- Block hunger loss
+- Block chat usage
+- Block block-placing
+
+## Usage
+
+```text
+/vanish [toggle]
+````
+
+* Running `/vanish` toggles your vanish state on or off.
+* Options can be configured globally in `config.yml` or overridden per permission group.
+
+## Showcase
+
+![vanish-demo.gif](/docs/eternalcore/vanish.gif)
+

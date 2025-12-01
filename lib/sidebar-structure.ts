@@ -46,15 +46,9 @@ export const docsStructure: DocItem[] = [
             icon: "PackageOpen",
           },
           {
-            title: "Fun Commands",
-            path: "/docs/eternalcore/features/fun",
-            children: [
-              {
-                title: "Elder Guardian",
-                path: "/docs/eternalcore/features/elderguardian",
-                icon: "ScanEye",
-              },
-            ],
+            title: "Elder Guardian",
+            path: "/docs/eternalcore/features/elderguardian",
+            icon: "ScanEye",
           },
           { title: "Feed", path: "/docs/eternalcore/features/feed", icon: "Apple" },
           { title: "Fireball", path: "/docs/eternalcore/features/fireball", icon: "Volleyball" },
@@ -107,6 +101,17 @@ export const docsStructure: DocItem[] = [
             icon: "MapPinHouse",
           },
           { title: "Time", path: "/docs/eternalcore/features/time", icon: "Clock" },
+          { title: "Vanish", path: "/docs/eternalcore/features/vanish", icon: "EyeOff" },
+          {
+            title: "Endscreen",
+            path: "/docs/eternalcore/features/endscreen",
+            icon: "Zap",
+          },
+          {
+            title: "Demoscreen",
+            path: "/docs/eternalcore/features/demoscreen",
+            icon: "Monitor",
+          },
         ],
       },
       { title: "FAQ", path: "/docs/eternalcore/faq", icon: "HelpCircle" },
