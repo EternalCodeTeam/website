@@ -1,8 +1,8 @@
 "use client";
 
 import { create, insert, type Orama, search } from "@orama/orama";
-import { useEffect, useState } from "react";
-
+import type React from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { Placeholder } from "@/components/docs/eternalcore/placeholder/types";
 
 const placeholderSchema = {
@@ -30,9 +30,11 @@ export function usePlaceholders() {
     const initializeData = async () => {
       try {
         setLoading(true);
+
         const response = await fetch(
           "https://raw.githubusercontent.com/EternalCodeTeam/EternalCore/refs/heads/master/raw_eternalcore_placeholders.json"
         );
+
         if (!response.ok) {
           setError(`Failed to fetch data: ${response.statusText}`);
           return;
@@ -44,14 +46,12 @@ export function usePlaceholders() {
         setAllPlaceholders(sortedData);
         setViewablePlaceholders(sortedData);
 
-        const uniqueCategories = [...new Set(sortedData.map((p) => p.category))].sort();
+        const uniqueCategories = Array.from(new Set(sortedData.map((p) => p.category))).sort();
         setCategories(["All", ...uniqueCategories]);
 
-        const oramaDb = await create({
-          schema: placeholderSchema,
-        });
-
+        const oramaDb = create({ schema: placeholderSchema });
         await Promise.all(sortedData.map((p) => insert(oramaDb, p)));
+
         setDb(oramaDb);
       } catch (exception) {
         setError(exception instanceof Error ? exception.message : "An unknown error occurred");
@@ -59,35 +59,53 @@ export function usePlaceholders() {
         setLoading(false);
       }
     };
+
     initializeData();
   }, []);
 
-  const filterPlaceholders = async (query = searchQuery, category = activeCategory) => {
-    let filteredList =
-      category === "All" ? allPlaceholders : allPlaceholders.filter((p) => p.category === category);
+  const filterPlaceholders = useCallback(
+    async (query = searchQuery, category = activeCategory) => {
+      try {
+        let filteredList =
+          category === "All"
+            ? allPlaceholders
+            : allPlaceholders.filter((p) => p.category === category);
 
-    if (query.trim() && db) {
-      const searchResult = await search(db, {
-        term: query,
-        properties: ["name", "description", "example", "category"],
-        tolerance: 1,
-      });
+        if (query.trim() && db) {
+          const searchResult = await search(db, {
+            term: query,
+            properties: ["name", "description", "example", "category"],
+            tolerance: 1,
+          });
 
-      const resultIds = new Set(searchResult.hits.map((hit) => hit.document.name));
-      filteredList = filteredList.filter((p) => resultIds.has(p.name));
-    }
-    setViewablePlaceholders(filteredList);
-  };
+          const resultIds = new Set(searchResult.hits.map((hit) => hit.document.name));
+          filteredList = filteredList.filter((p) => resultIds.has(p.name));
+        }
+
+        setViewablePlaceholders(filteredList);
+      } catch (exception) {
+        setError(
+          exception instanceof Error ? exception.message : "An unknown search error occurred"
+        );
+      }
+    },
+    [allPlaceholders, db, searchQuery, activeCategory]
+  );
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newQuery = event.target.value;
-    setSearchQuery(newQuery);
-    filterPlaceholders(newQuery, activeCategory);
+    setSearchQuery(event.target.value);
   };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      filterPlaceholders(searchQuery, activeCategory);
+    }, 300);
+
+    return () => clearTimeout(timeout);
+  }, [searchQuery, activeCategory, filterPlaceholders]);
 
   const handleCategoryClick = (category: string) => {
     setActiveCategory(category);
-    filterPlaceholders(searchQuery, category);
   };
 
   return {
