@@ -1,7 +1,44 @@
+/* Zdefiniowanie zmiennych dla obu motywów */
+:root {
+  /* Light Theme (GitHub Light style) - Wysoki kontrast */
+  --prism-bg: #ffffff;
+  --prism-text: #24292e;
+  --prism-comment: #6e7781;
+  --prism-punctuation: #24292e;
+  --prism-tag: #22863a;
+  --prism-attr-name: #6f42c1;
+  --prism-function-name: #6f42c1;
+  --prism-primitive: #005cc5;
+  --prism-property: #005cc5;
+  --prism-keyword: #d73a49;
+  --prism-string: #032f62;
+  --prism-operator: #d73a49;
+  --prism-variable: #e36209;
+}
+
+html.dark {
+  /* Dark Theme (Original Tomorrow Night) */
+  --prism-bg: #181c23;
+  --prism-text: #ccc;
+  --prism-comment: #999;
+  --prism-punctuation: #ccc;
+  --prism-tag: #e2777a;
+  --prism-attr-name: #e2777a;
+  --prism-function-name: #6196cc;
+  --prism-primitive: #f08d49;
+  --prism-property: #f8c555;
+  --prism-keyword: #cc99cd;
+  --prism-string: #7ec699;
+  --prism-operator: #67cdcc;
+  --prism-variable: #e2777a;
+}
+
+/* Zwiększona specyficzność selektorów */
 code[class*="language-"],
 pre[class*="language-"] {
-  color: #ccc;
-  background: #181c23 !important;
+  color: var(--prism-text) !important; /* Wymuszenie koloru podstawowego tekstu */
+  background: var(--prism-bg) !important;
+  text-shadow: none !important; /* Usunięcie cienia, który czasem powoduje rozmycie kolorów */
   font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   font-size: 1em;
   text-align: left;
@@ -25,19 +62,19 @@ pre[class*="language-"] {
   padding: 1em;
   margin: 0.5em 0;
   overflow: auto;
-  background: #181c23 !important;
+  background: var(--prism-bg) !important;
 }
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-  background: #23272e;
+  background: var(--prism-bg);
 }
 
 :not(pre) > code[class*="language-"] {
   padding: 0.1em;
   border-radius: 0.3em;
   white-space: normal;
-  background: #181c23 !important;
+  background: var(--prism-bg) !important;
 }
 
 .token.comment,
@@ -45,35 +82,38 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #999;
+  color: var(--prism-comment);
 }
 
 .token.punctuation {
-  color: #ccc;
+  color: var(--prism-punctuation);
 }
 
 .token.tag,
-.token.attr-name,
 .token.namespace,
 .token.deleted {
-  color: #e2777a;
+  color: var(--prism-tag);
+}
+
+.token.attr-name {
+  color: var(--prism-attr-name);
 }
 
 .token.function-name {
-  color: #6196cc;
+  color: var(--prism-function-name);
 }
 
 .token.boolean,
 .token.number,
 .token.function {
-  color: #f08d49;
+  color: var(--prism-primitive);
 }
 
 .token.property,
 .token.class-name,
 .token.constant,
 .token.symbol {
-  color: #f8c555;
+  color: var(--prism-property);
 }
 
 .token.selector,
@@ -81,21 +121,24 @@ pre[class*="language-"] {
 .token.atrule,
 .token.keyword,
 .token.builtin {
-  color: #cc99cd;
+  color: var(--prism-keyword);
 }
 
 .token.string,
 .token.char,
 .token.attr-value,
-.token.regex,
+.token.regex {
+  color: var(--prism-string);
+}
+
 .token.variable {
-  color: #7ec699;
+  color: var(--prism-variable);
 }
 
 .token.operator,
 .token.entity,
 .token.url {
-  color: #67cdcc;
+  color: var(--prism-operator);
 }
 
 .token.important,
