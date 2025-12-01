@@ -92,7 +92,7 @@ export const components: MDXComponents = {
     const alt = props.alt || "Image";
 
     return (
-      <div className="my-6 w-full overflow-hidden rounded-md">
+      <span className="my-6 block w-full overflow-hidden rounded-md">
         <Image
           src={props.src || ""}
           alt={alt}
@@ -101,7 +101,7 @@ export const components: MDXComponents = {
           sizes="100vw"
           className="rounded-md shadow-sm w-full h-auto"
         />
-      </div>
+      </span>
     );
   },
 };
