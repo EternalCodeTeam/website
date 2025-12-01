@@ -105,7 +105,7 @@ export const CodeTabs = ({
                 disabled={disabled}
                 className={({ selected }) =>
                   cn(
-                    "relative rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
+                    "relative cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
                     "disabled:cursor-not-allowed disabled:opacity-50",
                     selected
                       ? "bg-gray-200 text-gray-900 dark:bg-gray-850 dark:text-white"
