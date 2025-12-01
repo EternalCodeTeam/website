@@ -3,6 +3,7 @@ import type { ComponentProps, HTMLAttributes } from "react";
 import Image from "next/image";
 
 import DynamicCommandsTable from "@/components/docs/eternalcore/DynamicCommandsTable";
+import DynamicPlaceholdersTable from "@/components/docs/eternalcore/placeholder/DynamicPlaceholdersTable";
 import { CodeBlock } from "@/components/mdx/CodeBlock";
 import { CodeTab, CodeTabs } from "@/components/mdx/CodeTabs";
 import { Heading } from "@/components/mdx/Heading";
@@ -43,6 +44,7 @@ export const components: MDXComponents = {
   CodeTabs,
   CodeTab,
   DynamicCommandsTable,
+  DynamicPlaceholdersTable,
 
   code: (props: ComponentProps<"code">) => {
     const { children, ...rest } = props;
