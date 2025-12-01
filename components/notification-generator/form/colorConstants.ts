@@ -1,4 +1,4 @@
-import { TagCategory, MinecraftColor } from "./types";
+import type { MinecraftColor, TagCategory } from "./types";
 
 export const minecraftColors: MinecraftColor[] = [
   { name: "Black", hex: "#000000" },

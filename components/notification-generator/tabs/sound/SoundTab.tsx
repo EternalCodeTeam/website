@@ -1,14 +1,13 @@
 "use client";
 
-import { forwardRef, useImperativeHandle, useState, useEffect, useMemo, useCallback } from "react";
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useState } from "react";
 
-import { Dropdown, DropdownOption } from "../../../ui/dropdown";
+import { Dropdown, type DropdownOption } from "../../../ui/dropdown";
 import { SliderField } from "../../form/SliderField";
-import { NotificationConfig, FieldType } from "../../types";
-
-import { SOUND_CATEGORY_OPTIONS } from "./sound-contant";
+import type { FieldType, NotificationConfig } from "../../types";
 import { SoundInfoBox } from "./SoundInfoBox";
-import { SoundTable, Sound } from "./SoundTable";
+import { type Sound, SoundTable } from "./SoundTable";
+import { SOUND_CATEGORY_OPTIONS } from "./sound-contant";
 
 const SOUNDS_JSON_URL =
   "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.21.5/assets/minecraft/sounds.json";
@@ -161,16 +160,16 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
 
     useEffect(() => {
       setErrorMessage("");
-    }, [notification.sound]);
+    });
 
     const categoriesWithSounds = useMemo(() => {
       return MANUAL_CATEGORIES.filter((cat) => sounds.some((s) => s.category === cat));
     }, [sounds]);
 
-    const categoryOrder = (cat: string | undefined) => {
+    const categoryOrder = useCallback((cat: string | undefined) => {
       const idx = MANUAL_CATEGORIES.indexOf(cat || "");
       return idx === -1 ? 999 : idx;
-    };
+    }, []);
 
     const filteredSounds = useMemo(() => {
       let filtered = selectedCategory
@@ -189,7 +188,7 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
         }
         return catA - catB;
       });
-    }, [sounds, selectedCategory, selectedSoundType]);
+    }, [sounds, selectedCategory, selectedSoundType, categoryOrder]);
 
     const handlePlaySound = useCallback(
       (sound: Sound) => {
@@ -202,16 +201,9 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
         const newAudio = new Audio(`${SOUND_BASE_URL}${sound.path}.ogg`);
 
         let volumeValue = 1.0;
-        if (typeof notification.volume === "string") {
-          const parsedVolume = parseFloat(notification.volume);
-          if (!isNaN(parsedVolume) && Number.isFinite(parsedVolume)) {
-            volumeValue = Math.min(Math.max(parsedVolume, 0), 1.0);
-          }
-        } else if (
-          typeof notification.volume === "number" &&
-          Number.isFinite(notification.volume)
-        ) {
-          volumeValue = Math.min(Math.max(notification.volume, 0), 1.0);
+        const parsedVolume = parseFloat(notification.volume);
+        if (!Number.isNaN(parsedVolume) && Number.isFinite(parsedVolume)) {
+          volumeValue = Math.min(Math.max(parsedVolume, 0), 1.0);
         }
 
         try {
@@ -222,13 +214,9 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
         }
 
         let pitchValue = 1.0;
-        if (typeof notification.pitch === "string") {
-          const parsedPitch = parseFloat(notification.pitch);
-          if (!isNaN(parsedPitch) && Number.isFinite(parsedPitch)) {
-            pitchValue = Math.min(Math.max(parsedPitch, 0.5), 2.0);
-          }
-        } else if (typeof notification.pitch === "number" && Number.isFinite(notification.pitch)) {
-          pitchValue = Math.min(Math.max(notification.pitch, 0.5), 2.0);
+        const parsedPitch = parseFloat(notification.pitch);
+        if (!Number.isNaN(parsedPitch) && Number.isFinite(parsedPitch)) {
+          pitchValue = Math.min(Math.max(parsedPitch, 0.5), 2.0);
         }
 
         try {

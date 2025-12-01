@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 
 import { MinecraftText } from "../../preview/minecraftTextParser";
 
@@ -9,7 +9,7 @@ interface TitleProps {
   titleOpacity: number;
 }
 
-const Title = React.memo(({ title, subtitle, showTitle, titleOpacity }: TitleProps) => {
+const Title = memo(({ title, subtitle, showTitle, titleOpacity }: TitleProps) => {
   if (!showTitle) return null;
 
   return (

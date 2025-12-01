@@ -1,8 +1,16 @@
-import { SVGProps } from "react";
+import type { SVGProps } from "react";
 
 export default function NewWindow(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 15 15" {...props}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 15 15"
+      aria-label="New window"
+      {...props}
+    >
+      <title>New window</title>
       <path
         fill="currentColor"
         fillRule="evenodd"

@@ -2,11 +2,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ChevronRight, FileText, Folder, FolderOpen } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FC, memo, useCallback, useState, MouseEvent } from "react";
+import { type FC, type MouseEvent, memo, useCallback, useState } from "react";
 
+import { DocIcon } from "@/components/docs/content/DocIcon";
 import { cn } from "@/lib/utils";
 
-import { DocItemProps } from "./types";
+import type { DocItemProps } from "./types";
 
 const SidebarItem: FC<DocItemProps> = memo(({ item, level, onItemClick }) => {
   const pathname = usePathname();
@@ -57,13 +58,13 @@ const SidebarItem: FC<DocItemProps> = memo(({ item, level, onItemClick }) => {
             animate={{ rotate: isExpanded ? 90 : 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <ChevronRight className="h-4 w-4 flex-shrink-0" />
+            <ChevronRight className="h-4 w-4 shrink-0" />
           </motion.div>
 
           {isExpanded ? (
-            <FolderOpen className="h-4 w-4 flex-shrink-0 text-blue-500 dark:text-blue-400" />
+            <FolderOpen className="h-4 w-4 shrink-0 text-blue-500 dark:text-blue-400" />
           ) : (
-            <Folder className="h-4 w-4 flex-shrink-0 text-gray-400 dark:text-gray-500" />
+            <Folder className="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
           )}
 
           <span className="flex-1 truncate">{item.title}</span>
@@ -109,21 +110,34 @@ const SidebarItem: FC<DocItemProps> = memo(({ item, level, onItemClick }) => {
         className={cn(
           "group mb-0.5 flex select-none items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all",
           isActive
-            ? "bg-blue-600 font-medium text-white shadow-sm dark:bg-blue-600"
+            ? "bg-blue-600 font-medium text-white shadow-xs dark:bg-blue-600"
             : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
         )}
         style={{ paddingLeft }}
         whileHover={{ x: isActive ? 0 : 4 }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
       >
-        <FileText
-          className={cn(
-            "h-4 w-4 flex-shrink-0",
-            isActive
-              ? "text-white"
-              : "text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-400"
-          )}
-        />
+        {item.icon ? (
+          <DocIcon
+            iconName={item.icon}
+            className={cn(
+              "h-4 w-4 shrink-0",
+              isActive
+                ? "text-white"
+                : "text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-400"
+            )}
+            size={16}
+          />
+        ) : (
+          <FileText
+            className={cn(
+              "h-4 w-4 shrink-0",
+              isActive
+                ? "text-white"
+                : "text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-400"
+            )}
+          />
+        )}
         <span className="flex-1 truncate">{item.title}</span>
 
         {isActive && (

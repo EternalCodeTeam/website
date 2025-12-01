@@ -1,19 +1,22 @@
 "use client";
 
 import { AnimatePresence } from "framer-motion";
-import { useState, useCallback, useRef, useMemo } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 
 import AnimatedElement from "@/components/animations/AnimatedElement";
 import { ActionBarTab } from "@/components/notification-generator/tabs/actionbar/ActionBarTab";
 import { ChatTab } from "@/components/notification-generator/tabs/chat/ChatTab";
-import { SoundTab, SoundTabRef } from "@/components/notification-generator/tabs/sound/SoundTab";
+import {
+  SoundTab,
+  type SoundTabRef,
+} from "@/components/notification-generator/tabs/sound/SoundTab";
 import { TitleTab } from "@/components/notification-generator/tabs/title/TitleTab";
 import { Button } from "@/components/ui/button";
 
 import { validateField } from "./form/validation";
 import { AdvancedTab } from "./tabs/advanced/AdvancedTab";
 import { Tab } from "./tabs/Tab";
-import { NotificationConfig, TabType, FieldType } from "./types";
+import type { FieldType, NotificationConfig, TabType } from "./types";
 
 interface NotificationFormProps {
   notification: NotificationConfig;
@@ -103,7 +106,7 @@ export function NotificationGenerator({ notification, setNotification }: Notific
         onClick={setActiveTab}
       />
     ));
-  }, [activeTab, setActiveTab]);
+  }, [activeTab]);
 
   return (
     <AnimatedElement animationType="fade">

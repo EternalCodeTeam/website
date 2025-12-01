@@ -1,7 +1,7 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import React, { useEffect, useRef, useState } from "react";
+import { type ChangeEvent, type KeyboardEvent, useEffect, useRef, useState } from "react";
 
 import responses from "./responses";
 
@@ -25,8 +25,8 @@ const initialHistory: HistoryItem[] = [
 
 const themes = {
   dark: {
-    container: "bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700",
-    titleBar: "bg-gradient-to-r from-gray-800 to-gray-700 border-b border-gray-700",
+    container: "bg-linear-to-br from-gray-900 to-gray-800 border border-gray-700",
+    titleBar: "bg-linear-to-r from-gray-800 to-gray-700 border-b border-gray-700",
     titleText: "text-gray-400",
     terminalText: "text-gray-100",
     outputText: "text-gray-400",
@@ -35,8 +35,8 @@ const themes = {
     commandText: "text-blue-400",
   },
   light: {
-    container: "bg-gradient-to-br from-gray-100 to-white border border-gray-300",
-    titleBar: "bg-gradient-to-r from-gray-200 to-gray-100 border-b border-gray-300",
+    container: "bg-linear-to-br from-gray-100 to-white border border-gray-300",
+    titleBar: "bg-linear-to-r from-gray-200 to-gray-100 border-b border-gray-300",
     titleText: "text-gray-700",
     terminalText: "text-gray-800",
     outputText: "text-gray-600",
@@ -55,13 +55,13 @@ export default function Terminal() {
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-  }, [history]);
+  }, []);
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && input.trim() !== "") {
       const fullCommand = input.trim();
       const commandParts = fullCommand.split(" ");
@@ -116,11 +116,13 @@ export default function Terminal() {
         className={`h-96 overflow-y-auto bg-transparent px-6 py-4 font-mono text-sm ${currentTheme.terminalText}`}
         style={{ scrollbarWidth: "thin" }}
       >
-        {history.map((item, idx) => {
+        {history.map((item) => {
+          const key = `${item.type}-${item.type === "output" ? item.value.join("-") : item.value}-${Date.now() + Math.random()}`;
+
           if (item.type === "output") {
-            return item.value.map((line, i) => (
+            return item.value.map((line) => (
               <div
-                key={idx + "-" + i}
+                key={`${key}-${line}`}
                 className={`${currentTheme.outputText} select-text whitespace-pre-line`}
               >
                 {line}
@@ -130,7 +132,7 @@ export default function Terminal() {
           if (item.type === "input") {
             return (
               <div
-                key={idx}
+                key={key}
                 className={`${currentTheme.commandText} select-text whitespace-pre-line`}
               >
                 eternalcode@cli:~$ <span className={currentTheme.inputText}>{item.value}</span>
@@ -139,19 +141,20 @@ export default function Terminal() {
           }
           if (item.type === "prompt") {
             return (
-              <div key={idx} className={currentTheme.promptText}>
+              <div key={key} className={currentTheme.promptText}>
                 {item.value}
               </div>
             );
           }
           return null;
         })}
+
         {/* Active prompt */}
         <div className="mt-1 flex items-center">
           <span className={currentTheme.promptText}>eternalcode@cli:~$</span>
           <input
             ref={inputRef}
-            className={`ml-2 flex-1 border-none bg-transparent font-mono text-sm outline-none ${currentTheme.inputText}`}
+            className={`ml-2 flex-1 border-none bg-transparent font-mono text-sm outline-hidden ${currentTheme.inputText}`}
             value={input}
             onChange={handleInput}
             onKeyDown={handleKeyDown}

@@ -1,4 +1,4 @@
-import { ApiResponse, Project } from "./types";
+import type { ApiResponse, Project } from "./types";
 
 export async function fetchProjects(): Promise<Project[]> {
   // Fetch projects from the API

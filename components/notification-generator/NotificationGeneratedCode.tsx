@@ -13,7 +13,7 @@ export function NotificationGeneratedCode({ yamlCode }: NotificationCodeProps) {
     <AnimatedElement animationType="fade">
       <AlertBox type="important" title="How to disable message completely?">
         If you want to disable this message completely, set its value to{" "}
-        <code className="rounded bg-gray-200 px-1 py-0.5 text-xs text-gray-800 dark:bg-gray-700 dark:text-gray-100">
+        <code className="rounded-sm bg-gray-200 px-1 py-0.5 text-xs text-gray-800 dark:bg-gray-700 dark:text-gray-100">
           []
         </code>{" "}
         in your configuration file.

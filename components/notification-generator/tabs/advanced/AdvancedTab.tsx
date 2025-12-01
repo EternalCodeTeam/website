@@ -1,6 +1,6 @@
 "use client";
 
-import { NotificationConfig, FieldType } from "../../types";
+import type { FieldType, NotificationConfig } from "../../types";
 
 interface AdvancedTabProps {
   notification: NotificationConfig;
@@ -14,7 +14,7 @@ export const AdvancedTab = ({ notification, onChange }: AdvancedTabProps) => (
         <input
           type="checkbox"
           id="titleHide"
-          className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+          className="h-4 w-4 rounded-sm border-gray-300 text-blue-600 focus:ring-blue-500"
           checked={notification.titleHide}
           onChange={(e) => onChange("titleHide", e.target.checked)}
         />

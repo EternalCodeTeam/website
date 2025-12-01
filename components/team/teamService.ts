@@ -1,4 +1,4 @@
-import { Member, StrapiResponse } from "./types";
+import type { Member, StrapiResponse } from "./types";
 
 export async function fetchTeamMembers(): Promise<Member[]> {
   // Fetch team members from the API

@@ -4,7 +4,7 @@ import { Calendar, Timer } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { StrapiBlogPost } from "@/lib/strapi";
+import type { StrapiBlogPost } from "@/lib/strapi";
 
 interface BlogPostCardProps {
   post: StrapiBlogPost;
@@ -27,7 +27,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
     >
       <Link
         href={`/blog/${post.slug}`}
-        className="block flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-blue-500 dark:border-gray-700 dark:bg-gray-800"
+        className="flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xs transition-all duration-300 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-blue-500 dark:border-gray-700 dark:bg-gray-800"
         tabIndex={0}
       >
         {/* Obrazek lub placeholder */}
@@ -69,10 +69,10 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
           <p className="mb-4 line-clamp-3 text-base text-gray-600 dark:text-gray-300">
             {post.excerpt}
           </p>
-          {/* Meta: autor, data, czas - zawsze widoczne */}
+          {/* Meta: autor, data, czas — zawsze widoczne */}
           <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
             <span className="flex items-center gap-2">
-              {post.author && post.author.slug ? (
+              {post.author?.slug ? (
                 <Link
                   href={`/author/${post.author.slug}`}
                   className="flex items-center gap-2 transition-colors hover:text-blue-600 dark:hover:text-blue-400"

@@ -1,16 +1,16 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import type { MDXComponents } from "mdx/types";
-import React from "react";
+import type { ComponentProps, HTMLAttributes } from "react";
+import Image from "next/image";
 
 import DynamicCommandsTable from "@/components/docs/eternalcore/DynamicCommandsTable";
 import DynamicPlaceholdersTable from "@/components/docs/eternalcore/placeholder/DynamicPlaceholdersTable";
 import { CodeBlock } from "@/components/mdx/CodeBlock";
-import { CodeTabs, CodeTab } from "@/components/mdx/CodeTabs";
+import { CodeTab, CodeTabs } from "@/components/mdx/CodeTabs";
 import { Heading } from "@/components/mdx/Heading";
 import { Inline } from "@/components/mdx/Inline";
 import { AlertBox } from "@/components/ui/alert-box";
 
-type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>;
+type HeadingProps = HTMLAttributes<HTMLHeadingElement>;
 
 export const components: MDXComponents = {
   h1: (props: HeadingProps) => (
@@ -40,14 +40,13 @@ export const components: MDXComponents = {
     />
   ),
 
-  // Custom components
-  AlertBox: AlertBox,
+  AlertBox,
   CodeTabs,
   CodeTab,
   DynamicCommandsTable,
   DynamicPlaceholdersTable,
 
-  code: (props: React.ComponentProps<"code">) => {
+  code: (props: ComponentProps<"code">) => {
     const { children, ...rest } = props;
     let content = typeof children === "string" ? children : String(children);
     content = content.replace(/^`+|`+$/g, "");
@@ -59,7 +58,7 @@ export const components: MDXComponents = {
     return <code {...rest}>{children}</code>;
   },
 
-  // @ts-expect-error idk
+  // @ts-expect-error mdx
   pre: CodeBlock,
 
   blockquote: (props) => (
@@ -68,11 +67,13 @@ export const components: MDXComponents = {
       {...props}
     />
   ),
+
   table: (props) => (
     <div className="my-6 overflow-x-auto rounded-lg">
       <table className="w-full border-collapse text-left text-sm" {...props} />
     </div>
   ),
+
   thead: (props) => (
     <thead className="bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100" {...props} />
   ),
@@ -88,10 +89,23 @@ export const components: MDXComponents = {
   ul: (props) => <ul className="list-disc space-y-1 pl-6" {...props} />,
   ol: (props) => <ol className="list-decimal space-y-1 pl-8" {...props} />,
   li: (props) => <li className="py-0.5" {...props} />,
-  img: (props) => (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img className="my-4 inline-block rounded-md shadow-sm" alt={props.alt || "Image"} {...props} />
-  ),
+
+  img: (props) => {
+    const alt = props.alt || "Image";
+
+    return (
+      <span className="my-6 block w-full overflow-hidden rounded-md">
+        <Image
+          src={props.src || ""}
+          alt={alt}
+          width={900}
+          height={500}
+          sizes="100vw"
+          className="rounded-md shadow-sm w-full h-auto"
+        />
+      </span>
+    );
+  },
 };
 
 export { mdxOptions } from "../../lib/mdx-config.mjs";

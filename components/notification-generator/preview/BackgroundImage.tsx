@@ -1,7 +1,7 @@
 import Image from "next/image";
-import React from "react";
+import { memo } from "react";
 
-const BackgroundImage = React.memo(() => {
+const BackgroundImage = memo(() => {
   return (
     <Image
       src="/mc-bg.png"

@@ -1,0 +1,41 @@
+---
+title: Fly
+description: Toggle flight for a player using `/fly`.
+icon: Plane
+---
+
+import { AlertBox } from "../../../components/ui/alert-box";
+
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the **[Commands & Permissions](/docs/eternalcore/commands-and-permissions)** page for a full list of commands and permissions.
+</AlertBox>
+
+## Introduction
+
+The `/fly` command toggles the ability to fly for yourself or for a target player. Useful for staff and builders.
+
+## Usage
+
+```text
+/fly [player]
+```
+- Omitting `[player]` toggles flight for the sender.
+- Targeting another player toggles their flight.
+
+## Examples
+
+```text
+/fly
+→ Flight enabled/disabled for you
+
+/fly Steve
+→ Flight enabled/disabled for Steve
+```
+
+## Showcase
+
+![fly.gif](/docs/eternalcore/fly.gif)
+
+## Notes
+
+- Flight permission toggling may also be tied to player group settings or server config; check your server policy.

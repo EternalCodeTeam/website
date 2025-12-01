@@ -1,6 +1,6 @@
 "use client";
 
-import { CookieConsent } from "@/hooks/useCookieConsent";
+import type { CookieConsent } from "@/hooks/useCookieConsent";
 
 export function getCookieConsent(): CookieConsent {
   if (typeof window === "undefined") {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import AnimatedContainer from "@/components/animations/AnimatedContainer";
 import AnimatedElement from "@/components/animations/AnimatedElement";
@@ -11,7 +11,7 @@ import TeamError from "./TeamError";
 import TeamMember from "./TeamMember";
 import { fetchTeamMembers } from "./teamService";
 import TeamSkeleton from "./TeamSkeleton";
-import { Member } from "./types";
+import type { Member } from "./types";
 
 export default function Team() {
   const [members, setMembers] = useState<Member[]>([]);
@@ -41,7 +41,7 @@ export default function Team() {
 
   return (
     <AnimatedSection id="team" animationType="fadeUp">
-      <div className="relative mx-auto max-w-screen-xl px-4 py-20">
+      <div className="relative mx-auto max-w-(--breakpoint-xl) px-4 py-20">
         <AnimatedElement as="div" animationType="fadeDown" delay={0.1}>
           <SectionTitle
             title="Meet the Team"

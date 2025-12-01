@@ -1,4 +1,4 @@
-import { FieldType } from "../types";
+import type { FieldType } from "../types";
 
 export type TagCategory = {
   pattern: RegExp;

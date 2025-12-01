@@ -1,20 +1,177 @@
-@import "../node_modules/@south-paw/typeface-minecraft/index.css";
-@import "prism-tomorrow.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+  color: var(--prism-text, #24292e) !important;
+  background-color: var(--prism-bg, #ffffff) !important;
+  text-shadow: none !important;
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace !important;
+}
+
+code[class*="language-"] > span:not([class]) {
+  color: var(--prism-text, #24292e) !important;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: var(--prism-bg, #ffffff) !important;
+}
+
+@import '../node_modules/@south-paw/typeface-minecraft/index.css' layer(base);
+@import './prism-tomorrow.css' layer(base);
+@import 'tailwindcss';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-monospace:
+    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
+  --background-image-gradient-conic: conic-gradient(
+    from 180deg at 50% 50%,
+    var(--tw-gradient-stops)
+  );
+
+  --color-gray-50: #f7f8fa;
+  --color-gray-100: #eef1f5;
+  --color-gray-200: #dde2ea;
+  --color-gray-300: #c4cdd8;
+  --color-gray-400: #8d99a9;
+  --color-gray-500: #5d6b7c;
+  --color-gray-600: #3e4a59;
+  --color-gray-700: #2a3441;
+  --color-gray-800: #141a23;
+  --color-gray-850: #131720;
+  --color-gray-900: #0c1218;
+  --color-gray-950: #080c11;
+
+  --color-light-gray-50: #ffffff;
+  --color-light-gray-100: #fafbfc;
+  --color-light-gray-200: #f4f6f8;
+  --color-light-gray-300: #e8ecf1;
+  --color-light-gray-400: #d3d9e0;
+  --color-light-gray-500: #b4bcc8;
+  --color-light-gray-600: #8f99a8;
+  --color-light-gray-700: #6e7a8c;
+  --color-light-gray-800: #4e5b6e;
+  --color-light-gray-850: #3a4655;
+  --color-light-gray-900: #2a3441;
+  --color-light-gray-950: #1a1f27;
+
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-full: 9999px;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility scrollbar-hide {
   /* Hide scrollbar for Chrome, Safari and Opera */
-  .scrollbar-hide::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
   }
 
   /* Hide scrollbar for IE, Edge and Firefox */
-  .scrollbar-hide {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 code[class*="language-"],
@@ -212,4 +369,15 @@ code,
 .prose pre,
 .prose code {
   font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important;
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+  text-shadow: none !important;
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace !important;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  color: var(--prism-text) !important;
 }

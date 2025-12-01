@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FC } from "react";
+import type { FC } from "react";
 
 const NotFound: FC = () => {
   return (
@@ -15,13 +15,13 @@ const NotFound: FC = () => {
       <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
         <Link
           href="/"
-          className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-700 focus:outline-none dark:bg-blue-500 dark:hover:bg-blue-600"
+          className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-700 focus:outline-hidden dark:bg-blue-500 dark:hover:bg-blue-600"
         >
           Go to Homepage
         </Link>
         <Link
           href="/docs"
-          className="rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+          className="rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 focus:outline-hidden dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
         >
           Browse Documentation
         </Link>

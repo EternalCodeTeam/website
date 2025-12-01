@@ -1,15 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React, { useState, useEffect, useCallback, useMemo, ReactNode } from "react";
+import { useState, useEffect, useCallback, useMemo, type ReactNode } from "react";
 
 import { Play } from "@/components/icons/play";
 
 import AnimatedElement from "../../components/animations/AnimatedElement";
-import { NotificationGeneratedCode } from "../../components/notification-generator/NotificationGeneratedCode";
+import { NotificationGeneratedCode } from "@/components/notification-generator/NotificationGeneratedCode";
 import { NotificationGenerator as NotificationGeneratorForm } from "../../components/notification-generator/NotificationGenerator";
-import { MinecraftPreview } from "../../components/notification-generator/preview/MinecraftPreview";
-import { NotificationConfig } from "../../components/notification-generator/types";
+import { MinecraftPreview } from "@/components/notification-generator/preview/MinecraftPreview";
+import type { NotificationConfig } from "@/components/notification-generator/types";
 
 interface PanelProps {
   title: ReactNode;
@@ -68,7 +68,7 @@ function PreviewSection({ previewKey, notification, onPlay, delay }: PreviewSect
         <AnimatedElement as="span">
           <motion.button
             onClick={onPlay}
-            className="flex items-center rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            className="flex items-center rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             aria-label="Play title animation"
@@ -175,7 +175,7 @@ export default function NotificationGeneratorPage() {
     () => (
       <NotificationGeneratorForm notification={notification} setNotification={setNotification} />
     ),
-    [notification, setNotification]
+    [notification]
   );
 
   const codeComponent = useMemo(

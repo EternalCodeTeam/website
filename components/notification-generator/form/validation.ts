@@ -1,4 +1,4 @@
-import { FieldType } from "../types";
+import type { FieldType } from "../types";
 
 export const validateField = (field: FieldType, value: string): string => {
   if (!value) return "";

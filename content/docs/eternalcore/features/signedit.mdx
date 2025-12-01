@@ -1,0 +1,32 @@
+---
+title: Edit signs
+description: Learn how to use the `/signedit` command to edit the text on signs.
+icon: Signpost
+---
+
+import { AlertBox } from "../../../components/ui/alert-box";
+
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the **[Commands & Permissions](/docs/eternalcore/commands-and-permissions)** page for a full list of commands and permissions.
+</AlertBox>
+
+## Introduction
+
+The `/signedit` command allows you to edit the text on signs in your Minecraft server without needing to break and replace them.
+This is useful for server admins, moderators, or players with appropriate permissions to quickly update sign information.
+
+## Usage
+
+```text
+/signedit set <side> <line> <text>
+```
+
+Replace `<side>` with `FRONT` or `BACK` to specify which side of the sign to edit. Available only for >1.20 Minecraft versions.
+
+<AlertBox type="tip" title="Tip">
+  Unlike traditional right-click editing, the `/signedit` command allows to use formatting codes for enhanced text styles.
+</AlertBox>
+
+## Showcase
+
+![signedit.gif](/docs/eternalcore/signedit.gif)

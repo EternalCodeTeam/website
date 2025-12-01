@@ -1,15 +1,14 @@
 "use client";
 
-import React from "react";
-
-import { AnimatedSection, AnimatedElement, AnimatedContainer } from "@/components/animations";
+import type { ReactNode } from "react";
+import { AnimatedContainer, AnimatedElement, AnimatedSection } from "@/components/animations";
 import JavaIcon from "@/components/icons/java";
 import LinuxIcon from "@/components/icons/linux";
 import TabNew from "@/components/icons/tab-new";
 import SectionTitle from "@/components/SectionTitle";
 
 interface Feature {
-  icon: React.ReactNode;
+  icon: ReactNode;
   title: string;
   description: string;
 }
@@ -41,7 +40,7 @@ export default function Features() {
       animationType="fade"
       aria-labelledby="Features section"
     >
-      <div className="mx-auto max-w-screen-xl px-4 py-8">
+      <div className="mx-auto max-w-(--breakpoint-xl) px-4 py-8">
         <AnimatedElement as="div" animationType="fadeDown" delay={0.1}>
           <SectionTitle
             title="What do we do?"
@@ -56,7 +55,7 @@ export default function Features() {
         >
           {features.map((feature, index) => (
             <AnimatedElement
-              key={index}
+              key={feature.title.replace(/\s+/g, "-").toLowerCase()}
               as="div"
               className="flex flex-col items-center"
               animationType={index % 2 === 0 ? "fadeLeft" : "fadeRight"}

@@ -1,11 +1,11 @@
-import fs from "fs/promises";
-import path from "path";
+import fs from "node:fs/promises";
+import path from "node:path";
+import { Suspense } from "react";
 
 import matter from "gray-matter";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { Suspense } from "react";
 
 import { DocsHeader } from "@/components/docs/content/DocsHeader";
 import { DocsNavigation } from "@/components/docs/content/DocsNavigation";
@@ -20,6 +20,7 @@ interface DocMeta {
   description?: string;
   lastModified?: string;
   author?: string;
+  icon?: string;
   [key: string]: string | undefined;
 }
 
@@ -33,28 +34,22 @@ interface DocNavigation {
   next: { title: string; path: string } | null;
 }
 
+interface DocStructureItem {
+  title: string;
+  path: string;
+  children?: DocStructureItem[];
+}
+
 function getFlatDocs(): { title: string; path: string }[] {
-  function flattenDocs(
-    structure: {
-      title: string;
-      path: string;
-      children?: {
-        title: string;
-        path: string;
-        children?: any[];
-      }[];
-    }[]
-  ): { title: string; path: string }[] {
+  function flattenDocs(structure: DocStructureItem[]): { title: string; path: string }[] {
     const result: { title: string; path: string }[] = [];
 
     for (const item of structure) {
       const hasChildren = item.children && item.children.length > 0;
 
       if (hasChildren) {
-        result.push(...flattenDocs(item.children!));
-      }
-
-      if (!hasChildren) {
+        result.push(...flattenDocs(item.children ?? []));
+      } else {
         result.push({ title: item.title, path: item.path });
       }
     }
@@ -67,7 +62,7 @@ function getFlatDocs(): { title: string; path: string }[] {
 
 async function getDocBySlug(slug: string[]): Promise<Doc | null> {
   const docsDirectory = path.join(process.cwd(), "content/docs");
-  const fullPath = path.join(docsDirectory, slug.join("/") + ".mdx");
+  const fullPath = path.join(docsDirectory, `${slug.join("/")}.mdx`);
 
   try {
     const fileContents = await fs.readFile(fullPath, "utf8");
@@ -130,13 +125,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+const skeletonKeys = Array.from({ length: 5 }, () => crypto.randomUUID());
+
 function LoadingFallback() {
   return (
     <div className="animate-pulse space-y-4">
-      <div className="h-8 w-3/4 rounded bg-gray-200 dark:bg-gray-700" />
-      <div className="h-4 w-1/2 rounded bg-gray-200 dark:bg-gray-700" />
-      {[...Array(5)].map((_, i) => (
-        <div key={i} className="h-4 rounded bg-gray-200 dark:bg-gray-700" />
+      <div className="h-8 w-3/4 rounded-sm bg-gray-200 dark:bg-gray-700" />
+      <div className="h-4 w-1/2 rounded-sm bg-gray-200 dark:bg-gray-700" />
+      {skeletonKeys.map((key) => (
+        <div key={key} className="h-4 rounded-sm bg-gray-200 dark:bg-gray-700" />
       ))}
     </div>
   );
@@ -154,7 +151,7 @@ export default async function DocPage({ params }: Props) {
   const doc = await getDocBySlug(resolvedParams.slug);
   if (!doc) notFound();
 
-  const currentPath = "/docs/" + resolvedParams.slug.join("/");
+  const currentPath = `/docs/${resolvedParams.slug.join("/")}`;
   const { prev, next } = getDocNavigation(currentPath);
 
   const category = docsStructure.find((item) => currentPath.startsWith(item.path))?.title;
@@ -166,6 +163,7 @@ export default async function DocPage({ params }: Props) {
           category={category}
           title={doc.meta.title}
           description={doc.meta.description}
+          icon={doc.meta.icon}
           actions={
             <>
               <ReadingTime content={doc.content} />

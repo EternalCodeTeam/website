@@ -1,0 +1,57 @@
+---
+title: Private messages
+description: Send private messages to other players using `/msg`, `/tell`, and `/reply`.
+icon: MessageCircle
+---
+
+import { AlertBox } from "../../../components/ui/alert-box";
+
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the **[Commands & Permissions](/docs/eternalcore/commands-and-permissions)** page for a full list of commands and permissions.
+</AlertBox>
+
+## Introduction
+
+The private messaging system allows players to send direct messages to each other privately. This includes commands for sending messages and replying to the last sender.
+
+## Usage
+
+```text
+/msg <player> <message>
+/tell <player> <message>
+→ Send a private message to a player
+
+/reply <message>
+/r <message>
+→ Reply to the last player who messaged you
+```
+
+## Examples
+
+```text
+/msg Notch Hey, want to team up?
+→ Sends a private message to Notch
+
+/tell Steve Check out my build!
+→ Sends a private message to Steve
+
+/reply Sure, let's go!
+→ Replies to the last player who sent you a message
+
+/r Thanks!
+→ Quick reply shortcut
+```
+
+### Toggling private messages
+Private messages can be toggled on or off using the `/msgtoggle` command.
+
+## Showcase
+
+![msg.gif](/docs/eternalcore/msg.gif)
+
+## Notes
+
+- Private messages are only visible to the sender and recipient.
+- Staff with appropriate permissions may be able to view private messages for moderation (`/socialspy`).
+- Players can use `/ignore` to block messages from specific players. For more information, see the [Ignoring players](./ignore) feature.
+
