@@ -1,30 +1,7 @@
 ---
 title: Placeholders
-description: List of available PlaceholderAPI placeholders.
-icon: Braces
 ---
 
-import { AlertBox } from "../../components/ui/alert-box";
+import DynamicPlaceholdersTable from "../../../components/docs/eternalcore/placeholder/DynamicPlaceholdersTable";
 
-## PlaceholderAPI Support
-
-EternalCore has full PlaceholderAPI support, allowing you to use placeholders in other plugins.
-
-<AlertBox type="info" title="Suggestions">
-  If you have a suggestion to add new placeholders, please create an issue on [GitHub](https://github.com/EternalCodeTeam/EternalCore/issues).
-</AlertBox>
-
-## General
-
-- `%eternalcore_online%` - Show online players count
-
-## Afk
-
-- `%eternalcore_afk%` - Show if a player is AFK
-
-## Home
-
-- `%eternalcore_homes_owned%` - Houses owned by the player
-- `%eternalcore_homes_count%` - Number of houses owned by the player
-- `%eternalcore_homes_limit%` - Maximum homes limit for the player
-- `%eternalcore_homes_left%` - Number of homes the player can still create
+<DynamicPlaceholdersTable />
