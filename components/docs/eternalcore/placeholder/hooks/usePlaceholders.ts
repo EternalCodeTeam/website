@@ -35,7 +35,6 @@ export function usePlaceholders() {
         );
         if (!response.ok) {
           setError(`Failed to fetch data: ${response.statusText}`);
-          setLoading(false);
           return;
         }
 
