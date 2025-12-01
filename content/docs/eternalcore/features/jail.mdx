@@ -1,0 +1,40 @@
+---
+title: Jail players
+description: Learn how to use the `/jail` command to confine players to a designated jail area.
+icon: Lock
+---
+
+import { AlertBox } from "../../../components/ui/alert-box";
+
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the **[Commands & Permissions](/docs/eternalcore/commands-and-permissions)** page for a full list of commands and permissions.
+</AlertBox>
+
+## Introduction
+
+Upon being jailed, players are teleported to the designated jail area and are restricted from leaving until their jail time expires or they are released by an administrator.
+Once the jail time is over, players are automatically released and teleported back to their original location before being jailed.
+
+## Usage
+
+```text
+/jail setup
+/jail detain <player> <time>
+/jail release <player>
+/jail remove
+/jail list
+```
+
+- `setup` - Sets up the jail area at the administator's current location.
+- `detain` - Jails a player for a specified duration with an optional reason.
+- `release` - Releases a jailed player from jail.
+- `remove` - Removes the jail area.
+- `list` - Lists all currently jailed players.
+
+<AlertBox type="note" title="Bypass">
+  Players can get immune from jailing through the permission: `eternalcore.jail.bypass`
+</AlertBox>
+
+## Showcase
+
+![jail.gif](/docs/eternalcore/jail.gif)

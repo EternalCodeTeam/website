@@ -1,0 +1,41 @@
+---
+title: Feed
+description: Refill a player's hunger to maximum using `/feed`.
+icon: Utensils
+---
+
+import { AlertBox } from "../../../components/ui/alert-box";
+
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the **[Commands & Permissions](/docs/eternalcore/commands-and-permissions)** page for a full list of commands and permissions.
+</AlertBox>
+
+## Introduction
+
+The `/feed` command fills the hunger bar of the executor or a specified player. Useful for quickly restoring food without giving items.
+
+## Usage
+
+```text
+/feed [player]
+```
+- Omitting `[player]` feeds the command sender.
+- Using `[player]` feeds the target player.
+
+## Examples
+
+```text
+/feed
+→ Your hunger has been restored to full
+
+/feed Alex
+→ Alex's hunger has been restored
+```
+
+## Showcase
+
+![feed.gif](/docs/eternalcore/feed.gif)
+
+## Notes
+
+- This command only affects the hunger/saturation values, not health.

@@ -35,7 +35,7 @@ export const CodeBlock = memo(({ children, language: _language, className }: Cod
         type="button"
         onClick={copyToClipboard}
         aria-label="Copy code to clipboard"
-        className="absolute right-4 top-3 z-10 flex items-center gap-1 rounded-md border border-gray-700 bg-gray-800 px-3 py-1 text-xs font-medium text-gray-300 opacity-70 transition hover:bg-gray-900 hover:text-white hover:opacity-100"
+        className="absolute cursor-pointer right-4 top-3 z-10 flex items-center gap-1 rounded-md border border-gray-700 bg-gray-800 px-3 py-1 text-xs font-medium text-gray-300 opacity-70 transition hover:bg-gray-900 hover:text-white hover:opacity-100"
       >
         {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
         <span>{copied ? "Copied!" : "Copy"}</span>

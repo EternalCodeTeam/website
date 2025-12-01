@@ -4,11 +4,11 @@ description: Frequently Asked Questions about EternalCore.
 icon: HelpCircle
 ---
 
+import { AlertBox } from "../../components/ui/alert-box";
+
 ## Disabling commands
 
-If a command from EternalCore conflicts with a command from another plugin, you can disable it. To do this, locate the command in the `commands.yml` file and set the `enabled` property to `false`.
-
-**Example:**
+If a command from EternalCore conflicts with a command from another plugin, you can disable it in `commands.yml`.
 
 ```yaml
 rtp:
@@ -21,9 +21,11 @@ rtp:
 
 ## Formatting text in chat
 
-You can format chat messages with colors and styles using MiniMessage. For a live preview and help with formatting, check out the [MiniMessage Viewer](https://webui.advntr.dev/).
+You can format chat messages with colors and styles using MiniMessage.
 
-**Example:**
+<AlertBox type="info" title="Tool">
+  Check out the [MiniMessage Viewer](https://webui.advntr.dev/) for a live preview.
+</AlertBox>
 
 ```yaml
 message: "<gradient:#ff00ee:#f79459>Example message</gradient>"
@@ -31,9 +33,7 @@ message: "<gradient:#ff00ee:#f79459>Example message</gradient>"
 
 ## Preventing title flicker
 
-When creating in-game titles with timers, you might notice flickering. To fix this, use the `times` key in your configuration. This allows you to define the fade-in, stay, and fade-out durations for the title, which prevents flickering.
-
-**Example:**
+Use the `times` key in your configuration to define fade-in, stay, and fade-out durations.
 
 ```yaml
 teleportTimerFormat:

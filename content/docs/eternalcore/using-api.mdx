@@ -1,115 +1,103 @@
 ---
-title: EternalCore - Developer API
+title: Developer API
+description: Learn how to use the EternalCore API in your own plugins.
+icon: Code
 ---
 
-import { CodeTab, CodeTabs } from "../../../components/mdx/CodeTabs";
+import { CodeTab, CodeTabs } from "../../components/mdx/CodeTabs";
+import { AlertBox } from "../../components/ui/alert-box";
 
-# EternalCore Developer API
+## Introduction
 
-As part of open-source community, we support developers who want to create their own plugins using our API. We provide a simple and easy to use API that allows you to create your own plugins using our API.
+We support developers who want to create their own plugins using our API. We provide a simple and easy-to-use API.
 
-## 📚 Dependency Management
+## Dependency Management
 
-To use our work in your plugin, You need to install correct artifact for your project. Our plugin supports Maven, Gradle Kotlin, Gradle Groovy and SBT.
-To use latest release check [maven repository](https://repo.eternalcode.pl/#/releases/com/eternalcode/eternalcore-api).
+To use our API, you need to install the correct artifact. Our plugin supports Maven, Gradle Kotlin, Gradle Groovy, and SBT.
+Check the [Maven Repository](https://repo.eternalcode.pl/#/releases/com/eternalcode/eternalcore-api) for the latest release.
 
-### Add repository:
-
-<CodeTabs>
-  <CodeTab label="Gradle.kts">
-
-```kotlin
-maven("https://repo.eternalcode.pl/releases")
-```
-
-  </CodeTab>
-  <CodeTab label="Gradle">
-
-```groovy
-maven { url = "https://repo.eternalcode.pl/releases" }
-```
-
-  </CodeTab>
-  <CodeTab label="Maven">
-
-```xml
-<repository>
-    <id>eternalcode-reposilite-releases</id>
-    <name>EternalCode Repository</name>
-    <url>https://repo.eternalcode.pl/releases</url>
-</repository>
-```
-
-  </CodeTab>
-</CodeTabs>
-
-### Add dependency:
+### Add repository
 
 <CodeTabs>
   <CodeTab label="Gradle.kts">
-
-```kotlin
-compileOnly("com.eternalcode:eternalcore-api:1.1.0")
-```
-
+    ```kotlin
+    maven("https://repo.eternalcode.pl/releases")
+    ```
   </CodeTab>
   <CodeTab label="Gradle">
-
-```groovy
-compileOnly("com.eternalcode:eternalcore-api:1.1.0")
-```
-
+    ```groovy
+    maven { url = "https://repo.eternalcode.pl/releases" }
+    ```
   </CodeTab>
   <CodeTab label="Maven">
-
-```xml
-<dependency>
-    <groupId>com.eternalcode</groupId>
-    <artifactId>eternalcore-api</artifactId>
-    <version>1.1.0</version>
-    <scope>provided</scope>
-</dependency>
-```
-
+    ```xml
+    <repository>
+        <id>eternalcode-reposilite-releases</id>
+        <name>EternalCode Repository</name>
+        <url>https://repo.eternalcode.pl/releases</url>
+    </repository>
+    ```
   </CodeTab>
 </CodeTabs>
 
-You must also add dependency inside `plugin.yml` or `paper-plugin.yml` file, this is required to load our plugin before your plugin, so they can access our API.
+### Add dependency
+
+<CodeTabs>
+  <CodeTab label="Gradle.kts">
+    ```kotlin
+    compileOnly("com.eternalcode:eternalcore-api:1.1.0")
+    ```
+  </CodeTab>
+  <CodeTab label="Gradle">
+    ```groovy
+    compileOnly("com.eternalcode:eternalcore-api:1.1.0")
+    ```
+  </CodeTab>
+  <CodeTab label="Maven">
+    ```xml
+    <dependency>
+        <groupId>com.eternalcode</groupId>
+        <artifactId>eternalcore-api</artifactId>
+        <version>1.1.0</version>
+        <scope>provided</scope>
+    </dependency>
+    ```
+  </CodeTab>
+</CodeTabs>
+
+### plugin.yml
+
+<AlertBox type="warning" title="Important">
+  You must add `EternalCore` as a dependency in your `plugin.yml` or `paper-plugin.yml` file.
+</AlertBox>
 
 <CodeTabs>
   <CodeTab label="plugin.yml">
-
-```yaml
-depend: [EternalCore]
-```
-
+    ```yaml
+    depend: [EternalCore]
+    ```
   </CodeTab>
   <CodeTab label="paper-plugin.yml">
-
-```yaml
-dependencies:
-  server:
-    EternalCore:
-      load: BEFORE
-      required: true
-      join-classpath: true
-```
-
+    ```yaml
+    dependencies:
+      server:
+        EternalCore:
+          load: BEFORE
+          required: true
+          join-classpath: true
+    ```
   </CodeTab>
 </CodeTabs>
 
-> **Warning** > **Remember to add dependency inside `plugin.yml` or `paper-plugin.yml` file, otherwise your plugin will not work!**
+## Usage
 
-## 📝 Usage
-
-To use our API you need to create instance of `EternalCoreAPI` class. You can do it by using `EternalCoreApiProvider.provide()` method.
+Create an instance of `EternalCoreAPI`:
 
 ```java
 EternalCoreAPI eternalCoreAPI = EternalCoreApiProvider.provide();
 ```
 
-After creating instance of api, the User gets access to various classes used in our plugin and methods.
-Our API includes:
+### Available Services
 
 | Class                 | Provide method             |
 | --------------------- | -------------------------- |
@@ -119,9 +107,9 @@ Our API includes:
 | TeleportService       | getTeleportService()       |
 | RandomTeleportService | getRandomTeleportService() |
 
-### AfkService usage examples
+### Examples
 
-The User can then use the methods of the given classes to create their own use cases. Here is an example how to obtain instance of `AfkService`:
+#### AfkService
 
 ```java
 public class YourPlugin extends JavaPlugin {
@@ -133,50 +121,25 @@ public class YourPlugin extends JavaPlugin {
     public onEnable() {
         this.eternalCoreApi = EternalCoreProvider.provide();
         this.afkService = eternalCoreApi.getAfkService();
-
     }
 }
 ```
 
-Then pass down the `AfkService` to your classes. After that You can use examples shown below.
-
-Check if the player is Afk by using `AfkService` Example:
-
+Check if player is AFK:
 ```java
 if (afkService.isAfk(player.getUniqueId())) {
-
+    // Player is AFK
 }
 ```
 
-Mark the player as afk if the player is not afk yet.
-
+Mark player as AFK:
 ```java
 if (!afkService.isAfk(player.getUniqueId())) {
     Afk afkPlayer = afkService.markAfk(player.getUniqueId(), AfkReason.PLUGIN);
-
 }
 ```
 
-### CatboyService usage example
-
-The User can get other classes from `EternalCore` and use them in their own use cases. Here is an example how to obtain instance of `CatboyService`:
-
-```java
-public class YourPlugin extends JavaPlugin {
-
-    private EternalCoreApi eternalCoreApi;
-    private CatboyService catboyService;
-
-    @Override
-    public onEnable() {
-        this.eternalCoreApi = EternalCoreProvider.provide();
-        this.catboyService = eternalCoreApi.getCatboyService();
-
-    }
-}
-```
-
-Using the instance of `CatboyService` the User is able to mark players as catboys and give them unique feature provided by `EternalCore`.
+#### CatboyService
 
 ```java
 if (player.getName().equals("Rollczi")) {

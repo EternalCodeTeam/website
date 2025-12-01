@@ -1,0 +1,31 @@
+---
+title: God mode
+description: Toggle invincibility for a player using `/god`.
+icon: Shield
+---
+
+import { AlertBox } from "../../../components/ui/alert-box";
+
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the **[Commands & Permissions](/docs/eternalcore/commands-and-permissions)** page for a full list of commands and permissions.
+</AlertBox>
+
+## Introduction
+
+The `/god` command toggles god mode (invincibility) for yourself or for a target player. When enabled, the player will not take any damage from any source and will not be targeted by hostile entities.
+
+## Usage
+
+```text
+/god [player]
+```
+
+<AlertBox type="warning" title="Note">
+  - Omitting `[player]` toggles god mode for the sender.
+  - Targeting another player toggles their god mode.
+</AlertBox>
+
+## Showcase
+
+![god.gif](/docs/eternalcore/god.gif)
+

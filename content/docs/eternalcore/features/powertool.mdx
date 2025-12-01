@@ -1,0 +1,54 @@
+---
+title: Powertool
+description: Bind commands to items so that using an item executes a command automatically.
+icon: Hammer
+---
+
+import { AlertBox } from "../../../components/ui/alert-box";
+
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the **[Commands & Permissions](/docs/eternalcore/commands-and-permissions)** page for a full list of commands and permissions.
+</AlertBox>
+
+## Introduction
+
+The Powertool feature lets you bind a command to a specific item in hand.
+When a player uses that item (left or right-click), the bound command is executed automatically. This is particularly useful for shortcuts, tools, or custom item behaviours without creating custom items.
+
+## Key points
+- Binds a command to an item type (and optionally to item meta).
+- Command is executed when the player uses the item.
+- Supports placeholders (player, location, item info).
+
+## Commands
+
+### Bind a command
+```text
+/powertool set <command...>
+```
+
+Example:
+```text
+/powertool set warp home
+```
+This binds `warp home` to the currently held item.
+
+### Unbind a command
+```text
+/powertool
+```
+
+<AlertBox type="info" title="Note">
+  - Commands typed after `set` are the command that will run when the item is used.
+  - Omit the slash in the binding (the plugin will add it automatically when executing). Exceptions are WorldEdit commands which require double slashes (e.g., `//wand`)
+</AlertBox>
+
+## Placeholders
+
+When binding a command you can use placeholders which will be replaced when the command runs. Typical placeholders:
+
+- `{player}` — player's name
+- `{WORLD}` - player's world name
+- `{x}`, `{y}`, `{z}`, `yaw`, `pitch` — player's coordinates
+- `{ITEM_TYPE}` — item material (e.g., DIAMOND_SWORD)
+- `{ITEM_NAME}` — the name of the item

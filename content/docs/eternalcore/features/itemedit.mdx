@@ -1,0 +1,34 @@
+---
+title: Editing Items
+description: Modify item properties (flags, name, lore) using the `/itemedit` command.
+icon: Pencil
+---
+
+import { AlertBox } from "../../../components/ui/alert-box";
+
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the **[Commands & Permissions](/docs/eternalcore/commands-and-permissions)** page for a full list of commands and permissions.
+</AlertBox>
+
+## Introduction
+
+The `/itemedit` command allows you to modify various properties of the item you are holding, such as its name, lore, and flags.
+This is useful for customizing items for gameplay or aesthetic purposes.
+
+## Usage
+
+```text
+/itemedit name <new_name>
+/itemedit lore <line_number> <new_lore>
+/itemedit flag <item_flag>
+```
+
+<AlertBox type="info" title="Note">
+  When running `/itemedit flag` the specified flag will be toggled off for the held item.
+  Re-run the command to toggle it back on.
+</AlertBox>
+
+## Showcase
+
+![itemedit.gif](/docs/eternalcore/itemedit.gif)
+

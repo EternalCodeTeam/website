@@ -1,0 +1,63 @@
+---
+title: Message of the Day
+description: Display a custom message to players when they join the server.
+icon: Calendar
+---
+
+import { AlertBox } from "../../../components/ui/alert-box";
+
+<AlertBox type="info" title="Commands & Permissions">
+  Check out the **[Commands & Permissions](/docs/eternalcore/commands-and-permissions)** page for a full list of commands and permissions.
+</AlertBox>
+
+## Introduction
+
+The Message of the Day (MOTD) feature displays a custom welcome message to players when they join the server. This can include server rules, announcements, or greetings.
+
+## Configuration
+
+The MOTD is configured in the EternalCore's appropriate messages files, e.g. `en_messages.yml`, `pl_messages.yml`.
+
+You can customize:
+- The message content (supports color codes and placeholders)
+- Formatting and styling
+
+```yaml
+# This section is responsible for the messages of the MOTD feature.
+motd:
+  # Message of the Day (MOTD) content that will be sent to players when they join the server.
+  # Out of the box supported placeholders: {PLAYER}, {WORLD}
+  # You can add your own placeholders using the PlaceholderAPI.
+  # You can check our Notification Generator: https://www.eternalcode.pl/notification-generator
+  motdContent:
+    chat:
+    - " "
+    - " <color:#9d6eef>🠚 <white>Welcome Back, <gradient:#9d6eef:#A1AAFF:#9d6eef>{PLAYER}</gradient>!</white>"
+    - " "
+    - " <white>Useful commands:"
+    - "  <color:#9d6eef>⏺ <white>/discord - link to the Discord"
+    - "  <color:#9d6eef>⏺ <white>/help - server help"
+    - "  <color:#9d6eef>⏺ <white>/dynmap - server map"
+    title: "<gradient:#9d6eef:#A1AAFF:#9d6eef>EternalCore</gradient>"
+    subtitle: "<white>Welcome back to the server!"
+    sound: "block.note_block.pling"
+```
+
+## Example MOTD
+
+```text
+Welcome to the server, {PLAYER}!
+→ Current world: {WORLD}!
+→ Visit our website: example.com
+→ Type /help for commands
+```
+
+## Showcase
+
+![motd.gif](/docs/eternalcore/motd.gif)
+
+<AlertBox type="tip" title="Tip">
+  - MOTD supports MiniMessage formatting for colors and styles.
+  - Placeholders like `{PLAYER}`, `{WORLD}` can be used.
+</AlertBox>
+
