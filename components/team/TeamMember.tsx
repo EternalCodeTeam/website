@@ -28,7 +28,7 @@ export default function TeamMember({ member }: TeamMemberProps) {
       <motion.div
         className="mx-auto mb-4 h-36 w-36 overflow-hidden rounded-full shadow-md"
         whileHover={avatarHover}
-        transition={{ type: "spring", stiffness: 300, damping: 18 }}
+        transition={{ type: "spring", stiffness: 300, damping: 18 } as const}
       >
         <Image
           className="object-cover"

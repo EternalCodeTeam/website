@@ -98,7 +98,7 @@ export const CodeTabs = ({
         <TabList className="flex space-x-2 px-4 pb-0 pt-4" aria-label="Code language selection">
           {Children.map(children, (child) => {
             if (!isValidElement(child)) return null;
-            const { label, disabled } = child.props;
+            const { label, disabled } = child.props as { label: string; disabled?: boolean };
             return (
               <Tab
                 key={label}
@@ -145,9 +145,10 @@ export const CodeTabs = ({
           <AnimatePresence mode="wait">
             {Children.map(children, (child) => {
               if (!isValidElement(child)) return null;
+              const { label, children: tabChildren } = child.props as { label: string; children: ReactNode };
               return (
                 <TabPanel
-                  key={child.props.label}
+                  key={label}
                   className={cn(
                     "px-4 pb-6 pt-4 transition-all duration-300",
                     "mt-2 rounded-lg bg-gray-100 dark:bg-gray-850"
@@ -159,7 +160,7 @@ export const CodeTabs = ({
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ type: "spring", stiffness: 100, damping: 20, mass: 0.8 }}
                   >
-                    {child.props.children}
+                    {tabChildren}
                   </motion.div>
                 </TabPanel>
               );

@@ -10,19 +10,19 @@ export const cardVariants = {
       damping: 16,
       mass: 0.7,
       ease: [0.22, 1, 0.36, 1],
-    },
+    } as const,
   },
 };
 
 // Animation for avatar hover effect
 export const avatarHover = {
   scale: 1.08,
-  transition: { type: "spring", stiffness: 300, damping: 18 },
+  transition: { type: "spring", stiffness: 300, damping: 18 } as const,
 };
 
 // Animation for social icon hover effect
 export const iconHover = {
   scale: 1.18,
   color: "#2563eb",
-  transition: { type: "spring", stiffness: 400, damping: 15 },
+  transition: { type: "spring", stiffness: 400, damping: 15 } as const,
 };
