@@ -1,11 +1,13 @@
 import createMDX from "@next/mdx";
 
-import { mdxOptions } from "./lib/mdx-config.mjs";
-
 const withMDX = createMDX({
-  extension: /\.mdx?$/,
-  options: mdxOptions,
+  extension: /\.(md|mdx)$/,
+  options: {
+    remarkPlugins: ["remark-gfm", "remark-emoji"],
+    rehypePlugins: ["rehype-slug", ["rehype-autolink-headings", { behavior: "wrap" }], "rehype-prism"],
+  },
 });
+
 
 const nextConfig = {
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
@@ -60,7 +62,7 @@ const nextConfig = {
     serverActions: {
       allowedOrigins: ["eternalcode.pl", "www.eternalcode.pl"],
     },
-    mdxRs: true,
+    mdxRs: false,
   },
   bundlePagesRouterDependencies: true,
   serverExternalPackages: ["gray-matter"],

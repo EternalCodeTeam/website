@@ -58,7 +58,6 @@ export const components: MDXComponents = {
     return <code {...rest}>{children}</code>;
   },
 
-  // @ts-expect-error mdx
   pre: CodeBlock,
 
   blockquote: (props) => (

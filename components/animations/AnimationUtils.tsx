@@ -1,8 +1,8 @@
 "use client";
 
-import type { Variants } from "framer-motion";
+import type { Transition, Variants } from "framer-motion";
 
-const sharedSpring = {
+const sharedSpring: Transition = {
   type: "spring",
   stiffness: 100,
   damping: 20,
@@ -56,7 +56,7 @@ export const fadeInRight: Variants = {
   },
 };
 
-const scaleSpring = {
+const scaleSpring: Transition = {
   type: "spring",
   stiffness: 400,
   damping: 10,

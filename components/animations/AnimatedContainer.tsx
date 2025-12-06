@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import type React from "react";
 import { useInView } from "react-intersection-observer";
 
@@ -12,7 +12,7 @@ interface AnimatedContainerProps {
   rootMargin?: string;
   triggerOnce?: boolean;
   staggerDelay?: number;
-  as?: keyof JSX.IntrinsicElements;
+  as?: keyof React.JSX.IntrinsicElements;
   [key: string]: unknown;
 }
 
@@ -25,6 +25,7 @@ const AnimatedContainer: React.FC<AnimatedContainerProps> = ({
   triggerOnce = false,
   staggerDelay = 0.15,
   as = "div",
+  animationType, // Extract animationType to prevent passing it to DOM
   ...props
 }) => {
   const { ref, inView } = useInView({
@@ -33,7 +34,7 @@ const AnimatedContainer: React.FC<AnimatedContainerProps> = ({
     rootMargin,
   });
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: {
       opacity: 0,
       y: 20,
