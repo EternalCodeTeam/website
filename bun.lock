@@ -1,5 +1,6 @@
 {
   "lockfileVersion": 1,
+  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "eternalcodev3",
@@ -7,7 +8,7 @@
         "@fontsource/jetbrains-mono": "^5.2.6",
         "@headlessui/react": "^2.2.2",
         "@mdx-js/react": "^3.1.0",
-        "@next/mdx": "^15.3.2",
+        "@next/mdx": "^15.5.7",
         "@orama/orama": "^3.1.7",
         "@south-paw/typeface-minecraft": "^1.0.0",
         "@strapi/blocks-react-renderer": "^1.0.2",
@@ -21,7 +22,7 @@
         "critters": "^0.0.25",
         "framer-motion": "^11.0.6",
         "gray-matter": "^4.0.3",
-        "lucide-react": "^0.555.0",
+        "lucide-react": "^0.556.0",
         "minimessage-js": "^1.1.3",
         "next-mdx-remote": "^5.0.0",
         "next-sitemap": "^4.2.3",
@@ -46,8 +47,8 @@
       },
       "devDependencies": {
         "@biomejs/biome": "^2.3.0",
-        "@next/bundle-analyzer": "^14.1.0",
-        "@next/codemod": "^15.4.0-canary.36",
+        "@next/bundle-analyzer": "^15.5.7",
+        "@next/codemod": "^15.5.7",
         "@tailwindcss/postcss": "^4.1.16",
         "@total-typescript/ts-reset": "^0.6.0",
         "@types/node": "^20.11.20",
@@ -55,7 +56,7 @@
         "@types/react": "^18.2.58",
         "@types/react-dom": "^18.2.19",
         "cross-env": "^7.0.3",
-        "next": "^15.3.2",
+        "next": "^15.5.7",
         "postcss": "^8.4.35",
         "tailwindcss": "^4.1.16",
         "typescript": "^5.9.3",
@@ -248,9 +249,9 @@
 
     "@mdx-js/react": ["@mdx-js/react@3.1.0", "", { "dependencies": { "@types/mdx": "^2.0.0" }, "peerDependencies": { "@types/react": ">=16", "react": ">=16" } }, "sha512-QjHtSaoameoalGnKDT3FoIl4+9RwyTmo9ZJGBdLOks/YOiWHoRDI3PUwEzOE7kEmGcV3AFcp9K6dYu9rEuKLAQ=="],
 
-    "@next/bundle-analyzer": ["@next/bundle-analyzer@14.2.28", "", { "dependencies": { "webpack-bundle-analyzer": "4.10.1" } }, "sha512-pqhPkJ1W2ZjSWI2N4X/fLFFcRfTKSn+ss2F17RcBuRo4qakwg/eFF2YEknCBN/9LPTKGrjMd8P6TSLWpLhaM0A=="],
+    "@next/bundle-analyzer": ["@next/bundle-analyzer@15.5.7", "", { "dependencies": { "webpack-bundle-analyzer": "4.10.1" } }, "sha512-bKCGI9onUYyLaAQKvJOTeSv1vt3CYtF4Or+CRlCP/1Yu8NR9W4A2kd4qBs2OYFbT+/38fKg8BIPNt7IcMLKZCA=="],
 
-    "@next/codemod": ["@next/codemod@15.4.0-canary.36", "", { "dependencies": { "cheerio": "1.0.0-rc.9", "commander": "12.1.0", "execa": "4.0.3", "find-up": "4.1.0", "globby": "11.0.1", "is-git-clean": "1.1.0", "jscodeshift": "17.0.0", "picocolors": "1.0.0", "prompts": "2.4.2", "semver": "7.6.3", "strip-ansi": "6.0.0" }, "bin": { "codemod": "bin/next-codemod.js" } }, "sha512-4s8p3UIR2g7aE3MRhRk3ueMUIwvWNY5saX7JFu9URQJ1BHf+Klkrqj2Er/zCBA/DTrhZHtU5tAGNeU0IepbvhQ=="],
+    "@next/codemod": ["@next/codemod@15.5.7", "", { "dependencies": { "cheerio": "1.0.0-rc.9", "commander": "12.1.0", "execa": "4.0.3", "find-up": "4.1.0", "globby": "11.0.1", "is-git-clean": "1.1.0", "jscodeshift": "17.0.0", "picocolors": "1.0.0", "prompts": "2.4.2", "semver": "7.6.3", "strip-ansi": "6.0.0" }, "bin": { "codemod": "bin/next-codemod.js" } }, "sha512-Qfsq0ztErTEVFaJBkFrWVKkFsm1h/ek97JvPJOU9M7B2ZOKNKilq2W0SsjBVfLhKpaxgzAxLhqb9Gsuf6s/HIQ=="],
 
     "@next/env": ["@next/env@15.5.7", "", {}, "sha512-4h6Y2NyEkIEN7Z8YxkA27pq6zTkS09bUSYC0xjd0NpwFxjnIKeZEeH591o5WECSmjpUhLn3H2QLJcDye3Uzcvg=="],
 
@@ -746,7 +747,7 @@
 
     "lru-cache": ["lru-cache@4.1.5", "", { "dependencies": { "pseudomap": "^1.0.2", "yallist": "^2.1.2" } }, "sha512-sWZlbEP2OsHNkXrMl5GYk/jKk70MBng6UU4YI/qGDYbgf6YbP4EvmqISbXCoJiRKs+1bSpFHVgQxvJ17F2li5g=="],
 
-    "lucide-react": ["lucide-react@0.555.0", "", { "peerDependencies": { "react": "^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-D8FvHUGbxWBRQM90NZeIyhAvkFfsh3u9ekrMvJ30Z6gnpBHS6HC6ldLg7tL45hwiIz/u66eKDtdA23gwwGsAHA=="],
+    "lucide-react": ["lucide-react@0.556.0", "", { "peerDependencies": { "react": "^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-iOb8dRk7kLaYBZhR2VlV1CeJGxChBgUthpSP8wom9jfj79qovgG6qcSdiy6vkoREKPnbUYzJsCn4o4PtG3Iy+A=="],
 
     "magic-string": ["magic-string@0.30.21", "", { "dependencies": { "@jridgewell/sourcemap-codec": "^1.5.5" } }, "sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ=="],
 
