@@ -145,10 +145,7 @@ export const CodeTabs = ({
           <AnimatePresence mode="wait">
             {Children.map(children, (child) => {
               if (!isValidElement(child)) return null;
-              const { label, children: tabChildren } = child.props as {
-                label: string;
-                children: ReactNode;
-              };
+              const { label, children: tabChildren } = child.props as { label: string; children: ReactNode };
               return (
                 <TabPanel
                   key={label}

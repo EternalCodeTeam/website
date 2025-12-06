@@ -62,7 +62,7 @@ const nextConfig = {
     serverActions: {
       allowedOrigins: ["eternalcode.pl", "www.eternalcode.pl"],
     },
-    mdxRs: true,
+    mdxRs: false,
   },
   bundlePagesRouterDependencies: true,
   serverExternalPackages: ["gray-matter"],

@@ -171,9 +171,9 @@ export default function DynamicCommandsTable() {
           </thead>
           <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
             <AnimatePresence>
-              {filtered.map((c) => (
+              {filtered.map((c, i) => (
                 <motion.tr
-                  key={c.name}
+                  key={`${c.name}-${i}`}
                   initial={{ opacity: 0, y: 3 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -3 }}

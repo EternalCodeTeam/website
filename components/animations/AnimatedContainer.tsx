@@ -25,6 +25,7 @@ const AnimatedContainer: React.FC<AnimatedContainerProps> = ({
   triggerOnce = false,
   staggerDelay = 0.15,
   as = "div",
+  animationType, // Extract animationType to prevent passing it to DOM
   ...props
 }) => {
   const { ref, inView } = useInView({
