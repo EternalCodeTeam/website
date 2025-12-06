@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 
 import type { Placeholder } from "@/components/docs/eternalcore/placeholder/types";
+import { CopyToClipboard } from "@/components/ui/CopyToClipboard";
 import { cn } from "@/lib/utils";
 
 interface PlaceholderTableProps {
@@ -15,7 +16,7 @@ export function PlaceholderTable({ placeholders }: PlaceholderTableProps) {
       <table className="w-full text-left text-sm">
         <thead className="bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100">
           <tr>
-            {["Placeholder", "Description", "Example", "Type", "Category", "Player Context"].map(
+            {["Placeholder", "Description", "Type", "Category", "Player Context"].map(
               (header) => (
                 <th key={header} className="px-4 py-3 font-semibold">
                   {header}
@@ -35,11 +36,14 @@ export function PlaceholderTable({ placeholders }: PlaceholderTableProps) {
                 transition={{ duration: 0.2, delay: i * 0.01 }}
                 className="hover:bg-gray-50 dark:hover:bg-gray-900/50"
               >
-                <td className="px-4 py-2 font-mono text-blue-600 dark:text-blue-400">{p.name}</td>
-                <td className="px-4 py-2 text-gray-600 dark:text-gray-300">{p.description}</td>
-                <td className="px-4 py-2 font-mono text-green-600 dark:text-green-400">
-                  {p.example}
+                <td className="px-4 py-2 text-sm font-medium">
+                  <CopyToClipboard text={p.name} className="inline-flex">
+                    <code className="rounded border border-gray-200 bg-gray-100 px-1.5 py-0.5 font-mono text-blue-600 dark:border-gray-700 dark:bg-gray-800 dark:text-blue-400">
+                      {p.name}
+                    </code>
+                  </CopyToClipboard>
                 </td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-300">{p.description}</td>
                 <td className="px-4 py-2">
                   <span className="rounded bg-purple-100 px-2 py-0.5 text-xs font-medium text-purple-700 dark:bg-purple-900/30 dark:text-purple-300">
                     {p.returnType}

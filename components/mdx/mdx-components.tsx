@@ -2,7 +2,7 @@ import type { MDXComponents } from "mdx/types";
 import type { ComponentProps, HTMLAttributes } from "react";
 import Image from "next/image";
 
-import DynamicCommandsTable from "@/components/docs/eternalcore/DynamicCommandsTable";
+import DynamicCommandsTable from "@/components/docs/eternalcore/commands/DynamicCommandsTable";
 import DynamicPlaceholdersTable from "@/components/docs/eternalcore/placeholder/DynamicPlaceholdersTable";
 import { CodeBlock } from "@/components/mdx/CodeBlock";
 import { CodeTab, CodeTabs } from "@/components/mdx/CodeTabs";

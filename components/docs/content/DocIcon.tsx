@@ -11,9 +11,10 @@ interface DocIconProps {
 export function DocIcon({ iconName, className = "", size = 24 }: DocIconProps) {
   if (!iconName) return null;
 
-  const IconComponent = (LucideIcons as any)[iconName] as
-    | ComponentType<{ className?: string; size?: number }>
-    | undefined;
+  const IconComponent = (LucideIcons as unknown as Record<
+    string,
+    ComponentType<{ className?: string; size?: number }> | undefined
+  >)[iconName];
 
   return IconComponent ? <IconComponent className={className} size={size} /> : null;
 }
