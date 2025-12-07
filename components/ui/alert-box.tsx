@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import {
   AlertCircle,
   AlertTriangle,
@@ -34,7 +33,6 @@ export interface AlertBoxProps {
   className?: string; // Optional extra CSS classes
 }
 
-// Style configuration for each alert type
 const alertStyles = {
   info: {
     container:
@@ -109,7 +107,6 @@ const alertStyles = {
   },
 } as const;
 
-// Mapping alert type to an icon component
 const icons = {
   info: Info,
   warning: AlertTriangle,
@@ -122,7 +119,6 @@ const icons = {
   example: BookOpen,
 } as const;
 
-// Default titles for each alert type
 const defaultTitles = {
   info: "INFO!",
   warning: "Read this!",
@@ -135,30 +131,23 @@ const defaultTitles = {
   example: "Example",
 } as const;
 
-// Main AlertBox component
 export const AlertBox = memo(function AlertBox({
   type,
   children,
   title,
   className,
 }: AlertBoxProps) {
-  // Select icon, styles and default title based on alert type
   const Icon = icons[type];
   const styles = alertStyles[type];
   const defaultTitle = defaultTitles[type];
 
-  // Accessible label for screen readers
   const ariaLabel =
     typeof title === "string"
       ? title
       : `${defaultTitle} - ${type.charAt(0).toUpperCase() + type.slice(1)} alert message`;
 
   return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
+    <div
       role={styles.role}
       {...(ariaLabel && { "aria-label": ariaLabel })}
       className={cn(
@@ -174,12 +163,7 @@ export const AlertBox = memo(function AlertBox({
         </div>
 
         {/* Alert content */}
-        <motion.div
-          className="min-w-0 flex-1"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.1, duration: 0.2 }}
-        >
+        <div className="min-w-0 flex-1">
           {(title || defaultTitle) && (
             <h5 className={`mb-1 text-sm font-semibold md:text-base ${styles.title}`}>
               {title || defaultTitle}
@@ -190,9 +174,9 @@ export const AlertBox = memo(function AlertBox({
           >
             {children}
           </div>
-        </motion.div>
+        </div>
       </div>
-    </motion.div>
+    </div>
   );
 });
 
