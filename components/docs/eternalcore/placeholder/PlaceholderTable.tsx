@@ -16,13 +16,11 @@ export function PlaceholderTable({ placeholders }: PlaceholderTableProps) {
       <table className="w-full text-left text-sm">
         <thead className="bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100">
           <tr>
-            {["Placeholder", "Description", "Type", "Category", "Player Context"].map(
-              (header) => (
-                <th key={header} className="px-4 py-3 font-semibold">
-                  {header}
-                </th>
-              )
-            )}
+            {["Placeholder", "Description", "Type", "Category", "Player Context"].map((header) => (
+              <th key={header} className="px-4 py-3 font-semibold">
+                {header}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 dark:divide-gray-700">

@@ -25,9 +25,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
       transition={{ duration: 0.4 }}
       className="group relative flex h-full flex-col"
     >
-      <div
-        className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xs transition-all duration-300 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-blue-500 dark:border-gray-700 dark:bg-gray-800"
-      >
+      <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xs transition-all duration-300 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-blue-500 dark:border-gray-700 dark:bg-gray-800">
         {/* Obrazek lub placeholder */}
         {post.featuredImage && getImageUrl(post.featuredImage.url) ? (
           <div className="relative aspect-video overflow-hidden bg-gray-100 dark:bg-gray-900">
@@ -61,7 +59,10 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
           )}
           {/* Tytuł */}
           <h3 className="mb-2 line-clamp-2 text-2xl font-bold leading-tight text-gray-900 dark:text-white">
-            <Link href={`/blog/${post.slug}`} className="focus:outline-hidden after:absolute after:inset-0">
+            <Link
+              href={`/blog/${post.slug}`}
+              className="focus:outline-hidden after:absolute after:inset-0"
+            >
               {post.title}
             </Link>
           </h3>
