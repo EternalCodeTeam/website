@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { useCookieConsent } from "@/hooks/useCookieConsent";
+import { softSpring } from "@/lib/animations/variants";
 
 export function CookiePreferencesMenu() {
   const { consent, updateConsent, acceptAll } = useCookieConsent();
@@ -16,7 +17,7 @@ export function CookiePreferencesMenu() {
       <motion.button
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
+        transition={softSpring}
         onClick={() => setIsOpen((v) => !v)}
         className="fixed cursor-pointer bottom-6 right-6 z-50 rounded-full bg-blue-600 p-3 text-white shadow-xl hover:bg-blue-700"
         aria-label="Cookie Preferences"
@@ -31,7 +32,7 @@ export function CookiePreferencesMenu() {
             initial={{ opacity: 0, scale: 0.92, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 30 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
+            transition={softSpring}
             className="fixed bottom-20 right-6 z-50"
           >
             <div className="w-[350px] max-w-sm rounded-lg border border-gray-200 bg-white p-6 shadow-lg dark:border-gray-800 dark:bg-gray-900">

@@ -1,6 +1,6 @@
 "use client";
 
-import AnimatedSection from "@/components/animations/AnimatedSection";
+import { SlideIn } from "@/components/ui/motion/MotionComponents";
 
 interface TeamErrorProps {
   error: string;
@@ -8,12 +8,12 @@ interface TeamErrorProps {
 
 export default function TeamError({ error }: TeamErrorProps) {
   return (
-    <AnimatedSection id="team" animationType="fadeUp">
+    <section id="team">
       <div className="mx-auto max-w-(--breakpoint-xl) px-4 py-16">
-        <div className="flex h-64 items-center justify-center">
+        <SlideIn direction="up" className="flex h-64 items-center justify-center">
           <div className="text-xl text-red-500">Error: {error}</div>
-        </div>
+        </SlideIn>
       </div>
-    </AnimatedSection>
+    </section>
   );
 }

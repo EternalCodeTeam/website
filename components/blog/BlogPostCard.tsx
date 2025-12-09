@@ -1,5 +1,4 @@
 "use client";
-import { motion } from "framer-motion";
 import { Calendar, Timer } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,12 +18,7 @@ function getImageUrl(url: string) {
 
 export default function BlogPostCard({ post }: BlogPostCardProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      className="group relative flex h-full flex-col"
-    >
+    <div className="group relative flex h-full flex-col">
       <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xs transition-all duration-300 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-blue-500 dark:border-gray-700 dark:bg-gray-800">
         {/* Obrazek lub placeholder */}
         {post.featuredImage && getImageUrl(post.featuredImage.url) ? (
@@ -112,6 +106,6 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

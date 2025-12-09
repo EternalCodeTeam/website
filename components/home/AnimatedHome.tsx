@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 
-import { pageTransition } from "@/components/animations";
+import { fadeIn } from "@/lib/animations/variants";
 import Hero from "@/components/hero/Hero";
 import About from "@/components/home/about/About";
 import Faq from "@/components/home/faq/Faq";
@@ -13,10 +13,10 @@ export default function AnimatedHome() {
     <motion.div
       id="main-content"
       tabIndex={-1}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      variants={pageTransition}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      variants={fadeIn}
     >
       {/* Home page sections in sequence */}
       <Hero />

@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
 
-import AnimatedElement from "@/components/animations/AnimatedElement";
 import { TextFormattingButtons } from "@/components/notification-generator/form/formatting/TextFormattingButtons";
 
 import { insertTag, toggleFormatting } from "./formatting/tagUtils";
@@ -138,8 +137,7 @@ export const FormField = ({
         />
       )}
       {error && (
-        <AnimatedElement
-          as="p"
+        <motion.p
           id={`error-${name}`}
           className="mt-1 text-xs text-red-500 dark:text-red-400"
           initial={{ opacity: 0, y: -5 }}
@@ -147,11 +145,10 @@ export const FormField = ({
           transition={{ duration: 0.2 }}
         >
           {error}
-        </AnimatedElement>
+        </motion.p>
       )}
       {helpText && !error && (
-        <AnimatedElement
-          as="p"
+        <motion.p
           id={`help-${name}`}
           className="mt-1 text-xs text-gray-500 dark:text-gray-400"
           initial={{ opacity: 0, y: -5 }}
@@ -159,7 +156,7 @@ export const FormField = ({
           transition={{ duration: 0.2 }}
         >
           {helpText}
-        </AnimatedElement>
+        </motion.p>
       )}
     </div>
   );

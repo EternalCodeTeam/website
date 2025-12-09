@@ -16,6 +16,8 @@ import NewWindow from "../icons/new-window";
 import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ToolsDropdown } from "./ToolsDropdown";
 
+import { slideDown, smoothEase } from "@/lib/animations/variants";
+
 interface NavLink {
   href: string;
   label: string;
@@ -87,8 +89,11 @@ export default function Navbar() {
   }, [isMenuOpen]);
 
   return (
-    <nav
+    <motion.nav
       ref={navRef}
+      initial="hidden"
+      animate="visible"
+      variants={slideDown}
       className="fixed inset-x-0 top-0 z-50 border-b border-gray-200 bg-light-gray-100 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900"
       aria-label="Main navigation"
     >
@@ -144,7 +149,7 @@ export default function Navbar() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ ...smoothEase, duration: 0.3 }}
               className="w-full md:hidden"
               role="menu"
             >
@@ -237,6 +242,6 @@ export default function Navbar() {
           </ul>
         </div>
       </div>
-    </nav>
+    </motion.nav>
   );
 }

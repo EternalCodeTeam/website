@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 
 import SidebarWrapper from "@/components/docs/sidebar/SidebarWrapper";
-import Navbar from "@/components/hero/Navbar";
 import type { ReactNode } from "react";
 
 const poppins = Poppins({
@@ -41,7 +40,6 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
     <div
       className={`${poppins.className} relative min-h-screen bg-light-gray-100 antialiased transition-colors duration-200 dark:bg-gray-900`}
     >
-      <Navbar />
       <div className="mx-auto min-h-[calc(100vh-7rem)] max-w-(--breakpoint-xl) px-4 py-12 pt-56 md:pt-36">
         <div className="flex flex-col gap-8 lg:flex-row">
           <SidebarWrapper />

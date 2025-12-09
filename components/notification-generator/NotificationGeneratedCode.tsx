@@ -1,8 +1,10 @@
 "use client";
 
-import AnimatedContainer from "@/components/animations/AnimatedContainer";
-import AnimatedElement from "@/components/animations/AnimatedElement";
+import { motion } from "framer-motion";
+
 import { AlertBox } from "@/components/ui/alert-box";
+import { fadeIn, slideInLeft, containerStagger } from "@/lib/animations/variants";
+import { FadeIn, SlideIn } from "@/components/ui/motion/MotionComponents";
 
 interface NotificationCodeProps {
   yamlCode: string;
@@ -10,7 +12,7 @@ interface NotificationCodeProps {
 
 export function NotificationGeneratedCode({ yamlCode }: NotificationCodeProps) {
   return (
-    <AnimatedElement animationType="fade">
+    <FadeIn>
       <AlertBox type="important" title="How to disable message completely?">
         If you want to disable this message completely, set its value to{" "}
         <code className="rounded-sm bg-gray-200 px-1 py-0.5 text-xs text-gray-800 dark:bg-gray-700 dark:text-gray-100">
@@ -19,54 +21,58 @@ export function NotificationGeneratedCode({ yamlCode }: NotificationCodeProps) {
         in your configuration file.
       </AlertBox>
 
-      <AnimatedElement animationType="fadeUp" delay={0.1} className="relative">
-        <AnimatedElement
-          as="pre"
-          animationType="fade"
-          delay={0.2}
+      <SlideIn direction="up" delay={0.1} className="relative">
+        <motion.pre
+          variants={fadeIn}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ delay: 0.2 }}
           className="overflow-x-auto rounded-md bg-gray-100 p-4 font-mono text-sm dark:bg-gray-900"
         >
-          <AnimatedElement
-            as="code"
-            animationType="fade"
-            delay={0.3}
+          <motion.code
+            variants={fadeIn}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ delay: 0.3 }}
             className="whitespace-pre text-gray-800 dark:text-gray-200"
           >
             {yamlCode}
-          </AnimatedElement>
-        </AnimatedElement>
-      </AnimatedElement>
+          </motion.code>
+        </motion.pre>
+      </SlideIn>
 
-      <AnimatedElement animationType="fadeUp" delay={0.4} className="mt-4">
-        <AnimatedElement
-          as="h3"
-          animationType="fade"
-          delay={0.5}
+      <SlideIn direction="up" delay={0.4} className="mt-4">
+        <motion.h3
+          variants={fadeIn}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ delay: 0.5 }}
           className="mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
         >
           How to use this code:
-        </AnimatedElement>
+        </motion.h3>
 
-        <AnimatedContainer
-          as="ol"
-          staggerDelay={0.1}
-          delay={0.6}
+        <motion.ol
+          variants={containerStagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ delay: 0.6 }}
           className="list-inside list-decimal space-y-1 text-sm text-gray-600 dark:text-gray-400"
         >
-          <AnimatedElement as="li" animationType="fadeLeft">
-            Copy the generated YAML code
-          </AnimatedElement>
-          <AnimatedElement as="li" animationType="fadeLeft">
+          <motion.li variants={slideInLeft}>Copy the generated YAML code</motion.li>
+          <motion.li variants={slideInLeft}>
             Paste it into your EternalCore configuration file
-          </AnimatedElement>
-          <AnimatedElement as="li" animationType="fadeLeft">
-            Replace "example" with your desired notification name
-          </AnimatedElement>
-          <AnimatedElement as="li" animationType="fadeLeft">
-            Save the file and reload your server
-          </AnimatedElement>
-        </AnimatedContainer>
-      </AnimatedElement>
-    </AnimatedElement>
+          </motion.li>
+          <motion.li variants={slideInLeft}>
+            Replace &quot;example&quot; with your desired notification name
+          </motion.li>
+          <motion.li variants={slideInLeft}>Save the file and reload your server</motion.li>
+        </motion.ol>
+      </SlideIn>
+    </FadeIn>
   );
 }

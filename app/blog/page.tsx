@@ -1,7 +1,7 @@
 import { BookOpen, Users, Tag } from "lucide-react";
 import type { Metadata } from "next";
 
-import { AnimatedSection, AnimatedContainer, AnimatedElement } from "@/components/animations";
+import { SlideIn, StaggerContainer } from "@/components/ui/motion/MotionComponents";
 import BlogPostCard from "@/components/blog/BlogPostCard";
 import { getBlogPosts, getBlogTags, getAuthors } from "@/lib/strapi";
 
@@ -48,8 +48,8 @@ export default async function BlogPage() {
 
   return (
     <div className="min-h-screen bg-light-gray-100 dark:bg-gray-900">
-      <AnimatedSection
-        animationType="fadeDown"
+      <SlideIn
+        direction="down"
         className="relative overflow-hidden bg-light-gray-100 px-0 pb-0 pt-56 dark:bg-gray-900 md:pt-60"
       >
         <div className="mx-auto max-w-(--breakpoint-xl) px-4">
@@ -79,27 +79,23 @@ export default async function BlogPage() {
             </div>
           </div>
         </div>
-      </AnimatedSection>
+      </SlideIn>
 
       <section className="px-0 py-16">
         <div className="mx-auto max-w-(--breakpoint-xl) px-4">
           {posts.length > 0 ? (
-            <AnimatedContainer
-              as="div"
-              staggerDelay={0.12}
-              className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
-            >
+            <StaggerContainer className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {posts.map((post, i) => (
-                <AnimatedElement
+                <SlideIn
                   key={post.documentId}
-                  animationType="fadeUp"
+                  direction="up"
                   delay={i * 0.05}
                   className="flex h-full flex-col"
                 >
                   <BlogPostCard post={post} />
-                </AnimatedElement>
+                </SlideIn>
               ))}
-            </AnimatedContainer>
+            </StaggerContainer>
           ) : (
             <div className="py-12 text-center">
               <BookOpen size={64} className="mx-auto mb-4 text-gray-400 dark:text-gray-600" />

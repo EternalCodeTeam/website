@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useCallback } from "react";
 
-import { AnimatedSection, AnimatedElement, AnimatedContainer } from "@/components/animations";
+import { SlideIn, StaggerContainer } from "@/components/ui/motion/MotionComponents";
 
 import SectionTitle from "../../SectionTitle";
 
@@ -50,24 +50,22 @@ export default function Faq() {
   }, []);
 
   return (
-    <AnimatedSection id="faq" className="py-16" animationType="fade" aria-labelledby="faq-heading">
+    <section id="faq" className="py-16" aria-labelledby="faq-heading">
       <div className="mx-auto max-w-(--breakpoint-xl) px-4 py-8">
-        <AnimatedElement as="div" animationType="fadeDown" delay={0.1}>
+        <SlideIn direction="down" delay={0.1}>
           <SectionTitle
             title="Frequently Asked Questions"
             description="Here you will find answers to the most frequently asked questions."
           />
-        </AnimatedElement>
+        </SlideIn>
 
         {/* FAQ items with staggered animations */}
-        <AnimatedContainer className="mt-12" staggerDelay={0.15} delay={0.2}>
+        <StaggerContainer className="mt-12">
           {faqItems.map((item) => (
-            <AnimatedElement
+            <SlideIn
               key={item.question.replace(/\s+/g, "-").toLowerCase()}
-              as="div"
               className="mb-6 overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700"
-              animationType="fadeUp"
-              interactive={true}
+              direction="up"
             >
               <motion.button
                 onClick={() => toggleFaq(faqItems.indexOf(item))}
@@ -98,10 +96,10 @@ export default function Faq() {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </AnimatedElement>
+            </SlideIn>
           ))}
-        </AnimatedContainer>
+        </StaggerContainer>
       </div>
-    </AnimatedSection>
+    </section>
   );
 }

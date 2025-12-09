@@ -2,9 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import AnimatedContainer from "@/components/animations/AnimatedContainer";
-import AnimatedElement from "@/components/animations/AnimatedElement";
-import AnimatedSection from "@/components/animations/AnimatedSection";
+import { SlideIn, StaggerContainer } from "@/components/ui/motion/MotionComponents";
 import SectionTitle from "@/components/SectionTitle";
 
 import TeamError from "./TeamError";
@@ -40,32 +38,29 @@ export default function Team() {
   if (error) return <TeamError error={error} />;
 
   return (
-    <AnimatedSection id="team" animationType="fadeUp">
+    <section id="team">
       <div className="relative mx-auto max-w-(--breakpoint-xl) px-4 py-20">
-        <AnimatedElement as="div" animationType="fadeDown" delay={0.1}>
+        <SlideIn direction="down" delay={0.1}>
           <SectionTitle
             title="Meet the Team"
             description="EternalCodeTeam is a creative collective of open-source developers pushing the limits of Minecraft innovation."
           />
-        </AnimatedElement>
+        </SlideIn>
 
         {/* Grid with nice hover effects and spacing */}
-        <AnimatedContainer
-          className="relative z-10 mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-          staggerDelay={0.15}
-        >
+        <StaggerContainer className="relative z-10 mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {members.map((member, index) => (
-            <AnimatedElement
+            <SlideIn
               key={member.documentId || index}
-              animationType="fadeUp"
+              direction="up"
               delay={index * 0.05}
               className="transform transition duration-300 hover:scale-[1.03]"
             >
               <TeamMember member={member} index={index} />
-            </AnimatedElement>
+            </SlideIn>
           ))}
-        </AnimatedContainer>
+        </StaggerContainer>
       </div>
-    </AnimatedSection>
+    </section>
   );
 }

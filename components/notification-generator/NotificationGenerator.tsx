@@ -1,9 +1,9 @@
 "use client";
 
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useMemo, useRef, useState } from "react";
 
-import AnimatedElement from "@/components/animations/AnimatedElement";
+import { FadeIn, SlideIn } from "@/components/ui/motion/MotionComponents";
 import { ActionBarTab } from "@/components/notification-generator/tabs/actionbar/ActionBarTab";
 import { ChatTab } from "@/components/notification-generator/tabs/chat/ChatTab";
 import {
@@ -109,8 +109,8 @@ export function NotificationGenerator({ notification, setNotification }: Notific
   }, [activeTab]);
 
   return (
-    <AnimatedElement animationType="fade">
-      <AnimatedElement animationType="fadeDown" className="mb-4">
+    <FadeIn>
+      <SlideIn direction="down" className="mb-4">
         <div
           className="flex flex-wrap border-b border-gray-200 dark:border-gray-700"
           role="tablist"
@@ -118,10 +118,10 @@ export function NotificationGenerator({ notification, setNotification }: Notific
         >
           {tabs}
         </div>
-      </AnimatedElement>
+      </SlideIn>
 
       <AnimatePresence mode="wait">
-        <AnimatedElement
+        <motion.div
           key={activeTab}
           initial={{ opacity: 0, x: 10 }}
           animate={{ opacity: 1, x: 0 }}
@@ -131,14 +131,14 @@ export function NotificationGenerator({ notification, setNotification }: Notific
           aria-labelledby={`tab-${activeTab}`}
         >
           {tabContent}
-        </AnimatedElement>
+        </motion.div>
       </AnimatePresence>
 
-      <AnimatedElement animationType="fadeUp" delay={0.1} className="mt-6 flex justify-end">
+      <SlideIn direction="up" delay={0.1} className="mt-6 flex justify-end">
         <Button variant="secondary" onClick={resetForm} aria-label="Reset form">
           Reset
         </Button>
-      </AnimatedElement>
-    </AnimatedElement>
+      </SlideIn>
+    </FadeIn>
   );
 }

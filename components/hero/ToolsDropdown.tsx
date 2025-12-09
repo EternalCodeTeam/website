@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 import ArrowDown from "../icons/arrow-down";
+import { softSpring } from "@/lib/animations/variants";
 
 export function ToolsDropdown() {
   const [open, setOpen] = useState(false);
@@ -61,7 +62,7 @@ export function ToolsDropdown() {
         type="button"
       >
         Tools
-        <motion.span animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
+        <motion.span animate={{ rotate: open ? 180 : 0 }} transition={softSpring}>
           <ArrowDown className="h-4 w-4" aria-hidden="true" />
         </motion.span>
       </button>
@@ -73,7 +74,7 @@ export function ToolsDropdown() {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.18, ease: "easeOut" }}
+            transition={softSpring}
             className="right-50 absolute z-30 mt-10 min-w-[210px] rounded-lg bg-white py-2 shadow-xl ring-1 ring-black/10 dark:bg-gray-900 dark:ring-white/10 md:left-0"
             role="menu"
             aria-label="Tools menu"

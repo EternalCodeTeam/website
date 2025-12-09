@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { useCookieConsent } from "@/hooks/useCookieConsent";
+import { softSpring } from "@/lib/animations/variants";
 
 export function CookieConsentModal() {
   const { consent, updateConsent, acceptAll, isInitialized } = useCookieConsent();
@@ -23,6 +24,7 @@ export function CookieConsentModal() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 40 }}
+        transition={softSpring}
         className="fixed bottom-4 left-4 z-50 w-full max-w-sm rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-800 dark:bg-gray-900"
       >
         <div className="p-4">

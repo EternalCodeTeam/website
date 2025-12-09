@@ -3,7 +3,7 @@ import { getAuthorBySlug, getBlogPostsByAuthor } from "@/lib/strapi";
 import BlogPostCard from "@/components/blog/BlogPostCard";
 import { getImageUrl } from "@/lib/utils";
 import Image from "next/image";
-import { AnimatedContainer, AnimatedElement, AnimatedSection } from "@/components/animations";
+import { SlideIn, StaggerContainer } from "@/components/ui/motion/MotionComponents";
 import { notFound } from "next/navigation";
 
 interface AuthorPageProps {
@@ -70,10 +70,7 @@ export default async function AuthorPage({ params, searchParams }: AuthorPagePro
       <div className="mx-auto max-w-(--breakpoint-xl) px-4">
         <div className="mx-auto grid max-w-(--breakpoint-xl) grid-cols-1 gap-12 md:grid-cols-3">
           <aside className="md:col-span-1">
-            <AnimatedSection
-              animationType="fadeLeft"
-              className="sticky top-32 flex flex-col items-start"
-            >
+            <SlideIn direction="left" className="sticky top-32 flex flex-col items-start">
               {author.avatar?.url && (
                 <Image
                   src={getImageUrl(author.avatar.url)}
@@ -99,24 +96,20 @@ export default async function AuthorPage({ params, searchParams }: AuthorPagePro
                   {author.email}
                 </a>
               )}
-            </AnimatedSection>
+            </SlideIn>
           </aside>
 
           <main className="md:col-span-2">
             <h2 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">Articles</h2>
             {posts.length > 0 ? (
               <>
-                <AnimatedContainer
-                  as="div"
-                  staggerDelay={0.12}
-                  className="mb-8 grid gap-8 md:grid-cols-2"
-                >
+                <StaggerContainer className="mb-8 grid gap-8 md:grid-cols-2">
                   {paginatedPosts.map((post, i) => (
-                    <AnimatedElement key={post.documentId} animationType="fadeUp" delay={i * 0.05}>
+                    <SlideIn key={post.documentId} direction="up" delay={i * 0.05}>
                       <BlogPostCard post={post} />
-                    </AnimatedElement>
+                    </SlideIn>
                   ))}
-                </AnimatedContainer>
+                </StaggerContainer>
                 <Pagination
                   currentPage={currentPage}
                   totalPages={totalPages}

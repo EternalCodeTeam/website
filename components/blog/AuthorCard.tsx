@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { SlideIn } from "@/components/ui/motion/MotionComponents";
 import { BookOpen, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,10 +17,9 @@ export default function AuthorCard({ author, postCount, compact = false }: Autho
   if (compact) {
     return (
       <Link href={`/author/${author.slug}`}>
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
+        <SlideIn
+          direction="up"
+          delay={0}
           className="group flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 shadow-xs transition-all duration-200 hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
         >
           {author.avatar ? (
@@ -44,16 +43,14 @@ export default function AuthorCard({ author, postCount, compact = false }: Autho
               <p className="line-clamp-2 text-sm text-gray-600 dark:text-gray-300">{author.bio}</p>
             )}
           </div>
-        </motion.div>
+        </SlideIn>
       </Link>
     );
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
+    <SlideIn
+      direction="up"
       className="rounded-xl border border-gray-200 bg-white p-6 shadow-lg dark:border-gray-700 dark:bg-gray-800"
     >
       <div className="text-center">
@@ -105,6 +102,6 @@ export default function AuthorCard({ author, postCount, compact = false }: Autho
           )}
         </div>
       </div>
-    </motion.div>
+    </SlideIn>
   );
 }

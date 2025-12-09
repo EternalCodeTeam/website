@@ -1,13 +1,17 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useState, useEffect, useCallback, useMemo, type ReactNode } from "react";
 
 import { Play } from "@/components/icons/play";
 
-import AnimatedElement from "../../components/animations/AnimatedElement";
+import {
+  SlideIn,
+  StaggerContainer,
+  FadeIn,
+  HoverScale,
+} from "@/components/ui/motion/MotionComponents";
 import { NotificationGeneratedCode } from "@/components/notification-generator/NotificationGeneratedCode";
-import { NotificationGenerator as NotificationGeneratorForm } from "../../components/notification-generator/NotificationGenerator";
+import { NotificationGenerator as NotificationGeneratorForm } from "@/components/notification-generator/NotificationGenerator";
 import { MinecraftPreview } from "@/components/notification-generator/preview/MinecraftPreview";
 import type { NotificationConfig } from "@/components/notification-generator/types";
 
@@ -15,26 +19,21 @@ interface PanelProps {
   title: ReactNode;
   children: ReactNode;
   delay: number;
-  animationType?: "fade" | "fadeUp" | "fadeDown" | "fadeLeft" | "fadeRight" | "scale";
+  direction?: "left" | "right" | "up" | "down";
 }
 
-function Panel({ title, children, delay, animationType = "fade" }: PanelProps) {
+function Panel({ title, children, delay, direction = "up" }: PanelProps) {
   return (
-    <AnimatedElement
+    <SlideIn
       className="rounded-lg bg-white p-4 shadow-md dark:bg-gray-800 md:p-6"
-      animationType={animationType}
+      direction={direction}
       delay={delay}
     >
-      <AnimatedElement
-        as="h2"
-        className="mb-4 text-lg font-semibold md:text-xl"
-        animationType="fade"
-        delay={delay + 0.1}
-      >
-        {title}
-      </AnimatedElement>
+      <FadeIn delay={delay + 0.1}>
+        <h2 className="mb-4 text-lg font-semibold md:text-xl">{title}</h2>
+      </FadeIn>
       {children}
-    </AnimatedElement>
+    </SlideIn>
   );
 }
 
@@ -47,39 +46,29 @@ interface PreviewSectionProps {
 
 function PreviewSection({ previewKey, notification, onPlay, delay }: PreviewSectionProps) {
   return (
-    <AnimatedElement
+    <SlideIn
       className="col-span-1 rounded-lg bg-white p-4 shadow-md dark:bg-gray-800 md:p-6 lg:col-span-2"
-      animationType="fadeUp"
+      direction="up"
       delay={delay}
     >
-      <AnimatedElement
-        className="mb-4 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center"
-        animationType="fade"
-        delay={delay + 0.1}
-      >
-        <AnimatedElement
-          as="h2"
-          className="text-lg font-semibold md:text-xl"
-          animationType="fade"
-          delay={delay + 0.2}
-        >
-          Preview
-        </AnimatedElement>
-        <AnimatedElement as="span">
-          <motion.button
+      <div className="mb-4 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+        <FadeIn delay={delay + 0.1}>
+          <h2 className="text-lg font-semibold md:text-xl">Preview</h2>
+        </FadeIn>
+        <HoverScale>
+          <button
+            type="button"
             onClick={onPlay}
             className="flex items-center rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
             aria-label="Play title animation"
           >
             <Play className="mr-2 h-5 w-5" />
             Play title
-          </motion.button>
-        </AnimatedElement>
-      </AnimatedElement>
+          </button>
+        </HoverScale>
+      </div>
       <MinecraftPreview key={previewKey} notification={notification} />
-    </AnimatedElement>
+    </SlideIn>
   );
 }
 
@@ -184,39 +173,25 @@ export default function NotificationGeneratorPage() {
   );
 
   return (
-    <AnimatedElement
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="w-full"
-    >
-      <AnimatedElement
-        as="h1"
-        className="mb-6 text-2xl font-bold md:text-3xl"
-        animationType="fadeDown"
-        delay={0.1}
-      >
+    <StaggerContainer className="w-full">
+      <SlideIn direction="down" className="mb-6 text-2xl font-bold md:text-3xl" delay={0.1}>
         Notification Generator
-      </AnimatedElement>
+      </SlideIn>
 
-      <AnimatedElement
-        className="grid grid-cols-1 gap-6 md:gap-8 lg:grid-cols-2"
-        animationType="fadeUp"
-        delay={0.2}
-      >
-        <Panel title="Create Your Notification" delay={0.3} animationType="fadeLeft">
+      <div className="grid grid-cols-1 gap-6 md:gap-8 lg:grid-cols-2">
+        <Panel title="Create Your Notification" delay={0.2} direction="left">
           {formComponent}
         </Panel>
-        <Panel title="Generated YAML" delay={0.3} animationType="fadeRight">
+        <Panel title="Generated YAML" delay={0.2} direction="right">
           {codeComponent}
         </Panel>
         <PreviewSection
           previewKey={previewKey}
           notification={notification}
           onPlay={handlePlayPreview}
-          delay={0.4}
+          delay={0.3}
         />
-      </AnimatedElement>
-    </AnimatedElement>
+      </div>
+    </StaggerContainer>
   );
 }

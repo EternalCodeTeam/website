@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { AnimatedContainer, AnimatedElement, AnimatedSection } from "@/components/animations";
+import { SlideIn, StaggerContainer } from "@/components/ui/motion/MotionComponents";
 import JavaIcon from "@/components/icons/java";
 import LinuxIcon from "@/components/icons/linux";
 import TabNew from "@/components/icons/tab-new";
@@ -34,32 +34,21 @@ export default function Features() {
   ];
 
   return (
-    <AnimatedSection
-      id="features"
-      className="py-16"
-      animationType="fade"
-      aria-labelledby="Features section"
-    >
+    <section id="features" className="py-16" aria-labelledby="Features section">
       <div className="mx-auto max-w-(--breakpoint-xl) px-4 py-8">
-        <AnimatedElement as="div" animationType="fadeDown" delay={0.1}>
+        <SlideIn direction="down" delay={0.1}>
           <SectionTitle
             title="What do we do?"
             description="Below you will find information about what we do on a daily basis."
           />
-        </AnimatedElement>
+        </SlideIn>
 
-        <AnimatedContainer
-          className="mt-8 space-y-8 text-center md:grid md:grid-cols-2 md:flex-col md:gap-12 md:space-y-0 lg:grid-cols-3"
-          staggerDelay={0.15}
-          delay={0.2}
-        >
+        <StaggerContainer className="mt-8 space-y-8 text-center md:grid md:grid-cols-2 md:flex-col md:gap-12 md:space-y-0 lg:grid-cols-3">
           {features.map((feature, index) => (
-            <AnimatedElement
+            <SlideIn
               key={feature.title.replace(/\s+/g, "-").toLowerCase()}
-              as="div"
               className="flex flex-col items-center"
-              animationType={index % 2 === 0 ? "fadeLeft" : "fadeRight"}
-              interactive={true}
+              direction={index % 2 === 0 ? "left" : "right"}
             >
               <div className="bg-primary-100 dark:bg-primary-900 mb-4 flex h-10 w-10 items-center justify-center rounded-full lg:h-12 lg:w-12">
                 {feature.icon}
@@ -68,10 +57,10 @@ export default function Features() {
               <h3 className="mb-2 text-xl font-bold dark:text-white">{feature.title}</h3>
 
               <p className="text-gray-500 dark:text-gray-400">{feature.description}</p>
-            </AnimatedElement>
+            </SlideIn>
           ))}
-        </AnimatedContainer>
+        </StaggerContainer>
       </div>
-    </AnimatedSection>
+    </section>
   );
 }
