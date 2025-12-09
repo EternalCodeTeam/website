@@ -8,6 +8,9 @@ import { CodeBlock } from "@/components/mdx/CodeBlock";
 import { CodeTab, CodeTabs } from "@/components/mdx/CodeTabs";
 import { Heading } from "@/components/mdx/Heading";
 import { Inline } from "@/components/mdx/Inline";
+import { Callout } from "@/components/mdx/Callout";
+import { Card, CardGroup } from "@/components/mdx/Card";
+import { Steps, Step } from "@/components/mdx/Steps";
 import { AlertBox } from "@/components/ui/alert-box";
 
 type HeadingProps = HTMLAttributes<HTMLHeadingElement>;
@@ -40,7 +43,12 @@ export const components: MDXComponents = {
     />
   ),
 
-  AlertBox,
+  AlertBox, // Keep for backward compatibility
+  Callout,
+  Card,
+  CardGroup,
+  Steps,
+  Step,
   CodeTabs,
   CodeTab,
   DynamicCommandsTable,
@@ -68,25 +76,32 @@ export const components: MDXComponents = {
   ),
 
   table: (props) => (
-    <div className="my-6 overflow-x-auto rounded-lg">
+    <div className="my-6 overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900/50">
       <table className="w-full border-collapse text-left text-sm" {...props} />
     </div>
   ),
 
   thead: (props) => (
-    <thead className="bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100" {...props} />
+    <thead
+      className="border-b border-gray-200 bg-gray-50/50 text-gray-900 dark:border-gray-800 dark:bg-gray-900/50 dark:text-gray-100"
+      {...props}
+    />
   ),
-  tbody: (props) => <tbody className="divide-y divide-gray-200 dark:divide-gray-700" {...props} />,
+  tbody: (props) => <tbody className="divide-y divide-gray-100 dark:divide-gray-800" {...props} />,
   tr: (props) => (
-    <tr className="transition-colors hover:bg-gray-50 dark:hover:bg-gray-900" {...props} />
+    <tr className="transition-colors hover:bg-gray-50/50 dark:hover:bg-gray-800/50" {...props} />
   ),
   th: (props) => (
-    <th className="px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-200" {...props} />
+    <th className="px-4 py-3 text-sm font-semibold text-gray-900 dark:text-gray-100" {...props} />
   ),
-  td: (props) => <td className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300" {...props} />,
-  hr: (props) => <hr className="my-8 border-gray-200 dark:border-gray-700" {...props} />,
-  ul: (props) => <ul className="list-disc space-y-1 pl-6" {...props} />,
-  ol: (props) => <ol className="list-decimal space-y-1 pl-8" {...props} />,
+  td: (props) => <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300" {...props} />,
+  hr: (props) => <hr className="my-8 border-gray-200 dark:border-gray-800" {...props} />,
+  ul: (props) => (
+    <ul className="list-disc space-y-2 pl-6 text-gray-600 dark:text-gray-400" {...props} />
+  ),
+  ol: (props) => (
+    <ol className="list-decimal space-y-2 pl-8 text-gray-600 dark:text-gray-400" {...props} />
+  ),
   li: (props) => <li className="py-0.5" {...props} />,
 
   img: (props) => {

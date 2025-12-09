@@ -39,8 +39,8 @@ const SidebarItem: FC<DocItemProps> = memo(({ item, level, onItemClick }) => {
           className={cn(
             "group flex cursor-pointer select-none items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all",
             isChildActive
-              ? "bg-blue-50/50 text-blue-700 dark:bg-blue-900/10 dark:text-blue-400"
-              : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+              ? "bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400"
+              : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-gray-200"
           )}
           style={{ paddingLeft }}
           onClick={toggleExpanded}
@@ -49,10 +49,6 @@ const SidebarItem: FC<DocItemProps> = memo(({ item, level, onItemClick }) => {
               toggleExpanded(e as unknown as MouseEvent<HTMLDivElement>);
             }
           }}
-          role="button"
-          tabIndex={0}
-          whileHover={{ x: 2 }}
-          transition={{ type: "spring", stiffness: 400, damping: 25 }}
         >
           <motion.div
             animate={{ rotate: isExpanded ? 90 : 0 }}
@@ -110,12 +106,10 @@ const SidebarItem: FC<DocItemProps> = memo(({ item, level, onItemClick }) => {
         className={cn(
           "group mb-0.5 flex select-none items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all",
           isActive
-            ? "bg-blue-600 font-medium text-white shadow-xs dark:bg-blue-600"
-            : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+            ? "bg-blue-50 font-medium text-blue-700 dark:bg-blue-500/10 dark:text-blue-400"
+            : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-gray-200"
         )}
         style={{ paddingLeft }}
-        whileHover={{ x: isActive ? 0 : 4 }}
-        transition={{ type: "spring", stiffness: 400, damping: 25 }}
       >
         {item.icon ? (
           <DocIcon
@@ -123,8 +117,8 @@ const SidebarItem: FC<DocItemProps> = memo(({ item, level, onItemClick }) => {
             className={cn(
               "h-4 w-4 shrink-0",
               isActive
-                ? "text-white"
-                : "text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-400"
+                ? "text-blue-700 dark:text-blue-400"
+                : "text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-300"
             )}
             size={16}
           />
@@ -133,20 +127,12 @@ const SidebarItem: FC<DocItemProps> = memo(({ item, level, onItemClick }) => {
             className={cn(
               "h-4 w-4 shrink-0",
               isActive
-                ? "text-white"
-                : "text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-400"
+                ? "text-blue-700 dark:text-blue-400"
+                : "text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-300"
             )}
           />
         )}
         <span className="flex-1 truncate">{item.title}</span>
-
-        {isActive && (
-          <motion.div
-            layoutId="activeIndicator"
-            className="h-2 w-2 rounded-full bg-white"
-            transition={{ type: "spring", stiffness: 380, damping: 30 }}
-          />
-        )}
       </motion.div>
     </Link>
   );

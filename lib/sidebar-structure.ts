@@ -137,7 +137,14 @@ export const docsStructure: DocItem[] = [
     title: "Contribute",
     path: "/docs/contribute",
     icon: "Heart",
-    children: [{ title: "How to Contribute", path: "/docs/contribute/guide", icon: "Users" }],
+    children: [
+      { title: "How to Contribute", path: "/docs/contribute/guide", icon: "Users" },
+      {
+        title: "Documentation Editors",
+        path: "/docs/contribute/documentation-editors",
+        icon: "Edit3",
+      },
+    ],
   },
   {
     title: "Notifications",

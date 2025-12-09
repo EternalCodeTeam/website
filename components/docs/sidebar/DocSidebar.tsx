@@ -31,7 +31,7 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
   const sidebarContent = (
     <>
       {/* Sidebar Header */}
-      <div className="flex shrink-0 items-center gap-3 border-b border-gray-200 bg-linear-to-r from-blue-50 to-white px-4 py-4 dark:border-gray-700 dark:from-gray-800 dark:to-gray-900">
+      <div className="flex shrink-0 items-center gap-3 border-b border-gray-200 bg-gray-50/50 px-4 py-4 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/20">
         <motion.div
           whileHover={{ scale: 1.1, rotate: 5 }}
           transition={{ duration: 0.3 }}
@@ -65,7 +65,7 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
       </div>
 
       {/* Sidebar Footer - Simple & Clean */}
-      <div className="shrink-0 border-t border-gray-200 bg-gray-50 px-4 py-3 dark:border-gray-700 dark:bg-gray-800/50">
+      <div className="shrink-0 border-t border-gray-200 bg-gray-50/50 px-4 py-3 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/20">
         <div className="flex items-center justify-between">
           {/* Status */}
           <div className="flex items-center gap-2">

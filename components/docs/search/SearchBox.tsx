@@ -144,11 +144,11 @@ const SearchBox = ({
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
             className={cn(
-              "w-full select-none rounded-lg border bg-white px-4 py-2.5 pl-10 pr-10 text-sm outline-hidden transition-all duration-200",
+              "w-full select-none rounded-lg border bg-gray-50/50 px-4 py-2.5 pl-10 pr-10 text-sm outline-hidden transition-all duration-200",
               isFocused || isOpen
-                ? "border-blue-500 shadow-lg shadow-blue-500/20 ring-2 ring-blue-500/50 dark:shadow-blue-500/10"
-                : "border-gray-300 shadow-xs dark:border-gray-700",
-              "placeholder:text-gray-400 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500"
+                ? "border-blue-500 bg-white shadow-lg shadow-blue-500/10 ring-2 ring-blue-500/10 dark:bg-gray-800 dark:shadow-blue-500/20"
+                : "border-gray-200 shadow-xs hover:border-gray-300 hover:bg-white dark:border-gray-800 dark:bg-gray-900/50 dark:hover:border-gray-700 dark:hover:bg-gray-900",
+              "placeholder:text-gray-500 dark:text-white dark:placeholder:text-gray-500"
             )}
             aria-label="Search documentation"
           />
@@ -213,7 +213,7 @@ const SearchBox = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            className="absolute z-50 mt-2 w-full overflow-hidden rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-800"
+            className="absolute z-50 mt-2 w-full overflow-hidden rounded-xl border border-gray-200 bg-white/90 shadow-2xl backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/90"
           >
             {results.length > 0 ? (
               <div className="scrollbar-hide max-h-96 overflow-y-auto">
@@ -231,8 +231,8 @@ const SearchBox = ({
                     className={cn(
                       "w-full select-none px-4 py-3 text-left transition-all",
                       selectedIndex === index
-                        ? "bg-blue-50 dark:bg-blue-900/20"
-                        : "hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                        ? "bg-blue-50 dark:bg-blue-500/10"
+                        : "hover:bg-gray-50 dark:hover:bg-gray-800/50"
                     )}
                   >
                     <div className="flex items-start gap-3">

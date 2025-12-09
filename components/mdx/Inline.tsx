@@ -10,11 +10,9 @@ export const Inline = ({ children, className, ...rest }: InlineProps) => {
   return (
     <span
       className={cn(
-        "inline-block rounded-md border border-neutral-200 dark:border-neutral-700",
-        "bg-neutral-50 dark:bg-neutral-800",
-        "px-1.5 py-0.5 text-sm",
-        "text-neutral-700 dark:text-neutral-300",
-        "font-mono",
+        "inline-block rounded-md border border-gray-200 px-1.5 py-0.5 text-sm font-mono transition-colors",
+        "bg-gray-100 text-gray-900",
+        "dark:border-gray-700/50 dark:bg-gray-800/50 dark:text-gray-200",
         className
       )}
       {...rest}

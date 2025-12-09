@@ -18,7 +18,8 @@
 
 html.dark {
   /* Dark Theme (Original Tomorrow Night) */
-  --prism-bg: #181c23;
+  --prism-bg: inherit;
+  /* Darker background for inline code */
   --prism-text: #ccc;
   --prism-comment: #999;
   --prism-punctuation: #ccc;
@@ -33,12 +34,19 @@ html.dark {
   --prism-variable: #e2777a;
 }
 
+/* Make pre blocks transparent in dark mode to use the CodeBlock wrapper style */
+html.dark pre[class*="language-"] {
+  background: transparent !important;
+}
+
 /* Zwiększona specyficzność selektorów */
 code[class*="language-"],
 pre[class*="language-"] {
-  color: var(--prism-text) !important; /* Wymuszenie koloru podstawowego tekstu */
+  color: var(--prism-text) !important;
+  /* Wymuszenie koloru podstawowego tekstu */
   background: var(--prism-bg) !important;
-  text-shadow: none !important; /* Usunięcie cienia, który czasem powoduje rozmycie kolorów */
+  text-shadow: none !important;
+  /* Usunięcie cienia, który czasem powoduje rozmycie kolorów */
   font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   font-size: 1em;
   text-align: left;
@@ -65,12 +73,12 @@ pre[class*="language-"] {
   background: var(--prism-bg) !important;
 }
 
-:not(pre) > code[class*="language-"],
+:not(pre)>code[class*="language-"],
 pre[class*="language-"] {
   background: var(--prism-bg);
 }
 
-:not(pre) > code[class*="language-"] {
+:not(pre)>code[class*="language-"] {
   padding: 0.1em;
   border-radius: 0.3em;
   white-space: normal;
@@ -145,6 +153,7 @@ pre[class*="language-"] {
 .token.bold {
   font-weight: bold;
 }
+
 .token.italic {
   font-style: italic;
 }

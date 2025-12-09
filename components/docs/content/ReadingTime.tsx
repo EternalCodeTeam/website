@@ -15,8 +15,13 @@ export const ReadingTime = ({ content, wordsPerMinute = 200, className }: Readin
   const readingTime = Math.ceil(words / wordsPerMinute);
 
   return (
-    <div className={cn("text-muted-foreground flex items-center gap-2 text-sm", className)}>
-      <Clock className="h-4 w-4" aria-hidden="true" />
+    <div
+      className={cn(
+        "inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs text-gray-600 dark:border-gray-800 dark:bg-gray-900/50 dark:text-gray-400",
+        className
+      )}
+    >
+      <Clock className="h-3.5 w-3.5" aria-hidden="true" />
       <span>{readingTime} min read</span>
     </div>
   );

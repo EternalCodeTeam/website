@@ -28,17 +28,18 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   render() {
     if (this.state.hasError) {
       return (
-        <div className="rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-900 dark:bg-red-950">
-          <h3 className="text-lg font-semibold text-red-800 dark:text-red-200">
+        <div className="rounded-xl border border-red-200 bg-red-50/50 p-6 dark:border-red-900/50 dark:bg-red-950/20">
+          <h3 className="flex items-center gap-2 text-lg font-semibold text-red-800 dark:text-red-200">
             Error Rendering Content
           </h3>
           <p className="mt-2 text-sm text-red-700 dark:text-red-300">
-            There was an error rendering this content. Please try refreshing the page or contact
-            support if the problem persists.
+            There was an error rendering this content. Please refresh the page.
           </p>
-          <details className="mt-4 text-sm text-red-600 dark:text-red-400">
-            <summary className="cursor-pointer">Technical Details</summary>
-            <pre className="mt-2 whitespace-pre-wrap rounded-md bg-red-100 p-2 dark:bg-red-900">
+          <details className="mt-4">
+            <summary className="cursor-pointer text-sm font-medium text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300">
+              Technical Details
+            </summary>
+            <pre className="mt-2 overflow-x-auto rounded-lg bg-red-100/50 p-3 text-xs text-red-800 dark:bg-red-900/30 dark:text-red-200">
               {this.state.error?.message}
             </pre>
           </details>

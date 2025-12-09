@@ -88,14 +88,17 @@ export const CodeTabs = ({
   );
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ type: "spring", stiffness: 100, damping: 20, mass: 0.8 }}
-      className={cn("my-8 overflow-hidden rounded-lg bg-white dark:bg-gray-800", className)}
+    <div
+      className={cn(
+        "my-6 overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900/50",
+        className
+      )}
     >
       <TabGroup selectedIndex={selectedIndex} onChange={handleChange}>
-        <TabList className="flex space-x-2 px-4 pb-0 pt-4" aria-label="Code language selection">
+        <TabList
+          className="flex space-x-1 border-b border-gray-200 bg-gray-50/50 p-2 dark:border-gray-800 dark:bg-gray-900/50"
+          aria-label="Code language selection"
+        >
           {Children.map(children, (child) => {
             if (!isValidElement(child)) return null;
             const { label, disabled } = child.props as { label: string; disabled?: boolean };
@@ -105,37 +108,19 @@ export const CodeTabs = ({
                 disabled={disabled}
                 className={({ selected }) =>
                   cn(
-                    "relative cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
+                    "relative cursor-pointer rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 outline-none",
                     "disabled:cursor-not-allowed disabled:opacity-50",
                     selected
-                      ? "bg-gray-200 text-gray-900 dark:bg-gray-850 dark:text-white"
-                      : "bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-850 dark:hover:text-white"
+                      ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-800"
                   )
                 }
               >
-                {({ selected }) => (
-                  <motion.span
-                    className="flex items-center gap-1"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                  >
+                {() => (
+                  <span className="flex items-center gap-2">
                     <LanguageIcon label={label} />
                     {label}
-                    {selected && (
-                      <motion.div
-                        layoutId="activeTab"
-                        className="absolute inset-0 -z-10 rounded-lg bg-gray-200 dark:bg-gray-850"
-                        transition={{
-                          type: "spring",
-                          bounce: 0.2,
-                          duration: 0.6,
-                          stiffness: 300,
-                          damping: 30,
-                        }}
-                      />
-                    )}
-                  </motion.span>
+                  </span>
                 )}
               </Tab>
             );
@@ -153,15 +138,15 @@ export const CodeTabs = ({
                 <TabPanel
                   key={label}
                   className={cn(
-                    "px-4 pb-6 pt-4 transition-all duration-300",
-                    "mt-2 rounded-lg bg-gray-100 dark:bg-gray-850"
+                    "p-4 ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+                    "bg-gray-50 dark:bg-black/20"
                   )}
                 >
                   <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ type: "spring", stiffness: 100, damping: 20, mass: 0.8 }}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 10 }}
+                    transition={{ duration: 0.2 }}
                   >
                     {tabChildren}
                   </motion.div>
@@ -171,7 +156,7 @@ export const CodeTabs = ({
           </AnimatePresence>
         </TabPanels>
       </TabGroup>
-    </motion.div>
+    </div>
   );
 };
 

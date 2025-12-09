@@ -1,0 +1,130 @@
+---
+title: Documentation Editors
+description: Feature showcase and guide for documentation editors
+---
+
+# Documentation Editors Guide
+
+This guide showcases all available formatting options and components for our documentation. Use this as a reference when writing new docs.
+
+<Callout type="info">
+  This is a **Callout** component. It's useful for highlighting important information.
+</Callout>
+
+## Basic Formatting
+
+### Text Styles
+
+We support standard markdown formatting:
+
+- **Bold text** for emphasis
+- *Italic text* for subtle emphasis
+- `Inline code` for technical terms
+- ~~Strikethrough~~ for deprecated content
+
+### Blockquotes
+
+> PRO TIP: Blockquotes are great for calling out specific advice or quotes.
+> They are styled with a left border.
+
+### Tables
+
+Tables are automatically styled and responsive.
+
+| Feature | Status | Description |
+| :--- | :--- | :--- |
+| **MDX** | <span className="text-green-500">Supported</span> | Native react components in markdown |
+| **Tables** | <span className="text-green-500">Supported</span> | Auto-formatted tables |
+| **Code** | <span className="text-green-500">Supported</span> | Syntax highlighting & copy |
+
+## Special Components
+
+### Callouts
+
+Use different types of callouts to communicate context.
+
+<Callout type="note" title="Note">
+  General information that doesn't fit into the main flow.
+</Callout>
+
+<Callout type="tip" title="Pro Tip">
+  Helpful advice to improve the user experience.
+</Callout>
+
+<Callout type="warning" title="Warning">
+  Be careful! This action might have consequences.
+</Callout>
+
+<Callout type="danger" title="Critical">
+  This is a critical alert. Data loss is possible.
+</Callout>
+
+### Cards
+
+Use Cards to link to other sections visually.
+
+<CardGroup>
+  <Card title="Quick Start" icon="Zap" href="/docs/eternalcore/introduction" />
+  <Card title="Configuration" icon="Settings" href="/docs/eternalcore/installation" />
+  <Card title="API Reference" icon="Code" href="/docs/eternalcore/using-api" />
+</CardGroup>
+
+### Steps
+
+Use Steps for tutorials or guides.
+
+<Steps>
+  <Step title="Install the Plugin" icon="Download">
+    Download the latest JAR file and place it in your `plugins` folder.
+    
+    ```bash
+    cp eternalcore.jar /path/to/server/plugins/
+    ```
+  </Step>
+  <Step title="Restart Server" icon="RefreshCw">
+    Restart your Minecraft server to generate the configuration files.
+  </Step>
+  <Step title="Configure" icon="Settings">
+    Edit `config.yml` to suit your needs.
+  </Step>
+</Steps>
+
+### Tabs
+
+Organize content with Tabs.
+
+<CodeTabs>
+  <CodeTab label="Java">
+    ```java
+    public class Example {
+        public static void main(String[] args) {
+            System.out.println("Hello World!");
+        }
+    }
+    ```
+  </CodeTab>
+  <CodeTab label="Kotlin">
+    ```kotlin
+    fun main() {
+        println("Hello World!")
+    }
+    ```
+  </CodeTab>
+</CodeTabs>
+
+### Code Blocks
+
+Code blocks feature syntax highlighting and a "toasty" copy button!
+
+```typescript
+// Example TypeScript code
+interface User {
+  id: number;
+  name: string;
+}
+
+const user: User = {
+  id: 1,
+  name: "EternalCode",
+};
+```

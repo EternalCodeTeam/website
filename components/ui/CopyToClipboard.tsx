@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 interface CopyToClipboardProps {
   text: string;
   className?: string;
-  children?: React.ReactNode;
+  children?: React.ReactNode | ((props: { copied: boolean }) => React.ReactNode);
   showIcon?: boolean;
 }
 
@@ -57,13 +57,13 @@ export function CopyToClipboard({
   return (
     <button
       type="button"
-      onClick={handleCopy} // handler signature change might be needed if strictly typed, but let's see. handleCopy expects MouseEvent. Button click is MouseEvent|KeyboardEvent in React? No, onClick is MouseEvent in React types usually, but generic SyntheticEvent. Actually, `onClick` on button passes `React.MouseEvent<HTMLButtonElement>`. `handleCopy` signature is `(e: React.MouseEvent)`. This is compatible.
+      onClick={handleCopy}
       className={cn(
         "group flex cursor-pointer items-center gap-1.5 transition-colors hover:text-blue-600 dark:hover:text-blue-400",
         className
       )}
     >
-      {children}
+      {typeof children === "function" ? children({ copied }) : children}
       {showIcon && (
         <span className="opacity-0 transition-opacity duration-200 group-hover:opacity-100">
           {copied ? (
