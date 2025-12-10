@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type HTMLMotionProps } from "framer-motion";
 import { createContext, useContext, useState, useId } from "react";
 import { cn } from "@/lib/utils";
 
@@ -97,7 +97,7 @@ export function TabsTrigger({ className, value, children, ...props }: TabsTrigge
   );
 }
 
-interface TabsContentProps extends React.HTMLAttributes<HTMLDivElement> {
+interface TabsContentProps extends HTMLMotionProps<"div"> {
   value: string;
   children: React.ReactNode;
 }

@@ -159,11 +159,9 @@ export function SoundTable({
                 paginatedSounds.map((sound) => (
                   <tr
                     key={sound.id}
-                    className={`border-b border-gray-100 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 ${
-                      selectedSound?.id === sound.id ? "bg-blue-50 dark:bg-blue-900/20" : ""
-                    } ${
-                      currentlyPlayingId === sound.id ? "bg-green-50 dark:bg-green-900/20" : ""
-                    } cursor-pointer transition-colors duration-150`}
+                    className={`border-b border-gray-100 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 ${selectedSound?.id === sound.id ? "bg-blue-50 dark:bg-blue-900/20" : ""
+                      } ${currentlyPlayingId === sound.id ? "bg-green-50 dark:bg-green-900/20" : ""
+                      } cursor-pointer transition-colors duration-150`}
                     onClick={() => handleSelectSound(sound.id)}
                   >
                     <td className="max-w-[120px] truncate px-2 py-1.5 text-xs" title={sound.name}>
@@ -185,7 +183,7 @@ export function SoundTable({
                           variant="ghost"
                           size="sm"
                           className="flex h-8 w-8 items-center justify-center rounded-full p-0 text-blue-600 dark:text-blue-400"
-                          onClick={(e) => handlePlayStopSound(sound, e)}
+                          onClick={(e: React.MouseEvent) => handlePlayStopSound(sound, e)}
                           disabled={loading}
                           aria-label={currentlyPlayingId === sound.id ? "Stop sound" : "Play sound"}
                         >
