@@ -1,7 +1,7 @@
 "use client";
 
 import { SpeedInsights as VercelSpeedInsights } from "@vercel/speed-insights/next";
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { canLoadAnalytics } from "@/lib/cookie-utils";
 

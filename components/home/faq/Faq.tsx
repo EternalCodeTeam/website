@@ -1,14 +1,12 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useCallback } from "react";
-
-import { SlideIn, StaggerContainer } from "@/components/ui/motion/MotionComponents";
-
-import SectionTitle from "../../SectionTitle";
-
-import AnimatedChevron from "./AnimatedChevron";
-import { buttonAnimations, panelAnimations, contentAnimations } from "./animations";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { SlideIn } from "@/components/ui/motion/MotionComponents";
 
 // FAQ item structure with question and answer
 interface FaqItem {
@@ -41,64 +39,46 @@ const faqItems: FaqItem[] = [
 ];
 
 export default function Faq() {
-  // Tracks which FAQ item is currently expanded
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
-  // Toggle function to expand/collapse FAQ items
-  const toggleFaq = useCallback((index: number) => {
-    setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
-  }, []);
-
   return (
-    <section id="faq" className="py-16" aria-labelledby="faq-heading">
-      <div className="mx-auto max-w-(--breakpoint-xl) px-4 py-8">
-        <SlideIn direction="down" delay={0.1}>
-          <SectionTitle
-            title="Frequently Asked Questions"
-            description="Here you will find answers to the most frequently asked questions."
-          />
-        </SlideIn>
-
-        {/* FAQ items with staggered animations */}
-        <StaggerContainer className="mt-12">
-          {faqItems.map((item) => (
-            <SlideIn
-              key={item.question.replace(/\s+/g, "-").toLowerCase()}
-              className="mb-6 overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700"
-              direction="up"
-            >
-              <motion.button
-                onClick={() => toggleFaq(faqItems.indexOf(item))}
-                className="cursor-pointer flex w-full items-center justify-between bg-light-gray-200 px-6 py-4 text-left text-lg font-medium text-gray-800 transition-colors duration-300 hover:bg-light-gray-300 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
-                aria-expanded={activeIndex === faqItems.indexOf(item)}
-                aria-controls={`faq-panel-${faqItems.indexOf(item)}`}
-                id={`faq-question-${faqItems.indexOf(item)}`}
-                {...buttonAnimations}
-              >
-                <span>{item.question}</span>
-                <AnimatedChevron isExpanded={activeIndex === faqItems.indexOf(item)} />
-              </motion.button>
-              <AnimatePresence>
-                {activeIndex === faqItems.indexOf(item) && (
-                  <motion.div
-                    {...panelAnimations}
-                    className="overflow-hidden"
-                    id={`faq-panel-${faqItems.indexOf(item)}`}
-                    role="region"
-                    aria-labelledby={`faq-question-${faqItems.indexOf(item)}`}
-                  >
-                    <motion.div
-                      className="ease-[cubic-bezier(0.25, 1, 0.5, 1)] bg-light-gray-100 p-6 text-gray-700 transition-colors duration-300 dark:bg-gray-800 dark:text-gray-400"
-                      {...contentAnimations}
-                    >
-                      {item.answer}
-                    </motion.div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+    <section
+      id="faq"
+      className="py-12 lg:py-24 relative overflow-visible z-20 lg:min-h-[600px]"
+      aria-labelledby="faq-heading"
+    >
+      <div className="mx-auto max-w-7xl px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start">
+          {/* Left Column: Title & Description */}
+          <div className="lg:col-span-5 lg:top-32">
+            <SlideIn direction="right" delay={0.1}>
+              <h2 className="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-5xl mb-6">
+                Frequently asked <br className="hidden lg:block" />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
+                  questions
+                </span>
+              </h2>
+              <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+                Find out the answers to the most frequently asked questions. If you can't find what
+                you're looking for, feel free to contact us.
+              </p>
             </SlideIn>
-          ))}
-        </StaggerContainer>
+          </div>
+
+          {/* Right Column: Accordion */}
+          <div className="lg:col-span-7 h-fit flex flex-col justify-start">
+            <SlideIn direction="up" delay={0.2} className="w-full flex flex-col justify-start">
+              <Accordion className="flex flex-col gap-4 w-full justify-start">
+                {faqItems.map((item, index) => (
+                  <AccordionItem key={item.question} value={`item-${index}`}>
+                    <AccordionTrigger className="text-lg">{item.question}</AccordionTrigger>
+                    <AccordionContent className="text-base leading-relaxed">
+                      {item.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </SlideIn>
+          </div>
+        </div>
       </div>
     </section>
   );

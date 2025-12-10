@@ -4,13 +4,13 @@ import Image from "next/image";
 
 import DynamicCommandsTable from "@/components/docs/eternalcore/commands/DynamicCommandsTable";
 import DynamicPlaceholdersTable from "@/components/docs/eternalcore/placeholder/DynamicPlaceholdersTable";
-import { CodeBlock } from "@/components/mdx/CodeBlock";
-import { CodeTab, CodeTabs } from "@/components/mdx/CodeTabs";
-import { Heading } from "@/components/mdx/Heading";
-import { Inline } from "@/components/mdx/Inline";
-import { Callout } from "@/components/mdx/Callout";
-import { Card, CardGroup } from "@/components/mdx/Card";
-import { Steps, Step } from "@/components/mdx/Steps";
+import { CodeBlock } from "@/components/ui/mdx/CodeBlock";
+import { CodeTab, CodeTabs } from "@/components/ui/mdx/CodeTabs";
+import { Heading } from "@/components/ui/mdx/Heading";
+import { Inline } from "@/components/ui/mdx/Inline";
+import { Callout } from "@/components/ui/mdx/Callout";
+import { Card, CardGroup } from "@/components/ui/mdx/Card";
+import { Steps, Step } from "@/components/ui/mdx/Steps";
 import { AlertBox } from "@/components/ui/alert-box";
 
 type HeadingProps = HTMLAttributes<HTMLHeadingElement>;
@@ -122,4 +122,4 @@ export const components: MDXComponents = {
   },
 };
 
-export { mdxOptions } from "../../lib/mdx-config.mjs";
+export { mdxOptions } from "../../../lib/mdx-config.mjs";

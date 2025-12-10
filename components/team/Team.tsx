@@ -1,15 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
+
 
 import { SlideIn, StaggerContainer } from "@/components/ui/motion/MotionComponents";
-import SectionTitle from "@/components/SectionTitle";
 
 import TeamError from "./TeamError";
 import TeamMember from "./TeamMember";
 import { fetchTeamMembers } from "./teamService";
 import TeamSkeleton from "./TeamSkeleton";
 import type { Member } from "./types";
+
+const EXPANDED_ROLE_DESCRIPTIONS: Record<string, string> = {
+  "Team Lead":
+    "The visionaries guiding our projects, setting the course, and ensuring our team performs at their absolute best.",
+  "Team Developer":
+    "The architects of our code, constructing the robust core and innovative features that power our ecosystem.",
+  Student:
+    "Aspiring developers learning and growing with us, contributing fresh perspectives and energy to the project.",
+};
+
+const DEFAULT_DESCRIPTION = "Passionate individuals dedicated to the EternalCode mission.";
+
+const ROLE_PRIORITY = ["Team Lead", "Team Developer", "Student"];
 
 export default function Team() {
   const [members, setMembers] = useState<Member[]>([]);
@@ -34,32 +47,84 @@ export default function Team() {
     loadTeamMembers();
   }, []);
 
+  // Group members by role
+  const groupedMembers = useMemo(() => {
+    const groups: Record<string, Member[]> = {};
+
+    for (const member of members) {
+      const roles = member.team_roles ?? [];
+
+      if (roles.length === 0) {
+        const defaultRole = "Contributor";
+        if (!groups[defaultRole]) groups[defaultRole] = [];
+        groups[defaultRole].push(member);
+        continue;
+      }
+
+      for (const role of roles) {
+        const roleName = role.name;
+        if (!groups[roleName]) groups[roleName] = [];
+        groups[roleName].push(member);
+      }
+    }
+
+    return groups;
+  }, [members]);
+
+  // Sort roles by priority
+  const sortedRoles = useMemo(() => {
+    return Object.keys(groupedMembers).sort((a, b) => {
+      const prioA = ROLE_PRIORITY.indexOf(a);
+      const prioB = ROLE_PRIORITY.indexOf(b);
+
+      const isAInPriority = prioA !== -1;
+      const isBInPriority = prioB !== -1;
+
+      if (isAInPriority && isBInPriority) return prioA - prioB;
+      if (isAInPriority) return -1;
+      if (isBInPriority) return 1;
+
+      return a.localeCompare(b);
+    });
+  }, [groupedMembers]);
+
   if (loading) return <TeamSkeleton />;
   if (error) return <TeamError error={error} />;
 
   return (
     <section id="team">
-      <div className="relative mx-auto max-w-(--breakpoint-xl) px-4 py-20">
-        <SlideIn direction="down" delay={0.1}>
-          <SectionTitle
-            title="Meet the Team"
-            description="EternalCodeTeam is a creative collective of open-source developers pushing the limits of Minecraft innovation."
-          />
-        </SlideIn>
+      <div className="relative mx-auto max-w-(--breakpoint-xl) px-4 pb-20 pt-4">
+        <div className="mt-8 space-y-20">
+          {sortedRoles.map(
+            (role) =>
+              groupedMembers[role].length > 0 && (
+                <div key={role}>
+                  <SlideIn direction="up" className="mb-8">
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{role}s</h2>
+                    <p className="mt-2 max-w-2xl text-base text-gray-600 dark:text-gray-400">
+                      {EXPANDED_ROLE_DESCRIPTIONS[role] || DEFAULT_DESCRIPTION}
+                    </p>
+                  </SlideIn>
 
-        {/* Grid with nice hover effects and spacing */}
-        <StaggerContainer className="relative z-10 mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {members.map((member, index) => (
-            <SlideIn
-              key={member.documentId || index}
-              direction="up"
-              delay={index * 0.05}
-              className="transform transition duration-300 hover:scale-[1.03]"
-            >
-              <TeamMember member={member} index={index} />
-            </SlideIn>
-          ))}
-        </StaggerContainer>
+                  <StaggerContainer className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {groupedMembers[role].map((member, index) => (
+                      <SlideIn
+                        key={`${role}-${member.documentId || index}`}
+                        direction="up"
+                        delay={index * 0.05}
+                      >
+                        <TeamMember member={member} index={index} />
+                      </SlideIn>
+                    ))}
+                  </StaggerContainer>
+                </div>
+              )
+          )}
+
+          {sortedRoles.length === 0 && !loading && (
+            <div className="text-center mt-12 text-gray-500">No team members found.</div>
+          )}
+        </div>
       </div>
     </section>
   );

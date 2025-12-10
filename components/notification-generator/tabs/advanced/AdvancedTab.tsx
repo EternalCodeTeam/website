@@ -1,5 +1,7 @@
 "use client";
 
+import { Switch } from "@/components/ui/switch";
+
 import type { FieldType, NotificationConfig } from "../../types";
 
 interface AdvancedTabProps {
@@ -8,19 +10,24 @@ interface AdvancedTabProps {
 }
 
 export const AdvancedTab = ({ notification, onChange }: AdvancedTabProps) => (
-  <div>
-    <div className="mb-4">
-      <div className="flex items-center">
-        <input
-          type="checkbox"
-          id="titleHide"
-          className="h-4 w-4 rounded-sm border-gray-300 text-blue-600 focus:ring-blue-500"
-          checked={notification.titleHide}
-          onChange={(e) => onChange("titleHide", e.target.checked)}
-        />
-        <label htmlFor="titleHide" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
-          Clear title/subtitle before sending new one
+  <div className="space-y-4">
+    <div className="flex items-center space-x-3 rounded-lg border border-gray-100 bg-gray-50/50 p-4 dark:border-white/5 dark:bg-white/5">
+      <Switch
+        checked={notification.titleHide}
+        onChange={(checked) => onChange("titleHide", checked)}
+      />
+      <div className="flex flex-col">
+        {/* biome-ignore lint/a11y/useKeyWithClickEvents: Label is interactive for switch */}
+        <label
+          htmlFor="titleHide"
+          className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-200"
+          onClick={() => onChange("titleHide", !notification.titleHide)}
+        >
+          Clear Title Before Sending
         </label>
+        <span className="text-xs text-gray-500 dark:text-gray-400">
+          If enabled, the previous title will be cleared immediately before showing the new one.
+        </span>
       </div>
     </div>
   </div>

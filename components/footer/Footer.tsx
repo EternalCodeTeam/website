@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 import DiscordIcon from "@/components/icons/discord";
 import GitHubIcon from "@/components/icons/github";
@@ -20,147 +21,151 @@ interface FooterSection {
   links: FooterLink[];
 }
 
-export default function Footer() {
-  const footerSections: FooterSection[] = [
-    {
-      title: "COMPANY",
-      links: [
-        { href: "/#about", label: "About us" },
-        { href: "/team", label: "Team" },
-        { href: "/projects", label: "Projects" },
-      ],
-    },
-    {
-      title: "RESOURCES",
-      links: [
-        {
-          href: "https://github.com/EternalCodeTeam",
-          label: "GitHub",
-          isExternal: true,
-        },
-        {
-          href: "https://discord.com/invite/FQ7jmGBd6c",
-          label: "Discord",
-          isExternal: true,
-        },
-        {
-          href: "https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q",
-          label: "YouTube",
-          isExternal: true,
-        },
-        {
-          href: "https://www.tiktok.com/@eternalcode.pl",
-          label: "TikTok",
-          isExternal: true,
-        },
-        {
-          href: "https://www.spigotmc.org/resources/authors/eternalcodeteam.1570200/",
-          label: "SpigotMC",
-          isExternal: true,
-        },
-        {
-          href: "https://modrinth.com/organization/eternalcodeteam",
-          label: "Modrinth",
-          isExternal: true,
-        },
-      ],
-    },
-    {
-      title: "SEE MORE",
-      links: [
-        {
-          href: "https://repo.eternalcode.pl/#/",
-          label: "Repository",
-          isExternal: true,
-        },
-        {
-          href: "https://docs.eternalcode.pl/",
-          label: "Documentation",
-          isExternal: true,
-        },
-        {
-          href: "https://status.eternalcode.pl/",
-          label: "Status",
-          isExternal: true,
-        },
-        {
-          href: "https://bstats.org/author/vLucky",
-          label: "BStats",
-          isExternal: true,
-        },
-        { href: "/privacy-policy", label: "Privacy Policy" },
-      ],
-    },
-  ];
+const footerSections: FooterSection[] = [
+  {
+    title: "Product",
+    links: [
+      { href: "/builds", label: "Build Explorer" },
+      { href: "https://docs.eternalcode.pl/", label: "Documentation", isExternal: true },
+      { href: "https://repo.eternalcode.pl/#/", label: "Repository", isExternal: true },
+      { href: "https://status.eternalcode.pl/", label: "Status", isExternal: true },
+    ],
+  },
+  {
+    title: "Projects",
+    links: [
+      { href: "/projects/eternalcore", label: "EternalCore" },
+      { href: "/projects/eternalcombat", label: "EternalCombat" },
+    ],
+  },
+  {
+    title: "Community",
+    links: [
+      { href: "https://discord.com/invite/FQ7jmGBd6c", label: "Discord", isExternal: true },
+      { href: "https://github.com/EternalCodeTeam", label: "GitHub", isExternal: true },
+      {
+        href: "https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q",
+        label: "YouTube",
+        isExternal: true,
+      },
+      { href: "https://www.tiktok.com/@eternalcode.pl", label: "TikTok", isExternal: true },
+    ],
+  },
+  {
+    title: "Resource",
+    links: [
+      {
+        href: "https://spigotmc.org/resources/authors/eternalcodeteam.1570200/",
+        label: "SpigotMC",
+        isExternal: true,
+      },
+      {
+        href: "https://modrinth.com/organization/eternalcodeteam",
+        label: "Modrinth",
+        isExternal: true,
+      },
+      { href: "https://bstats.org/author/vLucky", label: "bStats", isExternal: true },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { href: "/#about", label: "About" },
+      { href: "/team", label: "Team" },
+      { href: "/blog", label: "Blog" },
+      { href: "/privacy-policy", label: "Privacy Policy" },
+    ],
+  },
+];
 
-  const socialLinks = [
-    {
-      href: "https://www.tiktok.com/@eternalcode.pl",
-      label: "EternalCode TikTok link",
-      icon: <TikTokIcon />,
-    },
-    {
-      href: "https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q",
-      label: "EternalCode YouTube link",
-      icon: <YouTubeIcon />,
-    },
-    {
-      href: "https://github.com/EternalCodeTeam",
-      label: "EternalCode GitHub link",
-      icon: <GitHubIcon />,
-    },
-    {
-      href: "https://discord.com/invite/FQ7jmGBd6c",
-      label: "EternalCode Discord link",
-      icon: <DiscordIcon />,
-    },
-  ];
+const socialLinks = [
+  {
+    href: "https://github.com/EternalCodeTeam",
+    label: "GitHub",
+    icon: <GitHubIcon />,
+  },
+  {
+    href: "https://discord.com/invite/FQ7jmGBd6c",
+    label: "Discord",
+    icon: <DiscordIcon />,
+  },
+  {
+    href: "https://www.youtube.com/channel/UC2BEaMJWxxUscN50AD0oY_Q",
+    label: "YouTube",
+    icon: <YouTubeIcon />,
+  },
+  {
+    href: "https://www.tiktok.com/@eternalcode.pl",
+    label: "TikTok",
+    icon: <TikTokIcon />,
+  },
+];
+
+export default function Footer() {
+  const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="isolate p-4 text-center sm:p-6 lg:text-left">
-      <div className="mx-auto max-w-(--breakpoint-xl) px-4 py-8">
-        <div className="md:flex md:justify-between">
-          <div className="mb-6 flex flex-col items-center md:mb-0 md:items-start">
-            <Link href="/" className="flex items-center" aria-label="Go to homepage">
+    <footer className="border-t border-gray-200 bg-gray-50/50 py-12 lg:pt-16 lg:pb-8 dark:border-white/5 dark:bg-[#0a0a0a]">
+      <div className="mx-auto max-w-7xl px-4 md:px-6">
+        <div className="grid gap-8 lg:gap-12 xl:grid-cols-4 xl:gap-8">
+          <div className="space-y-6">
+            <Link href="/" className="flex items-center gap-2" aria-label="Go to homepage">
               <Image
-                className="mr-3 h-8 w-auto text-white dark:invert"
-                alt="EternalCode Logo"
-                aria-label="EternalCode Logo"
                 src={logo}
-                width={32}
-                height={32}
-                priority
+                alt="EternalCode Logo"
+                width={36}
+                height={36}
+                className="h-9 w-auto dark:invert"
               />
-              <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
-                EternalCode.pl
+              <span className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                EternalCode
               </span>
             </Link>
-            <p className="mt-2 max-w-md text-sm text-gray-600 dark:text-gray-400">
-              Providing high-quality Minecraft plugins and development solutions since 2021.
+            <p className="max-w-xs text-sm leading-6 text-gray-600 dark:text-gray-400">
+              Building high-quality, open-source Minecraft solutions. Empowering communities with
+              reliable software since 2021.
             </p>
+            <div className="flex gap-4">
+              {socialLinks.map((item) => (
+                <motion.a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  aria-label={item.label}
+                >
+                  <span className="h-5 w-5">{item.icon}</span>
+                </motion.a>
+              ))}
+            </div>
           </div>
 
-          <div className="grid grid-cols-2 justify-center gap-8 sm:grid-cols-3 sm:gap-6 md:justify-end">
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-5 xl:col-span-3">
             {footerSections.map((section) => (
-              <div key={section.title} className="mb-6 sm:mb-0">
-                <h2 className="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">
+              <div key={section.title}>
+                <h3 className="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
                   {section.title}
-                </h2>
-                <ul className="text-gray-600 dark:text-gray-400">
+                </h3>
+                <ul className="mt-4 space-y-3">
                   {section.links.map((link) => (
-                    <li key={link.href} className="mb-2">
+                    <li key={link.label}>
                       {link.isExternal ? (
                         <a
                           href={link.href}
-                          className="hover:underline"
-                          aria-label={link.label}
                           target="_blank"
                           rel="noopener noreferrer"
+                          className="text-sm leading-6 text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                         >
                           {link.label}
                         </a>
                       ) : (
-                        <Link href={link.href} className="hover:underline" aria-label={link.label}>
+                        <Link
+                          href={link.href}
+                          className="text-sm leading-6 text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                        >
                           {link.label}
                         </Link>
                       )}
@@ -172,25 +177,16 @@ export default function Footer() {
           </div>
         </div>
 
-        <hr className="my-6 border-gray-200 dark:border-gray-700 sm:mx-auto lg:my-8" />
-
-        <div className="sm:flex sm:items-center sm:justify-between">
-          <span className="mb-4 block text-sm text-gray-500 dark:text-gray-400 sm:mb-0 sm:text-center">
-            © {new Date().getFullYear()} EternalCodeTeam. All rights reserved.
-          </span>
-          <div className="flex justify-center space-x-6">
-            {socialLinks.map((link) => (
-              <a
-                key={link.href}
-                aria-label={link.label}
-                className="text-gray-500 transition duration-500 hover:text-gray-900 dark:hover:text-white"
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {link.icon}
-              </a>
-            ))}
+        <div className="mt-12 border-t border-gray-200 pt-8 dark:border-white/5 lg:mt-16">
+          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+            <p className="text-xs leading-5 text-gray-500 dark:text-gray-500">
+              &copy; {currentYear} EternalCodeTeam. All rights reserved.
+            </p>
+            <div className="flex items-center gap-6">
+              <span className="text-xs text-gray-500 dark:text-gray-500">
+                Designed with <span className="text-red-500">❤</span> by the EternalCodeTeam.
+              </span>
+            </div>
           </div>
         </div>
       </div>

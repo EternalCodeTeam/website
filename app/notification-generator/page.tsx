@@ -1,76 +1,13 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo, type ReactNode } from "react";
-
-import { Play } from "@/components/icons/play";
-
-import {
-  SlideIn,
-  StaggerContainer,
-  FadeIn,
-  HoverScale,
-} from "@/components/ui/motion/MotionComponents";
+import { useState, useEffect, useCallback } from "react";
+import { SlideIn, StaggerContainer, FadeIn } from "@/components/ui/motion/MotionComponents";
 import { NotificationGeneratedCode } from "@/components/notification-generator/NotificationGeneratedCode";
 import { NotificationGenerator as NotificationGeneratorForm } from "@/components/notification-generator/NotificationGenerator";
 import { MinecraftPreview } from "@/components/notification-generator/preview/MinecraftPreview";
+import { Play } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import type { NotificationConfig } from "@/components/notification-generator/types";
-
-interface PanelProps {
-  title: ReactNode;
-  children: ReactNode;
-  delay: number;
-  direction?: "left" | "right" | "up" | "down";
-}
-
-function Panel({ title, children, delay, direction = "up" }: PanelProps) {
-  return (
-    <SlideIn
-      className="rounded-lg bg-white p-4 shadow-md dark:bg-gray-800 md:p-6"
-      direction={direction}
-      delay={delay}
-    >
-      <FadeIn delay={delay + 0.1}>
-        <h2 className="mb-4 text-lg font-semibold md:text-xl">{title}</h2>
-      </FadeIn>
-      {children}
-    </SlideIn>
-  );
-}
-
-interface PreviewSectionProps {
-  previewKey: number;
-  notification: NotificationConfig;
-  onPlay: () => void;
-  delay: number;
-}
-
-function PreviewSection({ previewKey, notification, onPlay, delay }: PreviewSectionProps) {
-  return (
-    <SlideIn
-      className="col-span-1 rounded-lg bg-white p-4 shadow-md dark:bg-gray-800 md:p-6 lg:col-span-2"
-      direction="up"
-      delay={delay}
-    >
-      <div className="mb-4 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-        <FadeIn delay={delay + 0.1}>
-          <h2 className="text-lg font-semibold md:text-xl">Preview</h2>
-        </FadeIn>
-        <HoverScale>
-          <button
-            type="button"
-            onClick={onPlay}
-            className="flex items-center rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-            aria-label="Play title animation"
-          >
-            <Play className="mr-2 h-5 w-5" />
-            Play title
-          </button>
-        </HoverScale>
-      </div>
-      <MinecraftPreview key={previewKey} notification={notification} />
-    </SlideIn>
-  );
-}
 
 export default function NotificationGeneratorPage() {
   const [notification, setNotification] = useState<NotificationConfig>({
@@ -160,38 +97,62 @@ export default function NotificationGeneratorPage() {
     setPreviewKey((prev) => prev + 1);
   }, []);
 
-  const formComponent = useMemo(
-    () => (
-      <NotificationGeneratorForm notification={notification} setNotification={setNotification} />
-    ),
-    [notification]
-  );
-
-  const codeComponent = useMemo(
-    () => <NotificationGeneratedCode yamlCode={yamlCode} />,
-    [yamlCode]
-  );
-
   return (
     <StaggerContainer className="w-full">
-      <SlideIn direction="down" className="mb-6 text-2xl font-bold md:text-3xl" delay={0.1}>
-        Notification Generator
-      </SlideIn>
-
-      <div className="grid grid-cols-1 gap-6 md:gap-8 lg:grid-cols-2">
-        <Panel title="Create Your Notification" delay={0.2} direction="left">
-          {formComponent}
-        </Panel>
-        <Panel title="Generated YAML" delay={0.2} direction="right">
-          {codeComponent}
-        </Panel>
-        <PreviewSection
-          previewKey={previewKey}
-          notification={notification}
-          onPlay={handlePlayPreview}
-          delay={0.3}
-        />
+      <div className="mb-12 text-center">
+        <SlideIn direction="down" delay={0.1}>
+          <h1 className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-4xl font-extrabold tracking-tight text-transparent dark:from-white dark:to-gray-300 md:text-6xl">
+            Notification Generator
+          </h1>
+        </SlideIn>
+        <FadeIn delay={0.2}>
+          <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">
+            Design and preview your EternalCode notifications in real-time.
+          </p>
+        </FadeIn>
       </div>
+
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+        <SlideIn direction="left" delay={0.3} className="h-full">
+          <NotificationGeneratorForm
+            notification={notification}
+            setNotification={setNotification}
+          />
+        </SlideIn>
+
+        <SlideIn direction="right" delay={0.4} className="h-full">
+          <div className="h-full rounded-2xl border border-white/20 bg-white/50 p-6 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
+            <h2 className="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
+              Generated Configuration
+            </h2>
+            <NotificationGeneratedCode yamlCode={yamlCode} />
+          </div>
+        </SlideIn>
+      </div>
+
+      <SlideIn direction="up" delay={0.5} className="mt-8">
+        <div className="rounded-2xl border border-white/20 bg-white/50 p-6 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
+          <div className="mb-6 flex flex-col items-center justify-between gap-4 sm:flex-row">
+            <div>
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Live Preview</h2>
+              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                See how your notification looks in-game.
+              </p>
+            </div>
+            <Button
+              onClick={handlePlayPreview}
+              leftIcon={<Play className="h-4 w-4" />}
+              variant="primary"
+            >
+              Replay Animation
+            </Button>
+          </div>
+
+          <div className="overflow-hidden rounded-xl border border-gray-200 bg-black shadow-lg dark:border-gray-800">
+            <MinecraftPreview key={previewKey} notification={notification} />
+          </div>
+        </div>
+      </SlideIn>
     </StaggerContainer>
   );
 }

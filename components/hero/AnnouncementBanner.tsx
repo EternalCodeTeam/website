@@ -1,46 +1,34 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 export default function AnnouncementBanner() {
   return (
-    <div className="relative isolate z-50 flex flex-col gap-2 overflow-hidden border-b border-gray-200 bg-linear-to-r from-blue-50 via-white to-blue-100 px-4 py-3 text-sm dark:border-gray-800 dark:from-[#0a0a0a] dark:via-[#0b0b0b] dark:to-[#0e0e0e] md:flex-row md:items-center md:justify-center">
-      {/* Gradient background */}
-      <div className="absolute inset-0 -z-10 blur-lg">
-        <div className="absolute inset-y-0 left-0 w-1/2 bg-linear-to-tr from-blue-400/15 via-cyan-400/10 to-transparent dark:from-blue-500/15 dark:via-cyan-400/10 dark:to-transparent" />
-        <div className="absolute inset-y-0 right-0 w-1/2 bg-linear-to-bl from-indigo-400/15 via-sky-400/10 to-transparent dark:from-indigo-500/15 dark:via-blue-400/10 dark:to-transparent" />
-      </div>
+    <div className="relative isolate z-50 flex flex-col gap-2 overflow-hidden border-b border-blue-100 bg-gradient-to-r from-blue-50/80 via-white/80 to-blue-100/80 px-4 py-2.5 text-sm backdrop-blur-md dark:border-blue-900/30 dark:from-blue-950/30 dark:via-gray-900/30 dark:to-blue-950/30 md:flex-row md:items-center md:justify-center">
+      {/* Decorative gradients */}
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-400/20 via-transparent to-transparent dark:from-blue-500/10" />
 
-      {/* Label */}
-      <span className="inline-flex items-center gap-1 self-start rounded-full bg-white/70 px-3 py-0.5 text-xs font-semibold uppercase tracking-wide text-blue-800 shadow-xs ring-1 ring-inset ring-blue-200 backdrop-blur-xs dark:bg-white/5 dark:text-blue-300 dark:ring-blue-900/30 md:self-auto">
-        <svg
-          className="h-3.5 w-3.5 animate-pulse text-blue-500 dark:text-blue-400"
-          fill="currentColor"
-          viewBox="0 0 8 8"
-          role="img"
-        >
-          <title>Status indicator</title>
-          <circle cx="4" cy="4" r="3" />
-        </svg>
-        New feature
-      </span>
+      {/* Content wrapper */}
+      <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 text-center">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-100/80 px-2.5 py-0.5 text-xs font-semibold text-blue-700 ring-1 ring-inset ring-blue-200 dark:bg-blue-500/10 dark:text-blue-300 dark:ring-blue-500/20">
+          <Sparkles className="h-3 w-3" />
+          <span>New</span>
+        </span>
 
-      {/* Text and CTA */}
-      <div className="flex flex-col gap-1 md:flex-row md:items-center">
-        <p className="font-medium text-gray-900 dark:text-gray-100">
+        <p className="text-gray-600 dark:text-gray-300">
           We just launched the new{" "}
-          <span className="font-semibold text-blue-700 dark:text-blue-400">
+          <span className="font-semibold text-gray-900 dark:text-white">
             Notification Generator
           </span>
-          , fully interactive and customizable!
         </p>
 
         <Link
           href="/notification-generator"
-          className="inline-flex items-center gap-1 text-sm font-semibold text-blue-700 transition-colors hover:text-indigo-700 dark:text-blue-400 dark:hover:text-blue-300"
+          className="group inline-flex items-center gap-1 font-medium text-blue-600 transition-colors hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
         >
-          Try it now <ArrowRight className="h-4 w-4" />
+          Check it out
+          <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
         </Link>
       </div>
     </div>

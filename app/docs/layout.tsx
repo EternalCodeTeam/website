@@ -35,12 +35,21 @@ export const metadata: Metadata = {
   },
 };
 
+import { FacadePattern } from "@/components/ui/facade-pattern";
+
 export default function DocsLayout({ children }: { children: ReactNode }) {
   return (
     <div
-      className={`${poppins.className} relative min-h-screen bg-light-gray-100 antialiased transition-colors duration-200 dark:bg-gray-900`}
+      className={`${poppins.className} relative min-h-screen bg-gray-50 antialiased transition-colors duration-200 dark:bg-gray-950`}
     >
-      <div className="mx-auto min-h-[calc(100vh-7rem)] max-w-(--breakpoint-xl) px-4 py-12 pt-56 md:pt-36">
+      {/* Background Decor */}
+      <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+        <div className="absolute left-[-10%] top-0 h-[600px] w-[600px] rounded-full bg-indigo-500/10 blur-3xl filter dark:bg-indigo-500/5 mix-blend-multiply dark:mix-blend-screen" />
+        <div className="absolute right-[-10%] bottom-0 h-[600px] w-[600px] rounded-full bg-cyan-500/10 blur-3xl filter dark:bg-cyan-500/5 mix-blend-multiply dark:mix-blend-screen" />
+        <FacadePattern className="absolute inset-0 opacity-30 dark:opacity-10 h-full" />
+      </div>
+
+      <div className="relative z-10 mx-auto min-h-[calc(100vh-7rem)] max-w-(--breakpoint-xl) px-4 py-12 pt-56 md:pt-36">
         <div className="flex flex-col gap-8 lg:flex-row">
           <SidebarWrapper />
           <main className="flex min-w-0 flex-1 flex-col items-stretch">

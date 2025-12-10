@@ -105,7 +105,7 @@ export function MinecraftPreview({ notification }: MinecraftPreviewProps) {
   return (
     <div
       ref={rootRef}
-      className="font-minecraft relative overflow-hidden rounded-lg bg-gray-900 shadow-lg"
+      className="font-minecraft relative overflow-hidden rounded-xl bg-black"
       style={{
         width: "100%",
         aspectRatio: "16/9",

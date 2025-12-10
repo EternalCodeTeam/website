@@ -69,7 +69,7 @@ export const SliderField = ({
           step={step}
           value={sliderValue}
           onChange={handleChange}
-          className="h-2 w-full appearance-none rounded-lg bg-gray-200 dark:bg-gray-700"
+          className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 accent-blue-500 dark:bg-gray-700"
           style={{
             background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${gradientPercentage}%, #e5e7eb ${gradientPercentage}%, #e5e7eb 100%)`,
           }}

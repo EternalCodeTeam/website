@@ -15,32 +15,28 @@ export const Tab = ({ activeTab, tabName, label, onClick }: TabProps) => {
   const isActive = activeTab === tabName;
 
   return (
-    <motion.button
+    <button
+      type="button"
       id={`tab-${tabName}`}
-      className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ease-in-out ${
-        isActive
-          ? "border-b-2 border-blue-500 text-blue-600 dark:text-blue-400"
-          : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
-      }`}
+      className={`relative rounded-lg px-4 py-2 text-sm font-medium transition-colors duration-200 focus:outline-none cursor-pointer ${isActive
+          ? "text-gray-900 dark:text-white"
+          : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
+        }`}
       onClick={() => onClick(tabName)}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      initial={{ opacity: 0, y: -5 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.1 }}
       role="tab"
       aria-selected={isActive}
       aria-controls={`panel-${tabName}`}
       tabIndex={isActive ? 0 : -1}
     >
-      {label}
       {isActive && (
         <motion.div
-          className="absolute bottom-0 left-0 h-0.5 w-full bg-blue-500"
           layoutId="activeTab"
-          transition={{ type: "spring", stiffness: 300, damping: 30, duration: 0.1 }}
+          className="absolute inset-0 rounded-lg bg-white shadow-sm dark:bg-gray-800"
+          initial={false}
+          transition={{ type: "spring", stiffness: 500, damping: 30 }}
         />
       )}
-    </motion.button>
+      <span className="relative z-10">{label}</span>
+    </button>
   );
 };

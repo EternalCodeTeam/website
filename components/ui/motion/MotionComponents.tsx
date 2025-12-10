@@ -26,7 +26,7 @@ export const FadeIn = ({ children, delay, className, ...props }: MotionProps) =>
     variants={fadeIn}
     initial="hidden"
     whileInView="visible"
-    viewport={{ once: true, margin: "-50px" }}
+    viewport={{ once: true, margin: "0px" }}
     transition={delay ? { delay } : undefined}
     className={className}
     {...props}
@@ -60,7 +60,7 @@ export const SlideIn = ({
       variants={getVariant()}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ once: true, margin: "0px" }}
       transition={delay ? { delay } : undefined}
       className={className}
       {...props}
@@ -75,7 +75,7 @@ export const ScaleIn = ({ children, delay, className, ...props }: MotionProps) =
     variants={scaleIn}
     initial="hidden"
     whileInView="visible"
-    viewport={{ once: true, margin: "-50px" }}
+    viewport={{ once: true, margin: "0px" }}
     transition={delay ? { delay } : undefined}
     className={className}
     {...props}
@@ -104,7 +104,7 @@ export const StaggerContainer = ({ children, className, ...props }: MotionProps)
     variants={containerStagger}
     initial="hidden"
     whileInView="visible"
-    viewport={{ once: true, margin: "-50px" }}
+    viewport={{ once: true, margin: "0px" }}
     className={className}
     {...props}
   >

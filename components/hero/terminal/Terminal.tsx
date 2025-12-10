@@ -5,11 +5,7 @@ import { type ChangeEvent, type KeyboardEvent, useEffect, useRef, useState } fro
 
 import responses from "./responses";
 
-const macButtons = [
-  { color: "bg-red-500", label: "Close" },
-  { color: "bg-yellow-400", label: "Minimize" },
-  { color: "bg-green-500", label: "Zoom" },
-];
+
 
 type HistoryItem =
   | { type: "output"; value: string[] }
@@ -25,24 +21,24 @@ const initialHistory: HistoryItem[] = [
 
 const themes = {
   dark: {
-    container: "bg-linear-to-br from-gray-900 to-gray-800 border border-gray-700",
-    titleBar: "bg-linear-to-r from-gray-800 to-gray-700 border-b border-gray-700",
+    container: "bg-gray-900/50 border-gray-800",
+    titleBar: "bg-gray-900/50 border-gray-800",
     titleText: "text-gray-400",
     terminalText: "text-gray-100",
     outputText: "text-gray-400",
     inputText: "text-gray-100",
-    promptText: "text-green-400",
-    commandText: "text-blue-400",
+    promptText: "text-blue-400",
+    commandText: "text-gray-300",
   },
   light: {
-    container: "bg-linear-to-br from-gray-100 to-white border border-gray-300",
-    titleBar: "bg-linear-to-r from-gray-200 to-gray-100 border-b border-gray-300",
-    titleText: "text-gray-700",
-    terminalText: "text-gray-800",
+    container: "bg-white/80 border-gray-200",
+    titleBar: "bg-gray-50/50 border-gray-200",
+    titleText: "text-gray-500",
+    terminalText: "text-gray-900",
     outputText: "text-gray-600",
-    inputText: "text-gray-800",
-    promptText: "text-green-600",
-    commandText: "text-blue-600",
+    inputText: "text-gray-900",
+    promptText: "text-blue-600",
+    commandText: "text-gray-700",
   },
 };
 
@@ -91,39 +87,36 @@ export default function Terminal() {
 
   return (
     <div
-      className={`mx-auto mt-8 w-full max-w-2xl rounded-2xl shadow-2xl ${currentTheme.container}`}
+      className={`mx-auto mt-8 w-full rounded-xl border shadow-2xl backdrop-blur-xl ${currentTheme.container}`}
     >
       {/* Title bar */}
-      <div className={`flex h-10 items-center rounded-t-2xl px-4 ${currentTheme.titleBar}`}>
+      <div className={`flex h-11 items-center rounded-t-xl border-b px-4 ${currentTheme.titleBar}`}>
         <div className="flex space-x-2">
-          {macButtons.map((btn) => (
-            <span
-              key={btn.label}
-              className={`h-3 w-3 rounded-full ${btn.color} border border-black/20 shadow-inner`}
-              title={btn.label}
-            />
-          ))}
+          <span className="h-3 w-3 rounded-full bg-[#FF5F56] border border-[#E0443E]/50 shadow-sm" />
+          <span className="h-3 w-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]/50 shadow-sm" />
+          <span className="h-3 w-3 rounded-full bg-[#27C93F] border border-[#1AAB29]/50 shadow-sm" />
         </div>
         <div
-          className={`flex-1 select-none text-center font-mono text-xs tracking-wide ${currentTheme.titleText}`}
+          className={`flex-1 select-none text-center font-mono text-xs font-medium tracking-wide ${currentTheme.titleText} opacity-70`}
         >
-          EternalCode Terminal
+          eternalcode — -zsh — 80x24
         </div>
       </div>
       {/* Terminal body */}
       <div
         ref={scrollRef}
-        className={`h-96 overflow-y-auto bg-transparent px-6 py-4 font-mono text-sm ${currentTheme.terminalText}`}
+        className={`h-96 overflow-y-auto bg-transparent px-6 py-4 font-mono text-sm leading-relaxed ${currentTheme.terminalText}`}
         style={{ scrollbarWidth: "thin" }}
       >
-        {history.map((item) => {
-          const key = `${item.type}-${item.type === "output" ? item.value.join("-") : item.value}-${Date.now() + Math.random()}`;
+        {history.map((item, index) => {
+          const key = `${item.type}-${index}`;
 
           if (item.type === "output") {
-            return item.value.map((line) => (
+            return item.value.map((line, i) => (
               <div
-                key={`${key}-${line}`}
-                className={`${currentTheme.outputText} select-text whitespace-pre-line`}
+                // biome-ignore lint/suspicious/noArrayIndexKey: Order is static
+                key={`${key}-${i}`}
+                className={`${currentTheme.outputText} select-text whitespace-pre-wrap break-words py-0.5`}
               >
                 {line}
               </div>
@@ -133,16 +126,10 @@ export default function Terminal() {
             return (
               <div
                 key={key}
-                className={`${currentTheme.commandText} select-text whitespace-pre-line`}
+                className={`${currentTheme.commandText} select-text whitespace-pre-wrap break-words py-0.5`}
               >
-                eternalcode@cli:~$ <span className={currentTheme.inputText}>{item.value}</span>
-              </div>
-            );
-          }
-          if (item.type === "prompt") {
-            return (
-              <div key={key} className={currentTheme.promptText}>
-                {item.value}
+                <span className={currentTheme.promptText}>eternalcode@cli:~$</span>{" "}
+                <span className={currentTheme.inputText}>{item.value}</span>
               </div>
             );
           }
@@ -151,14 +138,15 @@ export default function Terminal() {
 
         {/* Active prompt */}
         <div className="mt-1 flex items-center">
-          <span className={currentTheme.promptText}>eternalcode@cli:~$</span>
+          <span className={`${currentTheme.promptText} shrink-0 mr-2`}>eternalcode@cli:~$</span>
           <input
             ref={inputRef}
-            className={`ml-2 flex-1 border-none bg-transparent font-mono text-sm outline-hidden ${currentTheme.inputText}`}
+            className={`flex-1 border-none bg-transparent p-0 font-mono text-sm outline-hidden ${currentTheme.inputText} placeholder-transparent`}
             value={input}
             onChange={handleInput}
             onKeyDown={handleKeyDown}
             spellCheck={false}
+            autoComplete="off"
             aria-label="Terminal input"
           />
         </div>

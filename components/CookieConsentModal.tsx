@@ -1,181 +1,220 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronDown, ChevronUp } from "lucide-react";
+import { Settings, X, ChevronDown, ChevronUp, ShieldCheck, Cookie } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useCookieConsent } from "@/hooks/useCookieConsent";
 import { softSpring } from "@/lib/animations/variants";
+import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 
 export function CookieConsentModal() {
   const { consent, updateConsent, acceptAll, isInitialized } = useCookieConsent();
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
   const isDefaultConsent =
     consent.necessary && !consent.analytics && !consent.marketing && !consent.preferences;
 
-  if (!isInitialized || !isOpen || !isDefaultConsent) return null;
+  // Open automatically if it's the first visit (default consent)
+  useEffect(() => {
+    if (isInitialized && isDefaultConsent) {
+      setIsOpen(true);
+    }
+  }, [isInitialized, isDefaultConsent]);
+
+  const handleOpenPreferences = () => {
+    setIsOpen(true);
+    // If opening from the settings button, show details by default for better UX
+    setShowDetails(true);
+  };
+
+  const handleAcceptAll = () => {
+    acceptAll();
+    setIsOpen(false);
+  };
+
+  const handleSave = () => {
+    setIsOpen(false);
+  };
+
+  if (!isInitialized) return null;
 
   return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 40 }}
-        transition={softSpring}
-        className="fixed bottom-4 left-4 z-50 w-full max-w-sm rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-800 dark:bg-gray-900"
-      >
-        <div className="p-4">
-          <div className="flex items-start justify-between">
-            <div className="flex-1">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                Cookie Preferences
-              </h3>
-              <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
-                We use cookies to enhance your browsing experience, serve personalized content, and
-                analyze our traffic.
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={() => setIsOpen(false)}
-              className="cursor-pointer ml-4 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
-            >
-              <X className="h-5 w-5" />
-            </button>
-          </div>
+    <>
+      {/* Floating Preferences Button */}
+      <AnimatePresence>
+        {!isOpen && (
+          <motion.button
+            key="cookie-settings-button"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.15 } }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            onClick={handleOpenPreferences}
+            className="cursor-pointer fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-blue-600 text-white shadow-xl backdrop-blur-md hover:bg-blue-700 focus:outline-hidden focus:ring-4 focus:ring-blue-500/30 dark:border-white/10"
+            aria-label="Cookie Preferences"
+            whileHover={{ scale: 1.1, rotate: 15, transition: { duration: 0.2 } }}
+            whileTap={{ scale: 0.9, transition: { duration: 0.1 } }}
+          >
+            <Settings className="h-6 w-6" />
+          </motion.button>
+        )}
+      </AnimatePresence>
 
-          <div className="mt-4">
-            <button
-              type="button"
-              onClick={() => setShowDetails(!showDetails)}
-              className="flex items-center text-sm text-blue-600 hover:underline dark:text-blue-400"
-            >
-              {showDetails ? (
-                <>
-                  <ChevronUp className="mr-1 h-4 w-4" />
-                  Hide Details
-                </>
-              ) : (
-                <>
-                  <ChevronDown className="mr-1 h-4 w-4" />
-                  Show Details
-                </>
-              )}
-            </button>
-
-            {showDetails && (
-              <div className="mt-4 space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-900 dark:text-white">
-                      Necessary Cookies
-                    </h4>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Required for the website to function properly
-                    </p>
-                  </div>
-                  <div className="flex items-center">
-                    <input
-                      type="checkbox"
-                      checked={consent.necessary}
-                      disabled
-                      className="h-4 w-4 rounded-xs border-gray-300 text-blue-600"
-                    />
-                  </div>
+      {/* Main Modal/Backdrop */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            key="cookie-modal"
+            initial={{ opacity: 0, y: 50, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.98 }}
+            transition={{ duration: 0.15, ease: "easeOut" }}
+            className="fixed bottom-6 right-6 z-50 w-full max-w-sm overflow-hidden rounded-2xl border border-white/20 bg-white/80 p-6 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-gray-900/80"
+          >
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
+                  <Cookie className="h-5 w-5" />
                 </div>
-
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-900 dark:text-white">
-                      Analytics Cookies
-                    </h4>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Help us understand how visitors interact with our website
-                    </p>
-                  </div>
-                  <div className="flex items-center">
-                    <input
-                      type="checkbox"
-                      checked={consent.analytics}
-                      onChange={(e) => updateConsent({ analytics: e.target.checked })}
-                      className="h-4 w-4 rounded-xs border-gray-300 text-blue-600"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-900 dark:text-white">
-                      Marketing Cookies
-                    </h4>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Used to track visitors across websites for marketing purposes
-                    </p>
-                  </div>
-                  <div className="flex items-center">
-                    <input
-                      type="checkbox"
-                      checked={consent.marketing}
-                      onChange={(e) => updateConsent({ marketing: e.target.checked })}
-                      className="h-4 w-4 rounded-xs border-gray-300 text-blue-600"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-900 dark:text-white">
-                      Preference Cookies
-                    </h4>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Remember your settings and preferences
-                    </p>
-                  </div>
-                  <div className="flex items-center">
-                    <input
-                      type="checkbox"
-                      checked={consent.preferences}
-                      onChange={(e) => updateConsent({ preferences: e.target.checked })}
-                      className="h-4 w-4 rounded-xs border-gray-300 text-blue-600"
-                    />
-                  </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                    Cookies & Privacy
+                  </h3>
+                  <p className="text-xs font-medium text-gray-500 dark:text-gray-400">
+                    Transparent & Secure
+                  </p>
                 </div>
               </div>
-            )}
-          </div>
+              <button
+                type="button"
+                onClick={() => setIsOpen(false)}
+                className="cursor-pointer rounded-full p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-500 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
 
-          <div className="mt-6 flex flex-col gap-3">
-            <button
-              type="button"
-              onClick={() => {
-                acceptAll();
-                setIsOpen(false);
-              }}
-              className="cursor-pointer inline-flex w-full items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
-            >
-              Accept All
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsOpen(false)}
-              className="cursor-pointer inline-flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
-            >
-              Save Preferences
-            </button>
-          </div>
-          <div className="mt-3 text-center">
-            <Link
-              href="/privacy-policy"
-              className="text-xs text-blue-600 hover:underline dark:text-blue-400"
-            >
-              Privacy Policy
-            </Link>
-          </div>
-        </div>
-      </motion.div>
-    </AnimatePresence>
+            <p className="mt-4 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+              We use cookies to ensure you get the best experience on our website. Some are
+              necessary, while others help us improve our services.
+            </p>
+
+            <div className="mt-4">
+              <button
+                type="button"
+                onClick={() => setShowDetails(!showDetails)}
+                className="cursor-pointer group flex items-center gap-2 text-sm font-medium text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+              >
+                {showDetails ? (
+                  <>
+                    <ChevronUp className="h-4 w-4 transition-transform group-hover:-translate-y-0.5" />
+                    Hide Details
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
+                    Customize Preferences
+                  </>
+                )}
+              </button>
+
+              <AnimatePresence>
+                {showDetails && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ ...softSpring, stiffness: 300, damping: 30 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="mt-4 space-y-4 rounded-xl bg-gray-50/50 p-4 dark:bg-gray-800/50">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h4 className="flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-white">
+                            <ShieldCheck className="h-4 w-4 text-green-500" />
+                            Necessary
+                          </h4>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                            Essential for the site to work
+                          </p>
+                        </div>
+                        <Switch checked={consent.necessary} disabled />
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h4 className="text-sm font-medium text-gray-900 dark:text-white">
+                            Analytics
+                          </h4>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                            Usage patterns & improvements
+                          </p>
+                        </div>
+                        <Switch
+                          checked={consent.analytics}
+                          onChange={(c) => updateConsent({ analytics: c })}
+                        />
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h4 className="text-sm font-medium text-gray-900 dark:text-white">
+                            Marketing
+                          </h4>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                            Personalized content & ads
+                          </p>
+                        </div>
+                        <Switch
+                          checked={consent.marketing}
+                          onChange={(c) => updateConsent({ marketing: c })}
+                        />
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h4 className="text-sm font-medium text-gray-900 dark:text-white">
+                            Preferences
+                          </h4>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                            Site settings & customization
+                          </p>
+                        </div>
+                        <Switch
+                          checked={consent.preferences}
+                          onChange={(c) => updateConsent({ preferences: c })}
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <div className="mt-6 flex flex-col gap-3">
+              <Button variant="primary" fullWidth onClick={handleAcceptAll} shine>
+                Accept All Cookies
+              </Button>
+              <Button variant="outline" fullWidth onClick={handleSave}>
+                Save Preferences
+              </Button>
+            </div>
+
+            <div className="mt-4 text-center">
+              <Link
+                href="/privacy-policy"
+                className="text-xs text-gray-400 hover:text-gray-600 hover:underline dark:text-gray-500 dark:hover:text-gray-400"
+              >
+                Read our Privacy Policy
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

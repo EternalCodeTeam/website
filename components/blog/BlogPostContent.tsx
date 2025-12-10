@@ -2,7 +2,7 @@
 
 import { MDXRemote } from "next-mdx-remote/rsc";
 
-import { components } from "@/components/mdx/mdx-components";
+import { components } from "@/components/ui/mdx/mdx-components";
 
 interface BlogPostContentProps {
   content: string;

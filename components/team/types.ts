@@ -6,7 +6,7 @@ export interface Member {
   documentId: string;
   avatar_url: string;
   name: string;
-  team_roles: { data: TeamRole[] };
+  team_roles: TeamRole[];
   github?: string;
   linkedin?: string;
 }

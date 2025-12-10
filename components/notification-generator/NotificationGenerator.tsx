@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useMemo, useRef, useState } from "react";
 
-import { FadeIn, SlideIn } from "@/components/ui/motion/MotionComponents";
+import { FadeIn } from "@/components/ui/motion/MotionComponents";
 import { ActionBarTab } from "@/components/notification-generator/tabs/actionbar/ActionBarTab";
 import { ChatTab } from "@/components/notification-generator/tabs/chat/ChatTab";
 import {
@@ -109,36 +109,49 @@ export function NotificationGenerator({ notification, setNotification }: Notific
   }, [activeTab]);
 
   return (
-    <FadeIn>
-      <SlideIn direction="down" className="mb-4">
-        <div
-          className="flex flex-wrap border-b border-gray-200 dark:border-gray-700"
-          role="tablist"
-          aria-label="Notification type tabs"
-        >
-          {tabs}
+    <div className="h-full rounded-2xl border border-white/20 bg-white/50 p-6 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
+      <FadeIn>
+        <div className="mb-8">
+          <div
+            className="flex flex-wrap gap-2 rounded-xl bg-gray-100/50 p-1.5 dark:bg-gray-900/50"
+            role="tablist"
+            aria-label="Notification type tabs"
+          >
+            {tabs}
+          </div>
         </div>
-      </SlideIn>
 
-      <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -10 }}
+            transition={{ duration: 0.2 }}
+            role="tabpanel"
+            aria-labelledby={`tab-${activeTab}`}
+            className="min-h-[400px]"
+          >
+            {tabContent}
+          </motion.div>
+        </AnimatePresence>
+
         <motion.div
-          key={activeTab}
-          initial={{ opacity: 0, x: 10 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -10 }}
-          transition={{ duration: 0.15 }}
-          role="tabpanel"
-          aria-labelledby={`tab-${activeTab}`}
+          className="mt-8 flex justify-end border-t border-gray-200 pt-6 dark:border-gray-800"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
         >
-          {tabContent}
+          <Button
+            variant="danger"
+            onClick={resetForm}
+            aria-label="Reset form"
+            className="transition-transform hover:scale-105 active:scale-95"
+          >
+            Reset Form
+          </Button>
         </motion.div>
-      </AnimatePresence>
-
-      <SlideIn direction="up" delay={0.1} className="mt-6 flex justify-end">
-        <Button variant="secondary" onClick={resetForm} aria-label="Reset form">
-          Reset
-        </Button>
-      </SlideIn>
-    </FadeIn>
+      </FadeIn>
+    </div>
   );
 }
