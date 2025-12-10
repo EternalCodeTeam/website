@@ -4,12 +4,18 @@ import type { NextRequest } from "next/server";
 export const runtime = "edge";
 
 const interRegular = fetch(
-  new URL("https://github.com/google/fonts/raw/main/ofl/inter/Inter-Regular.ttf", import.meta.url)
-).then((res) => res.arrayBuffer());
+  new URL("https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.8/files/inter-latin-400-normal.woff")
+).then((res) => {
+  if (!res.ok) throw new Error("Failed to fetch regular font");
+  return res.arrayBuffer();
+});
 
 const interBold = fetch(
-  new URL("https://github.com/google/fonts/raw/main/ofl/inter/Inter-Bold.ttf", import.meta.url)
-).then((res) => res.arrayBuffer());
+  new URL("https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.8/files/inter-latin-700-normal.woff")
+).then((res) => {
+  if (!res.ok) throw new Error("Failed to fetch bold font");
+  return res.arrayBuffer();
+});
 
 export async function GET(req: NextRequest) {
   try {
