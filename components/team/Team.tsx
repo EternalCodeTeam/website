@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useMemo } from "react";
 
-
 import { SlideIn, StaggerContainer } from "@/components/ui/motion/MotionComponents";
 
 import TeamError from "./TeamError";

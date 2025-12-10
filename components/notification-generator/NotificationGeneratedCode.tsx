@@ -1,7 +1,5 @@
 "use client";
 
-
-
 import { AlertBox } from "@/components/ui/alert-box";
 import { CodeBlock } from "@/components/ui/mdx/CodeBlock";
 import { FadeIn, SlideIn } from "@/components/ui/motion/MotionComponents";

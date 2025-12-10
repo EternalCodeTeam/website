@@ -197,10 +197,11 @@ export default function Navbar() {
       initial="hidden"
       animate="visible"
       variants={slideDown}
-      className={`fixed inset-x-0 top-0 z-50 border-b border-transparent transition-all duration-300 ${scrolled || isMenuOpen
+      className={`fixed inset-x-0 top-0 z-50 border-b border-transparent transition-all duration-300 ${
+        scrolled || isMenuOpen
           ? "border-gray-200/50 bg-white/80 backdrop-blur-xl dark:border-white/5 dark:bg-[#0a0a0a]/80"
           : "bg-white/0 dark:bg-black/0"
-        }`}
+      }`}
       aria-label="Main navigation"
     >
       <AnnouncementBanner />

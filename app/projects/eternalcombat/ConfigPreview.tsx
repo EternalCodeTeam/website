@@ -271,27 +271,27 @@ combat:
 `;
 
 export const ConfigPreview = () => {
-    const [highlightedCode, setHighlightedCode] = useState("");
+  const [highlightedCode, setHighlightedCode] = useState("");
 
-    useEffect(() => {
-        // Determine the language; strictly use YAML
-        const grammar = Prism.languages.yaml;
-        const highlighted = Prism.highlight(yamlConfig, grammar, "yaml");
-        setHighlightedCode(highlighted);
-    }, []);
+  useEffect(() => {
+    // Determine the language; strictly use YAML
+    const grammar = Prism.languages.yaml;
+    const highlighted = Prism.highlight(yamlConfig, grammar, "yaml");
+    setHighlightedCode(highlighted);
+  }, []);
 
-    return (
-        <pre className="!bg-transparent !m-0 !p-8 font-mono text-[11px] leading-relaxed font-medium overflow-visible">
-            {/* 
+  return (
+    <pre className="!bg-transparent !m-0 !p-8 font-mono text-[11px] leading-relaxed font-medium overflow-visible">
+      {/* 
           We use dangerouslySetInnerHTML to render the Prism-highlighted HTML.
           We add the 'language-yaml' class to proper scope CSS.
           The 'whitespace-pre-wrap' ensures long lines wrap if necessary (though text-nowrap usually preferred for code, here wrapping is handled by pre).
       */}
-            <code
-                className="language-yaml whitespace-pre-wrap"
-                // biome-ignore lint/security/noDangerouslySetInnerHtml: Trusted content from Prism.js
-                dangerouslySetInnerHTML={{ __html: highlightedCode || yamlConfig }} // Fallback to raw text before hydration
-            />
-        </pre>
-    );
+      <code
+        className="language-yaml whitespace-pre-wrap"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: Trusted content from Prism.js
+        dangerouslySetInnerHTML={{ __html: highlightedCode || yamlConfig }} // Fallback to raw text before hydration
+      />
+    </pre>
+  );
 };

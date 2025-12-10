@@ -159,9 +159,11 @@ export function SoundTable({
                 paginatedSounds.map((sound) => (
                   <tr
                     key={sound.id}
-                    className={`border-b border-gray-100 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 ${selectedSound?.id === sound.id ? "bg-blue-50 dark:bg-blue-900/20" : ""
-                      } ${currentlyPlayingId === sound.id ? "bg-green-50 dark:bg-green-900/20" : ""
-                      } cursor-pointer transition-colors duration-150`}
+                    className={`border-b border-gray-100 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 ${
+                      selectedSound?.id === sound.id ? "bg-blue-50 dark:bg-blue-900/20" : ""
+                    } ${
+                      currentlyPlayingId === sound.id ? "bg-green-50 dark:bg-green-900/20" : ""
+                    } cursor-pointer transition-colors duration-150`}
                     onClick={() => handleSelectSound(sound.id)}
                   >
                     <td className="max-w-[120px] truncate px-2 py-1.5 text-xs" title={sound.name}>

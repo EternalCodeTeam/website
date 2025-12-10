@@ -5,8 +5,6 @@ import { type ChangeEvent, type KeyboardEvent, useEffect, useRef, useState } fro
 
 import responses from "./responses";
 
-
-
 type HistoryItem =
   | { type: "output"; value: string[] }
   | { type: "input"; value: string }

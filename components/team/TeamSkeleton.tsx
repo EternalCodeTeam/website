@@ -1,7 +1,5 @@
 "use client";
 
-
-
 export default function TeamSkeleton() {
   const skeletons = Array.from({ length: 9 }, (_, i) => `skeleton-${i}`);
 

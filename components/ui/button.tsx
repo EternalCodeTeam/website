@@ -87,10 +87,10 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
 
     const animationProps = shouldAnimate
       ? {
-        whileHover: { scale: 1.02 },
-        whileTap: { scale: 0.97 },
-        transition: { type: "spring" as const, stiffness: 400, damping: 25 },
-      }
+          whileHover: { scale: 1.02 },
+          whileTap: { scale: 0.97 },
+          transition: { type: "spring" as const, stiffness: 400, damping: 25 },
+        }
       : {};
 
     const content = (

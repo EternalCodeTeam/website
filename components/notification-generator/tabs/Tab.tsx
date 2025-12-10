@@ -18,10 +18,11 @@ export const Tab = ({ activeTab, tabName, label, onClick }: TabProps) => {
     <button
       type="button"
       id={`tab-${tabName}`}
-      className={`relative rounded-lg px-4 py-2 text-sm font-medium transition-colors duration-200 focus:outline-none cursor-pointer ${isActive
+      className={`relative rounded-lg px-4 py-2 text-sm font-medium transition-colors duration-200 focus:outline-none cursor-pointer ${
+        isActive
           ? "text-gray-900 dark:text-white"
           : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
-        }`}
+      }`}
       onClick={() => onClick(tabName)}
       role="tab"
       aria-selected={isActive}
