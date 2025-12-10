@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { type ReactNode, useEffect, useRef, useState } from "react";
 import { Check, ChevronDown } from "lucide-react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 
 export interface DropdownOption {
   value: string;
@@ -71,12 +71,12 @@ export function Dropdown({
   return (
     <div className={`relative ${className}`} ref={dropdownRef}>
       <button
-        type="button"
-        className={`cursor-pointer flex w-full items-center justify-between gap-2 text-sm font-medium text-gray-700 transition-all duration-200 outline-none ${baseButtonStyles} ${buttonClassName}`}
-        onClick={() => !disabled && setIsOpen((v) => !v)}
-        disabled={disabled}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
+        className={`flex w-full cursor-pointer items-center justify-between gap-2 font-medium text-gray-700 text-sm outline-none transition-all duration-200 ${baseButtonStyles} ${buttonClassName}`}
+        disabled={disabled}
+        onClick={() => !disabled && setIsOpen((v) => !v)}
+        type="button"
       >
         <span className="flex items-center gap-2 truncate">
           {selected?.icon}
@@ -84,35 +84,34 @@ export function Dropdown({
         </span>
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.2 }}
           className="ml-2 shrink-0"
+          transition={{ duration: 0.2 }}
         >
-          <ChevronDown className="h-4 w-4 opacity-50" aria-hidden="true" />
+          <ChevronDown aria-hidden="true" className="h-4 w-4 opacity-50" />
         </motion.span>
       </button>
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.15, ease: "easeOut" }}
             className={`absolute left-0 z-50 mt-2 min-w-full origin-top-right overflow-hidden rounded-xl border border-gray-200 bg-white/80 py-1 shadow-xl ring-1 ring-black/5 backdrop-blur-xl dark:border-gray-800 dark:bg-gray-900/80 dark:ring-white/10 ${menuClassName}`}
+            exit={{ opacity: 0, y: -8 }}
+            initial={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.15, ease: "easeOut" }}
           >
-            <div className="max-h-[300px] overflow-y-auto scrollbar-none">
+            <div className="scrollbar-none max-h-[300px] overflow-y-auto">
               {options.map((option) => (
                 <div
+                  aria-selected={option.value === value}
+                  className={`flex cursor-pointer items-center justify-between px-4 py-2.5 text-sm outline-none transition-colors duration-150 ${
+                    option.value === value
+                      ? "bg-blue-50/50 font-medium text-blue-700 dark:bg-blue-500/10 dark:text-blue-400"
+                      : "text-gray-700 hover:bg-gray-50/80 dark:text-gray-300 dark:hover:bg-gray-800/60"
+                  } ${optionClassName}`}
                   key={option.value}
-                  className={`flex cursor-pointer items-center justify-between px-4 py-2.5 text-sm transition-colors duration-150 outline-none
-                    ${
-                      option.value === value
-                        ? "bg-blue-50/50 text-blue-700 font-medium dark:bg-blue-500/10 dark:text-blue-400"
-                        : "text-gray-700 hover:bg-gray-50/80 dark:text-gray-300 dark:hover:bg-gray-800/60"
-                    } ${optionClassName}`}
                   onClick={() => handleOptionSelect(option.value)}
                   onKeyDown={(e) => handleKeyDown(e, option.value)}
                   role="option"
-                  aria-selected={option.value === value}
                   tabIndex={0}
                 >
                   <span className="flex items-center gap-2">

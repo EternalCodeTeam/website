@@ -1,12 +1,11 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Book, Shield, Download, Swords, Ban, Settings, Zap } from "lucide-react";
+import { Ban, Book, Download, Settings, Shield, Swords, Zap } from "lucide-react";
 import { useRef } from "react";
-
+import { Button } from "@/components/ui/button";
 import { FacadePattern } from "@/components/ui/facade-pattern";
 import { FadeIn, SlideIn } from "@/components/ui/motion/MotionComponents";
-import { Button } from "@/components/ui/button";
 
 import { ConfigPreview } from "./ConfigPreview";
 
@@ -21,98 +20,102 @@ export default function EternalCombatPage() {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white selection:bg-red-500/30">
+    <div className="relative min-h-screen bg-white text-gray-900 selection:bg-red-500/30 dark:bg-gray-950 dark:text-white">
       {/* Background Decor */}
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
         <FacadePattern className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" />
-        <div className="absolute top-0 right-0 p-20 w-[500px] h-[500px] bg-red-500/5 blur-[100px] rounded-full mix-blend-multiply dark:mix-blend-screen" />
-        <div className="absolute top-20 left-0 p-20 w-[400px] h-[400px] bg-orange-500/5 blur-[100px] rounded-full mix-blend-multiply dark:mix-blend-screen" />
+        <div className="absolute top-0 right-0 h-[500px] w-[500px] rounded-full bg-red-500/5 p-20 mix-blend-multiply blur-[100px] dark:mix-blend-screen" />
+        <div className="absolute top-20 left-0 h-[400px] w-[400px] rounded-full bg-orange-500/5 p-20 mix-blend-multiply blur-[100px] dark:mix-blend-screen" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={targetRef}>
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" ref={targetRef}>
         {/* Hero Section */}
         <section className="pt-32 pb-20 md:pt-48 md:pb-32">
           <motion.div
+            className="flex flex-col items-center gap-12 lg:flex-row lg:gap-16"
             style={{ opacity, scale }}
-            className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16"
           >
             {/* Text Content */}
-            <div className="flex-1 text-center lg:text-left z-20">
+            <div className="z-20 flex-1 text-center lg:text-left">
               <FadeIn>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-xs font-semibold uppercase tracking-wider mb-6">
-                  <Swords className="w-3 h-3" />
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-red-100 px-3 py-1 font-semibold text-red-600 text-xs uppercase tracking-wider dark:bg-red-900/20 dark:text-red-400">
+                  <Swords className="h-3 w-3" />
                   PvP Evolved
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 text-gray-900 dark:text-white leading-[1.1]">
+                <h1 className="mb-6 font-extrabold text-4xl text-gray-900 leading-[1.1] tracking-tight md:text-5xl lg:text-6xl dark:text-white">
                   Combat Logging, <br />
                   <span className="bg-gradient-to-r from-red-500 via-orange-500 to-red-500 bg-clip-text text-transparent">
                     Solved Forever.
                   </span>
                 </h1>
 
-                <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                <p className="mx-auto mb-8 max-w-2xl text-gray-600 text-lg leading-relaxed lg:mx-0 dark:text-gray-400">
                   EternalCombat is the ultimate solution for fair PvP. Prevent combat logging,
                   secure your spawn, and customize every aspect of the battle.
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
+                <div className="mb-12 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
                   <Button
+                    className="bg-red-600 text-white shadow-red-500/25 hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700"
                     href="/builds?project=eternalcombat"
-                    variant="primary"
+                    leftIcon={<Download className="h-4 w-4" />}
                     shine
-                    className="bg-red-600 hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700 text-white shadow-red-500/25"
-                    leftIcon={<Download className="w-4 h-4" />}
+                    variant="primary"
                   >
                     Download Now
                   </Button>
 
                   <Button
                     href="https://eternalcode.pl/docs/eternalcombat"
-                    target="_blank"
+                    leftIcon={<Book className="h-4 w-4" />}
                     rel="noopener noreferrer"
+                    target="_blank"
                     variant="outline"
-                    leftIcon={<Book className="w-4 h-4" />}
                   >
                     Documentation
                   </Button>
                 </div>
 
-                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-8 pt-4">
+                <div className="flex flex-wrap items-center justify-center gap-8 pt-4 lg:justify-start">
                   <div className="flex items-center gap-3">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-red-100 dark:bg-red-500/10 text-red-600 dark:text-red-500">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-100 text-red-600 dark:bg-red-500/10 dark:text-red-500">
                       <motion.div
                         animate={{ rotate: [-6, 6, -6] }}
-                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                        transition={{
+                          duration: 3,
+                          repeat: Number.POSITIVE_INFINITY,
+                          ease: "easeInOut",
+                        }}
                       >
-                        <Swords className="w-5 h-5" />
+                        <Swords className="h-5 w-5" />
                       </motion.div>
                     </div>
                     <div className="flex flex-col text-left">
-                      <span className="text-lg font-bold text-gray-900 dark:text-white leading-none">
+                      <span className="font-bold text-gray-900 text-lg leading-none dark:text-white">
                         200+
                       </span>
-                      <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                      <span className="font-semibold text-gray-500 text-xs uppercase tracking-wider">
                         Servers
                       </span>
                     </div>
                   </div>
 
-                  <div className="w-px h-8 bg-gray-200 dark:bg-gray-800 hidden sm:block" />
+                  <div className="hidden h-8 w-px bg-gray-200 sm:block dark:bg-gray-800" />
 
                   <div className="flex items-center gap-3">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-yellow-100 dark:bg-yellow-500/10 text-yellow-600 dark:text-yellow-500">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-yellow-100 text-yellow-600 dark:bg-yellow-500/10 dark:text-yellow-500">
                       <motion.div
                         animate={{ opacity: [1, 0.6, 1], scale: [1, 1.05, 1] }}
-                        transition={{ duration: 3, repeat: Infinity }}
+                        transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
                       >
-                        <Zap className="w-5 h-5 fill-current" />
+                        <Zap className="h-5 w-5 fill-current" />
                       </motion.div>
                     </div>
                     <div className="flex flex-col text-left">
-                      <span className="text-lg font-bold text-gray-900 dark:text-white leading-none">
+                      <span className="font-bold text-gray-900 text-lg leading-none dark:text-white">
                         1000+
                       </span>
-                      <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                      <span className="font-semibold text-gray-500 text-xs uppercase tracking-wider">
                         Daily Players
                       </span>
                     </div>
@@ -122,41 +125,41 @@ export default function EternalCombatPage() {
             </div>
 
             {/* Visual/Image Placeholder */}
-            <div className="flex-1 w-full max-w-xl lg:max-w-none relative">
+            <div className="relative w-full max-w-xl flex-1 lg:max-w-none">
               <FadeIn delay={0.2}>
                 {/* Code Preview Overlay */}
                 <div className="flex items-center justify-center pt-8 lg:pt-0">
-                  <div className="w-full max-w-lg bg-gray-900/90 backdrop-blur-sm rounded-xl border border-gray-700/50 p-6 shadow-2xl transition-transform hover:scale-[1.02] duration-500">
-                    <div className="flex items-center gap-2 mb-4 border-b border-gray-700/50 pb-2">
-                      <div className="w-3 h-3 rounded-full bg-red-500" />
-                      <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                      <div className="w-3 h-3 rounded-full bg-green-500" />
-                      <div className="text-xs text-gray-400 ml-2 font-mono">latest.txt</div>
+                  <div className="w-full max-w-lg rounded-xl border border-gray-700/50 bg-gray-900/90 p-6 shadow-2xl backdrop-blur-sm transition-transform duration-500 hover:scale-[1.02]">
+                    <div className="mb-4 flex items-center gap-2 border-gray-700/50 border-b pb-2">
+                      <div className="h-3 w-3 rounded-full bg-red-500" />
+                      <div className="h-3 w-3 rounded-full bg-yellow-500" />
+                      <div className="h-3 w-3 rounded-full bg-green-500" />
+                      <div className="ml-2 font-mono text-gray-400 text-xs">latest.txt</div>
                     </div>
-                    <div className="text-gray-400 font-mono text-sm leading-relaxed">
+                    <div className="font-mono text-gray-400 text-sm leading-relaxed">
                       <div>
                         <span className="text-gray-500">[19:23:01]</span>{" "}
-                        <span className="bg-gradient-to-r from-[#ff6666] to-[#ff0000] bg-clip-text text-transparent font-bold">
+                        <span className="bg-gradient-to-r from-[#ff6666] to-[#ff0000] bg-clip-text font-bold text-transparent">
                           ⚔ vLucky is in combat!
                         </span>
                       </div>
                       <div>
                         <span className="text-gray-500">[19:23:01]</span>{" "}
-                        <span className="bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text text-transparent font-bold">
+                        <span className="bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text font-bold text-transparent">
                           ⚠ You are in combat!
                         </span>{" "}
-                        <span className="underline decoration-white/30 decoration-1 underline-offset-2 text-white">
+                        <span className="text-white underline decoration-1 decoration-white/30 underline-offset-2">
                           Do not leave the server!
                         </span>
                       </div>
-                      <div className="text-gray-500 my-2">...</div>
+                      <div className="my-2 text-gray-500">...</div>
                       <div className="text-yellow-400">
                         <span className="text-gray-500">[19:23:45]</span> vLucky tried to
                         disconnect.
                       </div>
                       <div className="text-red-500">
                         <span className="text-gray-500">[19:23:45]</span>{" "}
-                        <span className="bg-gradient-to-r from-red-600 to-red-900 bg-clip-text text-transparent font-bold">
+                        <span className="bg-gradient-to-r from-red-600 to-red-900 bg-clip-text font-bold text-transparent">
                           ⚠ vLucky logged off during combat!
                         </span>
                       </div>
@@ -169,18 +172,18 @@ export default function EternalCombatPage() {
         </section>
 
         {/* Features Section */}
-        <section className="py-24 border-t border-gray-100 dark:border-gray-800/50">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+        <section className="border-gray-100 border-t py-24 dark:border-gray-800/50">
+          <div className="mx-auto mb-16 max-w-3xl text-center">
             <FadeIn>
-              <h2 className="text-3xl font-bold mb-4">Everything you need for fair fights.</h2>
-              <p className="text-gray-600 dark:text-gray-400 text-lg">
+              <h2 className="mb-4 font-bold text-3xl">Everything you need for fair fights.</h2>
+              <p className="text-gray-600 text-lg dark:text-gray-400">
                 EternalCombat is packed with features designed to keep your players engaged and your
                 server balanced.
               </p>
             </FadeIn>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid gap-8 md:grid-cols-3">
             {[
               {
                 title: "Spawn Protection",
@@ -207,17 +210,17 @@ export default function EternalCombatPage() {
                 bg: "bg-red-500/10",
               },
             ].map((feature, i) => (
-              <SlideIn key={feature.title} direction="up" delay={i * 0.1} className="h-full">
-                <div className="h-full p-8 rounded-2xl bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 hover:border-red-500/30 transition-colors group">
+              <SlideIn className="h-full" delay={i * 0.1} direction="up" key={feature.title}>
+                <div className="group h-full rounded-2xl border border-gray-200 bg-gray-50 p-8 transition-colors hover:border-red-500/30 dark:border-gray-800 dark:bg-gray-900/50">
                   <div
-                    className={`w-12 h-12 rounded-xl ${feature.bg} ${feature.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
+                    className={`h-12 w-12 rounded-xl ${feature.bg} ${feature.color} mb-6 flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}
                   >
-                    <feature.icon className="w-6 h-6" />
+                    <feature.icon className="h-6 w-6" />
                   </div>
-                  <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">
+                  <h3 className="mb-3 font-bold text-gray-900 text-xl dark:text-white">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  <p className="text-gray-600 leading-relaxed dark:text-gray-400">
                     {feature.description}
                   </p>
                 </div>
@@ -227,15 +230,15 @@ export default function EternalCombatPage() {
         </section>
 
         {/* Configuration Section */}
-        <section className="py-24 border-t border-gray-100 dark:border-gray-800/50">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <section className="border-gray-100 border-t py-24 dark:border-gray-800/50">
+          <div className="grid items-center gap-16 lg:grid-cols-2">
             <SlideIn direction="left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-xs font-semibold uppercase tracking-wider mb-6">
-                <Settings className="w-3 h-3" />
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1 font-semibold text-gray-600 text-xs uppercase tracking-wider dark:bg-gray-800 dark:text-gray-300">
+                <Settings className="h-3 w-3" />
                 Configuration
               </div>
-              <h2 className="text-3xl font-bold mb-6 tracking-tight">Control every mechanic.</h2>
-              <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+              <h2 className="mb-6 font-bold text-3xl tracking-tight">Control every mechanic.</h2>
+              <p className="mb-8 text-gray-600 text-lg leading-relaxed dark:text-gray-400">
                 From disabling elytras to setting custom pearl cooldowns, EternalCombat gives you
                 granular control over the PvP experience.
               </p>
@@ -247,22 +250,22 @@ export default function EternalCombatPage() {
                   "Custom damage & projectile tags",
                   "Pearl cooldowns & Block placement control",
                 ].map((item) => (
-                  <div key={item} className="flex items-center gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-red-500" />
-                    <span className="text-gray-700 dark:text-gray-300 font-medium">{item}</span>
+                  <div className="flex items-center gap-3" key={item}>
+                    <div className="h-1.5 w-1.5 rounded-full bg-red-500" />
+                    <span className="font-medium text-gray-700 dark:text-gray-300">{item}</span>
                   </div>
                 ))}
               </div>
             </SlideIn>
 
-            <SlideIn direction="right" delay={0.2}>
-              <div className="relative group perspective-1000">
+            <SlideIn delay={0.2} direction="right">
+              <div className="group perspective-1000 relative">
                 {/* The "Long Screenshot" Container */}
-                <div className="relative h-[600px] w-full overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#0d1117] shadow-2xl select-none transform transition-transform duration-700 hover:scale-[1.02]">
+                <div className="relative h-[600px] w-full transform select-none overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl transition-transform duration-700 hover:scale-[1.02] dark:border-gray-800 dark:bg-[#0d1117]">
                   {/* Tilted Content */}
-                  <div className="absolute -top-10 -left-[15%] w-[150%] transform rotate-2 hover:rotate-0 transition-all duration-700 hover:scale-100 origin-top-left h-[200%]">
+                  <div className="-top-10 -left-[15%] absolute h-[200%] w-[150%] origin-top-left rotate-2 transform transition-all duration-700 hover:rotate-0 hover:scale-100">
                     {/* Inner blur container */}
-                    <div className="filter blur-[0.5px] transition-all duration-700 group-hover:blur-0 opacity-90 group-hover:opacity-100 h-full pl-24">
+                    <div className="h-full pl-24 opacity-90 blur-[0.5px] filter transition-all duration-700 group-hover:opacity-100 group-hover:blur-0">
                       {/* Auto-scrolling animation container */}
                       <div className="animate-scroll-y">
                         <ConfigPreview />
@@ -273,7 +276,7 @@ export default function EternalCombatPage() {
                   </div>
 
                   {/* Gradient overlay to fade bottom */}
-                  <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-white dark:from-[#0d1117] to-transparent pointer-events-none z-10" />
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-40 bg-gradient-to-t from-white to-transparent dark:from-[#0d1117]" />
 
                   {/* Animation Styles */}
                   <style jsx>{`
@@ -295,31 +298,31 @@ export default function EternalCombatPage() {
         </section>
 
         {/* Footer CTA */}
-        <section className="py-32 text-center border-t border-gray-100 dark:border-gray-800/50">
+        <section className="border-gray-100 border-t py-32 text-center dark:border-gray-800/50">
           <FadeIn>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">
+            <h2 className="mb-6 font-bold text-3xl tracking-tight md:text-4xl">
               Hundreds of servers trust EternalCombat.
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto">
+            <p className="mx-auto mb-10 max-w-2xl text-gray-600 text-lg dark:text-gray-400">
               Don't let loggers ruin your server's economy and fun.
             </p>
-            <div className="flex justify-center flex-wrap gap-4">
+            <div className="flex flex-wrap justify-center gap-4">
               <Button
+                className="min-w-[160px] bg-red-600 text-white hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700"
                 href="/builds?project=eternalcombat"
-                variant="primary"
-                size="lg"
                 shine
-                className="bg-red-600 hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700 text-white min-w-[160px]"
+                size="lg"
+                variant="primary"
               >
                 Get Plugin
               </Button>
               <Button
-                href="https://github.com/EternalCodeTeam/EternalCombat"
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="outline"
-                size="lg"
                 className="min-w-[160px]"
+                href="https://github.com/EternalCodeTeam/EternalCombat"
+                rel="noopener noreferrer"
+                size="lg"
+                target="_blank"
+                variant="outline"
               >
                 GitHub
               </Button>

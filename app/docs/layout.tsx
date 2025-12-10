@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-
-import SidebarWrapper from "@/components/docs/sidebar/SidebarWrapper";
 import type { ReactNode } from "react";
+import SidebarWrapper from "@/components/docs/sidebar/SidebarWrapper";
 
 const poppins = Poppins({
   weight: "500",
@@ -43,10 +42,10 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
       className={`${poppins.className} relative min-h-screen bg-gray-50 antialiased transition-colors duration-200 dark:bg-gray-950`}
     >
       {/* Background Decor */}
-      <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
-        <div className="absolute left-[-10%] top-0 h-[600px] w-[600px] rounded-full bg-indigo-500/10 blur-3xl filter dark:bg-indigo-500/5 mix-blend-multiply dark:mix-blend-screen" />
-        <div className="absolute right-[-10%] bottom-0 h-[600px] w-[600px] rounded-full bg-cyan-500/10 blur-3xl filter dark:bg-cyan-500/5 mix-blend-multiply dark:mix-blend-screen" />
-        <FacadePattern className="absolute inset-0 opacity-30 dark:opacity-10 h-full" />
+      <div className="pointer-events-none absolute inset-0 z-0 select-none overflow-hidden">
+        <div className="absolute top-0 left-[-10%] h-[600px] w-[600px] rounded-full bg-indigo-500/10 mix-blend-multiply blur-3xl filter dark:bg-indigo-500/5 dark:mix-blend-screen" />
+        <div className="absolute right-[-10%] bottom-0 h-[600px] w-[600px] rounded-full bg-cyan-500/10 mix-blend-multiply blur-3xl filter dark:bg-cyan-500/5 dark:mix-blend-screen" />
+        <FacadePattern className="absolute inset-0 h-full opacity-30 dark:opacity-10" />
       </div>
 
       <div className="relative z-10 mx-auto min-h-[calc(100vh-7rem)] max-w-(--breakpoint-xl) px-4 py-12 pt-56 md:pt-36">

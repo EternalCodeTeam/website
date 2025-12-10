@@ -37,18 +37,18 @@ const SidebarItem: FC<DocItemProps> = memo(({ item, level, onItemClick }) => {
       <div className="mb-0.5">
         <motion.div
           className={cn(
-            "group flex cursor-pointer select-none items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all",
+            "group flex cursor-pointer select-none items-center gap-2 rounded-lg px-3 py-2 font-medium text-sm transition-all",
             isChildActive
               ? "bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400"
               : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-gray-200"
           )}
-          style={{ paddingLeft }}
           onClick={toggleExpanded}
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") {
               toggleExpanded(e as unknown as MouseEvent<HTMLDivElement>);
             }
           }}
+          style={{ paddingLeft }}
         >
           <motion.div
             animate={{ rotate: isExpanded ? 90 : 0 }}
@@ -66,7 +66,7 @@ const SidebarItem: FC<DocItemProps> = memo(({ item, level, onItemClick }) => {
           <span className="flex-1 truncate">{item.title}</span>
 
           {item.children && (
-            <span className="ml-auto flex h-5 min-w-[20px] items-center justify-center rounded-full bg-gray-200 px-1.5 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300">
+            <span className="ml-auto flex h-5 min-w-[20px] items-center justify-center rounded-full bg-gray-200 px-1.5 font-medium text-gray-600 text-xs dark:bg-gray-700 dark:text-gray-300">
               {item.children.length}
             </span>
           )}
@@ -75,21 +75,21 @@ const SidebarItem: FC<DocItemProps> = memo(({ item, level, onItemClick }) => {
         <AnimatePresence initial={false}>
           {isExpanded && (
             <motion.div
-              initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.2, ease: "easeInOut" }}
               className="overflow-hidden"
+              exit={{ height: 0, opacity: 0 }}
+              initial={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2, ease: "easeInOut" }}
             >
               <div className="mt-0.5 space-y-0.5">
                 {item.children?.map((child, childIndex) => (
                   <SidebarItem
-                    key={child.path}
-                    item={child}
-                    level={level + 1}
-                    isActive={pathname === child.path}
-                    onItemClick={onItemClick}
                     index={childIndex}
+                    isActive={pathname === child.path}
+                    item={child}
+                    key={child.path}
+                    level={level + 1}
+                    onItemClick={onItemClick}
                   />
                 ))}
               </div>
@@ -113,13 +113,13 @@ const SidebarItem: FC<DocItemProps> = memo(({ item, level, onItemClick }) => {
       >
         {item.icon ? (
           <DocIcon
-            iconName={item.icon}
             className={cn(
               "h-4 w-4 shrink-0",
               isActive
                 ? "text-blue-700 dark:text-blue-400"
                 : "text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-300"
             )}
+            iconName={item.icon}
             size={16}
           />
         ) : (

@@ -4,7 +4,7 @@ export const revalidate = 5;
 
 export async function GET(_request: Request) {
   try {
-    const res = await fetch(`https://cms.eternalcode.pl/api/team-members?populate=*`, {
+    const res = await fetch("https://cms.eternalcode.pl/api/team-members?populate=*", {
       headers: {
         Authorization: `Bearer ${process.env.ETERNALCODE_STRAPI_KEY}`,
       },

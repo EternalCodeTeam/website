@@ -1,5 +1,5 @@
-import { MinecraftText } from "../../preview/minecraftTextParser";
 import { memo } from "react";
+import { MinecraftText } from "../../preview/minecraftTextParser";
 
 interface ActionBarProps {
   message: string;

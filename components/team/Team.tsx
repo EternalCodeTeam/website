@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { SlideIn, StaggerContainer } from "@/components/ui/motion/MotionComponents";
 
 import TeamError from "./TeamError";
 import TeamMember from "./TeamMember";
-import { fetchTeamMembers } from "./teamService";
 import TeamSkeleton from "./TeamSkeleton";
+import { fetchTeamMembers } from "./teamService";
 import type { Member } from "./types";
 
 const EXPANDED_ROLE_DESCRIPTIONS: Record<string, string> = {
@@ -71,35 +71,37 @@ export default function Team() {
   }, [members]);
 
   // Sort roles by priority
-  const sortedRoles = useMemo(() => {
-    return Object.keys(groupedMembers).sort((a, b) => {
-      const prioA = ROLE_PRIORITY.indexOf(a);
-      const prioB = ROLE_PRIORITY.indexOf(b);
+  const sortedRoles = useMemo(
+    () =>
+      Object.keys(groupedMembers).sort((a, b) => {
+        const prioA = ROLE_PRIORITY.indexOf(a);
+        const prioB = ROLE_PRIORITY.indexOf(b);
 
-      const isAInPriority = prioA !== -1;
-      const isBInPriority = prioB !== -1;
+        const isAInPriority = prioA !== -1;
+        const isBInPriority = prioB !== -1;
 
-      if (isAInPriority && isBInPriority) return prioA - prioB;
-      if (isAInPriority) return -1;
-      if (isBInPriority) return 1;
+        if (isAInPriority && isBInPriority) return prioA - prioB;
+        if (isAInPriority) return -1;
+        if (isBInPriority) return 1;
 
-      return a.localeCompare(b);
-    });
-  }, [groupedMembers]);
+        return a.localeCompare(b);
+      }),
+    [groupedMembers]
+  );
 
   if (loading) return <TeamSkeleton />;
   if (error) return <TeamError error={error} />;
 
   return (
     <section id="team">
-      <div className="relative mx-auto max-w-(--breakpoint-xl) px-4 pb-20 pt-4">
+      <div className="relative mx-auto max-w-(--breakpoint-xl) px-4 pt-4 pb-20">
         <div className="mt-8 space-y-20">
           {sortedRoles.map(
             (role) =>
               groupedMembers[role].length > 0 && (
                 <div key={role}>
-                  <SlideIn direction="up" className="mb-8">
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{role}s</h2>
+                  <SlideIn className="mb-8" direction="up">
+                    <h2 className="font-bold text-2xl text-gray-900 dark:text-white">{role}s</h2>
                     <p className="mt-2 max-w-2xl text-base text-gray-600 dark:text-gray-400">
                       {EXPANDED_ROLE_DESCRIPTIONS[role] || DEFAULT_DESCRIPTION}
                     </p>
@@ -108,11 +110,11 @@ export default function Team() {
                   <StaggerContainer className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {groupedMembers[role].map((member, index) => (
                       <SlideIn
-                        key={`${role}-${member.documentId || index}`}
-                        direction="up"
                         delay={index * 0.05}
+                        direction="up"
+                        key={`${role}-${member.documentId || index}`}
                       >
-                        <TeamMember member={member} index={index} />
+                        <TeamMember index={index} member={member} />
                       </SlideIn>
                     ))}
                   </StaggerContainer>
@@ -121,7 +123,7 @@ export default function Team() {
           )}
 
           {sortedRoles.length === 0 && !loading && (
-            <div className="text-center mt-12 text-gray-500">No team members found.</div>
+            <div className="mt-12 text-center text-gray-500">No team members found.</div>
           )}
         </div>
       </div>

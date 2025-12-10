@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { SlideIn, StaggerContainer, FadeIn } from "@/components/ui/motion/MotionComponents";
+import { Play } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 import { NotificationGeneratedCode } from "@/components/notification-generator/NotificationGeneratedCode";
 import { NotificationGenerator as NotificationGeneratorForm } from "@/components/notification-generator/NotificationGenerator";
 import { MinecraftPreview } from "@/components/notification-generator/preview/MinecraftPreview";
-import { Play } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import type { NotificationConfig } from "@/components/notification-generator/types";
+import { Button } from "@/components/ui/button";
+import { FadeIn, SlideIn, StaggerContainer } from "@/components/ui/motion/MotionComponents";
 
 export default function NotificationGeneratorPage() {
   const [notification, setNotification] = useState<NotificationConfig>({
@@ -66,8 +66,8 @@ export default function NotificationGeneratorPage() {
       const volumeValue = notification.volume || "1.0";
       const pitchValue = notification.pitch || "1.0";
 
-      const volume = parseFloat(volumeValue).toFixed(1);
-      const pitch = parseFloat(pitchValue).toFixed(1);
+      const volume = Number.parseFloat(volumeValue).toFixed(1);
+      const pitch = Number.parseFloat(pitchValue).toFixed(1);
 
       if (notification.soundCategory) {
         parts.push(
@@ -100,29 +100,29 @@ export default function NotificationGeneratorPage() {
   return (
     <StaggerContainer className="w-full">
       <div className="mb-12 text-center">
-        <SlideIn direction="down" delay={0.1}>
-          <h1 className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-4xl font-extrabold tracking-tight text-transparent dark:from-white dark:to-gray-300 md:text-6xl">
+        <SlideIn delay={0.1} direction="down">
+          <h1 className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text font-extrabold text-4xl text-transparent tracking-tight md:text-6xl dark:from-white dark:to-gray-300">
             Notification Generator
           </h1>
         </SlideIn>
         <FadeIn delay={0.2}>
-          <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">
+          <p className="mt-4 text-gray-600 text-lg dark:text-gray-400">
             Design and preview your EternalCode notifications in real-time.
           </p>
         </FadeIn>
       </div>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        <SlideIn direction="left" delay={0.3} className="h-full">
+        <SlideIn className="h-full" delay={0.3} direction="left">
           <NotificationGeneratorForm
             notification={notification}
             setNotification={setNotification}
           />
         </SlideIn>
 
-        <SlideIn direction="right" delay={0.4} className="h-full">
-          <div className="h-full rounded-2xl border border-white/20 bg-white/50 p-6 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
-            <h2 className="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
+        <SlideIn className="h-full" delay={0.4} direction="right">
+          <div className="h-full rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 dark:bg-gray-900/40 dark:ring-gray-800">
+            <h2 className="mb-4 font-semibold text-gray-900 text-xl dark:text-white">
               Generated Configuration
             </h2>
             <NotificationGeneratedCode yamlCode={yamlCode} />
@@ -130,18 +130,18 @@ export default function NotificationGeneratorPage() {
         </SlideIn>
       </div>
 
-      <SlideIn direction="up" delay={0.5} className="mt-8">
-        <div className="rounded-2xl border border-white/20 bg-white/50 p-6 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
+      <SlideIn className="mt-8" delay={0.5} direction="up">
+        <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 dark:bg-gray-900/40 dark:ring-gray-800">
           <div className="mb-6 flex flex-col items-center justify-between gap-4 sm:flex-row">
             <div>
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Live Preview</h2>
-              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+              <h2 className="font-semibold text-gray-900 text-xl dark:text-white">Live Preview</h2>
+              <p className="mt-1 text-gray-500 text-sm dark:text-gray-400">
                 See how your notification looks in-game.
               </p>
             </div>
             <Button
-              onClick={handlePlayPreview}
               leftIcon={<Play className="h-4 w-4" />}
+              onClick={handlePlayPreview}
               variant="primary"
             >
               Replay Animation

@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
 import * as LucideIcons from "lucide-react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 interface CardProps {
@@ -22,7 +22,7 @@ export function Card({ title, description, icon, href, className }: CardProps) {
       className={cn(
         "group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 dark:border-gray-800 dark:bg-gray-900",
         href &&
-          "cursor-pointer hover:border-blue-500/50 hover:shadow-md hover:-translate-y-1 dark:hover:border-blue-400/50",
+          "hover:-translate-y-1 cursor-pointer hover:border-blue-500/50 hover:shadow-md dark:hover:border-blue-400/50",
         className
       )}
     >
@@ -33,10 +33,10 @@ export function Card({ title, description, icon, href, className }: CardProps) {
           </div>
         )}
         <div className="space-y-2">
-          <h3 className="text-lg font-semibold tracking-tight text-gray-900 transition-colors group-hover:text-blue-600 dark:text-gray-100 dark:group-hover:text-blue-400">
+          <h3 className="font-semibold text-gray-900 text-lg tracking-tight transition-colors group-hover:text-blue-600 dark:text-gray-100 dark:group-hover:text-blue-400">
             {title}
           </h3>
-          {description && <p className="text-sm text-gray-500 dark:text-gray-400">{description}</p>}
+          {description && <p className="text-gray-500 text-sm dark:text-gray-400">{description}</p>}
         </div>
       </div>
     </div>
@@ -44,7 +44,7 @@ export function Card({ title, description, icon, href, className }: CardProps) {
 
   if (href) {
     return (
-      <Link href={href} className="block no-underline">
+      <Link className="block no-underline" href={href}>
         {content}
       </Link>
     );
@@ -61,6 +61,6 @@ export function CardGroup({
   className?: string;
 }) {
   return (
-    <div className={cn("grid gap-4 sm:grid-cols-2 lg:grid-cols-3 my-8", className)}>{children}</div>
+    <div className={cn("my-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3", className)}>{children}</div>
   );
 }

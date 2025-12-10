@@ -158,19 +158,19 @@ export const AlertBox = memo(function AlertBox({
     >
       <div className="flex flex-wrap items-start gap-3">
         {/* Alert icon */}
-        <div className="mt-0.5 shrink-0" aria-hidden="true">
+        <div aria-hidden="true" className="mt-0.5 shrink-0">
           <Icon className={`h-5 w-5 ${styles.icon}`} />
         </div>
 
         {/* Alert content */}
         <div className="min-w-0 flex-1">
           {(title || defaultTitle) && (
-            <h5 className={`mb-1 text-sm font-semibold md:text-base ${styles.title}`}>
+            <h5 className={`mb-1 font-semibold text-sm md:text-base ${styles.title}`}>
               {title || defaultTitle}
             </h5>
           )}
           <div
-            className={`prose-sm max-w-full overflow-x-auto wrap-break-word md:prose-base ${styles.text}`}
+            className={`prose-sm wrap-break-word md:prose-base max-w-full overflow-x-auto ${styles.text}`}
           >
             {children}
           </div>

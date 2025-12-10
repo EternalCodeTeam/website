@@ -105,69 +105,69 @@ function BuildExplorerContent() {
   const projectOptions = PROJECTS.map((p) => ({
     value: p.id,
     label: p.name,
-    icon: <Package className="w-4 h-4 text-gray-500 dark:text-gray-400" />,
+    icon: <Package className="h-4 w-4 text-gray-500 dark:text-gray-400" />,
   }));
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-white selection:bg-blue-500/30">
+    <div className="relative min-h-screen overflow-hidden bg-gray-50 text-gray-900 selection:bg-blue-500/30 dark:bg-gray-950 dark:text-white">
       {/* Background Decor */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute -left-20 top-20 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl filter dark:bg-blue-500/5" />
-        <div className="absolute -right-20 top-40 h-96 w-96 rounded-full bg-indigo-500/10 blur-3xl filter dark:bg-indigo-500/5" />
-        <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-500/5 blur-3xl filter" />
+      <div className="pointer-events-none absolute inset-0 z-0">
+        <div className="-left-20 absolute top-20 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl filter dark:bg-blue-500/5" />
+        <div className="-right-20 absolute top-40 h-96 w-96 rounded-full bg-indigo-500/10 blur-3xl filter dark:bg-indigo-500/5" />
+        <div className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 h-[500px] w-[500px] rounded-full bg-purple-500/5 blur-3xl filter" />
         <FacadePattern className="absolute inset-0 opacity-40 dark:opacity-20" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 pt-56 pb-20 md:pt-40 md:pb-32">
         <div className="mb-12 text-center">
           <FadeIn>
-            <h1 className="mb-4 bg-linear-to-r from-gray-900 via-blue-800 to-indigo-900 bg-clip-text text-4xl font-extrabold text-transparent dark:from-white dark:via-blue-100 dark:to-indigo-200">
+            <h1 className="mb-4 bg-linear-to-r from-gray-900 via-blue-800 to-indigo-900 bg-clip-text font-extrabold text-4xl text-transparent dark:from-white dark:via-blue-100 dark:to-indigo-200">
               Build Explorer
             </h1>
-            <p className="mx-auto max-w-lg text-gray-600 dark:text-gray-400 mb-8">
+            <p className="mx-auto mb-8 max-w-lg text-gray-600 dark:text-gray-400">
               Access stable releases and development builds for all our projects.
             </p>
           </FadeIn>
         </div>
 
         {/* Controls Grid */}
-        <FadeIn delay={0.2} className="mb-10 mx-auto max-w-2xl relative z-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <FadeIn className="relative z-20 mx-auto mb-10 max-w-2xl" delay={0.2}>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {/* Project Selector - Left */}
             <div className="relative z-20">
               <Dropdown
-                options={projectOptions}
-                value={activeProject.id}
+                buttonClassName="h-[46px]"
+                className="h-full w-full"
                 onChange={handleProjectChange}
-                className="w-full h-full"
-                buttonClassName="h-[46px]" // Ensure height matches tabs
+                options={projectOptions}
+                value={activeProject.id} // Ensure height matches tabs
               />
             </div>
 
             {/* Tabs - Right */}
-            <div className="flex p-1 bg-white/70 dark:bg-gray-900/40 rounded-xl border border-gray-200 dark:border-gray-800 backdrop-blur-md h-[46px]">
+            <div className="flex h-[46px] rounded-xl border border-gray-200 bg-white/70 p-1 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/40">
               <button
-                type="button"
-                onClick={() => setActiveTab("STABLE")}
-                className={`cursor-pointer flex-1 flex items-center justify-center gap-2 rounded-lg text-sm font-medium transition-all ${
+                className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg font-medium text-sm transition-all ${
                   activeTab === "STABLE"
-                    ? "bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 shadow-xs"
-                    : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/50 dark:hover:bg-gray-800/50"
+                    ? "bg-white text-blue-600 shadow-xs dark:bg-gray-800 dark:text-blue-400"
+                    : "text-gray-500 hover:bg-gray-100/50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-white"
                 }`}
+                onClick={() => setActiveTab("STABLE")}
+                type="button"
               >
-                <Package className="w-4 h-4" />
+                <Package className="h-4 w-4" />
                 Stable
               </button>
               <button
-                type="button"
-                onClick={() => setActiveTab("DEV")}
-                className={`cursor-pointer flex-1 flex items-center justify-center gap-2 rounded-lg text-sm font-medium transition-all ${
+                className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg font-medium text-sm transition-all ${
                   activeTab === "DEV"
-                    ? "bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 shadow-xs"
-                    : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/50 dark:hover:bg-gray-800/50"
+                    ? "bg-white text-blue-600 shadow-xs dark:bg-gray-800 dark:text-blue-400"
+                    : "text-gray-500 hover:bg-gray-100/50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-white"
                 }`}
+                onClick={() => setActiveTab("DEV")}
+                type="button"
               >
-                <GitBranch className="w-4 h-4" />
+                <GitBranch className="h-4 w-4" />
                 Dev Builds
               </button>
             </div>
@@ -177,87 +177,87 @@ function BuildExplorerContent() {
         {/* Table */}
         <div className="min-h-[400px]">
           {loading ? (
-            <div className="flex flex-col items-center justify-center py-20 gap-4 text-gray-400">
-              <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+            <div className="flex flex-col items-center justify-center gap-4 py-20 text-gray-400">
+              <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
               <p>Fetching builds for {activeProject.name}...</p>
             </div>
           ) : (
             <div className="overflow-hidden rounded-xl border border-gray-200 bg-white/60 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/40">
               <div className="overflow-x-auto">
-                <table className="w-full border-collapse text-left text-sm whitespace-nowrap md:whitespace-normal">
-                  <thead className="border-b border-gray-200 bg-gray-50/50 text-gray-900 dark:border-gray-800 dark:bg-gray-900/50 dark:text-gray-100">
+                <table className="w-full border-collapse whitespace-nowrap text-left text-sm md:whitespace-normal">
+                  <thead className="border-gray-200 border-b bg-gray-50/50 text-gray-900 dark:border-gray-800 dark:bg-gray-900/50 dark:text-gray-100">
                     <tr>
-                      <th className="px-4 md:px-6 py-4 font-semibold w-full md:w-auto">Name</th>
-                      <th className="hidden md:table-cell px-6 py-4 font-semibold text-gray-500 dark:text-gray-400">
+                      <th className="w-full px-4 py-4 font-semibold md:w-auto md:px-6">Name</th>
+                      <th className="hidden px-6 py-4 font-semibold text-gray-500 md:table-cell dark:text-gray-400">
                         Date
                       </th>
-                      <th className="hidden lg:table-cell px-6 py-4 font-semibold text-gray-500 dark:text-gray-400">
+                      <th className="hidden px-6 py-4 font-semibold text-gray-500 lg:table-cell dark:text-gray-400">
                         Ref
                       </th>
-                      <th className="px-4 md:px-6 py-4 font-semibold text-right">Action</th>
+                      <th className="px-4 py-4 text-right font-semibold md:px-6">Action</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
                     <AnimatePresence>
                       {builds.length === 0 ? (
                         <tr>
-                          <td colSpan={4} className="px-6 py-12 text-center text-gray-500">
+                          <td className="px-6 py-12 text-center text-gray-500" colSpan={4}>
                             No builds found for this project.
                           </td>
                         </tr>
                       ) : (
                         builds.map((build, i) => (
                           <motion.tr
-                            key={build.id}
-                            initial={{ opacity: 0, y: 3 }}
                             animate={{ opacity: 1, y: 0 }}
+                            className="group transition-colors hover:bg-white dark:hover:bg-gray-800/50"
                             exit={{ opacity: 0, y: -3 }}
+                            initial={{ opacity: 0, y: 3 }}
+                            key={build.id}
                             transition={{ duration: 0.15, delay: i * 0.02 }}
-                            className="transition-colors hover:bg-white dark:hover:bg-gray-800/50 group"
                           >
-                            <td className="px-4 md:px-6 py-3 font-medium text-gray-900 dark:text-white">
+                            <td className="px-4 py-3 font-medium text-gray-900 md:px-6 dark:text-white">
                               <div className="flex items-center gap-3">
                                 <div
-                                  className={`hidden sm:flex p-2 rounded-lg shrink-0 ${
+                                  className={`hidden shrink-0 rounded-lg p-2 sm:flex ${
                                     build.type === "STABLE"
                                       ? "bg-green-100 text-green-600 dark:bg-green-900/20 dark:text-green-400"
                                       : "bg-orange-100 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400"
                                   }`}
                                 >
                                   {build.type === "STABLE" ? (
-                                    <Package className="w-4 h-4" />
+                                    <Package className="h-4 w-4" />
                                   ) : (
-                                    <GitBranch className="w-4 h-4" />
+                                    <GitBranch className="h-4 w-4" />
                                   )}
                                 </div>
-                                <div className="flex flex-col min-w-0">
+                                <div className="flex min-w-0 flex-col">
                                   {build.runUrl ? (
-                                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                                    <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-2">
                                       <a
+                                        className="block max-w-[150px] truncate hover:underline sm:max-w-xs md:max-w-md"
                                         href={build.runUrl}
-                                        target="_blank"
                                         rel="noopener noreferrer"
-                                        className="hover:underline truncate max-w-[150px] sm:max-w-xs md:max-w-md block"
+                                        target="_blank"
                                         title={build.name}
                                       >
                                         {build.name}
                                       </a>
                                       {lastDownloadedId === build.id && (
-                                        <span className="shrink-0 inline-flex w-fit items-center rounded-md bg-blue-50 px-2 py-0.5 text-[10px] sm:text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 dark:bg-blue-900/30 dark:text-blue-400 dark:ring-blue-400/30">
+                                        <span className="inline-flex w-fit shrink-0 items-center rounded-md bg-blue-50 px-2 py-0.5 font-medium text-[10px] text-blue-700 ring-1 ring-blue-700/10 ring-inset sm:text-xs dark:bg-blue-900/30 dark:text-blue-400 dark:ring-blue-400/30">
                                           Last Downloaded
                                         </span>
                                       )}
                                     </div>
                                   ) : (
-                                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                                    <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-2">
                                       <span
-                                        className="truncate max-w-[150px] sm:max-w-xs md:max-w-md block"
+                                        className="block max-w-[150px] truncate sm:max-w-xs md:max-w-md"
                                         title={build.name}
                                       >
                                         {build.name}
                                       </span>
                                       {lastDownloadedId === build.id && (
-                                        <span className="shrink-0 inline-flex w-fit items-center rounded-md bg-blue-50 px-2 py-0.5 text-[10px] sm:text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 dark:bg-blue-900/30 dark:text-blue-400 dark:ring-blue-400/30">
+                                        <span className="inline-flex w-fit shrink-0 items-center rounded-md bg-blue-50 px-2 py-0.5 font-medium text-[10px] text-blue-700 ring-1 ring-blue-700/10 ring-inset sm:text-xs dark:bg-blue-900/30 dark:text-blue-400 dark:ring-blue-400/30">
                                           Last Downloaded
                                         </span>
                                       )}
@@ -265,9 +265,9 @@ function BuildExplorerContent() {
                                   )}
 
                                   {/* Mobile Meta (Date/Commit) */}
-                                  <div className="flex items-center gap-2 mt-1 md:hidden text-xs text-gray-500 dark:text-gray-400">
+                                  <div className="mt-1 flex items-center gap-2 text-gray-500 text-xs md:hidden dark:text-gray-400">
                                     <span className="flex items-center gap-1">
-                                      <Calendar className="w-3 h-3" />
+                                      <Calendar className="h-3 w-3" />
                                       {build.date && !Number.isNaN(new Date(build.date).getTime())
                                         ? format(new Date(build.date), "MMM d")
                                         : "Unknown"}
@@ -282,32 +282,29 @@ function BuildExplorerContent() {
                                 </div>
                               </div>
                             </td>
-                            <td className="hidden md:table-cell px-6 py-3 text-gray-600 dark:text-gray-400 whitespace-nowrap">
+                            <td className="hidden whitespace-nowrap px-6 py-3 text-gray-600 md:table-cell dark:text-gray-400">
                               <div className="flex items-center gap-2">
-                                <Calendar className="w-4 h-4 text-gray-400" />
+                                <Calendar className="h-4 w-4 text-gray-400" />
                                 {build.date && !Number.isNaN(new Date(build.date).getTime())
                                   ? format(new Date(build.date), "MMM d, yyyy HH:mm")
                                   : "Unknown Date"}
                               </div>
                             </td>
-                            <td className="hidden lg:table-cell px-6 py-3">
+                            <td className="hidden px-6 py-3 lg:table-cell">
                               {build.commit ? (
-                                <code className="rounded-md border border-gray-200 bg-gray-100 px-2 py-1 text-xs text-gray-600 dark:border-gray-700/50 dark:bg-gray-800 dark:text-gray-300 font-mono">
+                                <code className="rounded-md border border-gray-200 bg-gray-100 px-2 py-1 font-mono text-gray-600 text-xs dark:border-gray-700/50 dark:bg-gray-800 dark:text-gray-300">
                                   {build.commit}
                                 </code>
                               ) : (
                                 <span className="text-gray-400">-</span>
                               )}
                             </td>
-                            <td className="px-4 md:px-6 py-3 text-right">
+                            <td className="px-4 py-3 text-right md:px-6">
                               <div className="flex justify-end">
                                 <Button
+                                  className="h-8 px-3 text-xs sm:h-9 sm:px-4 sm:text-sm"
                                   href={build.downloadUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  variant="primary"
-                                  size="sm"
-                                  leftIcon={<Download className="w-3 h-3 sm:w-4 sm:h-4" />}
+                                  leftIcon={<Download className="h-3 w-3 sm:h-4 sm:w-4" />}
                                   onClick={() => {
                                     localStorage.setItem(
                                       `last_download_${activeProject.id}`,
@@ -315,7 +312,10 @@ function BuildExplorerContent() {
                                     );
                                     setLastDownloadedId(build.id);
                                   }}
-                                  className="h-8 px-3 text-xs sm:h-9 sm:px-4 sm:text-sm"
+                                  rel="noopener noreferrer"
+                                  size="sm"
+                                  target="_blank"
+                                  variant="primary"
                                 >
                                   <span className="hidden sm:inline">Download</span>
                                   <span className="sm:hidden">Get</span>
@@ -341,8 +341,8 @@ export default function BuildExplorerPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen grid place-items-center">
-          <Loader2 className="w-8 h-8 animate-spin text-gray-500" />
+        <div className="grid min-h-screen place-items-center">
+          <Loader2 className="h-8 w-8 animate-spin text-gray-500" />
         </div>
       }
     >

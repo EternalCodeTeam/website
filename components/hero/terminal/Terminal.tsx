@@ -66,7 +66,8 @@ export default function Terminal() {
         setHistory(initialHistory);
         setInput("");
         return;
-      } else if (responses[command]) {
+      }
+      if (responses[command]) {
         output = responses[command];
       } else {
         output = [`eternalcode: command not found: ${input}`];
@@ -90,20 +91,20 @@ export default function Terminal() {
       {/* Title bar */}
       <div className={`flex h-11 items-center rounded-t-xl border-b px-4 ${currentTheme.titleBar}`}>
         <div className="flex space-x-2">
-          <span className="h-3 w-3 rounded-full bg-[#FF5F56] border border-[#E0443E]/50 shadow-sm" />
-          <span className="h-3 w-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]/50 shadow-sm" />
-          <span className="h-3 w-3 rounded-full bg-[#27C93F] border border-[#1AAB29]/50 shadow-sm" />
+          <span className="h-3 w-3 rounded-full border border-[#E0443E]/50 bg-[#FF5F56] shadow-sm" />
+          <span className="h-3 w-3 rounded-full border border-[#DEA123]/50 bg-[#FFBD2E] shadow-sm" />
+          <span className="h-3 w-3 rounded-full border border-[#1AAB29]/50 bg-[#27C93F] shadow-sm" />
         </div>
         <div
-          className={`flex-1 select-none text-center font-mono text-xs font-medium tracking-wide ${currentTheme.titleText} opacity-70`}
+          className={`flex-1 select-none text-center font-medium font-mono text-xs tracking-wide ${currentTheme.titleText} opacity-70`}
         >
           eternalcode — -zsh — 80x24
         </div>
       </div>
       {/* Terminal body */}
       <div
-        ref={scrollRef}
         className={`h-96 overflow-y-auto bg-transparent px-6 py-4 font-mono text-sm leading-relaxed ${currentTheme.terminalText}`}
+        ref={scrollRef}
         style={{ scrollbarWidth: "thin" }}
       >
         {history.map((item, index) => {
@@ -113,8 +114,8 @@ export default function Terminal() {
             return item.value.map((line, i) => (
               <div
                 // biome-ignore lint/suspicious/noArrayIndexKey: Order is static
-                key={`${key}-${i}`}
                 className={`${currentTheme.outputText} select-text whitespace-pre-wrap break-words py-0.5`}
+                key={`${key}-${i}`}
               >
                 {line}
               </div>
@@ -123,8 +124,8 @@ export default function Terminal() {
           if (item.type === "input") {
             return (
               <div
-                key={key}
                 className={`${currentTheme.commandText} select-text whitespace-pre-wrap break-words py-0.5`}
+                key={key}
               >
                 <span className={currentTheme.promptText}>eternalcode@cli:~$</span>{" "}
                 <span className={currentTheme.inputText}>{item.value}</span>
@@ -136,16 +137,16 @@ export default function Terminal() {
 
         {/* Active prompt */}
         <div className="mt-1 flex items-center">
-          <span className={`${currentTheme.promptText} shrink-0 mr-2`}>eternalcode@cli:~$</span>
+          <span className={`${currentTheme.promptText} mr-2 shrink-0`}>eternalcode@cli:~$</span>
           <input
-            ref={inputRef}
+            aria-label="Terminal input"
+            autoComplete="off"
             className={`flex-1 border-none bg-transparent p-0 font-mono text-sm outline-hidden ${currentTheme.inputText} placeholder-transparent`}
-            value={input}
             onChange={handleInput}
             onKeyDown={handleKeyDown}
+            ref={inputRef}
             spellCheck={false}
-            autoComplete="off"
-            aria-label="Terminal input"
+            value={input}
           />
         </div>
       </div>

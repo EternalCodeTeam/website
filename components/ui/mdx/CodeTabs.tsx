@@ -58,9 +58,9 @@ const getIcon = (label: string) => {
 const LanguageIcon = ({ label }: { label: string }) => {
   const Icon = getIcon(label);
   if (Icon)
-    return <Icon className="mr-1" aria-label={label} width={18} height={18} aria-hidden="true" />;
+    return <Icon aria-hidden="true" aria-label={label} className="mr-1" height={18} width={18} />;
   return (
-    <span className="mr-1" title={label} aria-hidden="true">
+    <span aria-hidden="true" className="mr-1" title={label}>
       📄
     </span>
   );
@@ -94,27 +94,27 @@ export const CodeTabs = ({
         className
       )}
     >
-      <TabGroup selectedIndex={selectedIndex} onChange={handleChange}>
+      <TabGroup onChange={handleChange} selectedIndex={selectedIndex}>
         <TabList
-          className="flex space-x-1 border-b border-gray-200 bg-gray-50/50 p-2 dark:border-gray-800 dark:bg-gray-900/50"
           aria-label="Code language selection"
+          className="flex space-x-1 border-gray-200 border-b bg-gray-50/50 p-2 dark:border-gray-800 dark:bg-gray-900/50"
         >
           {Children.map(children, (child) => {
             if (!isValidElement(child)) return null;
             const { label, disabled } = child.props as { label: string; disabled?: boolean };
             return (
               <Tab
-                key={label}
-                disabled={disabled}
                 className={({ selected }) =>
                   cn(
-                    "relative cursor-pointer rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 outline-none",
+                    "relative cursor-pointer rounded-lg px-4 py-2 font-medium text-sm outline-none transition-all duration-200",
                     "disabled:cursor-not-allowed disabled:opacity-50",
                     selected
-                      ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
-                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-800"
+                      ? "bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400"
+                      : "text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200"
                   )
                 }
+                disabled={disabled}
+                key={label}
               >
                 {() => (
                   <span className="flex items-center gap-2">
@@ -136,16 +136,16 @@ export const CodeTabs = ({
               };
               return (
                 <TabPanel
-                  key={label}
                   className={cn(
                     "p-4 ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
                     "bg-gray-50 dark:bg-black/20"
                   )}
+                  key={label}
                 >
                   <motion.div
-                    initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 10 }}
+                    initial={{ opacity: 0, x: -10 }}
                     transition={{ duration: 0.2 }}
                   >
                     {tabChildren}

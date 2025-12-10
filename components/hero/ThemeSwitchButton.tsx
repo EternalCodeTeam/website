@@ -16,17 +16,17 @@ export default function ThemeChanger() {
 
   return (
     <Button
-      variant="ghost"
-      size="sm"
-      className="rounded-full p-2"
       aria-label={`Change to ${resolvedTheme === "dark" ? "light" : "dark"} mode`}
+      className="rounded-full p-2"
       onClick={toggleTheme}
+      size="sm"
       type="button"
+      variant="ghost"
     >
       {resolvedTheme === "dark" ? (
-        <LightThemeIcon className="h-6 w-6" aria-hidden="true" />
+        <LightThemeIcon aria-hidden="true" className="h-6 w-6" />
       ) : (
-        <DarkThemeIcon className="h-6 w-6" aria-hidden="true" />
+        <DarkThemeIcon aria-hidden="true" className="h-6 w-6" />
       )}
     </Button>
   );

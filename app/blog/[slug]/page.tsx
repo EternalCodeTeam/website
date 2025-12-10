@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-
-import { SlideIn } from "@/components/ui/motion/MotionComponents";
 import BlogPostContent from "@/components/blog/BlogPostContent";
+import { SlideIn } from "@/components/ui/motion/MotionComponents";
 import { generateOgImageUrl } from "@/lib/og-utils";
 import { getBlogPost, type StrapiTag } from "@/lib/strapi";
 
@@ -117,27 +116,27 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     return (
       <div className="min-h-screen bg-light-gray-100 dark:bg-gray-900">
         {/* Hero Section */}
-        <SlideIn direction="down" className="pb-0 pt-40 md:pt-48">
+        <SlideIn className="pt-40 pb-0 md:pt-48" direction="down">
           <div className="mx-auto max-w-(--breakpoint-xl) px-4">
-            <h1 className="mb-4 text-left text-4xl font-extrabold text-gray-900 dark:text-white md:text-5xl">
+            <h1 className="mb-4 text-left font-extrabold text-4xl text-gray-900 md:text-5xl dark:text-white">
               {post.title}
             </h1>
-            <p className="mb-4 text-left text-lg text-gray-600 dark:text-gray-300">
+            <p className="mb-4 text-left text-gray-600 text-lg dark:text-gray-300">
               {post.excerpt}
             </p>
-            <div className="mb-4 flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+            <div className="mb-4 flex flex-wrap items-center gap-4 text-gray-500 text-sm dark:text-gray-400">
               {post.author?.slug && (
                 <Link
-                  href={`/author/${post.author.slug}`}
                   className="flex items-center gap-2 transition-colors hover:text-blue-600 dark:hover:text-blue-400"
+                  href={`/author/${post.author.slug}`}
                 >
                   {post.author.avatar && (
                     <Image
-                      src={getImageUrl(post.author.avatar.url)}
                       alt={post.author.name}
-                      width={24}
-                      height={24}
                       className="rounded-full"
+                      height={24}
+                      src={getImageUrl(post.author.avatar.url)}
+                      width={24}
                     />
                   )}
                   <span>By {post.author.name}</span>
@@ -162,8 +161,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <div className="mb-6 flex flex-wrap gap-2">
                 {tagsArr.map((tag: StrapiTag) => (
                   <span
+                    className="rounded-full bg-blue-100 px-3 py-1 font-medium text-blue-800 text-sm dark:bg-blue-900 dark:text-blue-200"
                     key={tag.documentId}
-                    className="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200"
                   >
                     {tag.name}
                   </span>
@@ -174,7 +173,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </SlideIn>
 
         {/* Blog Content */}
-        <SlideIn direction="up" className="py-16">
+        <SlideIn className="py-16" direction="up">
           <div className="mx-auto max-w-(--breakpoint-xl) px-4">
             <BlogPostContent content={post.content} />
           </div>

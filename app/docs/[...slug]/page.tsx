@@ -1,11 +1,10 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { Suspense } from "react";
-
 import matter from "gray-matter";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import { Suspense } from "react";
 
 import { DocsHeader } from "@/components/docs/content/DocsHeader";
 import { DocsNavigation } from "@/components/docs/content/DocsNavigation";
@@ -133,7 +132,7 @@ function LoadingFallback() {
       <div className="h-8 w-3/4 rounded-sm bg-gray-200 dark:bg-gray-700" />
       <div className="h-4 w-1/2 rounded-sm bg-gray-200 dark:bg-gray-700" />
       {skeletonKeys.map((key) => (
-        <div key={key} className="h-4 rounded-sm bg-gray-200 dark:bg-gray-700" />
+        <div className="h-4 rounded-sm bg-gray-200 dark:bg-gray-700" key={key} />
       ))}
     </div>
   );
@@ -158,30 +157,30 @@ export default async function DocPage({ params }: Props) {
 
   return (
     <div>
-      <article className="prose mx-auto max-w-5xl dark:prose-invert">
+      <article className="prose dark:prose-invert mx-auto max-w-5xl">
         <DocsHeader
-          category={category}
-          title={doc.meta.title}
-          description={doc.meta.description}
-          icon={doc.meta.icon}
           actions={
             <>
               <ReadingTime content={doc.content} />
               <EditOnGitHub filePath={resolvedParams.slug.join("/")} />
             </>
           }
+          category={category}
+          description={doc.meta.description}
+          icon={doc.meta.icon}
+          title={doc.meta.title}
         />
 
-        <hr className="my-8 border-gray-300 dark:border-gray-600 sm:mx-auto lg:my-10" />
+        <hr className="my-8 border-gray-300 sm:mx-auto lg:my-10 dark:border-gray-600" />
 
         <ErrorBoundary>
           <Suspense fallback={<LoadingFallback />}>
-            <MDXRemote source={doc.content} components={components} options={{ mdxOptions }} />
+            <MDXRemote components={components} options={{ mdxOptions }} source={doc.content} />
           </Suspense>
         </ErrorBoundary>
       </article>
 
-      <DocsNavigation prev={prev} next={next} />
+      <DocsNavigation next={next} prev={prev} />
     </div>
   );
 }

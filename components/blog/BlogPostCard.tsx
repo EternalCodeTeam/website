@@ -24,12 +24,12 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
         {post.featuredImage && getImageUrl(post.featuredImage.url) ? (
           <div className="relative aspect-video overflow-hidden bg-gray-100 dark:bg-gray-900">
             <Image
-              src={getImageUrl(post.featuredImage.url)}
               alt={post.featuredImage.alternativeText || post.title}
-              fill
               className="object-cover transition-transform duration-300 group-hover:scale-105 group-focus:scale-105"
-              sizes="(max-width: 768px) 100vw, 50vw"
+              fill
               priority={false}
+              sizes="(max-width: 768px) 100vw, 50vw"
+              src={getImageUrl(post.featuredImage.url)}
             />
           </div>
         ) : (
@@ -43,8 +43,8 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
             <div className="mb-2 flex flex-wrap gap-2">
               {post.tags.slice(0, 3).map((tag) => (
                 <span
+                  className="rounded-full bg-blue-100 px-2 py-0.5 font-medium text-blue-800 text-xs dark:bg-blue-900 dark:text-blue-200"
                   key={tag.documentId}
-                  className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200"
                 >
                   {tag.name}
                 </span>
@@ -52,10 +52,10 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
             </div>
           )}
           {/* Tytuł */}
-          <h3 className="mb-2 line-clamp-2 text-2xl font-bold leading-tight text-gray-900 dark:text-white">
+          <h3 className="mb-2 line-clamp-2 font-bold text-2xl text-gray-900 leading-tight dark:text-white">
             <Link
+              className="after:absolute after:inset-0 focus:outline-hidden"
               href={`/blog/${post.slug}`}
-              className="focus:outline-hidden after:absolute after:inset-0"
             >
               {post.title}
             </Link>
@@ -65,20 +65,20 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
             {post.excerpt}
           </p>
           {/* Meta: autor, data, czas — zawsze widoczne */}
-          <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+          <div className="flex items-center gap-3 text-gray-500 text-sm dark:text-gray-400">
             <span className="flex items-center gap-2">
               {post.author?.slug ? (
                 <Link
-                  href={`/author/${post.author.slug}`}
                   className="relative z-10 flex items-center gap-2 transition-colors hover:text-blue-600 dark:hover:text-blue-400"
+                  href={`/author/${post.author.slug}`}
                 >
                   {post.author.avatar && (
                     <Image
-                      src={getImageUrl(post.author.avatar.url)}
                       alt={post.author.name}
-                      width={24}
-                      height={24}
                       className="rounded-full border border-gray-200 dark:border-gray-700"
+                      height={24}
+                      src={getImageUrl(post.author.avatar.url)}
+                      width={24}
                     />
                   )}
                   <span className="font-medium text-gray-800 dark:text-gray-200">
@@ -90,7 +90,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
               )}
             </span>
             <span className="flex items-center gap-1">
-              <Calendar size={16} className="inline-block" />
+              <Calendar className="inline-block" size={16} />
               <time dateTime={post.publishedAt}>
                 {new Date(post.publishedAt).toLocaleDateString("en-US", {
                   year: "numeric",
@@ -100,7 +100,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
               </time>
             </span>
             <span className="flex items-center gap-1">
-              <Timer size={16} className="inline-block" />
+              <Timer className="inline-block" size={16} />
               {post.readingTime ? `${post.readingTime} min` : "— min"}
             </span>
           </div>

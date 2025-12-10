@@ -124,13 +124,19 @@ const SearchBox = ({
   };
 
   return (
-    <div ref={searchRef} className={cn("relative w-full", className)}>
+    <div className={cn("relative w-full", className)} ref={searchRef}>
       <div className="relative">
         <div className="relative">
           <input
-            ref={inputRef}
-            type="text"
-            value={query}
+            aria-label="Search documentation"
+            className={cn(
+              "w-full select-none rounded-lg border bg-gray-50/50 px-4 py-2.5 pr-10 pl-10 text-sm outline-hidden transition-all duration-200",
+              isFocused || isOpen
+                ? "border-blue-500 bg-white shadow-blue-500/10 shadow-lg ring-2 ring-blue-500/10 dark:bg-gray-800 dark:shadow-blue-500/20"
+                : "border-gray-200 shadow-xs hover:border-gray-300 hover:bg-white dark:border-gray-800 dark:bg-gray-900/50 dark:hover:border-gray-700 dark:hover:bg-gray-900",
+              "placeholder:text-gray-500 dark:text-white dark:placeholder:text-gray-500"
+            )}
+            onBlur={() => setIsFocused(false)}
             onChange={(e) => {
               setQuery(e.target.value);
               setIsOpen(true);
@@ -140,27 +146,25 @@ const SearchBox = ({
               setIsOpen(true);
               setIsFocused(true);
             }}
-            onBlur={() => setIsFocused(false)}
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
-            className={cn(
-              "w-full select-none rounded-lg border bg-gray-50/50 px-4 py-2.5 pl-10 pr-10 text-sm outline-hidden transition-all duration-200",
-              isFocused || isOpen
-                ? "border-blue-500 bg-white shadow-lg shadow-blue-500/10 ring-2 ring-blue-500/10 dark:bg-gray-800 dark:shadow-blue-500/20"
-                : "border-gray-200 shadow-xs hover:border-gray-300 hover:bg-white dark:border-gray-800 dark:bg-gray-900/50 dark:hover:border-gray-700 dark:hover:bg-gray-900",
-              "placeholder:text-gray-500 dark:text-white dark:placeholder:text-gray-500"
-            )}
-            aria-label="Search documentation"
+            ref={inputRef}
+            type="text"
+            value={query}
           />
 
           <motion.div
-            className="pointer-events-none absolute left-3 top-2.5"
             animate={{
               rotate: isLoading ? 360 : 0,
               scale: isFocused || isOpen ? 1.1 : 1,
             }}
+            className="pointer-events-none absolute top-2.5 left-3"
             transition={{
-              rotate: { duration: 1, repeat: isLoading ? Infinity : 0, ease: "linear" },
+              rotate: {
+                duration: 1,
+                repeat: isLoading ? Number.POSITIVE_INFINITY : 0,
+                ease: "linear",
+              },
               scale: { duration: 0.2 },
             }}
           >
@@ -175,14 +179,14 @@ const SearchBox = ({
           <AnimatePresence>
             {query && (
               <motion.button
-                initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
+                className="absolute top-2.5 right-3 rounded-full p-0.5 hover:bg-gray-100 dark:hover:bg-gray-700"
                 exit={{ opacity: 0, scale: 0.8 }}
+                initial={{ opacity: 0, scale: 0.8 }}
                 onMouseDown={(e) => {
                   e.preventDefault();
                   clearSearch();
                 }}
-                className="absolute right-3 top-2.5 rounded-full p-0.5 hover:bg-gray-100 dark:hover:bg-gray-700"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -196,10 +200,10 @@ const SearchBox = ({
         <AnimatePresence>
           {isLoading && (
             <motion.div
-              initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
-              exit={{ scaleX: 0 }}
               className="absolute bottom-0 left-0 h-0.5 w-full origin-left rounded-full bg-linear-to-r from-blue-500 to-purple-500"
+              exit={{ scaleX: 0 }}
+              initial={{ scaleX: 0 }}
             />
           )}
         </AnimatePresence>
@@ -209,44 +213,44 @@ const SearchBox = ({
       <AnimatePresence>
         {isOpen && query.length >= minQueryLength && (
           <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 400, damping: 25 }}
             className="absolute z-50 mt-2 w-full overflow-hidden rounded-xl border border-gray-200 bg-white/90 shadow-2xl backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/90"
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
           >
             {results.length > 0 ? (
               <div className="scrollbar-hide max-h-96 overflow-y-auto">
                 {results.map((result, index) => (
                   <motion.button
-                    key={result.path}
-                    onMouseDown={(e) => {
-                      e.preventDefault(); // Prevent blur before click
-                    }}
-                    onClick={() => handleSelect(result.path)}
-                    onMouseEnter={() => setSelectedIndex(index)}
-                    initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.03 }}
                     className={cn(
                       "w-full select-none px-4 py-3 text-left transition-all",
                       selectedIndex === index
                         ? "bg-blue-50 dark:bg-blue-500/10"
                         : "hover:bg-gray-50 dark:hover:bg-gray-800/50"
                     )}
+                    initial={{ opacity: 0, x: -20 }}
+                    key={result.path}
+                    onClick={() => handleSelect(result.path)}
+                    onMouseDown={(e) => {
+                      e.preventDefault(); // Prevent blur before click
+                    }}
+                    onMouseEnter={() => setSelectedIndex(index)}
+                    transition={{ delay: index * 0.03 }}
                   >
                     <div className="flex items-start gap-3">
                       <motion.div
                         animate={{
                           rotate: selectedIndex === index ? [0, -10, 10, 0] : 0,
                         }}
-                        transition={{ duration: 0.3 }}
                         className={cn(
                           "mt-0.5 shrink-0",
                           selectedIndex === index
                             ? "text-blue-600 dark:text-blue-400"
                             : "text-gray-400"
                         )}
+                        transition={{ duration: 0.3 }}
                       >
                         <Sparkles className="h-4 w-4" />
                       </motion.div>
@@ -254,17 +258,17 @@ const SearchBox = ({
                         <div className="truncate font-semibold text-gray-900 dark:text-white">
                           {result.title}
                         </div>
-                        <div className="mt-0.5 line-clamp-2 text-xs text-gray-500 dark:text-gray-400">
+                        <div className="mt-0.5 line-clamp-2 text-gray-500 text-xs dark:text-gray-400">
                           {result.excerpt}
                         </div>
                       </div>
                       <AnimatePresence>
                         {selectedIndex === index && (
                           <motion.div
-                            initial={{ opacity: 0, scale: 0 }}
                             animate={{ opacity: 1, scale: 1 }}
+                            className="shrink-0 rounded-sm bg-blue-100 px-2 py-0.5 font-medium text-blue-700 text-xs dark:bg-blue-900/30 dark:text-blue-300"
                             exit={{ opacity: 0, scale: 0 }}
-                            className="shrink-0 rounded-sm bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
+                            initial={{ opacity: 0, scale: 0 }}
                           >
                             Enter
                           </motion.div>
@@ -276,17 +280,17 @@ const SearchBox = ({
               </div>
             ) : (
               <motion.div
-                initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 className="px-4 py-8 text-center"
+                initial={{ opacity: 0 }}
               >
                 <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700">
                   <Search className="h-6 w-6 text-gray-400" />
                 </div>
-                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <p className="font-medium text-gray-700 text-sm dark:text-gray-300">
                   No results found
                 </p>
-                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                <p className="mt-1 text-gray-500 text-xs dark:text-gray-400">
                   Try different keywords
                 </p>
               </motion.div>

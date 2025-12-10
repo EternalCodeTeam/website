@@ -8,33 +8,33 @@ export default function TeamSkeleton() {
       <div className="relative mx-auto max-w-(--breakpoint-xl) px-4 py-20">
         <div className="mb-16 text-center">
           {/* Title Skeleton */}
-          <div className="mx-auto h-10 w-48 rounded-lg bg-gray-200 dark:bg-gray-800/50 animate-pulse mb-4" />
-          <div className="mx-auto h-6 w-full max-w-2xl rounded-lg bg-gray-200 dark:bg-gray-800/50 animate-pulse" />
+          <div className="mx-auto mb-4 h-10 w-48 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-800/50" />
+          <div className="mx-auto h-6 w-full max-w-2xl animate-pulse rounded-lg bg-gray-200 dark:bg-gray-800/50" />
         </div>
 
         <div className="space-y-20">
           {/* Simulated Roles Group */}
           <div>
             <div className="mb-8">
-              <div className="h-8 w-32 rounded-lg bg-gray-200 dark:bg-gray-800/50 animate-pulse mb-2" />
-              <div className="h-5 w-full max-w-xl rounded-lg bg-gray-200 dark:bg-gray-800/50 animate-pulse" />
+              <div className="mb-2 h-8 w-32 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-800/50" />
+              <div className="h-5 w-full max-w-xl animate-pulse rounded-lg bg-gray-200 dark:bg-gray-800/50" />
             </div>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {skeletons.map((id) => (
                 <div
-                  key={id}
                   className="flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900/40"
+                  key={id}
                 >
                   {/* Avatar Skeleton */}
-                  <div className="h-20 w-20 shrink-0 rounded-lg bg-gray-200 dark:bg-gray-800 animate-pulse" />
+                  <div className="h-20 w-20 shrink-0 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-800" />
 
                   {/* Info Skeleton */}
                   <div className="flex-1 space-y-3">
-                    <div className="h-5 w-3/4 rounded bg-gray-200 dark:bg-gray-800 animate-pulse" />
+                    <div className="h-5 w-3/4 animate-pulse rounded bg-gray-200 dark:bg-gray-800" />
                     <div className="space-y-1.5">
-                      <div className="h-4 w-1/2 rounded bg-gray-200 dark:bg-gray-800/60 animate-pulse" />
-                      <div className="h-4 w-1/3 rounded bg-gray-200 dark:bg-gray-800/60 animate-pulse" />
+                      <div className="h-4 w-1/2 animate-pulse rounded bg-gray-200 dark:bg-gray-800/60" />
+                      <div className="h-4 w-1/3 animate-pulse rounded bg-gray-200 dark:bg-gray-800/60" />
                     </div>
                   </div>
                 </div>

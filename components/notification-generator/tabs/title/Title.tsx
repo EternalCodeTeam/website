@@ -14,12 +14,12 @@ const Title = memo(({ title, subtitle, showTitle, titleOpacity }: TitleProps) =>
 
   return (
     <div
-      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-center transition-opacity duration-500"
+      className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 transform text-center transition-opacity duration-500"
       style={{ opacity: titleOpacity }}
     >
       {title && (
         <div
-          className="font-minecraft mb-2 text-white"
+          className="mb-2 font-minecraft text-white"
           style={{
             fontSize: "var(--mc-title-font-size)",
             lineHeight: "calc(var(--mc-title-font-size) + var(--mc-shadow))",

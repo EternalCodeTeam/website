@@ -20,9 +20,9 @@ export default function DynamicCommandsTable() {
     <div className="w-full">
       <div className="mb-6">
         <CommandsSearchBar
-          searchQuery={searchQuery}
-          onSearchChange={handleSearchChange}
           filteredCount={filteredCommands.length}
+          onSearchChange={handleSearchChange}
+          searchQuery={searchQuery}
           totalCount={commands.length}
         />
       </div>

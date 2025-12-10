@@ -1,73 +1,73 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
+import { Heart } from "lucide-react";
+import Image from "next/image";
+import PolandMap from "@/components/home/about/PolandMap";
+import GitHubIcon from "@/components/icons/github";
+import { Button } from "@/components/ui/button";
 import { SlideIn } from "@/components/ui/motion/MotionComponents";
 import AboutImage from "@/public/hero image.png";
-import { Button } from "@/components/ui/button";
-import GitHubIcon from "@/components/icons/github";
-import { Heart } from "lucide-react";
-import PolandMap from "@/components/home/about/PolandMap";
 
 export default function About() {
   return (
     <section
-      id="about"
-      className="relative py-12 lg:py-24 overflow-hidden"
       aria-labelledby="about-heading"
+      className="relative overflow-hidden py-12 lg:py-24"
+      id="about"
     >
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-16 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-center">
           {/* Text Content */}
           <div className="lg:order-1">
             <SlideIn direction="left">
-              <div className="flex items-center gap-x-3 mb-6">
+              <div className="mb-6 flex items-center gap-x-3">
                 <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400">
                   <Heart className="h-6 w-6" fill="currentColor" />
                 </span>
-                <h2 className="text-sm font-bold uppercase tracking-widest text-red-600 dark:text-red-400">
+                <h2 className="font-bold text-red-600 text-sm uppercase tracking-widest dark:text-red-400">
                   Made with Passion
                 </h2>
               </div>
 
-              <h1 className="mt-2 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-5xl lg:text-6xl mb-8">
+              <h1 className="mt-2 mb-8 font-extrabold text-4xl text-gray-900 tracking-tight sm:text-5xl lg:text-6xl dark:text-white">
                 From{" "}
                 <span className="relative inline-block">
                   <span
-                    className="text-transparent bg-clip-text bg-gradient-to-b from-white from-50% to-[#DC143C] to-50%"
+                    className="bg-gradient-to-b from-50% from-white to-50% to-[#DC143C] bg-clip-text text-transparent"
                     style={{ WebkitTextStroke: "0.5px rgba(0,0,0,0.5)" }}
                   >
                     Poland
                   </span>
                   <motion.div
-                    initial={{ opacity: 0, rotate: -15, scale: 0 }}
                     animate={{ opacity: 1, rotate: 12, scale: 1 }}
+                    className="-top-6 -right-8 absolute flex flex-col items-center will-change-transform"
+                    initial={{ opacity: 0, rotate: -15, scale: 0 }}
                     transition={{ delay: 1, type: "spring" }}
-                    className="absolute -top-6 -right-8 flex flex-col items-center will-change-transform"
                   >
                     {/* Flag content */}
-                    <div className="relative w-8 h-5 shadow-sm rounded-sm overflow-hidden ring-1 ring-inset ring-black/10">
+                    <div className="relative h-5 w-8 overflow-hidden rounded-sm shadow-sm ring-1 ring-black/10 ring-inset">
                       <svg
+                        className="block h-full w-full"
                         viewBox="0 0 32 20"
                         xmlns="http://www.w3.org/2000/svg"
-                        className="w-full h-full block"
                       >
                         <title>Poland Flag</title>
-                        <rect width="32" height="10" fill="#ffffff" />
-                        <rect y="10" width="32" height="10" fill="#DC143C" />
+                        <rect fill="#ffffff" height="10" width="32" />
+                        <rect fill="#DC143C" height="10" width="32" y="10" />
                       </svg>
                     </div>
                     {/* Flagpole */}
-                    <div className="w-0.5 h-10 bg-gray-400 -mt-1 rounded-full self-start ml-0.5" />
+                    <div className="-mt-1 ml-0.5 h-10 w-0.5 self-start rounded-full bg-gray-400" />
                   </motion.div>
                 </span>{" "}
                 <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
+                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent dark:from-blue-400 dark:to-purple-400">
                   to the World
                 </span>
               </h1>
 
-              <div className="space-y-6 text-lg text-gray-600 dark:text-gray-300">
+              <div className="space-y-6 text-gray-600 text-lg dark:text-gray-300">
                 <p>
                   EternalCode was born in Poland from a simple idea: software development is more
                   than just code—it&apos;s a form of art.
@@ -80,7 +80,7 @@ export default function About() {
               </div>
 
               <div className="mt-10 flex gap-4">
-                <Button size="lg" className="gap-2 group">
+                <Button className="group gap-2" size="lg">
                   <GitHubIcon className="h-5 w-5 transition-transform group-hover:scale-110" />
                   Visit our GitHub
                 </Button>
@@ -89,25 +89,25 @@ export default function About() {
           </div>
 
           {/* Image & Map Content */}
-          <div className="lg:order-2 relative flex items-center justify-center">
-            <div className="relative w-full aspect-square max-w-[600px] flex items-center justify-center">
+          <div className="relative flex items-center justify-center lg:order-2">
+            <div className="relative flex aspect-square w-full max-w-[600px] items-center justify-center">
               {/* Animated Map Background */}
               <PolandMap />
 
-              <SlideIn direction="right" delay={0.3} className="relative z-10 w-full">
+              <SlideIn className="relative z-10 w-full" delay={0.3} direction="right">
                 <motion.div
-                  whileHover={{ scale: 1.02, rotate: 1 }}
+                  className="relative overflow-hidden rounded-2xl shadow-2xl"
                   transition={{ duration: 0.5, type: "spring" }}
-                  className="relative rounded-2xl overflow-hidden shadow-2xl"
+                  whileHover={{ scale: 1.02, rotate: 1 }}
                 >
                   <Image
-                    src={AboutImage}
                     alt="EternalCode Team"
-                    className="w-full h-auto object-cover"
+                    className="h-auto w-full object-cover"
                     priority
+                    src={AboutImage}
                   />
                   {/* Subtle clean overlay instead of glass blur */}
-                  <div className="absolute inset-0 ring-1 ring-inset ring-black/10 dark:ring-white/10 rounded-2xl pointer-events-none" />
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-black/10 ring-inset dark:ring-white/10" />
                 </motion.div>
               </SlideIn>
             </div>

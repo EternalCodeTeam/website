@@ -1,13 +1,12 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Book, Check, Download, Zap, Database, Layers, Settings } from "lucide-react";
-import { useRef } from "react";
+import { Book, Check, Database, Download, Layers, Settings, Zap } from "lucide-react";
 import Image from "next/image";
-
+import { useRef } from "react";
+import { Button } from "@/components/ui/button";
 import { FacadePattern } from "@/components/ui/facade-pattern";
 import { FadeIn, SlideIn } from "@/components/ui/motion/MotionComponents";
-import { Button } from "@/components/ui/button";
 
 import { ConfigPreview } from "./ConfigPreview";
 
@@ -22,29 +21,29 @@ export default function EternalCorePage() {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white selection:bg-[#9d6eef]/30">
+    <div className="relative min-h-screen bg-white text-gray-900 selection:bg-[#9d6eef]/30 dark:bg-gray-950 dark:text-white">
       {/* Background Decor */}
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
         <FacadePattern className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" />
-        <div className="absolute top-0 right-0 p-20 w-[500px] h-[500px] bg-[#9d6eef]/5 blur-[100px] rounded-full mix-blend-multiply dark:mix-blend-screen" />
-        <div className="absolute top-20 left-0 p-20 w-[400px] h-[400px] bg-blue-500/5 blur-[100px] rounded-full mix-blend-multiply dark:mix-blend-screen" />
+        <div className="absolute top-0 right-0 h-[500px] w-[500px] rounded-full bg-[#9d6eef]/5 p-20 mix-blend-multiply blur-[100px] dark:mix-blend-screen" />
+        <div className="absolute top-20 left-0 h-[400px] w-[400px] rounded-full bg-blue-500/5 p-20 mix-blend-multiply blur-[100px] dark:mix-blend-screen" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={targetRef}>
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" ref={targetRef}>
         {/* Hero Section */}
         <section className="pt-32 pb-20 md:pt-48 md:pb-32">
           <motion.div
+            className="flex flex-col items-center gap-12 lg:flex-row lg:gap-16"
             style={{ opacity, scale }}
-            className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16"
           >
             {/* Text Content */}
             <div className="flex-1 text-center lg:text-left">
               <FadeIn>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-900/20 text-[#9d6eef] text-xs font-semibold uppercase tracking-wider mb-6">
-                  <Zap className="w-3 h-3" />
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-purple-100 px-3 py-1 font-semibold text-[#9d6eef] text-xs uppercase tracking-wider dark:bg-purple-900/20">
+                  <Zap className="h-3 w-3" />
                   Next-Gen Essentials
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 text-gray-900 dark:text-white">
+                <h1 className="mb-6 font-extrabold text-4xl text-gray-900 tracking-tight md:text-5xl lg:text-6xl dark:text-white">
                   Essential commands.
                   <br />
                   <span className="bg-gradient-to-r from-[#9d6eef] via-[#A1AAFF] to-[#9d6eef] bg-clip-text text-transparent">
@@ -52,28 +51,28 @@ export default function EternalCorePage() {
                   </span>
                 </h1>
 
-                <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                <p className="mx-auto mb-8 max-w-2xl text-gray-600 text-lg leading-relaxed lg:mx-0 dark:text-gray-400">
                   EternalCore is a modern, open-source replacement for EssentialsX. Built for Paper
                   & Folia to deliver maximum performance without the legacy bloat.
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <div className="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
                   <Button
+                    className="bg-[#9d6eef] text-white shadow-purple-500/25 hover:bg-[#854ce6] dark:bg-[#9d6eef] dark:hover:bg-[#854ce6]"
                     href="/builds?project=eternalcore"
-                    variant="primary"
+                    leftIcon={<Download className="h-4 w-4" />}
                     shine
-                    className="bg-[#9d6eef] hover:bg-[#854ce6] dark:bg-[#9d6eef] dark:hover:bg-[#854ce6] text-white shadow-purple-500/25"
-                    leftIcon={<Download className="w-4 h-4" />}
+                    variant="primary"
                   >
                     Download
                   </Button>
 
                   <Button
                     href="https://eternalcode.pl/docs"
-                    target="_blank"
+                    leftIcon={<Book className="h-4 w-4" />}
                     rel="noopener noreferrer"
+                    target="_blank"
                     variant="outline"
-                    leftIcon={<Book className="w-4 h-4" />}
                   >
                     Documentation
                   </Button>
@@ -82,17 +81,17 @@ export default function EternalCorePage() {
             </div>
 
             {/* Project Banner Placeholder */}
-            <div className="flex-1 w-full max-w-xl lg:max-w-none">
+            <div className="w-full max-w-xl flex-1 lg:max-w-none">
               <FadeIn delay={0.2}>
-                <div className="relative aspect-video rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-900 shadow-2xl group">
+                <div className="group relative aspect-video overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 shadow-2xl dark:border-gray-800 dark:bg-gray-900">
                   <Image
-                    src="/eternalcore/readme-banner.png"
                     alt="EternalCore Project Banner"
-                    fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    fill
                     priority
+                    src="/eternalcore/readme-banner.png"
                   />
-                  <div className="absolute inset-0 bg-linear-to-tr from-blue-500/10 via-transparent to-purple-500/10 pointer-events-none mix-blend-overlay" />
+                  <div className="pointer-events-none absolute inset-0 bg-linear-to-tr from-blue-500/10 via-transparent to-purple-500/10 mix-blend-overlay" />
                 </div>
               </FadeIn>
             </div>
@@ -100,18 +99,18 @@ export default function EternalCorePage() {
         </section>
 
         {/* Features Section */}
-        <section className="py-24 border-t border-gray-100 dark:border-gray-800/50">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+        <section className="border-gray-100 border-t py-24 dark:border-gray-800/50">
+          <div className="mx-auto mb-16 max-w-3xl text-center">
             <FadeIn>
-              <h2 className="text-3xl font-bold mb-4">Built for modern servers.</h2>
-              <p className="text-gray-600 dark:text-gray-400 text-lg">
+              <h2 className="mb-4 font-bold text-3xl">Built for modern servers.</h2>
+              <p className="text-gray-600 text-lg dark:text-gray-400">
                 EternalCore takes advantage of the latest Minecraft server technology to provide a
                 lag-free experience.
               </p>
             </FadeIn>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid gap-8 md:grid-cols-3">
             {[
               {
                 title: "Async Architecture",
@@ -138,17 +137,17 @@ export default function EternalCorePage() {
                 bg: "bg-pink-500/10",
               },
             ].map((feature, i) => (
-              <SlideIn key={feature.title} direction="up" delay={i * 0.1} className="h-full">
-                <div className="h-full p-8 rounded-2xl bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 hover:border-[#9d6eef]/30 transition-colors group">
+              <SlideIn className="h-full" delay={i * 0.1} direction="up" key={feature.title}>
+                <div className="group h-full rounded-2xl border border-gray-200 bg-gray-50 p-8 transition-colors hover:border-[#9d6eef]/30 dark:border-gray-800 dark:bg-gray-900/50">
                   <div
-                    className={`w-12 h-12 rounded-xl ${feature.bg} ${feature.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
+                    className={`h-12 w-12 rounded-xl ${feature.bg} ${feature.color} mb-6 flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}
                   >
-                    <feature.icon className="w-6 h-6" />
+                    <feature.icon className="h-6 w-6" />
                   </div>
-                  <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">
+                  <h3 className="mb-3 font-bold text-gray-900 text-xl dark:text-white">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  <p className="text-gray-600 leading-relaxed dark:text-gray-400">
                     {feature.description}
                   </p>
                 </div>
@@ -158,46 +157,46 @@ export default function EternalCorePage() {
         </section>
 
         {/* Configuration Section */}
-        <section className="py-24 border-t border-gray-100 dark:border-gray-800/50">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <section className="border-gray-100 border-t py-24 dark:border-gray-800/50">
+          <div className="grid items-center gap-16 lg:grid-cols-2">
             <SlideIn direction="left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-xs font-semibold uppercase tracking-wider mb-6">
-                <Settings className="w-3 h-3" />
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1 font-semibold text-gray-600 text-xs uppercase tracking-wider dark:bg-gray-800 dark:text-gray-300">
+                <Settings className="h-3 w-3" />
                 Configuration
               </div>
-              <h2 className="text-3xl font-bold mb-6 tracking-tight">
+              <h2 className="mb-6 font-bold text-3xl tracking-tight">
                 Configuration <br />
                 <span className="text-[#9d6eef]">Done Right.</span>
               </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+              <p className="mb-8 text-gray-600 text-lg leading-relaxed dark:text-gray-400">
                 Forget about guessing property names. EternalCore uses a strongly-typed
                 configuration system that ensures your settings are always valid and automatically
                 up-to-date.
               </p>
-              <ul className="space-y-4 mb-8">
+              <ul className="mb-8 space-y-4">
                 {[
                   "Automatic config updates",
                   "Detailed comments generated automatically",
                   "Reload-safe architecture",
                 ].map((item) => (
-                  <li key={item} className="flex items-center gap-3">
-                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[#9d6eef]/10 flex items-center justify-center text-[#9d6eef]">
-                      <Check className="w-3 h-3" />
+                  <li className="flex items-center gap-3" key={item}>
+                    <div className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[#9d6eef]/10 text-[#9d6eef]">
+                      <Check className="h-3 w-3" />
                     </div>
-                    <span className="text-gray-700 dark:text-gray-300 font-medium">{item}</span>
+                    <span className="font-medium text-gray-700 dark:text-gray-300">{item}</span>
                   </li>
                 ))}
               </ul>
             </SlideIn>
 
-            <SlideIn direction="right" delay={0.2}>
-              <div className="relative group perspective-1000">
+            <SlideIn delay={0.2} direction="right">
+              <div className="group perspective-1000 relative">
                 {/* The "Long Screenshot" Container */}
-                <div className="relative h-[600px] w-full overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#0d1117] shadow-2xl select-none transform transition-transform duration-700 hover:scale-[1.02]">
+                <div className="relative h-[600px] w-full transform select-none overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl transition-transform duration-700 hover:scale-[1.02] dark:border-gray-800 dark:bg-[#0d1117]">
                   {/* Tilted Content */}
-                  <div className="absolute -top-10 -left-[15%] w-[150%] transform rotate-2 hover:rotate-0 transition-all duration-700 hover:scale-100 origin-top-left h-[200%]">
+                  <div className="-top-10 -left-[15%] absolute h-[200%] w-[150%] origin-top-left rotate-2 transform transition-all duration-700 hover:rotate-0 hover:scale-100">
                     {/* Inner blur container */}
-                    <div className="filter blur-[0.5px] transition-all duration-700 group-hover:blur-0 opacity-90 group-hover:opacity-100 h-full pl-24">
+                    <div className="h-full pl-24 opacity-90 blur-[0.5px] filter transition-all duration-700 group-hover:opacity-100 group-hover:blur-0">
                       {/* Auto-scrolling animation container */}
                       <div className="animate-scroll-y">
                         <ConfigPreview />
@@ -208,7 +207,7 @@ export default function EternalCorePage() {
                   </div>
 
                   {/* Gradient overlay to fade bottom */}
-                  <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-white dark:from-[#0d1117] to-transparent pointer-events-none z-10" />
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-40 bg-gradient-to-t from-white to-transparent dark:from-[#0d1117]" />
 
                   {/* Animation Styles */}
                   <style jsx>{`
@@ -230,32 +229,32 @@ export default function EternalCorePage() {
         </section>
 
         {/* Footer CTA */}
-        <section className="py-32 text-center border-t border-gray-100 dark:border-gray-800/50">
+        <section className="border-gray-100 border-t py-32 text-center dark:border-gray-800/50">
           <FadeIn>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">
+            <h2 className="mb-6 font-bold text-3xl tracking-tight md:text-4xl">
               Ready to upgrade your server?
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto">
+            <p className="mx-auto mb-10 max-w-2xl text-gray-600 text-lg dark:text-gray-400">
               Join hundreds of servers already using EternalCore for a more stable and efficient
               experience.
             </p>
-            <div className="flex justify-center flex-wrap gap-4">
+            <div className="flex flex-wrap justify-center gap-4">
               <Button
+                className="min-w-[160px] bg-[#9d6eef] text-white hover:bg-[#854ce6] dark:bg-[#9d6eef] dark:hover:bg-[#854ce6]"
                 href="/projects/eternalcore/downloads"
-                variant="primary"
-                size="lg"
                 shine
-                className="bg-[#9d6eef] hover:bg-[#854ce6] dark:bg-[#9d6eef] dark:hover:bg-[#854ce6] text-white min-w-[160px]"
+                size="lg"
+                variant="primary"
               >
                 Get Started
               </Button>
               <Button
-                href="https://github.com/EternalCodeTeam/EternalCore"
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="outline"
-                size="lg"
                 className="min-w-[160px]"
+                href="https://github.com/EternalCodeTeam/EternalCore"
+                rel="noopener noreferrer"
+                size="lg"
+                target="_blank"
+                variant="outline"
               >
                 View Source
               </Button>

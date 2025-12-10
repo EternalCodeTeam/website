@@ -1,8 +1,8 @@
 "use client";
 
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 
 import DiscordIcon from "@/components/icons/discord";
 import GitHubIcon from "@/components/icons/github";
@@ -105,37 +105,37 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-gray-200 bg-gray-50/50 py-12 lg:pt-16 lg:pb-8 dark:border-white/5 dark:bg-[#0a0a0a]">
+    <footer className="border-gray-200 border-t bg-gray-50/50 py-12 lg:pt-16 lg:pb-8 dark:border-white/5 dark:bg-[#0a0a0a]">
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         <div className="grid gap-8 lg:gap-12 xl:grid-cols-4 xl:gap-8">
           <div className="space-y-6">
-            <Link href="/" className="flex items-center gap-2" aria-label="Go to homepage">
+            <Link aria-label="Go to homepage" className="flex items-center gap-2" href="/">
               <Image
-                src={logo}
                 alt="EternalCode Logo"
-                width={36}
-                height={36}
                 className="h-9 w-auto dark:invert"
+                height={36}
+                src={logo}
+                width={36}
               />
-              <span className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+              <span className="font-bold text-gray-900 text-xl tracking-tight dark:text-white">
                 EternalCode
               </span>
             </Link>
-            <p className="max-w-xs text-sm leading-6 text-gray-600 dark:text-gray-400">
+            <p className="max-w-xs text-gray-600 text-sm leading-6 dark:text-gray-400">
               Building high-quality, open-source Minecraft solutions. Empowering communities with
               reliable software since 2021.
             </p>
             <div className="flex gap-4">
               {socialLinks.map((item) => (
                 <motion.a
-                  key={item.label}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  aria-label={item.label}
                   className="text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                  href={item.href}
+                  key={item.label}
+                  rel="noopener noreferrer"
+                  target="_blank"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  aria-label={item.label}
                 >
                   <span className="h-5 w-5">{item.icon}</span>
                 </motion.a>
@@ -146,7 +146,7 @@ export default function Footer() {
           <div className="grid grid-cols-2 gap-8 md:grid-cols-5 xl:col-span-3">
             {footerSections.map((section) => (
               <div key={section.title}>
-                <h3 className="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
+                <h3 className="font-semibold text-gray-900 text-sm leading-6 dark:text-white">
                   {section.title}
                 </h3>
                 <ul className="mt-4 space-y-3">
@@ -154,17 +154,17 @@ export default function Footer() {
                     <li key={link.label}>
                       {link.isExternal ? (
                         <a
+                          className="text-gray-600 text-sm leading-6 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                           href={link.href}
-                          target="_blank"
                           rel="noopener noreferrer"
-                          className="text-sm leading-6 text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                          target="_blank"
                         >
                           {link.label}
                         </a>
                       ) : (
                         <Link
+                          className="text-gray-600 text-sm leading-6 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                           href={link.href}
-                          className="text-sm leading-6 text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                         >
                           {link.label}
                         </Link>
@@ -177,13 +177,13 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-gray-200 pt-8 dark:border-white/5 lg:mt-16">
+        <div className="mt-12 border-gray-200 border-t pt-8 lg:mt-16 dark:border-white/5">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p className="text-xs leading-5 text-gray-500 dark:text-gray-500">
+            <p className="text-gray-500 text-xs leading-5 dark:text-gray-500">
               &copy; {currentYear} EternalCodeTeam. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
-              <span className="text-xs text-gray-500 dark:text-gray-500">
+              <span className="text-gray-500 text-xs dark:text-gray-500">
                 Designed with <span className="text-red-500">❤</span> by the EternalCodeTeam.
               </span>
             </div>

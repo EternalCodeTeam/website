@@ -86,54 +86,52 @@ export async function getBlogPosts(): Promise<StrapiBlogPost[]> {
     const response = await fetchFromStrapi<StrapiResponse<StrapiBlogPost>>(
       "/blog-posts?populate[0]=author&populate[1]=author.avatar&populate[2]=featuredImage&populate[3]=tags&sort=publishedAt:desc"
     );
-    return response.data.map((item: StrapiBlogPost) => {
-      return {
-        documentId: item.documentId,
-        title: item.title,
-        slug: item.slug,
-        excerpt: item.excerpt,
-        content: item.content,
-        publishedAt: item.publishedAt,
-        updatedAt: item.updatedAt,
-        readingTime: item.readingTime || Math.ceil((item.content || "").split(" ").length / 200),
-        featuredImage: item.featuredImage
-          ? {
-              documentId: item.featuredImage.documentId,
-              url: item.featuredImage.url,
-              alternativeText: item.featuredImage.alternativeText,
-              caption: item.featuredImage.caption,
-              width: item.featuredImage.width,
-              height: item.featuredImage.height,
-            }
-          : undefined,
-        author: item.author
-          ? {
-              documentId: item.author.documentId,
-              name: item.author.name,
-              slug: item.author.slug,
-              email: item.author.email,
-              bio: item.author.bio,
-              avatar: item.author.avatar
-                ? {
-                    documentId: item.author.avatar.documentId,
-                    url: item.author.avatar.url,
-                    alternativeText: item.author.avatar.alternativeText,
-                    caption: item.author.avatar.caption,
-                    width: item.author.avatar.width,
-                    height: item.author.avatar.height,
-                  }
-                : undefined,
-            }
-          : undefined,
-        tags: item.tags
-          ? item.tags.map((tag: StrapiTag) => ({
-              documentId: tag.documentId,
-              name: tag.name,
-              slug: tag.slug,
-            }))
-          : [],
-      };
-    });
+    return response.data.map((item: StrapiBlogPost) => ({
+      documentId: item.documentId,
+      title: item.title,
+      slug: item.slug,
+      excerpt: item.excerpt,
+      content: item.content,
+      publishedAt: item.publishedAt,
+      updatedAt: item.updatedAt,
+      readingTime: item.readingTime || Math.ceil((item.content || "").split(" ").length / 200),
+      featuredImage: item.featuredImage
+        ? {
+            documentId: item.featuredImage.documentId,
+            url: item.featuredImage.url,
+            alternativeText: item.featuredImage.alternativeText,
+            caption: item.featuredImage.caption,
+            width: item.featuredImage.width,
+            height: item.featuredImage.height,
+          }
+        : undefined,
+      author: item.author
+        ? {
+            documentId: item.author.documentId,
+            name: item.author.name,
+            slug: item.author.slug,
+            email: item.author.email,
+            bio: item.author.bio,
+            avatar: item.author.avatar
+              ? {
+                  documentId: item.author.avatar.documentId,
+                  url: item.author.avatar.url,
+                  alternativeText: item.author.avatar.alternativeText,
+                  caption: item.author.avatar.caption,
+                  width: item.author.avatar.width,
+                  height: item.author.avatar.height,
+                }
+              : undefined,
+          }
+        : undefined,
+      tags: item.tags
+        ? item.tags.map((tag: StrapiTag) => ({
+            documentId: tag.documentId,
+            name: tag.name,
+            slug: tag.slug,
+          }))
+        : [],
+    }));
   } catch (error) {
     console.error("Error fetching blog posts:", error);
     return [];
@@ -206,54 +204,52 @@ export async function getBlogPostsByTag(tagSlug: string): Promise<StrapiBlogPost
     const response = await fetchFromStrapi<StrapiResponse<StrapiBlogPost>>(
       `/blog-posts?filters[tags][slug][$eq]=${tagSlug}&populate[0]=author&populate[1]=author.avatar&populate[2]=featuredImage&populate[3]=tags&sort=publishedAt:desc`
     );
-    return response.data.map((item: StrapiBlogPost) => {
-      return {
-        documentId: item.documentId,
-        title: item.title,
-        slug: item.slug,
-        excerpt: item.excerpt,
-        content: item.content,
-        publishedAt: item.publishedAt,
-        updatedAt: item.updatedAt,
-        readingTime: item.readingTime || Math.ceil((item.content || "").split(" ").length / 200),
-        featuredImage: item.featuredImage
-          ? {
-              documentId: item.featuredImage.documentId,
-              url: item.featuredImage.url,
-              alternativeText: item.featuredImage.alternativeText,
-              caption: item.featuredImage.caption,
-              width: item.featuredImage.width,
-              height: item.featuredImage.height,
-            }
-          : undefined,
-        author: item.author
-          ? {
-              documentId: item.author.documentId,
-              name: item.author.name,
-              slug: item.author.slug,
-              email: item.author.email,
-              bio: item.author.bio,
-              avatar: item.author.avatar
-                ? {
-                    documentId: item.author.avatar.documentId,
-                    url: item.author.avatar.url,
-                    alternativeText: item.author.avatar.alternativeText,
-                    caption: item.author.avatar.caption,
-                    width: item.author.avatar.width,
-                    height: item.author.avatar.height,
-                  }
-                : undefined,
-            }
-          : undefined,
-        tags: item.tags
-          ? item.tags.map((tag: StrapiTag) => ({
-              documentId: tag.documentId,
-              name: tag.name,
-              slug: tag.slug,
-            }))
-          : [],
-      };
-    });
+    return response.data.map((item: StrapiBlogPost) => ({
+      documentId: item.documentId,
+      title: item.title,
+      slug: item.slug,
+      excerpt: item.excerpt,
+      content: item.content,
+      publishedAt: item.publishedAt,
+      updatedAt: item.updatedAt,
+      readingTime: item.readingTime || Math.ceil((item.content || "").split(" ").length / 200),
+      featuredImage: item.featuredImage
+        ? {
+            documentId: item.featuredImage.documentId,
+            url: item.featuredImage.url,
+            alternativeText: item.featuredImage.alternativeText,
+            caption: item.featuredImage.caption,
+            width: item.featuredImage.width,
+            height: item.featuredImage.height,
+          }
+        : undefined,
+      author: item.author
+        ? {
+            documentId: item.author.documentId,
+            name: item.author.name,
+            slug: item.author.slug,
+            email: item.author.email,
+            bio: item.author.bio,
+            avatar: item.author.avatar
+              ? {
+                  documentId: item.author.avatar.documentId,
+                  url: item.author.avatar.url,
+                  alternativeText: item.author.avatar.alternativeText,
+                  caption: item.author.avatar.caption,
+                  width: item.author.avatar.width,
+                  height: item.author.avatar.height,
+                }
+              : undefined,
+          }
+        : undefined,
+      tags: item.tags
+        ? item.tags.map((tag: StrapiTag) => ({
+            documentId: tag.documentId,
+            name: tag.name,
+            slug: tag.slug,
+          }))
+        : [],
+    }));
   } catch (error) {
     console.error("Error fetching blog posts by tag:", error);
     return [];

@@ -17,6 +17,7 @@ export const toggleFormatting = (
     italic: { open: "<i>", close: "</i>" },
     underline: { open: "<u>", close: "</u>" },
     strikethrough: { open: "<st>", close: "</st>" },
+    obfuscated: { open: "<obf>", close: "</obf>" },
   };
   const { open, close } = formatTags[format];
   const regex = new RegExp(`^${open}.*?${close}$`);

@@ -78,7 +78,7 @@ export function useCommands() {
 
   const handleSearch = async (q: string): Promise<void> => {
     setSearchQuery(q);
-    if (!q.trim() || !db) {
+    if (!(q.trim() && db)) {
       setFilteredCommands(commands);
       return;
     }

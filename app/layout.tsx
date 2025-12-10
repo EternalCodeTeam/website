@@ -104,21 +104,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={poppins.variable}>
+    <html className={poppins.variable} lang="en" suppressHydrationWarning>
       <body
         className={`${poppins.className} relative min-h-screen bg-light-gray-100 antialiased dark:bg-gray-900`}
       >
         <Providers>
           <NextTopLoader
             color="#3b82f6"
-            initialPosition={0.08}
-            crawlSpeed={200}
-            height={3}
             crawl={true}
-            showSpinner={false}
+            crawlSpeed={200}
             easing="ease"
-            speed={200}
+            height={3}
+            initialPosition={0.08}
             shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
+            showSpinner={false}
+            speed={200}
           />
           <header>
             <Navbar />

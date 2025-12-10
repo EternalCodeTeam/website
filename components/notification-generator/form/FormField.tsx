@@ -52,6 +52,7 @@ export const FormField = ({
         italic: "i",
         underline: "u",
         strikethrough: "st",
+        obfuscated: "obf",
       };
 
       const tag = formatToTag[format] || format;
@@ -83,67 +84,69 @@ export const FormField = ({
     handleInsertTag(tag);
   };
 
-  const inputClasses = `w-full rounded-lg border border-gray-200 bg-gray-50/50 px-4 py-2.5 text-sm transition-all focus:border-blue-500 focus:bg-white focus:outline-hidden focus:ring-4 focus:ring-blue-500/10 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-blue-500 dark:focus:bg-black/40`;
+  const inputClasses =
+    "w-full rounded-lg border border-gray-200 bg-gray-50/50 px-4 py-2.5 text-sm transition-all focus:border-blue-500 focus:bg-white focus:outline-hidden focus:ring-4 focus:ring-blue-500/10 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-blue-500 dark:focus:bg-black/40";
 
-  const textareaClasses = `w-full rounded-lg border border-gray-200 bg-gray-50/50 px-4 py-2.5 text-sm transition-all focus:border-blue-500 focus:bg-white focus:outline-hidden focus:ring-4 focus:ring-blue-500/10 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-blue-500 dark:focus:bg-black/40`;
+  const textareaClasses =
+    "w-full rounded-lg border border-gray-200 bg-gray-50/50 px-4 py-2.5 text-sm transition-all focus:border-blue-500 focus:bg-white focus:outline-hidden focus:ring-4 focus:ring-blue-500/10 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-blue-500 dark:focus:bg-black/40";
 
   return (
     <div className="mb-6">
       <label
+        className="mb-2 block font-medium text-gray-700 text-sm dark:text-gray-300"
         htmlFor={`formfield-${name}`}
-        className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
       >
         {label}
       </label>
       {showEditorButtons && (
         <div className="mb-2">
           <TextFormattingButtons
-            onFormat={handleFormatButtonClick}
-            onInsertTag={handleInsertTag}
             editorButtonSet={editorButtonSet}
             onColorApply={handleColorApply}
+            onFormat={handleFormatButtonClick}
+            onInsertTag={handleInsertTag}
           />
         </div>
       )}
       {type === "textarea" ? (
         <motion.textarea
-          className={textareaClasses}
-          rows={rows}
-          value={value}
-          onChange={(e) => onChange(name, e.target.value)}
-          placeholder={placeholder}
-          initial={{ opacity: 0, y: 3 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.1, delay: 0.05 }}
-          whileFocus={{ scale: 1.005 }}
-          ref={textareaRef}
-          id={`formfield-${name}`}
           aria-describedby={error ? `error-${name}` : helpText ? `help-${name}` : undefined}
           aria-invalid={error ? "true" : "false"}
+          className={textareaClasses}
+          id={`formfield-${name}`}
+          initial={{ opacity: 0, y: 3 }}
+          onChange={(e) => onChange(name, e.target.value)}
+          placeholder={placeholder}
+          ref={textareaRef}
+          rows={rows}
+          transition={{ duration: 0.1, delay: 0.05 }}
+          value={value}
+          whileFocus={{ scale: 1.005 }}
         />
       ) : (
         <motion.input
-          className={inputClasses}
-          type={type}
-          value={value}
-          onChange={(e) => onChange(name, e.target.value)}
-          placeholder={placeholder}
-          initial={{ opacity: 0, y: 3 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.1, delay: 0.05 }}
-          whileFocus={{ scale: 1.005 }}
-          ref={inputRef}
-          id={`formfield-${name}`}
           aria-describedby={error ? `error-${name}` : helpText ? `help-${name}` : undefined}
           aria-invalid={error ? "true" : "false"}
+          className={inputClasses}
+          id={`formfield-${name}`}
+          initial={{ opacity: 0, y: 3 }}
+          onChange={(e) => onChange(name, e.target.value)}
+          placeholder={placeholder}
+          ref={inputRef}
+          transition={{ duration: 0.1, delay: 0.05 }}
+          type={type}
+          value={value}
+          whileFocus={{ scale: 1.005 }}
         />
       )}
       {error && (
         <motion.p
-          id={`error-${name}`}
-          className="mt-1.5 text-xs font-medium text-red-500 dark:text-red-400"
-          initial={{ opacity: 0, y: -5 }}
           animate={{ opacity: 1, y: 0 }}
+          className="mt-1.5 font-medium text-red-500 text-xs dark:text-red-400"
+          id={`error-${name}`}
+          initial={{ opacity: 0, y: -5 }}
           transition={{ duration: 0.2 }}
         >
           {error}
@@ -151,10 +154,10 @@ export const FormField = ({
       )}
       {helpText && !error && (
         <motion.p
-          id={`help-${name}`}
-          className="mt-1.5 text-xs text-gray-500 dark:text-gray-400"
-          initial={{ opacity: 0, y: -5 }}
           animate={{ opacity: 1, y: 0 }}
+          className="mt-1.5 text-gray-500 text-xs dark:text-gray-400"
+          id={`help-${name}`}
+          initial={{ opacity: 0, y: -5 }}
           transition={{ duration: 0.2 }}
         >
           {helpText}

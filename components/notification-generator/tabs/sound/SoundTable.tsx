@@ -95,18 +95,18 @@ export function SoundTable({
       <div className="mb-4">
         <div className="relative">
           <input
-            type="text"
-            value={searchQuery}
+            className="w-full rounded-md border border-gray-200 bg-white px-3 py-1.5 text-sm focus:border-blue-500 focus:outline-hidden focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
             onChange={handleSearch}
             placeholder="Search sounds..."
-            className="w-full rounded-md border border-gray-200 bg-white px-3 py-1.5 text-sm focus:border-blue-500 focus:outline-hidden focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+            type="text"
+            value={searchQuery}
           />
           {searchQuery && (
             <Button
-              variant="ghost"
-              size="sm"
-              className="absolute right-1 top-1/2 h-6 w-6 -translate-y-1/2"
+              className="-translate-y-1/2 absolute top-1/2 right-1 h-6 w-6"
               onClick={handleClearSearch}
+              size="sm"
+              variant="ghost"
             >
               ✕
             </Button>
@@ -115,7 +115,7 @@ export function SoundTable({
       </div>
 
       {playbackError && (
-        <div className="mb-4 rounded-md bg-red-50 p-3 text-sm text-red-700 dark:bg-red-900/20 dark:text-red-400">
+        <div className="mb-4 rounded-md bg-red-50 p-3 text-red-700 text-sm dark:bg-red-900/20 dark:text-red-400">
           {playbackError}
         </div>
       )}
@@ -125,13 +125,13 @@ export function SoundTable({
           <table className="w-full border-collapse">
             <thead>
               <tr className="bg-gray-50 dark:bg-gray-800">
-                <th className="border-b border-gray-200 px-2 py-1.5 text-left text-xs font-medium text-gray-500 dark:border-gray-700 dark:text-gray-400">
+                <th className="border-gray-200 border-b px-2 py-1.5 text-left font-medium text-gray-500 text-xs dark:border-gray-700 dark:text-gray-400">
                   Name
                 </th>
-                <th className="border-b border-gray-200 px-2 py-1.5 text-left text-xs font-medium text-gray-500 dark:border-gray-700 dark:text-gray-400">
+                <th className="border-gray-200 border-b px-2 py-1.5 text-left font-medium text-gray-500 text-xs dark:border-gray-700 dark:text-gray-400">
                   Category
                 </th>
-                <th className="w-12 border-b border-gray-200 px-2 py-1.5 text-center text-xs font-medium text-gray-500 dark:border-gray-700 dark:text-gray-400">
+                <th className="w-12 border-gray-200 border-b px-2 py-1.5 text-center font-medium text-gray-500 text-xs dark:border-gray-700 dark:text-gray-400">
                   Play
                 </th>
               </tr>
@@ -140,8 +140,8 @@ export function SoundTable({
               {loading ? (
                 <tr>
                   <td
+                    className="px-2 py-4 text-center text-gray-500 text-xs dark:text-gray-400"
                     colSpan={3}
-                    className="px-2 py-4 text-center text-xs text-gray-500 dark:text-gray-400"
                   >
                     Loading sounds...
                   </td>
@@ -149,8 +149,8 @@ export function SoundTable({
               ) : filteredSounds.length === 0 ? (
                 <tr>
                   <td
+                    className="px-2 py-4 text-center text-gray-500 text-xs dark:text-gray-400"
                     colSpan={3}
-                    className="px-2 py-4 text-center text-xs text-gray-500 dark:text-gray-400"
                   >
                     No sounds found
                   </td>
@@ -158,12 +158,12 @@ export function SoundTable({
               ) : (
                 paginatedSounds.map((sound) => (
                   <tr
-                    key={sound.id}
-                    className={`border-b border-gray-100 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 ${
+                    className={`border-gray-100 border-b hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 ${
                       selectedSound?.id === sound.id ? "bg-blue-50 dark:bg-blue-900/20" : ""
                     } ${
                       currentlyPlayingId === sound.id ? "bg-green-50 dark:bg-green-900/20" : ""
                     } cursor-pointer transition-colors duration-150`}
+                    key={sound.id}
                     onClick={() => handleSelectSound(sound.id)}
                   >
                     <td className="max-w-[120px] truncate px-2 py-1.5 text-xs" title={sound.name}>
@@ -182,12 +182,12 @@ export function SoundTable({
                     <td className="w-12 px-2 py-1.5 text-center">
                       <div className="flex items-center justify-center">
                         <Button
-                          variant="ghost"
-                          size="sm"
-                          className="flex h-8 w-8 items-center justify-center rounded-full p-0 text-blue-600 dark:text-blue-400"
-                          onClick={(e: React.MouseEvent) => handlePlayStopSound(sound, e)}
-                          disabled={loading}
                           aria-label={currentlyPlayingId === sound.id ? "Stop sound" : "Play sound"}
+                          className="flex h-8 w-8 items-center justify-center rounded-full p-0 text-blue-600 dark:text-blue-400"
+                          disabled={loading}
+                          onClick={(e: React.MouseEvent) => handlePlayStopSound(sound, e)}
+                          size="sm"
+                          variant="ghost"
                         >
                           {currentlyPlayingId === sound.id ? (
                             <Stop className="h-4 w-4" />
@@ -207,7 +207,7 @@ export function SoundTable({
 
       {totalPages > 1 && (
         <div className="mt-4 flex items-center justify-between">
-          <div className="text-xs text-gray-500 dark:text-gray-400">
+          <div className="text-gray-500 text-xs dark:text-gray-400">
             {filteredSounds.length > 0 ? (
               <>
                 {(currentPage - 1) * ITEMS_PER_PAGE + 1}-
@@ -220,11 +220,11 @@ export function SoundTable({
           </div>
           <div className="flex space-x-1">
             <Button
-              variant="outline"
-              size="sm"
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
               className="h-8 px-2"
+              disabled={currentPage === 1}
+              onClick={() => handlePageChange(currentPage - 1)}
+              size="sm"
+              variant="outline"
             >
               Previous
             </Button>
@@ -243,11 +243,11 @@ export function SoundTable({
 
               return (
                 <Button
-                  key={pageNumber}
-                  variant={currentPage === pageNumber ? "primary" : "outline"}
-                  size="sm"
-                  onClick={() => handlePageChange(pageNumber)}
                   className="h-8 w-8 p-0"
+                  key={pageNumber}
+                  onClick={() => handlePageChange(pageNumber)}
+                  size="sm"
+                  variant={currentPage === pageNumber ? "primary" : "outline"}
                 >
                   {pageNumber}
                 </Button>
@@ -255,11 +255,11 @@ export function SoundTable({
             })}
 
             <Button
-              variant="outline"
-              size="sm"
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
               className="h-8 px-2"
+              disabled={currentPage === totalPages}
+              onClick={() => handlePageChange(currentPage + 1)}
+              size="sm"
+              variant="outline"
             >
               Next
             </Button>

@@ -1,7 +1,7 @@
 "use client";
 
 import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { canLoadAnalytics } from "@/lib/cookie-utils";
 

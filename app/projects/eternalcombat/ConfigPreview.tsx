@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Prism from "prismjs";
+import { useEffect, useState } from "react";
 import "@/app/prism-languages";
 
 const yamlConfig = `
@@ -281,7 +281,7 @@ export const ConfigPreview = () => {
   }, []);
 
   return (
-    <pre className="!bg-transparent !m-0 !p-8 font-mono text-[11px] leading-relaxed font-medium overflow-visible">
+    <pre className="!bg-transparent !m-0 !p-8 overflow-visible font-medium font-mono text-[11px] leading-relaxed">
       {/* 
           We use dangerouslySetInnerHTML to render the Prism-highlighted HTML.
           We add the 'language-yaml' class to proper scope CSS.

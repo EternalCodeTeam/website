@@ -12,16 +12,16 @@ export const EditOnGitHub = ({ filePath, className }: EditOnGitHubProps) => {
 
   return (
     <Button
-      href={githubUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      variant="outline"
-      size="sm"
       className={cn(
         "rounded-full bg-white text-gray-700 dark:bg-gray-800/50 dark:text-gray-300",
         className
       )}
+      href={githubUrl}
       leftIcon={<GitHubIcon className="h-4 w-4" />}
+      rel="noopener noreferrer"
+      size="sm"
+      target="_blank"
+      variant="outline"
     >
       Edit on GitHub
     </Button>

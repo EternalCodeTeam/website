@@ -19,10 +19,22 @@ export const minecraftColors: MinecraftColor[] = [
   { name: "White", hex: "#FFFFFF" },
 ];
 
+export const gradientPresets = [
+  {
+    name: "Rainbow",
+    colors: ["#FF0000", "#FFAA00", "#FFFF55", "#00AA00", "#00AAAA", "#0000AA", "#AA00AA"],
+  },
+  { name: "Sunset", colors: ["#FF5555", "#FFAA00", "#FFFF55"] },
+  { name: "Ocean", colors: ["#00AAAA", "#0000AA", "#5555FF"] },
+  { name: "Fire", colors: ["#FFFF55", "#FFAA00", "#FF5555"] },
+  { name: "Nature", colors: ["#55FF55", "#00AA00", "#00AAAA"] },
+  { name: "Neon", colors: ["#FF55FF", "#55FFFF"] },
+];
+
 export const allowedTags: Record<string, TagCategory> = {
   formatting: {
-    pattern: /<[biu]><\/[biu]>|<st><\/st>/,
-    tags: ["<b></b>", "<i></i>", "<u></u>", "<st></st>"],
+    pattern: /<[biu]><\/[biu]>|<st><\/st>|<obf><\/obf>/,
+    tags: ["<b></b>", "<i></i>", "<u></u>", "<st></st>", "<obf></obf>"],
   },
   color: {
     pattern: /<color:#[0-9a-fA-F]{6}><\/color>/,

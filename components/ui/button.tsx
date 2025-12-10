@@ -78,7 +78,7 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
     const shouldAnimate = animate && variant !== "ghost" && variant !== "link";
 
     const baseStyles = cn(
-      "cursor-pointer inline-flex items-center justify-center font-medium transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none relative overflow-visible group select-none",
+      "group relative inline-flex cursor-pointer select-none items-center justify-center overflow-visible font-medium transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
       fullWidth ? "w-full" : "",
       variants[variant as ButtonVariant],
       sizes[size as ButtonSize],
@@ -96,11 +96,11 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
     const content = (
       <>
         {shine && (
-          <div className="absolute inset-0 overflow-hidden rounded-[inherit] pointer-events-none">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
+          <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
+            <div className="-translate-x-[100%] absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 ease-in-out group-hover:translate-x-[100%]" />
           </div>
         )}
-        <div className="relative flex items-center justify-center gap-2 z-10">
+        <div className="relative z-10 flex items-center justify-center gap-2">
           {leftIcon && <span className="flex shrink-0">{leftIcon}</span>}
           {children}
           {rightIcon && <span className="flex shrink-0">{rightIcon}</span>}
@@ -111,8 +111,8 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
     if (isLink && href) {
       return (
         <MotionLink
-          href={href}
           className={baseStyles}
+          href={href}
           // biome-ignore lint/suspicious/noExplicitAny: Ref compatibility
           ref={ref as any}
           {...animationProps}
@@ -126,9 +126,9 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
     return (
       <motion.button
         // biome-ignore lint/suspicious/noExplicitAny: Ref compatibility
-        ref={ref as any}
         className={baseStyles}
         disabled={props.disabled}
+        ref={ref as any}
         type={props.type === "submit" ? "submit" : "button"}
         {...animationProps}
         {...props}

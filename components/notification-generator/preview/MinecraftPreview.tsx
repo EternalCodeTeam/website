@@ -27,18 +27,18 @@ export function MinecraftPreview({ notification }: MinecraftPreviewProps) {
 
     const cssVars: Record<string, string> = {
       "--mc-scale": scale.toString(),
-      "--mc-font-size": `calc(8px * var(--mc-scale))`,
-      "--mc-line-height": `calc(9px * var(--mc-scale))`,
-      "--mc-shadow": `calc(1px * var(--mc-scale))`,
+      "--mc-font-size": "calc(8px * var(--mc-scale))",
+      "--mc-line-height": "calc(9px * var(--mc-scale))",
+      "--mc-shadow": "calc(1px * var(--mc-scale))",
 
-      "--mc-chat-left": `calc(4px * var(--mc-scale))`,
-      "--mc-chat-bottom": `calc(48px * var(--mc-scale))`,
-      "--mc-chat-width": `calc(320px * var(--mc-scale))`,
+      "--mc-chat-left": "calc(4px * var(--mc-scale))",
+      "--mc-chat-bottom": "calc(48px * var(--mc-scale))",
+      "--mc-chat-width": "calc(320px * var(--mc-scale))",
 
-      "--mc-actionbar-bottom": `calc(67px * var(--mc-scale))`,
+      "--mc-actionbar-bottom": "calc(67px * var(--mc-scale))",
 
-      "--mc-title-font-size": `calc(32px * var(--mc-scale))`,
-      "--mc-subtitle-font-size": `calc(16px * var(--mc-scale))`,
+      "--mc-title-font-size": "calc(32px * var(--mc-scale))",
+      "--mc-subtitle-font-size": "calc(16px * var(--mc-scale))",
     };
 
     setScaleVars(cssVars);
@@ -84,9 +84,9 @@ export function MinecraftPreview({ notification }: MinecraftPreviewProps) {
     return (
       <div>
         <Title
-          title={notification.title}
-          subtitle={notification.subtitle}
           showTitle={showTitle}
+          subtitle={notification.subtitle}
+          title={notification.title}
           titleOpacity={titleOpacity}
         />
       </div>
@@ -97,15 +97,17 @@ export function MinecraftPreview({ notification }: MinecraftPreviewProps) {
     if (!playSound) return null;
     return (
       <div>
-        <SoundIndicator sound={notification.sound} playSound={playSound} />
+        <SoundIndicator playSound={playSound} sound={notification.sound} />
       </div>
     );
   }, [playSound, notification.sound]);
 
   return (
     <div
+      aria-label="Minecraft notification preview"
+      className="relative overflow-hidden rounded-xl bg-black font-minecraft"
       ref={rootRef}
-      className="font-minecraft relative overflow-hidden rounded-xl bg-black"
+      role="img"
       style={{
         width: "100%",
         aspectRatio: "16/9",
@@ -113,8 +115,6 @@ export function MinecraftPreview({ notification }: MinecraftPreviewProps) {
         margin: "0 auto",
         ...scaleVars,
       }}
-      role="img"
-      aria-label="Minecraft notification preview"
     >
       <BackgroundImage />
 

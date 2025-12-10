@@ -67,7 +67,7 @@ export async function GET(req: NextRequest) {
             }}
           >
             {/* biome-ignore lint/performance/noImgElement: ImageResponse requires img tag */}
-            <img src={image} alt="Logo" width={80} height={80} style={{ borderRadius: "12px" }} />
+            <img alt="Logo" height={80} src={image} style={{ borderRadius: "12px" }} width={80} />
           </div>
 
           {/* Title */}

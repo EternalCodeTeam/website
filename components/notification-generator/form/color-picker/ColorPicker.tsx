@@ -1,194 +1,267 @@
 "use client";
 
-import { Plus, Trash2, X } from "lucide-react";
-import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Plus, RefreshCcw, Trash2, X } from "lucide-react";
+import { useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 
-import { Button } from "@/components/ui/button";
-
-import type { ColorPickerProps } from "../types";
+import { gradientPresets, minecraftColors } from "../colorConstants";
+import type { ColorPickerProps, MinecraftColor } from "../types";
 
 export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) => {
-  const [isGradient, setIsGradient] = useState(false);
-  const [colors, setColors] = useState<string[]>(["#000000"]);
-  const [activeColorIndex, setActiveColorIndex] = useState(0);
-  const [colorError, setColorError] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<"solid" | "gradient" | "presets">("solid");
+  const [solidColor, setSolidColor] = useState("#FFFFFF");
+  const [gradientColors, setGradientColors] = useState<string[]>(["#55FFFF", "#FF55FF"]);
+  const [copied, setCopied] = useState(false);
 
-  const isValidHex = (color: string): boolean => /^#([A-Fa-f0-9]{3}){1,2}$/.test(color);
+  // Sync solid color with first gradient color for smoother transitions
+  useEffect(() => {
+    if (activeTab === "solid" && gradientColors.length > 0) {
+      setSolidColor(gradientColors[0]);
+    }
+  }, []);
 
-  const isValidHexInput = (color: string): boolean => {
-    if (color === "" || color === "#") return true;
-    return /^#([A-Fa-f0-9]{3}){1,2}$/.test(color) || /^#[A-Fa-f0-9]{1,5}$/.test(color);
-  };
-
-  const handleColorChange = (color: string, isTextInput = false) => {
-    if (isTextInput) {
-      if (isValidHexInput(color)) {
-        if (isValidHex(color)) {
-          updateColor(color);
-          setColorError(null);
-        } else {
-          setColorError(null);
-        }
-      } else {
-        setColorError("Invalid hex color format. Use #RGB or #RRGGBB format.");
-      }
-    } else if (isValidHex(color)) {
-      updateColor(color);
-      setColorError(null);
+  const handleApply = () => {
+    if (activeTab === "gradient") {
+      const result = `<gradient:${gradientColors.join(":")}></gradient>`;
+      onApplyAction(result, true, gradientColors);
+    } else {
+      const result = `<color:${solidColor}></color>`;
+      onApplyAction(result, false, [solidColor]);
     }
   };
 
-  const updateColor = (color: string) => {
-    setColors((prev) => prev.map((c, i) => (i === activeColorIndex ? color : c)));
+  const handlePresetClick = (color: MinecraftColor) => {
+    setSolidColor(color.hex);
+    if (activeTab === "presets") {
+      // Optional: Auto-switch to solid tab or just apply directly?
+      // Let's just update the solid color state for now, user can click apply.
+      // Actually, for better UX, let's switch to Solid tab to let them tweak it if they want.
+      setActiveTab("solid");
+    }
   };
 
-  const addColor = () => {
-    setColors((prev) => [...prev, "#000000"]);
-    setActiveColorIndex(colors.length);
-    setColorError(null);
+  const addGradientStop = () => {
+    setGradientColors([...gradientColors, "#FFFFFF"]);
   };
 
-  const removeColor = (index: number) => {
-    if (colors.length <= 1) return;
-    const newColors = colors.filter((_, i) => i !== index);
-    setColors(newColors);
-    setActiveColorIndex((prev) => Math.min(prev, newColors.length - 1));
-    setColorError(null);
+  const removeGradientStop = (index: number) => {
+    if (gradientColors.length > 2) {
+      const newColors = [...gradientColors];
+      newColors.splice(index, 1);
+      setGradientColors(newColors);
+    }
   };
 
-  const handleApply = () => {
-    const result =
-      isGradient && colors.length > 1
-        ? `<gradient:${colors.join(":")}></gradient>`
-        : `<color:${colors[activeColorIndex]}></color>`;
-    onApplyAction(result, isGradient, colors);
+  const updateGradientColor = (index: number, color: string) => {
+    const newColors = [...gradientColors];
+    newColors[index] = color;
+    setGradientColors(newColors);
   };
 
-  const currentColor = colors[activeColorIndex];
-  const gradientStyle = { background: `linear-gradient(to right, ${colors.join(", ")})` };
+  const reverseGradient = () => {
+    setGradientColors([...gradientColors].reverse());
+  };
+
+  const handleGradientPresetClick = (colors: string[]) => {
+    setGradientColors(colors);
+    setActiveTab("gradient");
+  };
 
   return (
-    <div className="absolute z-10 mt-10 rounded-lg border border-gray-300 bg-white p-4 shadow-lg dark:border-gray-600 dark:bg-gray-800">
-      <div className="mb-2 flex items-center justify-between">
-        <div className="flex items-center">
-          <input
-            type="checkbox"
-            id="gradient-toggle"
-            checked={isGradient}
-            onChange={(e) => setIsGradient(e.target.checked)}
-            className="mr-2 h-4 w-4 rounded-sm border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
-          />
-          <label htmlFor="gradient-toggle" className="text-sm text-gray-700 dark:text-gray-300">
-            Gradient
-          </label>
-        </div>
-        <Button
-          type="button"
-          variant="ghost"
-          size="sm"
+    <motion.div
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      className="absolute top-full left-0 z-50 mt-2 w-72 rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-800 dark:bg-gray-950"
+      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between border-gray-100 border-b p-3 dark:border-gray-800">
+        <h3 className="font-semibold text-gray-900 dark:text-gray-100">Color Picker</h3>
+        <button
+          className="cursor-pointer rounded-md p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200"
           onClick={onCloseAction}
-          className="h-6 w-6 p-0"
         >
-          <X className="h-4 w-4" />
-        </Button>
+          <X size={16} />
+        </button>
       </div>
 
-      {isGradient && (
-        <>
-          <div className="mb-2 flex flex-wrap gap-2">
-            {colors.map((color, idx) => {
-              const key = `${color}-${idx}`;
-              return (
-                <div key={key} className="group relative">
-                  <button
-                    type="button"
-                    className={`h-8 w-8 cursor-pointer rounded border-2 focus:outline-hidden ${
-                      activeColorIndex === idx
-                        ? "border-blue-500"
-                        : "border-gray-300 dark:border-gray-600"
-                    }`}
-                    style={{ backgroundColor: color }}
-                    onClick={() => {
-                      setActiveColorIndex(idx);
-                      setColorError(null);
-                    }}
-                    aria-label={`Select color ${idx + 1}`}
-                  />
-                  {colors.length > 1 && (
-                    <Button
-                      type="button"
-                      variant="danger"
-                      size="xs"
-                      className="absolute -right-1 -top-1 h-4 w-4 p-0 opacity-0 transition-opacity group-hover:opacity-100"
-                      onClick={() => removeColor(idx)}
-                      title="Remove Color"
-                    >
-                      <Trash2 className="h-3 w-3" />
-                    </Button>
-                  )}
-                </div>
-              );
-            })}
+      {/* Tabs */}
+      <div className="flex border-gray-100 border-b dark:border-gray-800">
+        {(["solid", "gradient", "presets"] as const).map((tab) => (
+          <button
+            className={`flex-1 cursor-pointer px-3 py-2 font-medium text-sm transition-colors ${
+              activeTab === tab
+                ? "border-blue-500 border-b-2 text-blue-600 dark:text-blue-400"
+                : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
+            }`}
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+          >
+            {tab.charAt(0).toUpperCase() + tab.slice(1)}
+          </button>
+        ))}
+      </div>
 
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              className="h-8 w-8 border-dashed p-0"
-              onClick={addColor}
-              title="Add Color"
+      {/* Content */}
+      <div className="p-4">
+        <AnimatePresence mode="wait">
+          {activeTab === "solid" && (
+            <motion.div
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 10 }}
+              initial={{ opacity: 0, x: -10 }}
+              key="solid"
+              transition={{ duration: 0.2 }}
             >
-              <Plus className="h-4 w-4" />
-            </Button>
-          </div>
-
-          <div className="mb-2">
-            <label htmlFor="gradient-preview" className="mb-1 block text-xs">
-              Gradient Preview
-            </label>
-            <div
-              id="gradient-preview"
-              className="h-10 w-full rounded-sm border border-gray-300 dark:border-gray-600"
-              style={gradientStyle}
-            />
-          </div>
-        </>
-      )}
-
-      <HexColorPicker
-        className="mx-auto w-full"
-        color={currentColor}
-        onChange={handleColorChange}
-      />
-
-      <div className="mt-2 flex justify-between">
-        <div className="flex items-center">
-          <div
-            className="mr-2 h-6 w-6 rounded-sm border border-gray-300 dark:border-gray-600"
-            style={{ backgroundColor: currentColor }}
-          />
-          <div className="relative flex flex-col">
-            <input
-              type="text"
-              value={currentColor}
-              onChange={(e) => handleColorChange(e.target.value, true)}
-              className={`w-20 rounded border px-2 py-1 text-sm ${
-                colorError ? "border-red-500" : "border-gray-300 dark:border-gray-600"
-              } bg-white dark:bg-gray-800 dark:text-white`}
-              placeholder="#000000"
-            />
-            {colorError && (
-              <div className="absolute top-8 z-20 w-48 rounded-sm bg-red-100 p-1 text-xs text-red-700 dark:bg-red-900 dark:text-red-200">
-                {colorError}
+              <div className="mb-4 flex justify-center">
+                <HexColorPicker
+                  color={solidColor}
+                  onChange={setSolidColor}
+                  style={{ width: "100%", height: "160px" }}
+                />
               </div>
-            )}
-          </div>
-        </div>
-        <Button type="button" variant="primary" size="sm" onClick={handleApply}>
-          Apply
-        </Button>
+              <div className="flex items-center gap-2">
+                <div
+                  className="h-9 w-9 rounded-md border border-gray-200 shadow-xs dark:border-gray-700"
+                  style={{ backgroundColor: solidColor }}
+                />
+                <input
+                  className="flex-1 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-gray-900 text-sm uppercase focus:border-blue-500 focus:outline-hidden focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                  onChange={(e) => setSolidColor(e.target.value)}
+                  spellCheck={false}
+                  type="text"
+                  value={solidColor}
+                />
+              </div>
+            </motion.div>
+          )}
+
+          {activeTab === "gradient" && (
+            <motion.div
+              animate={{ opacity: 1, x: 0 }}
+              className="space-y-4"
+              exit={{ opacity: 0, x: 10 }}
+              initial={{ opacity: 0, x: -10 }}
+              key="gradient"
+              transition={{ duration: 0.2 }}
+            >
+              <div
+                className="h-12 w-full rounded-md border border-gray-200 shadow-sm dark:border-gray-700"
+                style={{
+                  background: `linear-gradient(to right, ${gradientColors.join(", ")})`,
+                }}
+              />
+
+              <div className="flex gap-2">
+                <button
+                  className="flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-md border border-gray-200 bg-white py-1.5 font-medium text-gray-700 text-xs hover:bg-gray-50 hover:text-gray-900 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
+                  onClick={reverseGradient}
+                  type="button"
+                >
+                  <RefreshCcw className={activeTab === "gradient" ? "" : ""} size={12} /> Reverse
+                </button>
+              </div>
+
+              <div className="max-h-48 space-y-2 overflow-y-auto pr-1">
+                {gradientColors.map((color, index) => (
+                  <div className="flex items-center gap-2" key={index}>
+                    <div className="relative h-8 w-8 overflow-hidden rounded-md border border-gray-200 dark:border-gray-700">
+                      <input
+                        className="-left-1/2 -top-1/2 absolute h-[200%] w-[200%] cursor-pointer p-0"
+                        onChange={(e) => updateGradientColor(index, e.target.value)}
+                        type="color"
+                        value={color}
+                      />
+                    </div>
+                    <input
+                      className="flex-1 rounded-md border border-gray-300 bg-white px-2 py-1 text-gray-900 text-sm uppercase focus:border-blue-500 focus:outline-hidden focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                      onChange={(e) => updateGradientColor(index, e.target.value)}
+                      type="text"
+                      value={color}
+                    />
+                    <button
+                      className="cursor-pointer rounded-md p-1.5 text-gray-500 transition-colors hover:bg-red-50 hover:text-red-600 disabled:opacity-50 dark:hover:bg-red-900/20 dark:hover:text-red-400"
+                      disabled={gradientColors.length <= 2}
+                      onClick={() => removeGradientStop(index)}
+                      title="Remove stop"
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              <button
+                className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-md border border-gray-300 border-dashed py-2 font-medium text-gray-600 text-sm transition-colors hover:border-gray-400 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800"
+                onClick={addGradientStop}
+              >
+                <Plus size={14} /> Add Color Stop
+              </button>
+            </motion.div>
+          )}
+
+          {activeTab === "presets" && (
+            <motion.div
+              animate={{ opacity: 1, x: 0 }}
+              className="space-y-4"
+              exit={{ opacity: 0, x: 10 }}
+              initial={{ opacity: 0, x: -10 }}
+              key="presets"
+              transition={{ duration: 0.2 }}
+            >
+              <div>
+                <h4 className="mb-2 font-semibold text-gray-500 text-xs uppercase dark:text-gray-400">
+                  Solid Colors
+                </h4>
+                <div className="grid grid-cols-5 gap-2">
+                  {minecraftColors.map((mcColor) => (
+                    <button
+                      className="group relative flex aspect-square cursor-pointer flex-col items-center justify-center rounded-md border border-gray-200 transition-all hover:scale-110 hover:shadow-md dark:border-gray-700"
+                      key={mcColor.hex}
+                      onClick={() => handlePresetClick(mcColor)}
+                      style={{ backgroundColor: mcColor.hex }}
+                      title={mcColor.name}
+                    >
+                      <span className="sr-only">{mcColor.name}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h4 className="mb-2 font-semibold text-gray-500 text-xs uppercase dark:text-gray-400">
+                  Gradients
+                </h4>
+                <div className="grid grid-cols-2 gap-2">
+                  {gradientPresets.map((preset) => (
+                    <button
+                      className="group relative h-10 w-full cursor-pointer overflow-hidden rounded-md border border-gray-200 transition-all hover:scale-105 hover:shadow-md dark:border-gray-700"
+                      key={preset.name}
+                      onClick={() => handleGradientPresetClick(preset.colors)}
+                      style={{
+                        background: `linear-gradient(to right, ${preset.colors.join(", ")})`,
+                      }}
+                      title={preset.name}
+                    >
+                      <span className="sr-only">{preset.name}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {activeTab !== "presets" && (
+          <button
+            className="mt-4 w-full cursor-pointer rounded-md bg-blue-600 py-2 font-medium text-sm text-white shadow-xs transition-colors hover:bg-blue-700 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+            onClick={handleApply}
+          >
+            Apply {activeTab === "gradient" ? "Gradient" : "Color"}
+          </button>
+        )}
       </div>
-    </div>
+    </motion.div>
   );
 };

@@ -3,18 +3,18 @@ import type { SVGProps } from "react";
 export default function ArrowForwardHeroIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
+      aria-label="Arrow forward"
       height="1em"
       viewBox="0 0 24 24"
-      aria-label="Arrow forward"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
       <title>Arrow forward</title>
       <path
-        fill="currentColor"
         d="M17.079 12.5H5v-1h12.079l-5.792-5.792L12 5l7 7l-7 7l-.713-.708z"
-      ></path>
+        fill="currentColor"
+      />
     </svg>
   );
 }

@@ -4,9 +4,8 @@
 
 import { Check, Link as LinkIcon } from "lucide-react";
 import { createElement, type ElementType, type HTMLAttributes } from "react";
-
-import { cn } from "@/lib/utils";
 import { CopyToClipboard } from "@/components/ui/CopyToClipboard";
+import { cn } from "@/lib/utils";
 
 interface HeadingProps extends HTMLAttributes<HTMLElement> {
   id?: string;
@@ -25,13 +24,13 @@ export const Heading = ({ children, id, tag, className, ...props }: HeadingProps
       className: cn("group relative scroll-mt-24", className),
       ...props,
     },
-    <span className="inline-flex items-center w-full">
+    <span className="inline-flex w-full items-center">
       {children}
       {id && (
         <CopyToClipboard
-          text={link}
           className="ml-2 inline-flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100"
           showIcon={false}
+          text={link}
         >
           {({ copied }) => (
             <div className="inline-flex items-center justify-center rounded-md p-1 text-gray-400 transition-all hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-300">

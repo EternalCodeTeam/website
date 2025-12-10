@@ -1,44 +1,44 @@
 import type { MDXComponents } from "mdx/types";
-import type { ComponentProps, HTMLAttributes } from "react";
 import Image from "next/image";
+import type { ComponentProps, HTMLAttributes } from "react";
 
 import DynamicCommandsTable from "@/components/docs/eternalcore/commands/DynamicCommandsTable";
 import DynamicPlaceholdersTable from "@/components/docs/eternalcore/placeholder/DynamicPlaceholdersTable";
+import { AlertBox } from "@/components/ui/alert-box";
+import { Callout } from "@/components/ui/mdx/Callout";
+import { Card, CardGroup } from "@/components/ui/mdx/Card";
 import { CodeBlock } from "@/components/ui/mdx/CodeBlock";
 import { CodeTab, CodeTabs } from "@/components/ui/mdx/CodeTabs";
 import { Heading } from "@/components/ui/mdx/Heading";
 import { Inline } from "@/components/ui/mdx/Inline";
-import { Callout } from "@/components/ui/mdx/Callout";
-import { Card, CardGroup } from "@/components/ui/mdx/Card";
-import { Steps, Step } from "@/components/ui/mdx/Steps";
-import { AlertBox } from "@/components/ui/alert-box";
+import { Step, Steps } from "@/components/ui/mdx/Steps";
 
 type HeadingProps = HTMLAttributes<HTMLHeadingElement>;
 
 export const components: MDXComponents = {
   h1: (props: HeadingProps) => (
     <Heading
+      className="mt-10 mb-6 font-bold text-4xl tracking-tight lg:text-5xl"
       tag="h1"
-      className="mb-6 mt-10 text-4xl font-bold tracking-tight lg:text-5xl"
       {...props}
     />
   ),
   h2: (props: HeadingProps) => (
-    <Heading tag="h2" className="mb-4 mt-10 text-3xl font-semibold tracking-tight" {...props} />
+    <Heading className="mt-10 mb-4 font-semibold text-3xl tracking-tight" tag="h2" {...props} />
   ),
   h3: (props: HeadingProps) => (
-    <Heading tag="h3" className="mb-3 mt-8 text-2xl font-medium" {...props} />
+    <Heading className="mt-8 mb-3 font-medium text-2xl" tag="h3" {...props} />
   ),
   h4: (props: HeadingProps) => (
-    <Heading tag="h4" className="mb-2 mt-6 text-xl font-medium" {...props} />
+    <Heading className="mt-6 mb-2 font-medium text-xl" tag="h4" {...props} />
   ),
   h5: (props: HeadingProps) => (
-    <Heading tag="h5" className="mb-1 mt-4 text-lg font-medium" {...props} />
+    <Heading className="mt-4 mb-1 font-medium text-lg" tag="h5" {...props} />
   ),
   h6: (props: HeadingProps) => (
     <Heading
+      className="mt-2 mb-1 font-medium text-base text-muted-foreground"
       tag="h6"
-      className="text-muted-foreground mb-1 mt-2 text-base font-medium"
       {...props}
     />
   ),
@@ -70,7 +70,7 @@ export const components: MDXComponents = {
 
   blockquote: (props) => (
     <blockquote
-      className="border-l-4 border-gray-300 pl-4 italic text-gray-600 dark:border-gray-600 dark:text-gray-400"
+      className="border-gray-300 border-l-4 pl-4 text-gray-600 italic dark:border-gray-600 dark:text-gray-400"
       {...props}
     />
   ),
@@ -83,7 +83,7 @@ export const components: MDXComponents = {
 
   thead: (props) => (
     <thead
-      className="border-b border-gray-200 bg-gray-50/50 text-gray-900 dark:border-gray-800 dark:bg-gray-900/50 dark:text-gray-100"
+      className="border-gray-200 border-b bg-gray-50/50 text-gray-900 dark:border-gray-800 dark:bg-gray-900/50 dark:text-gray-100"
       {...props}
     />
   ),
@@ -92,9 +92,9 @@ export const components: MDXComponents = {
     <tr className="transition-colors hover:bg-gray-50/50 dark:hover:bg-gray-800/50" {...props} />
   ),
   th: (props) => (
-    <th className="px-4 py-3 text-sm font-semibold text-gray-900 dark:text-gray-100" {...props} />
+    <th className="px-4 py-3 font-semibold text-gray-900 text-sm dark:text-gray-100" {...props} />
   ),
-  td: (props) => <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300" {...props} />,
+  td: (props) => <td className="px-4 py-3 text-gray-600 text-sm dark:text-gray-300" {...props} />,
   hr: (props) => <hr className="my-8 border-gray-200 dark:border-gray-800" {...props} />,
   ul: (props) => (
     <ul className="list-disc space-y-2 pl-6 text-gray-600 dark:text-gray-400" {...props} />
@@ -110,12 +110,12 @@ export const components: MDXComponents = {
     return (
       <span className="my-6 block w-full overflow-hidden rounded-md">
         <Image
-          src={props.src || ""}
           alt={alt}
-          width={900}
+          className="h-auto w-full rounded-md shadow-sm"
           height={500}
           sizes="100vw"
-          className="rounded-md shadow-sm w-full h-auto"
+          src={props.src || ""}
+          width={900}
         />
       </span>
     );

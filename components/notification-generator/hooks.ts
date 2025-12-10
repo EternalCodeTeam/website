@@ -14,11 +14,11 @@ export const useTitleAnimation = (
     if (!timeStr) return 0;
     const match = timeStr.match(/^(\d+(\.\d+)?)s$/);
     if (!match) return 0;
-    return parseFloat(match[1]);
+    return Number.parseFloat(match[1]);
   }, []);
 
   useEffect(() => {
-    if (!notification.title && !notification.subtitle) return;
+    if (!(notification.title || notification.subtitle)) return;
 
     const fadeIn = parseTime(notification.fadeIn) || 1;
     const stay = parseTime(notification.stay) || 2;

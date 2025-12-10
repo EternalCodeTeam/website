@@ -2,7 +2,6 @@
 
 import { FormField } from "../../form/FormField";
 import type { FieldType, NotificationConfig } from "../../types";
-import { MiniMessageInfoBox } from "../MiniMessageInfoBox";
 
 interface ActionBarTabProps {
   notification: NotificationConfig;
@@ -12,13 +11,12 @@ interface ActionBarTabProps {
 export const ActionBarTab = ({ notification, onChange }: ActionBarTabProps) => (
   <div>
     <FormField
+      editorButtonSet="basic"
       label="Action Bar Message"
       name="actionbar"
-      value={notification.actionbar}
       onChange={onChange}
       placeholder="Enter your action bar message"
-      editorButtonSet="basic"
+      value={notification.actionbar}
     />
-    <MiniMessageInfoBox />
   </div>
 );

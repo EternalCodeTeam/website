@@ -162,9 +162,10 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
       setErrorMessage("");
     });
 
-    const categoriesWithSounds = useMemo(() => {
-      return MANUAL_CATEGORIES.filter((cat) => sounds.some((s) => s.category === cat));
-    }, [sounds]);
+    const categoriesWithSounds = useMemo(
+      () => MANUAL_CATEGORIES.filter((cat) => sounds.some((s) => s.category === cat)),
+      [sounds]
+    );
 
     const categoryOrder = useCallback((cat: string | undefined) => {
       const idx = MANUAL_CATEGORIES.indexOf(cat || "");
@@ -201,7 +202,7 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
         const newAudio = new Audio(`${SOUND_BASE_URL}${sound.path}.ogg`);
 
         let volumeValue = 1.0;
-        const parsedVolume = parseFloat(notification.volume);
+        const parsedVolume = Number.parseFloat(notification.volume);
         if (!Number.isNaN(parsedVolume) && Number.isFinite(parsedVolume)) {
           volumeValue = Math.min(Math.max(parsedVolume, 0), 1.0);
         }
@@ -214,7 +215,7 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
         }
 
         let pitchValue = 1.0;
-        const parsedPitch = parseFloat(notification.pitch);
+        const parsedPitch = Number.parseFloat(notification.pitch);
         if (!Number.isNaN(parsedPitch) && Number.isFinite(parsedPitch)) {
           pitchValue = Math.min(Math.max(parsedPitch, 0.5), 2.0);
         }
@@ -287,83 +288,83 @@ export const SoundTab = forwardRef<SoundTabRef, SoundTabProps>(
     return (
       <div>
         {errorMessage && (
-          <div className="mb-4 rounded-md bg-red-50 p-3 text-sm text-red-700 dark:bg-red-900/30 dark:text-red-400">
+          <div className="mb-4 rounded-md bg-red-50 p-3 text-red-700 text-sm dark:bg-red-900/30 dark:text-red-400">
             {errorMessage}
           </div>
         )}
         <div className="mb-4">
           <div
+            className="mb-1 block font-medium text-gray-700 text-sm dark:text-gray-300"
             id="sound-type-label"
-            className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"
           >
             Sound Type
           </div>
           <Dropdown
-            options={soundTypeOptions}
-            value={selectedSoundType}
-            onChange={handleSoundTypeChange}
-            placeholder="All Types"
             aria-labelledby="sound-type-label"
+            onChange={handleSoundTypeChange}
+            options={soundTypeOptions}
+            placeholder="All Types"
+            value={selectedSoundType}
           />
-          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+          <p className="mt-1 text-gray-500 text-xs dark:text-gray-400">
             Filter sounds by their type.
           </p>
         </div>
 
         <SoundTable
-          sounds={filteredSounds}
-          selectedSound={selectedSound}
-          onSelectSound={handleSelectSound}
-          onPlaySound={handlePlaySound}
-          isPlaying={playing}
-          onStopSound={handleStopSound}
-          loading={loading}
           currentlyPlayingId={currentAudioPlayingId}
+          isPlaying={playing}
+          loading={loading}
+          onPlaySound={handlePlaySound}
+          onSelectSound={handleSelectSound}
+          onStopSound={handleStopSound}
           playbackError={playbackError}
+          selectedSound={selectedSound}
+          sounds={filteredSounds}
         />
 
         <SoundInfoBox />
 
         <div className="mb-4">
           <div
+            className="mb-1 block font-medium text-gray-700 text-sm dark:text-gray-300"
             id="sound-category-label"
-            className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"
           >
             Sound Category
           </div>
           <Dropdown
-            options={SOUND_CATEGORY_OPTIONS as DropdownOption[]}
-            value={notification.soundCategory}
-            onChange={(val: string) => onChange("soundCategory", val)}
-            placeholder="All Categories"
             aria-labelledby="sound-category-label"
+            onChange={(val: string) => onChange("soundCategory", val)}
+            options={SOUND_CATEGORY_OPTIONS as DropdownOption[]}
+            placeholder="All Categories"
+            value={notification.soundCategory}
           />
-          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+          <p className="mt-1 text-gray-500 text-xs dark:text-gray-400">
             If a player has the sound category set to 0% in game settings, the sound will not play.
           </p>
         </div>
 
         <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2">
           <SliderField
-            label="Volume"
-            name="volume"
-            value={notification.volume || "1.0"}
-            onChange={(name, value) => onChange(name as FieldType, value.toString())}
-            min={0.0}
-            max={1.0}
-            step={0.1}
             error={errors.volume}
+            label="Volume"
+            max={1.0}
+            min={0.0}
+            name="volume"
+            onChange={(name, value) => onChange(name as FieldType, value.toString())}
+            step={0.1}
+            value={notification.volume || "1.0"}
           />
 
           <SliderField
-            label="Pitch"
-            name="pitch"
-            value={notification.pitch || "1.0"}
-            onChange={(name, value) => onChange(name as FieldType, value.toString())}
-            min={0.5}
-            max={2.0}
-            step={0.1}
             error={errors.pitch}
+            label="Pitch"
+            max={2.0}
+            min={0.5}
+            name="pitch"
+            onChange={(name, value) => onChange(name as FieldType, value.toString())}
+            step={0.1}
+            value={notification.pitch || "1.0"}
           />
         </div>
       </div>

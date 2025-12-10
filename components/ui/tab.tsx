@@ -40,11 +40,11 @@ const Tab = forwardRef<HTMLButtonElement, TabProps>(
     return (
       <div className="relative">
         <Button
-          ref={ref}
-          variant={isActive ? "primary" : "ghost"}
-          size="sm"
-          className={tabClasses}
           animate={animate}
+          className={tabClasses}
+          ref={ref}
+          size="sm"
+          variant={isActive ? "primary" : "ghost"}
           {...props}
         >
           {tabContent}

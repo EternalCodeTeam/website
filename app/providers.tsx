@@ -1,7 +1,7 @@
 "use client";
 
 import { ThemeProvider } from "next-themes";
-import { type ReactNode, useEffect, useState, useCallback } from "react";
+import { type ReactNode, useCallback, useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 
 interface ProvidersProps {
@@ -24,7 +24,7 @@ export function Providers({ children }: ProvidersProps) {
   }
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+    <ThemeProvider attribute="class" defaultTheme="system" disableTransitionOnChange enableSystem>
       {children}
       <Toaster
         position="bottom-right"

@@ -1,13 +1,13 @@
-import { create, insertMultiple, search, type AnyOrama } from "@orama/orama";
+import { type AnyOrama, create, insertMultiple, search } from "@orama/orama";
 
 import type { SearchResult } from "./types";
 
 export class SearchEngine {
   private db: AnyOrama | null = null;
   private readonly endpoint: string;
-  private initialized: boolean = false;
+  private initialized = false;
 
-  constructor(endpoint: string = "/api/docs/search-index") {
+  constructor(endpoint = "/api/docs/search-index") {
     this.endpoint = endpoint;
   }
 
@@ -38,7 +38,7 @@ export class SearchEngine {
     }
   }
 
-  async search(query: string, limit: number = 8): Promise<SearchResult[]> {
+  async search(query: string, limit = 8): Promise<SearchResult[]> {
     if (!this.db || query.length < 2) {
       return [];
     }

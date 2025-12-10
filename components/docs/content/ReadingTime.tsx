@@ -17,11 +17,11 @@ export const ReadingTime = ({ content, wordsPerMinute = 200, className }: Readin
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs text-gray-600 dark:border-gray-800 dark:bg-gray-900/50 dark:text-gray-400",
+        "inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-gray-600 text-xs dark:border-gray-800 dark:bg-gray-900/50 dark:text-gray-400",
         className
       )}
     >
-      <Clock className="h-3.5 w-3.5" aria-hidden="true" />
+      <Clock aria-hidden="true" className="h-3.5 w-3.5" />
       <span>{readingTime} min read</span>
     </div>
   );

@@ -2,8 +2,6 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useMemo, useRef, useState } from "react";
-
-import { FadeIn } from "@/components/ui/motion/MotionComponents";
 import { ActionBarTab } from "@/components/notification-generator/tabs/actionbar/ActionBarTab";
 import { ChatTab } from "@/components/notification-generator/tabs/chat/ChatTab";
 import {
@@ -12,16 +10,17 @@ import {
 } from "@/components/notification-generator/tabs/sound/SoundTab";
 import { TitleTab } from "@/components/notification-generator/tabs/title/TitleTab";
 import { Button } from "@/components/ui/button";
+import { FadeIn } from "@/components/ui/motion/MotionComponents";
 
 import { validateField } from "./form/validation";
 import { AdvancedTab } from "./tabs/advanced/AdvancedTab";
 import { Tab } from "./tabs/Tab";
 import type { FieldType, NotificationConfig, TabType } from "./types";
 
-interface NotificationFormProps {
+type NotificationFormProps = {
   notification: NotificationConfig;
   setNotification: (notification: NotificationConfig) => void;
-}
+};
 
 export function NotificationGenerator({ notification, setNotification }: NotificationFormProps) {
   const [activeTab, setActiveTab] = useState<TabType>("chat");
@@ -78,14 +77,14 @@ export function NotificationGenerator({ notification, setNotification }: Notific
       case "actionbar":
         return <ActionBarTab notification={notification} onChange={handleChange} />;
       case "title":
-        return <TitleTab notification={notification} onChange={handleChange} errors={errors} />;
+        return <TitleTab errors={errors} notification={notification} onChange={handleChange} />;
       case "sound":
         return (
           <SoundTab
-            ref={soundTabRef}
+            errors={errors}
             notification={notification}
             onChange={handleChange}
-            errors={errors}
+            ref={soundTabRef}
           />
         );
       case "advanced":
@@ -99,23 +98,23 @@ export function NotificationGenerator({ notification, setNotification }: Notific
     const tabItems: TabType[] = ["chat", "actionbar", "title", "sound", "advanced"];
     return tabItems.map((tabName) => (
       <Tab
-        key={tabName}
         activeTab={activeTab}
-        tabName={tabName}
+        key={tabName}
         label={tabName.charAt(0).toUpperCase() + tabName.slice(1)}
         onClick={setActiveTab}
+        tabName={tabName}
       />
     ));
   }, [activeTab]);
 
   return (
-    <div className="h-full rounded-2xl border border-white/20 bg-white/50 p-6 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
+    <div className="h-full rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 dark:bg-gray-900/40 dark:ring-gray-800">
       <FadeIn>
         <div className="mb-8">
           <div
+            aria-label="Notification type tabs"
             className="flex flex-wrap gap-2 rounded-xl bg-gray-100/50 p-1.5 dark:bg-gray-900/50"
             role="tablist"
-            aria-label="Notification type tabs"
           >
             {tabs}
           </div>
@@ -123,30 +122,30 @@ export function NotificationGenerator({ notification, setNotification }: Notific
 
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -10 }}
-            transition={{ duration: 0.2 }}
-            role="tabpanel"
             aria-labelledby={`tab-${activeTab}`}
             className="min-h-[400px]"
+            exit={{ opacity: 0, x: -10 }}
+            initial={{ opacity: 0, x: 10 }}
+            key={activeTab}
+            role="tabpanel"
+            transition={{ duration: 0.2 }}
           >
             {tabContent}
           </motion.div>
         </AnimatePresence>
 
         <motion.div
-          className="mt-8 flex justify-end border-t border-gray-200 pt-6 dark:border-gray-800"
-          initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
+          className="mt-8 flex justify-end border-gray-200 border-t pt-6 dark:border-gray-800"
+          initial={{ opacity: 0 }}
           transition={{ delay: 0.2 }}
         >
           <Button
-            variant="danger"
-            onClick={resetForm}
             aria-label="Reset form"
             className="transition-transform hover:scale-105 active:scale-95"
+            onClick={resetForm}
+            variant="danger"
           >
             Reset Form
           </Button>

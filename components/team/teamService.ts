@@ -15,7 +15,6 @@ export async function fetchTeamMembers(): Promise<Member[]> {
   // Now data.data is already an array of Member (no attributes nesting)
   if (data && Array.isArray(data.data)) {
     return data.data;
-  } else {
-    throw new Error("Invalid data structure in API response");
   }
+  throw new Error("Invalid data structure in API response");
 }

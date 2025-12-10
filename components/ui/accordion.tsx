@@ -23,7 +23,7 @@ export function Accordion({ children, className, defaultValue }: AccordionProps)
 
   return (
     <AccordionContext.Provider value={{ activeItem, setActiveItem }}>
-      <div className={cn("flex flex-col gap-4 justify-start items-stretch", className)}>
+      <div className={cn("flex flex-col items-stretch justify-start gap-4", className)}>
         {children}
       </div>
     </AccordionContext.Provider>
@@ -76,19 +76,19 @@ export function AccordionTrigger({ children, className, value }: AccordionTrigge
 
   return (
     <motion.button
-      onClick={toggle}
+      animate={{ backgroundColor: isOpen ? "rgba(0,0,0,0.02)" : "transparent" }}
       className={cn(
         "flex w-full cursor-pointer items-center justify-between px-6 py-4 text-left font-medium transition-colors hover:bg-gray-50/50 dark:hover:bg-gray-800/50",
         className
       )}
       initial={false}
-      animate={{ backgroundColor: isOpen ? "rgba(0,0,0,0.02)" : "transparent" }}
+      onClick={toggle}
     >
       <span className="text-gray-800 dark:text-gray-100">{children}</span>
       <motion.div
         animate={{ rotate: isOpen ? 180 : 0 }}
-        transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 20 }}
         className="text-gray-500 dark:text-gray-400"
+        transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 20 }}
       >
         <ChevronDown className="h-5 w-5" />
       </motion.div>
@@ -113,11 +113,13 @@ export function AccordionContent({ children, className, value }: AccordionConten
 
   return (
     <motion.div
-      initial={false}
       animate={{
         height: isOpen ? "auto" : 0,
         opacity: isOpen ? 1 : 0,
       }}
+      className="overflow-hidden"
+      initial={false}
+      style={{ transformOrigin: "top" }}
       transition={{
         height: {
           duration: 0.4,
@@ -128,12 +130,10 @@ export function AccordionContent({ children, className, value }: AccordionConten
           delay: isOpen ? 0.2 : 0,
         },
       }}
-      className="overflow-hidden"
-      style={{ transformOrigin: "top" }}
     >
       <div
+        className={cn("px-6 pt-1 pb-4 text-gray-600 dark:text-gray-300", className)}
         ref={contentRef}
-        className={cn("px-6 pb-4 pt-1 text-gray-600 dark:text-gray-300", className)}
       >
         {children}
       </div>

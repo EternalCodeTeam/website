@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { SiJetbrains, SiSentry, SiJira, SiGithub } from "react-icons/si";
+import { SiGithub, SiJetbrains, SiJira, SiSentry } from "react-icons/si";
 
 interface Sponsor {
   name: string;
@@ -37,9 +37,9 @@ export default function Sponsors() {
   const repeatedSponsors = [...sponsors, ...sponsors, ...sponsors];
 
   return (
-    <section id="sponsors" className="relative w-full overflow-hidden py-8">
-      <div className="mb-6 text-center relative z-20">
-        <p className="text-sm font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400">
+    <section className="relative w-full overflow-hidden py-8" id="sponsors">
+      <div className="relative z-20 mb-6 text-center">
+        <p className="font-semibold text-gray-500 text-sm uppercase tracking-widest dark:text-gray-400">
           Powered by industry leaders
         </p>
       </div>
@@ -49,26 +49,26 @@ export default function Sponsors() {
           animate={{
             x: "-100%",
           }}
+          className="flex min-w-full shrink-0 items-center justify-around gap-12 px-4 md:gap-32 md:px-16"
           transition={{
-            repeat: Infinity,
+            repeat: Number.POSITIVE_INFINITY,
             repeatType: "loop",
             duration: 60,
             ease: "linear",
           }}
-          className="flex min-w-full shrink-0 gap-12 px-4 items-center justify-around md:gap-32 md:px-16"
         >
           {repeatedSponsors.map((sponsor, index) => (
             <a
+              className="group relative flex items-center justify-center gap-4 transition-all hover:scale-110"
               href={sponsor.url}
               key={`${sponsor.name}-${index}`}
-              target="_blank"
               rel="noopener noreferrer"
-              className="group relative flex items-center justify-center gap-4 transition-all hover:scale-110"
+              target="_blank"
             >
-              <div className="text-gray-400 transition-colors duration-300 group-hover:text-gray-900 dark:group-hover:text-white filter grayscale group-hover:grayscale-0 opacity-70 group-hover:opacity-100">
+              <div className="text-gray-400 opacity-70 grayscale filter transition-colors duration-300 group-hover:text-gray-900 group-hover:opacity-100 group-hover:grayscale-0 dark:group-hover:text-white">
                 {sponsor.icon}
               </div>
-              <span className="hidden text-xl font-bold text-gray-400 transition-colors duration-300 group-hover:text-gray-900 lg:block dark:text-gray-500 dark:group-hover:text-white">
+              <span className="hidden font-bold text-gray-400 text-xl transition-colors duration-300 group-hover:text-gray-900 lg:block dark:text-gray-500 dark:group-hover:text-white">
                 {sponsor.name}
               </span>
             </a>
@@ -79,27 +79,27 @@ export default function Sponsors() {
           animate={{
             x: "-100%",
           }}
+          aria-hidden="true"
+          className="flex min-w-full shrink-0 items-center justify-around gap-12 px-4 md:gap-32 md:px-16"
           transition={{
-            repeat: Infinity,
+            repeat: Number.POSITIVE_INFINITY,
             repeatType: "loop",
             duration: 60,
             ease: "linear",
           }}
-          className="flex min-w-full shrink-0 gap-12 px-4 items-center justify-around md:gap-32 md:px-16"
-          aria-hidden="true"
         >
           {repeatedSponsors.map((sponsor, index) => (
             <a
+              className="group relative flex items-center justify-center gap-4 transition-all hover:scale-110"
               href={sponsor.url}
               key={`${sponsor.name}-duplicate-${index}`}
-              target="_blank"
               rel="noopener noreferrer"
-              className="group relative flex items-center justify-center gap-4 transition-all hover:scale-110"
+              target="_blank"
             >
-              <div className="text-gray-400 transition-colors duration-300 group-hover:text-gray-900 dark:group-hover:text-white filter grayscale group-hover:grayscale-0 opacity-70 group-hover:opacity-100">
+              <div className="text-gray-400 opacity-70 grayscale filter transition-colors duration-300 group-hover:text-gray-900 group-hover:opacity-100 group-hover:grayscale-0 dark:group-hover:text-white">
                 {sponsor.icon}
               </div>
-              <span className="hidden text-xl font-bold text-gray-400 transition-colors duration-300 group-hover:text-gray-900 lg:block dark:text-gray-500 dark:group-hover:text-white">
+              <span className="hidden font-bold text-gray-400 text-xl transition-colors duration-300 group-hover:text-gray-900 lg:block dark:text-gray-500 dark:group-hover:text-white">
                 {sponsor.name}
               </span>
             </a>

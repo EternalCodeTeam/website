@@ -49,7 +49,7 @@ export function Pagination({
 
   return (
     <div className={`flex items-center justify-between ${className}`}>
-      <div className="text-xs text-gray-500 dark:text-gray-400">
+      <div className="text-gray-500 text-xs dark:text-gray-400">
         {totalItems > 0 ? (
           <>
             {startItem}-{endItem} of {totalItems}
@@ -60,32 +60,32 @@ export function Pagination({
       </div>
       <div className="flex space-x-1">
         <Link
-          href={getPageHref(slug, currentPage - 1)}
-          className={`${baseBtn} ${outlineBtn} h-8 px-2 ${currentPage === 1 ? "pointer-events-none opacity-50" : ""}`}
           aria-disabled={currentPage === 1}
+          className={`${baseBtn} ${outlineBtn} h-8 px-2 ${currentPage === 1 ? "pointer-events-none opacity-50" : ""}`}
+          href={getPageHref(slug, currentPage - 1)}
         >
           Previous
         </Link>
 
         {visiblePages.map((pageNumber) => (
           <Link
-            key={pageNumber}
-            href={getPageHref(slug, pageNumber)}
+            aria-current={currentPage === pageNumber ? "page" : undefined}
             className={`${baseBtn} ${
               currentPage === pageNumber ? primaryBtn : outlineBtn
             } h-8 w-8 justify-center p-0`}
-            aria-current={currentPage === pageNumber ? "page" : undefined}
+            href={getPageHref(slug, pageNumber)}
+            key={pageNumber}
           >
             {pageNumber}
           </Link>
         ))}
 
         <Link
-          href={getPageHref(slug, currentPage + 1)}
+          aria-disabled={currentPage === totalPages}
           className={`${baseBtn} ${outlineBtn} h-8 px-2 ${
             currentPage === totalPages ? "pointer-events-none opacity-50" : ""
           }`}
-          aria-disabled={currentPage === totalPages}
+          href={getPageHref(slug, currentPage + 1)}
         >
           Next
         </Link>

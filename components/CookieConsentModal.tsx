@@ -1,14 +1,13 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { Settings, X, ChevronDown, ChevronUp, ShieldCheck, Cookie } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown, ChevronUp, Cookie, Settings, ShieldCheck, X } from "lucide-react";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-
-import { useCookieConsent } from "@/hooks/useCookieConsent";
-import { softSpring } from "@/lib/animations/variants";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
+import { useCookieConsent } from "@/hooks/useCookieConsent";
+import { softSpring } from "@/lib/animations/variants";
 
 export function CookieConsentModal() {
   const { consent, updateConsent, acceptAll, isInitialized } = useCookieConsent();
@@ -48,14 +47,14 @@ export function CookieConsentModal() {
       <AnimatePresence>
         {!isOpen && (
           <motion.button
-            key="cookie-settings-button"
-            initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.15 } }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            onClick={handleOpenPreferences}
-            className="cursor-pointer fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-blue-600 text-white shadow-xl backdrop-blur-md hover:bg-blue-700 focus:outline-hidden focus:ring-4 focus:ring-blue-500/30 dark:border-white/10"
             aria-label="Cookie Preferences"
+            className="fixed right-6 bottom-6 z-50 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-blue-600 text-white shadow-xl backdrop-blur-md hover:bg-blue-700 focus:outline-hidden focus:ring-4 focus:ring-blue-500/30 dark:border-white/10"
+            exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.15 } }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            key="cookie-settings-button"
+            onClick={handleOpenPreferences}
+            transition={{ duration: 0.2, ease: "easeOut" }}
             whileHover={{ scale: 1.1, rotate: 15, transition: { duration: 0.2 } }}
             whileTap={{ scale: 0.9, transition: { duration: 0.1 } }}
           >
@@ -68,12 +67,12 @@ export function CookieConsentModal() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            key="cookie-modal"
-            initial={{ opacity: 0, y: 50, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
+            className="fixed right-6 bottom-6 z-50 w-full max-w-sm overflow-hidden rounded-2xl border border-white/20 bg-white/80 p-6 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-gray-900/80"
             exit={{ opacity: 0, y: 50, scale: 0.98 }}
+            initial={{ opacity: 0, y: 50, scale: 0.98 }}
+            key="cookie-modal"
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="fixed bottom-6 right-6 z-50 w-full max-w-sm overflow-hidden rounded-2xl border border-white/20 bg-white/80 p-6 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-gray-900/80"
           >
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-3">
@@ -81,37 +80,37 @@ export function CookieConsentModal() {
                   <Cookie className="h-5 w-5" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                  <h3 className="font-bold text-gray-900 text-lg dark:text-white">
                     Cookies & Privacy
                   </h3>
-                  <p className="text-xs font-medium text-gray-500 dark:text-gray-400">
+                  <p className="font-medium text-gray-500 text-xs dark:text-gray-400">
                     Transparent & Secure
                   </p>
                 </div>
               </div>
               <button
-                type="button"
-                onClick={() => setIsOpen(false)}
                 className="cursor-pointer rounded-full p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-500 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+                onClick={() => setIsOpen(false)}
+                type="button"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
 
-            <p className="mt-4 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+            <p className="mt-4 text-gray-600 text-sm leading-relaxed dark:text-gray-300">
               We use cookies to ensure you get the best experience on our website. Some are
               necessary, while others help us improve our services.
             </p>
 
             <div className="mt-4">
               <button
-                type="button"
+                className="group flex cursor-pointer items-center gap-2 font-medium text-blue-600 text-sm transition-colors hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
                 onClick={() => setShowDetails(!showDetails)}
-                className="cursor-pointer group flex items-center gap-2 text-sm font-medium text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                type="button"
               >
                 {showDetails ? (
                   <>
-                    <ChevronUp className="h-4 w-4 transition-transform group-hover:-translate-y-0.5" />
+                    <ChevronUp className="group-hover:-translate-y-0.5 h-4 w-4 transition-transform" />
                     Hide Details
                   </>
                 ) : (
@@ -125,20 +124,20 @@ export function CookieConsentModal() {
               <AnimatePresence>
                 {showDetails && (
                   <motion.div
-                    initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ ...softSpring, stiffness: 300, damping: 30 }}
                     className="overflow-hidden"
+                    exit={{ height: 0, opacity: 0 }}
+                    initial={{ height: 0, opacity: 0 }}
+                    transition={{ ...softSpring, stiffness: 300, damping: 30 }}
                   >
                     <div className="mt-4 space-y-4 rounded-xl bg-gray-50/50 p-4 dark:bg-gray-800/50">
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-white">
+                          <h4 className="flex items-center gap-2 font-medium text-gray-900 text-sm dark:text-white">
                             <ShieldCheck className="h-4 w-4 text-green-500" />
                             Necessary
                           </h4>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                          <p className="text-gray-500 text-xs dark:text-gray-400">
                             Essential for the site to work
                           </p>
                         </div>
@@ -147,10 +146,10 @@ export function CookieConsentModal() {
 
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="text-sm font-medium text-gray-900 dark:text-white">
+                          <h4 className="font-medium text-gray-900 text-sm dark:text-white">
                             Analytics
                           </h4>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                          <p className="text-gray-500 text-xs dark:text-gray-400">
                             Usage patterns & improvements
                           </p>
                         </div>
@@ -162,10 +161,10 @@ export function CookieConsentModal() {
 
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="text-sm font-medium text-gray-900 dark:text-white">
+                          <h4 className="font-medium text-gray-900 text-sm dark:text-white">
                             Marketing
                           </h4>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                          <p className="text-gray-500 text-xs dark:text-gray-400">
                             Personalized content & ads
                           </p>
                         </div>
@@ -177,10 +176,10 @@ export function CookieConsentModal() {
 
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="text-sm font-medium text-gray-900 dark:text-white">
+                          <h4 className="font-medium text-gray-900 text-sm dark:text-white">
                             Preferences
                           </h4>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                          <p className="text-gray-500 text-xs dark:text-gray-400">
                             Site settings & customization
                           </p>
                         </div>
@@ -196,18 +195,18 @@ export function CookieConsentModal() {
             </div>
 
             <div className="mt-6 flex flex-col gap-3">
-              <Button variant="primary" fullWidth onClick={handleAcceptAll} shine>
+              <Button fullWidth onClick={handleAcceptAll} shine variant="primary">
                 Accept All Cookies
               </Button>
-              <Button variant="outline" fullWidth onClick={handleSave}>
+              <Button fullWidth onClick={handleSave} variant="outline">
                 Save Preferences
               </Button>
             </div>
 
             <div className="mt-4 text-center">
               <Link
+                className="text-gray-400 text-xs hover:text-gray-600 hover:underline dark:text-gray-500 dark:hover:text-gray-400"
                 href="/privacy-policy"
-                className="text-xs text-gray-400 hover:text-gray-600 hover:underline dark:text-gray-500 dark:hover:text-gray-400"
               >
                 Read our Privacy Policy
               </Link>

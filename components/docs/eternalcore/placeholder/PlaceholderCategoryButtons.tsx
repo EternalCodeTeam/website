@@ -19,15 +19,15 @@ export function PlaceholderCategoryButtons({
     <div className="flex flex-wrap gap-2">
       {categories.map((category) => (
         <button
-          type="button"
-          key={category}
-          onClick={() => onCategoryClick(category)}
           className={cn(
-            "cursor-pointer flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-all",
+            "flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 font-medium text-xs transition-all",
             category === activeCategory
-              ? "bg-blue-500 text-white shadow-md shadow-blue-500/30"
+              ? "bg-blue-500 text-white shadow-blue-500/30 shadow-md"
               : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
           )}
+          key={category}
+          onClick={() => onCategoryClick(category)}
+          type="button"
         >
           <Tag size={12} />
           {category}

@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, type HTMLMotionProps } from "framer-motion";
-import { createContext, useContext, useState, useId } from "react";
+import { type HTMLMotionProps, motion } from "framer-motion";
+import { createContext, useContext, useId, useState } from "react";
 import { cn } from "@/lib/utils";
 
 type TabsContextType = {
@@ -52,7 +52,7 @@ export function TabsList({ className, children, ...props }: TabsListProps) {
   return (
     <div
       className={cn(
-        "inline-flex h-12 items-center justify-center rounded-full bg-gray-100 p-1 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200 dark:border-white/10",
+        "inline-flex h-12 items-center justify-center rounded-full border border-gray-200 bg-gray-100 p-1 backdrop-blur-sm dark:border-white/10 dark:bg-gray-900/50",
         className
       )}
       {...props}
@@ -73,22 +73,22 @@ export function TabsTrigger({ className, value, children, ...props }: TabsTrigge
 
   return (
     <button
-      type="button"
-      onClick={() => setActiveTab(value)}
       className={cn(
-        "relative inline-flex items-center justify-center whitespace-nowrap rounded-full px-6 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:pointer-events-none disabled:opacity-50",
+        "relative inline-flex items-center justify-center whitespace-nowrap rounded-full px-6 py-2 font-medium text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:pointer-events-none disabled:opacity-50",
         isActive
           ? "text-blue-600 dark:text-blue-400"
           : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200",
         className
       )}
+      onClick={() => setActiveTab(value)}
+      type="button"
       {...props}
     >
       {isActive && (
         <motion.div
-          layoutId={`tab-bg-${layoutId}`}
           className="absolute inset-0 z-0 rounded-full bg-white shadow-sm dark:bg-white/10"
           initial={false}
+          layoutId={`tab-bg-${layoutId}`}
           transition={{ type: "spring", stiffness: 500, damping: 30 }}
         />
       )}
@@ -110,14 +110,14 @@ export function TabsContent({ className, value, children, ...props }: TabsConten
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10, scale: 0.98 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: -10, scale: 0.98 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
       className={cn(
         "mt-6 ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
         className
       )}
+      exit={{ opacity: 0, y: -10, scale: 0.98 }}
+      initial={{ opacity: 0, y: 10, scale: 0.98 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
       {...props}
     >
       {children}

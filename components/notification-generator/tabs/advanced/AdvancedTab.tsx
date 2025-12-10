@@ -19,13 +19,13 @@ export const AdvancedTab = ({ notification, onChange }: AdvancedTabProps) => (
       <div className="flex flex-col">
         {/* biome-ignore lint/a11y/useKeyWithClickEvents: Label is interactive for switch */}
         <label
+          className="cursor-pointer font-medium text-gray-700 text-sm dark:text-gray-200"
           htmlFor="titleHide"
-          className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-200"
           onClick={() => onChange("titleHide", !notification.titleHide)}
         >
           Clear Title Before Sending
         </label>
-        <span className="text-xs text-gray-500 dark:text-gray-400">
+        <span className="text-gray-500 text-xs dark:text-gray-400">
           If enabled, the previous title will be cleared immediately before showing the new one.
         </span>
       </div>

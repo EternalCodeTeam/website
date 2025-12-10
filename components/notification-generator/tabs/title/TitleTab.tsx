@@ -2,7 +2,6 @@
 
 import { FormField } from "../../form/FormField";
 import type { FieldType, NotificationConfig } from "../../types";
-import { MiniMessageInfoBox } from "../MiniMessageInfoBox";
 
 interface TitleTabProps {
   notification: NotificationConfig;
@@ -13,54 +12,53 @@ interface TitleTabProps {
 export const TitleTab = ({ notification, onChange, errors }: TitleTabProps) => (
   <div>
     <FormField
+      editorButtonSet="basic"
       label="Title"
       name="title"
-      value={notification.title}
       onChange={onChange}
       placeholder="Enter your title"
-      editorButtonSet="basic"
+      value={notification.title}
     />
 
     <FormField
+      editorButtonSet="basic"
       label="Subtitle"
       name="subtitle"
-      value={notification.subtitle}
       onChange={onChange}
       placeholder="Enter your subtitle"
-      editorButtonSet="basic"
+      value={notification.subtitle}
     />
 
     <div className="mb-4 grid grid-cols-3 gap-4">
       <FormField
+        error={errors.fadeIn}
         label="Fade In"
         name="fadeIn"
-        value={notification.fadeIn}
         onChange={onChange}
         placeholder="e.g. 1s"
-        error={errors.fadeIn}
         showEditorButtons={false}
+        value={notification.fadeIn}
       />
 
       <FormField
+        error={errors.stay}
         label="Stay"
         name="stay"
-        value={notification.stay}
         onChange={onChange}
         placeholder="e.g. 2s"
-        error={errors.stay}
         showEditorButtons={false}
+        value={notification.stay}
       />
 
       <FormField
+        error={errors.fadeOut}
         label="Fade Out"
         name="fadeOut"
-        value={notification.fadeOut}
         onChange={onChange}
         placeholder="e.g. 1s"
-        error={errors.fadeOut}
         showEditorButtons={false}
+        value={notification.fadeOut}
       />
     </div>
-    <MiniMessageInfoBox />
   </div>
 );

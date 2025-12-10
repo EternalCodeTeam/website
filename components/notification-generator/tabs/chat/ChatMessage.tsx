@@ -39,12 +39,12 @@ const ChatMessage = memo(({ message }: ChatMessageProps) => {
       }}
     >
       <div
-        className="absolute left-0 top-0 h-full bg-black/40"
+        className="absolute top-0 left-0 h-full bg-black/40"
         style={{ zIndex: 0, borderRadius: 0, width: "100%", height: "100%" }}
       />
       <div style={{ position: "relative", zIndex: 1, width: "100%" }}>
         {linesWithId.map(({ id, text }) => (
-          <div key={id} className="font-minecraft" style={lineStyles}>
+          <div className="font-minecraft" key={id} style={lineStyles}>
             <MinecraftText text={text} />
           </div>
         ))}

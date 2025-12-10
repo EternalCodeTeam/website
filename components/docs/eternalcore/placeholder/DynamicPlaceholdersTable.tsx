@@ -31,15 +31,15 @@ export default function DynamicPlaceholdersTable() {
     <div className="w-full">
       <div className="mb-6 flex flex-col gap-4">
         <PlaceholderSearchBar
-          searchQuery={searchQuery}
           onSearchChange={handleSearchChange}
-          viewableCount={viewablePlaceholders.length}
+          searchQuery={searchQuery}
           totalCount={allPlaceholders.length}
+          viewableCount={viewablePlaceholders.length}
         />
 
         <PlaceholderCategoryButtons
-          categories={categories}
           activeCategory={activeCategory}
+          categories={categories}
           onCategoryClick={handleCategoryClick}
         />
       </div>
