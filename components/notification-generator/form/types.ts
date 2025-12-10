@@ -5,12 +5,12 @@ export type TagCategory = {
   tags: string[];
 };
 
-export interface MinecraftColor {
+export type MinecraftColor = {
   name: string;
   hex: string;
-}
+};
 
-export interface FormFieldProps {
+export type FormFieldProps = {
   label: string;
   name: FieldType;
   value: string;
@@ -22,15 +22,15 @@ export interface FormFieldProps {
   helpText?: string;
   showEditorButtons?: boolean;
   editorButtonSet?: "all" | "basic";
-}
+};
 
-export interface ColorPickerProps {
+export type ColorPickerProps = {
   onApplyAction: (color: string, isGradient: boolean, colors: string[]) => void;
   onCloseAction: () => void;
-}
+};
 
-export interface TextFormattingProps {
+export type TextFormattingProps = {
   onFormat: (format: string) => void;
   onInsertTag: (tag: string) => void;
   editorButtonSet?: "all" | "basic";
-}
+};

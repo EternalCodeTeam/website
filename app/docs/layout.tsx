@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import type { ReactNode } from "react";
-import SidebarWrapper from "@/components/docs/sidebar/SidebarWrapper";
+import SidebarWrapper from "@/components/docs/sidebar/sidebar-wrapper";
 
 const poppins = Poppins({
   weight: "500",

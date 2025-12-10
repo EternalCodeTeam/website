@@ -1,8 +1,8 @@
 import { BookOpen, Tag, Users } from "lucide-react";
 import type { Metadata } from "next";
-import BlogPostCard from "@/components/blog/BlogPostCard";
+import BlogPostCard from "@/components/blog/blog-post-card";
 import { FacadePattern } from "@/components/ui/facade-pattern";
-import { SlideIn, StaggerContainer } from "@/components/ui/motion/MotionComponents";
+import { SlideIn, StaggerContainer } from "@/components/ui/motion/motion-components";
 import { getAuthors, getBlogPosts, getBlogTags } from "@/lib/strapi";
 
 export const dynamic = "force-dynamic";
@@ -61,38 +61,41 @@ export default async function BlogPage() {
       </div>
 
       <div className="relative z-10">
-        <SlideIn className="relative px-0 pt-56 pb-0 md:pt-60" direction="down">
-          <div className="mx-auto max-w-(--breakpoint-xl) px-4">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-              <div className="min-w-0 flex-1">
-                <h1 className="mb-2 text-left font-extrabold text-4xl text-gray-900 md:text-5xl dark:text-white">
-                  Blog
-                </h1>
-                <div className="mt-2 mb-2 flex flex-wrap gap-6 text-sm">
-                  <span className="flex items-center gap-1 text-gray-700 dark:text-gray-200">
-                    <BookOpen className="h-4 w-4 text-blue-500" /> {posts.length} articles
+        {/* Hero Section */}
+        <SlideIn className="relative px-4 pt-48 pb-12 md:pt-56 md:pb-16" direction="down">
+          <div className="mx-auto max-w-7xl">
+            <div className="text-center">
+              <h1 className="mb-6 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text font-extrabold text-5xl text-transparent tracking-tight md:text-6xl lg:text-7xl dark:from-white dark:via-gray-100 dark:to-white">
+                Blog
+              </h1>
+              <p className="mx-auto mb-8 max-w-2xl text-base text-gray-600 leading-relaxed md:text-lg lg:text-xl dark:text-gray-400">
+                Discover the latest insights, tutorials, and articles from our team of experts.
+              </p>
+
+              {/* Stats */}
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm md:gap-8 md:text-base">
+                <span className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <BookOpen className="h-5 w-5 text-blue-500" />
+                  <span className="font-semibold">{posts.length}</span> articles
+                </span>
+                {authors.length > 0 && (
+                  <span className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                    <Users className="h-5 w-5 text-blue-500" />
+                    <span className="font-semibold">{authors.length}</span> authors
                   </span>
-                  {authors.length > 0 && (
-                    <span className="flex items-center gap-1 text-gray-700 dark:text-gray-200">
-                      <Users className="h-4 w-4 text-blue-500" /> {authors.length} authors
-                    </span>
-                  )}
-                  <span className="flex items-center gap-1 text-gray-700 dark:text-gray-200">
-                    <Tag className="h-4 w-4 text-blue-500" /> {tags.length} topics
-                  </span>
-                </div>
-              </div>
-              <div className="mt-6 min-w-0 flex-1 text-right md:mt-0 md:ml-8">
-                <p className="max-w-xl text-left text-gray-500 text-lg md:text-right dark:text-gray-400">
-                  Discover the latest insights, tutorials, and articles from our team of experts.
-                </p>
+                )}
+                <span className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                  <Tag className="h-5 w-5 text-blue-500" />
+                  <span className="font-semibold">{tags.length}</span> topics
+                </span>
               </div>
             </div>
           </div>
         </SlideIn>
 
-        <section className="px-0 py-16">
-          <div className="mx-auto max-w-(--breakpoint-xl) px-4">
+        {/* Blog Posts Grid */}
+        <section className="px-4 py-16 md:py-20">
+          <div className="mx-auto max-w-7xl">
             {posts.length > 0 ? (
               <StaggerContainer className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {posts.map((post, i) => (
@@ -107,12 +110,12 @@ export default async function BlogPage() {
                 ))}
               </StaggerContainer>
             ) : (
-              <div className="py-12 text-center">
-                <BookOpen className="mx-auto mb-4 text-gray-400 dark:text-gray-600" size={64} />
-                <h3 className="mb-2 font-semibold text-gray-900 text-xl dark:text-white">
+              <div className="py-20 text-center">
+                <BookOpen className="mx-auto mb-6 text-gray-400 dark:text-gray-600" size={64} />
+                <h3 className="mb-3 font-semibold text-2xl text-gray-900 dark:text-white">
                   No articles yet
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-gray-600 text-lg dark:text-gray-400">
                   We're working on some great content. Check back soon!
                 </p>
               </div>

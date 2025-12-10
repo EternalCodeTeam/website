@@ -34,11 +34,6 @@ html.dark {
   --prism-variable: #e2777a;
 }
 
-/* Make pre blocks transparent in dark mode to use the CodeBlock wrapper style */
-html.dark pre[class*="language-"] {
-  background: transparent !important;
-}
-
 /* Zwiększona specyficzność selektorów */
 code[class*="language-"],
 pre[class*="language-"] {
@@ -83,6 +78,11 @@ pre[class*="language-"] {
   border-radius: 0.3em;
   white-space: normal;
   background: var(--prism-bg) !important;
+}
+
+/* Make pre blocks transparent in dark mode to use the CodeBlock wrapper style */
+html.dark pre[class*="language-"] {
+  background: transparent !important;
 }
 
 .token.comment,

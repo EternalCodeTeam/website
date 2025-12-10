@@ -4,12 +4,12 @@ import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 import type React from "react";
 
-import { Analytics } from "@/components/Analytics";
+import { Analytics } from "@/components/analytics";
 import "./prism-languages";
-import { CookieConsentModal } from "@/components/CookieConsentModal";
-import Footer from "@/components/footer/Footer";
-import Navbar from "@/components/hero/Navbar";
-import { SpeedInsights } from "@/components/SpeedInsights";
+import { CookieConsentModal } from "@/components/cookie-consent-modal";
+import Footer from "@/components/footer/footer";
+import Navbar from "@/components/hero/navbar";
+import { SpeedInsights } from "@/components/speed-insights";
 import { generateOgImageUrl } from "@/lib/og-utils";
 
 import { Providers } from "./providers";

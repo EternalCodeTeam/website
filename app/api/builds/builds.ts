@@ -1,11 +1,11 @@
-export interface BuildArtifact {
+export type BuildArtifact = {
   id: string;
   name: string;
   url: string; // The API url to the artifact
   size: number;
-}
+};
 
-export interface BuildRun {
+export type BuildRun = {
   id: number;
   name: string;
   status: string; // "completed", "in_progress", etc.
@@ -16,13 +16,13 @@ export interface BuildRun {
   html_url: string;
   artifacts_url: string;
   display_title?: string; // Sometimes present in GH API
-}
+};
 
-interface GithubRunsResponse {
+type GithubRunsResponse = {
   workflow_runs: BuildRun[];
-}
+};
 
-export interface ModrinthVersion {
+export type ModrinthVersion = {
   id: string;
   name: string;
   version_number: string;
@@ -32,14 +32,14 @@ export interface ModrinthVersion {
     filename: string;
     primary: boolean;
   }[];
-}
+};
 
-export interface Project {
+export type Project = {
   id: string;
   name: string;
   githubRepo: string;
   modrinthId?: string;
-}
+};
 
 export const PROJECTS: Project[] = [
   {
@@ -74,12 +74,16 @@ export async function fetchDevBuilds(project: Project): Promise<BuildRun[]> {
 }
 
 export async function fetchStableBuilds(project: Project): Promise<ModrinthVersion[]> {
-  if (!project.modrinthId) return [];
+  if (!project.modrinthId) {
+    return [];
+  }
 
   try {
     const res = await fetch(`https://api.modrinth.com/v2/project/${project.modrinthId}/version`);
     if (!res.ok) {
-      if (res.status === 404) return []; // Project might not exist yet
+      if (res.status === 404) {
+        return []; // Project might not exist yet
+      }
       console.error(`Failed to fetch Modrinth versions for ${project.name}`, await res.text());
       return [];
     }

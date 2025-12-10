@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion";
 import { Github } from "lucide-react";
-import Terminal from "@/components/hero/terminal/Terminal";
 import ArrowForwardHeroIcon from "@/components/icons/arrow-forward-hero";
 import { Button } from "@/components/ui/button";
-import { FadeIn, SlideIn, StaggerContainer } from "@/components/ui/motion/MotionComponents";
+import { FadeIn, SlideIn, StaggerContainer } from "@/components/ui/motion/motion-components";
+import Terminal from "./terminal/terminal-window";
 
 export default function Hero() {
   return (
@@ -21,7 +21,7 @@ export default function Hero() {
         transition={{ duration: 25, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
       />
 
-      <StaggerContainer className="relative mx-auto max-w-7xl px-5 pt-48 pb-12 sm:px-8 sm:pt-40 sm:pb-16 md:pt-48 lg:flex lg:items-center lg:justify-between lg:gap-16">
+      <StaggerContainer className="relative mx-auto max-w-7xl px-4 pt-48 pb-12 sm:pt-40 sm:pb-16 md:pt-48 lg:flex lg:items-center lg:justify-between lg:gap-16">
         {/* Text Content */}
         <div className="flex flex-col items-center text-center lg:flex-1 lg:items-start lg:text-left">
           {/* Title */}

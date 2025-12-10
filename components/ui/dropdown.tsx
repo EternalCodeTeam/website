@@ -1,14 +1,14 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, ChevronDown } from "lucide-react";
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import { type KeyboardEvent, type ReactNode, useEffect, useRef, useState } from "react";
 
-export interface DropdownOption {
+export type DropdownOption = {
   value: string;
   label: string;
   icon?: ReactNode;
-}
+};
 
-interface DropdownProps {
+type DropdownProps = {
   options: DropdownOption[];
   value: string;
   onChange: (value: string) => void;
@@ -20,7 +20,7 @@ interface DropdownProps {
   menuClassName?: string;
   children?: ReactNode;
   variant?: "default" | "ghost";
-}
+};
 
 export function Dropdown({
   options,
@@ -56,7 +56,7 @@ export function Dropdown({
     setIsOpen(false);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent, optionValue: string) => {
+  const handleKeyDown = (e: KeyboardEvent, optionValue: string) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       handleOptionSelect(optionValue);
@@ -79,7 +79,7 @@ export function Dropdown({
         type="button"
       >
         <span className="flex items-center gap-2 truncate">
-          {selected?.icon}
+          {!!selected?.icon && selected.icon}
           {selected?.label || placeholder}
         </span>
         <motion.span
@@ -91,7 +91,7 @@ export function Dropdown({
         </motion.span>
       </button>
       <AnimatePresence>
-        {isOpen && (
+        {!!isOpen && (
           <motion.div
             animate={{ opacity: 1, y: 0 }}
             className={`absolute left-0 z-50 mt-2 min-w-full origin-top-right overflow-hidden rounded-xl border border-gray-200 bg-white/80 py-1 shadow-xl ring-1 ring-black/5 backdrop-blur-xl dark:border-gray-800 dark:bg-gray-900/80 dark:ring-white/10 ${menuClassName}`}
@@ -118,7 +118,7 @@ export function Dropdown({
                     {option.icon}
                     {option.label}
                   </span>
-                  {option.value === value && <Check className="h-4 w-4 shrink-0" />}
+                  {!!(option.value === value) && <Check className="h-4 w-4 shrink-0" />}
                 </div>
               ))}
             </div>

@@ -29,9 +29,9 @@ const Tab = forwardRef<HTMLButtonElement, TabProps>(
 
     const tabContent = (
       <>
-        {leftIcon && <span className="mr-2">{leftIcon}</span>}
+        {!!leftIcon && <span className="mr-2">{leftIcon}</span>}
         {children}
-        {rightIcon && <span className="ml-2">{rightIcon}</span>}
+        {!!rightIcon && <span className="ml-2">{rightIcon}</span>}
       </>
     );
 
@@ -49,7 +49,7 @@ const Tab = forwardRef<HTMLButtonElement, TabProps>(
         >
           {tabContent}
         </Button>
-        {isActive && (
+        {!!isActive && (
           <motion.div
             className="absolute bottom-0 left-0 h-0.5 w-full bg-blue-500"
             layoutId="activeTab"

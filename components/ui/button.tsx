@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { forwardRef } from "react";
+import { type ButtonHTMLAttributes, forwardRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 export type ButtonVariant =
@@ -16,11 +16,11 @@ export type ButtonVariant =
 
 export type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
 
-export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "ref"> {
+export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "ref"> {
   variant?: ButtonVariant;
   size?: ButtonSize;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
   fullWidth?: boolean;
   animate?: boolean;
   shine?: boolean;
@@ -95,15 +95,15 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
 
     const content = (
       <>
-        {shine && (
+        {!!shine && (
           <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
             <div className="-translate-x-[100%] absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 ease-in-out group-hover:translate-x-[100%]" />
           </div>
         )}
         <div className="relative z-10 flex items-center justify-center gap-2">
-          {leftIcon && <span className="flex shrink-0">{leftIcon}</span>}
+          {!!leftIcon && <span className="flex shrink-0">{leftIcon}</span>}
           {children}
-          {rightIcon && <span className="flex shrink-0">{rightIcon}</span>}
+          {!!rightIcon && <span className="flex shrink-0">{rightIcon}</span>}
         </div>
       </>
     );
@@ -125,9 +125,9 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
 
     return (
       <motion.button
-        // biome-ignore lint/suspicious/noExplicitAny: Ref compatibility
         className={baseStyles}
         disabled={props.disabled}
+        // biome-ignore lint/suspicious/noExplicitAny: Ref compatibility
         ref={ref as any}
         type={props.type === "submit" ? "submit" : "button"}
         {...animationProps}

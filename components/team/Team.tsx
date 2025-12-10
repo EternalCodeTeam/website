@@ -2,12 +2,12 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import { SlideIn, StaggerContainer } from "@/components/ui/motion/MotionComponents";
+import { SlideIn, StaggerContainer } from "@/components/ui/motion/motion-components";
 
-import TeamError from "./TeamError";
-import TeamMember from "./TeamMember";
-import TeamSkeleton from "./TeamSkeleton";
-import { fetchTeamMembers } from "./teamService";
+import TeamError from "./team-error";
+import TeamMember from "./team-member";
+import { fetchTeamMembers } from "./team-service";
+import TeamSkeleton from "./team-skeleton";
 import type { Member } from "./types";
 
 const EXPANDED_ROLE_DESCRIPTIONS: Record<string, string> = {
@@ -23,6 +23,33 @@ const DEFAULT_DESCRIPTION = "Passionate individuals dedicated to the EternalCode
 
 const ROLE_PRIORITY = ["Team Lead", "Team Developer", "Student"];
 
+function groupMembersByRole(members: Member[]) {
+  const groups: Record<string, Member[]> = {};
+
+  for (const member of members) {
+    const roles = member.team_roles ?? [];
+
+    if (roles.length === 0) {
+      const defaultRole = "Contributor";
+      if (!groups[defaultRole]) {
+        groups[defaultRole] = [];
+      }
+      groups[defaultRole].push(member);
+      continue;
+    }
+
+    for (const role of roles) {
+      const roleName = role.name;
+      if (!groups[roleName]) {
+        groups[roleName] = [];
+      }
+      groups[roleName].push(member);
+    }
+  }
+
+  return groups;
+}
+
 export default function Team() {
   const [members, setMembers] = useState<Member[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -34,10 +61,10 @@ export default function Team() {
         setLoading(true);
         const data = await fetchTeamMembers();
         setMembers(data);
-      } catch (error) {
-        const err = error as Error;
-        setError(err.message);
-        console.error("Error fetching team members:", err);
+      } catch (err) {
+        const fetchError = err as Error;
+        setError(fetchError.message);
+        console.error("Error fetching team members:", fetchError);
       } finally {
         setLoading(false);
       }
@@ -46,31 +73,8 @@ export default function Team() {
     loadTeamMembers();
   }, []);
 
-  // Group members by role
-  const groupedMembers = useMemo(() => {
-    const groups: Record<string, Member[]> = {};
+  const groupedMembers = useMemo(() => groupMembersByRole(members), [members]);
 
-    for (const member of members) {
-      const roles = member.team_roles ?? [];
-
-      if (roles.length === 0) {
-        const defaultRole = "Contributor";
-        if (!groups[defaultRole]) groups[defaultRole] = [];
-        groups[defaultRole].push(member);
-        continue;
-      }
-
-      for (const role of roles) {
-        const roleName = role.name;
-        if (!groups[roleName]) groups[roleName] = [];
-        groups[roleName].push(member);
-      }
-    }
-
-    return groups;
-  }, [members]);
-
-  // Sort roles by priority
   const sortedRoles = useMemo(
     () =>
       Object.keys(groupedMembers).sort((a, b) => {
@@ -80,17 +84,27 @@ export default function Team() {
         const isAInPriority = prioA !== -1;
         const isBInPriority = prioB !== -1;
 
-        if (isAInPriority && isBInPriority) return prioA - prioB;
-        if (isAInPriority) return -1;
-        if (isBInPriority) return 1;
+        if (isAInPriority && isBInPriority) {
+          return prioA - prioB;
+        }
+        if (isAInPriority) {
+          return -1;
+        }
+        if (isBInPriority) {
+          return 1;
+        }
 
         return a.localeCompare(b);
       }),
     [groupedMembers]
   );
 
-  if (loading) return <TeamSkeleton />;
-  if (error) return <TeamError error={error} />;
+  if (loading) {
+    return <TeamSkeleton />;
+  }
+  if (error) {
+    return <TeamError error={error} />;
+  }
 
   return (
     <section id="team">

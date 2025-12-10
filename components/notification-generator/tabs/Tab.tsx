@@ -4,12 +4,12 @@ import { motion } from "framer-motion";
 
 import type { TabType } from "../types";
 
-interface TabProps {
+type TabProps = {
   activeTab: TabType;
   tabName: TabType;
   label: string;
   onClick: (tab: TabType) => void;
-}
+};
 
 export const Tab = ({ activeTab, tabName, label, onClick }: TabProps) => {
   const isActive = activeTab === tabName;
@@ -29,7 +29,7 @@ export const Tab = ({ activeTab, tabName, label, onClick }: TabProps) => {
       tabIndex={isActive ? 0 : -1}
       type="button"
     >
-      {isActive && (
+      {!!isActive && (
         <motion.div
           className="absolute inset-0 rounded-lg bg-white shadow-sm dark:bg-gray-800"
           initial={false}

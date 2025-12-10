@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { generateOgImageMetadata } from "@/components/OgImage";
-import Team from "@/components/team/Team";
-import TeamHero from "@/components/team/TeamHero";
+import { generateOgImageMetadata } from "@/components/og-image";
+import Team from "@/components/team/team";
+import TeamHero from "@/components/team/team-hero";
 
 export const metadata: Metadata = {
   title: "EternalCode.pl | Team",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 import { FacadePattern } from "@/components/ui/facade-pattern";
 
-export default async function TeamMembers() {
+export default function TeamMembers() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-gray-50 dark:bg-gray-950">
       {/* Background Decor */}

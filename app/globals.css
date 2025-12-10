@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "../node_modules/@south-paw/typeface-minecraft/index.css" layer(base);
+@import "./prism-tomorrow.css" layer(base);
 
 @layer base {
   :root {
@@ -77,6 +77,15 @@
   }
 }
 
+/* Moved generic block here to fix descending specificity and Biome errors */
+pre,
+code,
+.prose pre,
+.prose code {
+  font-family:
+    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important;
+}
+
 code[class*="language-"],
 pre[class*="language-"] {
   color: var(--prism-text, #24292e) !important;
@@ -94,10 +103,6 @@ code[class*="language-"] > span:not([class]) {
 pre[class*="language-"] {
   background: var(--prism-bg, #ffffff) !important;
 }
-
-@import "../node_modules/@south-paw/typeface-minecraft/index.css" layer(base);
-@import "./prism-tomorrow.css" layer(base);
-@import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -314,14 +319,6 @@ pre {
 
 .prose strong {
   font-weight: 600;
-}
-
-pre,
-code,
-.prose pre,
-.prose code {
-  font-family:
-    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important;
 }
 
 code[class*="language-"],

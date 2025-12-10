@@ -4,6 +4,14 @@ import path from "node:path";
 import matter from "gray-matter";
 import { NextResponse } from "next/server";
 
+const MDX_EXTENSION_REGEX = /\.mdx$/;
+
+type SearchIndexItem = {
+  title: string;
+  path: string;
+  excerpt: string;
+};
+
 function findMarkdownFiles(dir: string): string[] {
   const files: string[] = [];
   const entries = fs.readdirSync(dir, { withFileTypes: true });
@@ -23,13 +31,13 @@ function findMarkdownFiles(dir: string): string[] {
 function generateSearchIndex() {
   const docsDir = path.join(process.cwd(), "content/docs");
   const files = findMarkdownFiles(docsDir);
-  const searchIndex = [];
+  const searchIndex: SearchIndexItem[] = [];
 
   for (const file of files) {
     const content = fs.readFileSync(file, "utf8");
     const { data, content: markdownContent } = matter(content);
     const relativePath = path.relative(docsDir, file);
-    const urlPath = `/docs/${relativePath.replace(/\.mdx$/, "")}`;
+    const urlPath = `/docs/${relativePath.replace(MDX_EXTENSION_REGEX, "")}`;
 
     const excerpt = markdownContent
       .replace(/[#*`_~]/g, "")
@@ -47,7 +55,7 @@ function generateSearchIndex() {
   return searchIndex;
 }
 
-export async function GET() {
+export function GET() {
   try {
     const searchIndex = generateSearchIndex();
     return NextResponse.json(searchIndex);

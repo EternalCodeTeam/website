@@ -1,10 +1,8 @@
 "use client";
 
-"use client";
-
 import { Check, Link as LinkIcon } from "lucide-react";
 import { createElement, type ElementType, type HTMLAttributes } from "react";
-import { CopyToClipboard } from "@/components/ui/CopyToClipboard";
+import { CopyToClipboard } from "@/components/ui/copy-to-clipboard";
 import { cn } from "@/lib/utils";
 
 interface HeadingProps extends HTMLAttributes<HTMLElement> {
@@ -26,7 +24,7 @@ export const Heading = ({ children, id, tag, className, ...props }: HeadingProps
     },
     <span className="inline-flex w-full items-center">
       {children}
-      {id && (
+      {!!id && (
         <CopyToClipboard
           className="ml-2 inline-flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100"
           showIcon={false}

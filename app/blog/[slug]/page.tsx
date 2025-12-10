@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import BlogPostContent from "@/components/blog/BlogPostContent";
-import { SlideIn } from "@/components/ui/motion/MotionComponents";
+import BlogPostContent from "@/components/blog/blog-post-content";
+import { SlideIn } from "@/components/ui/motion/motion-components";
 import { generateOgImageUrl } from "@/lib/og-utils";
 import { getBlogPost, type StrapiTag } from "@/lib/strapi";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 5;
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   try {
     return [];
   } catch (error) {
@@ -20,16 +20,26 @@ export async function generateStaticParams() {
 }
 
 function getImageUrl(url: string) {
-  if (!url) return "";
-  if (url.startsWith("http")) return url;
+  if (!url) {
+    return "";
+  }
+  if (url.startsWith("http")) {
+    return url;
+  }
   const base = process.env.NEXT_PUBLIC_ETERNALCODE_STRAPI_URL || "";
   return `${base}${url}`;
 }
 
 function getTagsArray(tags: StrapiTag[] | { data: StrapiTag[] } | undefined): StrapiTag[] {
-  if (!tags) return [];
-  if (Array.isArray(tags)) return tags;
-  if ("data" in tags && Array.isArray(tags.data)) return tags.data;
+  if (!tags) {
+    return [];
+  }
+  if (Array.isArray(tags)) {
+    return tags;
+  }
+  if ("data" in tags && Array.isArray(tags.data)) {
+    return tags.data;
+  }
   return [];
 }
 
@@ -125,12 +135,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {post.excerpt}
             </p>
             <div className="mb-4 flex flex-wrap items-center gap-4 text-gray-500 text-sm dark:text-gray-400">
-              {post.author?.slug && (
+              {!!post.author?.slug && (
                 <Link
                   className="flex items-center gap-2 transition-colors hover:text-blue-600 dark:hover:text-blue-400"
                   href={`/author/${post.author.slug}`}
                 >
-                  {post.author.avatar && (
+                  {!!post.author.avatar && (
                     <Image
                       alt={post.author.name}
                       className="rounded-full"
@@ -150,7 +160,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   day: "numeric",
                 })}
               </time>
-              {post.readingTime && (
+              {!!post.readingTime && (
                 <>
                   <span>•</span>
                   <span>{post.readingTime} min read</span>

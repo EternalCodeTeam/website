@@ -6,8 +6,12 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function getImageUrl(url: string) {
-  if (!url) return "";
-  if (url.startsWith("http")) return url;
+  if (!url) {
+    return "";
+  }
+  if (url.startsWith("http")) {
+    return url;
+  }
 
   const base =
     process.env.NEXT_PUBLIC_ETERNALCODE_STRAPI_URL || process.env.ETERNALCODE_STRAPI_URL || "";

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-import AnimatedHome from "@/components/home/AnimatedHome";
-import { generateOgImageMetadata } from "@/components/OgImage";
+import AnimatedHome from "@/components/home/animated-home";
+import { generateOgImageMetadata } from "@/components/og-image";
 
 export const dynamic = "force-static";
 export const fetchCache = "force-cache";

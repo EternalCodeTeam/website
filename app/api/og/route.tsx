@@ -6,14 +6,18 @@ export const runtime = "edge";
 const interRegular = fetch(
   new URL("https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.8/files/inter-latin-400-normal.woff")
 ).then((res) => {
-  if (!res.ok) throw new Error("Failed to fetch regular font");
+  if (!res.ok) {
+    throw new Error("Failed to fetch regular font");
+  }
   return res.arrayBuffer();
 });
 
 const interBold = fetch(
   new URL("https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.8/files/inter-latin-700-normal.woff")
 ).then((res) => {
-  if (!res.ok) throw new Error("Failed to fetch bold font");
+  if (!res.ok) {
+    throw new Error("Failed to fetch bold font");
+  }
   return res.arrayBuffer();
 });
 

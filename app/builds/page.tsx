@@ -9,9 +9,9 @@ import { fetchDevBuilds, fetchStableBuilds, PROJECTS, type Project } from "@/app
 import { Button } from "@/components/ui/button";
 import { Dropdown } from "@/components/ui/dropdown";
 import { FacadePattern } from "@/components/ui/facade-pattern";
-import { FadeIn } from "@/components/ui/motion/MotionComponents";
+import { FadeIn } from "@/components/ui/motion/motion-components";
 
-interface Build {
+type Build = {
   id: string;
   name: string;
   type: "STABLE" | "DEV";
@@ -20,7 +20,7 @@ interface Build {
   version?: string;
   commit?: string;
   runUrl?: string;
-}
+};
 
 function BuildExplorerContent() {
   const searchParams = useSearchParams();
@@ -36,9 +36,9 @@ function BuildExplorerContent() {
   const [lastDownloadedId, setLastDownloadedId] = useState<string | null>(null);
 
   useEffect(() => {
-    const p = PROJECTS.find((p) => p.id === projectIdParam);
-    if (p && p.id !== activeProject.id) {
-      setActiveProject(p);
+    const foundProject = PROJECTS.find((p) => p.id === projectIdParam);
+    if (foundProject && foundProject.id !== activeProject.id) {
+      setActiveProject(foundProject);
     }
   }, [projectIdParam, activeProject.id]);
 
@@ -49,7 +49,9 @@ function BuildExplorerContent() {
 
   const handleProjectChange = (projectId: string) => {
     const project = PROJECTS.find((p) => p.id === projectId);
-    if (!project) return;
+    if (!project) {
+      return;
+    }
 
     setActiveProject(project);
     const params = new URLSearchParams(searchParams.toString());
@@ -207,122 +209,16 @@ function BuildExplorerContent() {
                         </tr>
                       ) : (
                         builds.map((build, i) => (
-                          <motion.tr
-                            animate={{ opacity: 1, y: 0 }}
-                            className="group transition-colors hover:bg-white dark:hover:bg-gray-800/50"
-                            exit={{ opacity: 0, y: -3 }}
-                            initial={{ opacity: 0, y: 3 }}
+                          <BuildRow
+                            build={build}
+                            index={i}
                             key={build.id}
-                            transition={{ duration: 0.15, delay: i * 0.02 }}
-                          >
-                            <td className="px-4 py-3 font-medium text-gray-900 md:px-6 dark:text-white">
-                              <div className="flex items-center gap-3">
-                                <div
-                                  className={`hidden shrink-0 rounded-lg p-2 sm:flex ${
-                                    build.type === "STABLE"
-                                      ? "bg-green-100 text-green-600 dark:bg-green-900/20 dark:text-green-400"
-                                      : "bg-orange-100 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400"
-                                  }`}
-                                >
-                                  {build.type === "STABLE" ? (
-                                    <Package className="h-4 w-4" />
-                                  ) : (
-                                    <GitBranch className="h-4 w-4" />
-                                  )}
-                                </div>
-                                <div className="flex min-w-0 flex-col">
-                                  {build.runUrl ? (
-                                    <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-2">
-                                      <a
-                                        className="block max-w-[150px] truncate hover:underline sm:max-w-xs md:max-w-md"
-                                        href={build.runUrl}
-                                        rel="noopener noreferrer"
-                                        target="_blank"
-                                        title={build.name}
-                                      >
-                                        {build.name}
-                                      </a>
-                                      {lastDownloadedId === build.id && (
-                                        <span className="inline-flex w-fit shrink-0 items-center rounded-md bg-blue-50 px-2 py-0.5 font-medium text-[10px] text-blue-700 ring-1 ring-blue-700/10 ring-inset sm:text-xs dark:bg-blue-900/30 dark:text-blue-400 dark:ring-blue-400/30">
-                                          Last Downloaded
-                                        </span>
-                                      )}
-                                    </div>
-                                  ) : (
-                                    <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-2">
-                                      <span
-                                        className="block max-w-[150px] truncate sm:max-w-xs md:max-w-md"
-                                        title={build.name}
-                                      >
-                                        {build.name}
-                                      </span>
-                                      {lastDownloadedId === build.id && (
-                                        <span className="inline-flex w-fit shrink-0 items-center rounded-md bg-blue-50 px-2 py-0.5 font-medium text-[10px] text-blue-700 ring-1 ring-blue-700/10 ring-inset sm:text-xs dark:bg-blue-900/30 dark:text-blue-400 dark:ring-blue-400/30">
-                                          Last Downloaded
-                                        </span>
-                                      )}
-                                    </div>
-                                  )}
-
-                                  {/* Mobile Meta (Date/Commit) */}
-                                  <div className="mt-1 flex items-center gap-2 text-gray-500 text-xs md:hidden dark:text-gray-400">
-                                    <span className="flex items-center gap-1">
-                                      <Calendar className="h-3 w-3" />
-                                      {build.date && !Number.isNaN(new Date(build.date).getTime())
-                                        ? format(new Date(build.date), "MMM d")
-                                        : "Unknown"}
-                                    </span>
-                                    {build.commit && (
-                                      <>
-                                        <span>•</span>
-                                        <span className="font-mono">{build.commit}</span>
-                                      </>
-                                    )}
-                                  </div>
-                                </div>
-                              </div>
-                            </td>
-                            <td className="hidden whitespace-nowrap px-6 py-3 text-gray-600 md:table-cell dark:text-gray-400">
-                              <div className="flex items-center gap-2">
-                                <Calendar className="h-4 w-4 text-gray-400" />
-                                {build.date && !Number.isNaN(new Date(build.date).getTime())
-                                  ? format(new Date(build.date), "MMM d, yyyy HH:mm")
-                                  : "Unknown Date"}
-                              </div>
-                            </td>
-                            <td className="hidden px-6 py-3 lg:table-cell">
-                              {build.commit ? (
-                                <code className="rounded-md border border-gray-200 bg-gray-100 px-2 py-1 font-mono text-gray-600 text-xs dark:border-gray-700/50 dark:bg-gray-800 dark:text-gray-300">
-                                  {build.commit}
-                                </code>
-                              ) : (
-                                <span className="text-gray-400">-</span>
-                              )}
-                            </td>
-                            <td className="px-4 py-3 text-right md:px-6">
-                              <div className="flex justify-end">
-                                <Button
-                                  className="h-8 px-3 text-xs sm:h-9 sm:px-4 sm:text-sm"
-                                  href={build.downloadUrl}
-                                  leftIcon={<Download className="h-3 w-3 sm:h-4 sm:w-4" />}
-                                  onClick={() => {
-                                    localStorage.setItem(
-                                      `last_download_${activeProject.id}`,
-                                      build.id
-                                    );
-                                    setLastDownloadedId(build.id);
-                                  }}
-                                  rel="noopener noreferrer"
-                                  size="sm"
-                                  target="_blank"
-                                  variant="primary"
-                                >
-                                  <span className="hidden sm:inline">Download</span>
-                                  <span className="sm:hidden">Get</span>
-                                </Button>
-                              </div>
-                            </td>
-                          </motion.tr>
+                            lastDownloadedId={lastDownloadedId}
+                            onDownload={(id) => {
+                              localStorage.setItem(`last_download_${activeProject.id}`, id);
+                              setLastDownloadedId(id);
+                            }}
+                          />
                         ))
                       )}
                     </AnimatePresence>
@@ -334,6 +230,132 @@ function BuildExplorerContent() {
         </div>
       </div>
     </div>
+  );
+}
+
+// function implemented below
+function BuildRow({
+  build,
+  index,
+  lastDownloadedId,
+  onDownload,
+}: {
+  build: Build;
+  index: number;
+  lastDownloadedId: string | null;
+  onDownload: (id: string) => void;
+}) {
+  return (
+    <motion.tr
+      animate={{ opacity: 1, y: 0 }}
+      className="group transition-colors hover:bg-white dark:hover:bg-gray-800/50"
+      exit={{ opacity: 0, y: -3 }}
+      initial={{ opacity: 0, y: 3 }}
+      key={build.id}
+      transition={{ duration: 0.15, delay: index * 0.02 }}
+    >
+      <td className="px-4 py-3 font-medium text-gray-900 md:px-6 dark:text-white">
+        <div className="flex items-center gap-3">
+          <div
+            className={`hidden shrink-0 rounded-lg p-2 sm:flex ${
+              build.type === "STABLE"
+                ? "bg-green-100 text-green-600 dark:bg-green-900/20 dark:text-green-400"
+                : "bg-orange-100 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400"
+            }`}
+          >
+            {build.type === "STABLE" ? (
+              <Package className="h-4 w-4" />
+            ) : (
+              <GitBranch className="h-4 w-4" />
+            )}
+          </div>
+          <div className="flex min-w-0 flex-col">
+            {build.runUrl ? (
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-2">
+                <a
+                  className="block max-w-[150px] truncate hover:underline sm:max-w-xs md:max-w-md"
+                  href={build.runUrl}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title={build.name}
+                >
+                  {build.name}
+                </a>
+                {lastDownloadedId === build.id && (
+                  <span className="inline-flex w-fit shrink-0 items-center rounded-md bg-blue-50 px-2 py-0.5 font-medium text-[10px] text-blue-700 ring-1 ring-blue-700/10 ring-inset sm:text-xs dark:bg-blue-900/30 dark:text-blue-400 dark:ring-blue-400/30">
+                    Last Downloaded
+                  </span>
+                )}
+              </div>
+            ) : (
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-2">
+                <span
+                  className="block max-w-[150px] truncate sm:max-w-xs md:max-w-md"
+                  title={build.name}
+                >
+                  {build.name}
+                </span>
+                {lastDownloadedId === build.id && (
+                  <span className="inline-flex w-fit shrink-0 items-center rounded-md bg-blue-50 px-2 py-0.5 font-medium text-[10px] text-blue-700 ring-1 ring-blue-700/10 ring-inset sm:text-xs dark:bg-blue-900/30 dark:text-blue-400 dark:ring-blue-400/30">
+                    Last Downloaded
+                  </span>
+                )}
+              </div>
+            )}
+
+            {/* Mobile Meta (Date/Commit) */}
+            <div className="mt-1 flex items-center gap-2 text-gray-500 text-xs md:hidden dark:text-gray-400">
+              <span className="flex items-center gap-1">
+                <Calendar className="h-3 w-3" />
+                {!!build.date && !Number.isNaN(new Date(build.date).getTime())
+                  ? format(new Date(build.date), "MMM d")
+                  : "Unknown"}
+              </span>
+              {!!build.commit && (
+                <>
+                  <span>•</span>
+                  <span className="font-mono">{build.commit}</span>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </td>
+      <td className="hidden whitespace-nowrap px-6 py-3 text-gray-600 md:table-cell dark:text-gray-400">
+        <div className="flex items-center gap-2">
+          <Calendar className="h-4 w-4 text-gray-400" />
+          {!!build.date && !Number.isNaN(new Date(build.date).getTime())
+            ? format(new Date(build.date), "MMM d, yyyy HH:mm")
+            : "Unknown Date"}
+        </div>
+      </td>
+      <td className="hidden px-6 py-3 lg:table-cell">
+        {build.commit ? (
+          <code className="rounded-md border border-gray-200 bg-gray-100 px-2 py-1 font-mono text-gray-600 text-xs dark:border-gray-700/50 dark:bg-gray-800 dark:text-gray-300">
+            {build.commit}
+          </code>
+        ) : (
+          <span className="text-gray-400">-</span>
+        )}
+      </td>
+      <td className="px-4 py-3 text-right md:px-6">
+        <div className="flex justify-end">
+          <Button
+            className="h-8 px-3 text-xs sm:h-9 sm:px-4 sm:text-sm"
+            href={build.downloadUrl}
+            leftIcon={<Download className="h-3 w-3 sm:h-4 sm:w-4" />}
+            onClick={() => onDownload(build.id)}
+            rel="noopener noreferrer"
+            size="sm"
+            target="_blank"
+            variant="primary"
+          >
+            <span className="hidden sm:inline">Download</span>
+            <span className="sm:hidden">Get</span>
+          </Button>
+        </div>
+      </td>
+    </motion.tr>
   );
 }
 

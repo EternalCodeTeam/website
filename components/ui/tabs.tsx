@@ -1,7 +1,15 @@
 "use client";
 
 import { type HTMLMotionProps, motion } from "framer-motion";
-import { createContext, useContext, useId, useState } from "react";
+import {
+  type ButtonHTMLAttributes,
+  createContext,
+  type HTMLAttributes,
+  type ReactNode,
+  useContext,
+  useId,
+  useState,
+} from "react";
 import { cn } from "@/lib/utils";
 
 type TabsContextType = {
@@ -20,10 +28,10 @@ function useTabs() {
   return context;
 }
 
-interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
+interface TabsProps extends HTMLAttributes<HTMLDivElement> {
   defaultValue: string;
   onValueChange?: (value: string) => void;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export function Tabs({ defaultValue, onValueChange, className, children, ...props }: TabsProps) {
@@ -44,8 +52,8 @@ export function Tabs({ defaultValue, onValueChange, className, children, ...prop
   );
 }
 
-interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
+interface TabsListProps extends HTMLAttributes<HTMLDivElement> {
+  children: ReactNode;
 }
 
 export function TabsList({ className, children, ...props }: TabsListProps) {
@@ -62,9 +70,9 @@ export function TabsList({ className, children, ...props }: TabsListProps) {
   );
 }
 
-interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface TabsTriggerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export function TabsTrigger({ className, value, children, ...props }: TabsTriggerProps) {
@@ -84,7 +92,7 @@ export function TabsTrigger({ className, value, children, ...props }: TabsTrigge
       type="button"
       {...props}
     >
-      {isActive && (
+      {!!isActive && (
         <motion.div
           className="absolute inset-0 z-0 rounded-full bg-white shadow-sm dark:bg-white/10"
           initial={false}
@@ -99,14 +107,16 @@ export function TabsTrigger({ className, value, children, ...props }: TabsTrigge
 
 interface TabsContentProps extends HTMLMotionProps<"div"> {
   value: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export function TabsContent({ className, value, children, ...props }: TabsContentProps) {
   const { activeTab } = useTabs();
   const isActive = activeTab === value;
 
-  if (!isActive) return null;
+  if (!isActive) {
+    return null;
+  }
 
   return (
     <motion.div

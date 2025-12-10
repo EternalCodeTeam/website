@@ -4,9 +4,9 @@ import { ThemeProvider } from "next-themes";
 import { type ReactNode, useCallback, useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 
-interface ProvidersProps {
+type ProvidersProps = {
   children: ReactNode;
-}
+};
 
 export function Providers({ children }: ProvidersProps) {
   const [mounted, setMounted] = useState(false);

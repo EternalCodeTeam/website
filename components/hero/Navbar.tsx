@@ -6,23 +6,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import AnnouncementBanner from "@/components/hero/AnnouncementBanner";
+import AnnouncementBanner from "@/components/hero/announcement-banner";
 import { Button } from "@/components/ui/button";
 import { slideDown, smoothEase } from "@/lib/animations/variants";
 import logo from "@/public/logo.svg";
 import ArrowDown from "../icons/arrow-down";
 import Hamburger from "../icons/hamburger";
 import NewWindow from "../icons/new-window";
-import { PROJECT_OPTIONS, ProjectsDropdown } from "./ProjectsDropdown";
-import ThemeSwitchButton from "./ThemeSwitchButton";
-import { TOOLS_OPTIONS, ToolsDropdown } from "./ToolsDropdown";
+import { PROJECT_OPTIONS, ProjectsDropdown } from "./projects-dropdown";
+import ThemeSwitchButton from "./theme-switch-button";
+import { TOOLS_OPTIONS, ToolsDropdown } from "./tools-dropdown";
 
-interface NavLink {
+type NavLink = {
   href: string;
   label: string;
   text: string;
   isExternal?: boolean;
-}
+};
 
 const NAV_LINKS: NavLink[] = [
   { href: "/", label: "Home", text: "Home" },
@@ -69,11 +69,10 @@ function MobileMenuLink({
       className="flex w-full items-center rounded-lg px-4 py-2.5 font-medium text-base text-gray-900 transition-colors hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-white/10"
       href={href}
       onClick={onClick}
-      rel={isExternal ? "noopener noreferrer" : undefined}
-      target={isExternal ? "_blank" : undefined}
+      {...(isExternal ? { rel: "noopener noreferrer", target: "_blank" } : {})}
     >
       {children}
-      {isExternal && <NewWindow aria-hidden="true" className="ml-2 h-4 w-4 opacity-50" />}
+      {!!isExternal && <NewWindow aria-hidden="true" className="ml-2 h-4 w-4 opacity-50" />}
     </Link>
   );
 }
@@ -102,7 +101,7 @@ function MobileMenuAccordion({
         />
       </button>
       <AnimatePresence>
-        {isOpen && (
+        {!!isOpen && (
           <motion.div
             animate={{ height: "auto", opacity: 1 }}
             className="overflow-hidden"
@@ -247,7 +246,7 @@ export default function Navbar() {
         </div>
 
         <AnimatePresence>
-          {isMenuOpen && (
+          {!!isMenuOpen && (
             <motion.div
               animate={{ opacity: 1, height: "auto" }}
               className="w-full overflow-hidden border-gray-100 border-t bg-white/50 backdrop-blur-xl md:hidden dark:border-gray-800 dark:bg-black/50"
@@ -327,11 +326,10 @@ export default function Navbar() {
                 <Link
                   className="flex items-center justify-center rounded-full px-4 py-2 text-gray-600 text-sm transition-all hover:bg-black/5 hover:text-black dark:text-gray-300 dark:hover:bg-white/10 dark:hover:text-white"
                   href={link.href}
-                  rel={link.isExternal ? "noopener noreferrer" : undefined}
-                  target={link.isExternal ? "_blank" : undefined}
+                  {...(link.isExternal ? { rel: "noopener noreferrer", target: "_blank" } : {})}
                 >
                   {link.text}
-                  {link.isExternal && (
+                  {!!link.isExternal && (
                     <NewWindow aria-hidden="true" className="ml-1.5 h-3.5 w-3.5 opacity-70" />
                   )}
                 </Link>
@@ -350,11 +348,10 @@ export default function Navbar() {
                 <Link
                   className="flex items-center justify-center rounded-full px-4 py-2 text-gray-600 text-sm transition-all hover:bg-black/5 hover:text-black dark:text-gray-300 dark:hover:bg-white/10 dark:hover:text-white"
                   href={link.href}
-                  rel={link.isExternal ? "noopener noreferrer" : undefined}
-                  target={link.isExternal ? "_blank" : undefined}
+                  {...(link.isExternal ? { rel: "noopener noreferrer", target: "_blank" } : {})}
                 >
                   {link.text}
-                  {link.isExternal && (
+                  {!!link.isExternal && (
                     <NewWindow aria-hidden="true" className="ml-1.5 h-3.5 w-3.5 opacity-70" />
                   )}
                 </Link>

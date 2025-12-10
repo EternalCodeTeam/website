@@ -26,12 +26,12 @@ export type AlertBoxType =
   | "important"
   | "example";
 
-export interface AlertBoxProps {
+export type AlertBoxProps = {
   type: AlertBoxType; // Alert type (affects style and icon)
   children: ReactNode; // Main alert content
   title?: ReactNode; // Optional alert title
   className?: string; // Optional extra CSS classes
-}
+};
 
 const alertStyles = {
   info: {
@@ -131,7 +131,7 @@ const defaultTitles = {
   example: "Example",
 } as const;
 
-export const AlertBox = memo(function AlertBox({
+export const AlertBox = memo(function AlertBoxComponent({
   type,
   children,
   title,
@@ -149,7 +149,7 @@ export const AlertBox = memo(function AlertBox({
   return (
     <div
       role={styles.role}
-      {...(ariaLabel && { "aria-label": ariaLabel })}
+      {...(ariaLabel ? { "aria-label": ariaLabel } : {})}
       className={cn(
         "my-6 rounded-lg p-4 shadow-xs backdrop-blur-xs transition-colors duration-200",
         styles.container,
@@ -164,7 +164,7 @@ export const AlertBox = memo(function AlertBox({
 
         {/* Alert content */}
         <div className="min-w-0 flex-1">
-          {(title || defaultTitle) && (
+          {!!(title || defaultTitle) && (
             <h5 className={`mb-1 font-semibold text-sm md:text-base ${styles.title}`}>
               {title || defaultTitle}
             </h5>

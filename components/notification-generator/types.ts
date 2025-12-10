@@ -1,4 +1,4 @@
-export interface NotificationConfig {
+export type NotificationConfig = {
   chat: string;
   actionbar: string;
   title: string;
@@ -11,11 +11,11 @@ export interface NotificationConfig {
   titleHide: boolean;
   pitch: string;
   volume: string;
-}
+};
 
-export interface MinecraftPreviewProps {
+export type MinecraftPreviewProps = {
   notification: NotificationConfig;
-}
+};
 
 export type TabType = "chat" | "actionbar" | "title" | "sound" | "advanced";
 export type FieldType = keyof NotificationConfig;

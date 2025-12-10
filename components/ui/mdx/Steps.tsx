@@ -1,13 +1,15 @@
 "use client";
 
 import type { LucideIcon } from "lucide-react";
+// biome-ignore lint/performance/noNamespaceImport: Dynamic icon loading
 import * as LucideIcons from "lucide-react";
+import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-interface StepsProps {
-  children: React.ReactNode;
+type StepsProps = {
+  children: ReactNode;
   className?: string;
-}
+};
 
 export function Steps({ children, className }: StepsProps) {
   return (
@@ -22,11 +24,11 @@ export function Steps({ children, className }: StepsProps) {
   );
 }
 
-interface StepProps {
+type StepProps = {
   title?: string;
   icon?: string;
-  children: React.ReactNode;
-}
+  children: ReactNode;
+};
 
 export function Step({ title, icon, children }: StepProps) {
   // biome-ignore lint/performance/noDynamicNamespaceImportAccess: Dynamic icon loading based on prop
@@ -50,7 +52,7 @@ export function Step({ title, icon, children }: StepProps) {
       </div>
 
       <div className="flex flex-col">
-        {title && (
+        {!!title && (
           <h3 className="mb-3 font-semibold text-gray-900 text-lg tracking-tight dark:text-gray-100">
             {title}
           </h3>

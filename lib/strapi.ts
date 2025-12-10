@@ -1,14 +1,14 @@
 // Types for Strapi CMS integration
-export interface StrapiImage {
+export type StrapiImage = {
   documentId: string;
   url: string;
   alternativeText?: string;
   caption?: string;
   width: number;
   height: number;
-}
+};
 
-export interface StrapiAuthor {
+export type StrapiAuthor = {
   documentId: string;
   name: string;
   slug: string;
@@ -16,15 +16,15 @@ export interface StrapiAuthor {
   avatar?: StrapiImage;
   bio?: string;
   blog_posts?: StrapiBlogPost[];
-}
+};
 
-export interface StrapiTag {
+export type StrapiTag = {
   documentId: string;
   name: string;
   slug: string;
-}
+};
 
-export interface StrapiBlogPost {
+export type StrapiBlogPost = {
   documentId: string;
   title: string;
   slug: string;
@@ -36,9 +36,9 @@ export interface StrapiBlogPost {
   featuredImage?: StrapiImage;
   author?: StrapiAuthor;
   tags?: StrapiTag[];
-}
+};
 
-interface StrapiResponse<T> {
+type StrapiResponse<T> = {
   data: T[];
   meta: {
     pagination?: {
@@ -48,7 +48,7 @@ interface StrapiResponse<T> {
       total: number;
     };
   };
-}
+};
 
 const STRAPI_URL = process.env.ETERNALCODE_STRAPI_URL || "http://localhost:1337";
 const STRAPI_API_TOKEN = process.env.ETERNALCODE_STRAPI_KEY;
@@ -275,7 +275,9 @@ export async function getAuthorBySlug(slug: string): Promise<StrapiAuthor | null
     const response = await fetchFromStrapi<StrapiResponse<StrapiAuthor>>(
       `/authors?filters[slug][$eq]=${slug}&populate[0]=avatar&populate[1]=blog_posts&populate[2]=blog_posts.featuredImage&populate[3]=blog_posts.tags&populate[4]=blog_posts.author&populate[5]=blog_posts.author.avatar`
     );
-    if (!response.data || response.data.length === 0) return null;
+    if (!response.data || response.data.length === 0) {
+      return null;
+    }
     const item = response.data[0];
     return {
       documentId: item.documentId,

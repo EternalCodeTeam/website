@@ -2,14 +2,16 @@
 
 import Link from "next/link";
 
-interface PaginationProps {
+import { cn } from "@/lib/utils";
+
+type PaginationProps = {
   currentPage: number;
   totalPages: number;
   totalItems: number;
   itemsPerPage: number;
   slug: string;
   className?: string;
-}
+};
 
 const baseBtn =
   "inline-flex items-center justify-center font-medium transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border text-xs rounded-xs";
@@ -30,7 +32,9 @@ export function Pagination({
   slug,
   className = "",
 }: PaginationProps) {
-  if (totalPages <= 1) return null;
+  if (totalPages <= 1) {
+    return null;
+  }
 
   const startItem = (currentPage - 1) * itemsPerPage + 1;
   const endItem = Math.min(currentPage * itemsPerPage, totalItems);
@@ -38,13 +42,19 @@ export function Pagination({
   const visiblePages: number[] = [];
 
   if (totalPages <= 5) {
-    for (let i = 1; i <= totalPages; i++) visiblePages.push(i);
+    for (let i = 1; i <= totalPages; i++) {
+      visiblePages.push(i);
+    }
   } else if (currentPage <= 3) {
     visiblePages.push(1, 2, 3, 4, 5);
   } else if (currentPage >= totalPages - 2) {
-    for (let i = totalPages - 4; i <= totalPages; i++) visiblePages.push(i);
+    for (let i = totalPages - 4; i <= totalPages; i++) {
+      visiblePages.push(i);
+    }
   } else {
-    for (let i = currentPage - 2; i <= currentPage + 2; i++) visiblePages.push(i);
+    for (let i = currentPage - 2; i <= currentPage + 2; i++) {
+      visiblePages.push(i);
+    }
   }
 
   return (
@@ -67,18 +77,28 @@ export function Pagination({
           Previous
         </Link>
 
-        {visiblePages.map((pageNumber) => (
-          <Link
-            aria-current={currentPage === pageNumber ? "page" : undefined}
-            className={`${baseBtn} ${
-              currentPage === pageNumber ? primaryBtn : outlineBtn
-            } h-8 w-8 justify-center p-0`}
-            href={getPageHref(slug, pageNumber)}
-            key={pageNumber}
-          >
-            {pageNumber}
-          </Link>
-        ))}
+        {visiblePages.map((pageNumber) => {
+          const isCurrentPage = currentPage === pageNumber;
+          // biome-ignore lint/nursery/noLeakedRender: Safe ternary with string literals
+          const ariaCurrent = isCurrentPage ? ("page" as const) : undefined;
+          const linkClassName = cn(
+            baseBtn,
+            // biome-ignore lint/nursery/noLeakedRender: Safe ternary with CSS class strings
+            isCurrentPage ? primaryBtn : outlineBtn,
+            "h-8 w-8 justify-center p-0"
+          );
+
+          return (
+            <Link
+              aria-current={ariaCurrent}
+              className={linkClassName}
+              href={getPageHref(slug, pageNumber)}
+              key={pageNumber}
+            >
+              {pageNumber}
+            </Link>
+          );
+        })}
 
         <Link
           aria-disabled={currentPage === totalPages}

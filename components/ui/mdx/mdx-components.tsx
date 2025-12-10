@@ -2,16 +2,16 @@ import type { MDXComponents } from "mdx/types";
 import Image from "next/image";
 import type { ComponentProps, HTMLAttributes } from "react";
 
-import DynamicCommandsTable from "@/components/docs/eternalcore/commands/DynamicCommandsTable";
-import DynamicPlaceholdersTable from "@/components/docs/eternalcore/placeholder/DynamicPlaceholdersTable";
+import DynamicCommandsTable from "@/components/docs/eternalcore/commands/dynamic-commands-table";
+import DynamicPlaceholdersTable from "@/components/docs/eternalcore/placeholder/dynamic-placeholders-table";
 import { AlertBox } from "@/components/ui/alert-box";
-import { Callout } from "@/components/ui/mdx/Callout";
-import { Card, CardGroup } from "@/components/ui/mdx/Card";
-import { CodeBlock } from "@/components/ui/mdx/CodeBlock";
-import { CodeTab, CodeTabs } from "@/components/ui/mdx/CodeTabs";
-import { Heading } from "@/components/ui/mdx/Heading";
-import { Inline } from "@/components/ui/mdx/Inline";
-import { Step, Steps } from "@/components/ui/mdx/Steps";
+import { Callout } from "@/components/ui/mdx/callout";
+import { Card, CardGroup } from "@/components/ui/mdx/card";
+import { CodeBlock } from "@/components/ui/mdx/code-block";
+import { CodeTab, CodeTabs } from "@/components/ui/mdx/code-tabs";
+import { Heading } from "@/components/ui/mdx/heading";
+import { Inline } from "@/components/ui/mdx/inline";
+import { Step, Steps } from "@/components/ui/mdx/steps";
 
 type HeadingProps = HTMLAttributes<HTMLHeadingElement>;
 
@@ -122,4 +122,5 @@ export const components: MDXComponents = {
   },
 };
 
+// biome-ignore lint/performance/noBarrelFile: Re-exporting for convenience
 export { mdxOptions } from "../../../lib/mdx-config.mjs";

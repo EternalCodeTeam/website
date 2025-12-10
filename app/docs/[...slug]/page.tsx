@@ -6,38 +6,38 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { Suspense } from "react";
 
-import { DocsHeader } from "@/components/docs/content/DocsHeader";
-import { DocsNavigation } from "@/components/docs/content/DocsNavigation";
-import { EditOnGitHub } from "@/components/docs/content/EditOnGitHub";
-import { ErrorBoundary } from "@/components/docs/content/ErrorBoundary";
-import { ReadingTime } from "@/components/docs/content/ReadingTime";
+import { DocsHeader } from "@/components/docs/content/docs-header";
+import { DocsNavigation } from "@/components/docs/content/docs-navigation";
+import { EditOnGitHub } from "@/components/docs/content/edit-on-github";
+import { ErrorBoundary } from "@/components/docs/content/error-boundary";
+import { ReadingTime } from "@/components/docs/content/reading-time";
 import { components, mdxOptions } from "@/components/ui/mdx/mdx-components";
 import { docsStructure } from "@/lib/sidebar-structure";
 
-interface DocMeta {
+type DocMeta = {
   title: string;
   description?: string;
   lastModified?: string;
   author?: string;
   icon?: string;
   [key: string]: string | undefined;
-}
+};
 
-interface Doc {
+type Doc = {
   meta: DocMeta;
   content: string;
-}
+};
 
-interface DocNavigation {
+type DocNavigation = {
   prev: { title: string; path: string } | null;
   next: { title: string; path: string } | null;
-}
+};
 
-interface DocStructureItem {
+type DocStructureItem = {
   title: string;
   path: string;
   children?: DocStructureItem[];
-}
+};
 
 function getFlatDocs(): { title: string; path: string }[] {
   function flattenDocs(structure: DocStructureItem[]): { title: string; path: string }[] {
@@ -90,11 +90,11 @@ function getDocNavigation(currentPath: string): DocNavigation {
   };
 }
 
-interface Props {
+type Props = {
   params: Promise<{
     slug: string[];
   }>;
-}
+};
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
@@ -138,7 +138,7 @@ function LoadingFallback() {
   );
 }
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   const flatDocs = getFlatDocs();
   return flatDocs.map((doc) => ({
     slug: doc.path.replace("/docs/", "").split("/"),
@@ -148,7 +148,9 @@ export async function generateStaticParams() {
 export default async function DocPage({ params }: Props) {
   const resolvedParams = await params;
   const doc = await getDocBySlug(resolvedParams.slug);
-  if (!doc) notFound();
+  if (!doc) {
+    notFound();
+  }
 
   const currentPath = `/docs/${resolvedParams.slug.join("/")}`;
   const { prev, next } = getDocNavigation(currentPath);

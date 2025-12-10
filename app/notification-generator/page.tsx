@@ -2,12 +2,12 @@
 
 import { Play } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
-import { NotificationGeneratedCode } from "@/components/notification-generator/NotificationGeneratedCode";
-import { NotificationGenerator as NotificationGeneratorForm } from "@/components/notification-generator/NotificationGenerator";
-import { MinecraftPreview } from "@/components/notification-generator/preview/MinecraftPreview";
+import { NotificationGeneratedCode } from "@/components/notification-generator/notification-generated-code";
+import { NotificationGenerator as NotificationGeneratorForm } from "@/components/notification-generator/notification-generator";
+import { MinecraftPreview } from "@/components/notification-generator/preview/minecraft-preview";
 import type { NotificationConfig } from "@/components/notification-generator/types";
 import { Button } from "@/components/ui/button";
-import { FadeIn, SlideIn, StaggerContainer } from "@/components/ui/motion/MotionComponents";
+import { FadeIn, SlideIn, StaggerContainer } from "@/components/ui/motion/motion-components";
 
 export default function NotificationGeneratorPage() {
   const [notification, setNotification] = useState<NotificationConfig>({
@@ -28,66 +28,7 @@ export default function NotificationGeneratorPage() {
   const [yamlCode, setYamlCode] = useState("");
   const [previewKey, setPreviewKey] = useState(0);
 
-  const generateYaml = useCallback(() => {
-    const parts = [];
-
-    if (notification.chat) {
-      if (notification.chat.includes("\n")) {
-        const lines = notification.chat.split("\n");
-        parts.push("chat:");
-        lines.forEach((line) => {
-          parts.push(`  - "${line}"`);
-        });
-      } else {
-        parts.push(`chat: "${notification.chat}"`);
-      }
-    }
-
-    if (notification.actionbar) {
-      parts.push(`actionbar: "${notification.actionbar}"`);
-    }
-
-    if (notification.title) {
-      parts.push(`title: "${notification.title}"`);
-    }
-
-    if (notification.subtitle) {
-      parts.push(`subtitle: "${notification.subtitle}"`);
-    }
-
-    if (notification.fadeIn || notification.stay || notification.fadeOut) {
-      const fadeIn = notification.fadeIn || "0s";
-      const stay = notification.stay || "0s";
-      const fadeOut = notification.fadeOut || "0s";
-      parts.push(`times: "${fadeIn} ${stay} ${fadeOut}"`);
-    }
-
-    if (notification.sound) {
-      const volumeValue = notification.volume || "1.0";
-      const pitchValue = notification.pitch || "1.0";
-
-      const volume = Number.parseFloat(volumeValue).toFixed(1);
-      const pitch = Number.parseFloat(pitchValue).toFixed(1);
-
-      if (notification.soundCategory) {
-        parts.push(
-          `sound: "${notification.sound} ${notification.soundCategory} ${volume} ${pitch}"`
-        );
-      } else {
-        parts.push(`sound: "${notification.sound} ${volume} ${pitch}"`);
-      }
-    }
-
-    if (notification.titleHide) {
-      parts.push("titleHide: true");
-    }
-
-    if (parts.length === 0) {
-      return "example: []";
-    }
-
-    return `example:\n  ${parts.join("\n  ")}`;
-  }, [notification]);
+  const generateYaml = useCallback(() => generateYamlString(notification), [notification]);
 
   useEffect(() => {
     setYamlCode(generateYaml());
@@ -155,4 +96,70 @@ export default function NotificationGeneratorPage() {
       </SlideIn>
     </StaggerContainer>
   );
+}
+
+function generateYamlString(notification: NotificationConfig): string {
+  const parts: string[] = [];
+
+  if (notification.chat) {
+    parts.push(...generateChatYaml(notification.chat));
+  }
+
+  if (notification.actionbar) {
+    parts.push(`actionbar: "${notification.actionbar}"`);
+  }
+
+  if (notification.title) {
+    parts.push(`title: "${notification.title}"`);
+  }
+
+  if (notification.subtitle) {
+    parts.push(`subtitle: "${notification.subtitle}"`);
+  }
+
+  if (notification.fadeIn || notification.stay || notification.fadeOut) {
+    const fadeIn = notification.fadeIn || "0s";
+    const stay = notification.stay || "0s";
+    const fadeOut = notification.fadeOut || "0s";
+    parts.push(`times: "${fadeIn} ${stay} ${fadeOut}"`);
+  }
+
+  if (notification.sound) {
+    parts.push(generateSoundYaml(notification));
+  }
+
+  if (notification.titleHide) {
+    parts.push("titleHide: true");
+  }
+
+  if (parts.length === 0) {
+    return "example: []";
+  }
+
+  return `example:\n  ${parts.join("\n  ")}`;
+}
+
+function generateChatYaml(chat: string): string[] {
+  if (chat.includes("\n")) {
+    const lines = chat.split("\n");
+    const result = ["chat:"];
+    for (const line of lines) {
+      result.push(`  - "${line}"`);
+    }
+    return result;
+  }
+  return [`chat: "${chat}"`];
+}
+
+function generateSoundYaml(notification: NotificationConfig): string {
+  const volumeValue = notification.volume || "1.0";
+  const pitchValue = notification.pitch || "1.0";
+
+  const volume = Number.parseFloat(volumeValue).toFixed(1);
+  const pitch = Number.parseFloat(pitchValue).toFixed(1);
+
+  if (notification.soundCategory) {
+    return `sound: "${notification.sound} ${notification.soundCategory} ${volume} ${pitch}"`;
+  }
+  return `sound: "${notification.sound} ${volume} ${pitch}"`;
 }

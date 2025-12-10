@@ -18,7 +18,7 @@ import {
   HoverScale,
   SlideIn,
   StaggerContainer,
-} from "@/components/ui/motion/MotionComponents";
+} from "@/components/ui/motion/motion-components";
 
 export default function PrivacyPolicyPage() {
   const lastUpdated = "December 9, 2025";

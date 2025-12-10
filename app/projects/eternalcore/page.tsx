@@ -6,9 +6,9 @@ import Image from "next/image";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { FacadePattern } from "@/components/ui/facade-pattern";
-import { FadeIn, SlideIn } from "@/components/ui/motion/MotionComponents";
+import { FadeIn, SlideIn } from "@/components/ui/motion/motion-components";
 
-import { ConfigPreview } from "./ConfigPreview";
+import { ConfigPreview } from "./config-preview";
 
 export default function EternalCorePage() {
   const targetRef = useRef(null);

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import * as React from "react";
+import React from "react";
 import { cn } from "@/lib/utils";
 
 type AccordionContextType = {
@@ -12,11 +12,11 @@ type AccordionContextType = {
 
 const AccordionContext = React.createContext<AccordionContextType | undefined>(undefined);
 
-interface AccordionProps {
+type AccordionProps = {
   children: React.ReactNode;
   className?: string;
   defaultValue?: string;
-}
+};
 
 export function Accordion({ children, className, defaultValue }: AccordionProps) {
   const [activeItem, setActiveItem] = React.useState<string | undefined>(defaultValue);
@@ -30,11 +30,11 @@ export function Accordion({ children, className, defaultValue }: AccordionProps)
   );
 }
 
-interface AccordionItemProps {
+type AccordionItemProps = {
   children: React.ReactNode;
   value: string;
   className?: string;
-}
+};
 
 export function AccordionItem({ children, value, className }: AccordionItemProps) {
   return (
@@ -57,11 +57,11 @@ export function AccordionItem({ children, value, className }: AccordionItemProps
   );
 }
 
-interface AccordionTriggerProps {
+type AccordionTriggerProps = {
   children: React.ReactNode;
   className?: string;
   value?: string;
-}
+};
 
 export function AccordionTrigger({ children, className, value }: AccordionTriggerProps) {
   const context = React.useContext(AccordionContext);
@@ -96,11 +96,11 @@ export function AccordionTrigger({ children, className, value }: AccordionTrigge
   );
 }
 
-interface AccordionContentProps {
+type AccordionContentProps = {
   children: React.ReactNode;
   className?: string;
   value?: string;
-}
+};
 
 export function AccordionContent({ children, className, value }: AccordionContentProps) {
   const context = React.useContext(AccordionContext);

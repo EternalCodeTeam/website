@@ -22,7 +22,9 @@ export function Analytics() {
     return () => window.removeEventListener("cookieConsentChanged", updateConsent);
   }, [updateConsent]);
 
-  if (!shouldLoad) return null;
+  if (!shouldLoad) {
+    return null;
+  }
 
   return <VercelAnalytics />;
 }
