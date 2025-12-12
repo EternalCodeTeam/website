@@ -7,7 +7,7 @@ import { SliderField } from "../../form/slider-field";
 import type { FieldType, NotificationConfig } from "../../types";
 import { SoundInfoBox } from "./sound-info-box";
 import { type Sound, SoundTable } from "./sound-table";
-import { SOUND_CATEGORY_OPTIONS } from "./sound-contant";
+import { SOUND_CATEGORY_OPTIONS } from "./sound-content";
 
 const SOUNDS_JSON_URL =
   "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.21.5/assets/minecraft/sounds.json";

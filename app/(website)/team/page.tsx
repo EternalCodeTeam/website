@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { generateOgImageMetadata } from "@/components/og-image";
-import Team from "@/components/team/Team";
+import Team from "@/components/team/team";
 import TeamHero from "@/components/team/team-hero";
 import { Suspense } from "react";
 import TeamSkeleton from "@/components/team/team-skeleton";
