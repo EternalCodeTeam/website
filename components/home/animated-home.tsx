@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import Hero from "@/components/hero/hero";
+import Hero from "@/components/hero/Hero";
 import About from "@/components/home/about/about-section";
 import Cta from "@/components/home/cta/cta-section";
 import Faq from "@/components/home/faq/faq-section";
