@@ -20,7 +20,7 @@ export default function TeamMembers() {
   return (
     <div className="relative min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Background Decor */}
-      <div className="pointer-events-none absolute inset-0 z-0 select-none">
+      <div className="pointer-events-none absolute inset-0 z-0 select-none overflow-hidden">
         {/* Top Center - Hero backing */}
         <div className="-top-20 -translate-x-1/2 absolute left-1/2 h-[600px] w-[600px] rounded-full bg-blue-500/10 blur-3xl filter dark:bg-blue-500/5" />
         {/* Team Area - Purple/Pink spread */}

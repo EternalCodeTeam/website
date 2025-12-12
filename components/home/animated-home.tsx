@@ -22,7 +22,7 @@ export default function AnimatedHome() {
       variants={fadeIn}
     >
       {/* Background Decor */}
-      <div className="pointer-events-none absolute inset-0 z-0 select-none">
+      <div className="pointer-events-none absolute inset-0 z-0 select-none overflow-hidden">
         {/* Hero Area - Supplemental Glow (Left) */}
         <div className="-left-[10%] absolute top-0 h-[300px] w-[300px] rounded-full bg-blue-500/10 blur-3xl filter md:h-[600px] md:w-[600px] dark:bg-blue-500/5" />
 
