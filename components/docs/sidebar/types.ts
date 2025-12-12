@@ -1,19 +1,19 @@
-export interface DocItem {
+export type DocItem = {
   title: string;
   path: string;
   icon?: string;
   children?: DocItem[];
-}
+};
 
-export interface DocSidebarProps {
+export type DocSidebarProps = {
   className?: string;
   onItemClick?: (path: string) => void;
-}
+};
 
-export interface DocItemProps {
+export type DocItemProps = {
   item: DocItem;
   level: number;
   isActive: boolean;
   onItemClick?: (path: string) => void;
   index: number;
-}
+};

@@ -2,6 +2,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { NotificationConfig } from "./types";
 
+const TIME_REGEX = /^(\d+(\.\d+)?)s$/;
+
 export const useTitleAnimation = (
   notification: Pick<NotificationConfig, "title" | "subtitle" | "fadeIn" | "stay" | "fadeOut">
 ) => {
@@ -11,14 +13,20 @@ export const useTitleAnimation = (
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const parseTime = useCallback((timeStr: string) => {
-    if (!timeStr) return 0;
-    const match = timeStr.match(/^(\d+(\.\d+)?)s$/);
-    if (!match) return 0;
-    return parseFloat(match[1]);
+    if (!timeStr) {
+      return 0;
+    }
+    const match = timeStr.match(TIME_REGEX);
+    if (!match) {
+      return 0;
+    }
+    return Number.parseFloat(match[1]);
   }, []);
 
   useEffect(() => {
-    if (!notification.title && !notification.subtitle) return;
+    if (!(notification.title || notification.subtitle)) {
+      return;
+    }
 
     const fadeIn = parseTime(notification.fadeIn) || 1;
     const stay = parseTime(notification.stay) || 2;
@@ -27,8 +35,12 @@ export const useTitleAnimation = (
     setShowTitle(false);
     setTitleOpacity(0);
 
-    if (intervalRef.current) clearInterval(intervalRef.current);
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
 
     timeoutRef.current = setTimeout(() => {
       setShowTitle(true);
@@ -36,7 +48,9 @@ export const useTitleAnimation = (
       intervalRef.current = setInterval(() => {
         setTitleOpacity((prev) => {
           if (prev >= 1) {
-            if (intervalRef.current) clearInterval(intervalRef.current);
+            if (intervalRef.current) {
+              clearInterval(intervalRef.current);
+            }
             return 1;
           }
           return prev + 0.1;
@@ -48,7 +62,9 @@ export const useTitleAnimation = (
           intervalRef.current = setInterval(() => {
             setTitleOpacity((prev) => {
               if (prev <= 0) {
-                if (intervalRef.current) clearInterval(intervalRef.current);
+                if (intervalRef.current) {
+                  clearInterval(intervalRef.current);
+                }
                 setShowTitle(false);
                 return 0;
               }
@@ -61,8 +77,12 @@ export const useTitleAnimation = (
     }, 500);
 
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
     };
   }, [
     notification.title,
@@ -82,14 +102,18 @@ export const useSoundEffect = (sound: string) => {
 
   useEffect(() => {
     if (sound && playSound) {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
 
       timeoutRef.current = setTimeout(() => {
         setPlaySound(false);
       }, 1000);
 
       return () => {
-        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
       };
     }
   }, [sound, playSound]);

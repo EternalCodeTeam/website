@@ -4,40 +4,56 @@ description: Learn how to install and upgrade EternalCore on your server.
 icon: Download
 ---
 
+import { Steps, Step } from "../../components/ui/steps";
 import { AlertBox } from "../../components/ui/alert-box";
 
 ## Installation
 
-### Step 1: Download the plugin
-After downloading the EternalCore JAR file, place it in the `plugins` folder on your Minecraft server. Make sure the file is located in the same directory as other plugins.
+<Steps>
+  <Step title="Download the plugin" icon="Download">
+    After downloading the EternalCore JAR file, place it in the `plugins` folder on your Minecraft server.
+    Make sure the file is located in the same directory as other plugins.
+  </Step>
 
-### Step 2: Restart the server
-Restart the Minecraft server. The EternalCore plugin should be automatically loaded.
+  <Step title="Restart the server" icon="RefreshCcw">
+    Restart the Minecraft server. The EternalCore plugin should be automatically loaded.
+  </Step>
+</Steps>
 
 <AlertBox type="info" title="Support">
-  If the plugin doesn't load correctly, inform us about it in the [Issues](https://github.com/EternalCodeTeam/EternalCore/issues) tab or on our [Discord](https://discord.gg/FQ7jmGBd6c).
+  If the plugin doesn't load correctly, inform us about it in the
+  <a href="https://github.com/EternalCodeTeam/EternalCore/issues">Issues</a> tab
+  or on our <a href="https://discord.gg/FQ7jmGBd6c">Discord</a>.
 </AlertBox>
 
 ## Upgrading
 
 <AlertBox type="warning" title="Backup">
-  Before starting the upgrade, make sure you back up your EternalCore plugin configuration to avoid potential configuration conflicts.
+  Before starting the upgrade, make sure you back up your EternalCore plugin configuration
+  to avoid potential configuration conflicts.
 </AlertBox>
 
-### Step 1: Download the latest version
-Download the latest version of EternalCore from the project website.
+<Steps>
+  <Step title="Download the latest version" icon="Download">
+    Download the latest version of EternalCore from the project website.
+  </Step>
 
-### Step 2: Replace the JAR file
-Delete the old JAR file and place the new one in the `plugins` folder.
+  <Step title="Replace the JAR file" icon="FileUp">
+    Delete the old JAR file and place the new one in the `plugins` folder.
+  </Step>
 
-### Step 3: Restart the server
-Restart your Minecraft server to load the new version.
+  <Step title="Restart the server" icon="RefreshCcw">
+    Restart your Minecraft server to load the new version.
+  </Step>
 
-### Step 4: Verify the update
-Check if the plugin works properly and all functionality is available.
+  <Step title="Verify the update" icon="Check">
+    Check if the plugin works properly and all functionality is available.
+  </Step>
+</Steps>
 
 ## Warning
 
 <AlertBox type="danger" title="Reloading">
-  We recommend **not** using the `/reload` command or plugins reloading in real-time (e.g. PlugMan), as they may cause problems with plugins and lead to unexpected errors.
+  We recommend **not** using the `/reload` command or plugins reloading in real-time (e.g. PlugMan),
+  as they may cause problems with plugins and lead to unexpected errors.
 </AlertBox>

@@ -26,12 +26,12 @@ export type AlertBoxType =
   | "important"
   | "example";
 
-export interface AlertBoxProps {
+export type AlertBoxProps = {
   type: AlertBoxType; // Alert type (affects style and icon)
   children: ReactNode; // Main alert content
   title?: ReactNode; // Optional alert title
   className?: string; // Optional extra CSS classes
-}
+};
 
 const alertStyles = {
   info: {
@@ -131,7 +131,7 @@ const defaultTitles = {
   example: "Example",
 } as const;
 
-export const AlertBox = memo(function AlertBox({
+export const AlertBox = memo(function AlertBoxComponent({
   type,
   children,
   title,
@@ -149,7 +149,7 @@ export const AlertBox = memo(function AlertBox({
   return (
     <div
       role={styles.role}
-      {...(ariaLabel && { "aria-label": ariaLabel })}
+      {...(ariaLabel ? { "aria-label": ariaLabel } : {})}
       className={cn(
         "my-6 rounded-lg p-4 shadow-xs backdrop-blur-xs transition-colors duration-200",
         styles.container,
@@ -158,19 +158,19 @@ export const AlertBox = memo(function AlertBox({
     >
       <div className="flex flex-wrap items-start gap-3">
         {/* Alert icon */}
-        <div className="mt-0.5 shrink-0" aria-hidden="true">
+        <div aria-hidden="true" className="mt-0.5 shrink-0">
           <Icon className={`h-5 w-5 ${styles.icon}`} />
         </div>
 
         {/* Alert content */}
         <div className="min-w-0 flex-1">
-          {(title || defaultTitle) && (
-            <h5 className={`mb-1 text-sm font-semibold md:text-base ${styles.title}`}>
+          {!!(title || defaultTitle) && (
+            <h5 className={`mb-1 font-semibold text-sm md:text-base ${styles.title}`}>
               {title || defaultTitle}
             </h5>
           )}
           <div
-            className={`prose-sm max-w-full overflow-x-auto wrap-break-word md:prose-base ${styles.text}`}
+            className={`prose-sm wrap-break-word md:prose-base max-w-full overflow-x-auto ${styles.text}`}
           >
             {children}
           </div>
