@@ -14,7 +14,7 @@ export default function AnimatedHome() {
     // Main container with page transition animations
     <motion.div
       animate="visible"
-      className="relative overflow-hidden bg-gray-50 dark:bg-gray-950"
+      className="relative bg-gray-50 dark:bg-gray-950"
       exit="hidden"
       id="main-content"
       initial="hidden"
@@ -31,6 +31,9 @@ export default function AnimatedHome() {
 
         {/* Features Section - Indigo/Blue Influence (Center-Right) */}
         <div className="absolute top-[55%] right-[-10%] h-[300px] w-[300px] rounded-full bg-indigo-500/10 mix-blend-multiply blur-3xl filter md:h-[600px] md:w-[600px] dark:bg-indigo-500/5 dark:mix-blend-screen" />
+
+        {/* Projects Section - Cyan/Teal Influence (Lower-Left) */}
+        <div className="absolute top-[75%] left-[-10%] h-[250px] w-[250px] rounded-full bg-cyan-500/10 mix-blend-multiply blur-3xl filter md:h-[500px] md:w-[500px] dark:bg-cyan-500/5 dark:mix-blend-screen" />
 
         {/* FAQ Section - Bottom Anchor (Center) */}
         <div className="-translate-x-1/2 absolute bottom-[-10%] left-1/2 h-[300px] w-[300px] rounded-full bg-blue-500/10 blur-3xl filter md:h-[600px] md:w-[600px] dark:bg-blue-500/5" />

@@ -4,11 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { SlideIn } from "@/components/ui/motion/motion-components";
 
-import type { StrapiAuthor } from "@/lib/strapi";
+import type { CMSAuthor } from "@/lib/author";
 import { getImageUrl } from "@/lib/utils";
 
 type AuthorCardProps = {
-  author: StrapiAuthor;
+  author: CMSAuthor;
   postCount?: number;
   compact?: boolean;
 };

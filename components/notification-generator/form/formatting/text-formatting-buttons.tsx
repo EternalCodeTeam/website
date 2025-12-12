@@ -73,32 +73,6 @@ export const TextFormattingButtons = ({
         ]
       : [];
 
-  const ButtonGroup = ({
-    buttons,
-  }: {
-    buttons: {
-      title: string;
-      icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
-      action: () => void;
-    }[];
-  }) => (
-    <div className="flex items-center gap-0.5 rounded-lg border border-gray-200 bg-white p-1 dark:border-white/10 dark:bg-white/5">
-      {buttons.map(({ title, icon: Icon, action }) => (
-        <motion.button
-          className="group relative flex h-8 w-8 cursor-pointer items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white"
-          key={title}
-          onClick={action}
-          title={title}
-          type="button"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <Icon className="h-4 w-4" strokeWidth={2.5} />
-        </motion.button>
-      ))}
-    </div>
-  );
-
   return (
     <div className="mb-3 flex flex-wrap items-center gap-2">
       {/* Color Picker Section */}
@@ -144,3 +118,29 @@ export const TextFormattingButtons = ({
     </div>
   );
 };
+
+const ButtonGroup = ({
+  buttons,
+}: {
+  buttons: {
+    title: string;
+    icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
+    action: () => void;
+  }[];
+}) => (
+  <div className="flex items-center gap-0.5 rounded-lg border border-gray-200 bg-white p-1 dark:border-white/10 dark:bg-white/5">
+    {buttons.map(({ title, icon: Icon, action }) => (
+      <motion.button
+        className="group relative flex h-8 w-8 cursor-pointer items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white"
+        key={title}
+        onClick={action}
+        title={title}
+        type="button"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <Icon className="h-4 w-4" strokeWidth={2.5} />
+      </motion.button>
+    ))}
+  </div>
+);

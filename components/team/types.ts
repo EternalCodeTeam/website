@@ -11,12 +11,14 @@ export type Member = {
   linkedin?: string;
 };
 
+export type RoleSection = {
+  name: string;
+  description?: string;
+  priority: number;
+  members: Member[];
+};
+
 export type TeamMemberProps = {
   member: Member;
   index: number;
-};
-
-export type StrapiResponse = {
-  data: Member[];
-  meta?: Record<string, unknown>;
 };

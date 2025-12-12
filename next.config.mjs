@@ -51,6 +51,12 @@ const nextConfig = {
         hostname: "cms.eternalcode.pl",
         port: "",
       },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "3000",
+        pathname: "/api/media/file/**",
+      },
     ],
     formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
@@ -64,11 +70,14 @@ const nextConfig = {
     optimizePackageImports: ["@headlessui/react", "framer-motion", "lucide-react"],
     serverActions: {
       allowedOrigins: ["eternalcode.pl", "www.eternalcode.pl"],
+      bodySizeLimit: "5mb",
     },
     mdxRs: false,
   },
   bundlePagesRouterDependencies: true,
-  serverExternalPackages: ["gray-matter"],
+  serverExternalPackages: ["gray-matter", "sharp", "payload", "@payloadcms/db-sqlite"],
 };
 
-export default withMDX(nextConfig);
+import { withPayload } from '@payloadcms/next/withPayload'
+
+export default withPayload(withMDX(nextConfig));

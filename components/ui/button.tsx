@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { type ButtonHTMLAttributes, forwardRef, type ReactNode } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 export type ButtonVariant =
@@ -57,88 +57,87 @@ const sizes: Record<ButtonSize, string> = {
 
 const MotionLink = motion.create(Link);
 
-const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
-  (
-    {
-      className,
-      variant = "primary",
-      size = "md",
-      leftIcon,
-      rightIcon,
-      fullWidth = false,
-      animate = true,
-      shine = false,
-      href,
-      children,
-      ...props
-    },
-    ref
-  ) => {
-    const isLink = Boolean(href);
-    const shouldAnimate = animate && variant !== "ghost" && variant !== "link";
+const Button = ({
+  className,
+  variant = "primary",
+  size = "md",
+  leftIcon,
+  rightIcon,
+  fullWidth = false,
+  animate = true,
+  shine = false,
+  href,
+  children,
+  ref,
+  ...props
+}: ButtonProps & {
+  ref?: React.Ref<HTMLButtonElement | HTMLAnchorElement>;
+}) => {
+  const isLink = Boolean(href);
+  const shouldAnimate = animate && variant !== "ghost" && variant !== "link";
 
-    const baseStyles = cn(
-      "group relative inline-flex cursor-pointer select-none items-center justify-center overflow-visible font-medium transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-      fullWidth ? "w-full" : "",
-      variants[variant as ButtonVariant],
-      sizes[size as ButtonSize],
-      className
-    );
+  const baseStyles = cn(
+    "group relative inline-flex cursor-pointer select-none items-center justify-center overflow-visible font-medium transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+    fullWidth ? "w-full" : "",
+    variants[variant as ButtonVariant],
+    sizes[size as ButtonSize],
+    className
+  );
 
-    const animationProps = shouldAnimate
-      ? {
-          whileHover: { scale: 1.02 },
-          whileTap: { scale: 0.97 },
-          transition: { type: "spring" as const, stiffness: 400, damping: 25 },
-        }
-      : {};
+  const animationProps = shouldAnimate
+    ? {
+        whileHover: { scale: 1.02 },
+        whileTap: { scale: 0.97 },
+        transition: { type: "spring" as const, stiffness: 400, damping: 25 },
+      }
+    : {};
 
-    const content = (
-      <>
-        {!!shine && (
-          <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
-            <div className="-translate-x-[100%] absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 ease-in-out group-hover:translate-x-[100%]" />
-          </div>
-        )}
-        <div className="relative z-10 flex items-center justify-center gap-2">
-          {!!leftIcon && <span className="flex shrink-0">{leftIcon}</span>}
-          {children}
-          {!!rightIcon && <span className="flex shrink-0">{rightIcon}</span>}
+  const content = (
+    <>
+      {!!shine && (
+        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
+          <div className="-translate-x-[100%] absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 ease-in-out group-hover:translate-x-[100%]" />
         </div>
-      </>
-    );
+      )}
+      <div className="relative z-10 flex items-center justify-center gap-2">
+        {!!leftIcon && <span className="flex shrink-0">{leftIcon}</span>}
+        {children}
+        {!!rightIcon && <span className="flex shrink-0">{rightIcon}</span>}
+      </div>
+    </>
+  );
 
-    if (isLink && href) {
-      return (
-        <MotionLink
-          className={baseStyles}
-          href={href}
-          // biome-ignore lint/suspicious/noExplicitAny: Ref compatibility
-          ref={ref as any}
-          {...animationProps}
-          {...props}
-        >
-          {content}
-        </MotionLink>
-      );
-    }
-
+  if (isLink && href) {
     return (
-      <motion.button
+      <MotionLink
         className={baseStyles}
-        disabled={props.disabled}
+        href={href}
         // biome-ignore lint/suspicious/noExplicitAny: Ref compatibility
         ref={ref as any}
-        type={props.type === "submit" ? "submit" : "button"}
         {...animationProps}
-        {...props}
+        // biome-ignore lint/suspicious/noExplicitAny: Props compatibility
+        {...(props as any)}
       >
         {content}
-      </motion.button>
+      </MotionLink>
     );
   }
-);
 
+  return (
+    <motion.button
+      className={baseStyles}
+      disabled={props.disabled}
+      // biome-ignore lint/suspicious/noExplicitAny: Ref compatibility
+      ref={ref as any}
+      type={props.type === "submit" ? "submit" : "button"}
+      {...animationProps}
+      // biome-ignore lint/suspicious/noExplicitAny: Props compatibility
+      {...(props as any)}
+    >
+      {content}
+    </motion.button>
+  );
+};
 Button.displayName = "Button";
 
 export { Button };

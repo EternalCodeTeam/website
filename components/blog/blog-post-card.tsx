@@ -3,22 +3,12 @@ import { Calendar, Timer } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import type { StrapiBlogPost } from "@/lib/strapi";
+import type { CMSPost } from "@/lib/blog";
+import { getImageUrl } from "@/lib/utils";
 
 type BlogPostCardProps = {
-  post: StrapiBlogPost;
+  post: CMSPost;
 };
-
-function getImageUrl(url: string) {
-  if (!url) {
-    return "";
-  }
-  if (url.startsWith("http")) {
-    return url;
-  }
-  const base = process.env.NEXT_PUBLIC_ETERNALCODE_STRAPI_URL || "";
-  return `${base}${url}`;
-}
 
 export default function BlogPostCard({ post }: BlogPostCardProps) {
   const hasImage = !!(post.featuredImage?.url && getImageUrl(post.featuredImage.url));
@@ -29,7 +19,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
         {hasImage ? (
           <div className="relative aspect-video overflow-hidden bg-gray-100 dark:bg-gray-900">
             <Image
-              alt={post.featuredImage?.alternativeText || post.title}
+              alt={post.featuredImage?.alt || post.title}
               className="object-cover transition-transform duration-300 group-hover:scale-105 group-focus:scale-105"
               fill
               priority={false}
