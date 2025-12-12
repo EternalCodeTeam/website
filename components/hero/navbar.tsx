@@ -29,6 +29,7 @@ const NAV_LINKS: NavLink[] = [
   { href: "/team", label: "Team", text: "Team" },
   { href: "/docs", label: "Documentation", text: "Documentation" },
   { href: "/blog", label: "Blog", text: "Blog" },
+  { href: "/contribute", label: "Contribute", text: "Contribute" },
   {
     href: "https://repo.eternalcode.pl/#/",
     label: "Repository",
@@ -184,18 +185,17 @@ export default function Navbar() {
   }, [isMenuOpen]);
 
   // Main navigation items split
-  const mainNavLinks = NAV_LINKS.slice(0, 4);
-  const externalNavLinks = NAV_LINKS.slice(4);
+  const mainNavLinks = NAV_LINKS.slice(0, 3);
+  const externalNavLinks = NAV_LINKS.slice(3);
 
   return (
     <motion.nav
       animate="visible"
       aria-label="Main navigation"
-      className={`fixed inset-x-0 top-0 z-50 border-transparent border-b transition-all duration-300 ${
-        scrolled || isMenuOpen
+      className={`fixed inset-x-0 top-0 z-50 border-transparent border-b transition-all duration-300 ${scrolled || isMenuOpen
           ? "border-gray-200/50 bg-white/80 backdrop-blur-xl dark:border-white/5 dark:bg-[#0a0a0a]/80"
           : "bg-white/0 dark:bg-black/0"
-      }`}
+        }`}
       initial="hidden"
       ref={navRef}
       variants={slideDown}

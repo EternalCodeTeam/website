@@ -1,4 +1,5 @@
 import { SlideIn, StaggerContainer } from "@/components/ui/motion/motion-components";
+import Image from "next/image";
 import { getTeamData } from "@/lib/team";
 import TeamMember from "./team-member";
 
@@ -7,30 +8,61 @@ export default async function Team() {
 
   return (
     <section id="team">
-      <div className="relative mx-auto max-w-(--breakpoint-xl) px-4 pt-4 pb-20">
+      <div className="relative mx-auto max-w-7xl px-4 pt-4 pb-20">
         <div className="mt-8 space-y-20">
           {sections.map((section) => (
             <div key={section.name}>
               <SlideIn className="mb-8" direction="up">
                 <h2 className="font-bold text-2xl text-gray-900 dark:text-white">
-                  {section.name}s
+                  {section.name.endsWith("s") ? section.name : `${section.name}s`}
                 </h2>
                 <p className="mt-2 max-w-2xl text-base text-gray-600 dark:text-gray-400">
                   {section.description}
                 </p>
               </SlideIn>
 
-              <StaggerContainer className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {section.members.map((member, index) => (
-                  <SlideIn
-                    delay={index * 0.05}
-                    direction="up"
-                    key={`${section.name}-${member.documentId || index}`}
-                  >
-                    <TeamMember index={index} member={member} />
-                  </SlideIn>
-                ))}
-              </StaggerContainer>
+              {section.variant === "contributors" ? (
+                <StaggerContainer className="flex flex-wrap gap-4">
+                  {section.members.map((member, index) => (
+                    <SlideIn
+                      delay={index * 0.01}
+                      direction="up"
+                      key={`${section.name}-${member.documentId || index}`}
+                    >
+                      <a
+                        href={member.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group relative block"
+                        title={member.name}
+                      >
+                        <div className="relative h-16 w-16 overflow-hidden rounded-full border-2 border-gray-200 shadow-sm transition-transform duration-300 group-hover:scale-110 group-hover:shadow-md dark:border-gray-800">
+
+                          <Image
+                            src={member.avatar_url}
+                            alt={member.name}
+                            width={64}
+                            height={64}
+                            className="h-full w-full object-cover"
+                          />
+                        </div>
+                      </a>
+                    </SlideIn>
+                  ))}
+                </StaggerContainer>
+              ) : (
+                <StaggerContainer className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                  {section.members.map((member, index) => (
+                    <SlideIn
+                      delay={index * 0.05}
+                      direction="up"
+                      key={`${section.name}-${member.documentId || index}`}
+                    >
+                      <TeamMember index={index} member={member} />
+                    </SlideIn>
+                  ))}
+                </StaggerContainer>
+              )}
             </div>
           ))}
 

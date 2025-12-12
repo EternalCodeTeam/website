@@ -1,7 +1,8 @@
 import { cache } from "react";
 import { getPayloadClient } from "../payload/client";
-import type { TeamMember } from "@/payload-types";
+import type { TeamMember, TeamPage } from "@/payload-types-generated";
 import type { Member, RoleSection } from "@/components/team/types";
+import { getContributors } from "@/lib/github";
 
 export const getTeamData = cache(async (): Promise<RoleSection[]> => {
   const payload = await getPayloadClient();
@@ -63,6 +64,38 @@ export const getTeamData = cache(async (): Promise<RoleSection[]> => {
       priority: 999,
       members: unassignedMembers,
     });
+  }
+
+  try {
+    const teamPage = (await payload.findGlobal({
+      slug: "team-page",
+    })) as TeamPage;
+
+    if (teamPage.contributorsSettings?.visible) {
+      const repos =
+        teamPage.contributorsSettings.repositories?.map((r) => r.url).filter(Boolean) || [];
+
+      if (repos.length > 0) {
+        const contributors = await getContributors(repos);
+        const contributorMembers: Member[] = contributors.map((c) => ({
+          documentId: `gh-${c.id}`,
+          name: c.login,
+          avatar_url: c.avatar_url,
+          team_roles: [],
+          github: c.html_url,
+        }));
+
+        sections.push({
+          name: teamPage.contributorsSettings.title || "Contributors",
+          description: teamPage.contributorsSettings.description || undefined,
+          priority: 1000,
+          members: contributorMembers,
+          variant: "contributors",
+        });
+      }
+    }
+  } catch (e) {
+    console.error("Failed to load team page config or contributors", e);
   }
 
   return sections;

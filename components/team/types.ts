@@ -16,6 +16,7 @@ export type RoleSection = {
   description?: string;
   priority: number;
   members: Member[];
+  variant?: "default" | "contributors";
 };
 
 export type TeamMemberProps = {

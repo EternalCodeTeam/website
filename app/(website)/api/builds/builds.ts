@@ -1,38 +1,61 @@
-export type BuildArtifact = {
-  id: string;
-  name: string;
-  url: string; // The API url to the artifact
-  size: number;
+import { z } from "zod";
+
+export const BuildArtifactSchema = z.object({
+  id: z.number(),
+  node_id: z.string(),
+  name: z.string(),
+  size_in_bytes: z.number(),
+  url: z.string(),
+  archive_download_url: z.string(),
+  expired: z.boolean(),
+  created_at: z.string(),
+  expires_at: z.string(),
+  updated_at: z.string(),
+});
+
+export type BuildArtifact = z.infer<typeof BuildArtifactSchema>;
+
+export const BuildRunSchema = z.object({
+  id: z.number(),
+  name: z.string().nullable(),
+  status: z.string(),
+  conclusion: z.string().nullable(),
+  head_branch: z.string(),
+  head_sha: z.string(),
+  created_at: z.string(),
+  html_url: z.string(),
+  artifacts_url: z.string(),
+  display_title: z.string().optional(),
+});
+
+export type BuildRun = z.infer<typeof BuildRunSchema> & {
+  found_artifact?: BuildArtifact;
 };
 
-export type BuildRun = {
-  id: number;
-  name: string;
-  status: string; // "completed", "in_progress", etc.
-  conclusion: string | null; // "success", "failure", etc.
-  head_branch: string;
-  head_sha: string;
-  created_at: string;
-  html_url: string;
-  artifacts_url: string;
-  display_title?: string; // Sometimes present in GH API
-};
+const GithubRunsResponseSchema = z.object({
+  workflow_runs: z.array(BuildRunSchema),
+});
 
-type GithubRunsResponse = {
-  workflow_runs: BuildRun[];
-};
+const BuildArtifactsResponseSchema = z.object({
+  total_count: z.number(),
+  artifacts: z.array(BuildArtifactSchema),
+});
 
-export type ModrinthVersion = {
-  id: string;
-  name: string;
-  version_number: string;
-  date_published: string;
-  files: {
-    url: string;
-    filename: string;
-    primary: boolean;
-  }[];
-};
+export const ModrinthFileSchema = z.object({
+  url: z.string(),
+  filename: z.string(),
+  primary: z.boolean(),
+});
+
+export const ModrinthVersionSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  version_number: z.string(),
+  date_published: z.string(),
+  files: z.array(ModrinthFileSchema),
+});
+
+export type ModrinthVersion = z.infer<typeof ModrinthVersionSchema>;
 
 export type Project = {
   id: string;
@@ -65,8 +88,40 @@ export async function fetchDevBuilds(project: Project): Promise<BuildRun[]> {
       console.error(`Failed to fetch Github Actions for ${project.name}`, await res.text());
       return [];
     }
-    const data = (await res.json()) as GithubRunsResponse;
-    return data.workflow_runs || [];
+
+    const json = await res.json();
+    const parsed = GithubRunsResponseSchema.safeParse(json);
+
+    if (!parsed.success) {
+      console.error(`Invalid Github Actions response for ${project.name}`, parsed.error);
+      return [];
+    }
+
+    const runs = parsed.data.workflow_runs;
+
+    // Fetch artifacts for each run to get the correct artifact name
+    return await Promise.all(
+      runs.map(async (run) => {
+        try {
+          const artRes = await fetch(run.artifacts_url);
+          if (!artRes.ok) {
+            return run;
+          }
+
+          const artJson = await artRes.json();
+          const artParsed = BuildArtifactsResponseSchema.safeParse(artJson);
+
+          if (artParsed.success && artParsed.data.artifacts.length > 0) {
+            // We take the first artifact as the primary one
+            return { ...run, found_artifact: artParsed.data.artifacts[0] };
+          }
+          return run;
+        } catch (e) {
+          console.error(`Error fetching artifacts for run ${run.id}`, e);
+          return run;
+        }
+      })
+    );
   } catch (error) {
     console.error(`Error fetching dev builds for ${project.name}`, error);
     return [];
@@ -87,7 +142,17 @@ export async function fetchStableBuilds(project: Project): Promise<ModrinthVersi
       console.error(`Failed to fetch Modrinth versions for ${project.name}`, await res.text());
       return [];
     }
-    return (await res.json()) as ModrinthVersion[];
+
+    const json = await res.json();
+    // Validate response is an array of ModrinthVersion
+    const parsed = z.array(ModrinthVersionSchema).safeParse(json);
+
+    if (!parsed.success) {
+      console.error(`Invalid Modrinth versions response for ${project.name}`, parsed.error);
+      return [];
+    }
+
+    return parsed.data;
   } catch (error) {
     console.error(`Error fetching stable builds for ${project.name}`, error);
     return [];
