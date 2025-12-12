@@ -91,5 +91,8 @@
   "trustedDependencies": [
     "@vercel/speed-insights",
     "tree-sitter-javascript"
-  ]
+  ],
+  "overrides": {
+    "next": "$next"
+  }
 }
