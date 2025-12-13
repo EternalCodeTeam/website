@@ -1,69 +1,71 @@
 "use client";
 
+import { type VariantProps, cva } from "class-variance-authority";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-export type ButtonVariant =
-  | "primary"
-  | "secondary"
-  | "outline"
-  | "ghost"
-  | "link"
-  | "danger"
-  | "contrast";
+const buttonVariants = cva(
+  "group relative inline-flex cursor-pointer select-none items-center justify-center overflow-visible font-medium transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        primary:
+          "border border-transparent bg-blue-600 text-white shadow-sm hover:bg-blue-700 hover:shadow-md dark:bg-blue-500 dark:hover:bg-blue-600",
+        secondary:
+          "border border-transparent bg-gray-100 text-gray-900 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700",
+        outline:
+          "border border-gray-200 bg-transparent hover:bg-gray-50 hover:text-gray-900 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:text-white",
+        ghost: "border border-transparent bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800",
+        link: "h-auto border-transparent bg-transparent p-0 text-blue-600 underline-offset-4 hover:underline dark:text-blue-400",
+        danger:
+          "border border-transparent bg-red-600 text-white shadow-sm hover:bg-red-700 hover:shadow-red-500/20 dark:bg-red-700 dark:hover:bg-red-800",
+        contrast:
+          "border border-transparent bg-gray-900 text-white shadow-sm hover:bg-gray-800 hover:shadow-lg dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 dark:hover:shadow-blue-500/20",
+      },
+      size: {
+        xs: "h-7 rounded-md px-3 text-xs",
+        sm: "h-9 rounded-lg px-4 text-sm",
+        md: "h-11 rounded-lg px-6 py-2 text-sm",
+        lg: "h-12 rounded-xl px-8 py-3 text-base",
+        xl: "h-14 rounded-xl px-10 py-4 text-lg",
+      },
+      fullWidth: {
+        true: "w-full",
+      },
+    },
+    defaultVariants: {
+      variant: "primary",
+      size: "md",
+      fullWidth: false,
+    },
+  }
+);
 
-export type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
-
-export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "ref"> {
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-  leftIcon?: ReactNode;
-  rightIcon?: ReactNode;
-  fullWidth?: boolean;
-  animate?: boolean;
-  shine?: boolean;
-  href?: string;
-  target?: string;
-  rel?: string;
-  // Relaxed type to allow Framer Motion props without explicit interface bloat
-  // biome-ignore lint/suspicious/noExplicitAny: Intentional for Framer Motion props
-  [key: string]: any;
-}
-
-const variants: Record<ButtonVariant, string> = {
-  primary:
-    "bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 shadow-sm hover:shadow-md border border-transparent",
-  secondary:
-    "bg-gray-100 text-gray-900 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 border border-transparent",
-  outline:
-    "border border-gray-200 bg-transparent hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white",
-  ghost: "bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 border border-transparent",
-  link: "bg-transparent text-blue-600 underline-offset-4 hover:underline dark:text-blue-400 p-0 h-auto border-transparent",
-  danger:
-    "bg-red-600 text-white hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800 shadow-sm border border-transparent hover:shadow-red-500/20",
-  contrast:
-    "bg-gray-900 text-white hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 shadow-sm hover:shadow-lg dark:hover:shadow-blue-500/20 border border-transparent",
-};
-
-const sizes: Record<ButtonSize, string> = {
-  xs: "h-7 px-3 text-xs rounded-md",
-  sm: "h-9 px-4 text-sm rounded-lg",
-  md: "h-11 px-6 py-2 text-sm rounded-lg",
-  lg: "h-12 px-8 py-3 text-base rounded-xl",
-  xl: "h-14 px-10 py-4 text-lg rounded-xl",
-};
+export type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "ref"> &
+  VariantProps<typeof buttonVariants> & {
+    leftIcon?: ReactNode;
+    rightIcon?: ReactNode;
+    animate?: boolean;
+    shine?: boolean;
+    href?: string;
+    target?: string;
+    rel?: string;
+    // Relaxed type to allow Framer Motion props without explicit interface bloat
+    // biome-ignore lint/suspicious/noExplicitAny: Intentional for Framer Motion props
+    [key: string]: any;
+  };
 
 const MotionLink = motion.create(Link);
 
 const Button = ({
   className,
-  variant = "primary",
-  size = "md",
+  variant,
+  size,
+  fullWidth,
   leftIcon,
   rightIcon,
-  fullWidth = false,
   animate = true,
   shine = false,
   href,
@@ -76,13 +78,7 @@ const Button = ({
   const isLink = Boolean(href);
   const shouldAnimate = animate && variant !== "ghost" && variant !== "link";
 
-  const baseStyles = cn(
-    "group relative inline-flex cursor-pointer select-none items-center justify-center overflow-visible font-medium transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-    fullWidth ? "w-full" : "",
-    variants[variant as ButtonVariant],
-    sizes[size as ButtonSize],
-    className
-  );
+  const baseStyles = cn(buttonVariants({ variant, size, fullWidth }), className);
 
   const animationProps = shouldAnimate
     ? {
@@ -140,4 +136,4 @@ const Button = ({
 };
 Button.displayName = "Button";
 
-export { Button };
+export { Button, buttonVariants };
