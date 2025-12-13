@@ -113,9 +113,9 @@ export default function Terminal() {
           if (item.type === "output") {
             return item.value.map((line, i) => (
               <div
+                className={`${currentTheme.outputText} select-text whitespace-pre-wrap break-words py-0.5`}
                 // biome-ignore lint/suspicious/noArrayIndexKey: Order is static
                 key={`${key}-${i}`}
-                className={`${currentTheme.outputText} select-text whitespace-pre-wrap break-words py-0.5`}
               >
                 {line}
               </div>

@@ -1,8 +1,8 @@
 import { cache } from "react";
-import { getPayloadClient } from "../payload/client";
-import type { TeamMember, TeamPage } from "@/payload-types-generated";
 import type { Member, RoleSection } from "@/components/team/types";
 import { getContributors } from "@/lib/github";
+import type { TeamMember, TeamPage } from "@/payload-types-generated";
+import { getPayloadClient } from "../payload/client";
 
 export const getTeamData = cache(async (): Promise<RoleSection[]> => {
   const payload = await getPayloadClient();

@@ -22,9 +22,6 @@
   "dependencies": {
     "@fontsource/jetbrains-mono": "^5.2.8",
     "@headlessui/react": "^2.2.9",
-    "@mdx-js/loader": "^3.1.1",
-    "@mdx-js/react": "^3.1.1",
-    "@next/mdx": "^16.0.10",
     "@orama/orama": "^3.1.16",
     "@payloadcms/db-mongodb": "3.68.3",
     "@payloadcms/db-sqlite": "^3.68.3",

@@ -50,19 +50,19 @@ export default function Hero() {
                 aria-hidden="true"
                 className="-bottom-1 -z-10 absolute left-0 h-3 w-full text-blue-600/80 dark:text-blue-400/80"
                 fill="none"
-                viewBox="0 0 300 25"
                 preserveAspectRatio="none"
+                viewBox="0 0 300 25"
               >
                 <motion.path
                   d="M10 18C44 24 99 9 143 14C179 18 211 25 244 21C266 18 288 12 290 10"
+                  initial={{ pathLength: 0, opacity: 0 }}
                   stroke="currentColor"
-                  strokeWidth="3"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  whileInView={{ pathLength: 1, opacity: 1 }}
-                  viewport={{ once: true }}
+                  strokeWidth="3"
                   transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+                  viewport={{ once: true }}
+                  whileInView={{ pathLength: 1, opacity: 1 }}
                 />
               </svg>
             </span>

@@ -1,19 +1,9 @@
-import createMDX from "@next/mdx";
 
-const withMDX = createMDX({
-  extension: /\.(md|mdx)$/,
-  options: {
-    remarkPlugins: ["remark-gfm", "remark-emoji"],
-    rehypePlugins: [
-      "rehype-slug",
-      ["rehype-autolink-headings", { behavior: "wrap" }],
-      "rehype-prism",
-    ],
-  },
-});
+
+
 
 const nextConfig = {
-  pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+  pageExtensions: ["js", "jsx", "ts", "tsx"],
   images: {
     remotePatterns: [
       {
@@ -72,7 +62,7 @@ const nextConfig = {
       allowedOrigins: ["eternalcode.pl", "www.eternalcode.pl"],
       bodySizeLimit: "5mb",
     },
-    mdxRs: false,
+
   },
   bundlePagesRouterDependencies: true,
   serverExternalPackages: ["gray-matter", "sharp", "payload", "@payloadcms/db-sqlite"],
@@ -80,4 +70,4 @@ const nextConfig = {
 
 import { withPayload } from '@payloadcms/next/withPayload'
 
-export default withPayload(withMDX(nextConfig));
+export default withPayload(nextConfig);

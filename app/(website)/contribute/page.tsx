@@ -1,7 +1,7 @@
-import ContributeView from "./contribute-view";
 import { getPayload } from "payload";
 import config from "@/payload.config";
 import type { ContributePage as ContributePageType } from "@/payload-types-generated";
+import ContributeView from "./contribute-view";
 
 export const metadata = {
   title: "Contribute | EternalCode",

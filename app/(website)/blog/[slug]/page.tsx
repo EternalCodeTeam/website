@@ -4,8 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import BlogPostContent from "@/components/blog/blog-post-content";
 import { SlideIn } from "@/components/ui/motion/motion-components";
+import { type CMSTag, getBlogPost } from "@/lib/blog";
 import { generateOgImageUrl } from "@/lib/og-utils";
-import { getBlogPost, type CMSTag } from "@/lib/blog";
 import { getImageUrl } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";

@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import PolandMap from "@/components/home/about/poland-map";
+import PeopleGroupIcon from "@/components/icons/people-group";
 import { Button } from "@/components/ui/button";
 import { SlideIn } from "@/components/ui/motion/motion-components";
 import AboutImage from "@/public/hero image.png";
-import PeopleGroupIcon from "@/components/icons/people-group";
 
 export default function About() {
   return (
@@ -79,7 +79,7 @@ export default function About() {
               </div>
 
               <div className="mt-10 flex gap-4">
-                <Button className="group gap-2" size="lg" href="/team">
+                <Button className="group gap-2" href="/team" size="lg">
                   <PeopleGroupIcon className="h-5 w-5 transition-transform group-hover:scale-110" />
                   Meet the Team
                 </Button>

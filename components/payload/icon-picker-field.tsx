@@ -1,10 +1,10 @@
 "use client";
 
-import type React from "react";
-import { useState, useMemo } from "react";
 import { useField } from "@payloadcms/ui";
 // biome-ignore lint/performance/noNamespaceImport: Need all icons dynamically
 import * as LucideIcons from "lucide-react";
+import type React from "react";
+import { useMemo, useState } from "react";
 
 // Define a type for the Lucide icons
 type LucideIconComponent = React.ComponentType<{ className?: string; size?: number | string }>;
@@ -46,14 +46,17 @@ export const IconPickerField: React.FC<{ path: string; label?: string }> = ({ pa
 
   return (
     <div className="field-type text">
-      <label className="field-label" htmlFor={path} style={{ marginBottom: "10px", display: "block" }}>
+      <label
+        className="field-label"
+        htmlFor={path}
+        style={{ marginBottom: "10px", display: "block" }}
+      >
         {label || "Icon"}
       </label>
 
       <div style={{ position: "relative" }}>
         <button
           id={path}
-          type="button"
           onClick={() => setIsOpen(!isOpen)}
           style={{
             padding: "10px",
@@ -69,6 +72,7 @@ export const IconPickerField: React.FC<{ path: string; label?: string }> = ({ pa
             width: "100%",
             textAlign: "left",
           }}
+          type="button"
         >
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             {SelectedIcon ? <SelectedIcon size={20} /> : <span>Select an icon...</span>}
@@ -76,20 +80,20 @@ export const IconPickerField: React.FC<{ path: string; label?: string }> = ({ pa
           </div>
           {/* Simple chevron down */}
           <svg
-            role="img"
             aria-label="Toggle icon picker"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
             fill="none"
+            height="24"
+            role="img"
             stroke="currentColor"
-            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
+            strokeWidth="2"
             style={{
               transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
               transition: "transform 0.2s",
             }}
+            viewBox="0 0 24 24"
+            width="24"
           >
             <path d="m6 9 6 6 6-6" />
           </svg>
@@ -115,11 +119,9 @@ export const IconPickerField: React.FC<{ path: string; label?: string }> = ({ pa
           >
             <div style={{ padding: "10px", borderBottom: "1px solid var(--theme-elevation-200)" }}>
               <input
-                type="text"
-                placeholder="Search icons..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
                 autoFocus
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search icons..."
                 style={{
                   width: "100%",
                   padding: "8px",
@@ -129,6 +131,8 @@ export const IconPickerField: React.FC<{ path: string; label?: string }> = ({ pa
                   color: "var(--theme-text)",
                   outline: "none",
                 }}
+                type="text"
+                value={searchTerm}
               />
             </div>
 
@@ -147,12 +151,20 @@ export const IconPickerField: React.FC<{ path: string; label?: string }> = ({ pa
                   return (
                     <button
                       key={iconName}
-                      type="button"
                       onClick={() => {
                         setValue(iconName);
                         setIsOpen(false);
                       }}
-                      title={iconName}
+                      onMouseEnter={(e) => {
+                        if (!isSelected) {
+                          e.currentTarget.style.background = "var(--theme-elevation-100)";
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isSelected) {
+                          e.currentTarget.style.background = "transparent";
+                        }
+                      }}
                       style={{
                         padding: "8px",
                         borderRadius: "4px",
@@ -164,14 +176,8 @@ export const IconPickerField: React.FC<{ path: string; label?: string }> = ({ pa
                         justifyContent: "center",
                         border: "none",
                       }}
-                      onMouseEnter={(e) => {
-                        if (!isSelected) {
-                          e.currentTarget.style.background = "var(--theme-elevation-100)";
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        if (!isSelected) { e.currentTarget.style.background = "transparent"; }
-                      }}
+                      title={iconName}
+                      type="button"
                     >
                       <Icon size={20} />
                     </button>
@@ -194,7 +200,7 @@ export const IconPickerField: React.FC<{ path: string; label?: string }> = ({ pa
         // biome-ignore lint/a11y/useKeyWithClickEvents: Backdrop click handling
         // biome-ignore lint/a11y/noStaticElementInteractions: Backdrop click handling
         // biome-ignore lint/a11y/noNoninteractiveElementInteractions: Backdrop click handling
-        <div style={{ position: "fixed", inset: 0, zIndex: 9 }} onClick={() => setIsOpen(false)} />
+        <div onClick={() => setIsOpen(false)} style={{ position: "fixed", inset: 0, zIndex: 9 }} />
       ) : null}
     </div>
   );

@@ -1,5 +1,5 @@
-import { SlideIn, StaggerContainer } from "@/components/ui/motion/motion-components";
 import Image from "next/image";
+import { SlideIn, StaggerContainer } from "@/components/ui/motion/motion-components";
 import { getTeamData } from "@/lib/team";
 import TeamMember from "./team-member";
 
@@ -30,20 +30,19 @@ export default async function Team() {
                       key={`${section.name}-${member.documentId || index}`}
                     >
                       <a
-                        href={member.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="group relative block"
+                        href={member.github}
+                        rel="noopener noreferrer"
+                        target="_blank"
                         title={member.name}
                       >
                         <div className="relative h-16 w-16 overflow-hidden rounded-full border-2 border-gray-200 shadow-sm transition-transform duration-300 group-hover:scale-110 group-hover:shadow-md dark:border-gray-800">
-
                           <Image
-                            src={member.avatar_url}
                             alt={member.name}
-                            width={64}
-                            height={64}
                             className="h-full w-full object-cover"
+                            height={64}
+                            src={member.avatar_url}
+                            width={64}
                           />
                         </div>
                       </a>

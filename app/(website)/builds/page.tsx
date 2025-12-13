@@ -93,8 +93,9 @@ function BuildExplorerContent() {
                 name: displayTitle || run.name || `Run #${run.id}`,
                 type: "DEV",
                 date: run.created_at,
-                downloadUrl: `https://nightly.link/${activeProject.githubRepo
-                  }/actions/runs/${run.id}/${encodeURIComponent(artifactName)}.zip`,
+                downloadUrl: `https://nightly.link/${
+                  activeProject.githubRepo
+                }/actions/runs/${run.id}/${encodeURIComponent(artifactName)}.zip`,
                 commit: run.head_sha.substring(0, 7),
                 runUrl: run.html_url,
               };
@@ -155,10 +156,11 @@ function BuildExplorerContent() {
             {/* Tabs - Right */}
             <div className="flex h-[46px] rounded-xl border border-gray-200 bg-white/70 p-1 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/40">
               <button
-                className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg font-medium text-sm transition-all ${activeTab === "STABLE"
-                  ? "bg-white text-blue-600 shadow-xs dark:bg-gray-800 dark:text-blue-400"
-                  : "text-gray-500 hover:bg-gray-100/50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-white"
-                  }`}
+                className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg font-medium text-sm transition-all ${
+                  activeTab === "STABLE"
+                    ? "bg-white text-blue-600 shadow-xs dark:bg-gray-800 dark:text-blue-400"
+                    : "text-gray-500 hover:bg-gray-100/50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-white"
+                }`}
                 onClick={() => setActiveTab("STABLE")}
                 type="button"
               >
@@ -166,10 +168,11 @@ function BuildExplorerContent() {
                 Stable
               </button>
               <button
-                className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg font-medium text-sm transition-all ${activeTab === "DEV"
-                  ? "bg-white text-blue-600 shadow-xs dark:bg-gray-800 dark:text-blue-400"
-                  : "text-gray-500 hover:bg-gray-100/50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-white"
-                  }`}
+                className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg font-medium text-sm transition-all ${
+                  activeTab === "DEV"
+                    ? "bg-white text-blue-600 shadow-xs dark:bg-gray-800 dark:text-blue-400"
+                    : "text-gray-500 hover:bg-gray-100/50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-white"
+                }`}
                 onClick={() => setActiveTab("DEV")}
                 type="button"
               >
@@ -262,10 +265,11 @@ function BuildRow({
       <td className="px-4 py-3 font-medium text-gray-900 md:px-6 dark:text-white">
         <div className="flex items-center gap-3">
           <div
-            className={`hidden shrink-0 rounded-lg p-2 sm:flex ${build.type === "STABLE"
-              ? "bg-green-100 text-green-600 dark:bg-green-900/20 dark:text-green-400"
-              : "bg-orange-100 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400"
-              }`}
+            className={`hidden shrink-0 rounded-lg p-2 sm:flex ${
+              build.type === "STABLE"
+                ? "bg-green-100 text-green-600 dark:bg-green-900/20 dark:text-green-400"
+                : "bg-orange-100 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400"
+            }`}
           >
             {build.type === "STABLE" ? (
               <Package className="h-4 w-4" />

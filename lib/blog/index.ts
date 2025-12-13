@@ -1,10 +1,10 @@
 import { cache } from "react";
 import { getPayloadClient } from "../payload/client";
-import { mapPost, mapTag } from "../payload/utils";
 import type { CMSPost, CMSTag } from "../payload/types";
+import { mapPost, mapTag } from "../payload/utils";
 
 // Re-export types for compatibility
-export type { CMSImage, CMSTag, CMSAuthor, CMSPost } from "../payload/types";
+export type { CMSAuthor, CMSImage, CMSPost, CMSTag } from "../payload/types";
 
 export const getBlogPosts = cache(async (): Promise<CMSPost[]> => {
   const payload = await getPayloadClient();

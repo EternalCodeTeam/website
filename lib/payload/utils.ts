@@ -1,5 +1,5 @@
-import type { Post, Media, Tag, Author } from "@/payload-types-generated";
-import type { CMSImage, CMSTag, CMSAuthor, CMSPost } from "./types";
+import type { Author, Media, Post, Tag } from "@/payload-types-generated";
+import type { CMSAuthor, CMSImage, CMSPost, CMSTag } from "./types";
 
 const WORD_SPLIT_REGEX = /\s+/;
 

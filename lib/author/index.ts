@@ -1,8 +1,8 @@
 import { cache } from "react";
-import { getPayloadClient } from "../payload/client";
-import { mapAuthor, mapPost } from "../payload/utils";
-import type { CMSAuthor, CMSPost } from "../payload/types";
 import type { Author } from "@/payload-types-generated";
+import { getPayloadClient } from "../payload/client";
+import type { CMSAuthor, CMSPost } from "../payload/types";
+import { mapAuthor, mapPost } from "../payload/utils";
 
 // Re-export types
 export type { CMSAuthor } from "../payload/types";
