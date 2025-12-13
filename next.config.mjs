@@ -56,7 +56,7 @@ const nextConfig = {
   compress: true,
   reactStrictMode: true,
   experimental: {
-    optimizePackageImports: ["@headlessui/react", "framer-motion", "lucide-react"],
+    optimizePackageImports: ["framer-motion", "lucide-react"],
     serverActions: {
       allowedOrigins: ["eternalcode.pl", "www.eternalcode.pl"],
       bodySizeLimit: "5mb",

@@ -1,7 +1,12 @@
 "use client";
 
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-import { AnimatePresence, motion } from "framer-motion";
+import {
+  Content as TabsContent,
+  List as TabsList,
+  Root as TabsRoot,
+  Trigger as TabsTrigger,
+} from "@radix-ui/react-tabs";
+import { motion } from "framer-motion";
 import {
   Children,
   type ComponentType,
@@ -83,14 +88,28 @@ export const CodeTabs = ({
   onChange?: (index: number) => void;
   className?: string;
 }) => {
-  const [selectedIndex, setSelectedIndex] = useState(defaultIndex);
+  const childrenArray = Children.toArray(children);
+  const validChildren = childrenArray.filter(isValidElement);
 
-  const handleChange = useCallback(
-    (index: number) => {
-      setSelectedIndex(index);
-      onChange?.(index);
+  const defaultLabel = validChildren[defaultIndex]
+    ? (validChildren[defaultIndex].props as { label: string }).label
+    : undefined;
+
+  const [selectedValue, setSelectedValue] = useState(defaultLabel);
+
+  const handleValueChange = useCallback(
+    (value: string) => {
+      setSelectedValue(value);
+      if (onChange) {
+        const index = validChildren.findIndex(
+          (child) => (child.props as { label: string }).label === value
+        );
+        if (index !== -1) {
+          onChange(index);
+        }
+      }
     },
-    [onChange]
+    [onChange, validChildren]
   );
 
   return (
@@ -100,72 +119,62 @@ export const CodeTabs = ({
         className
       )}
     >
-      <TabGroup onChange={handleChange} selectedIndex={selectedIndex}>
-        <TabList
+      <TabsRoot value={selectedValue} onValueChange={handleValueChange} defaultValue={defaultLabel}>
+        <TabsList
           aria-label="Code language selection"
           className="flex space-x-1 border-gray-200 border-b bg-gray-50/50 p-2 dark:border-gray-800 dark:bg-gray-900/50"
         >
-          {Children.map(children, (child) => {
-            if (!isValidElement(child)) {
-              return null;
-            }
+          {validChildren.map((child) => {
             const { label, disabled } = child.props as { label: string; disabled?: boolean };
             return (
-              <Tab
-                className={({ selected }) =>
-                  cn(
-                    "relative cursor-pointer rounded-lg px-4 py-2 font-medium text-sm outline-none transition-all duration-200",
-                    "disabled:cursor-not-allowed disabled:opacity-50",
-                    selected
-                      ? "bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400"
-                      : "text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                  )
-                }
+              <TabsTrigger
                 disabled={disabled}
                 key={label}
-              >
-                {() => (
-                  <span className="flex items-center gap-2">
-                    <LanguageIcon label={label} />
-                    {label}
-                  </span>
+                value={label}
+                className={cn(
+                  "relative cursor-pointer rounded-lg px-4 py-2 font-medium text-sm outline-none transition-all duration-200",
+                  "disabled:cursor-not-allowed disabled:opacity-50",
+                  "data-[state=active]:bg-blue-50 data-[state=active]:text-blue-600 dark:data-[state=active]:bg-blue-900/20 dark:data-[state=active]:text-blue-400",
+                  "data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:bg-gray-100 data-[state=inactive]:hover:text-gray-900 dark:data-[state=inactive]:text-gray-400 dark:data-[state=inactive]:hover:bg-gray-800 dark:data-[state=inactive]:hover:text-gray-200"
                 )}
-              </Tab>
+              >
+                <span className="flex items-center gap-2">
+                  <LanguageIcon label={label} />
+                  {label}
+                </span>
+              </TabsTrigger>
             );
           })}
-        </TabList>
-        <TabPanels>
-          <AnimatePresence mode="wait">
-            {Children.map(children, (child) => {
-              if (!isValidElement(child)) {
-                return null;
-              }
-              const { label, children: tabChildren } = child.props as {
-                label: string;
-                children: ReactNode;
-              };
-              return (
-                <TabPanel
-                  className={cn(
-                    "p-4 ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                    "bg-gray-50 dark:bg-black/20"
-                  )}
-                  key={label}
-                >
-                  <motion.div
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 10 }}
-                    initial={{ opacity: 0, x: -10 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {tabChildren}
-                  </motion.div>
-                </TabPanel>
-              );
-            })}
-          </AnimatePresence>
-        </TabPanels>
-      </TabGroup>
+        </TabsList>
+
+        {validChildren.map((child) => {
+          const { label, children: tabChildren } = child.props as {
+            label: string;
+            children: ReactNode;
+          };
+          return (
+            <TabsContent
+              className={cn(
+                "p-4 ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+                "bg-gray-50 dark:bg-black/20"
+              )}
+              key={label}
+              value={label}
+            >
+              <motion.div
+                animate={{ opacity: 1, x: 0 }}
+                // Exit animation is removed because Radix unmounts content immediately.
+                // To support exit animations, we would need to control rendering manually outside of Tabs.Content
+                // or use forceMount with standard AnimatePresence, but simple entry animation is usually sufficient.
+                initial={{ opacity: 0, x: -10 }}
+                transition={{ duration: 0.2 }}
+              >
+                {tabChildren}
+              </motion.div>
+            </TabsContent>
+          );
+        })}
+      </TabsRoot>
     </div>
   );
 };

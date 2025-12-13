@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "@fontsource/jetbrains-mono": "^5.2.8",
-    "@headlessui/react": "^2.2.9",
     "@orama/orama": "^3.1.16",
     "@payloadcms/db-mongodb": "3.68.3",
     "@payloadcms/db-sqlite": "^3.68.3",
@@ -29,6 +28,7 @@
     "@payloadcms/plugin-cloud-storage": "^3.68.3",
     "@payloadcms/richtext-lexical": "3.68.3",
     "@payloadcms/storage-vercel-blob": "^3.68.3",
+    "@radix-ui/react-tabs": "^1.1.13",
     "@south-paw/typeface-minecraft": "^1.0.0",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/line-clamp": "^0.4.4",
