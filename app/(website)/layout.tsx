@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
+import "lenis/dist/lenis.css";
 import type React from "react";
 
 import { Analytics } from "@/components/analytics";

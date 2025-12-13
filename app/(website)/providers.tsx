@@ -4,6 +4,8 @@ import { ThemeProvider } from "next-themes";
 import { type ReactNode, useCallback, useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 
+import SmoothScrolling from "@/components/smooth-scrolling";
+
 type ProvidersProps = {
   children: ReactNode;
 };
@@ -25,7 +27,7 @@ export function Providers({ children }: ProvidersProps) {
 
   return (
     <ThemeProvider attribute="class" defaultTheme="system" disableTransitionOnChange enableSystem>
-      {children}
+      <SmoothScrolling>{children}</SmoothScrolling>
       <Toaster
         position="bottom-right"
         reverseOrder={false}

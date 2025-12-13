@@ -61,7 +61,6 @@ const nextConfig = {
       allowedOrigins: ["eternalcode.pl", "www.eternalcode.pl"],
       bodySizeLimit: "5mb",
     },
-
   },
   bundlePagesRouterDependencies: true,
   serverExternalPackages: ["gray-matter", "sharp", "payload", "@payloadcms/db-sqlite"],
