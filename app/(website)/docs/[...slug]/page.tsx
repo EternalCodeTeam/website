@@ -177,7 +177,12 @@ export default async function DocPage({ params }: Props) {
 
         <ErrorBoundary>
           <Suspense fallback={<LoadingFallback />}>
-            <MDXRemote components={components} options={{ mdxOptions }} source={doc.content} />
+            <MDXRemote
+              components={components}
+              // biome-ignore lint/suspicious/noExplicitAny: Type mismatch with rehype-prism-plus
+              options={{ mdxOptions: mdxOptions as any }}
+              source={doc.content}
+            />
           </Suspense>
         </ErrorBoundary>
       </article>

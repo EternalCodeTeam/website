@@ -56,7 +56,14 @@ export const components: MDXComponents = {
 
   code: (props: ComponentProps<"code">) => {
     const { children, ...rest } = props;
-    let content = typeof children === "string" ? children : String(children);
+
+    // If children is not a string, it's likely complex content (like syntax highlighted code),
+    // so we return it as is.
+    if (typeof children !== "string") {
+      return <code {...rest}>{children}</code>;
+    }
+
+    let content = children;
     content = content.replace(/^`+|`+$/g, "");
 
     if (!content.includes("\n")) {
