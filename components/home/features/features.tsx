@@ -8,6 +8,9 @@ import TabNew from "@/components/icons/tab-new";
 import SectionTitle from "@/components/section-title";
 import { SlideIn, StaggerContainer } from "@/components/ui/motion/motion-components";
 import { slideUp } from "@/lib/animations/variants";
+import { Card } from "@/components/ui/card";
+
+const MotionCard = motion.create(Card);
 
 type Feature = {
   icon: ReactNode;
@@ -57,8 +60,8 @@ export default function Features() {
 
         <StaggerContainer className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
           {features.map((feature) => (
-            <motion.div
-              className="group relative flex flex-col overflow-hidden rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-200 transition-all hover:bg-gray-50 hover:shadow-md dark:bg-gray-900/40 dark:ring-gray-800 dark:hover:bg-gray-800/60"
+            <MotionCard
+              className="group flex flex-col p-8 hover:bg-gray-50 hover:shadow-md dark:hover:bg-gray-800/60"
               key={feature.title}
               variants={slideUp}
             >
@@ -79,7 +82,7 @@ export default function Features() {
               <p className="mt-4 flex-auto text-base text-gray-600 leading-7 dark:text-gray-400">
                 {feature.description}
               </p>
-            </motion.div>
+            </MotionCard>
           ))}
         </StaggerContainer>
       </div>

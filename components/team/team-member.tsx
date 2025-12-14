@@ -3,6 +3,9 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { Card } from "@/components/ui/card";
+
+const MotionCard = motion.create(Card);
 
 import type { TeamMemberProps } from "./types";
 
@@ -12,7 +15,7 @@ export default function TeamMember({ member }: TeamMemberProps) {
   const linkedinUsername = member.linkedin?.split("/").filter(Boolean).pop() ?? "LinkedIn";
 
   return (
-    <motion.div className="group relative flex h-full items-center gap-4 overflow-hidden rounded-2xl border border-gray-200/60 bg-white/50 p-4 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-blue-500/30 hover:bg-white hover:shadow-xl dark:border-gray-800/60 dark:bg-gray-900/40 dark:hover:border-blue-400/30 dark:hover:bg-gray-900/80 dark:hover:shadow-blue-900/20">
+    <MotionCard className="group relative flex h-full items-center gap-4 bg-white/50 p-4 ring-gray-200/60 backdrop-blur-sm transition-all duration-300 hover:bg-white hover:shadow-xl hover:ring-blue-500/30 dark:bg-gray-900/40 dark:ring-gray-800/60 dark:hover:bg-gray-900/80 dark:hover:shadow-blue-900/20 dark:hover:ring-blue-400/30">
       {/* Background Gradient Effect on Hover */}
       <div className="-z-10 absolute inset-0 bg-gradient-to-br from-blue-50/0 via-transparent to-purple-50/0 opacity-0 transition-opacity duration-500 group-hover:from-blue-50/50 group-hover:to-purple-50/50 group-hover:opacity-100 dark:group-hover:from-blue-900/10 dark:group-hover:to-purple-900/10" />
 
@@ -75,6 +78,6 @@ export default function TeamMember({ member }: TeamMemberProps) {
           )}
         </div>
       </div>
-    </motion.div>
+    </MotionCard>
   );
 }
