@@ -1,9 +1,10 @@
 "use client";
 
-import { type VariantProps, cva } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
+import { interactionSpring } from "@/lib/animations/variants";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
@@ -84,7 +85,7 @@ const Button = ({
     ? {
         whileHover: { scale: 1.02 },
         whileTap: { scale: 0.97 },
-        transition: { type: "spring" as const, stiffness: 400, damping: 25 },
+        transition: interactionSpring,
       }
     : {};
 

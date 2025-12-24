@@ -12,6 +12,7 @@ export const getBlogPosts = cache(async (): Promise<CMSPost[]> => {
     collection: "posts",
     sort: "-publishedAt",
     depth: 2,
+    limit: 100,
   });
   return docs.map(mapPost);
 });

@@ -24,24 +24,18 @@ type BuildRowProps = {
 function BuildStatusBadge({ type }: { type: "STABLE" | "DEV" }) {
   return (
     <div
-      className={`hidden shrink-0 rounded-lg p-2 sm:flex ${type === "STABLE"
-        ? "bg-green-100 text-green-600 dark:bg-green-900/20 dark:text-green-400"
-        : "bg-orange-100 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400"
-        }`}
+      className={`hidden shrink-0 rounded-lg p-2 sm:flex ${
+        type === "STABLE"
+          ? "bg-green-100 text-green-600 dark:bg-green-900/20 dark:text-green-400"
+          : "bg-orange-100 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400"
+      }`}
     >
-      {type === "STABLE" ? (
-        <Package className="h-4 w-4" />
-      ) : (
-        <GitBranch className="h-4 w-4" />
-      )}
+      {type === "STABLE" ? <Package className="h-4 w-4" /> : <GitBranch className="h-4 w-4" />}
     </div>
   );
 }
 
-function BuildName({
-  build,
-  isLastDownloaded,
-}: { build: Build; isLastDownloaded: boolean }) {
+function BuildName({ build, isLastDownloaded }: { build: Build; isLastDownloaded: boolean }) {
   return (
     <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-2">
       {build.runUrl ? (
@@ -55,10 +49,7 @@ function BuildName({
           {build.name}
         </a>
       ) : (
-        <span
-          className="block max-w-[150px] truncate sm:max-w-xs md:max-w-md"
-          title={build.name}
-        >
+        <span className="block max-w-[150px] truncate sm:max-w-xs md:max-w-md" title={build.name}>
           {build.name}
         </span>
       )}

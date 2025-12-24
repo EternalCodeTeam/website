@@ -1,6 +1,6 @@
 "use client";
 
-import { type HTMLMotionProps, motion } from "framer-motion";
+import { type HTMLMotionProps, m } from "framer-motion";
 import type { ReactNode } from "react";
 import {
   containerStagger,
@@ -22,7 +22,7 @@ interface MotionProps extends HTMLMotionProps<"div"> {
 // --- Primitive Wrappers ---
 
 export const FadeIn = ({ children, delay, className, ...props }: MotionProps) => (
-  <motion.div
+  <m.div
     className={className}
     initial="hidden"
     // biome-ignore lint/nursery/noLeakedRender: Prop value
@@ -33,7 +33,7 @@ export const FadeIn = ({ children, delay, className, ...props }: MotionProps) =>
     {...props}
   >
     {children}
-  </motion.div>
+  </m.div>
 );
 
 export const SlideIn = ({
@@ -57,7 +57,7 @@ export const SlideIn = ({
   };
 
   return (
-    <motion.div
+    <m.div
       className={className}
       initial="hidden"
       // biome-ignore lint/nursery/noLeakedRender: Prop value
@@ -68,12 +68,12 @@ export const SlideIn = ({
       {...props}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 };
 
 export const ScaleIn = ({ children, delay, className, ...props }: MotionProps) => (
-  <motion.div
+  <m.div
     className={className}
     initial="hidden"
     // biome-ignore lint/nursery/noLeakedRender: Prop value
@@ -84,11 +84,11 @@ export const ScaleIn = ({ children, delay, className, ...props }: MotionProps) =
     {...props}
   >
     {children}
-  </motion.div>
+  </m.div>
 );
 
 export const HoverScale = ({ children, className, ...props }: MotionProps) => (
-  <motion.div
+  <m.div
     className={className}
     initial="initial"
     variants={hoverScale}
@@ -97,13 +97,13 @@ export const HoverScale = ({ children, className, ...props }: MotionProps) => (
     {...props}
   >
     {children}
-  </motion.div>
+  </m.div>
 );
 
 // --- Container (for Staggering) ---
 
 export const StaggerContainer = ({ children, className, ...props }: MotionProps) => (
-  <motion.div
+  <m.div
     className={className}
     initial="hidden"
     variants={containerStagger}
@@ -112,5 +112,5 @@ export const StaggerContainer = ({ children, className, ...props }: MotionProps)
     {...props}
   >
     {children}
-  </motion.div>
+  </m.div>
 );

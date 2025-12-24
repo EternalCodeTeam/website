@@ -1,20 +1,20 @@
-import { buildConfig } from 'payload'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
+import { HTMLConverterFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import { buildConfig } from 'payload'
 import sharp from 'sharp'
-import path from 'path'
-import { fileURLToPath } from 'url'
-import { Users } from './collections/Users'
-import { Media } from './collections/Media'
-import { Tags } from './collections/posts/Tags'
 import { Authors } from './collections/author/Authors'
+import { Media } from './collections/Media'
 import { Posts } from './collections/posts/Posts'
+import { Tags } from './collections/posts/Tags'
 import { TeamMembers } from './collections/team/TeamMembers'
 import { TeamRoles } from './collections/team/TeamRoles'
-import { TeamPage } from './globals/TeamPage'
+import { Users } from './collections/Users'
 import { ContributePage } from './globals/ContributePage'
+import { TeamPage } from './globals/TeamPage'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -39,7 +39,15 @@ export default buildConfig({
         TeamPage,
         ContributePage,
     ],
-    editor: lexicalEditor({}),
+    editor: lexicalEditor({
+        features: ({ defaultFeatures }) => [
+            ...defaultFeatures,
+            // Ensure basic markdown-compatible features are enabled
+            // (Most are in defaultFeatures, but being explicit can help if defaults are minimal in some versions)
+            // Note: Markdown shortcuts (like # for Heading) are usually provided by these features' transformers.
+            HTMLConverterFeature({}),
+        ],
+    }),
     secret: process.env.PAYLOAD_SECRET || 'your-secret-key-that-is-very-long-and-secure',
     typescript: {
         outputFile: path.resolve(process.cwd(), "payload-types-generated.ts"),

@@ -1,19 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import {
-  Activity,
-  BarChart3,
-  Book,
-  Check,
-  ChevronRight,
-  Database,
-  Download,
-  Layers,
-  Settings,
-  Users,
-  Zap,
-} from "lucide-react";
+import { Book, Check, ChevronRight, Database, Download, Layers, Settings, Zap } from "lucide-react";
 import Image from "next/image";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
@@ -21,6 +9,7 @@ import { FacadePattern } from "@/components/ui/facade-pattern";
 import { FadeIn, SlideIn } from "@/components/ui/motion/motion-components";
 
 import { ConfigPreview } from "./config-preview";
+import { EternalFoundation } from "./eternal-foundation";
 
 export default function EternalCorePage() {
   const targetRef = useRef(null);
@@ -51,7 +40,7 @@ export default function EternalCorePage() {
             {/* Text Content */}
             <div className="flex-1 text-center lg:text-left">
               <FadeIn>
-                <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-purple-100 px-3 py-1 font-semibold text-[#9d6eef] text-xs uppercase tracking-wider dark:bg-purple-900/20">
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#9d6eef]/5 px-3 py-1 font-bold text-[#9d6eef] text-[10px] uppercase tracking-widest">
                   <Zap className="h-3 w-3" />
                   Next-Gen Essentials
                 </div>
@@ -110,37 +99,13 @@ export default function EternalCorePage() {
           </motion.div>
         </section>
 
-        {/* Stats Section */}
-        <section className="mb-24 border-gray-100 border-y bg-gray-50/50 py-12 dark:border-gray-800 dark:bg-gray-900/20">
-          <div className="grid gap-8 text-center sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { label: "Active Servers", value: "500+", icon: Database },
-              { label: "Daily Players", value: "15k+", icon: Users },
-              { label: "Community Members", value: "2.5k+", icon: Activity },
-              { label: "Uptime Guaranteed", value: "99.9%", icon: Zap },
-            ].map((stat, i) => (
-              <FadeIn delay={i * 0.1} key={stat.label}>
-                <div className="flex flex-col items-center justify-center">
-                  <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-[#9d6eef]/10 text-[#9d6eef]">
-                    <stat.icon className="h-5 w-5" />
-                  </div>
-                  <div className="font-extrabold text-3xl text-gray-900 dark:text-white">
-                    {stat.value}
-                  </div>
-                  <div className="font-medium text-gray-500 text-sm uppercase tracking-wide dark:text-gray-400">
-                    {stat.label}
-                  </div>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </section>
-
         {/* Features Section */}
         <section className="border-gray-100 border-t py-24 dark:border-gray-800/50">
           <div className="mx-auto mb-16 max-w-3xl text-center">
             <FadeIn>
-              <h2 className="mb-4 font-bold text-3xl">Built for modern servers.</h2>
+              <h2 className="mb-4 font-bold text-3xl tracking-tight md:text-4xl">
+                Built for modern servers.
+              </h2>
               <p className="text-gray-600 text-lg dark:text-gray-400">
                 EternalCore takes advantage of the latest Minecraft server technology to provide a
                 lag-free experience.
@@ -155,8 +120,8 @@ export default function EternalCorePage() {
                 description:
                   "Heavy operations like database queries and teleportation handling are processed asynchronously to keep your TPS high.",
                 icon: Zap,
-                color: "text-[#9d6eef]",
-                bg: "bg-[#9d6eef]/10",
+                color: "text-purple-500",
+                bg: "bg-purple-500/10",
               },
               {
                 title: "Database Agnostic",
@@ -171,21 +136,21 @@ export default function EternalCorePage() {
                 description:
                   "Enable only what you need. EternalCore's modular system ensures you aren't running unnecessary code.",
                 icon: Layers,
-                color: "text-pink-500",
-                bg: "bg-pink-500/10",
+                color: "text-[#9d6eef]",
+                bg: "bg-[#9d6eef]/10",
               },
             ].map((feature, i) => (
               <SlideIn className="h-full" delay={i * 0.1} direction="up" key={feature.title}>
-                <div className="group h-full rounded-2xl border border-gray-200 bg-gray-50 p-8 transition-colors hover:border-[#9d6eef]/30 dark:border-gray-800 dark:bg-gray-900/50">
+                <div className="group hover:-translate-y-1 h-full rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:border-[#9d6eef]/30 hover:shadow-md dark:border-gray-800 dark:bg-gray-900/50">
                   <div
                     className={`h-12 w-12 rounded-xl ${feature.bg} ${feature.color} mb-6 flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}
                   >
                     <feature.icon className="h-6 w-6" />
                   </div>
-                  <h3 className="mb-3 font-bold text-gray-900 text-xl dark:text-white">
+                  <h3 className="mb-3 font-bold text-gray-900 text-xl transition-colors group-hover:text-[#9d6eef] dark:text-white">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed dark:text-gray-400">
+                  <p className="text-gray-600 text-sm leading-relaxed dark:text-gray-400">
                     {feature.description}
                   </p>
                 </div>
@@ -194,124 +159,17 @@ export default function EternalCorePage() {
           </div>
         </section>
 
-        {/* Performance Section */}
-        <section className="border-gray-100 border-t py-24 dark:border-gray-800/50">
-          <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
-            <SlideIn direction="left">
-              <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-8 shadow-xl dark:border-gray-800 dark:bg-gray-900">
-                <div className="-translate-y-1/2 absolute top-0 right-0 h-32 w-32 translate-x-1/2 rounded-full bg-[#9d6eef]/10 blur-3xl" />
-                <h3 className="mb-8 font-bold text-xl">Startup Time (ms)</h3>
-                <div className="space-y-6">
-                  {[
-                    { name: "EternalCore", value: 450, max: 2500, color: "bg-[#9d6eef]" },
-                    {
-                      name: "EssentialsX",
-                      value: 2100,
-                      max: 2500,
-                      color: "bg-gray-300 dark:bg-gray-700",
-                    },
-                  ].map((item) => (
-                    <div key={item.name}>
-                      <div className="mb-2 flex justify-between font-medium text-sm">
-                        <span>{item.name}</span>
-                        <span
-                          className={
-                            item.color === "bg-[#9d6eef]" ? "text-[#9d6eef]" : "text-gray-500"
-                          }
-                        >
-                          {item.value}ms
-                        </span>
-                      </div>
-                      <div className="h-4 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${(item.value / item.max) * 100}%` }}
-                          transition={{ duration: 1, ease: "easeOut" }}
-                          className={`h-full rounded-full ${item.color}`}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <h3 className="mt-12 mb-8 font-bold text-xl">Memory Usage (MB)</h3>
-                <div className="space-y-6">
-                  {[
-                    { name: "EternalCore", value: 128, max: 512, color: "bg-[#9d6eef]" },
-                    {
-                      name: "EssentialsX",
-                      value: 360,
-                      max: 512,
-                      color: "bg-gray-300 dark:bg-gray-700",
-                    },
-                  ].map((item) => (
-                    <div key={item.name}>
-                      <div className="mb-2 flex justify-between font-medium text-sm">
-                        <span>{item.name}</span>
-                        <span
-                          className={
-                            item.color === "bg-[#9d6eef]" ? "text-[#9d6eef]" : "text-gray-500"
-                          }
-                        >
-                          {item.value}MB
-                        </span>
-                      </div>
-                      <div className="h-4 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${(item.value / item.max) * 100}%` }}
-                          transition={{ duration: 1, ease: "easeOut" }}
-                          className={`h-full rounded-full ${item.color}`}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </SlideIn>
-
-            <SlideIn direction="right">
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-green-100 px-3 py-1 font-semibold text-green-600 text-xs uppercase tracking-wider dark:bg-green-900/20 dark:text-green-400">
-                <BarChart3 className="h-3 w-3" />
-                Performance
-              </div>
-              <h2 className="mb-6 font-bold text-3xl tracking-tight">
-                Optimized for <br />
-                <span className="text-[#9d6eef]">Peak Efficiency.</span>
-              </h2>
-              <p className="mb-8 text-gray-600 text-lg leading-relaxed dark:text-gray-400">
-                Don't let your core plugin be the bottleneck. EternalCore is engineered from the
-                ground up to be lightweight, fast, and resource-efficient, ensuring your server runs
-                smoothly even with high player counts.
-              </p>
-              <ul className="space-y-4">
-                {[
-                  "Zero-allocation hotspots in critical paths",
-                  "Fully asynchronous database IO",
-                  "Optimized event listeners and schedulers",
-                  "Minimal reflection usage",
-                ].map((item) => (
-                  <li className="flex items-center gap-3" key={item}>
-                    <div className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-600 dark:bg-green-900/20 dark:text-green-400">
-                      <Check className="h-3 w-3" />
-                    </div>
-                    <span className="font-medium text-gray-700 dark:text-gray-300">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </SlideIn>
-          </div>
-        </section>
+        <EternalFoundation />
 
         {/* Configuration Section */}
         <section className="border-gray-100 border-t py-24 dark:border-gray-800/50">
           <div className="grid items-center gap-16 lg:grid-cols-2">
             <SlideIn direction="left">
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1 font-semibold text-gray-600 text-xs uppercase tracking-wider dark:bg-gray-800 dark:text-gray-300">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#9d6eef]/5 px-3 py-1 font-bold text-[#9d6eef] text-[10px] uppercase tracking-widest">
                 <Settings className="h-3 w-3" />
                 Configuration
               </div>
-              <h2 className="mb-6 font-bold text-3xl tracking-tight">
+              <h2 className="mb-6 font-bold text-3xl tracking-tight md:text-4xl">
                 Configuration <br />
                 <span className="text-[#9d6eef]">Done Right.</span>
               </h2>
@@ -337,49 +195,52 @@ export default function EternalCorePage() {
             </SlideIn>
 
             <SlideIn delay={0.2} direction="right">
-              <div className="group perspective-1000 relative">
+              <div className="group relative">
+                {/* Subtle Glow behind the window */}
+                <div className="-inset-4 -z-10 absolute bg-[#9d6eef]/5 opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-100 dark:bg-[#9d6eef]/10" />
+
                 {/* The "Long Screenshot" Container */}
-                <div className="relative h-[600px] w-full transform select-none overflow-hidden rounded-xl border border-gray-200 bg-[#1e1e1e] shadow-2xl transition-transform duration-700 hover:scale-[1.02] dark:border-gray-800">
+                <div className="relative h-[600px] w-full select-none overflow-hidden rounded-xl border border-gray-100 bg-white shadow-2xl transition-all duration-700 hover:scale-[1.01] hover:border-[#9d6eef]/20 dark:border-gray-800 dark:bg-gray-900/50">
                   {/* Window Controls */}
-                  <div className="absolute top-0 right-0 left-0 z-20 flex items-center gap-2 border-white/10 border-b bg-[#1e1e1e]/90 px-4 py-3 backdrop-blur-sm">
-                    <div className="h-3 w-3 rounded-full bg-[#FF5F56]" />
-                    <div className="h-3 w-3 rounded-full bg-[#FFBD2E]" />
-                    <div className="h-3 w-3 rounded-full bg-[#27C93F]" />
-                    <div className="ml-4 flex items-center gap-2 font-mono text-gray-500 text-xs">
-                      <span className="text-gray-600">eternalcore</span>
-                      <ChevronRight className="h-3 w-3 text-gray-700" />
-                      <span className="text-gray-300">config.yml</span>
+                  <div className="absolute top-0 right-0 left-0 z-20 flex items-center gap-2 border-gray-100 border-b bg-white/80 px-4 py-3 backdrop-blur-md dark:border-white/5 dark:bg-gray-900/80">
+                    <div className="flex gap-1.5">
+                      <div className="h-3 w-3 rounded-full border border-red-400/40 bg-red-400/20" />
+                      <div className="h-3 w-3 rounded-full border border-yellow-400/40 bg-yellow-400/20" />
+                      <div className="h-3 w-3 rounded-full border border-green-400/40 bg-green-400/20" />
+                    </div>
+                    <div className="ml-4 flex items-center gap-2 font-mono text-[10px] text-gray-400 uppercase tracking-widest">
+                      <span>eternalcore</span>
+                      <ChevronRight className="h-3 w-3 opacity-50" />
+                      <span className="text-[#9d6eef]">config.yml</span>
                     </div>
                   </div>
-                  {/* Tilted Content */}
-                  <div className="-top-10 -left-[15%] absolute h-[200%] w-[150%] origin-top-left rotate-2 transform transition-all duration-700 hover:rotate-0 hover:scale-100">
-                    {/* Inner blur container */}
-                    <div className="h-full pt-20 pl-24 opacity-90 blur-[0.5px] filter transition-all duration-700 group-hover:opacity-100 group-hover:blur-0">
-                      {/* Auto-scrolling animation container */}
-                      <div className="animate-scroll-y">
-                        <ConfigPreview />
-                        {/* Duplicate content for seamless loop */}
-                        <ConfigPreview />
-                      </div>
+
+                  {/* Content Container */}
+                  <div className="h-full pt-12">
+                    {/* Auto-scrolling animation container */}
+                    <div className="animate-scroll-y">
+                      <ConfigPreview />
+                      {/* Duplicate content for seamless loop */}
+                      <ConfigPreview />
                     </div>
                   </div>
 
                   {/* Gradient overlay to fade bottom */}
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-40 bg-gradient-to-t from-[#1e1e1e] to-transparent" />
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-40 bg-linear-to-t from-white to-transparent dark:from-gray-950" />
 
                   {/* Animation Styles */}
                   <style jsx>{`
-                            @keyframes scroll-y {
-                                0% { transform: translateY(0); }
-                                100% { transform: translateY(-50%); }
-                            }
-                            .animate-scroll-y {
-                                animation: scroll-y 60s linear infinite;
-                            }
-                            .animate-scroll-y:hover {
-                                animation-play-state: paused;
-                            }
-                        `}</style>
+                    @keyframes scroll-y {
+                        0% { transform: translateY(0); }
+                        100% { transform: translateY(-50%); }
+                    }
+                    .animate-scroll-y {
+                        animation: scroll-y 60s linear infinite;
+                    }
+                    .animate-scroll-y:hover {
+                        animation-play-state: paused;
+                    }
+                `}</style>
                 </div>
               </div>
             </SlideIn>

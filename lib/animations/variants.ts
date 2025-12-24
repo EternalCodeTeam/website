@@ -24,6 +24,12 @@ export const smoothEase: Transition = {
   ease: [0.22, 1, 0.36, 1], // Custom cubic-bezier (easeOutExpo-ish)
 };
 
+export const interactionSpring: Transition = {
+  type: "spring",
+  stiffness: 400,
+  damping: 25,
+};
+
 // --- Variants ---
 
 export const fadeIn: Variants = {

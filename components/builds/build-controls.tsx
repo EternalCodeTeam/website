@@ -41,10 +41,11 @@ export function BuildControls({
         {/* Tabs - Right */}
         <div className="flex h-[46px] rounded-xl border border-gray-200 bg-white/70 p-1 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/40">
           <button
-            className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg font-medium text-sm transition-all ${activeTab === "STABLE"
+            className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg font-medium text-sm transition-all ${
+              activeTab === "STABLE"
                 ? "bg-white text-blue-600 shadow-xs dark:bg-gray-800 dark:text-blue-400"
                 : "text-gray-500 hover:bg-gray-100/50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-white"
-              }`}
+            }`}
             onClick={() => onTabChange("STABLE")}
             type="button"
           >
@@ -52,10 +53,11 @@ export function BuildControls({
             Stable
           </button>
           <button
-            className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg font-medium text-sm transition-all ${activeTab === "DEV"
+            className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg font-medium text-sm transition-all ${
+              activeTab === "DEV"
                 ? "bg-white text-blue-600 shadow-xs dark:bg-gray-800 dark:text-blue-400"
                 : "text-gray-500 hover:bg-gray-100/50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-white"
-              }`}
+            }`}
             onClick={() => onTabChange("DEV")}
             type="button"
           >

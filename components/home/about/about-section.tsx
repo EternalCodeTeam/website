@@ -102,7 +102,9 @@ export default function About() {
                   <Image
                     alt="EternalCode Team"
                     className="h-auto w-full object-cover"
+                    placeholder="blur"
                     priority
+                    sizes="(max-width: 1024px) 100vw, 600px"
                     src={AboutImage}
                   />
                   {/* Subtle clean overlay */}

@@ -2,9 +2,9 @@
 
 import { motion } from "framer-motion";
 import { ContributeHero } from "@/components/contribute/contribute-hero";
-import { ContributionHint } from "@/components/contribute/contribution-hint";
-import { ContributionEmptyState } from "@/components/contribute/contribution-empty-state";
 import { ContributionCard } from "@/components/contribute/contribution-card";
+import { ContributionEmptyState } from "@/components/contribute/contribution-empty-state";
+import { ContributionHint } from "@/components/contribute/contribution-hint";
 
 const containerVariants = {
   hidden: { opacity: 0 },

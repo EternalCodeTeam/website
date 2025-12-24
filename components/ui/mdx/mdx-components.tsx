@@ -1,5 +1,4 @@
 import type { MDXComponents } from "mdx/types";
-import Image from "next/image";
 import type { ComponentProps, HTMLAttributes } from "react";
 
 import DynamicCommandsTable from "@/components/docs/eternalcore/commands/dynamic-commands-table";
@@ -12,6 +11,7 @@ import { CodeTab, CodeTabs } from "@/components/ui/mdx/code-tabs";
 import { Heading } from "@/components/ui/mdx/heading";
 import { Inline } from "@/components/ui/mdx/inline";
 import { Step, Steps } from "@/components/ui/mdx/steps";
+import { MdxImage } from "@/components/ui/mdx/mdx-image";
 
 type HeadingProps = HTMLAttributes<HTMLHeadingElement>;
 
@@ -111,22 +111,7 @@ export const components: MDXComponents = {
   ),
   li: (props) => <li className="py-0.5" {...props} />,
 
-  img: (props) => {
-    const alt = props.alt || "Image";
-
-    return (
-      <span className="my-6 block w-full overflow-hidden rounded-md">
-        <Image
-          alt={alt}
-          className="h-auto w-full rounded-md shadow-sm"
-          height={500}
-          sizes="100vw"
-          src={props.src || ""}
-          width={900}
-        />
-      </span>
-    );
-  },
+  img: (props) => <MdxImage {...props} />,
 };
 
 // biome-ignore lint/performance/noBarrelFile: Re-exporting for convenience

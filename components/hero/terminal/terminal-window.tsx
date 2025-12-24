@@ -1,6 +1,5 @@
 "use client";
 
-import { useTheme } from "next-themes";
 import { type ChangeEvent, type KeyboardEvent, useEffect, useRef, useState } from "react";
 
 import responses from "./responses";
@@ -17,33 +16,9 @@ const initialHistory: HistoryItem[] = [
   },
 ];
 
-const themes = {
-  dark: {
-    container: "bg-gray-900/50 border-gray-800",
-    titleBar: "bg-gray-900/50 border-gray-800",
-    titleText: "text-gray-400",
-    terminalText: "text-gray-100",
-    outputText: "text-gray-400",
-    inputText: "text-gray-100",
-    promptText: "text-blue-400",
-    commandText: "text-gray-300",
-  },
-  light: {
-    container: "bg-white/80 border-gray-200",
-    titleBar: "bg-gray-50/50 border-gray-200",
-    titleText: "text-gray-500",
-    terminalText: "text-gray-900",
-    outputText: "text-gray-600",
-    inputText: "text-gray-900",
-    promptText: "text-blue-600",
-    commandText: "text-gray-700",
-  },
-};
-
 export default function Terminal() {
   const [history, setHistory] = useState<HistoryItem[]>(initialHistory);
   const [input, setInput] = useState("");
-  const { resolvedTheme } = useTheme();
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -82,28 +57,22 @@ export default function Terminal() {
     }
   };
 
-  const currentTheme = themes[resolvedTheme === "dark" ? "dark" : "light"];
-
   return (
-    <div
-      className={`mx-auto mt-8 w-full rounded-xl border shadow-2xl backdrop-blur-xl ${currentTheme.container}`}
-    >
+    <div className="mx-auto mt-8 w-full rounded-xl border border-gray-200 bg-white/80 shadow-2xl backdrop-blur-xl dark:border-gray-800 dark:bg-gray-900/50">
       {/* Title bar */}
-      <div className={`flex h-11 items-center rounded-t-xl border-b px-4 ${currentTheme.titleBar}`}>
+      <div className="flex h-11 items-center rounded-t-xl border-gray-200 border-b bg-gray-50/50 px-4 dark:border-gray-800 dark:bg-gray-900/50">
         <div className="flex space-x-2">
           <span className="h-3 w-3 rounded-full border border-[#E0443E]/50 bg-[#FF5F56] shadow-sm" />
           <span className="h-3 w-3 rounded-full border border-[#DEA123]/50 bg-[#FFBD2E] shadow-sm" />
           <span className="h-3 w-3 rounded-full border border-[#1AAB29]/50 bg-[#27C93F] shadow-sm" />
         </div>
-        <div
-          className={`flex-1 select-none text-center font-medium font-mono text-xs tracking-wide ${currentTheme.titleText} opacity-70`}
-        >
+        <div className="flex-1 select-none text-center font-medium font-mono text-gray-500 text-xs tracking-wide opacity-70 dark:text-gray-400">
           eternalcode — -zsh — 80x24
         </div>
       </div>
       {/* Terminal body */}
       <div
-        className={`h-96 overflow-y-auto bg-transparent px-6 py-4 font-mono text-sm leading-relaxed ${currentTheme.terminalText}`}
+        className="h-96 overflow-y-auto bg-transparent px-6 py-4 font-mono text-gray-900 text-sm leading-relaxed dark:text-gray-100"
         ref={scrollRef}
         style={{ scrollbarWidth: "thin" }}
       >
@@ -113,7 +82,7 @@ export default function Terminal() {
           if (item.type === "output") {
             return item.value.map((line, i) => (
               <div
-                className={`${currentTheme.outputText} select-text whitespace-pre-wrap break-words py-0.5`}
+                className="select-text whitespace-pre-wrap break-words py-0.5 text-gray-600 dark:text-gray-400"
                 // biome-ignore lint/suspicious/noArrayIndexKey: Order is static
                 key={`${key}-${i}`}
               >
@@ -124,11 +93,13 @@ export default function Terminal() {
           if (item.type === "input") {
             return (
               <div
-                className={`${currentTheme.commandText} select-text whitespace-pre-wrap break-words py-0.5`}
+                className="select-text whitespace-pre-wrap break-words py-0.5 text-gray-700 dark:text-gray-300"
                 key={key}
               >
-                <span className={currentTheme.promptText}>eternalcode@cli:~$</span>{" "}
-                <span className={currentTheme.inputText}>{item.value}</span>
+                <span className="mr-2 shrink-0 text-blue-600 dark:text-blue-400">
+                  eternalcode@cli:~$
+                </span>{" "}
+                <span className="text-gray-900 dark:text-gray-100">{item.value}</span>
               </div>
             );
           }
@@ -137,11 +108,11 @@ export default function Terminal() {
 
         {/* Active prompt */}
         <div className="mt-1 flex items-center">
-          <span className={`${currentTheme.promptText} mr-2 shrink-0`}>eternalcode@cli:~$</span>
+          <span className="mr-2 shrink-0 text-blue-600 dark:text-blue-400">eternalcode@cli:~$</span>
           <input
             aria-label="Terminal input"
             autoComplete="off"
-            className={`flex-1 border-none bg-transparent p-0 font-mono text-sm outline-hidden ${currentTheme.inputText} placeholder-transparent`}
+            className="flex-1 border-none bg-transparent p-0 font-mono text-gray-900 text-sm placeholder-transparent outline-hidden dark:text-gray-100"
             onChange={handleInput}
             onKeyDown={handleKeyDown}
             ref={inputRef}

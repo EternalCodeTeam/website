@@ -11,7 +11,6 @@ import { CookieConsentModal } from "@/components/cookie-consent-modal";
 import Footer from "@/components/footer/footer";
 import Navbar from "@/components/hero/navbar";
 import { SpeedInsights } from "@/components/speed-insights";
-import { generateOgImageUrl } from "@/lib/og-utils";
 
 import { Providers } from "./providers";
 
@@ -38,11 +37,6 @@ export const viewport: Viewport = {
   ],
 };
 
-const defaultOgImageUrl = generateOgImageUrl({
-  title: "EternalCode.pl",
-  subtitle: "We are a team creating open source projects!",
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://eternalcode.pl"),
   title: "EternalCode.pl | Home",
@@ -65,14 +59,6 @@ export const metadata: Metadata = {
     title: "EternalCode.pl | We are a team creating open source projects!",
     description:
       "EternalCode.pl delivers open source solutions with a focus on quality, performance, and innovation.",
-    images: [
-      {
-        url: defaultOgImageUrl,
-        width: 1200,
-        height: 630,
-        alt: "EternalCode.pl",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -81,7 +67,6 @@ export const metadata: Metadata = {
     title: "EternalCode.pl | We are a team creating open source projects!",
     description:
       "EternalCode.pl delivers open source solutions with a focus on quality, performance, and innovation.",
-    images: [defaultOgImageUrl],
   },
   robots: {
     index: true,

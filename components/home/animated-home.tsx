@@ -1,54 +1,49 @@
 "use client";
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import Hero from "@/components/hero/hero";
-import About from "@/components/home/about/about-section";
-import Cta from "@/components/home/cta/cta-section";
-import Faq from "@/components/home/faq/faq-section";
-import Features from "@/components/home/features/features";
-import Sponsors from "@/components/home/sponsors/sponsors-section";
 import { FacadePattern } from "@/components/ui/facade-pattern";
-import { fadeIn } from "@/lib/animations/variants";
+
+const About = dynamic(() => import("@/components/home/about/about-section"));
+const Cta = dynamic(() => import("@/components/home/cta/cta-section"));
+const Faq = dynamic(() => import("@/components/home/faq/faq-section"));
+const Features = dynamic(() => import("@/components/home/features/features"));
+const Sponsors = dynamic(() => import("@/components/home/sponsors/sponsors-section"));
 
 export default function AnimatedHome() {
   return (
-    // Main container with page transition animations
-    <motion.div
-      animate="visible"
-      className="relative bg-gray-50 dark:bg-gray-950"
-      exit="hidden"
-      id="main-content"
-      initial="hidden"
-      tabIndex={-1}
-      variants={fadeIn}
-    >
-      {/* Background Decor */}
+    <motion.div className="relative bg-gray-50 dark:bg-gray-950" id="main-content" tabIndex={-1}>
       <div className="pointer-events-none absolute inset-0 z-0 select-none overflow-hidden">
-        {/* Hero Area - Supplemental Glow (Left) */}
-        <div className="-left-[10%] absolute top-0 h-[300px] w-[300px] rounded-full bg-blue-500/10 blur-3xl filter md:h-[600px] md:w-[600px] dark:bg-blue-500/5" />
+        <div className="-left-[10%] absolute top-0 h-[300px] w-[300px] rounded-full bg-blue-500/10 blur-3xl filter will-change-transform md:h-[600px] md:w-[600px] dark:bg-blue-500/5" />
 
-        {/* About Section - Purple Influence (Center-Left) */}
-        <div className="absolute top-[30%] left-[-10%] h-[250px] w-[250px] rounded-full bg-purple-500/10 mix-blend-multiply blur-3xl filter md:h-[500px] md:w-[500px] dark:bg-purple-500/5 dark:mix-blend-screen" />
+        <div className="absolute top-[30%] left-[-10%] h-[250px] w-[250px] rounded-full bg-purple-500/10 mix-blend-multiply blur-3xl filter will-change-transform md:h-[500px] md:w-[500px] dark:bg-purple-500/5 dark:mix-blend-screen" />
 
-        {/* Features Section - Indigo/Blue Influence (Center-Right) */}
-        <div className="absolute top-[55%] right-[-10%] h-[300px] w-[300px] rounded-full bg-indigo-500/10 mix-blend-multiply blur-3xl filter md:h-[600px] md:w-[600px] dark:bg-indigo-500/5 dark:mix-blend-screen" />
+        <div className="absolute top-[55%] right-[-10%] h-[300px] w-[300px] rounded-full bg-indigo-500/10 mix-blend-multiply blur-3xl filter will-change-transform md:h-[600px] md:w-[600px] dark:bg-indigo-500/5 dark:mix-blend-screen" />
 
-        {/* Projects Section - Cyan/Teal Influence (Lower-Left) */}
-        <div className="absolute top-[75%] left-[-10%] h-[250px] w-[250px] rounded-full bg-cyan-500/10 mix-blend-multiply blur-3xl filter md:h-[500px] md:w-[500px] dark:bg-cyan-500/5 dark:mix-blend-screen" />
+        <div className="absolute top-[75%] left-[-10%] h-[250px] w-[250px] rounded-full bg-cyan-500/10 mix-blend-multiply blur-3xl filter will-change-transform md:h-[500px] md:w-[500px] dark:bg-cyan-500/5 dark:mix-blend-screen" />
 
-        {/* FAQ Section - Bottom Anchor (Center) */}
-        <div className="-translate-x-1/2 absolute bottom-[-10%] left-1/2 h-[300px] w-[300px] rounded-full bg-blue-500/10 blur-3xl filter md:h-[600px] md:w-[600px] dark:bg-blue-500/5" />
+        <div className="-translate-x-1/2 absolute bottom-[-10%] left-1/2 h-[300px] w-[300px] rounded-full bg-blue-500/10 blur-3xl filter will-change-transform md:h-[600px] md:w-[600px] dark:bg-blue-500/5" />
 
         <FacadePattern className="absolute inset-0 h-full opacity-30 dark:opacity-10" />
       </div>
 
       <div className="relative z-10">
-        {/* Home page sections in sequence */}
         <Hero />
-        <Sponsors />
-        <About />
-        <Features />
-        <Faq />
-        <Cta />
+        <div className="optimize-visibility">
+          <Sponsors />
+        </div>
+        <div className="optimize-visibility">
+          <About />
+        </div>
+        <div className="optimize-visibility">
+          <Features />
+        </div>
+        <div className="optimize-visibility">
+          <Faq />
+        </div>
+        <div className="optimize-visibility">
+          <Cta />
+        </div>
       </div>
     </motion.div>
   );

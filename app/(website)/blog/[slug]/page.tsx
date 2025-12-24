@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import BlogPostContent from "@/components/blog/blog-post-content";
 import { SlideIn } from "@/components/ui/motion/motion-components";
 import { type CMSTag, getBlogPost } from "@/lib/blog";
-import { generateOgImageUrl } from "@/lib/og-utils";
 import { getImageUrl } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
@@ -42,13 +41,6 @@ export async function generateMetadata({
       };
     }
 
-    const ogImageUrl = post.featuredImage?.url
-      ? getImageUrl(post.featuredImage.url)
-      : generateOgImageUrl({
-          title: post.title,
-          subtitle: post.excerpt,
-        });
-
     const tagsArr = getTagsArray(post.tags);
 
     return {
@@ -63,14 +55,6 @@ export async function generateMetadata({
         siteName: "EternalCode.pl",
         title: post.title,
         description: post.excerpt,
-        images: [
-          {
-            url: ogImageUrl,
-            width: 1200,
-            height: 630,
-            alt: post.title,
-          },
-        ],
         publishedTime: post.publishedAt,
         modifiedTime: post.updatedAt,
         authors: [post.author?.name || "EternalCode Team"],
@@ -82,7 +66,6 @@ export async function generateMetadata({
         creator: "@eternalcode",
         title: post.title,
         description: post.excerpt,
-        images: [ogImageUrl],
       },
       alternates: {
         canonical: `https://eternalcode.pl/blog/${post.slug}`,

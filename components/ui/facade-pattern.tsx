@@ -10,7 +10,7 @@ export function FacadePattern({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "pointer-events-none absolute inset-0 overflow-hidden [mask-image:radial-gradient(ellipse_at_center,black_0%,transparent_80%)]",
+        "pointer-events-none absolute inset-0 transform-gpu overflow-hidden will-change-transform [mask-image:radial-gradient(ellipse_at_center,black_0%,transparent_80%)]",
         className
       )}
     >

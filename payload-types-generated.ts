@@ -251,6 +251,10 @@ export interface Post {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Paste Markdown here to overwrite the Content field.
+   */
+  markdownImport?: string | null;
   publishedAt?: string | null;
   featuredImage?: (string | null) | Media;
   author?: (string | null) | Author;
@@ -486,6 +490,7 @@ export interface PostsSelect<T extends boolean = true> {
   slug?: T;
   excerpt?: T;
   content?: T;
+  markdownImport?: T;
   publishedAt?: T;
   featuredImage?: T;
   author?: T;

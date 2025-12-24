@@ -1,7 +1,8 @@
 "use client";
 
+import { LazyMotion, domAnimation } from "framer-motion";
 import { ThemeProvider } from "next-themes";
-import { type ReactNode, useCallback, useEffect, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 
 import SmoothScrolling from "@/components/smooth-scrolling";
@@ -13,13 +14,9 @@ type ProvidersProps = {
 export function Providers({ children }: ProvidersProps) {
   const [mounted, setMounted] = useState(false);
 
-  const handleMount = useCallback(() => {
+  useEffect(() => {
     setMounted(true);
   }, []);
-
-  useEffect(() => {
-    handleMount();
-  }, [handleMount]);
 
   if (!mounted) {
     return null;
@@ -27,14 +24,16 @@ export function Providers({ children }: ProvidersProps) {
 
   return (
     <ThemeProvider attribute="class" defaultTheme="system" disableTransitionOnChange enableSystem>
-      <SmoothScrolling>{children}</SmoothScrolling>
-      <Toaster
-        position="bottom-right"
-        reverseOrder={false}
-        toastOptions={{
-          duration: 1500,
-        }}
-      />
+      <LazyMotion features={domAnimation}>
+        <SmoothScrolling>{children}</SmoothScrolling>
+        <Toaster
+          position="bottom-right"
+          reverseOrder={false}
+          toastOptions={{
+            duration: 1500,
+          }}
+        />
+      </LazyMotion>
     </ThemeProvider>
   );
 }

@@ -1,13 +1,33 @@
 "use client";
 
 import { Play } from "lucide-react";
+import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
-import { NotificationGeneratedCode } from "@/components/notification-generator/notification-generated-code";
-import { NotificationGenerator as NotificationGeneratorForm } from "@/components/notification-generator/notification-generator";
-import { MinecraftPreview } from "@/components/notification-generator/preview/minecraft-preview";
 import type { NotificationConfig } from "@/components/notification-generator/types";
 import { Button } from "@/components/ui/button";
 import { FadeIn, SlideIn, StaggerContainer } from "@/components/ui/motion/motion-components";
+
+const NotificationGeneratedCode = dynamic(
+  () =>
+    import("@/components/notification-generator/notification-generated-code").then(
+      (mod) => mod.NotificationGeneratedCode
+    ),
+  { ssr: false }
+);
+const NotificationGeneratorForm = dynamic(
+  () =>
+    import("@/components/notification-generator/notification-generator").then(
+      (mod) => mod.NotificationGenerator
+    ),
+  { ssr: false }
+);
+const MinecraftPreview = dynamic(
+  () =>
+    import("@/components/notification-generator/preview/minecraft-preview").then(
+      (mod) => mod.MinecraftPreview
+    ),
+  { ssr: false }
+);
 
 export default function NotificationGeneratorPage() {
   const [notification, setNotification] = useState<NotificationConfig>({

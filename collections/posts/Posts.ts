@@ -28,6 +28,49 @@ export const Posts: CollectionConfig = {
             type: 'richText',
         },
         {
+            name: 'markdownImport',
+            type: 'textarea',
+            admin: {
+                description: 'Paste Markdown here to overwrite the Content field.',
+                position: 'sidebar',
+            },
+            hooks: {
+                beforeChange: [
+                    async ({ siblingData, data, req }) => {
+                        const markdown = siblingData?.markdownImport || data?.markdownImport;
+
+                        if (markdown && typeof markdown === 'string') {
+                            const { convertMarkdownToLexical, editorConfigFactory } = await import('@payloadcms/richtext-lexical');
+
+                            try {
+                                // @ts-ignore
+                                const config = req.payload.config;
+
+                                const editorConfig = await editorConfigFactory.default({
+                                    config,
+                                });
+
+                                const lexicalData = convertMarkdownToLexical({
+                                    markdown,
+                                    editorConfig,
+                                });
+
+                                // Overwrite the content field with the converted data
+                                if (siblingData) {
+                                    siblingData.content = lexicalData;
+                                }
+
+                                return null; // Clear the markdown import field
+                            } catch (e) {
+                                console.error("Error converting markdown", e);
+                            }
+                        }
+                        return null;
+                    }
+                ]
+            }
+        },
+        {
             name: 'publishedAt',
             type: 'date',
             admin: {
