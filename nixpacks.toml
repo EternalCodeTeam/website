@@ -1,0 +1,16 @@
+[phases.setup]
+command = """
+curl -fsSL https://bun.sh/install | bash
+export PATH="$HOME/.bun/bin:$PATH"
+bun install
+"""
+nixPkgs = ["nodejs_22"]
+
+[phases.build]
+command = "bun run build"
+
+[phases.start]
+command = "bun run start"
+
+[env]
+NODE_VERSION = "22"
