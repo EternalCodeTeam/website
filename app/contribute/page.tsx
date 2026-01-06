@@ -21,7 +21,8 @@ export default function ContributePage() {
     {
       id: "code",
       title: "Code",
-      description: "Help us build the future by contributing to our open-source repositories and core libraries.",
+      description:
+        "Help us build the future by contributing to our open-source repositories and core libraries.",
       icon: "Code2",
       actionText: "View GitHub",
       href: "https://github.com/EternalCodeTeam",
@@ -30,7 +31,8 @@ export default function ContributePage() {
     {
       id: "sponsor",
       title: "Sponsor",
-      description: "Support our work financially via Ko-fi to help us maintain infrastructure and cover costs.",
+      description:
+        "Support our work financially via Ko-fi to help us maintain infrastructure and cover costs.",
       icon: "Heart",
       actionText: "Support on Ko-fi",
       href: "https://ko-fi.com/eternalcodeteam",
@@ -39,7 +41,8 @@ export default function ContributePage() {
     {
       id: "discord",
       title: "Community",
-      description: "Join our Discord server to discuss ideas, help others, and stay updated with our progress.",
+      description:
+        "Join our Discord server to discuss ideas, help others, and stay updated with our progress.",
       icon: "MessageCircle",
       actionText: "Join Discord",
       href: "https://discord.com/invite/FQ7jmGBd6c",
@@ -48,7 +51,8 @@ export default function ContributePage() {
     {
       id: "docs",
       title: "Documentation",
-      description: "Help us improve our guides and API references to make our tools accessible to everyone.",
+      description:
+        "Help us improve our guides and API references to make our tools accessible to everyone.",
       icon: "BookOpen",
       actionText: "Read Docs",
       href: "/docs",
@@ -57,7 +61,8 @@ export default function ContributePage() {
     {
       id: "support",
       title: "Support",
-      description: "Are you an expert in our tools? Help other users by answering questions on our Discord.",
+      description:
+        "Are you an expert in our tools? Help other users by answering questions on our Discord.",
       icon: "LifeBuoy",
       actionText: "Help Others",
       href: "https://discord.com/invite/FQ7jmGBd6c",
@@ -66,7 +71,8 @@ export default function ContributePage() {
     {
       id: "ideas",
       title: "Suggest Idea",
-      description: "Have a great idea for a new feature? Share it with us by opening an issue on GitHub.",
+      description:
+        "Have a great idea for a new feature? Share it with us by opening an issue on GitHub.",
       icon: "Lightbulb",
       actionText: "Open Issue",
       href: "https://github.com/EternalCodeTeam/",
