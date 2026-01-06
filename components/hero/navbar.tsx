@@ -337,9 +337,6 @@ export default function Navbar() {
             ))}
 
             <li>
-              <ProjectsDropdown />
-            </li>
-            <li>
               <ToolsDropdown />
             </li>
 
