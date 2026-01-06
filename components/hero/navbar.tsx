@@ -9,7 +9,7 @@ import { createPortal } from "react-dom";
 
 import AnnouncementBanner from "@/components/hero/announcement-banner";
 import { Button } from "@/components/ui/button";
-import { slideDown, } from "@/lib/animations/variants";
+import { slideDown } from "@/lib/animations/variants";
 import logo from "@/public/logo.svg";
 import NewWindow from "../icons/new-window";
 import ThemeSwitchButton from "./theme-switch-button";

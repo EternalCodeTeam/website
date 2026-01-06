@@ -28,7 +28,7 @@ export interface ContributionCardData {
 
 export default function ContributeView({ cards }: { cards: ContributionCardData[] }) {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gray-50 dark:bg-[#0a0a0a]">
+    <div className="relative z-10 min-h-screen overflow-hidden bg-gray-50 pt-28 md:pt-32 dark:bg-[#0a0a0a]">
       {/* Background decoration */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div className="absolute top-[20%] -left-[10%] h-[500px] w-[500px] rounded-full bg-purple-500/10 blur-[100px]" />

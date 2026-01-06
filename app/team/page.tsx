@@ -31,7 +31,7 @@ export default function TeamMembers() {
         <FacadePattern className="absolute inset-0 h-full opacity-30 dark:opacity-30" />
       </div>
 
-      <div className="relative z-10">
+      <div className="relative z-10 pt-28 md:pt-32">
         <TeamHero />
         <Suspense fallback={<TeamSkeleton />}>
           <Team />

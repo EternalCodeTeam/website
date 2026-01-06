@@ -4,7 +4,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { BookOpen, ChevronLeft, Github, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { type FC, useEffect } from "react";
+import { type FC, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 import { docsStructure } from "@/lib/sidebar-structure";
 import { cn } from "@/lib/utils";
@@ -17,6 +18,7 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
   const pathname = usePathname();
   const { isOpen, isMobile, toggleSidebar, sidebarRef, toggleButtonRef, setIsOpen } =
     useMobileSidebar();
+  const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === "Escape" && isOpen && isMobile) {
@@ -94,6 +96,10 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
     </>
   );
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <>
       {/* Mobile toggle button */}
@@ -135,36 +141,40 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
         </nav>
       )}
 
-      {/* Mobile Sidebar */}
-      <AnimatePresence mode="wait">
-        {!!isMobile && !!isOpen && (
-          <motion.nav
-            animate={{ x: 0 }}
-            aria-label="Documentation navigation"
-            className="fixed inset-y-0 left-0 z-50 flex w-72 flex-col border-gray-200 border-r bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900"
-            exit={{ x: -280 }}
-            id="doc-sidebar-mobile"
-            initial={{ x: -280 }}
-            ref={sidebarRef}
-            role="navigation"
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          >
-            {sidebarContent}
-          </motion.nav>
-        )}
-      </AnimatePresence>
+      {isMounted &&
+        createPortal(
+          <>
+            <AnimatePresence mode="wait">
+              {!!isMobile && !!isOpen && (
+                <motion.nav
+                  animate={{ x: 0 }}
+                  aria-label="Documentation navigation"
+                  className="fixed inset-y-0 left-0 z-[70] flex w-72 flex-col border-gray-200 border-r bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900"
+                  exit={{ x: -280 }}
+                  id="doc-sidebar-mobile"
+                  initial={{ x: -280 }}
+                  ref={sidebarRef}
+                  role="navigation"
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                >
+                  {sidebarContent}
+                </motion.nav>
+              )}
+            </AnimatePresence>
 
-      {/* Mobile overlay */}
-      {!!isMobile && !!isOpen && (
-        <motion.div
-          animate={{ opacity: 1 }}
-          aria-hidden="true"
-          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-xs lg:hidden"
-          exit={{ opacity: 0 }}
-          initial={{ opacity: 0 }}
-          onClick={toggleSidebar}
-        />
-      )}
+            {!!isMobile && !!isOpen && (
+              <motion.div
+                animate={{ opacity: 1 }}
+                aria-hidden="true"
+                className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-xs lg:hidden"
+                exit={{ opacity: 0 }}
+                initial={{ opacity: 0 }}
+                onClick={toggleSidebar}
+              />
+            )}
+          </>,
+          document.body
+        )}
     </>
   );
 };

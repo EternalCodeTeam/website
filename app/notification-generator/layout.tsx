@@ -31,7 +31,7 @@ import { FacadePattern } from "@/components/ui/facade-pattern";
 
 export default function NotificationGeneratorLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-white">
+    <div className="relative z-10 min-h-screen overflow-hidden bg-gray-50 pt-28 text-gray-900 md:pt-32 dark:bg-gray-950 dark:text-white">
       {/* Background Decor */}
       <div className="pointer-events-none absolute inset-0 z-0 select-none">
         <div className="absolute -top-20 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-3xl filter dark:bg-blue-500/5" />
