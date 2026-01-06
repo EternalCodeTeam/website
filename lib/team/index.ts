@@ -81,13 +81,6 @@ export const getTeamData = cache(async (): Promise<RoleSection[]> => {
       github: "https://github.com/mydelkonivea",
     },
     {
-      documentId: "verniq",
-      name: "Verni",
-      avatar_url: "https://github.com/VerniQ.png",
-      team_roles: [{ name: "Student" }],
-      github: "https://github.com/VerniQ",
-    },
-    {
       documentId: "qbiterv",
       name: "Jakub Wawrzynowicz",
       avatar_url: "https://github.com/Qbiterv.png",
