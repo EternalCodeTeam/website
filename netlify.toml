@@ -5,3 +5,6 @@ command = "bun install && bun run build"
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31556952, immutable"
+
+[[plugins]]
+package = "@netlify/plugin-nextjs"
