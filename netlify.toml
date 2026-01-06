@@ -1,5 +1,6 @@
 [build]
-command = "bun install && bun run build"
+command = "bun run build"
+publish = ".next"
 
 [[headers]]
   for = "/assets/*"
