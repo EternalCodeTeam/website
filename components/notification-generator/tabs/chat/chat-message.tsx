@@ -4,9 +4,9 @@ import { type CSSProperties, memo } from "react";
 import { MinecraftText } from "../../preview/minecraft-text-parser";
 import styles from "./ChatMessage.module.css";
 
-type ChatMessageProps = {
+interface ChatMessageProps {
   message: string;
-};
+}
 
 const ChatMessage = memo(({ message }: ChatMessageProps) => {
   if (!message) {

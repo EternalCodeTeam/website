@@ -3,10 +3,10 @@
 import { FormField } from "../../form/form-field";
 import type { FieldType, NotificationConfig } from "../../types";
 
-type ActionBarTabProps = {
+interface ActionBarTabProps {
   notification: NotificationConfig;
   onChange: (field: FieldType, value: string) => void;
-};
+}
 
 export const ActionBarTab = ({ notification, onChange }: ActionBarTabProps) => (
   <div>

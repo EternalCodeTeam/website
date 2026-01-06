@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react";
 
-export type CookieConsent = {
+export interface CookieConsent {
   necessary: boolean;
   analytics: boolean;
   marketing: boolean;
   preferences: boolean;
-};
+}
 
 const defaultConsent: CookieConsent = {
   necessary: true,

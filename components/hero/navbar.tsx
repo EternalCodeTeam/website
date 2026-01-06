@@ -17,12 +17,12 @@ import { PROJECT_OPTIONS, ProjectsDropdown } from "./projects-dropdown";
 import ThemeSwitchButton from "./theme-switch-button";
 import { TOOLS_OPTIONS, ToolsDropdown } from "./tools-dropdown";
 
-type NavLink = {
+interface NavLink {
   href: string;
   label: string;
   text: string;
   isExternal?: boolean;
-};
+}
 
 const NAV_LINKS: NavLink[] = [
   { href: "/", label: "Home", text: "Home" },

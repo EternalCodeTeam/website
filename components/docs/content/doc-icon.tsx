@@ -3,11 +3,11 @@
 import * as LucideIcons from "lucide-react";
 import type { ComponentType } from "react";
 
-type DocIconProps = {
+interface DocIconProps {
   iconName?: string;
   className?: string;
   size?: number;
-};
+}
 
 export function DocIcon({ iconName, className = "", size = 24 }: DocIconProps) {
   if (!iconName) {

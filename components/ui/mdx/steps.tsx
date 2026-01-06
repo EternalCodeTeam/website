@@ -6,10 +6,10 @@ import * as LucideIcons from "lucide-react";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-type StepsProps = {
+interface StepsProps {
   children: ReactNode;
   className?: string;
-};
+}
 
 export function Steps({ children, className }: StepsProps) {
   return (
@@ -24,11 +24,11 @@ export function Steps({ children, className }: StepsProps) {
   );
 }
 
-type StepProps = {
+interface StepProps {
   title?: string;
   icon?: string;
   children: ReactNode;
-};
+}
 
 export function Step({ title, icon, children }: StepProps) {
   // biome-ignore lint/performance/noDynamicNamespaceImportAccess: Dynamic icon loading based on prop
@@ -38,7 +38,7 @@ export function Step({ title, icon, children }: StepProps) {
     <div className="relative mt-8 first:mt-0">
       <div
         className={cn(
-          "-left-[49px] absolute top-0 flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 ring-2 ring-white dark:bg-gray-800 dark:ring-gray-950",
+          "absolute top-0 -left-[49px] flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 ring-2 ring-white dark:bg-gray-800 dark:ring-gray-950",
           "border border-gray-200 dark:border-gray-700"
         )}
       >

@@ -1,7 +1,7 @@
-type SoundIndicatorProps = {
+interface SoundIndicatorProps {
   sound: string;
   playSound: boolean;
-};
+}
 
 const SoundIndicator = ({ sound, playSound }: SoundIndicatorProps) => {
   if (!(sound && playSound)) {

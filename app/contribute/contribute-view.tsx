@@ -16,7 +16,7 @@ const containerVariants = {
   },
 };
 
-export type ContributionCardData = {
+export interface ContributionCardData {
   id?: string | null;
   title: string;
   description: string;
@@ -24,15 +24,15 @@ export type ContributionCardData = {
   actionText: string;
   href: string;
   color: string;
-};
+}
 
 export default function ContributeView({ cards }: { cards: ContributionCardData[] }) {
   return (
     <div className="relative min-h-screen overflow-hidden bg-gray-50 dark:bg-[#0a0a0a]">
       {/* Background decoration */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <div className="-left-[10%] absolute top-[20%] h-[500px] w-[500px] rounded-full bg-purple-500/10 blur-[100px]" />
-        <div className="-right-[10%] absolute top-[50%] h-[500px] w-[500px] rounded-full bg-blue-500/10 blur-[100px]" />
+        <div className="absolute top-[20%] -left-[10%] h-[500px] w-[500px] rounded-full bg-purple-500/10 blur-[100px]" />
+        <div className="absolute top-[50%] -right-[10%] h-[500px] w-[500px] rounded-full bg-blue-500/10 blur-[100px]" />
       </div>
 
       <ContributeHero />

@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 import { SiGithub, SiJetbrains, SiJira, SiSentry } from "react-icons/si";
 
-type Sponsor = {
+interface Sponsor {
   name: string;
   icon: ReactNode;
   url: string;
-};
+}
 
 export default function Sponsors() {
   const sponsors: Sponsor[] = [

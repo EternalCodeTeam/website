@@ -16,7 +16,7 @@ const NotFound: FC = () => {
 
   const overlay = (
     <div className="pointer-events-none absolute inset-0 z-0 select-none">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 h-[600px] w-[600px] rounded-full bg-blue-500/10 mix-blend-multiply blur-3xl filter dark:bg-blue-500/5 dark:mix-blend-screen" />
+      <div className="absolute top-1/2 left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/10 mix-blend-multiply blur-3xl filter dark:bg-blue-500/5 dark:mix-blend-screen" />
 
       <FacadePattern className="absolute inset-0 h-full opacity-30 dark:opacity-10" />
     </div>

@@ -170,7 +170,7 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
                   <div className="flex items-center gap-2" key={color}>
                     <div className="relative h-8 w-8 overflow-hidden rounded-md border border-gray-200 dark:border-gray-700">
                       <input
-                        className="-left-1/2 -top-1/2 absolute h-[200%] w-[200%] cursor-pointer p-0"
+                        className="absolute -top-1/2 -left-1/2 h-[200%] w-[200%] cursor-pointer p-0"
                         onChange={(e) => updateGradientColor(index, e.target.value)}
                         type="color"
                         value={color}

@@ -2,12 +2,12 @@ import { memo } from "react";
 
 import { MinecraftText } from "../../preview/minecraft-text-parser";
 
-type TitleProps = {
+interface TitleProps {
   title: string;
   subtitle: string;
   showTitle: boolean;
   titleOpacity: number;
-};
+}
 
 const Title = memo(({ title, subtitle, showTitle, titleOpacity }: TitleProps) => {
   if (!showTitle) {
@@ -16,7 +16,7 @@ const Title = memo(({ title, subtitle, showTitle, titleOpacity }: TitleProps) =>
 
   return (
     <div
-      className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 transform text-center transition-opacity duration-500"
+      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform text-center transition-opacity duration-500"
       style={{ opacity: titleOpacity }}
     >
       {!!title && (

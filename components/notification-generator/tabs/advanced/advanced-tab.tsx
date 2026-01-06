@@ -4,10 +4,10 @@ import { Switch } from "@/components/ui/switch";
 
 import type { FieldType, NotificationConfig } from "../../types";
 
-type AdvancedTabProps = {
+interface AdvancedTabProps {
   notification: NotificationConfig;
   onChange: (field: FieldType, value: boolean) => void;
-};
+}
 
 export const AdvancedTab = ({ notification, onChange }: AdvancedTabProps) => (
   <div className="space-y-4">

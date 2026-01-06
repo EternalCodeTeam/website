@@ -12,11 +12,11 @@ import {
 } from "react";
 import { cn } from "@/lib/utils";
 
-type TabsContextType = {
+interface TabsContextType {
   activeTab: string;
   setActiveTab: (value: string) => void;
   layoutId: string;
-};
+}
 
 const TabsContext = createContext<TabsContextType | undefined>(undefined);
 

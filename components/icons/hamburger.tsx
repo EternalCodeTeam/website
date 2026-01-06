@@ -1,6 +1,6 @@
-type HamburgerProps = {
+interface HamburgerProps {
   className?: string;
-};
+}
 
 export default function Hamburger({ className = "" }: HamburgerProps) {
   return (

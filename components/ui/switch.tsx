@@ -3,12 +3,12 @@
 import { motion } from "framer-motion";
 import { softSpring } from "@/lib/animations/variants";
 
-type SwitchProps = {
+interface SwitchProps {
   checked: boolean;
   onChange?: (checked: boolean) => void;
   disabled?: boolean;
   id?: string;
-};
+}
 
 export function Switch({ checked, onChange, disabled, id }: SwitchProps) {
   return (

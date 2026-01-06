@@ -5,12 +5,12 @@ import { type ChangeEvent, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
-type PlaceholderSearchBarProps = {
+interface PlaceholderSearchBarProps {
   searchQuery: string;
   onSearchChange: (event: ChangeEvent<HTMLInputElement>) => void;
   viewableCount: number;
   totalCount: number;
-};
+}
 
 export function PlaceholderSearchBar({
   searchQuery,
@@ -23,7 +23,7 @@ export function PlaceholderSearchBar({
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div className="relative w-full sm:w-80">
-        <Search className="-translate-y-1/2 absolute top-1/2 left-3 text-gray-400" size={18} />
+        <Search className="absolute top-1/2 left-3 -translate-y-1/2 text-gray-400" size={18} />
         <input
           className={cn(
             "w-full select-none rounded-lg border bg-white px-4 py-2.5 pr-10 pl-10 text-sm outline-hidden transition-all duration-200",

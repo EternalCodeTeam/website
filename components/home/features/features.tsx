@@ -12,12 +12,12 @@ import { Card } from "@/components/ui/card";
 
 const MotionCard = motion.create(Card);
 
-type Feature = {
+interface Feature {
   icon: ReactNode;
   title: string;
   description: string;
   color: string;
-};
+}
 
 export default function Features() {
   const features: Feature[] = [
@@ -46,9 +46,6 @@ export default function Features() {
 
   return (
     <section aria-labelledby="features-heading" className="relative py-12 lg:py-24" id="features">
-      {/* Background blobs for this section */}
-      <div className="-y-1/2 pointer-events-none absolute top-1/2 right-0 h-64 w-64 rounded-full bg-blue-500/5 blur-3xl md:h-96 md:w-96" />
-
       <div className="relative z-10 mx-auto max-w-7xl px-4">
         <SlideIn direction="up">
           <SectionTitle

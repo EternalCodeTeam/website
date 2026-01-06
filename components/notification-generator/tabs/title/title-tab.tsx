@@ -3,11 +3,11 @@
 import { FormField } from "../../form/form-field";
 import type { FieldType, NotificationConfig } from "../../types";
 
-type TitleTabProps = {
+interface TitleTabProps {
   notification: NotificationConfig;
   onChange: (field: FieldType, value: string) => void;
   errors: Record<string, string>;
-};
+}
 
 export const TitleTab = ({ notification, onChange, errors }: TitleTabProps) => (
   <div>

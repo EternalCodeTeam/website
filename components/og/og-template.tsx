@@ -1,10 +1,10 @@
-type OgTemplateProps = {
+interface OgTemplateProps {
   title: string;
   subtitle?: string;
   image?: string; // Logo
   backgroundImage?: string; // Optional full background
   siteName?: string;
-};
+}
 
 export function OgTemplate({
   title,

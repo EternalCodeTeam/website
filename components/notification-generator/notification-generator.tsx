@@ -17,10 +17,10 @@ import { AdvancedTab } from "./tabs/advanced/advanced-tab";
 import { Tab } from "./tabs/tab";
 import type { FieldType, NotificationConfig, TabType } from "./types";
 
-type NotificationFormProps = {
+interface NotificationFormProps {
   notification: NotificationConfig;
   setNotification: (notification: NotificationConfig) => void;
-};
+}
 
 export function NotificationGenerator({ notification, setNotification }: NotificationFormProps) {
   const [activeTab, setActiveTab] = useState<TabType>("chat");

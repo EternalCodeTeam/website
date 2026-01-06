@@ -1,4 +1,4 @@
-export type GitHubContributor = {
+export interface GitHubContributor {
   login: string;
   id: number;
   node_id: string;
@@ -18,10 +18,19 @@ export type GitHubContributor = {
   type: string;
   site_admin: boolean;
   contributions: number;
-};
+}
 
 export async function getContributors(repositories: string[]): Promise<GitHubContributor[]> {
   const allContributors = new Map<number, GitHubContributor>();
+
+  const token = process.env.GITHUB_TOKEN;
+  const headers: HeadersInit = {
+    Accept: "application/vnd.github+json",
+  };
+
+  if (token) {
+    headers.Authorization = `token ${token}`;
+  }
 
   for (const repo of repositories) {
     if (!repo?.includes("/")) {
@@ -32,9 +41,7 @@ export async function getContributors(repositories: string[]): Promise<GitHubCon
       const response = await fetch(
         `https://api.github.com/repos/${repo}/contributors?per_page=100`,
         {
-          headers: {
-            Accept: "application/vnd.github+json",
-          },
+          headers,
           next: {
             revalidate: 3600, // Cache for 1 hour
           },

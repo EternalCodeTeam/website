@@ -7,7 +7,7 @@ export const metadata = {
 };
 
 // Define the type locally since we removed payload-types-generated
-type CardData = {
+interface CardData {
   id: string;
   title: string;
   description: string;
@@ -15,7 +15,7 @@ type CardData = {
   actionText: string;
   href: string;
   color: string;
-};
+}
 
 export default function ContributePage() {
   // Static data replacement

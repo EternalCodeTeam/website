@@ -6,11 +6,11 @@ import { NextResponse } from "next/server";
 
 const MDX_EXTENSION_REGEX = /\.mdx$/;
 
-type SearchIndexItem = {
+interface SearchIndexItem {
   title: string;
   path: string;
   excerpt: string;
-};
+}
 
 function findMarkdownFiles(dir: string): string[] {
   const files: string[] = [];

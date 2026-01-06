@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { type ChangeEvent, useCallback, useEffect, useState } from "react";
 
-type SliderFieldProps = {
+interface SliderFieldProps {
   label: string;
   name: string;
   value: string;
@@ -12,7 +12,7 @@ type SliderFieldProps = {
   max: number;
   step: number;
   error?: string;
-};
+}
 
 export const SliderField = ({
   label,

@@ -112,7 +112,7 @@ export function CookieConsentModal() {
               >
                 {showDetails ? (
                   <>
-                    <ChevronUp className="group-hover:-translate-y-0.5 h-4 w-4 transition-transform" />
+                    <ChevronUp className="h-4 w-4 transition-transform group-hover:-translate-y-0.5" />
                     Hide Details
                   </>
                 ) : (

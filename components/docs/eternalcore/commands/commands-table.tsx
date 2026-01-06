@@ -5,9 +5,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { CommandData } from "@/components/docs/eternalcore/commands/types";
 import { CopyToClipboard } from "@/components/ui/copy-to-clipboard";
 
-type CommandsTableProps = {
+interface CommandsTableProps {
   commands: CommandData[];
-};
+}
 
 export function CommandsTable({ commands }: CommandsTableProps) {
   return (

@@ -4,11 +4,11 @@ import { Tag } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-type PlaceholderCategoryButtonsProps = {
+interface PlaceholderCategoryButtonsProps {
   categories: string[];
   activeCategory: string;
   onCategoryClick: (category: string) => void;
-};
+}
 
 export function PlaceholderCategoryButtons({
   categories,

@@ -3,10 +3,10 @@
 import { FormField } from "../../form/form-field";
 import type { FieldType, NotificationConfig } from "../../types";
 
-type ChatTabProps = {
+interface ChatTabProps {
   notification: NotificationConfig;
   onChange: (field: FieldType, value: string) => void;
-};
+}
 
 export const ChatTab = ({ notification, onChange }: ChatTabProps) => (
   <div>

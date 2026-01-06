@@ -3,13 +3,13 @@ import { AnimatePresence } from "framer-motion";
 import { Loader2 } from "lucide-react";
 import { type Build, BuildRow } from "./build-row";
 
-type BuildTableProps = {
+interface BuildTableProps {
   loading: boolean;
   builds: Build[];
   project: Project;
   lastDownloadedId: string | null;
   onDownload: (id: string) => void;
-};
+}
 
 export function BuildTable({
   loading,

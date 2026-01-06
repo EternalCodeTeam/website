@@ -1,6 +1,6 @@
-type ArrowDownProps = {
+interface ArrowDownProps {
   className?: string;
-};
+}
 
 export default function ArrowDown({ className = "" }: ArrowDownProps) {
   return (

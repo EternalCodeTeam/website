@@ -4,12 +4,12 @@ import { motion } from "framer-motion";
 
 import type { TabType } from "../types";
 
-type TabProps = {
+interface TabProps {
   activeTab: TabType;
   tabName: TabType;
   label: string;
   onClick: (tab: TabType) => void;
-};
+}
 
 export const Tab = ({ activeTab, tabName, label, onClick }: TabProps) => {
   const isActive = activeTab === tabName;

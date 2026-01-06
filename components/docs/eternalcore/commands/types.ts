@@ -1,11 +1,11 @@
-export type CommandData = {
+export interface CommandData {
   name: string;
   permission: string;
   description: string;
   arguments: string;
-};
+}
 
-export type EternalCoreData = {
+export interface EternalCoreData {
   commands?: Array<{
     name: string;
     permissions?: string[];
@@ -17,4 +17,4 @@ export type EternalCoreData = {
     permissions?: string[];
     descriptions?: string[];
   }>;
-};
+}

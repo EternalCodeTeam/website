@@ -14,30 +14,30 @@ import { ReadingTime } from "@/components/docs/content/reading-time";
 import { components, mdxOptions } from "@/components/ui/mdx/mdx-components";
 import { docsStructure } from "@/lib/sidebar-structure";
 
-type DocMeta = {
+interface DocMeta {
   title: string;
   description?: string;
   lastModified?: string;
   author?: string;
   icon?: string;
   [key: string]: string | undefined;
-};
+}
 
-type Doc = {
+interface Doc {
   meta: DocMeta;
   content: string;
-};
+}
 
-type DocNavigation = {
+interface DocNavigation {
   prev: { title: string; path: string } | null;
   next: { title: string; path: string } | null;
-};
+}
 
-type DocStructureItem = {
+interface DocStructureItem {
   title: string;
   path: string;
   children?: DocStructureItem[];
-};
+}
 
 function getFlatDocs(): { title: string; path: string }[] {
   function flattenDocs(structure: DocStructureItem[]): { title: string; path: string }[] {
@@ -90,11 +90,11 @@ function getDocNavigation(currentPath: string): DocNavigation {
   };
 }
 
-type Props = {
+interface Props {
   params: Promise<{
     slug: string[];
   }>;
-};
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;

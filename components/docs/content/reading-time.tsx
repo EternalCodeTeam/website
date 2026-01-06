@@ -4,11 +4,11 @@ import { Clock } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-export type ReadingTimeProps = {
+export interface ReadingTimeProps {
   content: string;
   wordsPerMinute?: number;
   className?: string;
-};
+}
 
 const WORD_SPLIT_REGEX = /\s+/;
 

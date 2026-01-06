@@ -4,9 +4,9 @@ import { AlertBox } from "@/components/ui/alert-box";
 import { CodeBlock } from "@/components/ui/mdx/code-block";
 import { FadeIn, SlideIn } from "@/components/ui/motion/motion-components";
 
-type NotificationCodeProps = {
+interface NotificationCodeProps {
   yamlCode: string;
-};
+}
 
 export function NotificationGeneratedCode({ yamlCode }: NotificationCodeProps) {
   return (

@@ -10,16 +10,16 @@ import TikTokIcon from "@/components/icons/round-tiktok";
 import YouTubeIcon from "@/components/icons/youtube";
 import logo from "@/public/logo.svg";
 
-type FooterLink = {
+interface FooterLink {
   href: string;
   label: string;
   isExternal?: boolean;
-};
+}
 
-type FooterSection = {
+interface FooterSection {
   title: string;
   links: FooterLink[];
-};
+}
 
 const footerSections: FooterSection[] = [
   {

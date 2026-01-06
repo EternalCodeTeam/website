@@ -60,15 +60,15 @@ function parseSoundEntry(key: string, data: Record<string, unknown>): Sound {
   };
 }
 
-type SoundTabProps = {
+interface SoundTabProps {
   notification: NotificationConfig;
   onChange: (field: FieldType, value: string) => void;
   errors: Record<string, string>;
-};
+}
 
-export type SoundTabRef = {
+export interface SoundTabRef {
   stopSound: () => void;
-};
+}
 
 export const SoundTab = ({
   notification,

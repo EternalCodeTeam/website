@@ -25,7 +25,6 @@ export const FadeIn = ({ children, delay, className, ...props }: MotionProps) =>
   <m.div
     className={className}
     initial="hidden"
-    // biome-ignore lint/nursery/noLeakedRender: Prop value
     transition={delay ? { delay } : undefined}
     variants={fadeIn}
     viewport={{ once: true, margin: "0px" }}
@@ -60,7 +59,6 @@ export const SlideIn = ({
     <m.div
       className={className}
       initial="hidden"
-      // biome-ignore lint/nursery/noLeakedRender: Prop value
       transition={delay ? { delay } : undefined}
       variants={getVariant()}
       viewport={{ once: true, margin: "0px" }}
@@ -76,7 +74,6 @@ export const ScaleIn = ({ children, delay, className, ...props }: MotionProps) =
   <m.div
     className={className}
     initial="hidden"
-    // biome-ignore lint/nursery/noLeakedRender: Prop value
     transition={delay ? { delay } : undefined}
     variants={scaleIn}
     viewport={{ once: true, margin: "0px" }}

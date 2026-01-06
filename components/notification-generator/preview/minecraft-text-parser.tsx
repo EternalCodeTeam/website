@@ -4,9 +4,9 @@ import MiniMessage from "minimessage-js";
 import { type FC, useMemo } from "react";
 import "./minecraft-text-formatting.css";
 
-type MinecraftTextProps = {
+interface MinecraftTextProps {
   text: string;
-};
+}
 
 export const MinecraftText: FC<MinecraftTextProps> = ({ text }) => {
   const cleanedText = useMemo(() => sanitizeInput(text), [text]);

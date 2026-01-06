@@ -1,8 +1,8 @@
-type SectionTitleProps = {
+interface SectionTitleProps {
   title: string;
   description: string;
   id?: string;
-};
+}
 
 export default function SectionTitle({ title, description, id }: Readonly<SectionTitleProps>) {
   return (

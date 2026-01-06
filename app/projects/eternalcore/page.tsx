@@ -141,7 +141,7 @@ export default function EternalCorePage() {
               },
             ].map((feature, i) => (
               <SlideIn className="h-full" delay={i * 0.1} direction="up" key={feature.title}>
-                <div className="group hover:-translate-y-1 h-full rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:border-[#9d6eef]/30 hover:shadow-md dark:border-gray-800 dark:bg-gray-900/50">
+                <div className="group h-full rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#9d6eef]/30 hover:shadow-md dark:border-gray-800 dark:bg-gray-900/50">
                   <div
                     className={`h-12 w-12 rounded-xl ${feature.bg} ${feature.color} mb-6 flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}
                   >
@@ -197,7 +197,7 @@ export default function EternalCorePage() {
             <SlideIn delay={0.2} direction="right">
               <div className="group relative">
                 {/* Subtle Glow behind the window */}
-                <div className="-inset-4 -z-10 absolute bg-[#9d6eef]/5 opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-100 dark:bg-[#9d6eef]/10" />
+                <div className="absolute -inset-4 -z-10 bg-[#9d6eef]/5 opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-100 dark:bg-[#9d6eef]/10" />
 
                 {/* The "Long Screenshot" Container */}
                 <div className="relative h-[600px] w-full select-none overflow-hidden rounded-xl border border-gray-100 bg-white shadow-2xl transition-all duration-700 hover:scale-[1.01] hover:border-[#9d6eef]/20 dark:border-gray-800 dark:bg-gray-900/50">

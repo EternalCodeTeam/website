@@ -2,11 +2,11 @@
 
 import Image from "next/image";
 
-type MdxImageProps = {
+interface MdxImageProps {
   src?: string;
   alt?: string;
   className?: string;
-};
+}
 
 export function MdxImage({ src, alt, className }: MdxImageProps) {
   if (!src) {

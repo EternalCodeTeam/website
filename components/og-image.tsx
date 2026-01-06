@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 
 import { generateOgImageUrl } from "@/lib/og-utils";
 
-type OgImageProps = {
+interface OgImageProps {
   title: string;
   subtitle?: string;
   image?: string;
-};
+}
 
 export function generateOgImageMetadata({ title, subtitle, image }: OgImageProps): Metadata {
   const ogImageUrl = generateOgImageUrl({

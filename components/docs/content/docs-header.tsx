@@ -3,13 +3,13 @@ import type { ReactNode } from "react";
 
 import { DocIcon } from "./doc-icon";
 
-type DocHeaderProps = {
+interface DocHeaderProps {
   category?: string;
   title: string;
   description?: string;
   icon?: string;
   actions?: ReactNode;
-};
+}
 
 export function DocsHeader({ category, title, description, icon, actions }: DocHeaderProps) {
   return (

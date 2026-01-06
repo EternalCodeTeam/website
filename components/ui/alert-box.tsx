@@ -102,12 +102,12 @@ const alertTitleVariants = cva("mb-1 font-semibold text-sm md:text-base", {
 
 export type AlertBoxType = NonNullable<VariantProps<typeof alertContainerVariants>["type"]>;
 
-export type AlertBoxProps = {
+export interface AlertBoxProps {
   type: AlertBoxType;
   children: ReactNode;
   title?: ReactNode;
   className?: string;
-};
+}
 
 const icons = {
   info: Info,

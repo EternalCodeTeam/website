@@ -7,14 +7,14 @@ import { Play } from "@/components/icons/play";
 import { Stop } from "@/components/icons/stop";
 import { Button } from "@/components/ui/button";
 
-export type Sound = {
+export interface Sound {
   id: string;
   name: string;
   path: string;
   category?: string;
-};
+}
 
-type SoundTableProps = {
+interface SoundTableProps {
   sounds: Sound[];
   selectedSound: Sound | undefined;
   onSelectSound: (soundId: string) => void;
@@ -24,7 +24,7 @@ type SoundTableProps = {
   loading: boolean;
   currentlyPlayingId: string | null;
   playbackError: string | null;
-};
+}
 
 export function SoundTable({
   sounds,
@@ -143,7 +143,7 @@ export function SoundTable({
           />
           {!!searchQuery && (
             <Button
-              className="-translate-y-1/2 absolute top-1/2 right-1 h-6 w-6"
+              className="absolute top-1/2 right-1 h-6 w-6 -translate-y-1/2"
               onClick={handleClearSearch}
               size="sm"
               variant="ghost"

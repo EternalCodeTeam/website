@@ -2,10 +2,10 @@ import GitHubIcon from "@/components/icons/github";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-type EditOnGitHubProps = {
+interface EditOnGitHubProps {
   filePath: string;
   className?: string;
-};
+}
 
 export const EditOnGitHub = ({ filePath, className }: EditOnGitHubProps) => {
   const githubUrl = `https://github.com/EternalCodeTeam/website/edit/master/content/docs/${filePath}.mdx`;

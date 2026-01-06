@@ -17,7 +17,7 @@ export default function Hero() {
           y: [0, -12, 18, -8, 0],
           scale: [1, 1.1, 0.95, 1.05, 1],
         }}
-        className="-right-20 -top-20 absolute h-56 w-56 rounded-full bg-linear-to-br from-blue-400/20 to-blue-600/15 blur-3xl will-change-transform sm:h-64 sm:w-64"
+        className="absolute -top-20 -right-20 h-56 w-56 rounded-full bg-linear-to-br from-blue-400/20 to-blue-600/15 blur-3xl will-change-transform sm:h-64 sm:w-64"
         style={{ willChange: "transform" }}
         transition={{ duration: 25, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
       />
@@ -51,7 +51,7 @@ export default function Hero() {
                 </span>
                 <svg
                   aria-hidden="true"
-                  className="-bottom-1 -z-10 absolute left-0 h-3 w-full text-blue-600/80 dark:text-blue-400/80"
+                  className="absolute -bottom-1 left-0 -z-10 h-3 w-full text-blue-600/80 dark:text-blue-400/80"
                   fill="none"
                   preserveAspectRatio="none"
                   shapeRendering="geometricPrecision"

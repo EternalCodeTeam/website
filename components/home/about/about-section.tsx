@@ -41,7 +41,7 @@ export default function About() {
                   </span>
                   <motion.div
                     animate={{ opacity: 1, rotate: 12, scale: 1 }}
-                    className="-top-6 -right-8 absolute flex flex-col items-center will-change-transform"
+                    className="absolute -top-6 -right-8 flex flex-col items-center will-change-transform"
                     initial={{ opacity: 0, rotate: -15, scale: 0 }}
                     transition={{ delay: 1, type: "spring" }}
                   >

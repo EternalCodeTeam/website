@@ -7,9 +7,9 @@ import { Toaster } from "react-hot-toast";
 
 import SmoothScrolling from "@/components/smooth-scrolling";
 
-type ProvidersProps = {
+interface ProvidersProps {
   children: ReactNode;
-};
+}
 
 export function Providers({ children }: ProvidersProps) {
   const [mounted, setMounted] = useState(false);

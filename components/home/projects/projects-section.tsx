@@ -5,12 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-type Project = {
+interface Project {
   name: string;
   image: string;
   url: string;
   description: string;
-};
+}
 
 const projects: Project[] = [
   {
@@ -122,7 +122,7 @@ export default function Projects() {
         {/* biome-ignore lint/a11y/noStaticElementInteractions: Pause on hover feature */}
         {/* biome-ignore lint/a11y/noNoninteractiveElementInteractions: Pause on hover feature */}
         <div
-          className="group -mx-4 relative w-[calc(100%+2rem)] overflow-hidden rounded-3xl border border-gray-200/50 bg-gray-50/50 p-6 md:mx-0 md:w-full dark:border-white/5 dark:bg-white/5"
+          className="group relative -mx-4 w-[calc(100%+2rem)] overflow-hidden rounded-3xl border border-gray-200/50 bg-gray-50/50 p-6 md:mx-0 md:w-full dark:border-white/5 dark:bg-white/5"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >

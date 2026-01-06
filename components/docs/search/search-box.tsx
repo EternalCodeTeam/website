@@ -12,13 +12,13 @@ import { cn } from "@/lib/utils";
 import { SearchEngine } from "./search-engine";
 import type { SearchResult } from "./types";
 
-type SearchBoxProps = {
+interface SearchBoxProps {
   className?: string;
   placeholder?: string;
   minQueryLength?: number;
   debounceTime?: number;
   searchEndpoint?: string;
-};
+}
 
 const SearchBox = ({
   className = "",

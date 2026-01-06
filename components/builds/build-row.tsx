@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import { motion } from "framer-motion";
 import { Calendar, Download, GitBranch, Package } from "lucide-react";
 
-export type Build = {
+export interface Build {
   id: string;
   name: string;
   type: "STABLE" | "DEV";
@@ -12,14 +12,14 @@ export type Build = {
   version?: string;
   commit?: string;
   runUrl?: string;
-};
+}
 
-type BuildRowProps = {
+interface BuildRowProps {
   build: Build;
   index: number;
   lastDownloadedId: string | null;
   onDownload: (id: string) => void;
-};
+}
 
 function BuildStatusBadge({ type }: { type: "STABLE" | "DEV" }) {
   return (
@@ -117,7 +117,6 @@ export function BuildRow({ build, index, lastDownloadedId, onDownload }: BuildRo
           <Button
             className="h-8 px-3 text-xs sm:h-9 sm:px-4 sm:text-sm"
             disabled={!build.downloadUrl || build.downloadUrl === "#"}
-            // biome-ignore lint/nursery/noLeakedRender: undefined is intentional
             href={build.downloadUrl && build.downloadUrl !== "#" ? build.downloadUrl : undefined}
             leftIcon={
               !build.downloadUrl || build.downloadUrl === "#" ? undefined : (

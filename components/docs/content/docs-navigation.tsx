@@ -4,15 +4,15 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-type NavigationLink = {
+interface NavigationLink {
   title: string;
   path: string;
-};
+}
 
-type DocsNavigationProps = {
+interface DocsNavigationProps {
   prev: NavigationLink | null;
   next: NavigationLink | null;
-};
+}
 
 export function DocsNavigation({ prev, next }: DocsNavigationProps) {
   return (

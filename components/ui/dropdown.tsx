@@ -2,13 +2,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Check, ChevronDown } from "lucide-react";
 import { type KeyboardEvent, type ReactNode, useEffect, useRef, useState } from "react";
 
-export type DropdownOption = {
+export interface DropdownOption {
   value: string;
   label: string;
   icon?: ReactNode;
-};
+}
 
-type DropdownProps = {
+interface DropdownProps {
   options: DropdownOption[];
   value: string;
   onChange: (value: string) => void;
@@ -20,7 +20,7 @@ type DropdownProps = {
   menuClassName?: string;
   children?: ReactNode;
   variant?: "default" | "ghost";
-};
+}
 
 export function Dropdown({
   options,

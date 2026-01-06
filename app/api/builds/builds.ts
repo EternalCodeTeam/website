@@ -57,12 +57,12 @@ export const ModrinthVersionSchema = z.object({
 
 export type ModrinthVersion = z.infer<typeof ModrinthVersionSchema>;
 
-export type Project = {
+export interface Project {
   id: string;
   name: string;
   githubRepo: string;
   modrinthId?: string;
-};
+}
 
 export const PROJECTS: Project[] = [
   {
@@ -80,9 +80,19 @@ export const PROJECTS: Project[] = [
 ];
 
 export async function fetchDevBuilds(project: Project): Promise<BuildRun[]> {
+  const token = process.env.GITHUB_TOKEN;
+  const headers: HeadersInit = {
+    Accept: "application/vnd.github.v3+json",
+  };
+
+  if (token) {
+    headers.Authorization = `token ${token}`;
+  }
+
   try {
     const res = await fetch(
-      `https://api.github.com/repos/${project.githubRepo}/actions/runs?per_page=20&status=success&branch=master`
+      `https://api.github.com/repos/${project.githubRepo}/actions/runs?per_page=20&status=success&branch=master`,
+      { headers }
     );
     if (!res.ok) {
       console.error(`Failed to fetch Github Actions for ${project.name}`, await res.text());
@@ -103,7 +113,7 @@ export async function fetchDevBuilds(project: Project): Promise<BuildRun[]> {
     return await Promise.all(
       runs.map(async (run) => {
         try {
-          const artRes = await fetch(run.artifacts_url);
+          const artRes = await fetch(run.artifacts_url, { headers });
           if (!artRes.ok) {
             return run;
           }

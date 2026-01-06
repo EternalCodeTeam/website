@@ -5,11 +5,11 @@ import { memo, type ReactNode, useRef } from "react";
 import { CopyToClipboard } from "@/components/ui/copy-to-clipboard";
 import { cn } from "@/lib/utils";
 
-type CodeBlockProps = {
+interface CodeBlockProps {
   children: ReactNode;
   language?: string;
   className?: string;
-};
+}
 
 export const CodeBlock = memo(({ children, language: _language, className }: CodeBlockProps) => {
   const preRef = useRef<HTMLPreElement>(null);

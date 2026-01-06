@@ -1,25 +1,25 @@
-export type TeamRole = {
+export interface TeamRole {
   name: string;
-};
+}
 
-export type Member = {
+export interface Member {
   documentId: string;
   avatar_url: string;
   name: string;
   team_roles: TeamRole[];
   github?: string;
   linkedin?: string;
-};
+}
 
-export type RoleSection = {
+export interface RoleSection {
   name: string;
   description?: string;
   priority: number;
   members: Member[];
   variant?: "default" | "contributors";
-};
+}
 
-export type TeamMemberProps = {
+export interface TeamMemberProps {
   member: Member;
   index: number;
-};
+}

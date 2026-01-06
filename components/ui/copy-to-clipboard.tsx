@@ -6,12 +6,12 @@ import { type ReactNode, useState } from "react";
 import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
 
-type CopyToClipboardProps = {
+interface CopyToClipboardProps {
   text: string;
   className?: string;
   children?: ReactNode | ((props: { copied: boolean }) => ReactNode);
   showIcon?: boolean;
-};
+}
 
 export function CopyToClipboard({
   text,

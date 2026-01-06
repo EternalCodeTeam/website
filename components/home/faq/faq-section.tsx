@@ -8,10 +8,10 @@ import {
 } from "@/components/ui/accordion";
 import { SlideIn } from "@/components/ui/motion/motion-components";
 
-type FaqItem = {
+interface FaqItem {
   question: string;
   answer: string;
-};
+}
 
 const faqItems: FaqItem[] = [
   {

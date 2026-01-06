@@ -1,9 +1,9 @@
 import { memo } from "react";
 import { MinecraftText } from "../../preview/minecraft-text-parser";
 
-type ActionBarProps = {
+interface ActionBarProps {
   message: string;
-};
+}
 
 const ActionBar = memo(({ message }: ActionBarProps) => {
   if (!message) {

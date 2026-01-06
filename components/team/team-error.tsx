@@ -3,9 +3,9 @@
 import { motion } from "framer-motion";
 import { FaExclamationTriangle } from "react-icons/fa";
 
-type TeamErrorProps = {
+interface TeamErrorProps {
   error: string;
-};
+}
 
 export default function TeamError({ error }: TeamErrorProps) {
   return (

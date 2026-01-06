@@ -4,7 +4,7 @@ export default function PolandMap() {
   return (
     <motion.svg
       aria-hidden={true}
-      className="-translate-x-1/2 -translate-y-1/2 pointer-events-none absolute top-1/2 left-1/2 h-[130%] w-[130%] text-blue-600 opacity-10 dark:text-blue-500 dark:opacity-20"
+      className="pointer-events-none absolute top-1/2 left-1/2 h-[130%] w-[130%] -translate-x-1/2 -translate-y-1/2 text-blue-600 opacity-10 dark:text-blue-500 dark:opacity-20"
       fill="none"
       viewBox="0 0 914 867"
       xmlns="http://www.w3.org/2000/svg"

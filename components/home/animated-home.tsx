@@ -14,7 +14,7 @@ export default function AnimatedHome() {
   return (
     <motion.div className="relative bg-gray-50 dark:bg-gray-950" id="main-content" tabIndex={-1}>
       <div className="pointer-events-none absolute inset-0 z-0 select-none overflow-hidden">
-        <div className="-left-[10%] absolute top-0 h-[300px] w-[300px] rounded-full bg-blue-500/10 blur-3xl filter will-change-transform md:h-[600px] md:w-[600px] dark:bg-blue-500/5" />
+        <div className="absolute top-0 -left-[10%] h-[300px] w-[300px] rounded-full bg-blue-500/10 blur-3xl filter will-change-transform md:h-[600px] md:w-[600px] dark:bg-blue-500/5" />
 
         <div className="absolute top-[30%] left-[-10%] h-[250px] w-[250px] rounded-full bg-purple-500/10 mix-blend-multiply blur-3xl filter will-change-transform md:h-[500px] md:w-[500px] dark:bg-purple-500/5 dark:mix-blend-screen" />
 
@@ -22,7 +22,7 @@ export default function AnimatedHome() {
 
         <div className="absolute top-[75%] left-[-10%] h-[250px] w-[250px] rounded-full bg-cyan-500/10 mix-blend-multiply blur-3xl filter will-change-transform md:h-[500px] md:w-[500px] dark:bg-cyan-500/5 dark:mix-blend-screen" />
 
-        <div className="-translate-x-1/2 absolute bottom-[-10%] left-1/2 h-[300px] w-[300px] rounded-full bg-blue-500/10 blur-3xl filter will-change-transform md:h-[600px] md:w-[600px] dark:bg-blue-500/5" />
+        <div className="absolute bottom-[-10%] left-1/2 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-3xl filter will-change-transform md:h-[600px] md:w-[600px] dark:bg-blue-500/5" />
 
         <FacadePattern className="absolute inset-0 h-full opacity-30 dark:opacity-10" />
       </div>

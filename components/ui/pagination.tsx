@@ -4,14 +4,14 @@ import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 
-type PaginationProps = {
+interface PaginationProps {
   currentPage: number;
   totalPages: number;
   totalItems: number;
   itemsPerPage: number;
   slug: string;
   className?: string;
-};
+}
 
 const baseBtn =
   "inline-flex items-center justify-center font-medium transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border text-xs rounded-xs";
@@ -79,11 +79,10 @@ export function Pagination({
 
         {visiblePages.map((pageNumber) => {
           const isCurrentPage = currentPage === pageNumber;
-          // biome-ignore lint/nursery/noLeakedRender: Safe ternary with string literals
+
           const ariaCurrent = isCurrentPage ? ("page" as const) : undefined;
           const linkClassName = cn(
             baseBtn,
-            // biome-ignore lint/nursery/noLeakedRender: Safe ternary with CSS class strings
             isCurrentPage ? primaryBtn : outlineBtn,
             "h-8 w-8 justify-center p-0"
           );

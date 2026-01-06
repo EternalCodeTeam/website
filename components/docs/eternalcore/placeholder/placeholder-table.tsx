@@ -6,9 +6,9 @@ import type { Placeholder } from "@/components/docs/eternalcore/placeholder/type
 import { CopyToClipboard } from "@/components/ui/copy-to-clipboard";
 import { cn } from "@/lib/utils";
 
-type PlaceholderTableProps = {
+interface PlaceholderTableProps {
   placeholders: Placeholder[];
-};
+}
 
 export function PlaceholderTable({ placeholders }: PlaceholderTableProps) {
   return (

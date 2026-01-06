@@ -16,14 +16,14 @@ const itemVariants = {
   },
 } as const;
 
-type ContributionCardProps = {
+interface ContributionCardProps {
   icon: string;
   title: string;
   description: string;
   actionText: string;
   href: string;
   color: string;
-};
+}
 
 export function ContributionCard({
   icon,
@@ -63,9 +63,6 @@ export function ContributionCard({
         <Button
           className="w-full"
           href={href}
-          // biome-ignore lint/nursery/noLeakedRender: undefined is required by types
-          rel={external ? "noopener noreferrer" : undefined}
-          // biome-ignore lint/nursery/noLeakedRender: undefined is required by types
           target={external ? "_blank" : undefined}
           variant="primary"
         >

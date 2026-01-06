@@ -17,7 +17,7 @@ export default function TeamMember({ member }: TeamMemberProps) {
   return (
     <MotionCard className="group relative flex h-full items-center gap-4 bg-white/50 p-4 ring-gray-200/60 backdrop-blur-sm transition-all duration-300 hover:bg-white hover:shadow-xl hover:ring-blue-500/30 dark:bg-gray-900/40 dark:ring-gray-800/60 dark:hover:bg-gray-900/80 dark:hover:shadow-blue-900/20 dark:hover:ring-blue-400/30">
       {/* Background Gradient Effect on Hover */}
-      <div className="-z-10 absolute inset-0 bg-gradient-to-br from-blue-50/0 via-transparent to-purple-50/0 opacity-0 transition-opacity duration-500 group-hover:from-blue-50/50 group-hover:to-purple-50/50 group-hover:opacity-100 dark:group-hover:from-blue-900/10 dark:group-hover:to-purple-900/10" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-50/0 via-transparent to-purple-50/0 opacity-0 transition-opacity duration-500 group-hover:from-blue-50/50 group-hover:to-purple-50/50 group-hover:opacity-100 dark:group-hover:from-blue-900/10 dark:group-hover:to-purple-900/10" />
 
       {/* Avatar */}
       <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-gray-100 ring-1 ring-gray-200 dark:bg-gray-800 dark:ring-gray-700">

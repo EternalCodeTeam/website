@@ -3,13 +3,13 @@ import { Dropdown } from "@/components/ui/dropdown";
 import { FadeIn } from "@/components/ui/motion/motion-components";
 import { GitBranch, Package } from "lucide-react";
 
-type BuildControlsProps = {
+interface BuildControlsProps {
   projects: Project[];
   activeProject: Project;
   activeTab: "STABLE" | "DEV";
   onProjectChange: (projectId: string) => void;
   onTabChange: (tab: "STABLE" | "DEV") => void;
-};
+}
 
 export function BuildControls({
   projects,
