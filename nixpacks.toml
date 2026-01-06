@@ -1,0 +1,22 @@
+[phases.setup]
+command = "bun install"
+nixPkgs = ["nodejs_22"]
+
+[phases.build]
+command = "bun run build"
+
+[phases.start]
+command = "bun run start"
+
+[env]
+NODE_ENV = "production"
+CI = "true"
+NPM_CONFIG_PRODUCTION = "false"
+
+[cache]
+directories = [
+  "node_modules",
+  ".bun",
+  ".bun/install/cache",
+  ".cache"
+]
