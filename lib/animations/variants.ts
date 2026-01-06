@@ -1,11 +1,9 @@
-import type { Variants, Transition } from "framer-motion";
-
-// --- Physics & Transitions ---
+import type { Transition, Variants } from "framer-motion";
 
 export const softSpring: Transition = {
   type: "spring",
-  stiffness: 100,
-  damping: 20,
+  stiffness: 120,
+  damping: 18,
   mass: 1,
 };
 
@@ -22,8 +20,14 @@ export const snappySpring: Transition = {
 };
 
 export const smoothEase: Transition = {
-  duration: 0.6,
+  duration: 0.4,
   ease: [0.22, 1, 0.36, 1], // Custom cubic-bezier (easeOutExpo-ish)
+};
+
+export const interactionSpring: Transition = {
+  type: "spring",
+  stiffness: 400,
+  damping: 25,
 };
 
 // --- Variants ---
@@ -31,74 +35,64 @@ export const smoothEase: Transition = {
 export const fadeIn: Variants = {
   hidden: {
     opacity: 0,
-    filter: "blur(4px)", // Subtle blur for premium feel
   },
   visible: {
     opacity: 1,
-    filter: "blur(0px)",
     transition: smoothEase,
   },
 };
 
 export const slideUp: Variants = {
   hidden: {
-    y: 30,
+    y: 20,
     opacity: 0,
-    filter: "blur(4px)",
   },
   visible: {
     y: 0,
     opacity: 1,
-    filter: "blur(0px)",
     transition: softSpring,
   },
 };
 
 export const slideDown: Variants = {
   hidden: {
-    y: -30,
+    y: -20,
     opacity: 0,
-    filter: "blur(4px)",
   },
   visible: {
     y: 0,
     opacity: 1,
-    filter: "blur(0px)",
     transition: softSpring,
   },
 };
 
 export const slideInLeft: Variants = {
   hidden: {
-    x: -30,
+    x: -20,
     opacity: 0,
-    filter: "blur(4px)",
   },
   visible: {
     x: 0,
     opacity: 1,
-    filter: "blur(0px)",
     transition: softSpring,
   },
 };
 
 export const slideInRight: Variants = {
   hidden: {
-    x: 30,
+    x: 20,
     opacity: 0,
-    filter: "blur(4px)",
   },
   visible: {
     x: 0,
     opacity: 1,
-    filter: "blur(0px)",
     transition: softSpring,
   },
 };
 
 export const scaleIn: Variants = {
   hidden: {
-    scale: 0.92,
+    scale: 0.95,
     opacity: 0,
   },
   visible: {
@@ -111,8 +105,8 @@ export const scaleIn: Variants = {
 export const containerStagger: Variants = {
   visible: {
     transition: {
-      staggerChildren: 0.1, // Stagger delay between children
-      delayChildren: 0.05,
+      staggerChildren: 0.08, // Faster stagger
+      delayChildren: 0,
     },
   },
 };

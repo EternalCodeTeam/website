@@ -1,0 +1,136 @@
+"use client";
+
+import { type HTMLMotionProps, motion } from "framer-motion";
+import {
+  type ButtonHTMLAttributes,
+  createContext,
+  type HTMLAttributes,
+  type ReactNode,
+  useContext,
+  useId,
+  useState,
+} from "react";
+import { cn } from "@/lib/utils";
+
+interface TabsContextType {
+  activeTab: string;
+  setActiveTab: (value: string) => void;
+  layoutId: string;
+}
+
+const TabsContext = createContext<TabsContextType | undefined>(undefined);
+
+function useTabs() {
+  const context = useContext(TabsContext);
+  if (!context) {
+    throw new Error("Tabs components must be used within a Tabs provider");
+  }
+  return context;
+}
+
+interface TabsProps extends HTMLAttributes<HTMLDivElement> {
+  defaultValue: string;
+  onValueChange?: (value: string) => void;
+  children: ReactNode;
+}
+
+export function Tabs({ defaultValue, onValueChange, className, children, ...props }: TabsProps) {
+  const [activeTab, setActiveTab] = useState(defaultValue);
+  const layoutId = useId();
+
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    onValueChange?.(value);
+  };
+
+  return (
+    <TabsContext.Provider value={{ activeTab, setActiveTab: handleTabChange, layoutId }}>
+      <div className={cn("w-full", className)} {...props}>
+        {children}
+      </div>
+    </TabsContext.Provider>
+  );
+}
+
+interface TabsListProps extends HTMLAttributes<HTMLDivElement> {
+  children: ReactNode;
+}
+
+export function TabsList({ className, children, ...props }: TabsListProps) {
+  return (
+    <div
+      className={cn(
+        "inline-flex h-12 items-center justify-center rounded-full border border-gray-200 bg-gray-100 p-1 backdrop-blur-sm dark:border-white/10 dark:bg-gray-900/50",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}
+
+interface TabsTriggerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  value: string;
+  children: ReactNode;
+}
+
+export function TabsTrigger({ className, value, children, ...props }: TabsTriggerProps) {
+  const { activeTab, setActiveTab, layoutId } = useTabs();
+  const isActive = activeTab === value;
+
+  return (
+    <button
+      className={cn(
+        "relative inline-flex items-center justify-center whitespace-nowrap rounded-full px-6 py-2 font-medium text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:pointer-events-none disabled:opacity-50",
+        isActive
+          ? "text-blue-600 dark:text-blue-400"
+          : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200",
+        className
+      )}
+      onClick={() => setActiveTab(value)}
+      type="button"
+      {...props}
+    >
+      {!!isActive && (
+        <motion.div
+          className="absolute inset-0 z-0 rounded-full bg-white shadow-sm dark:bg-white/10"
+          initial={false}
+          layoutId={`tab-bg-${layoutId}`}
+          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+        />
+      )}
+      <span className="relative z-10">{children}</span>
+    </button>
+  );
+}
+
+interface TabsContentProps extends HTMLMotionProps<"div"> {
+  value: string;
+  children: ReactNode;
+}
+
+export function TabsContent({ className, value, children, ...props }: TabsContentProps) {
+  const { activeTab } = useTabs();
+  const isActive = activeTab === value;
+
+  if (!isActive) {
+    return null;
+  }
+
+  return (
+    <motion.div
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      className={cn(
+        "mt-6 ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
+        className
+      )}
+      exit={{ opacity: 0, y: -10, scale: 0.98 }}
+      initial={{ opacity: 0, y: 10, scale: 0.98 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      {...props}
+    >
+      {children}
+    </motion.div>
+  );
+}

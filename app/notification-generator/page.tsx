@@ -1,76 +1,33 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo, type ReactNode } from "react";
-
-import { Play } from "@/components/icons/play";
-
-import {
-  SlideIn,
-  StaggerContainer,
-  FadeIn,
-  HoverScale,
-} from "@/components/ui/motion/MotionComponents";
-import { NotificationGeneratedCode } from "@/components/notification-generator/NotificationGeneratedCode";
-import { NotificationGenerator as NotificationGeneratorForm } from "@/components/notification-generator/NotificationGenerator";
-import { MinecraftPreview } from "@/components/notification-generator/preview/MinecraftPreview";
+import { Play } from "lucide-react";
+import dynamic from "next/dynamic";
+import { useCallback, useEffect, useState } from "react";
 import type { NotificationConfig } from "@/components/notification-generator/types";
+import { Button } from "@/components/ui/button";
+import { FadeIn, SlideIn, StaggerContainer } from "@/components/ui/motion/motion-components";
 
-interface PanelProps {
-  title: ReactNode;
-  children: ReactNode;
-  delay: number;
-  direction?: "left" | "right" | "up" | "down";
-}
-
-function Panel({ title, children, delay, direction = "up" }: PanelProps) {
-  return (
-    <SlideIn
-      className="rounded-lg bg-white p-4 shadow-md dark:bg-gray-800 md:p-6"
-      direction={direction}
-      delay={delay}
-    >
-      <FadeIn delay={delay + 0.1}>
-        <h2 className="mb-4 text-lg font-semibold md:text-xl">{title}</h2>
-      </FadeIn>
-      {children}
-    </SlideIn>
-  );
-}
-
-interface PreviewSectionProps {
-  previewKey: number;
-  notification: NotificationConfig;
-  onPlay: () => void;
-  delay: number;
-}
-
-function PreviewSection({ previewKey, notification, onPlay, delay }: PreviewSectionProps) {
-  return (
-    <SlideIn
-      className="col-span-1 rounded-lg bg-white p-4 shadow-md dark:bg-gray-800 md:p-6 lg:col-span-2"
-      direction="up"
-      delay={delay}
-    >
-      <div className="mb-4 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-        <FadeIn delay={delay + 0.1}>
-          <h2 className="text-lg font-semibold md:text-xl">Preview</h2>
-        </FadeIn>
-        <HoverScale>
-          <button
-            type="button"
-            onClick={onPlay}
-            className="flex items-center rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-            aria-label="Play title animation"
-          >
-            <Play className="mr-2 h-5 w-5" />
-            Play title
-          </button>
-        </HoverScale>
-      </div>
-      <MinecraftPreview key={previewKey} notification={notification} />
-    </SlideIn>
-  );
-}
+const NotificationGeneratedCode = dynamic(
+  () =>
+    import("@/components/notification-generator/notification-generated-code").then(
+      (mod) => mod.NotificationGeneratedCode
+    ),
+  { ssr: false }
+);
+const NotificationGeneratorForm = dynamic(
+  () =>
+    import("@/components/notification-generator/notification-generator").then(
+      (mod) => mod.NotificationGenerator
+    ),
+  { ssr: false }
+);
+const MinecraftPreview = dynamic(
+  () =>
+    import("@/components/notification-generator/preview/minecraft-preview").then(
+      (mod) => mod.MinecraftPreview
+    ),
+  { ssr: false }
+);
 
 export default function NotificationGeneratorPage() {
   const [notification, setNotification] = useState<NotificationConfig>({
@@ -91,66 +48,7 @@ export default function NotificationGeneratorPage() {
   const [yamlCode, setYamlCode] = useState("");
   const [previewKey, setPreviewKey] = useState(0);
 
-  const generateYaml = useCallback(() => {
-    const parts = [];
-
-    if (notification.chat) {
-      if (notification.chat.includes("\n")) {
-        const lines = notification.chat.split("\n");
-        parts.push("chat:");
-        lines.forEach((line) => {
-          parts.push(`  - "${line}"`);
-        });
-      } else {
-        parts.push(`chat: "${notification.chat}"`);
-      }
-    }
-
-    if (notification.actionbar) {
-      parts.push(`actionbar: "${notification.actionbar}"`);
-    }
-
-    if (notification.title) {
-      parts.push(`title: "${notification.title}"`);
-    }
-
-    if (notification.subtitle) {
-      parts.push(`subtitle: "${notification.subtitle}"`);
-    }
-
-    if (notification.fadeIn || notification.stay || notification.fadeOut) {
-      const fadeIn = notification.fadeIn || "0s";
-      const stay = notification.stay || "0s";
-      const fadeOut = notification.fadeOut || "0s";
-      parts.push(`times: "${fadeIn} ${stay} ${fadeOut}"`);
-    }
-
-    if (notification.sound) {
-      const volumeValue = notification.volume || "1.0";
-      const pitchValue = notification.pitch || "1.0";
-
-      const volume = parseFloat(volumeValue).toFixed(1);
-      const pitch = parseFloat(pitchValue).toFixed(1);
-
-      if (notification.soundCategory) {
-        parts.push(
-          `sound: "${notification.sound} ${notification.soundCategory} ${volume} ${pitch}"`
-        );
-      } else {
-        parts.push(`sound: "${notification.sound} ${volume} ${pitch}"`);
-      }
-    }
-
-    if (notification.titleHide) {
-      parts.push("titleHide: true");
-    }
-
-    if (parts.length === 0) {
-      return "example: []";
-    }
-
-    return `example:\n  ${parts.join("\n  ")}`;
-  }, [notification]);
+  const generateYaml = useCallback(() => generateYamlString(notification), [notification]);
 
   useEffect(() => {
     setYamlCode(generateYaml());
@@ -160,38 +58,128 @@ export default function NotificationGeneratorPage() {
     setPreviewKey((prev) => prev + 1);
   }, []);
 
-  const formComponent = useMemo(
-    () => (
-      <NotificationGeneratorForm notification={notification} setNotification={setNotification} />
-    ),
-    [notification]
-  );
-
-  const codeComponent = useMemo(
-    () => <NotificationGeneratedCode yamlCode={yamlCode} />,
-    [yamlCode]
-  );
-
   return (
     <StaggerContainer className="w-full">
-      <SlideIn direction="down" className="mb-6 text-2xl font-bold md:text-3xl" delay={0.1}>
-        Notification Generator
-      </SlideIn>
-
-      <div className="grid grid-cols-1 gap-6 md:gap-8 lg:grid-cols-2">
-        <Panel title="Create Your Notification" delay={0.2} direction="left">
-          {formComponent}
-        </Panel>
-        <Panel title="Generated YAML" delay={0.2} direction="right">
-          {codeComponent}
-        </Panel>
-        <PreviewSection
-          previewKey={previewKey}
-          notification={notification}
-          onPlay={handlePlayPreview}
-          delay={0.3}
-        />
+      <div className="mb-12 text-center">
+        <SlideIn delay={0.1} direction="down">
+          <h1 className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text font-extrabold text-4xl text-transparent tracking-tight md:text-6xl dark:from-white dark:to-gray-300">
+            Notification Generator
+          </h1>
+        </SlideIn>
+        <FadeIn delay={0.2}>
+          <p className="mt-4 text-gray-600 text-lg dark:text-gray-400">
+            Design and preview your EternalCode notifications in real-time.
+          </p>
+        </FadeIn>
       </div>
+
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+        <SlideIn className="h-full" delay={0.3} direction="left">
+          <NotificationGeneratorForm
+            notification={notification}
+            setNotification={setNotification}
+          />
+        </SlideIn>
+
+        <SlideIn className="h-full" delay={0.4} direction="right">
+          <div className="h-full rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 dark:bg-gray-900/40 dark:ring-gray-800">
+            <h2 className="mb-4 font-semibold text-gray-900 text-xl dark:text-white">
+              Generated Configuration
+            </h2>
+            <NotificationGeneratedCode yamlCode={yamlCode} />
+          </div>
+        </SlideIn>
+      </div>
+
+      <SlideIn className="mt-8" delay={0.5} direction="up">
+        <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 dark:bg-gray-900/40 dark:ring-gray-800">
+          <div className="mb-6 flex flex-col items-center justify-between gap-4 sm:flex-row">
+            <div>
+              <h2 className="font-semibold text-gray-900 text-xl dark:text-white">Live Preview</h2>
+              <p className="mt-1 text-gray-500 text-sm dark:text-gray-400">
+                See how your notification looks in-game.
+              </p>
+            </div>
+            <Button
+              leftIcon={<Play className="h-4 w-4" />}
+              onClick={handlePlayPreview}
+              variant="primary"
+            >
+              Replay Animation
+            </Button>
+          </div>
+
+          <div className="overflow-hidden rounded-xl border border-gray-200 bg-black shadow-lg dark:border-gray-800">
+            <MinecraftPreview key={previewKey} notification={notification} />
+          </div>
+        </div>
+      </SlideIn>
     </StaggerContainer>
   );
+}
+
+function generateYamlString(notification: NotificationConfig): string {
+  const parts: string[] = [];
+
+  if (notification.chat) {
+    parts.push(...generateChatYaml(notification.chat));
+  }
+
+  if (notification.actionbar) {
+    parts.push(`actionbar: "${notification.actionbar}"`);
+  }
+
+  if (notification.title) {
+    parts.push(`title: "${notification.title}"`);
+  }
+
+  if (notification.subtitle) {
+    parts.push(`subtitle: "${notification.subtitle}"`);
+  }
+
+  if (notification.fadeIn || notification.stay || notification.fadeOut) {
+    const fadeIn = notification.fadeIn || "0s";
+    const stay = notification.stay || "0s";
+    const fadeOut = notification.fadeOut || "0s";
+    parts.push(`times: "${fadeIn} ${stay} ${fadeOut}"`);
+  }
+
+  if (notification.sound) {
+    parts.push(generateSoundYaml(notification));
+  }
+
+  if (notification.titleHide) {
+    parts.push("titleHide: true");
+  }
+
+  if (parts.length === 0) {
+    return "example: []";
+  }
+
+  return `example:\n  ${parts.join("\n  ")}`;
+}
+
+function generateChatYaml(chat: string): string[] {
+  if (chat.includes("\n")) {
+    const lines = chat.split("\n");
+    const result = ["chat:"];
+    for (const line of lines) {
+      result.push(`  - "${line}"`);
+    }
+    return result;
+  }
+  return [`chat: "${chat}"`];
+}
+
+function generateSoundYaml(notification: NotificationConfig): string {
+  const volumeValue = notification.volume || "1.0";
+  const pitchValue = notification.pitch || "1.0";
+
+  const volume = Number.parseFloat(volumeValue).toFixed(1);
+  const pitch = Number.parseFloat(pitchValue).toFixed(1);
+
+  if (notification.soundCategory) {
+    return `sound: "${notification.sound} ${notification.soundCategory} ${volume} ${pitch}"`;
+  }
+  return `sound: "${notification.sound} ${volume} ${pitch}"`;
 }

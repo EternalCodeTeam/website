@@ -6,17 +6,20 @@ export interface Member {
   documentId: string;
   avatar_url: string;
   name: string;
-  team_roles: { data: TeamRole[] };
+  team_roles: TeamRole[];
   github?: string;
   linkedin?: string;
+}
+
+export interface RoleSection {
+  name: string;
+  description?: string;
+  priority: number;
+  members: Member[];
+  variant?: "default" | "contributors";
 }
 
 export interface TeamMemberProps {
   member: Member;
   index: number;
-}
-
-export interface StrapiResponse {
-  data: Member[];
-  meta?: Record<string, unknown>;
 }

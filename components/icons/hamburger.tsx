@@ -5,21 +5,21 @@ interface HamburgerProps {
 export default function Hamburger({ className = "" }: HamburgerProps) {
   return (
     <svg
+      aria-label="Menu"
       className={className}
-      width="24"
+      fill="none"
       height="24"
       viewBox="0 0 24 24"
-      fill="none"
+      width="24"
       xmlns="http://www.w3.org/2000/svg"
-      aria-label="Menu"
     >
       <title>Menu</title>
       <path
         d="M4 6H20M4 12H20M4 18H20"
         stroke="currentColor"
-        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        strokeWidth="2"
       />
     </svg>
   );

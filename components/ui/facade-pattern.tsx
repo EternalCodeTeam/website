@@ -10,20 +10,20 @@ export function FacadePattern({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "pointer-events-none absolute inset-0 overflow-hidden [mask-image:radial-gradient(ellipse_at_center,black_0%,transparent_80%)]",
+        "pointer-events-none absolute inset-0 transform-gpu overflow-hidden will-change-transform [mask-image:radial-gradient(ellipse_at_center,black_0%,transparent_80%)]",
         className
       )}
     >
       <svg
-        className="absolute inset-0 h-full w-full stroke-gray-300/30 dark:stroke-gray-700/30"
         aria-hidden="true"
+        className="absolute inset-0 h-full w-full stroke-gray-300/30 dark:stroke-gray-700/30"
       >
         <defs>
-          <pattern id={id} width="40" height="40" patternUnits="userSpaceOnUse" x="50%" y="-1">
+          <pattern height="40" id={id} patternUnits="userSpaceOnUse" width="40" x="50%" y="-1">
             <path d="M.5 40V.5H40" fill="none" />
           </pattern>
         </defs>
-        <rect width="100%" height="100%" strokeWidth="0" fill={`url(#${id})`} />
+        <rect fill={`url(#${id})`} height="100%" strokeWidth="0" width="100%" />
       </svg>
     </div>
   );

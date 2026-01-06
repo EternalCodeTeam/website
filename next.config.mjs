@@ -1,16 +1,9 @@
-import createMDX from "@next/mdx";
 
-const withMDX = createMDX({
-  extension: /\.(md|mdx)$/,
-  options: {
-    remarkPlugins: ["remark-gfm", "remark-emoji"],
-    rehypePlugins: ["rehype-slug", ["rehype-autolink-headings", { behavior: "wrap" }], "rehype-prism"],
-  },
-});
+
 
 
 const nextConfig = {
-  pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+  pageExtensions: ["js", "jsx", "ts", "tsx"],
   images: {
     remotePatterns: [
       {
@@ -48,24 +41,40 @@ const nextConfig = {
         hostname: "cms.eternalcode.pl",
         port: "",
       },
+
     ],
     formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 450, 512],
   },
   poweredByHeader: false,
   compress: true,
   reactStrictMode: true,
+  reactCompiler: true,
   experimental: {
-    optimizeCss: true,
-    optimizePackageImports: ["@headlessui/react", "framer-motion", "lucide-react"],
+    optimizePackageImports: [
+      "framer-motion",
+      "lucide-react",
+      "date-fns",
+      "react-icons",
+      "@radix-ui/react-tabs",
+    ],
     serverActions: {
       allowedOrigins: ["eternalcode.pl", "www.eternalcode.pl"],
+      bodySizeLimit: "5mb",
     },
-    mdxRs: false,
   },
   bundlePagesRouterDependencies: true,
-  serverExternalPackages: ["gray-matter"],
+  serverExternalPackages: ["gray-matter", "sharp"],
 };
 
-export default withMDX(nextConfig);
+
+import withBundleAnalyzer from "@next/bundle-analyzer";
+
+const bundleAnalyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+  openAnalyzer: false,
+});
+
+export default bundleAnalyzer(nextConfig);
+

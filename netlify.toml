@@ -1,0 +1,11 @@
+[build]
+command = "bun run build"
+publish = ".next"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31556952, immutable"
+
+[[plugins]]
+package = "@netlify/plugin-nextjs"

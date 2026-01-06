@@ -2,16 +2,13 @@ import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
+import "lenis/dist/lenis.css";
 import type React from "react";
 
-import { Analytics } from "@/components/Analytics";
 import "./prism-languages";
-import { CookieConsentModal } from "@/components/CookieConsentModal";
-import { CookiePreferencesMenu } from "@/components/CookiePreferencesMenu";
-import Footer from "@/components/footer/Footer";
-import Navbar from "@/components/hero/Navbar";
-import { SpeedInsights } from "@/components/SpeedInsights";
-import { generateOgImageUrl } from "@/lib/og-utils";
+import { CookieConsentModal } from "@/components/cookie-consent-modal";
+import Footer from "@/components/footer/footer";
+import Navbar from "@/components/hero/navbar";
 
 import { Providers } from "./providers";
 
@@ -38,11 +35,6 @@ export const viewport: Viewport = {
   ],
 };
 
-const defaultOgImageUrl = generateOgImageUrl({
-  title: "EternalCode.pl",
-  subtitle: "We are a team creating open source projects!",
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://eternalcode.pl"),
   title: "EternalCode.pl | Home",
@@ -65,14 +57,6 @@ export const metadata: Metadata = {
     title: "EternalCode.pl | We are a team creating open source projects!",
     description:
       "EternalCode.pl delivers open source solutions with a focus on quality, performance, and innovation.",
-    images: [
-      {
-        url: defaultOgImageUrl,
-        width: 1200,
-        height: 630,
-        alt: "EternalCode.pl",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -81,7 +65,6 @@ export const metadata: Metadata = {
     title: "EternalCode.pl | We are a team creating open source projects!",
     description:
       "EternalCode.pl delivers open source solutions with a focus on quality, performance, and innovation.",
-    images: [defaultOgImageUrl],
   },
   robots: {
     index: true,
@@ -105,21 +88,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={poppins.variable}>
+    <html className={poppins.variable} lang="en" suppressHydrationWarning>
       <body
-        className={`${poppins.className} relative min-h-screen bg-light-gray-100 antialiased dark:bg-gray-900`}
+        className={`${poppins.className} relative min-h-screen overflow-x-hidden bg-light-gray-100 antialiased dark:bg-gray-900`}
       >
         <Providers>
           <NextTopLoader
             color="#3b82f6"
-            initialPosition={0.08}
-            crawlSpeed={200}
-            height={3}
             crawl={true}
-            showSpinner={false}
+            crawlSpeed={200}
             easing="ease"
-            speed={200}
+            height={3}
+            initialPosition={0.08}
             shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
+            showSpinner={false}
+            speed={200}
           />
           <header>
             <Navbar />
@@ -131,9 +114,6 @@ export default function RootLayout({
 
           <Footer />
           <CookieConsentModal />
-          <CookiePreferencesMenu />
-          <Analytics />
-          <SpeedInsights />
         </Providers>
       </body>
     </html>

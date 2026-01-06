@@ -1,9 +1,9 @@
 import type { FieldType } from "../types";
 
-export type TagCategory = {
+export interface TagCategory {
   pattern: RegExp;
   tags: string[];
-};
+}
 
 export interface MinecraftColor {
   name: string;

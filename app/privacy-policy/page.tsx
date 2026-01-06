@@ -18,37 +18,37 @@ import {
   HoverScale,
   SlideIn,
   StaggerContainer,
-} from "@/components/ui/motion/MotionComponents";
+} from "@/components/ui/motion/motion-components";
 
 export default function PrivacyPolicyPage() {
   const lastUpdated = "December 9, 2025";
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gray-50 dark:bg-gray-950">
+    <div className="relative min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Background Decor */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute -left-20 top-20 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl filter dark:bg-blue-500/5" />
-        <div className="absolute -right-20 top-40 h-96 w-96 rounded-full bg-indigo-500/10 blur-3xl filter dark:bg-indigo-500/5" />
-        <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-500/5 blur-3xl filter" />
+        <div className="absolute top-20 -left-20 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl filter dark:bg-blue-500/5" />
+        <div className="absolute top-40 -right-20 h-96 w-96 rounded-full bg-indigo-500/10 blur-3xl filter dark:bg-indigo-500/5" />
+        <div className="absolute top-1/2 left-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-500/5 blur-3xl filter" />
         <FacadePattern className="absolute inset-0 opacity-20 dark:opacity-10" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-(--breakpoint-xl) px-4 pb-20 pt-32 sm:pt-40">
+      <div className="relative z-10 mx-auto max-w-(--breakpoint-xl) px-4 pt-32 pb-20 sm:pt-40">
         {/* Hero Section */}
         <div className="mb-16 text-center">
           <FadeIn>
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-100 px-3 py-1 font-medium text-blue-700 text-sm dark:bg-blue-900/30 dark:text-blue-300">
               <ShieldCheck className="h-4 w-4" />
               <span>Trust & Transparency</span>
             </div>
-            <h1 className="mb-6 bg-linear-to-r from-gray-900 via-blue-800 to-indigo-900 bg-clip-text text-4xl font-extrabold text-transparent dark:from-white dark:via-blue-100 dark:to-indigo-200 sm:text-5xl md:text-6xl">
+            <h1 className="mb-6 bg-linear-to-r from-gray-900 via-blue-800 to-indigo-900 bg-clip-text font-extrabold text-4xl text-transparent sm:text-5xl md:text-6xl dark:from-white dark:via-blue-100 dark:to-indigo-200">
               Privacy Policy
             </h1>
-            <p className="mx-auto max-w-2xl text-lg text-gray-600 dark:text-gray-300">
+            <p className="mx-auto max-w-2xl text-gray-600 text-lg dark:text-gray-300">
               Your privacy is non-negotiable. We are committed to transparency in how we collect,
               use, and protect your data.
             </p>
-            <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+            <p className="mt-4 text-gray-500 text-sm dark:text-gray-400">
               Last updated: {lastUpdated}
             </p>
           </FadeIn>
@@ -63,10 +63,10 @@ export default function PrivacyPolicyPage() {
                   <Globe className="h-6 w-6" />
                 </div>
                 <div>
-                  <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
+                  <h2 className="mb-4 font-bold text-2xl text-gray-900 dark:text-white">
                     Who We Are
                   </h2>
-                  <p className="leading-relaxed text-gray-600 dark:text-gray-300">
+                  <p className="text-gray-600 leading-relaxed dark:text-gray-300">
                     EternalCode.pl is a collective of passionate developers dedicated to open-source
                     innovation. We build tools, libraries, and applications to empower the
                     community. Transparency isn't just a policy for us; it's a core value. We
@@ -80,8 +80,8 @@ export default function PrivacyPolicyPage() {
 
           {/* What We Collect - Grid */}
           <section>
-            <SlideIn direction="up" className="mb-8 text-center">
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Data We Collect</h2>
+            <SlideIn className="mb-8 text-center" direction="up">
+              <h2 className="font-bold text-3xl text-gray-900 dark:text-white">Data We Collect</h2>
               <p className="mt-2 text-gray-600 dark:text-gray-400">
                 we only collect what is strictly necessary.
               </p>
@@ -91,10 +91,10 @@ export default function PrivacyPolicyPage() {
               <HoverScale>
                 <div className="h-full rounded-xl border border-gray-200 bg-white p-6 shadow-xs transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-800">
                   <Cookie className="mb-4 h-8 w-8 text-orange-500" />
-                  <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+                  <h3 className="mb-2 font-semibold text-gray-900 text-lg dark:text-white">
                     Cookies
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                  <p className="text-gray-600 text-sm dark:text-gray-300">
                     Used for site functionality, preferences, and anonymous analytics. You control
                     these via our consent manager.
                   </p>
@@ -104,10 +104,10 @@ export default function PrivacyPolicyPage() {
               <HoverScale>
                 <div className="h-full rounded-xl border border-gray-200 bg-white p-6 shadow-xs transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-800">
                   <Eye className="mb-4 h-8 w-8 text-blue-500" />
-                  <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+                  <h3 className="mb-2 font-semibold text-gray-900 text-lg dark:text-white">
                     Analytics
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                  <p className="text-gray-600 text-sm dark:text-gray-300">
                     Aggregated, anonymous data (views, device types) via Vercel Analytics to improve
                     performance.
                   </p>
@@ -117,10 +117,10 @@ export default function PrivacyPolicyPage() {
               <HoverScale>
                 <div className="h-full rounded-xl border border-gray-200 bg-white p-6 shadow-xs transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-800">
                   <Mail className="mb-4 h-8 w-8 text-purple-500" />
-                  <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+                  <h3 className="mb-2 font-semibold text-gray-900 text-lg dark:text-white">
                     Communications
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                  <p className="text-gray-600 text-sm dark:text-gray-300">
                     Email addresses and message content when you explicitly contact us via forms or
                     Discord.
                   </p>
@@ -135,7 +135,7 @@ export default function PrivacyPolicyPage() {
               <section className="h-full rounded-2xl border border-gray-200 bg-white/50 p-8 dark:border-gray-800 dark:bg-gray-900/50">
                 <div className="mb-6 flex items-center gap-3">
                   <Server className="h-6 w-6 text-indigo-500" />
-                  <h2 className="text-xl font-bold text-gray-900 dark:text-white">Data Usage</h2>
+                  <h2 className="font-bold text-gray-900 text-xl dark:text-white">Data Usage</h2>
                 </div>
                 <ul className="space-y-3">
                   {[
@@ -145,8 +145,8 @@ export default function PrivacyPolicyPage() {
                     "Maintain site security and performance",
                   ].map((item) => (
                     <li
-                      key={item}
                       className="flex items-start gap-3 text-gray-600 dark:text-gray-300"
+                      key={item}
                     >
                       <div className="relative top-1.5 h-1.5 w-1.5 rounded-full bg-indigo-500" />
                       {item}
@@ -160,14 +160,14 @@ export default function PrivacyPolicyPage() {
               <section className="h-full rounded-2xl border border-gray-200 bg-white/50 p-8 dark:border-gray-800 dark:bg-gray-900/50">
                 <div className="mb-6 flex items-center gap-3">
                   <Database className="h-6 w-6 text-teal-500" />
-                  <h2 className="text-xl font-bold text-gray-900 dark:text-white">Cookie Types</h2>
+                  <h2 className="font-bold text-gray-900 text-xl dark:text-white">Cookie Types</h2>
                 </div>
                 <div className="space-y-4">
                   <div className="rounded-lg bg-gray-50 p-3 dark:bg-gray-800/50">
                     <span className="font-semibold text-teal-600 dark:text-teal-400">
                       Necessary:
                     </span>{" "}
-                    <span className="text-sm text-gray-600 dark:text-gray-300">
+                    <span className="text-gray-600 text-sm dark:text-gray-300">
                       Essential for site operation.
                     </span>
                   </div>
@@ -175,7 +175,7 @@ export default function PrivacyPolicyPage() {
                     <span className="font-semibold text-blue-600 dark:text-blue-400">
                       Analytics:
                     </span>{" "}
-                    <span className="text-sm text-gray-600 dark:text-gray-300">
+                    <span className="text-gray-600 text-sm dark:text-gray-300">
                       Anonymous usage metrics.
                     </span>
                   </div>
@@ -183,7 +183,7 @@ export default function PrivacyPolicyPage() {
                     <span className="font-semibold text-purple-600 dark:text-purple-400">
                       Marketing:
                     </span>{" "}
-                    <span className="text-sm text-gray-600 dark:text-gray-300">
+                    <span className="text-gray-600 text-sm dark:text-gray-300">
                       Cross-site tracking (optional).
                     </span>
                   </div>
@@ -200,12 +200,12 @@ export default function PrivacyPolicyPage() {
                   <Shield className="h-8 w-8 text-indigo-200" />
                 </div>
                 <div className="flex-1 text-center md:text-left">
-                  <h2 className="mb-3 text-2xl font-bold">Your Rights (GDPR)</h2>
+                  <h2 className="mb-3 font-bold text-2xl">Your Rights (GDPR)</h2>
                   <p className="mb-4 text-indigo-100">
                     You remain in control of your digital footprint. You have the right to access,
                     correct, delete, and restrict processing of your data.
                   </p>
-                  <p className="text-sm text-indigo-200/80">
+                  <p className="text-indigo-200/80 text-sm">
                     For specific requests, contact us directly. We process all GDPR requests within
                     legal timeframes.
                   </p>
@@ -217,7 +217,7 @@ export default function PrivacyPolicyPage() {
           {/* Contact Section */}
           <SlideIn direction="up">
             <section className="rounded-2xl border border-gray-200 bg-white p-8 dark:border-gray-800 dark:bg-gray-900">
-              <h2 className="mb-6 flex items-center gap-2 text-2xl font-bold text-gray-900 dark:text-white">
+              <h2 className="mb-6 flex items-center gap-2 font-bold text-2xl text-gray-900 dark:text-white">
                 <FileText className="h-6 w-6 text-gray-400" />
                 Contact Us
               </h2>
@@ -229,17 +229,17 @@ export default function PrivacyPolicyPage() {
                   </p>
                   <div className="flex flex-col gap-3">
                     <a
-                      href="mailto:eternalcodeteam@gmail.com"
                       className="flex items-center gap-3 rounded-lg border border-gray-200 p-3 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800"
+                      href="mailto:eternalcodeteam@gmail.com"
                     >
                       <Mail className="h-5 w-5 text-gray-500" />
                       <span className="font-medium text-gray-900 dark:text-white">email</span>
                     </a>
                     <a
-                      href="https://discord.com/invite/FQ7jmGBd6c"
-                      target="_blank"
-                      rel="noopener noreferrer"
                       className="flex items-center gap-3 rounded-lg border border-gray-200 p-3 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800"
+                      href="https://discord.com/invite/FQ7jmGBd6c"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       <Server className="h-5 w-5 text-gray-500" />
                       <span className="font-medium text-gray-900 dark:text-white">Discord</span>
@@ -250,7 +250,7 @@ export default function PrivacyPolicyPage() {
                   <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">
                     Important Note
                   </h3>
-                  <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+                  <p className="text-gray-600 text-sm leading-relaxed dark:text-gray-300">
                     We may update this policy periodically. Major changes will be communicated via
                     our website or social channels. Please review this page occasionally to stay
                     informed about how we protect your data.

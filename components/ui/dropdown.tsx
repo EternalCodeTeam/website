@@ -1,7 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { type ReactNode, useEffect, useRef, useState } from "react";
-
-import ArrowDown from "../icons/arrow-down";
+import { Check, ChevronDown } from "lucide-react";
+import { type KeyboardEvent, type ReactNode, useEffect, useRef, useState } from "react";
 
 export interface DropdownOption {
   value: string;
@@ -18,8 +17,9 @@ interface DropdownProps {
   className?: string;
   buttonClassName?: string;
   optionClassName?: string;
+  menuClassName?: string;
   children?: ReactNode;
-  "aria-labelledby"?: string;
+  variant?: "default" | "ghost";
 }
 
 export function Dropdown({
@@ -31,8 +31,8 @@ export function Dropdown({
   className = "",
   buttonClassName = "",
   optionClassName = "",
-  children,
-  "aria-labelledby": ariaLabelledBy,
+  menuClassName = "",
+  variant = "default",
 }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -45,88 +45,83 @@ export function Dropdown({
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside);
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [isOpen]);
 
   const handleOptionSelect = (optionValue: string) => {
     onChange(optionValue);
     setIsOpen(false);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent, optionValue: string) => {
+  const handleKeyDown = (e: KeyboardEvent, optionValue: string) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       handleOptionSelect(optionValue);
     }
   };
 
+  const baseButtonStyles =
+    variant === "default"
+      ? "rounded-xl border border-gray-200 bg-white/70 px-4 py-2.5 shadow-xs backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/40 dark:text-gray-200"
+      : "rounded-full px-4 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-white";
+
   return (
     <div className={`relative ${className}`} ref={dropdownRef}>
       <button
-        type="button"
-        className={`flex w-full items-center justify-between rounded-sm border border-gray-200 bg-white px-2 py-1 text-sm transition-colors duration-150 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 ${buttonClassName}`}
-        onClick={() => setIsOpen((v) => !v)}
-        disabled={disabled}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
-        aria-labelledby={ariaLabelledBy}
-        style={{ outline: "none", boxShadow: "none" }}
+        className={`flex w-full cursor-pointer items-center justify-between gap-2 font-medium text-gray-700 text-sm outline-none transition-all duration-200 ${baseButtonStyles} ${buttonClassName}`}
+        disabled={disabled}
+        onClick={() => !disabled && setIsOpen((v) => !v)}
+        type="button"
       >
         <span className="flex items-center gap-2 truncate">
-          {selected?.icon}
+          {!!selected?.icon && selected.icon}
           {selected?.label || placeholder}
         </span>
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
+          className="ml-2 shrink-0"
           transition={{ duration: 0.2 }}
-          className="ml-2"
         >
-          <ArrowDown className="h-4 w-4" aria-hidden="true" />
+          <ChevronDown aria-hidden="true" className="h-4 w-4 opacity-50" />
         </motion.span>
       </button>
       <AnimatePresence>
-        {isOpen && (
+        {!!isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
+            className={`absolute left-0 z-50 mt-2 min-w-full origin-top-right overflow-hidden rounded-xl border border-gray-200 bg-white/80 py-1 shadow-xl ring-1 ring-black/5 backdrop-blur-xl dark:border-gray-800 dark:bg-gray-900/80 dark:ring-white/10 ${menuClassName}`}
             exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.18, ease: "easeOut" }}
-            className="absolute z-30 mt-1 w-full rounded-lg bg-white py-2 shadow-xl ring-1 ring-black/10 dark:bg-gray-900 dark:ring-white/10"
-            style={{
-              boxShadow: "0 2px 8px 0 rgba(0,0,0,0.04)",
-              maxHeight: "200px",
-              overflowY: "auto",
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-            }}
-            role="listbox"
+            initial={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.15, ease: "easeOut" }}
           >
-            <style>
-              {`
-      .absolute::-webkit-scrollbar {
-        display: none;
-      }
-    `}
-            </style>
-            {options.map((option) => (
-              <div
-                key={option.value}
-                className={`block w-full cursor-pointer rounded-md px-4 py-2 text-left text-gray-900 outline-hidden transition-colors duration-150 hover:bg-blue-50 hover:text-blue-700 dark:text-white dark:hover:bg-gray-800 dark:hover:text-blue-400 ${optionClassName}`}
-                style={{ outline: "none", boxShadow: "none" }}
-                onClick={() => handleOptionSelect(option.value)}
-                onKeyDown={(e) => handleKeyDown(e, option.value)}
-                role="option"
-                aria-selected={option.value === value}
-                tabIndex={0}
-              >
-                <span className="flex items-center gap-2">
-                  {option.icon}
-                  {option.label}
-                </span>
-              </div>
-            ))}
-            {children}
+            <div className="scrollbar-none max-h-[300px] overflow-y-auto">
+              {options.map((option) => (
+                <div
+                  aria-selected={option.value === value}
+                  className={`flex cursor-pointer items-center justify-between px-4 py-2.5 text-sm outline-none transition-colors duration-150 ${
+                    option.value === value
+                      ? "bg-blue-50/50 font-medium text-blue-700 dark:bg-blue-500/10 dark:text-blue-400"
+                      : "text-gray-700 hover:bg-gray-50/80 dark:text-gray-300 dark:hover:bg-gray-800/60"
+                  } ${optionClassName}`}
+                  key={option.value}
+                  onClick={() => handleOptionSelect(option.value)}
+                  onKeyDown={(e) => handleKeyDown(e, option.value)}
+                  role="option"
+                  tabIndex={0}
+                >
+                  <span className="flex items-center gap-2">
+                    {option.icon}
+                    {option.label}
+                  </span>
+                  {!!(option.value === value) && <Check className="h-4 w-4 shrink-0" />}
+                </div>
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

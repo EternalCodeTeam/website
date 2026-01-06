@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
-import AnimatedHome from "@/components/home/AnimatedHome";
-import { generateOgImageMetadata } from "@/components/OgImage";
+import AnimatedHome from "@/components/home/animated-home";
 
 export const dynamic = "force-static";
 export const fetchCache = "force-cache";
@@ -13,10 +12,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://eternalcode.pl",
   },
-  ...generateOgImageMetadata({
-    title: "Home",
-    subtitle: "EternalCode.pl",
-  }),
+  // ...generateOgImageMetadata({
+  //   title: "Home",
+  //   subtitle: "EternalCode.pl",
+  // }),
 };
 
 export default function Home() {
