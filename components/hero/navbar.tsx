@@ -28,7 +28,6 @@ const NAV_LINKS: NavLink[] = [
   { href: "/", label: "Home", text: "Home" },
   { href: "/team", label: "Team", text: "Team" },
   { href: "/docs", label: "Documentation", text: "Documentation" },
-  { href: "/blog", label: "Blog", text: "Blog" },
   { href: "/contribute", label: "Contribute", text: "Contribute" },
   {
     href: "https://repo.eternalcode.pl/#/",

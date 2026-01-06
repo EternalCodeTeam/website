@@ -46,18 +46,6 @@
       "**/*.mdx"
     ]
   },
-  "overrides": [
-    {
-      "includes": [
-        "payload-types.ts",
-        "app/(payload)/admin/importMap.js",
-        "app/(payload)/admin/importMap.js.map"
-      ],
-      "linter": {
-        "enabled": false
-      }
-    }
-  ],
   "extends": [
     "ultracite/core",
     "ultracite/react",

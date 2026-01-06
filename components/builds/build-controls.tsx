@@ -1,4 +1,4 @@
-import type { Project } from "@/app/(website)/api/builds/builds";
+import type { Project } from "@/app/api/builds/builds";
 import { Dropdown } from "@/components/ui/dropdown";
 import { FadeIn } from "@/components/ui/motion/motion-components";
 import { GitBranch, Package } from "lucide-react";

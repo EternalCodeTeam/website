@@ -1,101 +1,72 @@
 import { cache } from "react";
 import type { Member, RoleSection } from "@/components/team/types";
 import { getContributors } from "@/lib/github";
-import type { TeamMember, TeamPage } from "@/payload-types-generated";
-import { getPayloadClient } from "../payload/client";
 
 export const getTeamData = cache(async (): Promise<RoleSection[]> => {
-  const payload = await getPayloadClient();
+  const teamMembers: Member[] = [
+    {
+      documentId: "1",
+      name: "Cyprian K",
+      avatar_url: "https://avatars.githubusercontent.com/u/43166542?v=4",
+      team_roles: [{ name: "Founder" }, { name: "Lead Developer" }],
+      github: "https://github.com/vluck77",
+      linkedin: undefined,
+    },
+    {
+      documentId: "2",
+      name: "Martin",
+      avatar_url: "https://avatars.githubusercontent.com/u/60662243?v=4",
+      team_roles: [{ name: "Project Manager" }, { name: "Developer" }],
+      github: "https://github.com/vhypn0",
+      linkedin: undefined,
+    },
+    {
+      documentId: "3",
+      name: "Piotr",
+      avatar_url: "https://avatars.githubusercontent.com/u/53056157?v=4",
+      team_roles: [{ name: "Developer" }],
+      github: "https://github.com/PiotrKotnowski",
+      linkedin: undefined,
+    },
+  ];
 
-  // Fetch roles sorted by priority
-  const { docs: roles } = await payload.find({
-    collection: "team-roles",
-    sort: "priority",
-    limit: 100,
-  });
-
-  // Fetch all members
-  const { docs: members } = await payload.find({
-    collection: "team-members",
-    limit: 100,
-    sort: "name",
-  });
-
-  const mappedMembers: Member[] = members.map((doc: TeamMember) => ({
-    documentId: String(doc.id),
-    name: doc.name,
-    avatar_url: doc.avatar || "",
-    team_roles:
-      doc.roles?.map((r) => {
-        if (typeof r === "object" && r !== null) {
-          return { name: r.name };
-        }
-        return { name: "" };
-      }) || [],
-    github: doc.github || undefined,
-    linkedin: doc.linkedin || undefined,
-  }));
-
-  const sections: RoleSection[] = [];
-
-  // Create sections based on defined roles
-  for (const role of roles) {
-    const roleMembers = mappedMembers.filter((m) => m.team_roles.some((r) => r.name === role.name));
-
-    if (roleMembers.length > 0) {
-      sections.push({
-        name: role.name,
-        description: role.description || undefined,
-        priority: role.priority || 999,
-        members: roleMembers,
-      });
-    }
-  }
-
-  // Handle members without roles or with undefined roles
-  // Optional: Add a "Contributors" section for members not in any defined role
-  const assignedMemberIds = new Set(sections.flatMap((s) => s.members.map((m) => m.documentId)));
-  const unassignedMembers = mappedMembers.filter((m) => !assignedMemberIds.has(m.documentId));
-
-  if (unassignedMembers.length > 0) {
-    sections.push({
-      name: "Contributors",
-      description: "Passionate individuals dedicated to the EternalCode mission.",
-      priority: 999,
-      members: unassignedMembers,
-    });
-  }
+  const sections: RoleSection[] = [
+    {
+      name: "Core Team",
+      description: "The minds behind EternalCode.",
+      priority: 1,
+      members: teamMembers,
+    },
+  ];
 
   try {
-    const teamPage = (await payload.findGlobal({
-      slug: "team-page",
-    })) as TeamPage;
+    const repos = [
+      "EternalCodeTeam/website",
+      "EternalCodeTeam/EternalCore",
+      "EternalCodeTeam/EternalCombat",
+      "EternalCodeTeam/ChatFormatter",
+    ];
+    const contributors = await getContributors(repos);
 
-    if (teamPage.contributorsSettings?.visible) {
-      const repos =
-        teamPage.contributorsSettings.repositories?.map((r) => r.url).filter(Boolean) || [];
+    if (contributors.length > 0) {
+      const contributorMembers: Member[] = contributors.map((c) => ({
+        documentId: `gh-${c.id}`,
+        name: c.login,
+        avatar_url: c.avatar_url,
+        team_roles: [],
+        github: c.html_url,
+      }));
 
-      if (repos.length > 0) {
-        const contributors = await getContributors(repos);
-        const contributorMembers: Member[] = contributors.map((c) => ({
-          documentId: `gh-${c.id}`,
-          name: c.login,
-          avatar_url: c.avatar_url,
-          team_roles: [],
-          github: c.html_url,
-        }));
-
-        sections.push({
-          name: teamPage.contributorsSettings.title || "Contributors",
-          description: teamPage.contributorsSettings.description || undefined,
-          priority: 1000,
-          members: contributorMembers,
-          variant: "contributors",
-        });
-      }
+      sections.push({
+        name: "Contributors",
+        description: "Passionate individuals dedicated to the EternalCode mission.",
+        priority: 1000,
+        members: contributorMembers,
+        variant: "contributors",
+      });
     }
   } catch (e) {
-    console.error("Failed to load team page config or contributors", e);
+    console.error("Failed to load contributors", e);
   }
 
   return sections;

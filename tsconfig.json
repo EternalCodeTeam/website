@@ -27,9 +27,6 @@
       "@/*": [
         "./*"
       ],
-      "@payload-config": [
-        "./payload.config.ts"
-      ]
     },
     "strictNullChecks": true
   },
