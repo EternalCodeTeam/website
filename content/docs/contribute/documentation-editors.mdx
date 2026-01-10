@@ -114,7 +114,67 @@ Organize content with Tabs.
   </CodeTab>
 </CodeTabs>
 
+
+### Before & After Comparison
+
+Compare code implementations with an interactive slider. Drag the line to reveal before/after code side-by-side.
+
+<BeforeAfter>
+  <BeforeAfterItem type="before" title="Without Library" label="Verbose">
+    ```java
+    public class MessageSender {
+        public void sendMessage(Player player, String message) {
+            // Manual color code translation
+            String formatted = message
+                .replace("&0", "§0")
+                .replace("&1", "§1")
+                .replace("&2", "§2")
+                .replace("&3", "§3")
+                .replace("&4", "§4")
+                .replace("&5", "§5")
+                .replace("&6", "§6")
+                .replace("&7", "§7")
+                .replace("&8", "§8")
+                .replace("&9", "§9")
+                .replace("&a", "§a")
+                .replace("&b", "§b")
+                .replace("&c", "§c")
+                .replace("&d", "§d")
+                .replace("&e", "§e")
+                .replace("&f", "§f");
+            
+            player.sendMessage(formatted);
+        }
+    }
+    ```
+  </BeforeAfterItem>
+  <BeforeAfterItem type="after" title="With Library" label="Clean">
+    ```java
+    public class MessageSender {
+        private final NoticeService noticeService;
+        
+        public void sendMessage(Player player, String message) {
+            // Simple, clean API
+            noticeService.create()
+                .notice(message)
+                .player(player.getUniqueId())
+                .send();
+        }
+    }
+    ```
+  </BeforeAfterItem>
+</BeforeAfter>
+
+<Callout type="tip" title="Component Features">
+  - **Interactive Slider**: Drag the vertical line to compare code
+  - **Smooth Dragging**: Fluid experience with no text selection
+  - **Touch Support**: Works on mobile devices
+  - **Custom Labels**: Add badges like "Verbose" or "Clean" in headers
+</Callout>
+
 ### Code Blocks
+
+
 
 Code blocks feature syntax highlighting and a "toasty" copy button!
 

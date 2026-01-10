@@ -4,6 +4,7 @@ import type { ComponentProps, HTMLAttributes } from "react";
 import DynamicCommandsTable from "@/components/docs/eternalcore/commands/dynamic-commands-table";
 import DynamicPlaceholdersTable from "@/components/docs/eternalcore/placeholder/dynamic-placeholders-table";
 import { AlertBox } from "@/components/ui/alert-box";
+import { BeforeAfter, BeforeAfterItem } from "@/components/ui/mdx/before-after";
 import { Callout } from "@/components/ui/mdx/callout";
 import { Card, CardGroup } from "@/components/ui/mdx/card";
 import { CodeBlock } from "@/components/ui/mdx/code-block";
@@ -51,6 +52,8 @@ export const components: MDXComponents = {
   Step,
   CodeTabs,
   CodeTab,
+  BeforeAfter,
+  BeforeAfterItem,
   DynamicCommandsTable,
   DynamicPlaceholdersTable,
 

@@ -35,8 +35,8 @@ export function DocsNavigation({ prev, next }: DocsNavigationProps) {
 
           <motion.div
             className="relative flex items-center gap-2 font-medium text-gray-500 text-sm transition-colors group-hover:text-blue-600 dark:text-gray-400 dark:group-hover:text-blue-400"
-            whileHover={{ x: -4 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            whileHover={{ x: -4 }}
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Previous</span>
@@ -63,8 +63,8 @@ export function DocsNavigation({ prev, next }: DocsNavigationProps) {
 
           <motion.div
             className="relative flex items-center gap-2 font-medium text-gray-500 text-sm transition-colors group-hover:text-blue-600 dark:text-gray-400 dark:group-hover:text-blue-400"
-            whileHover={{ x: 4 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            whileHover={{ x: 4 }}
           >
             <span>Next</span>
             <ArrowRight className="h-4 w-4" />
