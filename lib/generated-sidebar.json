@@ -342,6 +342,72 @@
     ]
   },
   {
+    "title": "multification",
+    "path": "/docs/multification",
+    "children": [
+      {
+        "title": "Introduction",
+        "path": "/docs/multification/index",
+        "icon": "Zap",
+        "sidebar_position": 1
+      },
+      {
+        "title": "Installation",
+        "path": "/docs/multification/installation",
+        "icon": "Download",
+        "sidebar_position": 2
+      },
+      {
+        "title": "Basic Usage",
+        "path": "/docs/multification/basic-usage",
+        "icon": "BookOpen",
+        "sidebar_position": 3
+      },
+      {
+        "title": "Configuration",
+        "path": "/docs/multification/configuration",
+        "icon": "Settings",
+        "sidebar_position": 4
+      },
+      {
+        "title": "Advanced Features",
+        "path": "/docs/multification/advanced",
+        "icon": "Sparkles",
+        "sidebar_position": 5
+      },
+      {
+        "title": "Platform Comparison",
+        "path": "/docs/multification/platform-comparison",
+        "icon": "GitCompare",
+        "sidebar_position": 6
+      },
+      {
+        "title": "API Reference",
+        "path": "/docs/multification/api-reference",
+        "icon": "Book",
+        "sidebar_position": 7
+      },
+      {
+        "title": "FAQ & Troubleshooting",
+        "path": "/docs/multification/faq",
+        "icon": "HelpCircle",
+        "sidebar_position": 8
+      },
+      {
+        "title": "Examples",
+        "path": "/docs/multification/examples",
+        "icon": "Code",
+        "sidebar_position": 9
+      },
+      {
+        "title": "Migration Guide",
+        "path": "/docs/multification/migration",
+        "icon": "ArrowRightCircle",
+        "sidebar_position": 10
+      }
+    ]
+  },
+  {
     "title": "notification",
     "path": "/docs/notification",
     "children": [

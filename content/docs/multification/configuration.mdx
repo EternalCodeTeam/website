@@ -1,0 +1,94 @@
+---
+title: Configuration
+description: Store and manage notices in configuration files
+icon: Settings
+sidebar_position: 4
+---
+
+Store `Notice` objects in YAML config files using CDN or Okaeri serializers.
+
+## CDN
+
+<Steps>
+  <Step title="Setup" icon="Code">
+    ```java
+    Cdn cdn = CdnFactory.createYamlLike()
+        .getSettings()
+        .withComposer(Notice.class, new MultificationNoticeCdnComposer(multification))
+        .build();
+    ```
+  </Step>
+  <Step title="Load Config" icon="Download">
+    ```java
+    MessagesConfig config = new MessagesConfig();
+    cdn.load(Source.of(new File(dataFolder, "messages.yml")), config)
+        .orThrow(RuntimeException::new);
+    cdn.render(config, Source.of(file))
+        .orThrow(RuntimeException::new);
+    ```
+  </Step>
+  <Step title="Reload" icon="RefreshCw">
+    ```java
+    cdn.load(Source.of(file), config).orThrow(RuntimeException::new);
+    ```
+  </Step>
+</Steps>
+
+## Okaeri Configs
+
+<Steps>
+  <Step title="Setup" icon="Code">
+    ```java
+    MessagesConfig config = ConfigManager.create(MessagesConfig.class)
+        .withConfigurer(new MultificationSerdesPack(multification))
+        .withConfigurer(new SerdesCommons(), new YamlSnakeYamlConfigurer())
+        .withBindFile(new File(dataFolder, "messages.yml"))
+        .withRemoveOrphans(true)
+        .saveDefaults()
+        .load(true);
+    ```
+  </Step>
+  <Step title="Reload" icon="RefreshCw">
+    ```java
+    config.load(true);
+    ```
+  </Step>
+</Steps>
+
+## Config Class Example
+
+```java
+public class MessagesConfig {
+    @Description("# Welcome message")
+    public Notice welcomeMessage = Notice.builder()
+        .chat("<green>Welcome, {player}!")
+        .title("<gold>Welcome", "<yellow>Enjoy your stay")
+        .sound("minecraft:entity.player.levelup")
+        .build();
+
+    @Description("# Error messages")
+    public Notice noPermission = Notice.chat("<red>No permission!");
+    public Notice playerNotFound = Notice.chat("<red>Player not found!");
+}
+```
+
+## Generated YAML
+
+```yaml
+# Welcome message
+welcomeMessage:
+  chat:
+    - "<green>Welcome, {player}!"
+  title:
+    title: "<gold>Welcome"
+    subtitle: "<yellow>Enjoy your stay"
+  sound: "minecraft:entity.player.levelup"
+
+# Error messages
+noPermission: "<red>No permission!"
+playerNotFound: "<red>Player not found!"
+```
+
+<Callout type="tip">
+  Simple chat-only notices are serialized as single strings. Complex notices with multiple parts use structured YAML.
+</Callout>

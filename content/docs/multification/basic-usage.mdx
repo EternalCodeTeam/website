@@ -1,0 +1,165 @@
+---
+title: Basic Usage
+description: Learn the fundamentals of sending messages with Multification
+icon: BookOpen
+sidebar_position: 3
+---
+
+## Creating Multification
+
+<CodeTabs>
+  <CodeTab label="Paper">
+    ```java
+    public class MyMultification extends PaperMultification<MessagesConfig> {
+        private final MessagesConfig config;
+
+        public MyMultification(MessagesConfig config) {
+            this.config = config;
+        }
+
+        @Override
+        protected TranslationProvider<MessagesConfig> translationProvider() {
+            return locale -> this.config;
+        }
+
+        @Override
+        protected ComponentSerializer<Component, Component, String> serializer() {
+            return MiniMessage.miniMessage();
+        }
+
+        @Override
+        protected AudienceConverter<CommandSender> audienceConverter() {
+            return commandSender -> commandSender; // CommandSender IS Audience
+        }
+    }
+    ```
+  </CodeTab>
+  <CodeTab label="Bukkit">
+    ```java
+    public class MyMultification extends BukkitMultification<MessagesConfig> {
+        private final MessagesConfig config;
+        private final AudienceProvider audienceProvider;
+
+        public MyMultification(Plugin plugin, MessagesConfig config) {
+            this.config = config;
+            this.audienceProvider = BukkitAudiences.create(plugin);
+        }
+
+        @Override
+        protected TranslationProvider<MessagesConfig> translationProvider() {
+            return locale -> this.config;
+        }
+
+        @Override
+        protected ComponentSerializer<Component, Component, String> serializer() {
+            return MiniMessage.miniMessage();
+        }
+
+        @Override
+        protected AudienceConverter<CommandSender> audienceConverter() {
+            return sender -> sender instanceof Player p
+                ? audienceProvider.player(p.getUniqueId())
+                : audienceProvider.console();
+        }
+    }
+    ```
+  </CodeTab>
+</CodeTabs>
+
+## Creating Notices
+
+```java
+// Simple chat
+Notice chat = Notice.chat("<green>Hello!");
+
+// Multiple lines
+Notice lines = Notice.chat("<gold>Line 1", "<yellow>Line 2");
+
+// Title
+Notice title = Notice.title("<rainbow>Welcome!", "<gray>Subtitle");
+
+// ActionBar
+Notice actionbar = Notice.actionbar("<red>⚠ Warning!");
+
+// Combined (builder)
+Notice complex = Notice.builder()
+    .chat("<green>You received a reward!")
+    .title("<gold>Reward", "<yellow>Check inventory")
+    .actionBar("<green>+$1000")
+    .sound("minecraft:entity.player.levelup")
+    .bossBar(BossBar.Color.GREEN, Duration.ofSeconds(5), "<green>Reward claimed!")
+    .build();
+```
+
+## Sending Messages
+
+```java
+// Single player
+multification.create()
+    .player(playerUUID)
+    .notice(config -> config.welcomeMessage)
+    .placeholder("{player}", player.getName())
+    .send();
+
+// All online players
+multification.create()
+    .all()
+    .notice(config -> config.broadcast)
+    .send();
+
+// Players with permission
+multification.create()
+    .onlinePlayers("admin.notify")
+    .notice(config -> config.adminAlert)
+    .send();
+
+// Console
+multification.create()
+    .console()
+    .notice(config -> config.logMessage)
+    .send();
+
+// CommandSender (viewer)
+multification.create()
+    .viewer(sender)
+    .notice(config -> config.message)
+    .send();
+
+// Async
+multification.create()
+    .all()
+    .notice(config -> config.heavyMessage)
+    .sendAsync();
+```
+
+## Placeholders & Formatters
+
+```java
+// Placeholders
+multification.create()
+    .player(uuid)
+    .notice(config -> config.message)
+    .placeholder("{player}", player.getName())
+    .placeholder("{balance}", String.valueOf(balance))
+    .send();
+
+// Formatters
+Formatter uppercase = (viewer, text) -> text.toUpperCase();
+multification.create()
+    .player(uuid)
+    .notice(config -> config.message)
+    .formatter(uppercase)
+    .send();
+```
+
+## Config Example
+
+```java
+public class MessagesConfig {
+    public Notice welcomeMessage = Notice.builder()
+        .chat("<green>Welcome, {player}!")
+        .title("<gold>Welcome", "<yellow>Enjoy your stay")
+        .sound("minecraft:entity.player.levelup")
+        .build();
+}
+```
