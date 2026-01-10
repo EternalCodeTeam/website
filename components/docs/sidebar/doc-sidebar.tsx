@@ -48,7 +48,7 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
       </div>
 
       {/* Sidebar Content - Scrollable with hidden scrollbar */}
-      <div className="scrollbar-hide flex-1 overflow-y-auto px-3 py-4">
+      <div className="scrollbar-hide flex-1 px-3 py-4">
         <div className="space-y-1">
           {docsStructure.map((item, index) => (
             <SidebarItem
@@ -149,7 +149,7 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
                 <motion.nav
                   animate={{ x: 0 }}
                   aria-label="Documentation navigation"
-                  className="fixed inset-y-0 left-0 z-[70] flex w-72 flex-col border-gray-200 border-r bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900"
+                  className="fixed inset-y-0 left-0 z-[70] flex w-72 flex-col overflow-auto overscroll-contain border-gray-200 border-r bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900"
                   exit={{ x: -280 }}
                   id="doc-sidebar-mobile"
                   initial={{ x: -280 }}

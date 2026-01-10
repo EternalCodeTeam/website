@@ -34,18 +34,35 @@ const SearchBox = ({
   const [isFocused, setIsFocused] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [searchEngine] = useState(() => new SearchEngine(searchEndpoint));
+  const [isMac, setIsMac] = useState(false);
 
   const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const debouncedQuery = useDebounce(query, debounceTime);
 
-  // Initialize search engine
+  useEffect(() => {
+    setIsMac(navigator.platform.toUpperCase().indexOf("MAC") >= 0);
+  }, []);
+
   useEffect(() => {
     searchEngine.initialize();
   }, [searchEngine]);
 
-  // Reset on route change
+  useEffect(() => {
+    const handleKeyDown = (e: globalThis.KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        inputRef.current?.focus();
+        setIsOpen(true);
+        setIsFocused(true);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   useEffect(() => {
     setQuery("");
     setResults([]);
@@ -53,7 +70,6 @@ const SearchBox = ({
     setIsFocused(false);
   }, []);
 
-  // Perform search
   useEffect(() => {
     const performSearch = async () => {
       if (debouncedQuery.length < minQueryLength) {
@@ -177,6 +193,24 @@ const SearchBox = ({
           </motion.div>
 
           <AnimatePresence>
+            {!(isFocused || query) && (
+              <motion.div
+                animate={{ opacity: 1 }}
+                className="pointer-events-none absolute top-2.5 right-3 flex items-center gap-1"
+                exit={{ opacity: 0 }}
+                initial={{ opacity: 0 }}
+              >
+                <kbd className="hidden rounded border border-gray-300 bg-gray-100 px-1.5 py-0.5 font-mono text-gray-500 text-xs sm:inline-block dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">
+                  {isMac ? "⌘" : "Ctrl"}
+                </kbd>
+                <kbd className="hidden rounded border border-gray-300 bg-gray-100 px-1.5 py-0.5 font-mono text-gray-500 text-xs sm:inline-block dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">
+                  K
+                </kbd>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <AnimatePresence>
             {!!query && (
               <motion.button
                 animate={{ opacity: 1, scale: 1 }}
@@ -237,7 +271,13 @@ const SearchBox = ({
                       e.preventDefault(); // Prevent blur before click
                     }}
                     onMouseEnter={() => setSelectedIndex(index)}
-                    transition={{ delay: index * 0.03 }}
+                    transition={{
+                      delay: index * 0.04,
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 25,
+                    }}
+                    whileHover={{ x: 4 }}
                   >
                     <div className="flex items-start gap-3">
                       <motion.div
@@ -280,18 +320,23 @@ const SearchBox = ({
               </div>
             ) : (
               <motion.div
-                animate={{ opacity: 1 }}
+                animate={{ opacity: 1, scale: 1 }}
                 className="px-4 py-8 text-center"
-                initial={{ opacity: 0 }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
               >
-                <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700">
+                <motion.div
+                  animate={{ rotate: [0, -10, 10, 0] }}
+                  className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700"
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                >
                   <Search className="h-6 w-6 text-gray-400" />
-                </div>
-                <p className="font-medium text-gray-700 text-sm dark:text-gray-300">
+                </motion.div>
+                <p className="font-semibold text-gray-900 text-sm dark:text-gray-100">
                   No results found
                 </p>
                 <p className="mt-1 text-gray-500 text-xs dark:text-gray-400">
-                  Try different keywords
+                  Try different keywords or check your spelling
                 </p>
               </motion.div>
             )}
