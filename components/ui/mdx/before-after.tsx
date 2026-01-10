@@ -75,7 +75,7 @@ export function BeforeAfter({ children, className }: BeforeAfterProps) {
         aria-valuemax={100}
         aria-valuemin={0}
         aria-valuenow={position}
-        className="relative select-none overflow-hidden rounded-xl border bg-gray-50 dark:bg-black/20"
+        className="relative select-none overflow-hidden rounded-xl border border-gray-200 bg-gray-50 dark:border-white/10 dark:bg-black"
         onMouseDown={(e) => move(e.clientX)}
         onTouchStart={(e) => move(e.touches[0].clientX)}
         ref={containerRef}
@@ -126,20 +126,20 @@ export function BeforeAfterItem({ type, title, label, children }: BeforeAfterIte
   const isBefore = type === "before";
 
   return (
-    <div className="h-full w-full">
+    <div className="flex h-full w-full flex-col">
       <div
         className={cn(
           "flex items-center justify-between border-b px-4 py-3",
           isBefore
-            ? "border-red-200 bg-red-50 dark:bg-red-900/10"
-            : "border-green-200 bg-green-50 dark:bg-green-900/10"
+            ? "border-red-200 bg-red-50 dark:border-red-900 dark:bg-red-900"
+            : "border-green-200 bg-green-50 dark:border-green-900 dark:bg-green-900"
         )}
       >
         <div className="flex items-center gap-2">
           {isBefore ? (
-            <X className="h-4 w-4 text-red-600" />
+            <X className="h-4 w-4 text-red-600 dark:text-red-400" />
           ) : (
-            <Check className="h-4 w-4 text-green-600" />
+            <Check className="h-4 w-4 text-green-600 dark:text-green-400" />
           )}
           <span className="font-semibold text-sm">{title ?? (isBefore ? "Before" : "After")}</span>
         </div>
@@ -148,7 +148,9 @@ export function BeforeAfterItem({ type, title, label, children }: BeforeAfterIte
           <span
             className={cn(
               "rounded-full px-2 py-0.5 font-medium text-xs",
-              isBefore ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"
+              isBefore
+                ? "bg-red-100 text-red-700 dark:bg-red-800 dark:text-red-100"
+                : "bg-green-100 text-green-700 dark:bg-green-800 dark:text-green-100"
             )}
           >
             {label}
@@ -156,7 +158,7 @@ export function BeforeAfterItem({ type, title, label, children }: BeforeAfterIte
         )}
       </div>
 
-      <div className="bg-gray-50 p-4 dark:bg-black/20">{children}</div>
+      <div className="flex-1 bg-gray-50 p-4 dark:bg-black">{children}</div>
     </div>
   );
 }
