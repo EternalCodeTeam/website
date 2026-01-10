@@ -46,7 +46,7 @@ const SidebarWrapper: FC = () => {
           <DocsSearch />
           <div
             ref={sidebarRef}
-            className="flex min-h-0 flex-1 flex-col overflow-auto overscroll-contain rounded-xl border border-gray-200 bg-white/90 shadow-lg backdrop-blur-md transition-shadow hover:shadow-xl dark:border-gray-800 dark:bg-gray-900/60"
+            className="scrollbar-hide flex min-h-0 flex-1 flex-col overflow-auto overscroll-contain rounded-xl border border-gray-200 bg-white/90 shadow-lg backdrop-blur-md transition-shadow hover:shadow-xl dark:border-gray-800 dark:bg-gray-900/60"
           >
             <DocSidebar />
           </div>
