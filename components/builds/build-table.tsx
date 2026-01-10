@@ -1,6 +1,6 @@
-import type { Project } from "@/app/api/builds/builds";
 import { AnimatePresence } from "framer-motion";
 import { Loader2 } from "lucide-react";
+import type { Project } from "@/app/api/builds/builds";
 import { type Build, BuildRow } from "./build-row";
 
 interface BuildTableProps {

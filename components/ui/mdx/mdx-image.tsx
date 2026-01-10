@@ -21,11 +21,11 @@ export function MdxImage({ src, alt, className }: MdxImageProps) {
       <span className="my-6 block w-full overflow-hidden rounded-md shadow-sm">
         <video
           autoPlay
+          className={`h-auto w-full object-cover ${className || ""}`}
+          controls
           loop
           muted
           playsInline
-          controls
-          className={`h-auto w-full object-cover ${className || ""}`}
           title={alt}
         >
           <source src={src} />
@@ -43,10 +43,10 @@ export function MdxImage({ src, alt, className }: MdxImageProps) {
         {/* biome-ignore lint/performance/noImgElement: Next.js Image Optimization warnings */}
         {/** biome-ignore lint/correctness/useImageSize: Decorative preview */}
         <img
-          src={src}
           alt={alt || "GIF"}
           className={`h-auto w-full object-cover ${className || ""}`}
           loading="lazy"
+          src={src}
         />
       </span>
     );

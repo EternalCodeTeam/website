@@ -77,8 +77,8 @@ export function OgTemplate({
           {/* biome-ignore lint/performance/noImgElement: Required for background image simulation */}
           {/* biome-ignore lint/correctness/useImageSize: Background image simulation */}
           <img
-            src={backgroundImage}
             alt="background"
+            src={backgroundImage}
             style={{
               width: "100%",
               height: "100%",
@@ -126,7 +126,7 @@ export function OgTemplate({
           }}
         >
           {/* biome-ignore lint/performance/noImgElement: ImageResponse */}
-          <img alt="Logo" height={32} src={image} width={32} style={{ objectFit: "contain" }} />
+          <img alt="Logo" height={32} src={image} style={{ objectFit: "contain" }} width={32} />
           <div style={{ width: "1px", height: "16px", background: "#cbd5e1" }} />
           <span
             style={{

@@ -119,7 +119,7 @@ export const CodeTabs = ({
         className
       )}
     >
-      <TabsRoot value={selectedValue} onValueChange={handleValueChange} defaultValue={defaultLabel}>
+      <TabsRoot defaultValue={defaultLabel} onValueChange={handleValueChange} value={selectedValue}>
         <TabsList
           aria-label="Code language selection"
           className="flex space-x-1 border-gray-200 border-b bg-gray-50/50 p-2 dark:border-gray-800 dark:bg-gray-900/50"
@@ -128,15 +128,15 @@ export const CodeTabs = ({
             const { label, disabled } = child.props as { label: string; disabled?: boolean };
             return (
               <TabsTrigger
-                disabled={disabled}
-                key={label}
-                value={label}
                 className={cn(
                   "relative cursor-pointer rounded-lg px-4 py-2 font-medium text-sm outline-none transition-all duration-200",
                   "disabled:cursor-not-allowed disabled:opacity-50",
                   "data-[state=active]:bg-blue-50 data-[state=active]:text-blue-600 dark:data-[state=active]:bg-blue-900/20 dark:data-[state=active]:text-blue-400",
                   "data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:bg-gray-100 data-[state=inactive]:hover:text-gray-900 dark:data-[state=inactive]:text-gray-400 dark:data-[state=inactive]:hover:bg-gray-800 dark:data-[state=inactive]:hover:text-gray-200"
                 )}
+                disabled={disabled}
+                key={label}
+                value={label}
               >
                 <span className="flex items-center gap-2">
                   <LanguageIcon label={label} />

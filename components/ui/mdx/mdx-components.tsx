@@ -10,8 +10,8 @@ import { CodeBlock } from "@/components/ui/mdx/code-block";
 import { CodeTab, CodeTabs } from "@/components/ui/mdx/code-tabs";
 import { Heading } from "@/components/ui/mdx/heading";
 import { Inline } from "@/components/ui/mdx/inline";
-import { Step, Steps } from "@/components/ui/mdx/steps";
 import { MdxImage } from "@/components/ui/mdx/mdx-image";
+import { Step, Steps } from "@/components/ui/mdx/steps";
 
 type HeadingProps = HTMLAttributes<HTMLHeadingElement>;
 

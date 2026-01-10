@@ -1,6 +1,6 @@
 "use client";
 
-import { LazyMotion, domAnimation } from "framer-motion";
+import { domAnimation, LazyMotion } from "framer-motion";
 import { ThemeProvider } from "next-themes";
 import { type ReactNode, useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";

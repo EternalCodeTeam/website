@@ -1,18 +1,18 @@
 "use client";
 
 import {
-  ReactFlow,
-  Handle,
-  Position,
   Background,
   BackgroundVariant,
-  useNodesState,
-  useEdgesState,
   type Edge,
+  Handle,
   type Node,
+  Position,
+  ReactFlow,
+  useEdgesState,
+  useNodesState,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import { Coins, MessageSquareText, Server, Swords, Zap, type LucideIcon } from "lucide-react";
+import { Coins, type LucideIcon, MessageSquareText, Server, Swords, Zap } from "lucide-react";
 import { FadeIn } from "@/components/ui/motion/motion-components";
 
 // Custom Node for Plugins
@@ -167,20 +167,20 @@ export function EternalFoundation() {
           edgesFocusable={false}
           elementsSelectable={false}
           fitView
-          nodeTypes={nodeTypes}
           nodes={nodes}
           nodesConnectable={false}
           nodesDraggable={false}
           nodesFocusable={false}
+          nodeTypes={nodeTypes}
           onEdgesChange={onEdgesChange}
           onNodesChange={onNodesChange}
           panOnDrag={false}
           panOnScroll={false}
           proOptions={{ hideAttribution: true }}
+          style={{ background: "transparent" }}
           zoomOnDoubleClick={false}
           zoomOnPinch={false}
           zoomOnScroll={false}
-          style={{ background: "transparent" }}
         >
           <Background
             color="#9d6eef"
@@ -191,7 +191,7 @@ export function EternalFoundation() {
         </ReactFlow>
 
         {/* Global styles for React Flow to match our theme */}
-        <style jsx global>{`
+        <style global jsx>{`
           .react-flow__edge-path {
             stroke-dasharray: 8;
             animation: dash 5s linear infinite;

@@ -1,6 +1,6 @@
-import { OgTemplate, loadFonts } from "@/components/og/og-template";
 import { ImageResponse } from "next/og";
 import type { NextRequest } from "next/server";
+import { loadFonts, OgTemplate } from "@/components/og/og-template";
 
 export const runtime = "edge";
 
@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
 
     const fonts = await loadFonts();
 
-    return new ImageResponse(<OgTemplate title={title} subtitle={subtitle} image={image} />, {
+    return new ImageResponse(<OgTemplate image={image} subtitle={subtitle} title={title} />, {
       width: 1200,
       height: 630,
       fonts,

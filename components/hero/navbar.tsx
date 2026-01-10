@@ -12,9 +12,9 @@ import { Button } from "@/components/ui/button";
 import { slideDown } from "@/lib/animations/variants";
 import logo from "@/public/logo.svg";
 import NewWindow from "../icons/new-window";
+import AnimatedHamburger from "./hamburger";
 import ThemeSwitchButton from "./theme-switch-button";
 import { TOOLS_OPTIONS, ToolsDropdown } from "./tools-dropdown";
-import AnimatedHamburger from "./hamburger";
 
 interface NavLink {
   href: string;
@@ -290,13 +290,13 @@ export default function Navbar() {
             {!!isMenuOpen && (
               <>
                 <motion.button
+                  animate={{ opacity: 1 }}
                   aria-label="Close menu overlay"
                   className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm md:hidden"
                   exit={{ opacity: 0 }}
                   initial={{ opacity: 0 }}
                   onClick={closeMenu}
                   type="button"
-                  animate={{ opacity: 1 }}
                 />
                 <motion.aside
                   animate={{ x: 0 }}
@@ -304,8 +304,8 @@ export default function Navbar() {
                   exit={{ x: "-100%" }}
                   id="mobile-menu"
                   initial={{ x: "-100%" }}
-                  role="menu"
                   ref={mobileMenuRef}
+                  role="menu"
                   transition={{ type: "spring", stiffness: 320, damping: 32 }}
                 >
                   <div className="flex items-center justify-between border-gray-100 border-b px-6 py-5 dark:border-white/5">

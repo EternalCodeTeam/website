@@ -1,14 +1,14 @@
 "use client";
 
+import { Loader2 } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 import { fetchDevBuilds, fetchStableBuilds, PROJECTS, type Project } from "@/app/api/builds/builds";
 import { BuildControls } from "@/components/builds/build-controls";
 import { BuildHeader } from "@/components/builds/build-header";
 import type { Build } from "@/components/builds/build-row";
 import { BuildTable } from "@/components/builds/build-table";
 import { FacadePattern } from "@/components/ui/facade-pattern";
-import { Loader2 } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
 
 function BuildExplorerContent() {
   const searchParams = useSearchParams();

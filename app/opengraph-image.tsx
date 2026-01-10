@@ -1,5 +1,5 @@
-import { OgTemplate, loadFonts } from "@/components/og/og-template";
 import { ImageResponse } from "next/og";
+import { loadFonts, OgTemplate } from "@/components/og/og-template";
 
 export const runtime = "edge";
 export const alt = "EternalCode.pl - Open Source Solutions";
@@ -13,7 +13,7 @@ export default async function Image() {
   const fonts = await loadFonts();
 
   return new ImageResponse(
-    <OgTemplate title="EternalCode.pl" subtitle="We are a team creating open source projects!" />,
+    <OgTemplate subtitle="We are a team creating open source projects!" title="EternalCode.pl" />,
     {
       ...size,
       fonts,

@@ -6,11 +6,11 @@ import type { ReactNode } from "react";
 export default function SmoothScrolling({ children }: { children: ReactNode }) {
   return (
     <ReactLenis
-      root
       options={{
         lerp: 0.3,
         smoothWheel: true,
       }}
+      root
     >
       {children}
     </ReactLenis>
