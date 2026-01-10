@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "bun run format:fix && bun run lint:fix && next build",
+    "generate:sidebar": "node scripts/generate-sidebar.mjs",
+    "build": "bun run generate:sidebar && bun run format:fix && bun run lint:fix && next build",
     "start": "next start",
     "lint": "biome lint app components hooks lib content",
     "lint:fix": "biome lint --write app components hooks lib content",
@@ -13,6 +14,8 @@
     "format:fix": "biome format --write app components hooks lib content",
     "lint:biome": "biome lint app components hooks lib content",
     "lint:biome:fix": "biome lint --write app components hooks lib content",
+    "ultracite:check": "bunx ultracite check",
+    "ultracite:fix": "bunx ultracite fix",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {

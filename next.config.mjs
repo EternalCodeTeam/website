@@ -1,7 +1,3 @@
-
-
-
-
 const nextConfig = {
   pageExtensions: ["js", "jsx", "ts", "tsx"],
   images: {
@@ -41,7 +37,6 @@ const nextConfig = {
         hostname: "cms.eternalcode.pl",
         port: "",
       },
-
     ],
     formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
@@ -68,7 +63,6 @@ const nextConfig = {
   serverExternalPackages: ["gray-matter", "sharp"],
 };
 
-
 import withBundleAnalyzer from "@next/bundle-analyzer";
 
 const bundleAnalyzer = withBundleAnalyzer({
@@ -77,4 +71,3 @@ const bundleAnalyzer = withBundleAnalyzer({
 });
 
 export default bundleAnalyzer(nextConfig);
-

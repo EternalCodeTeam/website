@@ -6,9 +6,9 @@ import GitBranchIcon from "@/components/icons/git-branch";
 import JavaIcon from "@/components/icons/java";
 import TabNew from "@/components/icons/tab-new";
 import SectionTitle from "@/components/section-title";
+import { Card } from "@/components/ui/card";
 import { SlideIn, StaggerContainer } from "@/components/ui/motion/motion-components";
 import { slideUp } from "@/lib/animations/variants";
-import { Card } from "@/components/ui/card";
 
 const MotionCard = motion.create(Card);
 
