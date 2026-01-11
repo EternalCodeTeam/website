@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
-import { SiGithub, SiJetbrains, SiJira, SiSentry } from "react-icons/si";
+import { SiGithub, SiJetbrains, SiJira, SiNetlify, SiSentry } from "react-icons/si";
 
 interface Sponsor {
   name: string;
@@ -12,6 +12,11 @@ interface Sponsor {
 
 export default function Sponsors() {
   const sponsors: Sponsor[] = [
+    {
+      name: "Netlify",
+      icon: <SiNetlify className="h-10 w-10" />,
+      url: "https://www.netlify.com/",
+    },
     {
       name: "JetBrains",
       icon: <SiJetbrains className="h-12 w-12" />,

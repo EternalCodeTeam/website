@@ -11,6 +11,7 @@ import { docsStructure } from "@/lib/sidebar-structure";
 import { cn } from "@/lib/utils";
 
 import SidebarItem from "./sidebar-item";
+import { NetlifyHighlight } from "./netlify-highlight";
 import type { DocSidebarProps } from "./types";
 import { useMobileSidebar } from "./use-mobile-sidebar";
 
@@ -47,6 +48,8 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
         </div>
       </div>
 
+      <NetlifyHighlight />
+
       {/* Sidebar Content - Scrollable with hidden scrollbar */}
       <div className="scrollbar-hide flex-1 px-3 py-4">
         <div className="space-y-1">
@@ -69,29 +72,22 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
       </div>
 
       {/* Sidebar Footer - Simple & Clean */}
-      <div className="shrink-0 border-gray-200 border-t bg-gray-50/50 px-4 py-3 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/20">
+      <div className="shrink-0 space-y-2 border-gray-200 border-t bg-gray-50/50 px-4 py-3 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/20">
         <div className="flex items-center justify-between">
           {/* Status */}
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
-            </span>
-            <span className="font-medium text-gray-600 text-xs dark:text-gray-300">Up to date</span>
-          </div>
-
-          {/* GitHub Link */}
-          <Link
-            className="group"
-            href="https://github.com/eternalcodeteam"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-              <Github className="h-4 w-4 text-gray-500 transition-colors group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
-            </motion.div>
-          </Link>
         </div>
+
+        {/* GitHub Link */}
+        <Link
+          className="group"
+          href="https://github.com/eternalcodeteam"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <Github className="h-4 w-4 text-gray-500 transition-colors group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
+          </motion.div>
+        </Link>
       </div>
     </>
   );
