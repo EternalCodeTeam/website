@@ -51,7 +51,7 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
       <NetlifyHighlight />
 
       {/* Sidebar Content - Scrollable with hidden scrollbar */}
-      <div className="scrollbar-hide flex-1 px-3 py-4">
+      <div className="scrollbar-hide flex-1 overflow-y-auto px-3 py-4">
         <div className="space-y-1">
           {docsStructure.map((item, index) => (
             <SidebarItem
@@ -71,23 +71,24 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
         </div>
       </div>
 
-      {/* Sidebar Footer - Simple & Clean */}
-      <div className="shrink-0 space-y-2 border-gray-200 border-t bg-gray-50/50 px-4 py-3 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/20">
+      {/* Sidebar Footer - Simple */}
+      <div className="shrink-0 border-gray-200 border-t bg-gray-50/50 px-4 py-3 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/20">
         <div className="flex items-center justify-between">
-          {/* Status */}
+          <p className="text-gray-500 text-xs dark:text-gray-400">
+            © {new Date().getFullYear()} EternalCodeTeam
+          </p>
+          <Link
+            className="group"
+            href="https://github.com/eternalcodeteam"
+            rel="noopener noreferrer"
+            target="_blank"
+            title="GitHub"
+          >
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+              <Github className="h-4 w-4 text-gray-500 transition-colors group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
+            </motion.div>
+          </Link>
         </div>
-
-        {/* GitHub Link */}
-        <Link
-          className="group"
-          href="https://github.com/eternalcodeteam"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-            <Github className="h-4 w-4 text-gray-500 transition-colors group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
-          </motion.div>
-        </Link>
       </div>
     </>
   );
