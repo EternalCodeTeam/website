@@ -21,10 +21,10 @@ const NotificationGeneratorForm = dynamic(
     ),
   { ssr: false }
 );
-const MinecraftPreview = dynamic(
+const SimpleNotificationPreview = dynamic(
   () =>
-    import("@/components/notification-generator/preview/minecraft-preview").then(
-      (mod) => mod.MinecraftPreview
+    import("@/components/notification-generator/preview/simple-notification-preview").then(
+      (mod) => mod.SimpleNotificationPreview
     ),
   { ssr: false }
 );
@@ -60,7 +60,7 @@ export default function NotificationGeneratorPage() {
 
   return (
     <StaggerContainer className="w-full">
-      <div className="mb-12 text-center">
+      <div className="mb-8 text-center">
         <SlideIn delay={0.1} direction="down">
           <h1 className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text font-extrabold text-4xl text-transparent tracking-tight md:text-6xl dark:from-white dark:to-gray-300">
             Notification Generator
@@ -73,31 +73,14 @@ export default function NotificationGeneratorPage() {
         </FadeIn>
       </div>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        <SlideIn className="h-full" delay={0.3} direction="left">
-          <NotificationGeneratorForm
-            notification={notification}
-            setNotification={setNotification}
-          />
-        </SlideIn>
-
-        <SlideIn className="h-full" delay={0.4} direction="right">
-          <div className="h-full rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 dark:bg-gray-900/40 dark:ring-gray-800">
-            <h2 className="mb-4 font-semibold text-gray-900 text-xl dark:text-white">
-              Generated Configuration
-            </h2>
-            <NotificationGeneratedCode yamlCode={yamlCode} />
-          </div>
-        </SlideIn>
-      </div>
-
-      <SlideIn className="mt-8" delay={0.5} direction="up">
+      {/* Preview Section - Top Priority */}
+      <SlideIn className="mb-8" delay={0.3} direction="down">
         <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 dark:bg-gray-900/40 dark:ring-gray-800">
           <div className="mb-6 flex flex-col items-center justify-between gap-4 sm:flex-row">
             <div>
               <h2 className="font-semibold text-gray-900 text-xl dark:text-white">Live Preview</h2>
               <p className="mt-1 text-gray-500 text-sm dark:text-gray-400">
-                See how your notification looks in-game.
+                See how your notification looks in real-time
               </p>
             </div>
             <Button
@@ -109,11 +92,32 @@ export default function NotificationGeneratorPage() {
             </Button>
           </div>
 
-          <div className="overflow-hidden rounded-xl border border-gray-200 bg-black shadow-lg dark:border-gray-800">
-            <MinecraftPreview key={previewKey} notification={notification} />
+          <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg dark:border-gray-800 dark:bg-gray-900/40">
+            <SimpleNotificationPreview key={previewKey} notification={notification} />
           </div>
         </div>
       </SlideIn>
+
+      {/* Form and Code Section - Side by Side on Large Screens */}
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+        {/* Form - Takes 1 column (50%) on large screens */}
+        <SlideIn className="h-full" delay={0.4} direction="left">
+          <NotificationGeneratorForm
+            notification={notification}
+            setNotification={setNotification}
+          />
+        </SlideIn>
+
+        {/* Generated Code - Takes 1 column (50%) on large screens, full width on small */}
+        <SlideIn className="h-full" delay={0.5} direction="right">
+          <div className="sticky top-4 min-h-full rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 dark:bg-gray-900/40 dark:ring-gray-800">
+            <h2 className="mb-4 font-semibold text-gray-900 text-xl dark:text-white">
+              Generated Configuration
+            </h2>
+            <NotificationGeneratedCode yamlCode={yamlCode} />
+          </div>
+        </SlideIn>
+      </div>
     </StaggerContainer>
   );
 }
