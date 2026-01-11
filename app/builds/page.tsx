@@ -76,8 +76,9 @@ function BuildExplorerContent() {
                 name: displayTitle || run.name || `Run #${run.id}`,
                 type: "DEV",
                 date: run.created_at,
-                downloadUrl: `https://nightly.link/${activeProject.githubRepo
-                  }/actions/runs/${run.id}/${encodeURIComponent(artifactName)}.zip`,
+                downloadUrl: `https://nightly.link/${
+                  activeProject.githubRepo
+                }/actions/runs/${run.id}/${encodeURIComponent(artifactName)}.zip`,
                 commit: run.head_sha.substring(0, 7),
                 runUrl: run.html_url,
               };
