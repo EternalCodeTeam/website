@@ -43,7 +43,7 @@ export default function Faq() {
       className="relative z-20 overflow-visible py-12 lg:min-h-[600px] lg:py-24"
       id="faq"
     >
-      <div className="mx-auto max-w-7xl px-4">
+      <div className="mx-auto max-w-[90rem] px-4">
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-24">
           {/* Left Column: Title & Description */}
           <div className="lg:top-32 lg:col-span-5">

@@ -41,7 +41,7 @@ export default function NotificationGeneratorLayout({ children }: { children: Re
         <FacadePattern className="absolute inset-0 h-full opacity-30 dark:opacity-10" />
       </div>
 
-      <div className="relative z-10 mx-auto min-h-screen max-w-(--breakpoint-xl) px-4 py-8 pt-32 antialiased">
+      <div className="relative z-10 mx-auto min-h-screen max-w-[90rem] px-4 py-8 pt-32 antialiased">
         {children}
       </div>
     </div>

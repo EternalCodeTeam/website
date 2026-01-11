@@ -16,7 +16,7 @@ export default function About() {
       className="relative overflow-hidden py-12 lg:py-24"
       id="about"
     >
-      <div className="relative z-10 mx-auto max-w-7xl px-4">
+      <div className="relative z-10 mx-auto max-w-[90rem] px-4">
         <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-16 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-center">
           {/* Text Content */}
           <div className="lg:order-1">

@@ -28,7 +28,7 @@ export default function EternalCombatPage() {
         <div className="absolute top-20 left-0 h-[400px] w-[400px] rounded-full bg-orange-500/5 p-20 mix-blend-multiply blur-[100px] dark:mix-blend-screen" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" ref={targetRef}>
+      <div className="relative z-10 mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-8" ref={targetRef}>
         {/* Hero Section */}
         <section className="pt-32 pb-20 md:pt-48 md:pb-32">
           <motion.div

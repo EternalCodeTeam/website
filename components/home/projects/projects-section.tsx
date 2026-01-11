@@ -91,7 +91,7 @@ export default function Projects() {
   return (
     <section className="relative w-full py-24" id="projects">
       {/* Main Container - Keeps everything aligned with navbar */}
-      <div className="mx-auto max-w-7xl px-4 md:px-8">
+      <div className="mx-auto max-w-[90rem] px-4 md:px-8">
         {/* Header content */}
         <div className="mb-12 w-full">
           <motion.div

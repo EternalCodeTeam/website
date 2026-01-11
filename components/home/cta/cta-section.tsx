@@ -8,7 +8,7 @@ import { SlideIn } from "@/components/ui/motion/motion-components";
 export default function Cta() {
   return (
     <section className="relative overflow-hidden py-12 lg:py-20">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="mx-auto max-w-[90rem] px-6 lg:px-8">
         <SlideIn direction="up">
           <div className="text-center">
             <h2 className="mx-auto max-w-2xl font-bold text-3xl text-gray-900 tracking-tight sm:text-4xl dark:text-white">

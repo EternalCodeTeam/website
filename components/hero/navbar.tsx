@@ -200,18 +200,17 @@ export default function Navbar() {
       <motion.nav
         animate="visible"
         aria-label="Main navigation"
-        className={`fixed inset-x-0 top-0 z-50 border-transparent border-b transition-all duration-300 ${
-          scrolled || isMenuOpen
+        className={`fixed inset-x-0 top-0 z-50 border-transparent border-b transition-all duration-300 ${scrolled || isMenuOpen
             ? "border-gray-200/50 bg-white/80 backdrop-blur-xl dark:border-white/5 dark:bg-[#0a0a0a]/80"
             : "bg-white/0 dark:bg-black/0"
-        }`}
+          }`}
         initial="hidden"
         ref={navRef}
         variants={slideDown}
       >
         <AnnouncementBanner />
 
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between px-4 py-3 md:py-4">
+        <div className="mx-auto flex max-w-[90rem] flex-wrap items-center justify-between px-4 py-3 md:py-4">
           <Link aria-label="Go to homepage" className="flex items-center gap-3" href="/">
             <Image
               alt="EternalCode Logo"

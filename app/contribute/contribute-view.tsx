@@ -37,7 +37,7 @@ export default function ContributeView({ cards }: { cards: ContributionCardData[
 
       <ContributeHero />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-[90rem] px-4 pb-24 sm:px-6 lg:px-8">
         {cards.length > 0 ? (
           <motion.div
             animate="visible"
