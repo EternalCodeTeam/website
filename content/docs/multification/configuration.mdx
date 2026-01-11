@@ -5,6 +5,18 @@ icon: Settings
 sidebar_position: 4
 ---
 
+Configuring Multification is about **serializing `Notice` objects to YAML** so non-developers can edit messages safely. We ship serializers for two popular config libraries:
+
+- **CDN** – lightweight, YAML-like, great for quick configs.
+- **Okaeri Configs** – rich features, comments, migration helpers.
+
+> If you only need a YAML reference for message shapes, see the [Format guide (for users)](/docs/multification/format).
+
+## Choosing a serializer
+
+- **Pick CDN** when you want minimal dependencies and fast drop-in setup.
+- **Pick Okaeri** when you need comments preserved, migrations, or already use Okaeri in your project.
+- Both serializers support the same `Notice` shape, so configs are interchangeable.
 
 ## CDN
 
@@ -91,3 +103,34 @@ playerNotFound: "<red>Player not found!"
 <Callout type="tip">
   Simple chat-only notices are serialized as single strings. Complex notices with multiple parts use structured YAML.
 </Callout>
+
+## More YAML patterns (drop into your config)
+
+```yaml
+# Multi-line chat with placeholders
+broadcast:
+  chat:
+    - "<gold>━━━━━━━━━━━━━━━━━━━━━"
+    - "<yellow>{sender}: <white>{message}"
+    - "<gold>━━━━━━━━━━━━━━━━━━━━━"
+
+# Actionbar + sound
+healSuccess:
+  actionBar: "<green>❤ Health restored"
+  sound: "minecraft:entity.player.levelup 1.0 1.2"
+
+# Title + subtitle + timing
+warning:
+  title: "<red>Warning!"
+  subtitle: "<gray>PvP enabled in this area"
+  times: "0.5s 3s 1s"
+
+# Bossbar example
+bossInfo:
+  bossBar:
+    color: "GREEN"
+    text: "<green>Objective updated"
+    progress: 0.6
+```
+
+These YAML snippets map directly to the `Notice` fields your serializers handle, so you can paste them into `messages.yml` for CDN or Okaeri without Java changes.

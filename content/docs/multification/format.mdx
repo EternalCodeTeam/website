@@ -1,0 +1,118 @@
+---
+title: Format (For Users)
+description: YAML reference for configuring Multification notices without touching Java code.
+icon: FileText
+sidebar_position: 6
+---
+
+import { CodeTab, CodeTabs } from "../../../components/ui/mdx/CodeTabs";
+import { AlertBox } from "../../../components/ui/alert-box";
+
+# Notice format (for config editors)
+
+This page is for people editing `messages.yml`. If you're coding in Java, see [Basic Usage](/docs/multification/basic-usage) instead.
+
+<Callout type="important" title="🔔 Notification Generator">
+  🎨 **Create stunning notifications instantly!**
+  Visit the **[Notification Generator](/notification-generator)** page for a step‑by‑step guide, live preview, and ready‑to‑copy examples.
+</Callout>
+
+<AlertBox type="tip" title="MiniMessage">
+  Multification uses [MiniMessage](https://docs.adventure.kyori.net/minimessage/format.html). Try the
+  [Adventure web viewer](https://webui.adventure.kyori.net/) to preview your text.
+</AlertBox>
+
+## Quick rules
+
+- ✨ **Quote strings** that contain `<colors>` or spaces.
+- 📋 **Multi‑line chat** = YAML list (`- "line"`).
+- ⏱️ **Times**: `times: "fadeIn stay fadeOut"` uses seconds, e.g. `"0.5s 3s 1s"`.
+- 🧩 **Placeholders** like `{player}` are replaced by your plugin code.
+
+## Chat
+
+<CodeTabs>
+  <CodeTab label="Single line">
+
+```yaml
+welcome: "<green>Hello, {player}!"
+```
+
+  </CodeTab>
+  <CodeTab label="Multiple lines">
+
+```yaml
+welcome:
+  - "<gold>Hey {player}!"
+  - "<yellow>Enjoy your stay"
+```
+
+  </CodeTab>
+</CodeTabs>
+
+## Actionbar
+
+```yaml
+healSuccess:
+  actionbar: "<green>❤ Health restored"
+```
+
+## Title & Subtitle
+
+```yaml
+warning:
+  title: "<red>Warning!"
+  subtitle: "<gray>PvP enabled in this area"
+  times: "0.5s 3s 1s" # fade in, stay, fade out
+```
+
+## Bossbar
+
+```yaml
+bossInfo:
+  bossBar:
+    color: "GREEN"
+    text: "<green>Objective updated"
+    progress: 0.6
+```
+
+## Sounds
+
+<CodeTabs>
+  <CodeTab label="Basic">
+
+```yaml
+levelUp:
+  sound: "ENTITY_PLAYER_LEVELUP 2.0 1.0" # volume, pitch
+```
+
+  </CodeTab>
+  <CodeTab label="With category">
+
+```yaml
+levelUp:
+  # Sound categories: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/SoundCategory.html
+  sound: "PLAYER_LEVELUP WEATHER 2.0 1.0"
+```
+
+  </CodeTab>
+</CodeTabs>
+
+## Combined example
+
+<AlertBox type="tip" title="Customize">
+  Swap colors/placeholders freely. All sections are optional—remove what you don't need.
+</AlertBox>
+
+```yaml
+advanced_notification:
+  chat:
+    - "<gradient:gold:yellow>Welcome to the server!</gradient>"
+    - "<gray>Use <gold>/help</gold> for assistance.</gray>"
+  actionbar: "<aqua>You have <gold>5</gold> unread messages"
+  title: "<gradient:red:dark_red>WARNING!</gradient>"
+  subtitle: "<gray>You are entering a PvP zone</gray>"
+  times: "0.5s 3s 1s"
+  sound: "ENTITY_ENDER_DRAGON_GROWL MASTER 1.0 0.8"
+  titleHide: true
+```

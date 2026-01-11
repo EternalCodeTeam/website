@@ -373,7 +373,13 @@
         "title": "Advanced Features",
         "path": "/docs/multification/advanced",
         "icon": "Sparkles",
-        "sidebar_position": 5
+        "sidebar_position": 6
+      },
+      {
+        "title": "Format (For Users)",
+        "path": "/docs/multification/format",
+        "icon": "FileText",
+        "sidebar_position": 6
       },
       {
         "title": "Platform Comparison",
@@ -404,18 +410,6 @@
         "path": "/docs/multification/migration",
         "icon": "ArrowRightCircle",
         "sidebar_position": 10
-      }
-    ]
-  },
-  {
-    "title": "notification",
-    "path": "/docs/notification",
-    "children": [
-      {
-        "title": "Notifications",
-        "path": "/docs/notification/notifications",
-        "icon": "MessageSquare",
-        "sidebar_position": 1
       }
     ]
   }

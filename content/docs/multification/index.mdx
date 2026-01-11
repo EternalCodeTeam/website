@@ -44,7 +44,7 @@ import { CardGroup } from "../../../components/ui/mdx/card.tsx";
 
 ```java
 // 1. Extend platform class
-public class NoticeService extends PaperMultification<MessagesConfig> {
+public class MyMultification extends PaperMultification<MessagesConfig> {
     private final MessagesConfig config;
 
     @Override
@@ -64,7 +64,7 @@ public class NoticeService extends PaperMultification<MessagesConfig> {
 }
 
 // 2. Send messages
-noticeService.create()
+multification.create()
     .player(playerUUID)
     .notice(config -> config.welcomeMessage)
     .placeholder("{player}", player.getName())
