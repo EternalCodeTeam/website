@@ -8,7 +8,7 @@ export default async function Team() {
 
   return (
     <section id="team">
-      <div className="relative mx-auto max-w-7xl px-4 pt-4 pb-20">
+      <div className="relative mx-auto max-w-[90rem] px-4 pt-4 pb-20">
         <div className="mt-8 space-y-20">
           {sections.map((section) => (
             <div key={section.name}>

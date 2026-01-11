@@ -46,7 +46,7 @@ export default function Features() {
 
   return (
     <section aria-labelledby="features-heading" className="relative py-12 lg:py-24" id="features">
-      <div className="relative z-10 mx-auto max-w-7xl px-4">
+      <div className="relative z-10 mx-auto max-w-[90rem] px-4">
         <SlideIn direction="up">
           <SectionTitle
             description="We leverage industry-standard technologies to build high-quality software."

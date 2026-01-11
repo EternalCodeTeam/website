@@ -76,9 +76,8 @@ function BuildExplorerContent() {
                 name: displayTitle || run.name || `Run #${run.id}`,
                 type: "DEV",
                 date: run.created_at,
-                downloadUrl: `https://nightly.link/${
-                  activeProject.githubRepo
-                }/actions/runs/${run.id}/${encodeURIComponent(artifactName)}.zip`,
+                downloadUrl: `https://nightly.link/${activeProject.githubRepo
+                  }/actions/runs/${run.id}/${encodeURIComponent(artifactName)}.zip`,
                 commit: run.head_sha.substring(0, 7),
                 runUrl: run.html_url,
               };
@@ -104,7 +103,7 @@ function BuildExplorerContent() {
         <FacadePattern className="absolute inset-0 opacity-40 dark:opacity-20" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 pt-56 pb-20 md:pt-40 md:pb-32">
+      <div className="relative z-10 mx-auto max-w-[90rem] px-4 pt-56 pb-20 md:pt-40 md:pb-32">
         <BuildHeader />
 
         <BuildControls

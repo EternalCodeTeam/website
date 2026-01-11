@@ -22,7 +22,7 @@ export default function Hero() {
         transition={{ duration: 25, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
       />
 
-      <StaggerContainer className="relative mx-auto max-w-7xl px-4 pt-48 pb-12 sm:pt-40 sm:pb-16 md:pt-48 lg:flex lg:items-center lg:justify-between lg:gap-16">
+      <StaggerContainer className="relative mx-auto max-w-[90rem] px-4 pt-48 pb-12 sm:pt-40 sm:pb-16 md:pt-48 lg:flex lg:items-center lg:justify-between lg:gap-16">
         {/* Text Content */}
         <div className="flex flex-col items-center text-center lg:flex-1 lg:items-start lg:text-left">
           {/* Title */}

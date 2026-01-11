@@ -74,7 +74,6 @@ const footerSections: FooterSection[] = [
       { href: "/#about", label: "About" },
       { href: "/team", label: "Team" },
       { href: "/contribute", label: "Contribute" },
-      { href: "/code-of-conduct", label: "Code of Conduct" },
       { href: "/privacy-policy", label: "Privacy Policy" },
     ],
   },
@@ -108,7 +107,7 @@ export default function Footer() {
 
   return (
     <footer className="border-gray-200 border-t bg-gray-50/50 py-12 lg:pt-16 lg:pb-8 dark:border-white/5 dark:bg-[#0a0a0a]">
-      <div className="mx-auto max-w-7xl px-4 md:px-6">
+      <div className="mx-auto max-w-[90rem] px-4 md:px-6">
         <div className="grid gap-8 lg:gap-12 xl:grid-cols-4 xl:gap-8">
           <div className="space-y-6">
             <Link aria-label="Go to homepage" className="flex items-center gap-2" href="/">
@@ -186,7 +185,7 @@ export default function Footer() {
             </p>
             <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-6">
               <a
-                className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-medium text-gray-700 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-neutral-900 dark:text-gray-200"
+                className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1 font-medium text-gray-700 text-xs shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-neutral-900 dark:text-gray-200"
                 href="https://www.netlify.com/"
                 rel="noopener noreferrer"
                 target="_blank"

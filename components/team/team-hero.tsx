@@ -5,7 +5,7 @@ import { SlideIn, StaggerContainer } from "@/components/ui/motion/motion-compone
 export default function TeamHero() {
   return (
     <section className="relative pt-32 pb-8 lg:pt-48 lg:pb-12">
-      <StaggerContainer className="mx-auto max-w-7xl px-5 sm:px-8">
+      <StaggerContainer className="mx-auto max-w-[90rem] px-5 sm:px-8">
         <div className="flex flex-col items-center text-center">
           <SlideIn delay={0.2} direction="up">
             <h1 className="mb-6 font-extrabold text-4xl text-gray-900 leading-tight tracking-tight sm:text-5xl md:text-6xl dark:text-white">
