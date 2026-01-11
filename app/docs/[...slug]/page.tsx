@@ -159,7 +159,7 @@ export default async function DocPage({ params }: Props) {
 
   return (
     <div>
-      <article className="prose dark:prose-invert mx-auto max-w-5xl">
+      <article className="prose prose-xl dark:prose-invert max-w-none">
         <DocsHeader
           actions={
             <>
