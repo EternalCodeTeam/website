@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { SiNetlify } from "react-icons/si";
 
 import DiscordIcon from "@/components/icons/discord";
 import GitHubIcon from "@/components/icons/github";
@@ -73,6 +74,7 @@ const footerSections: FooterSection[] = [
       { href: "/#about", label: "About" },
       { href: "/team", label: "Team" },
       { href: "/contribute", label: "Contribute" },
+      { href: "/code-of-conduct", label: "Code of Conduct" },
       { href: "/privacy-policy", label: "Privacy Policy" },
     ],
   },
@@ -182,7 +184,17 @@ export default function Footer() {
             <p className="text-gray-500 text-xs leading-5 dark:text-gray-500">
               &copy; {currentYear} EternalCodeTeam. All rights reserved.
             </p>
-            <div className="flex items-center gap-6">
+            <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-6">
+              <a
+                className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-medium text-gray-700 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-neutral-900 dark:text-gray-200"
+                href="https://www.netlify.com/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_0_3px_rgba(16,185,129,0.15)]" />
+                <SiNetlify aria-hidden className="h-4 w-4 text-emerald-500" />
+                This site is powered by Netlify
+              </a>
               <span className="text-gray-500 text-xs dark:text-gray-500">
                 Designed with <span className="text-red-500">❤</span> by the EternalCodeTeam.
               </span>
