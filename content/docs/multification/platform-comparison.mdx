@@ -1,0 +1,83 @@
+---
+title: Platform Comparison
+description: Differences between Paper and Bukkit modules
+icon: GitCompare
+sidebar_position: 6
+---
+
+## Quick Comparison
+
+| Feature | Paper | Bukkit |
+| :--- | :--- | :--- |
+| **Java** | 21 | 8+ |
+| **Minecraft** | 1.19.4+ | 1.13+ |
+| **Adventure** | Native | Adapter required |
+| **Dependencies** | None | `adventure-platform-bukkit` |
+| **Performance** | Direct cast | Adapter overhead |
+
+## Architecture
+
+<CodeTabs>
+  <CodeTab label="Paper">
+    ```java
+    // CommandSender IS Audience - direct cast, zero overhead
+    public class PaperAudienceConverter implements AudienceConverter<CommandSender> {
+        @Override
+        public Audience convert(CommandSender viewer) {
+            return viewer; // Direct!
+        }
+    }
+
+    // Locale from player.locale()
+    public class PaperLocaleProvider implements LocaleProvider<CommandSender> {
+        @Override
+        public Locale provide(CommandSender viewer) {
+            return viewer instanceof Player p ? p.locale() : Locale.ROOT;
+        }
+    }
+    ```
+  </CodeTab>
+  <CodeTab label="Bukkit">
+    ```java
+    // Needs adapter to convert CommandSender -> Audience
+    // Uses BukkitAudiences from adventure-platform-bukkit
+    @Override
+    protected AudienceConverter<CommandSender> audienceConverter() {
+        return sender -> sender instanceof Player p
+            ? audienceProvider.player(p.getUniqueId())
+            : audienceProvider.console();
+    }
+
+    // Locale from player.getLocale() (string)
+    public class BukkitLocaleProvider implements LocaleProvider<CommandSender> {
+        @Override
+        public Locale provide(CommandSender sender) {
+            return sender instanceof Player p ? new Locale(p.getLocale()) : Locale.getDefault();
+        }
+    }
+    ```
+  </CodeTab>
+</CodeTabs>
+
+## When to Use
+
+| Use Paper When | Use Bukkit When |
+| :--- | :--- |
+| Running Paper 1.19.4+ | Running Bukkit/Spigot |
+| Can use Java 21 | Need Java 8 compatibility |
+| Want zero dependencies | Supporting older versions |
+| Want best performance | Can't upgrade to Paper |
+
+## Common Issues
+
+<Callout type="danger" title="Paper: ClassNotFoundException">
+  Using Bukkit module on Paper? Switch to `multification-paper`.
+</Callout>
+
+<Callout type="warning" title="Bukkit: NoSuchMethodError">
+  Adventure version conflict? Relocate `net.kyori` in shadow jar.
+</Callout>
+
+<Callout type="warning" title="Bukkit: Messages not showing">
+  Forgot to close `AudienceProvider`? Call `audienceProvider.close()` in `onDisable()`.
+</Callout>

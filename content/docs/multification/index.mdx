@@ -1,0 +1,81 @@
+---
+title: Introduction
+description: Powerful library for sending custom notifications based on Adventure API
+icon: Zap
+sidebar_position: 1
+---
+
+import { Card } from "../../../components/ui/card.tsx";
+import { Callout } from "../../../components/ui/mdx/callout.tsx";
+import { CardGroup } from "../../../components/ui/mdx/card.tsx";
+
+
+<Callout type="tip" title="Why Multification?">
+  Multification is a state-of-the-art clean, type-safe API that easily allows sending chat messages, titles, actionbars, bossbars, and sounds – all from a single, configurable
+  `Notice` object.
+</Callout>
+
+## Features
+
+<CardGroup>
+  <Card title="Type-safe" icon="Shield" href="/docs/multification/basic-usage">
+    Define messages once, use everywhere with IDE support.
+  </Card>
+  <Card title="Multi-type Notices" icon="Layers" href="/docs/multification/basic-usage">
+    Chat, title, subtitle, actionbar, bossbar, sound in one Notice.
+  </Card>
+  <Card title="Config Integration" icon="Settings" href="/docs/multification/configuration">
+    CDN and Okaeri Configs serializers included.
+  </Card>
+  <Card title="i18n Ready" icon="Globe" href="/docs/multification/advanced">
+    Built-in translation provider for multi-language support.
+  </Card>
+</CardGroup>
+
+## Supported platforms
+
+| Platform | Module | Java | Adventure |
+| :--- | :--- | :--- | :--- |
+| **Paper 1.19.4+** | `multification-paper` | 21 | Native |
+| **Bukkit/Spigot** | `multification-bukkit` | 8+ | Adapter |
+| **Custom** | `multification-core` | 8+ | DIY |
+
+## Quick Start
+
+```java
+// 1. Extend platform class
+public class MyMultification extends PaperMultification<MessagesConfig> {
+    private final MessagesConfig config;
+
+    @Override
+    protected TranslationProvider<MessagesConfig> translationProvider() {
+        return locale -> config;
+    }
+
+    @Override
+    protected ComponentSerializer<Component, Component, String> serializer() {
+        return MiniMessage.miniMessage();
+    }
+
+    @Override
+    protected AudienceConverter<CommandSender> audienceConverter() {
+        return new PaperAudienceConverter();
+    }
+}
+
+// 2. Send messages
+multification.create()
+    .player(playerUUID)
+    .notice(config -> config.welcomeMessage)
+    .placeholder("{player}", player.getName())
+    .send();
+```
+
+## Next Steps
+
+<CardGroup>
+  <Card title="Installation" icon="Download" href="/docs/multification/installation" />
+  <Card title="Basic Usage" icon="BookOpen" href="/docs/multification/basic-usage" />
+  <Card title="Configuration" icon="Settings" href="/docs/multification/configuration" />
+  <Card title="Examples" icon="Code" href="/docs/multification/examples" />
+</CardGroup>

@@ -1,0 +1,84 @@
+---
+title: Migration Guide
+description: Migrate from legacy messaging systems to Multification
+icon: ArrowRightCircle
+sidebar_position: 10
+---
+
+## From ChatColor + String Concatenation
+
+<BeforeAfter>
+  <BeforeAfterItem type="before" title="Legacy" label="Old">
+    ```java
+    String msg = ChatColor.GREEN + "Welcome, " + player.getName() + "!";
+    player.sendMessage(msg);
+    player.sendTitle(ChatColor.GOLD + "Welcome", "", 10, 70, 20);
+    player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
+    ```
+  </BeforeAfterItem>
+  <BeforeAfterItem type="after" title="Multification" label="New">
+    ```java
+    multification.create()
+        .player(player.getUniqueId())
+        .notice(config -> config.welcomeMessage)
+        .placeholder("{player}", player.getName())
+        .send();
+
+    // In config:
+    public Notice welcomeMessage = Notice.builder()
+        .chat("<green>Welcome, {player}!")
+        .title("<gold>Welcome")
+        .sound("minecraft:entity.player.levelup")
+        .build();
+    ```
+  </BeforeAfterItem>
+</BeforeAfter>
+
+## From BukkitAudiences
+
+<BeforeAfter>
+  <BeforeAfterItem type="before" title="Manual Audiences" label="Old">
+    ```java
+    private BukkitAudiences audiences;
+
+    @Override
+    public void onEnable() {
+        audiences = BukkitAudiences.create(this);
+    }
+
+    @Override
+    public void onDisable() {
+        if (audiences != null) audiences.close();
+    }
+
+    void send(Player player, String msg) {
+        audiences.player(player).sendMessage(MiniMessage.miniMessage().deserialize(msg));
+    }
+    ```
+  </BeforeAfterItem>
+  <BeforeAfterItem type="after" title="Multification (Paper)" label="New">
+    ```java
+    private MyMultification multification;
+
+    @Override
+    public void onEnable() {
+        multification = new MyMultification(new MessagesConfig());
+    }
+    // No onDisable needed on Paper
+
+    void send(Player player) {
+        multification.create()
+            .player(player.getUniqueId())
+            .notice(config -> config.message)
+            .send();
+    }
+    ```
+  </BeforeAfterItem>
+</BeforeAfter>
+
+## Quick Migration Steps
+
+1. **Add dependency:** `multification-paper` or `multification-bukkit`
+2. **Create config class:** Define `Notice` fields
+3. **Create Multification class:** Extend platform base class
+4. **Replace calls:** `player.sendMessage(...)` → `multification.create()....send()`

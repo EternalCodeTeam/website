@@ -1,0 +1,112 @@
+---
+title: Advanced Features
+description: i18n, custom formatters, and platform adapters
+icon: Sparkles
+sidebar_position: 6
+---
+
+## Internationalization (i18n)
+
+```java
+public class MyMultification extends PaperMultification<BaseMessages> {
+    private final Map<Locale, BaseMessages> translations;
+
+    @Override
+    protected TranslationProvider<BaseMessages> translationProvider() {
+        return locale -> translations.getOrDefault(locale, translations.get(Locale.ENGLISH));
+    }
+
+    @Override
+    protected LocaleProvider<CommandSender> localeProvider() {
+        return viewer -> viewer instanceof Player p ? p.locale() : Locale.ENGLISH;
+    }
+}
+
+// Load translations
+Map<Locale, BaseMessages> translations = new HashMap<>();
+translations.put(Locale.ENGLISH, loadConfig("messages_en.yml"));
+translations.put(new Locale("pl"), loadConfig("messages_pl.yml"));
+```
+
+<Callout type="tip">
+  Messages are automatically sent in player's language based on their client locale.
+</Callout>
+
+## Global Replacer
+
+Apply transformations to all messages:
+
+```java
+@Override
+protected Replacer<CommandSender> globalReplacer() {
+    return (viewer, text) -> {
+        text = text.replace("{server}", "MyServer");
+
+        // PlaceholderAPI integration
+        if (viewer instanceof Player player) {
+            text = PlaceholderAPI.setPlaceholders(player, text);
+        }
+
+        return text;
+    };
+}
+```
+
+## Custom Notice Types
+
+<Steps>
+  <Step title="Define Content" icon="FileCode">
+    ```java
+    public class HologramContent implements NoticeContent {
+        private final String text;
+        private final Location location;
+        // ...
+    }
+    ```
+  </Step>
+  <Step title="Create Resolver" icon="Puzzle">
+    ```java
+    public class HologramResolver implements NoticeResolver<HologramContent> {
+        private static final NoticeKey<HologramContent> KEY =
+            new NoticeKeyImpl<>("hologram", HologramContent.class);
+
+        @Override
+        public void send(Audience audience, ComponentSerializer<?, ?, String> serializer, HologramContent content) {
+            // Create hologram
+        }
+
+        @Override
+        public NoticeSerdesResult serialize(HologramContent content) { ... }
+
+        @Override
+        public Optional<HologramContent> deserialize(NoticeSerdesResult result) { ... }
+    }
+    ```
+  </Step>
+  <Step title="Register" icon="Plus">
+    ```java
+    this.noticeRegistry.registerResolver(new HologramResolver());
+    ```
+  </Step>
+</Steps>
+
+## Performance Tips
+
+```java
+// ✅ Batch sending
+multification.create()
+    .players(playerList)
+    .notice(config -> config.message)
+    .send();
+
+// ❌ Individual sends
+for (UUID uuid : players) {
+    multification.create().player(uuid).notice(...).send();
+}
+
+// ✅ Async for heavy operations
+multification.create()
+    .all()
+    .notice(config -> config.heavyMessage)
+    .sendAsync();
+```

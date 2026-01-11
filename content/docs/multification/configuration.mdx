@@ -1,0 +1,136 @@
+---
+title: Configuration
+description: Store `Notice` objects in YAML config files using CDN or Okaeri serializers.
+icon: Settings
+sidebar_position: 4
+---
+
+Configuring Multification is about **serializing `Notice` objects to YAML** so non-developers can edit messages safely. We ship serializers for two popular config libraries:
+
+- **CDN** – lightweight, YAML-like, great for quick configs.
+- **Okaeri Configs** – rich features, comments, migration helpers.
+
+> If you only need a YAML reference for message shapes, see the [Format guide (for users)](/docs/multification/format).
+
+## Choosing a serializer
+
+- **Pick CDN** when you want minimal dependencies and fast drop-in setup.
+- **Pick Okaeri** when you need comments preserved, migrations, or already use Okaeri in your project.
+- Both serializers support the same `Notice` shape, so configs are interchangeable.
+
+## CDN
+
+<Steps>
+  <Step title="Setup" icon="Code">
+    ```java
+    Cdn cdn = CdnFactory.createYamlLike()
+        .getSettings()
+        .withComposer(Notice.class, new MultificationNoticeCdnComposer(multification))
+        .build();
+    ```
+  </Step>
+  <Step title="Load Config" icon="Download">
+    ```java
+    MessagesConfig config = new MessagesConfig();
+    cdn.load(Source.of(new File(dataFolder, "messages.yml")), config)
+        .orThrow(RuntimeException::new);
+    cdn.render(config, Source.of(file))
+        .orThrow(RuntimeException::new);
+    ```
+  </Step>
+  <Step title="Reload" icon="RefreshCw">
+    ```java
+    cdn.load(Source.of(file), config).orThrow(RuntimeException::new);
+    ```
+  </Step>
+</Steps>
+
+## Okaeri Configs
+
+<Steps>
+  <Step title="Setup" icon="Code">
+    ```java
+    MessagesConfig config = ConfigManager.create(MessagesConfig.class)
+        .withConfigurer(new MultificationSerdesPack(multification))
+        .withConfigurer(new SerdesCommons(), new YamlSnakeYamlConfigurer())
+        .withBindFile(new File(dataFolder, "messages.yml"))
+        .withRemoveOrphans(true)
+        .saveDefaults()
+        .load(true);
+    ```
+  </Step>
+  <Step title="Reload" icon="RefreshCw">
+    ```java
+    config.load(true);
+    ```
+  </Step>
+</Steps>
+
+## Config Class Example
+
+```java
+public class MessagesConfig {
+    @Description("# Welcome message")
+    public Notice welcomeMessage = Notice.builder()
+        .chat("<green>Welcome, {player}!")
+        .title("<gold>Welcome", "<yellow>Enjoy your stay")
+        .sound("minecraft:entity.player.levelup")
+        .build();
+
+    @Description("# Error messages")
+    public Notice noPermission = Notice.chat("<red>No permission!");
+    public Notice playerNotFound = Notice.chat("<red>Player not found!");
+}
+```
+
+## Generated YAML
+
+```yaml
+# Welcome message
+welcomeMessage:
+  chat:
+    - "<green>Welcome, {player}!"
+  title:
+    title: "<gold>Welcome"
+    subtitle: "<yellow>Enjoy your stay"
+  sound: "minecraft:entity.player.levelup"
+
+# Error messages
+noPermission: "<red>No permission!"
+playerNotFound: "<red>Player not found!"
+```
+
+<Callout type="tip">
+  Simple chat-only notices are serialized as single strings. Complex notices with multiple parts use structured YAML.
+</Callout>
+
+## More YAML patterns (drop into your config)
+
+```yaml
+# Multi-line chat with placeholders
+broadcast:
+  chat:
+    - "<gold>━━━━━━━━━━━━━━━━━━━━━"
+    - "<yellow>{sender}: <white>{message}"
+    - "<gold>━━━━━━━━━━━━━━━━━━━━━"
+
+# Actionbar + sound
+healSuccess:
+  actionBar: "<green>❤ Health restored"
+  sound: "minecraft:entity.player.levelup 1.0 1.2"
+
+# Title + subtitle + timing
+warning:
+  title: "<red>Warning!"
+  subtitle: "<gray>PvP enabled in this area"
+  times: "0.5s 3s 1s"
+
+# Bossbar example
+bossInfo:
+  bossBar:
+    color: "GREEN"
+    text: "<green>Objective updated"
+    progress: 0.6
+```
+
+These YAML snippets map directly to the `Notice` fields your serializers handle, so you can paste them into `messages.yml` for CDN or Okaeri without Java changes.
