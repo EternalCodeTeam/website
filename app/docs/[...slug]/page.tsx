@@ -158,23 +158,23 @@ export default async function DocPage({ params }: Props) {
   const category = docsStructure.find((item) => currentPath.startsWith(item.path))?.title;
 
   return (
-    <div>
-      <article className="prose prose-xl dark:prose-invert max-w-none">
-        <DocsHeader
-          actions={
-            <>
-              <ReadingTime content={doc.content} />
-              <EditOnGitHub filePath={resolvedParams.slug.join("/")} />
-            </>
-          }
-          category={category}
-          description={doc.meta.description}
-          icon={doc.meta.icon}
-          title={doc.meta.title}
-        />
+    <div className="lg:mt-2">
+      <DocsHeader
+        actions={
+          <>
+            <ReadingTime content={doc.content} />
+            <EditOnGitHub filePath={resolvedParams.slug.join("/")} />
+          </>
+        }
+        category={category}
+        description={doc.meta.description}
+        icon={doc.meta.icon}
+        title={doc.meta.title}
+      />
 
-        <hr className="my-2 border-gray-200 sm:mx-auto lg:my-3 dark:border-gray-700" />
+      <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700" />
 
+      <article className="prose dark:prose-invert max-w-none">
         <ErrorBoundary>
           <Suspense fallback={<LoadingFallback />}>
             <MDXRemote
