@@ -1,0 +1,84 @@
+---
+title: FAQ & Troubleshooting
+description: Common questions and solutions
+icon: HelpCircle
+sidebar_position: 8
+---
+
+## Common Questions
+
+<Callout type="note" title="Paper or Bukkit module?">
+  **Paper 1.19.4+ with Java 21?** → `multification-paper`
+  **Bukkit/Spigot or older Java?** → `multification-bukkit`
+</Callout>
+
+<Callout type="note" title="PlaceholderAPI support?">
+  Use global replacer:
+  ```java
+  @Override
+  protected Replacer<CommandSender> globalReplacer() {
+      return (viewer, text) -> viewer instanceof Player p
+          ? PlaceholderAPI.setPlaceholders(p, text) : text;
+  }
+  ```
+</Callout>
+
+<Callout type="note" title="CDN vs Okaeri?">
+  Both work. CDN is simpler, Okaeri has more features. Pick one.
+</Callout>
+
+## Common Errors
+
+<Callout type="danger" title="ClassNotFoundException: net.kyori.adventure.text.Component">
+  **Cause:** Using Bukkit module on Paper or missing Adventure dependency
+  **Fix:** Use `multification-paper` on Paper, or add `adventure-platform-bukkit` for Bukkit
+</Callout>
+
+<Callout type="danger" title="UnsupportedClassVersionError">
+  **Cause:** Java version mismatch
+  **Fix:** Paper module needs Java 21, Bukkit works with Java 8+
+</Callout>
+
+<Callout type="warning" title="NoSuchMethodError in Adventure">
+  **Cause:** Version conflict with other plugins
+  **Fix:** Relocate `net.kyori` in shadow jar
+</Callout>
+
+<Callout type="warning" title="Messages not showing">
+  **Possible causes:**
+  - Player offline
+  - Console receiving title (not possible)
+  - Empty notice
+  - Wrong serializer (use MiniMessage, not default)
+</Callout>
+
+<Callout type="warning" title="Placeholders not replacing">
+  Check placeholder syntax matches: `{player}` in config = `"{player}"` in `.placeholder()`
+</Callout>
+
+<Callout type="warning" title="MiniMessage not parsing">
+  Override serializer:
+  ```java
+  @Override
+  protected ComponentSerializer<Component, Component, String> serializer() {
+      return MiniMessage.miniMessage();
+  }
+  ```
+</Callout>
+
+<Callout type="warning" title="Config not deserializing">
+  Register serializer:
+  ```java
+  // CDN
+  .withComposer(Notice.class, new MultificationNoticeCdnComposer(multification))
+
+  // Okaeri
+  .withConfigurer(new MultificationSerdesPack(multification))
+  ```
+</Callout>
+
+## Getting Help
+
+- [Discord](https://discord.gg/FQ7jmGBd6c)
+- [GitHub Issues](https://github.com/EternalCodeTeam/multification/issues)
+- [Examples](https://github.com/EternalCodeTeam/multification/tree/master/examples)

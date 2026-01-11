@@ -1,0 +1,108 @@
+---
+title: API Reference
+description: Complete API documentation
+icon: Book
+sidebar_position: 7
+---
+
+## Core Classes
+
+### Multification
+
+```java
+public abstract class Multification<VIEWER, TRANSLATION>
+```
+
+**Abstract methods (must override):**
+- `viewerProvider()` – provides players/console
+- `translationProvider()` – provides config for locale
+- `audienceConverter()` – converts viewer to Adventure Audience
+
+**Optional overrides:**
+- `serializer()` – default: `PlainComponentSerializer` (use MiniMessage)
+- `globalReplacer()` – default: no-op
+- `asyncExecutor()` – default: sync execution
+- `localeProvider()` – default: `Locale.ROOT`
+
+### Notice
+
+```java
+// Static factories
+Notice.chat(String... messages)
+Notice.title(String title, String subtitle)
+Notice.actionbar(String message)
+Notice.sound(String key, float volume, float pitch)
+Notice.bossBar(BossBar.Color color, Duration duration, String message)
+Notice.empty()
+
+// Builder
+Notice.builder()
+    .chat("...")
+    .title("...", "...")
+    .actionBar("...")
+    .sound("...")
+    .bossBar(...)
+    .build()
+```
+
+### NoticeBroadcast
+
+```java
+multification.create()
+    // Target
+    .player(UUID)
+    .players(Iterable<UUID>)
+    .viewer(VIEWER)
+    .console()
+    .all()
+    .onlinePlayers()
+    .onlinePlayers(String permission)
+
+    // Notice
+    .notice(Notice)
+    .notice(config -> config.message)
+
+    // Placeholders
+    .placeholder("{key}", "value")
+
+    // Formatters
+    .formatter(Formatter...)
+
+    // Send
+    .send()
+    .sendAsync()
+```
+
+## Functional Interfaces
+
+```java
+// Extract notice from config
+NoticeProvider<T> = translation -> Notice
+
+// Format text
+Formatter = (viewer, text) -> String
+
+// Replace text globally
+Replacer<V> = (viewer, text) -> String
+
+// Get locale for viewer
+LocaleProvider<V> = viewer -> Locale
+
+// Convert viewer to Audience
+AudienceConverter<V> = viewer -> Audience
+
+// Get config for locale
+TranslationProvider<T> = locale -> T
+```
+
+## Serializers
+
+```java
+// CDN
+new MultificationNoticeCdnComposer(multification)
+new MultificationNoticeCdnComposer(noticeRegistry)
+
+// Okaeri
+new MultificationSerdesPack(multification)
+new MultificationSerdesPack(noticeRegistry)
+```

@@ -1,0 +1,113 @@
+---
+title: Installation
+description: How to add Multification to your project
+icon: Download
+sidebar_position: 2
+---
+import {CodeTab, CodeTabs} from "../../../components/ui/mdx/code-tabs.tsx";
+import {Callout} from "../../../components/ui/mdx/callout.tsx";
+
+## Platform Modules
+
+<CodeTabs>
+  <CodeTab label="Paper (Recommended)">
+    <Callout type="important">
+      **Requirements:** Java 21, Paper 1.19.4+
+    </Callout>
+
+    ```kotlin
+    repositories {
+      maven("https://repo.eternalcode.pl/releases")
+    }
+
+    dependencies {
+      implementation("com.eternalcode:multification-paper:1.2.3")
+      // Latest version: https://github.com/EternalCodeTeam/multification/releases
+    }
+    ```
+
+    <Callout type="tip">
+      Paper includes Adventure API out of the box — no extra dependencies required.
+      `CommandSender` already implements `Audience`.
+    </Callout>
+  </CodeTab>
+
+  <CodeTab label="Bukkit / Spigot">
+    <Callout type="important">
+      **Requirements:** Java 8, Bukkit/Spigot 1.13+
+    </Callout>
+
+    ```kotlin
+    repositories {
+      maven("https://repo.eternalcode.pl/releases")
+    }
+
+    dependencies {
+      implementation("com.eternalcode:multification-bukkit:1.2.3")
+      // Latest version: https://github.com/EternalCodeTeam/multification/releases
+      implementation("net.kyori:adventure-platform-bukkit:4.3.3")
+      implementation("net.kyori:adventure-text-minimessage:4.17.0")
+    }
+    ```
+
+    <Callout type="warning">
+      Bukkit requires the Adventure platform adapter.
+      The Bukkit module also registers `SoundBukkitResolver` for the Bukkit `Sound` enum.
+    </Callout>
+  </CodeTab>
+
+  <CodeTab label="Core">
+    Use this module for custom or non-Minecraft platforms.
+
+    ```kotlin
+    dependencies {
+      implementation("com.eternalcode:multification-core:1.2.3")
+      // Latest version: https://github.com/EternalCodeTeam/multification/releases
+    }
+    ```
+  </CodeTab>
+</CodeTabs>
+
+## Config Serializers (Optional)
+
+<CodeTabs>
+  <CodeTab label="CDN">
+    ```kotlin
+    dependencies {
+      implementation("com.eternalcode:multification-cdn:1.2.3")
+      implementation("net.dzikoysk:cdn:1.14.9")
+    }
+    ```
+  </CodeTab>
+
+  <CodeTab label="Okaeri Configs">
+    ```kotlin
+    dependencies {
+      implementation("com.eternalcode:multification-okaeri:1.2.3")
+      implementation("eu.okaeri:okaeri-configs-yaml-snakeyaml:5.0.13")
+    }
+    ```
+  </CodeTab>
+</CodeTabs>
+
+## Shadow / Relocation
+
+<CodeTabs>
+  <CodeTab label="Paper">
+    ```kotlin
+    shadowJar {
+      // Do NOT relocate Adventure on Paper
+      relocate("com.eternalcode.multification", "your.plugin.libs.multification")
+    }
+    ```
+  </CodeTab>
+
+  <CodeTab label="Bukkit">
+    ```kotlin
+    shadowJar {
+     relocate("com.eternalcode.multification", "your.plugin.libs.multification")
+     relocate("net.kyori", "your.plugin.libs.kyori") // REQUIRED
+   }
+    ```
+  </CodeTab>
+</CodeTabs>

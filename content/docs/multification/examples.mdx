@@ -1,0 +1,123 @@
+---
+title: Examples
+description: Complete working examples
+icon: Code
+sidebar_position: 9
+---
+
+## Welcome Message
+
+```java
+@EventHandler
+public void onJoin(PlayerJoinEvent event) {
+    multification.create()
+        .player(event.getPlayer().getUniqueId())
+        .notice(config -> config.welcomeMessage)
+        .placeholder("{player}", event.getPlayer().getName())
+        .send();
+}
+
+// Config
+public Notice welcomeMessage = Notice.builder()
+    .chat("<gradient:green:blue>Welcome, {player}!")
+    .title("<rainbow>Welcome!", "<gray>Enjoy your stay")
+    .sound("minecraft:entity.player.levelup")
+    .build();
+```
+
+## Command Feedback
+
+```java
+@Command(name = "heal")
+public void heal(@Context Player player) {
+    player.setHealth(20.0);
+
+    multification.create()
+        .player(player.getUniqueId())
+        .notice(config -> config.healSuccess)
+        .send();
+}
+
+public Notice healSuccess = Notice.builder()
+    .chat("<green>You have been healed!")
+    .actionBar("<green>❤ Health restored")
+    .sound("minecraft:entity.player.levelup", 1.0f, 1.2f)
+    .build();
+```
+
+## Broadcast
+
+```java
+@Command(name = "broadcast")
+public void broadcast(@Context CommandSender sender, @Arg String message) {
+    multification.create()
+        .all()
+        .notice(config -> config.broadcast)
+        .placeholder("{message}", message)
+        .placeholder("{sender}", sender.getName())
+        .send();
+}
+
+public Notice broadcast = Notice.builder()
+    .chat(
+        "<gold>━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+        "<yellow>Broadcast from {sender}:",
+        "<white>{message}",
+        "<gold>━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    )
+    .sound("minecraft:block.note_block.pling")
+    .build();
+```
+
+## Economy Transaction
+
+```java
+@Command(name = "pay")
+public void pay(@Context Player sender, @Arg Player target, @Arg double amount) {
+    economy.withdraw(sender, amount);
+    economy.deposit(target, amount);
+
+    // Sender
+    multification.create()
+        .player(sender.getUniqueId())
+        .notice(config -> config.paySent)
+        .placeholder("{amount}", String.valueOf(amount))
+        .placeholder("{player}", target.getName())
+        .send();
+
+    // Receiver
+    multification.create()
+        .player(target.getUniqueId())
+        .notice(config -> config.payReceived)
+        .placeholder("{amount}", String.valueOf(amount))
+        .placeholder("{player}", sender.getName())
+        .send();
+}
+```
+
+## Permission-Based
+
+```java
+// All players
+multification.create()
+    .all()
+    .notice(config -> config.announcement)
+    .send();
+
+// Admins only
+multification.create()
+    .onlinePlayers("admin.notify")
+    .notice(config -> config.adminNotify)
+    .send();
+```
+
+## Complete Examples
+
+<CardGroup>
+  <Card title="Bukkit Example" icon="Package" href="https://github.com/EternalCodeTeam/multification/tree/master/examples/bukkit">
+    Complete Bukkit/Spigot plugin example.
+  </Card>
+  <Card title="Paper Example" icon="Zap" href="https://github.com/EternalCodeTeam/multification/tree/master/examples/paper">
+    Complete Paper plugin example.
+  </Card>
+</CardGroup>
