@@ -4,14 +4,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import { BookOpen, ChevronLeft, Github, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { type FC, useEffect, useState } from "react";
+import { type FC, useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
-
+import { Dropdown, type DropdownOption } from "@/components/ui/dropdown";
+import { getDocProjectIcon } from "@/lib/docs-projects";
 import { docsStructure } from "@/lib/sidebar-structure";
 import { cn } from "@/lib/utils";
-
-import SidebarItem from "./sidebar-item";
 import { NetlifyHighlight } from "./netlify-highlight";
+import SidebarItem from "./sidebar-item";
 import type { DocSidebarProps } from "./types";
 import { useMobileSidebar } from "./use-mobile-sidebar";
 
@@ -20,6 +20,40 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
   const { isOpen, isMobile, toggleSidebar, sidebarRef, toggleButtonRef, setIsOpen } =
     useMobileSidebar();
   const [isMounted, setIsMounted] = useState(false);
+
+  const currentProject = useMemo(() => {
+    return docsStructure.find((item) => pathname.startsWith(item.path))?.path || "all";
+  }, [pathname]);
+
+  const [selectedProject, setSelectedProject] = useState<string>(currentProject);
+
+  useEffect(() => {
+    setSelectedProject(currentProject);
+  }, [currentProject]);
+
+  const projectOptions: DropdownOption[] = useMemo(() => {
+    const allOption: DropdownOption = {
+      value: "all",
+      label: "All Projects",
+      icon: <BookOpen className="h-4 w-4 text-gray-500 dark:text-gray-400" />,
+    };
+
+    const projectOpts: DropdownOption[] = docsStructure.map((item) => ({
+      value: item.path,
+      label: item.title.charAt(0).toUpperCase() + item.title.slice(1),
+      icon: getDocProjectIcon(item.path),
+    }));
+
+    return [allOption, ...projectOpts];
+  }, []);
+
+  const filteredDocsStructure = useMemo(() => {
+    if (selectedProject === "all") {
+      return docsStructure;
+    }
+    return docsStructure.filter((item) => item.path === selectedProject);
+  }, [selectedProject]);
+
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === "Escape" && isOpen && isMobile) {
@@ -34,17 +68,31 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
   const sidebarContent = (
     <>
       {/* Sidebar Header */}
-      <div className="flex shrink-0 items-center gap-3 border-gray-200 border-b bg-gray-50/50 px-4 py-4 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/20">
-        <motion.div
-          className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 shadow-xs dark:bg-blue-500"
-          transition={{ duration: 0.3 }}
-          whileHover={{ scale: 1.1, rotate: 5 }}
-        >
-          <BookOpen className="h-5 w-5 text-white" />
-        </motion.div>
-        <div className="flex flex-col">
-          <h2 className="font-bold text-gray-900 text-sm dark:text-white">Documentation</h2>
-          <p className="text-gray-500 text-xs dark:text-gray-400">Browse all topics</p>
+      <div className="relative z-10 flex shrink-0 flex-col gap-3 border-gray-200 border-b bg-gray-50/50 px-4 py-4 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/20">
+        <div className="flex items-center gap-3">
+          <motion.div
+            className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 shadow-xs dark:bg-blue-500"
+            transition={{ duration: 0.3 }}
+            whileHover={{ scale: 1.1, rotate: 5 }}
+          >
+            <BookOpen className="h-5 w-5 text-white" />
+          </motion.div>
+          <div className="flex flex-col">
+            <h2 className="font-bold text-gray-900 text-sm dark:text-white">Documentation</h2>
+            <p className="text-gray-500 text-xs dark:text-gray-400">Browse all topics</p>
+          </div>
+        </div>
+
+        {/* Project Filter Dropdown */}
+        <div className="relative z-[100] mt-2">
+          <Dropdown
+            buttonClassName="h-10 text-xs"
+            className="w-full"
+            menuClassName="max-h-[300px] z-[100]"
+            onChange={setSelectedProject}
+            options={projectOptions}
+            value={selectedProject}
+          />
         </div>
       </div>
 
@@ -53,7 +101,7 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
       {/* Sidebar Content - Scrollable with hidden scrollbar */}
       <div className="scrollbar-hide flex-1 px-3 py-4">
         <div className="space-y-1">
-          {docsStructure.map((item, index) => (
+          {filteredDocsStructure.map((item, index) => (
             <SidebarItem
               index={index}
               isActive={pathname === item.path}

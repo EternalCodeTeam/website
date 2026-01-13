@@ -76,6 +76,12 @@ async function getDocBySlug(slug: string[]): Promise<Doc | null> {
       content,
     };
   } catch (error) {
+    // If file doesn't exist, check if it's a folder - if so return null (notFound)
+    const stats = await fs.stat(path.join(docsDirectory, slug.join("/"))).catch(() => null);
+    if (stats?.isDirectory()) {
+      // It is a folder, not a file - return null to trigger notFound
+      return null;
+    }
     console.error(`Error reading doc file ${fullPath}:`, error);
     return null;
   }
@@ -147,12 +153,21 @@ export function generateStaticParams() {
 
 export default async function DocPage({ params }: Props) {
   const resolvedParams = await params;
+  const currentPath = `/docs/${resolvedParams.slug.join("/")}`;
+
+  // Check if it's a folder (has children in structure) - if so, redirect to the first child
+  const folderItem = docsStructure.find((item) => item.path === currentPath);
+  if (folderItem?.children && folderItem.children.length > 0) {
+    const firstChild = folderItem.children[0];
+    const { redirect } = await import("next/navigation");
+    redirect(firstChild.path);
+  }
+
   const doc = await getDocBySlug(resolvedParams.slug);
   if (!doc) {
     notFound();
   }
 
-  const currentPath = `/docs/${resolvedParams.slug.join("/")}`;
   const { prev, next } = getDocNavigation(currentPath);
 
   const category = docsStructure.find((item) => currentPath.startsWith(item.path))?.title;

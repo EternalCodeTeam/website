@@ -65,7 +65,7 @@ export function Dropdown({
 
   const baseButtonStyles =
     variant === "default"
-      ? "rounded-xl border border-gray-200 bg-white/70 px-4 py-2.5 shadow-xs backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/40 dark:text-gray-200"
+      ? "rounded-xl border border-gray-200 bg-white px-4 py-2.5 shadow-sm dark:border-gray-800 dark:bg-gray-950 dark:text-gray-200"
       : "rounded-full px-4 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-white";
 
   return (
@@ -94,20 +94,20 @@ export function Dropdown({
         {!!isOpen && (
           <motion.div
             animate={{ opacity: 1, y: 0 }}
-            className={`absolute left-0 z-50 mt-2 min-w-full origin-top-right overflow-hidden rounded-xl border border-gray-200 bg-white/80 py-1 shadow-xl ring-1 ring-black/5 backdrop-blur-xl dark:border-gray-800 dark:bg-gray-900/80 dark:ring-white/10 ${menuClassName}`}
-            exit={{ opacity: 0, y: -8 }}
-            initial={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.15, ease: "easeOut" }}
+            className={`absolute left-0 z-50 mt-2 min-w-full origin-top-right overflow-hidden rounded-xl border border-gray-200 bg-white p-1 shadow-2xl ring-1 ring-black/5 dark:border-gray-800 dark:bg-gray-950 dark:ring-white/10 ${menuClassName}`}
+            exit={{ opacity: 0, y: -8, scale: 0.95 }}
+            initial={{ opacity: 0, y: -8, scale: 0.95 }}
+            style={{ position: "absolute" }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="scrollbar-none max-h-[300px] overflow-y-auto">
               {options.map((option) => (
                 <div
                   aria-selected={option.value === value}
-                  className={`flex cursor-pointer items-center justify-between px-4 py-2.5 text-sm outline-none transition-colors duration-150 ${
-                    option.value === value
-                      ? "bg-blue-50/50 font-medium text-blue-700 dark:bg-blue-500/10 dark:text-blue-400"
-                      : "text-gray-700 hover:bg-gray-50/80 dark:text-gray-300 dark:hover:bg-gray-800/60"
-                  } ${optionClassName}`}
+                  className={`flex cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-sm outline-none transition-all duration-200 ${option.value === value
+                      ? "bg-blue-50 font-medium text-blue-700 dark:bg-blue-500/10 dark:text-blue-400"
+                      : "text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800/50"
+                    } ${optionClassName}`}
                   key={option.value}
                   onClick={() => handleOptionSelect(option.value)}
                   onKeyDown={(e) => handleKeyDown(e, option.value)}
