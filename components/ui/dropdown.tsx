@@ -104,10 +104,11 @@ export function Dropdown({
               {options.map((option) => (
                 <div
                   aria-selected={option.value === value}
-                  className={`flex cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-sm outline-none transition-all duration-200 ${option.value === value
+                  className={`flex cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-sm outline-none transition-all duration-200 ${
+                    option.value === value
                       ? "bg-blue-50 font-medium text-blue-700 dark:bg-blue-500/10 dark:text-blue-400"
                       : "text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800/50"
-                    } ${optionClassName}`}
+                  } ${optionClassName}`}
                   key={option.value}
                   onClick={() => handleOptionSelect(option.value)}
                   onKeyDown={(e) => handleKeyDown(e, option.value)}

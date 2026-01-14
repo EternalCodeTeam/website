@@ -6,8 +6,13 @@ import { useEffect, useRef } from "react";
 
 import DocSidebar from "./doc-sidebar";
 import DocsSearch from "./docs-search";
+import type { DocItem } from "./types";
 
-const SidebarWrapper: FC = () => {
+interface SidebarWrapperProps {
+  sidebarStructure: DocItem[];
+}
+
+const SidebarWrapper: FC<SidebarWrapperProps> = ({ sidebarStructure }) => {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const lenisRef = useRef<Lenis | null>(null);
 
@@ -48,14 +53,14 @@ const SidebarWrapper: FC = () => {
             className="scrollbar-hide relative flex min-h-0 flex-1 flex-col overflow-auto overscroll-contain rounded-xl border border-gray-200 bg-white/90 shadow-lg backdrop-blur-md transition-shadow hover:shadow-xl dark:border-gray-800 dark:bg-gray-900/60"
             ref={sidebarRef}
           >
-            <DocSidebar />
+            <DocSidebar sidebarStructure={sidebarStructure} />
           </div>
         </div>
       </aside>
 
       <div className="flex flex-col gap-4 lg:hidden">
         <DocsSearch />
-        <DocSidebar />
+        <DocSidebar sidebarStructure={sidebarStructure} />
       </div>
     </>
   );

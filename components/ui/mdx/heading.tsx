@@ -1,7 +1,8 @@
 "use client";
 
 import { Check, Link as LinkIcon } from "lucide-react";
-import { createElement, type ElementType, type HTMLAttributes } from "react";
+import { usePathname } from "next/navigation";
+import { createElement, type ElementType, type HTMLAttributes, useEffect, useState } from "react";
 import { CopyToClipboard } from "@/components/ui/copy-to-clipboard";
 import { cn } from "@/lib/utils";
 
@@ -11,9 +12,16 @@ interface HeadingProps extends HTMLAttributes<HTMLElement> {
 }
 
 export const Heading = ({ children, id, tag, className, ...props }: HeadingProps) => {
-  const link = id
-    ? `${typeof window !== "undefined" ? window.location.origin + window.location.pathname : ""}#${id}`
-    : "";
+  const pathname = usePathname();
+  const [origin, setOrigin] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setOrigin(window.location.origin);
+    }
+  }, []);
+
+  const link = id && origin ? `${origin}${pathname}#${id}` : "";
 
   return createElement(
     tag,

@@ -12,10 +12,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://eternalcode.pl",
   },
-  // ...generateOgImageMetadata({
-  //   title: "Home",
-  //   subtitle: "EternalCode.pl",
-  // }),
 };
 
 export default function Home() {

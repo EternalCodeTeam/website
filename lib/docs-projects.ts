@@ -1,6 +1,5 @@
 import type { LucideIcon } from "lucide-react";
 import { BookOpen, Code, FileText, Users } from "lucide-react";
-import { createElement, type ReactNode } from "react";
 
 export interface DocProject {
   path: string;
@@ -47,19 +46,34 @@ export const DOC_PROJECTS: DocProject[] = [
   },
 ];
 
+export const DOCS_PAGE_CONFIG = {
+  title: "Documentation",
+  description:
+    "Comprehensive guides and references for all EternalCode projects.\nSelect a project below to get started.",
+  logo: {
+    src: "/logo.svg",
+    alt: "EternalCode Logo",
+    width: 64,
+    height: 64,
+  },
+  links: [
+    {
+      title: "Join our Discord",
+      href: "https://discord.gg/eternalcode",
+    },
+    {
+      title: "GitHub",
+      href: "https://github.com/eternalcodeteam",
+    },
+  ],
+};
+
 export function getDocProjectByPath(path: string): DocProject | undefined {
-  return DOC_PROJECTS.find((project) => path.startsWith(project.path));
+  return DOC_PROJECTS.slice()
+    .sort((a, b) => b.path.length - a.path.length)
+    .find((project) => path.startsWith(project.path));
 }
 
-export function getDocProjectIcon(path: string): ReactNode {
-  const project = getDocProjectByPath(path);
-  if (project) {
-    return createElement(project.icon, {
-      className: `h-4 w-4 ${project.iconColor}`,
-    });
-  }
-  return createElement(BookOpen, {
-    className: "h-4 w-4 text-gray-500 dark:text-gray-400",
-  });
+export function getDocProjectIcon(path: string): LucideIcon {
+  return getDocProjectByPath(path)?.icon ?? BookOpen;
 }
-

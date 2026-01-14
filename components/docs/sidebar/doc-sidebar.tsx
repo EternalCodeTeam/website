@@ -8,22 +8,25 @@ import { type FC, useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { Dropdown, type DropdownOption } from "@/components/ui/dropdown";
 import { getDocProjectIcon } from "@/lib/docs-projects";
-import { docsStructure } from "@/lib/sidebar-structure";
 import { cn } from "@/lib/utils";
 import { NetlifyHighlight } from "./netlify-highlight";
 import SidebarItem from "./sidebar-item";
 import type { DocSidebarProps } from "./types";
 import { useMobileSidebar } from "./use-mobile-sidebar";
 
-const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
+const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick, sidebarStructure }) => {
   const pathname = usePathname();
   const { isOpen, isMobile, toggleSidebar, sidebarRef, toggleButtonRef, setIsOpen } =
     useMobileSidebar();
   const [isMounted, setIsMounted] = useState(false);
 
   const currentProject = useMemo(() => {
-    return docsStructure.find((item) => pathname.startsWith(item.path))?.path || "all";
-  }, [pathname]);
+    return (
+      sidebarStructure.find((item) => pathname.startsWith(item.path))?.path ||
+      sidebarStructure[0]?.path ||
+      ""
+    );
+  }, [pathname, sidebarStructure]);
 
   const [selectedProject, setSelectedProject] = useState<string>(currentProject);
 
@@ -32,27 +35,19 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick }) => {
   }, [currentProject]);
 
   const projectOptions: DropdownOption[] = useMemo(() => {
-    const allOption: DropdownOption = {
-      value: "all",
-      label: "All Projects",
-      icon: <BookOpen className="h-4 w-4 text-gray-500 dark:text-gray-400" />,
-    };
-
-    const projectOpts: DropdownOption[] = docsStructure.map((item) => ({
-      value: item.path,
-      label: item.title.charAt(0).toUpperCase() + item.title.slice(1),
-      icon: getDocProjectIcon(item.path),
-    }));
-
-    return [allOption, ...projectOpts];
-  }, []);
+    return sidebarStructure.map((item) => {
+      const Icon = getDocProjectIcon(item.path);
+      return {
+        value: item.path,
+        label: item.title.charAt(0).toUpperCase() + item.title.slice(1),
+        icon: <Icon className="h-4 w-4" />,
+      };
+    });
+  }, [sidebarStructure]);
 
   const filteredDocsStructure = useMemo(() => {
-    if (selectedProject === "all") {
-      return docsStructure;
-    }
-    return docsStructure.filter((item) => item.path === selectedProject);
-  }, [selectedProject]);
+    return sidebarStructure.filter((item) => item.path === selectedProject);
+  }, [selectedProject, sidebarStructure]);
 
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
