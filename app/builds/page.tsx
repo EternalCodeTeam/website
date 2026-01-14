@@ -101,7 +101,7 @@ function BuildExplorerContent() {
         <div className="absolute top-20 -left-20 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl filter dark:bg-blue-500/5" />
         <div className="absolute top-40 -right-20 h-96 w-96 rounded-full bg-indigo-500/10 blur-3xl filter dark:bg-indigo-500/5" />
         <div className="absolute top-1/2 left-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-500/5 blur-3xl filter" />
-        <FacadePattern className="absolute inset-0 opacity-40 dark:opacity-20" />
+        <FacadePattern className="absolute inset-0 h-full opacity-30 dark:opacity-10" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-[90rem] px-4 pt-56 pb-20 md:pt-40 md:pb-32">

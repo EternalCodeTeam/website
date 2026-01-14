@@ -28,7 +28,7 @@ export default function TeamMembers() {
         {/* Bottom Right - Cyan accent */}
         <div className="absolute right-0 bottom-0 h-[600px] w-[600px] translate-x-1/3 rounded-full bg-cyan-500/10 mix-blend-multiply blur-3xl filter dark:bg-cyan-500/5 dark:mix-blend-screen" />
 
-        <FacadePattern className="absolute inset-0 h-full opacity-30 dark:opacity-30" />
+        <FacadePattern className="absolute inset-0 h-full opacity-30 dark:opacity-10" />
       </div>
 
       <div className="relative z-10 pt-28 md:pt-32">

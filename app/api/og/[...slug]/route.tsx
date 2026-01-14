@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { getDoc } from "@/lib/docs/loader";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 interface Props {
   params: Promise<{
