@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, Copy, Terminal } from "lucide-react";
-import type { ReactNode } from "react";
+import { isValidElement, type ReactNode } from "react";
 import { CopyToClipboard } from "@/components/ui/copy-to-clipboard";
 import { cn } from "@/lib/utils";
 
@@ -57,11 +57,10 @@ function extractText(node: ReactNode): string {
       .join(" "); // Join with space to separate words
   }
   // Handle React elements - extract children from props
-  if (typeof node === "object" && node !== null) {
-    // biome-ignore lint/suspicious/noExplicitAny: React element type handling
-    const element = node as unknown as any;
-    if (element?.props?.children !== undefined) {
-      return extractText(element.props.children);
+  if (isValidElement(node)) {
+    const props = node.props as { children?: ReactNode };
+    if (props.children !== undefined) {
+      return extractText(props.children);
     }
   }
   return "";
