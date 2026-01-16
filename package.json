@@ -7,8 +7,8 @@
     "dev": "next dev",
     "build": "bun run format:fix && bun run lint:fix && next build",
     "start": "next start",
-    "lint": "biome lint .",
-    "lint:fix": "biome lint --write .",
+    "lint": "biome lint app components lib hooks",
+    "lint:fix": "biome lint --write app components lib hooks",
     "format": "biome check .",
     "format:fix": "bunx ultracite fix",
     "type-check": "tsc --noEmit"
