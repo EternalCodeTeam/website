@@ -23,15 +23,29 @@ async function buildTree(dir: string, urlPrefix: string): Promise<DocItem[]> {
     const urlPath = `${urlPrefix}/${relativeName}`;
 
     if (entry.isDirectory()) {
-      const children = await buildTree(fullPath, urlPath);
+      let title = entry.name;
+      let icon: string | undefined;
+      let position = 999;
 
+      // Check for _index.mdx to get folder metadata
+      const indexPath = path.join(fullPath, "_index.mdx");
+      try {
+        const indexContent = await fs.readFile(indexPath, "utf8");
+        const { data } = matter(indexContent);
+        const parsed = FrontmatterSchema.safeParse(data);
+        if (parsed.success) {
+          title = parsed.data.title;
+          icon = parsed.data.icon;
+          position = parsed.data.sidebar_position ?? 999;
+        }
+      } catch {
+        // No _index.mdx or error reading it, fall back to defaults
+      }
+
+      const children = await buildTree(fullPath, urlPath);
       if (children.length === 0) {
         continue;
       }
-
-      const title = entry.name;
-      const icon = undefined;
-      const position = 999;
 
       items.push({
         title,
@@ -41,6 +55,10 @@ async function buildTree(dir: string, urlPrefix: string): Promise<DocItem[]> {
         sidebar_position: position,
       });
     } else if (entry.isFile() && entry.name.endsWith(".mdx")) {
+      if (entry.name === "_index.mdx") {
+        continue;
+      }
+
       const fileContent = await fs.readFile(fullPath, "utf8");
       const { data } = matter(fileContent);
       const parsed = FrontmatterSchema.safeParse(data);
@@ -49,20 +67,12 @@ async function buildTree(dir: string, urlPrefix: string): Promise<DocItem[]> {
         continue;
       }
 
-      const folderItem = items.find((i) => i.path === urlPath && i.children);
-
-      if (folderItem) {
-        folderItem.title = parsed.data.title;
-        folderItem.icon = parsed.data.icon;
-        folderItem.sidebar_position = parsed.data.sidebar_position;
-      } else {
-        items.push({
-          title: parsed.data.title,
-          path: urlPath,
-          icon: parsed.data.icon,
-          sidebar_position: parsed.data.sidebar_position,
-        });
-      }
+      items.push({
+        title: parsed.data.title,
+        path: urlPath,
+        icon: parsed.data.icon,
+        sidebar_position: parsed.data.sidebar_position,
+      });
     }
   }
 

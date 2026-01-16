@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 import { getDoc } from "@/lib/docs/loader";
 
 export async function POST(req: NextRequest) {
@@ -7,7 +8,15 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { slug } = (await req.json()) as { slug: string[] };
+    const json = await req.json();
+    const bodySchema = z.object({ slug: z.array(z.string()) });
+    const result = bodySchema.safeParse(json);
+
+    if (!result.success) {
+      return NextResponse.json({ message: "Invalid request body" }, { status: 400 });
+    }
+
+    const { slug } = result.data;
     const doc = await getDoc(slug);
 
     if (!doc) {
@@ -15,7 +24,8 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({ lastModified: doc.lastModified });
-  } catch (_error) {
+  } catch (error) {
+    console.error("[doc-check] Error:", error);
     return NextResponse.json({ message: "Error" }, { status: 500 });
   }
 }
