@@ -17,7 +17,7 @@ export const DOC_PROJECTS: DocProject[] = [
     icon: Code,
     iconColor: "text-purple-500 dark:text-purple-400",
     gradientColor: "from-purple-500/20 to-indigo-500/20",
-    description: "Core library providing essential features and utilities for Minecraft servers",
+    description: "All the most important server functions in one!",
   },
   {
     path: "/docs/eternalcombat",
@@ -25,7 +25,7 @@ export const DOC_PROJECTS: DocProject[] = [
     icon: FileText,
     iconColor: "text-red-500 dark:text-red-400",
     gradientColor: "from-red-500/20 to-orange-500/20",
-    description: "Advanced combat system with customizable mechanics and features",
+    description: "Something more than just combat logging for Minecraft!",
   },
   {
     path: "/docs/multification",
