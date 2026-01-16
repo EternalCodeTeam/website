@@ -386,7 +386,7 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
                           </span>
                         </div>
                         <button
-                          className="touch-action-manipulation text-gray-400 text-xs transition-colors hover:text-gray-600 dark:hover:text-gray-300"
+                          className="touch-action-manipulation cursor-pointer text-gray-400 text-xs transition-colors hover:text-gray-600 dark:hover:text-gray-300"
                           onClick={clearRecentSearches}
                           type="button"
                         >

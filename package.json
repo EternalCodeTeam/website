@@ -4,6 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "dev": "next dev",
     "build": "bun run format:fix && bun run lint:fix && next build",
     "start": "next start",
     "lint": "biome lint app components hooks lib content",
