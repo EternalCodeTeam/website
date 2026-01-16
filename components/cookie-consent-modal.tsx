@@ -10,6 +10,7 @@ import { useCookieConsent } from "@/hooks/use-cookie-consent";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { softSpring } from "@/lib/animations/variants";
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Component logic is complex by design
 export function CookieConsentModal() {
   const { consent, updateConsent, acceptAll, isInitialized } = useCookieConsent();
   const [isOpen, setIsOpen] = useState(false);

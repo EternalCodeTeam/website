@@ -10,13 +10,7 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
-      "complexity": {
-        "noExcessiveCognitiveComplexity": "off"
-      },
-      "suspicious": {
-        "noArrayIndexKey": "warn"
-      }
+      "recommended": true
     }
   },
   "formatter": {

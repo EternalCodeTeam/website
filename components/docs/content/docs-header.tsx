@@ -13,6 +13,7 @@ interface DocHeaderProps {
   actions?: ReactNode;
 }
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Component logic involves multiple conditional renders
 export function DocsHeader({ category, title, description, icon, actions }: DocHeaderProps) {
   const prefersReducedMotion = useReducedMotion();
 

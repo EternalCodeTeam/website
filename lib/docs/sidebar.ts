@@ -13,6 +13,7 @@ export const getSidebar = cache((): Promise<DocItem[]> => {
   return buildTree(CONTENT_DIR, "/docs");
 });
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Recursive tree building is complex
 async function buildTree(dir: string, urlPrefix: string): Promise<DocItem[]> {
   const entries = await fs.readdir(dir, { withFileTypes: true });
   const items: DocItem[] = [];

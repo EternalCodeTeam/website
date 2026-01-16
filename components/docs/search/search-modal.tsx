@@ -31,6 +31,7 @@ const POPULAR_PAGES = [
   { title: "Contributing", path: "/docs/contribute", category: "Contribute" },
 ];
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Modal logic handles many interactions
 export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
