@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import type React from "react";
-
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { cn } from "@/lib/utils";
 
 import { Button } from "./button";
@@ -26,6 +26,7 @@ const Tab = ({
 }: TabProps & {
   ref?: React.Ref<HTMLButtonElement>;
 }) => {
+  const prefersReducedMotion = useReducedMotion();
   const baseStyles =
     "relative px-3 py-2 text-sm font-medium transition-colors duration-200 ease-in-out";
 
@@ -35,9 +36,9 @@ const Tab = ({
 
   const tabContent = (
     <>
-      {!!leftIcon && <span className="mr-2">{leftIcon}</span>}
+      {leftIcon ? <span className="mr-2">{leftIcon}</span> : null}
       {children}
-      {!!rightIcon && <span className="ml-2">{rightIcon}</span>}
+      {rightIcon ? <span className="ml-2">{rightIcon}</span> : null}
     </>
   );
 
@@ -46,7 +47,7 @@ const Tab = ({
   return (
     <div className="relative">
       <Button
-        animate={animate}
+        animate={animate && !prefersReducedMotion}
         className={tabClasses}
         ref={ref}
         size="sm"
@@ -55,13 +56,17 @@ const Tab = ({
       >
         {tabContent}
       </Button>
-      {!!isActive && (
+      {isActive ? (
         <motion.div
           className="absolute bottom-0 left-0 h-0.5 w-full bg-blue-500"
-          layoutId="activeTab"
-          transition={{ type: "spring", stiffness: 300, damping: 30, duration: 0.1 }}
+          layoutId={prefersReducedMotion ? undefined : "activeTab"}
+          transition={
+            prefersReducedMotion
+              ? { duration: 0 }
+              : { type: "spring", stiffness: 300, damping: 30, duration: 0.1 }
+          }
         />
-      )}
+      ) : null}
     </div>
   );
 };

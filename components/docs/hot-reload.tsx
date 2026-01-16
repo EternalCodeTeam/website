@@ -26,16 +26,14 @@ export function HotReload({ slug, lastModified }: HotReloadProps) {
 
         if (res.ok) {
           const data = (await res.json()) as { lastModified: number };
-          // If server timestamp is newer than client timestamp
-          // We assume client timestamp matches the props passed during initial render.
-          // Note: When router.refresh() happens, this component re-mounts with new props.lastModified.
+
           if (data.lastModified > lastModified) {
             console.log("[HMR] Content changed, refreshing...");
             router.refresh(); // Soft refresh
           }
         }
       } catch (_e) {
-        // ignore errors in poller
+        // Intentionally ignore fetch errors during hot reload checks
       }
     }, 1000);
 

@@ -188,6 +188,12 @@ pre[class*="language-"] {
   contain-intrinsic-size: 100px;
 }
 
+@utility touch-optimized {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
 code[class*="language-"],
 pre[class*="language-"] {
   font-family:
@@ -307,6 +313,25 @@ pre[class*="language-"].line-numbers > code {
 
 .animate-fadein {
   animation: fadein 0.4s cubic-bezier(0.4, 2, 0.6, 1) both;
+}
+
+/* Honor prefers-reduced-motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-slide-up,
+  .animate-fadein {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 pre {

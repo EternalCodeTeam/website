@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { type FC, type MouseEvent, memo, useCallback, useState } from "react";
 
 import { DocIcon } from "@/components/docs/content/doc-icon";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { cn } from "@/lib/utils";
 
 import type { DocItemProps } from "./types";
@@ -13,6 +14,7 @@ const SidebarItem: FC<DocItemProps> = memo(({ item, level, onItemClick }) => {
   const pathname = usePathname();
   const [isExpanded, setIsExpanded] = useState(true);
   const hasChildren = item.children && item.children.length > 0;
+  const prefersReducedMotion = useReducedMotion();
 
   const isActive = pathname === item.path;
   const isChildActive = item.children?.some((child) => pathname.startsWith(child.path));
@@ -43,6 +45,7 @@ const SidebarItem: FC<DocItemProps> = memo(({ item, level, onItemClick }) => {
         onToggle={toggleExpanded}
         paddingLeft={paddingLeft}
         pathname={pathname}
+        prefersReducedMotion={prefersReducedMotion}
       />
     );
   }
@@ -61,9 +64,21 @@ const FolderItem: FC<{
   onToggle: (event: MouseEvent<HTMLDivElement>) => void;
   onItemClick?: (path: string) => void;
   pathname: string;
-}> = ({ item, level, isExpanded, isActive, paddingLeft, onToggle, onItemClick, pathname }) => (
+  prefersReducedMotion: boolean;
+}> = ({
+  item,
+  level,
+  isExpanded,
+  isActive,
+  paddingLeft,
+  onToggle,
+  onItemClick,
+  pathname,
+  prefersReducedMotion,
+}) => (
   <div className="mb-0.5">
     <motion.div
+      aria-expanded={isExpanded}
       className={cn(
         "group flex cursor-pointer select-none items-center gap-2 rounded-lg px-3 py-2 font-medium text-sm transition-all",
         isActive
@@ -76,11 +91,18 @@ const FolderItem: FC<{
           onToggle(e as unknown as MouseEvent<HTMLDivElement>);
         }
       }}
+      role="button"
       style={{ paddingLeft }}
+      tabIndex={0}
     >
       <motion.div
         animate={{ rotate: isExpanded ? 90 : 0 }}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        transition={{
+          type: prefersReducedMotion ? "tween" : "spring",
+          stiffness: 300,
+          damping: 20,
+          duration: prefersReducedMotion ? 0 : undefined,
+        }}
       >
         <ChevronRight className="h-4 w-4 shrink-0" />
       </motion.div>
@@ -107,7 +129,7 @@ const FolderItem: FC<{
           className="overflow-hidden"
           exit={{ height: 0, opacity: 0 }}
           initial={{ height: 0, opacity: 0 }}
-          transition={{ duration: 0.2, ease: "easeInOut" }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.2, ease: "easeInOut" }}
         >
           <div className="mt-0.5 space-y-0.5">
             {item.children?.map((child, childIndex) => (

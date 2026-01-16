@@ -1,7 +1,7 @@
 "use client";
 
 import type { LucideIcon } from "lucide-react";
-// biome-ignore lint/performance/noNamespaceImport: Dynamic icon loading
+// biome-ignore lint/performance/noNamespaceImport: Optimized by Next.js optimizePackageImports
 import * as LucideIcons from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -16,7 +16,7 @@ interface CardProps {
 }
 
 export function Card({ title, description, icon, href, className }: CardProps) {
-  // biome-ignore lint/performance/noDynamicNamespaceImportAccess: Dynamic icon loading based on prop
+  // biome-ignore lint/performance/noDynamicNamespaceImportAccess: Optimized by Next.js optimizePackageImports
   const IconComponent = icon ? (LucideIcons[icon as keyof typeof LucideIcons] as LucideIcon) : null;
 
   const content = (
@@ -49,7 +49,11 @@ export function Card({ title, description, icon, href, className }: CardProps) {
 
   if (href) {
     return (
-      <Link className="block no-underline" href={href}>
+      <Link
+        aria-label={description ? `${title}: ${description}` : title}
+        className="block no-underline"
+        href={href}
+      >
         {content}
       </Link>
     );

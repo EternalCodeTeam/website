@@ -10,7 +10,7 @@ interface TeamErrorProps {
 export default function TeamError({ error }: TeamErrorProps) {
   return (
     <section className="py-20" id="team">
-      <div className="mx-auto max-w-(--breakpoint-xl) px-4">
+      <div className="mx-auto max-w-7xl px-4">
         <motion.div
           animate={{ opacity: 1, y: 0 }}
           className="flex flex-col items-center justify-center rounded-2xl border border-red-200 bg-red-50 p-12 text-center dark:border-red-900/30 dark:bg-red-900/10"

@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { type FC, useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { Dropdown, type DropdownOption } from "@/components/ui/dropdown";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { getDocProjectIcon } from "@/lib/docs-projects";
 import { cn } from "@/lib/utils";
 import { NetlifyHighlight } from "./netlify-highlight";
@@ -19,6 +20,7 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick, sidebarS
   const { isOpen, isMobile, toggleSidebar, sidebarRef, toggleButtonRef, setIsOpen } =
     useMobileSidebar();
   const [isMounted, setIsMounted] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   const currentProject = useMemo(() => {
     return (
@@ -67,8 +69,11 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick, sidebarS
         <div className="flex items-center gap-3">
           <motion.div
             className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 shadow-xs dark:bg-blue-500"
-            transition={{ duration: 0.3 }}
-            whileHover={{ scale: 1.1, rotate: 5 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
+            whileHover={{
+              scale: prefersReducedMotion ? 1 : 1.1,
+              rotate: prefersReducedMotion ? 0 : 5,
+            }}
           >
             <BookOpen className="h-5 w-5 text-white" />
           </motion.div>
@@ -127,7 +132,10 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick, sidebarS
             target="_blank"
             title="GitHub"
           >
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+            <motion.div
+              whileHover={{ scale: prefersReducedMotion ? 1 : 1.1 }}
+              whileTap={{ scale: prefersReducedMotion ? 1 : 0.95 }}
+            >
               <Github className="h-4 w-4 text-gray-500 transition-colors group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
             </motion.div>
           </Link>
@@ -150,8 +158,8 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick, sidebarS
           className="group mb-4 flex w-full items-center justify-between gap-3 rounded-lg border border-gray-200 bg-white px-4 py-3 font-medium text-gray-900 text-sm shadow-xs transition-all hover:border-blue-300 hover:shadow-md lg:hidden dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:border-blue-700"
           onClick={toggleSidebar}
           ref={toggleButtonRef}
-          whileHover={{ scale: 1.01 }}
-          whileTap={{ scale: 0.99 }}
+          whileHover={{ scale: prefersReducedMotion ? 1 : 1.01 }}
+          whileTap={{ scale: prefersReducedMotion ? 1 : 0.99 }}
         >
           <div className="flex items-center gap-2">
             {isOpen ? (
@@ -190,12 +198,17 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick, sidebarS
                   animate={{ x: 0 }}
                   aria-label="Documentation navigation"
                   className="fixed inset-y-0 left-0 z-[70] flex w-72 flex-col overflow-auto overscroll-contain border-gray-200 border-r bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900"
-                  exit={{ x: -280 }}
+                  exit={{ x: prefersReducedMotion ? 0 : -280 }}
                   id="doc-sidebar-mobile"
-                  initial={{ x: -280 }}
+                  initial={{ x: prefersReducedMotion ? 0 : -280 }}
                   ref={sidebarRef}
                   role="navigation"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  transition={{
+                    type: prefersReducedMotion ? "tween" : "spring",
+                    stiffness: 300,
+                    damping: 30,
+                    duration: prefersReducedMotion ? 0 : undefined,
+                  }}
                 >
                   {sidebarContent}
                 </motion.nav>

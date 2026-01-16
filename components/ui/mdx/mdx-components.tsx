@@ -4,13 +4,18 @@ import type { ComponentProps, HTMLAttributes } from "react";
 import DynamicCommandsTable from "@/components/docs/eternalcore/commands/dynamic-commands-table";
 import DynamicPlaceholdersTable from "@/components/docs/eternalcore/placeholder/dynamic-placeholders-table";
 import { AlertBox } from "@/components/ui/alert-box";
+import { Badge } from "@/components/ui/mdx/badge";
 import { BeforeAfter, BeforeAfterItem } from "@/components/ui/mdx/before-after";
 import { Callout } from "@/components/ui/mdx/callout";
 import { Card, CardGroup } from "@/components/ui/mdx/card";
 import { CodeBlock } from "@/components/ui/mdx/code-block";
 import { CodeTab, CodeTabs } from "@/components/ui/mdx/code-tabs";
+import { Command } from "@/components/ui/mdx/command";
+import { Divider } from "@/components/ui/mdx/divider";
+import { FileTree, FileTreeItem } from "@/components/ui/mdx/file-tree";
 import { Heading } from "@/components/ui/mdx/heading";
 import { Inline } from "@/components/ui/mdx/inline";
+import { LinkPreview } from "@/components/ui/mdx/link-preview";
 import { MdxImage } from "@/components/ui/mdx/mdx-image";
 import { Step, Steps } from "@/components/ui/mdx/steps";
 
@@ -44,7 +49,7 @@ export const components: MDXComponents = {
     />
   ),
 
-  AlertBox, // Keep for backward compatibility
+  AlertBox,
   Callout,
   Card,
   CardGroup,
@@ -54,6 +59,12 @@ export const components: MDXComponents = {
   CodeTab,
   BeforeAfter,
   BeforeAfterItem,
+  Badge,
+  Command,
+  Divider,
+  FileTree,
+  FileTreeItem,
+  LinkPreview,
   DynamicCommandsTable,
   DynamicPlaceholdersTable,
 

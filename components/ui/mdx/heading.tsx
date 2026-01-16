@@ -13,15 +13,13 @@ interface HeadingProps extends HTMLAttributes<HTMLElement> {
 
 export const Heading = ({ children, id, tag, className, ...props }: HeadingProps) => {
   const pathname = usePathname();
-  const [origin, setOrigin] = useState("");
+  const [link, setLink] = useState("");
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      setOrigin(window.location.origin);
+    if (id && typeof window !== "undefined") {
+      setLink(`${window.location.origin}${pathname}#${id}`);
     }
-  }, []);
-
-  const link = id && origin ? `${origin}${pathname}#${id}` : "";
+  }, [id, pathname]);
 
   return createElement(
     tag,

@@ -5,7 +5,7 @@ export default function TeamSkeleton() {
 
   return (
     <section id="team">
-      <div className="relative mx-auto max-w-(--breakpoint-xl) px-4 py-20">
+      <div className="relative mx-auto max-w-7xl px-4 py-20">
         <div className="mb-16 text-center">
           {/* Title Skeleton */}
           <div className="mx-auto mb-4 h-10 w-48 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-800/50" />

@@ -1,7 +1,7 @@
-import { format } from "date-fns";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { Calendar, Download, GitBranch, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 export interface Build {
   id: string;
@@ -40,7 +40,8 @@ function BuildName({ build, isLastDownloaded }: { build: Build; isLastDownloaded
     <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-2">
       {build.runUrl ? (
         <a
-          className="block max-w-[150px] truncate hover:underline sm:max-w-xs md:max-w-md"
+          aria-label={`View details for ${build.name}`}
+          className="block max-w-[90%] truncate hover:underline sm:max-w-xs md:max-w-md"
           href={build.runUrl}
           rel="noopener noreferrer"
           target="_blank"
@@ -49,7 +50,7 @@ function BuildName({ build, isLastDownloaded }: { build: Build; isLastDownloaded
           {build.name}
         </a>
       ) : (
-        <span className="block max-w-[150px] truncate sm:max-w-xs md:max-w-md" title={build.name}>
+        <span className="block max-w-[90%] truncate sm:max-w-xs md:max-w-md" title={build.name}>
           {build.name}
         </span>
       )}
@@ -62,17 +63,50 @@ function BuildName({ build, isLastDownloaded }: { build: Build; isLastDownloaded
   );
 }
 
+const dateFormatter = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+});
+
+const fullDateFormatter = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+});
+
+const rowVariants: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.03,
+      duration: 0.2,
+      ease: "easeOut",
+    },
+  }),
+  exit: { opacity: 0, y: -5, transition: { duration: 0.1 } },
+};
+
 export function BuildRow({ build, index, lastDownloadedId, onDownload }: BuildRowProps) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <motion.tr
-      animate={{ opacity: 1, y: 0 }}
+      animate={prefersReducedMotion ? undefined : "visible"}
       className="group transition-colors hover:bg-white dark:hover:bg-gray-800/50"
-      exit={{ opacity: 0, y: -3 }}
-      initial={{ opacity: 0, y: 3 }}
-      key={build.id}
-      transition={{ duration: 0.15, delay: index * 0.02 }}
+      custom={index}
+      exit={prefersReducedMotion ? undefined : "exit"}
+      initial={prefersReducedMotion ? undefined : "hidden"}
+      layoutId={build.id}
+      variants={prefersReducedMotion ? undefined : rowVariants}
     >
-      <td className="px-4 py-3 font-medium text-gray-900 md:px-6 dark:text-white">
+      <th
+        className="px-4 py-3 text-left font-medium text-gray-900 md:px-6 dark:text-white"
+        scope="row"
+      >
         <div className="flex items-center gap-3">
           <BuildStatusBadge type={build.type} />
           <div className="flex min-w-0 flex-col">
@@ -82,7 +116,7 @@ export function BuildRow({ build, index, lastDownloadedId, onDownload }: BuildRo
               <span className="flex items-center gap-1">
                 <Calendar className="h-3 w-3" />
                 {!!build.date && !Number.isNaN(new Date(build.date).getTime())
-                  ? format(new Date(build.date), "MMM d")
+                  ? dateFormatter.format(new Date(build.date))
                   : "Unknown"}
               </span>
               {!!build.commit && (
@@ -94,12 +128,12 @@ export function BuildRow({ build, index, lastDownloadedId, onDownload }: BuildRo
             </div>
           </div>
         </div>
-      </td>
+      </th>
       <td className="hidden whitespace-nowrap px-6 py-3 text-gray-600 md:table-cell dark:text-gray-400">
         <div className="flex items-center gap-2">
           <Calendar className="h-4 w-4 text-gray-400" />
           {!!build.date && !Number.isNaN(new Date(build.date).getTime())
-            ? format(new Date(build.date), "MMM d, yyyy HH:mm")
+            ? fullDateFormatter.format(new Date(build.date))
             : "Unknown Date"}
         </div>
       </td>
@@ -115,6 +149,7 @@ export function BuildRow({ build, index, lastDownloadedId, onDownload }: BuildRo
       <td className="px-4 py-3 text-right md:px-6">
         <div className="flex justify-end">
           <Button
+            aria-label={`Download ${build.name}`}
             className="h-8 px-3 text-xs sm:h-9 sm:px-4 sm:text-sm"
             disabled={!build.downloadUrl || build.downloadUrl === "#"}
             href={build.downloadUrl && build.downloadUrl !== "#" ? build.downloadUrl : undefined}
@@ -136,10 +171,7 @@ export function BuildRow({ build, index, lastDownloadedId, onDownload }: BuildRo
             {!build.downloadUrl || build.downloadUrl === "#" ? (
               <span className="hidden sm:inline">Not Available</span>
             ) : (
-              <>
-                <span className="hidden sm:inline">Download</span>
-                <span className="sm:hidden">Get</span>
-              </>
+              <span>Download</span>
             )}
           </Button>
         </div>

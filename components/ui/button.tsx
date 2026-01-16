@@ -4,6 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { interactionSpring } from "@/lib/animations/variants";
 import { cn } from "@/lib/utils";
 
@@ -77,7 +78,9 @@ const Button = ({
   ref?: React.Ref<HTMLButtonElement | HTMLAnchorElement>;
 }) => {
   const isLink = Boolean(href);
-  const shouldAnimate = animate && variant !== "ghost" && variant !== "link";
+  const prefersReducedMotion = useReducedMotion();
+  const shouldAnimate =
+    animate && variant !== "ghost" && variant !== "link" && !prefersReducedMotion;
 
   const baseStyles = cn(buttonVariants({ variant, size, fullWidth }), className);
 

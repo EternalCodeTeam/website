@@ -11,6 +11,10 @@ export class SearchEngine {
     this.endpoint = endpoint;
   }
 
+  get isInitialized(): boolean {
+    return this.initialized;
+  }
+
   async initialize(): Promise<void> {
     if (this.initialized) {
       return;
@@ -35,8 +39,11 @@ export class SearchEngine {
       await insertMultiple(this.db, searchData);
       this.initialized = true;
     } catch (error) {
-      console.error("Failed to initialize search:", error);
+      if (process.env.NODE_ENV === "development") {
+        console.error("Failed to initialize search:", error);
+      }
       this.db = null;
+      throw error;
     }
   }
 
@@ -61,7 +68,9 @@ export class SearchEngine {
         excerpt: hit.document.excerpt as string,
       }));
     } catch (error) {
-      console.error("Search failed:", error);
+      if (process.env.NODE_ENV === "development") {
+        console.error("Search failed:", error);
+      }
       return [];
     }
   }

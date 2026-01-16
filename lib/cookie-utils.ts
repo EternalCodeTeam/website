@@ -1,8 +1,8 @@
 "use client";
 
-import type { CookieConsent } from "@/hooks/use-cookie-consent";
+import type { ConsentPreferences } from "@/hooks/use-cookie-consent";
 
-export function getCookieConsent(): CookieConsent {
+export function getCookieConsent(): ConsentPreferences {
   if (typeof window === "undefined") {
     return {
       necessary: true,
@@ -23,7 +23,7 @@ export function getCookieConsent(): CookieConsent {
   }
 
   try {
-    const parsedConsent = JSON.parse(savedConsent) as CookieConsent;
+    const parsedConsent = JSON.parse(savedConsent) as ConsentPreferences;
     return {
       necessary: true,
       analytics: parsedConsent.analytics ?? false,

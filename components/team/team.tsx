@@ -30,6 +30,7 @@ export default async function Team() {
                       key={`${section.name}-${member.documentId || index}`}
                     >
                       <a
+                        aria-label={`View ${member.name}'s GitHub profile`}
                         className="group relative block"
                         href={member.github}
                         rel="noopener noreferrer"
@@ -38,9 +39,10 @@ export default async function Team() {
                       >
                         <div className="relative h-16 w-16 overflow-hidden rounded-full border-2 border-gray-200 shadow-sm transition-transform duration-300 group-hover:scale-110 group-hover:shadow-md dark:border-gray-800">
                           <Image
-                            alt={member.name}
+                            alt={`Profile picture of ${member.name}`}
                             className="h-full w-full object-cover"
                             height={64}
+                            loading={index > 8 ? "lazy" : undefined}
                             src={member.avatar_url}
                             width={64}
                           />
@@ -66,7 +68,9 @@ export default async function Team() {
           ))}
 
           {sections.length === 0 && (
-            <div className="mt-12 text-center text-gray-500">No team members found.</div>
+            <div className="mt-12 text-center text-gray-500">
+              No team members yet. Check back soon!
+            </div>
           )}
         </div>
       </div>

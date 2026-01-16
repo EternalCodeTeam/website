@@ -1,13 +1,14 @@
 "use client";
 
-import { Loader2 } from "lucide-react";
+import { AlertCircle, Loader2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { fetchDevBuilds, fetchStableBuilds, PROJECTS, type Project } from "@/app/api/builds/builds";
 import { BuildControls } from "@/components/builds/build-controls";
 import { BuildHeader } from "@/components/builds/build-header";
 import type { Build } from "@/components/builds/build-row";
 import { BuildTable } from "@/components/builds/build-table";
+import { Button } from "@/components/ui/button";
 import { FacadePattern } from "@/components/ui/facade-pattern";
 
 function BuildExplorerContent() {
@@ -21,6 +22,7 @@ function BuildExplorerContent() {
   const [activeTab, setActiveTab] = useState<"STABLE" | "DEV">("STABLE");
   const [builds, setBuilds] = useState<Build[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [lastDownloadedId, setLastDownloadedId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -35,58 +37,58 @@ function BuildExplorerContent() {
     setLastDownloadedId(stored);
   }, [activeProject.id]);
 
-  const handleProjectChange = (projectId: string) => {
-    const project = PROJECTS.find((p) => p.id === projectId);
-    if (!project) {
-      return;
-    }
+  const handleProjectChange = useCallback(
+    (projectId: string) => {
+      const project = PROJECTS.find((p) => p.id === projectId);
+      if (!project) {
+        return;
+      }
 
-    setActiveProject(project);
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("project", project.id);
-    router.push(`/builds?${params.toString()}`);
-  };
+      setActiveProject(project);
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("project", project.id);
+      router.push(`/builds?${params.toString()}`);
+    },
+    [searchParams, router]
+  );
+
+  const retryFetch = useCallback(() => {
+    setError(null);
+    setLoading(true);
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
+      setError(null);
       setBuilds([]); // Clear previous builds
       try {
-        if (activeTab === "STABLE") {
-          const data = await fetchStableBuilds(activeProject);
-          setBuilds(
-            data.map((version) => ({
+        const data =
+          activeTab === "STABLE"
+            ? await fetchStableBuilds(activeProject)
+            : await fetchDevBuilds(activeProject);
+
+        setBuilds(
+          data.map((version) => {
+            const primaryFile = version.files.find((f) => f.primary) || version.files[0];
+            return {
               id: version.id,
               name: version.name,
-              type: "STABLE",
+              type: activeTab,
               date: version.date_published,
-              downloadUrl: version.files?.[0]?.url || "",
+              downloadUrl: primaryFile?.url || "",
               version: version.version_number,
-            }))
-          );
-        } else {
-          const runs = await fetchDevBuilds(activeProject);
-          setBuilds(
-            runs.map((run) => {
-              const displayTitle = run.display_title;
-              const artifactName = run.found_artifact?.name || `${activeProject.name} Dev Build`;
-
-              return {
-                id: run.id.toString(),
-                name: displayTitle || run.name || `Run #${run.id}`,
-                type: "DEV",
-                date: run.created_at,
-                downloadUrl: `https://nightly.link/${
-                  activeProject.githubRepo
-                }/actions/runs/${run.id}/${encodeURIComponent(artifactName)}.zip`,
-                commit: run.head_sha.substring(0, 7),
-                runUrl: run.html_url,
-              };
-            })
-          );
-        }
+              // Modrinth doesn't strictly provide commit hash in top-level,
+              // but we can link to the version page
+              runUrl: activeProject.modrinthId
+                ? `https://modrinth.com/project/${activeProject.modrinthId}/version/${version.id}`
+                : undefined,
+            };
+          })
+        );
       } catch (e) {
         console.error("Failed to load builds", e);
+        setError("Failed to load builds. Please check your connection and try again.");
       } finally {
         setLoading(false);
       }
@@ -104,7 +106,7 @@ function BuildExplorerContent() {
         <FacadePattern className="absolute inset-0 h-full opacity-30 dark:opacity-10" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-[90rem] px-4 pt-56 pb-20 md:pt-40 md:pb-32">
+      <div className="relative z-10 mx-auto max-w-[90rem] px-4 pt-32 pb-20 md:pt-40 md:pb-32">
         <BuildHeader />
 
         <BuildControls
@@ -114,6 +116,26 @@ function BuildExplorerContent() {
           onTabChange={setActiveTab}
           projects={PROJECTS}
         />
+
+        {error && (
+          <div
+            className="mb-6 rounded-xl border border-red-200 bg-red-50 p-6 dark:border-red-900/50 dark:bg-red-900/10"
+            role="alert"
+          >
+            <div className="flex items-start gap-3">
+              <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-red-600 dark:text-red-400" />
+              <div className="flex-1">
+                <h3 className="mb-1 font-semibold text-red-900 dark:text-red-200">
+                  Error Loading Builds
+                </h3>
+                <p className="mb-3 text-red-700 text-sm dark:text-red-300">{error}</p>
+                <Button onClick={retryFetch} size="sm" variant="secondary">
+                  Try Again
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
 
         <BuildTable
           builds={builds}
@@ -135,7 +157,7 @@ export default function BuildExplorerPage() {
     <Suspense
       fallback={
         <div className="grid min-h-screen place-items-center">
-          <Loader2 className="h-8 w-8 animate-spin text-gray-500" />
+          <Loader2 className="h-8 w-8 animate-spin text-gray-500 motion-reduce:animate-none" />
         </div>
       }
     >
