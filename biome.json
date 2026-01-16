@@ -34,17 +34,9 @@
       "quoteStyle": "double"
     }
   },
-  "files": {
-    "ignoreUnknown": true,
-    "includes": [
-      "**/*.ts",
-      "**/*.tsx",
-      "**/*.js",
-      "**/*.jsx",
-      "**/*.json",
-      "**/*.md",
-      "**/*.mdx"
-    ]
-  },
-  "extends": ["ultracite/core", "ultracite/react", "ultracite/next"]
+  "extends": [
+    "ultracite/core",
+    "ultracite/react",
+    "ultracite/next"
+  ]
 }
