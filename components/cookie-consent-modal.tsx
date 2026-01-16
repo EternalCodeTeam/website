@@ -7,12 +7,15 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { useCookieConsent } from "@/hooks/use-cookie-consent";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { softSpring } from "@/lib/animations/variants";
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Component logic is complex by design
 export function CookieConsentModal() {
   const { consent, updateConsent, acceptAll, isInitialized } = useCookieConsent();
   const [isOpen, setIsOpen] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   const isDefaultConsent =
     consent.necessary && !consent.analytics && !consent.marketing && !consent.preferences;
@@ -50,15 +53,26 @@ export function CookieConsentModal() {
         {isOpen ? null : (
           <motion.button
             animate={{ opacity: 1, scale: 1 }}
-            aria-label="Cookie Preferences"
-            className="fixed right-6 bottom-6 z-50 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-blue-600 text-white shadow-xl backdrop-blur-md hover:bg-blue-700 focus:outline-hidden focus:ring-4 focus:ring-blue-500/30 dark:border-white/10"
-            exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.15 } }}
-            initial={{ opacity: 0, scale: 0.8 }}
+            aria-label="Open cookie preferences"
+            className="fixed right-6 bottom-6 z-50 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-blue-600 text-white shadow-xl backdrop-blur-md transition-colors hover:bg-blue-700 focus:outline-hidden focus:ring-4 focus:ring-blue-500/30 dark:border-white/10"
+            exit={{
+              opacity: 0,
+              scale: prefersReducedMotion ? 1 : 0.8,
+              transition: { duration: prefersReducedMotion ? 0 : 0.15 },
+            }}
+            initial={{ opacity: 0, scale: prefersReducedMotion ? 1 : 0.8 }}
             key="cookie-settings-button"
             onClick={handleOpenPreferences}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            whileHover={{ scale: 1.1, rotate: 15, transition: { duration: 0.2 } }}
-            whileTap={{ scale: 0.9, transition: { duration: 0.1 } }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.2, ease: "easeOut" }}
+            whileHover={{
+              scale: prefersReducedMotion ? 1 : 1.1,
+              rotate: prefersReducedMotion ? 0 : 15,
+              transition: { duration: prefersReducedMotion ? 0 : 0.2 },
+            }}
+            whileTap={{
+              scale: prefersReducedMotion ? 1 : 0.9,
+              transition: { duration: prefersReducedMotion ? 0 : 0.1 },
+            }}
           >
             <Settings className="h-6 w-6" />
           </motion.button>
@@ -71,10 +85,18 @@ export function CookieConsentModal() {
           <motion.div
             animate={{ opacity: 1, y: 0, scale: 1 }}
             className="fixed right-6 bottom-6 z-50 w-full max-w-sm overflow-hidden rounded-2xl border border-white/20 bg-white/80 p-6 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-gray-900/80"
-            exit={{ opacity: 0, y: 50, scale: 0.98 }}
-            initial={{ opacity: 0, y: 50, scale: 0.98 }}
+            exit={{
+              opacity: 0,
+              y: prefersReducedMotion ? 0 : 50,
+              scale: prefersReducedMotion ? 1 : 0.98,
+            }}
+            initial={{
+              opacity: 0,
+              y: prefersReducedMotion ? 0 : 50,
+              scale: prefersReducedMotion ? 1 : 0.98,
+            }}
             key="cookie-modal"
-            transition={{ duration: 0.15, ease: "easeOut" }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.15, ease: "easeOut" }}
           >
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-3">
@@ -91,6 +113,7 @@ export function CookieConsentModal() {
                 </div>
               </div>
               <button
+                aria-label="Close cookie preferences"
                 className="cursor-pointer rounded-full p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-500 dark:hover:bg-gray-800 dark:hover:text-gray-300"
                 onClick={() => setIsOpen(false)}
                 type="button"
@@ -130,7 +153,11 @@ export function CookieConsentModal() {
                     className="overflow-hidden"
                     exit={{ height: 0, opacity: 0 }}
                     initial={{ height: 0, opacity: 0 }}
-                    transition={{ ...softSpring, stiffness: 300, damping: 30 }}
+                    transition={
+                      prefersReducedMotion
+                        ? { duration: 0 }
+                        : { ...softSpring, stiffness: 300, damping: 30 }
+                    }
                   >
                     <div className="mt-4 space-y-4 rounded-xl bg-gray-50/50 p-4 dark:bg-gray-800/50">
                       <div className="flex items-center justify-between">

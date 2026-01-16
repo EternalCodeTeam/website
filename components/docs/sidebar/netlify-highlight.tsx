@@ -3,10 +3,10 @@ import { SiNetlify } from "react-icons/si";
 export function NetlifyHighlight() {
   return (
     <a
-      href="https://www.netlify.com/"
-      target="_blank"
-      rel="noopener noreferrer"
       className="group block px-4 pt-3"
+      href="https://www.netlify.com/"
+      rel="noopener noreferrer"
+      target="_blank"
     >
       <div className="relative overflow-hidden rounded-xl border border-gray-200 bg-gray-50/50 transition-all duration-300 hover:border-[#05BDBA]/40 hover:shadow-md dark:border-gray-800 dark:bg-gray-900/20 dark:hover:border-[#32E6E2]/40">
         <div className="flex items-center gap-3 px-4 py-3">

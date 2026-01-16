@@ -1,7 +1,7 @@
 "use client";
 
 import type { LucideIcon } from "lucide-react";
-// biome-ignore lint/performance/noNamespaceImport: Dynamic icon loading
+// biome-ignore lint/performance/noNamespaceImport: Optimized by Next.js optimizePackageImports
 import * as LucideIcons from "lucide-react";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
@@ -31,7 +31,7 @@ interface StepProps {
 }
 
 export function Step({ title, icon, children }: StepProps) {
-  // biome-ignore lint/performance/noDynamicNamespaceImportAccess: Dynamic icon loading based on prop
+  // biome-ignore lint/performance/noDynamicNamespaceImportAccess: Optimized by Next.js optimizePackageImports
   const IconComponent = icon ? (LucideIcons[icon as keyof typeof LucideIcons] as LucideIcon) : null;
 
   return (
@@ -45,9 +45,15 @@ export function Step({ title, icon, children }: StepProps) {
         {IconComponent ? (
           <IconComponent className="h-4 w-4 text-gray-900 dark:text-gray-100" />
         ) : (
-          <span className="font-bold text-gray-900 text-sm content-[counter(step)] [counter-increment:step] dark:text-gray-100">
-            {/* content uses CSS counter */}
-          </span>
+          <>
+            <span className="sr-only">Step number</span>
+            <span
+              aria-hidden="true"
+              className="font-bold text-gray-900 text-sm content-[counter(step)] [counter-increment:step] dark:text-gray-100"
+            >
+              {/* CSS counter provides visual number */}
+            </span>
+          </>
         )}
       </div>
 

@@ -141,11 +141,19 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -244,7 +252,7 @@ export default function Navbar() {
             </Button>
           </div>
 
-          <div className="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto">
+          <div className="hidden w-full items-center justify-between gap-4 md:order-1 md:flex md:w-auto">
             <ul className="mt-4 flex flex-col space-y-2 font-medium md:mt-0 md:flex-row md:items-center md:space-x-1 md:space-y-0 md:p-0">
               {mainNavLinks.map((link) => (
                 <li key={link.href}>
@@ -289,14 +297,14 @@ export default function Navbar() {
           <AnimatePresence>
             {!!isMenuOpen && (
               <>
-                <motion.button
+                <motion.div
                   animate={{ opacity: 1 }}
-                  aria-label="Close menu overlay"
+                  aria-hidden="true"
                   className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm md:hidden"
                   exit={{ opacity: 0 }}
                   initial={{ opacity: 0 }}
                   onClick={closeMenu}
-                  type="button"
+                  role="presentation"
                 />
                 <motion.aside
                   animate={{ x: 0 }}

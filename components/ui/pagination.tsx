@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useMemo } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -32,29 +33,33 @@ export function Pagination({
   slug,
   className = "",
 }: PaginationProps) {
-  if (totalPages <= 1) {
-    return null;
-  }
-
   const startItem = (currentPage - 1) * itemsPerPage + 1;
   const endItem = Math.min(currentPage * itemsPerPage, totalItems);
 
-  const visiblePages: number[] = [];
+  const visiblePages = useMemo(() => {
+    const pages: number[] = [];
 
-  if (totalPages <= 5) {
-    for (let i = 1; i <= totalPages; i++) {
-      visiblePages.push(i);
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else if (currentPage <= 3) {
+      pages.push(1, 2, 3, 4, 5);
+    } else if (currentPage >= totalPages - 2) {
+      for (let i = totalPages - 4; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      for (let i = currentPage - 2; i <= currentPage + 2; i++) {
+        pages.push(i);
+      }
     }
-  } else if (currentPage <= 3) {
-    visiblePages.push(1, 2, 3, 4, 5);
-  } else if (currentPage >= totalPages - 2) {
-    for (let i = totalPages - 4; i <= totalPages; i++) {
-      visiblePages.push(i);
-    }
-  } else {
-    for (let i = currentPage - 2; i <= currentPage + 2; i++) {
-      visiblePages.push(i);
-    }
+
+    return pages;
+  }, [totalPages, currentPage]);
+
+  if (totalPages <= 1) {
+    return null;
   }
 
   return (

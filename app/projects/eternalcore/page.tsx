@@ -25,7 +25,7 @@ export default function EternalCorePage() {
     <div className="relative min-h-screen bg-white text-gray-900 selection:bg-[#9d6eef]/30 dark:bg-gray-950 dark:text-white">
       {/* Background Decor */}
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        <FacadePattern className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" />
+        <FacadePattern className="absolute inset-0 h-full opacity-30 dark:opacity-10" />
         <div className="absolute top-0 right-0 h-[500px] w-[500px] rounded-full bg-[#9d6eef]/5 p-20 mix-blend-multiply blur-[100px] dark:mix-blend-screen" />
         <div className="absolute top-20 left-0 h-[400px] w-[400px] rounded-full bg-blue-500/5 p-20 mix-blend-multiply blur-[100px] dark:mix-blend-screen" />
       </div>

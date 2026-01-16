@@ -1,6 +1,15 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, ChevronDown } from "lucide-react";
-import { type KeyboardEvent, type ReactNode, useEffect, useRef, useState } from "react";
+import {
+  type KeyboardEvent,
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 export interface DropdownOption {
   value: string;
@@ -36,37 +45,47 @@ export function Dropdown({
 }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const selected = options.find((o) => o.value === value);
+  const prefersReducedMotion = useReducedMotion();
+  const selected = useMemo(() => options.find((o) => o.value === value), [options, value]);
+
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      setIsOpen(false);
+    }
+  }, []);
 
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isOpen]);
+  }, [isOpen, handleClickOutside]);
 
-  const handleOptionSelect = (optionValue: string) => {
-    onChange(optionValue);
-    setIsOpen(false);
-  };
+  const handleOptionSelect = useCallback(
+    (optionValue: string) => {
+      onChange(optionValue);
+      setIsOpen(false);
+    },
+    [onChange]
+  );
 
-  const handleKeyDown = (e: KeyboardEvent, optionValue: string) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      handleOptionSelect(optionValue);
-    }
-  };
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent, optionValue: string) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        handleOptionSelect(optionValue);
+      }
+    },
+    [handleOptionSelect]
+  );
 
-  const baseButtonStyles =
-    variant === "default"
-      ? "rounded-xl border border-gray-200 bg-white/70 px-4 py-2.5 shadow-xs backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/40 dark:text-gray-200"
-      : "rounded-full px-4 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-white";
+  const baseButtonStyles = useMemo(
+    () =>
+      variant === "default"
+        ? "rounded-xl border border-gray-200 bg-white px-4 py-2.5 shadow-sm dark:border-gray-800 dark:bg-gray-950 dark:text-gray-200"
+        : "rounded-full px-4 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-white",
+    [variant]
+  );
 
   return (
     <div className={`relative ${className}`} ref={dropdownRef}>
@@ -83,7 +102,7 @@ export function Dropdown({
           {selected?.label || placeholder}
         </span>
         <motion.span
-          animate={{ rotate: isOpen ? 180 : 0 }}
+          animate={prefersReducedMotion ? {} : { rotate: isOpen ? 180 : 0 }}
           className="ml-2 shrink-0"
           transition={{ duration: 0.2 }}
         >
@@ -91,22 +110,26 @@ export function Dropdown({
         </motion.span>
       </button>
       <AnimatePresence>
-        {!!isOpen && (
+        {isOpen ? (
           <motion.div
-            animate={{ opacity: 1, y: 0 }}
-            className={`absolute left-0 z-50 mt-2 min-w-full origin-top-right overflow-hidden rounded-xl border border-gray-200 bg-white/80 py-1 shadow-xl ring-1 ring-black/5 backdrop-blur-xl dark:border-gray-800 dark:bg-gray-900/80 dark:ring-white/10 ${menuClassName}`}
-            exit={{ opacity: 0, y: -8 }}
-            initial={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.15, ease: "easeOut" }}
+            animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+            className={`absolute left-0 z-50 mt-2 min-w-full origin-top-right overflow-hidden rounded-xl border border-gray-200 bg-white p-1 shadow-2xl ring-1 ring-black/5 dark:border-gray-800 dark:bg-gray-950 dark:ring-white/10 ${menuClassName}`}
+            exit={prefersReducedMotion ? {} : { opacity: 0, y: -8, scale: 0.95 }}
+            initial={prefersReducedMotion ? {} : { opacity: 0, y: -8, scale: 0.95 }}
+            role="listbox"
+            style={{ position: "absolute" }}
+            transition={
+              prefersReducedMotion ? { duration: 0 } : { duration: 0.2, ease: [0.16, 1, 0.3, 1] }
+            }
           >
             <div className="scrollbar-none max-h-[300px] overflow-y-auto">
               {options.map((option) => (
                 <div
                   aria-selected={option.value === value}
-                  className={`flex cursor-pointer items-center justify-between px-4 py-2.5 text-sm outline-none transition-colors duration-150 ${
+                  className={`flex cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${
                     option.value === value
-                      ? "bg-blue-50/50 font-medium text-blue-700 dark:bg-blue-500/10 dark:text-blue-400"
-                      : "text-gray-700 hover:bg-gray-50/80 dark:text-gray-300 dark:hover:bg-gray-800/60"
+                      ? "bg-blue-50 font-medium text-blue-700 dark:bg-blue-500/10 dark:text-blue-400"
+                      : "text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800/50"
                   } ${optionClassName}`}
                   key={option.value}
                   onClick={() => handleOptionSelect(option.value)}
@@ -118,12 +141,12 @@ export function Dropdown({
                     {option.icon}
                     {option.label}
                   </span>
-                  {!!(option.value === value) && <Check className="h-4 w-4 shrink-0" />}
+                  {option.value === value ? <Check className="h-4 w-4 shrink-0" /> : null}
                 </div>
               ))}
             </div>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </div>
   );

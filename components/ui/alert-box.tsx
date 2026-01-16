@@ -122,11 +122,11 @@ const icons = {
 } as const;
 
 const defaultTitles: Record<AlertBoxType, string> = {
-  info: "INFO!",
-  warning: "Read this!",
-  danger: "Danger!",
-  tip: "TIP",
-  success: "Success!",
+  info: "Information",
+  warning: "Warning",
+  danger: "Danger",
+  tip: "Tip",
+  success: "Success",
   note: "Note",
   question: "Question",
   important: "Important",
@@ -162,6 +162,7 @@ export const AlertBox = memo(function AlertBoxComponent({
 
   return (
     <div
+      aria-live={role === "alert" ? "assertive" : "polite"}
       role={role}
       {...(ariaLabel ? { "aria-label": ariaLabel } : {})}
       className={cn(alertContainerVariants({ type }), className)}

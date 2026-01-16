@@ -25,6 +25,22 @@ export function BeforeAfter({ children, className }: BeforeAfterProps) {
     setPosition(Math.min(100, Math.max(0, next)));
   }, []);
 
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      setPosition((prev) => Math.max(0, prev - 5));
+    } else if (e.key === "ArrowRight") {
+      e.preventDefault();
+      setPosition((prev) => Math.min(100, prev + 5));
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      setPosition(0);
+    } else if (e.key === "End") {
+      e.preventDefault();
+      setPosition(100);
+    }
+  }, []);
+
   useEffect(() => {
     const onMove = (e: MouseEvent | TouchEvent) => {
       if (!dragging.current) {
@@ -56,26 +72,38 @@ export function BeforeAfter({ children, className }: BeforeAfterProps) {
       return;
     }
 
+    let rafId: number;
     const ro = new ResizeObserver(() => {
-      el.style.height = `${el.scrollHeight}px`;
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
+      rafId = requestAnimationFrame(() => {
+        el.style.height = `${el.scrollHeight}px`;
+      });
     });
 
     ro.observe(el);
     return () => {
       ro.disconnect();
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
     };
   }, []);
 
   const [before, after] = children;
+  const sliderId = `before-after-${Math.random().toString(36).substr(2, 9)}`;
 
   return (
     <div className={cn("relative my-6", className)}>
       <div
+        aria-describedby={`${sliderId}-instructions`}
         aria-label="Comparison slider"
         aria-valuemax={100}
         aria-valuemin={0}
         aria-valuenow={position}
-        className="relative select-none overflow-hidden rounded-xl border border-gray-200 bg-gray-50 dark:border-white/10 dark:bg-black"
+        className="relative cursor-pointer touch-manipulation select-none overflow-hidden rounded-xl border border-gray-200 bg-gray-50 dark:border-white/10 dark:bg-black"
+        onKeyDown={handleKeyDown}
         onMouseDown={(e) => move(e.clientX)}
         onTouchStart={(e) => move(e.touches[0].clientX)}
         ref={containerRef}
@@ -91,11 +119,13 @@ export function BeforeAfter({ children, className }: BeforeAfterProps) {
         <div className="absolute top-0 bottom-0 w-px bg-blue-500" style={{ left: `${position}%` }}>
           <button
             aria-label="Drag to compare"
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize"
-            onMouseDown={() => {
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize touch-manipulation rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            onMouseDown={(e) => {
+              e.stopPropagation();
               dragging.current = true;
             }}
-            onTouchStart={() => {
+            onTouchStart={(e) => {
+              e.stopPropagation();
               dragging.current = true;
             }}
             type="button"
@@ -110,7 +140,9 @@ export function BeforeAfter({ children, className }: BeforeAfterProps) {
         </div>
       </div>
 
-      <div className="mt-2 text-center text-gray-500 text-sm">Drag to compare</div>
+      <div className="mt-2 text-center text-gray-500 text-sm" id={`${sliderId}-instructions`}>
+        Drag to compare or use arrow keys to adjust
+      </div>
     </div>
   );
 }

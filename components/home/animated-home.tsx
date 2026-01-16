@@ -5,7 +5,7 @@ import Hero from "@/components/hero/hero";
 import { FacadePattern } from "@/components/ui/facade-pattern";
 
 const About = dynamic(() => import("@/components/home/about/about-section"));
-const Cta = dynamic(() => import("@/components/home/cta/cta-section"));
+const Cta = dynamic(() => import("@/components/shared/cta-section"));
 const Faq = dynamic(() => import("@/components/home/faq/faq-section"));
 const Features = dynamic(() => import("@/components/home/features/features"));
 const Sponsors = dynamic(() => import("@/components/home/sponsors/sponsors-section"));

@@ -43,7 +43,7 @@ export function MdxImage({ src, alt, className }: MdxImageProps) {
         {/* biome-ignore lint/performance/noImgElement: Next.js Image Optimization warnings */}
         {/** biome-ignore lint/correctness/useImageSize: Decorative preview */}
         <img
-          alt={alt || "GIF"}
+          alt={alt || ""}
           className={`h-auto w-full object-cover ${className || ""}`}
           loading="lazy"
           src={src}
@@ -55,10 +55,10 @@ export function MdxImage({ src, alt, className }: MdxImageProps) {
   return (
     <span className="my-6 block w-full overflow-hidden rounded-md bg-gray-100 dark:bg-gray-800">
       <Image
-        alt={alt || "Image"}
+        alt={alt || ""}
         className={`h-auto w-full rounded-md shadow-sm ${className || ""}`}
         height={500}
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px" // Better sizes
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px"
         src={src}
         width={900}
       />

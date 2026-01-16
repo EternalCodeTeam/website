@@ -6,10 +6,12 @@ import {
   createContext,
   type HTMLAttributes,
   type ReactNode,
+  useCallback,
   useContext,
   useId,
   useState,
 } from "react";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { cn } from "@/lib/utils";
 
 interface TabsContextType {
@@ -38,10 +40,13 @@ export function Tabs({ defaultValue, onValueChange, className, children, ...prop
   const [activeTab, setActiveTab] = useState(defaultValue);
   const layoutId = useId();
 
-  const handleTabChange = (value: string) => {
-    setActiveTab(value);
-    onValueChange?.(value);
-  };
+  const handleTabChange = useCallback(
+    (value: string) => {
+      setActiveTab(value);
+      onValueChange?.(value);
+    },
+    [onValueChange]
+  );
 
   return (
     <TabsContext.Provider value={{ activeTab, setActiveTab: handleTabChange, layoutId }}>
@@ -77,29 +82,36 @@ interface TabsTriggerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export function TabsTrigger({ className, value, children, ...props }: TabsTriggerProps) {
   const { activeTab, setActiveTab, layoutId } = useTabs();
+  const prefersReducedMotion = useReducedMotion();
   const isActive = activeTab === value;
+  const panelId = `tabpanel-${layoutId}-${value}`;
 
   return (
     <button
+      aria-controls={panelId}
+      aria-selected={isActive}
       className={cn(
-        "relative inline-flex items-center justify-center whitespace-nowrap rounded-full px-6 py-2 font-medium text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:pointer-events-none disabled:opacity-50",
+        "relative inline-flex cursor-pointer items-center justify-center whitespace-nowrap rounded-full px-6 py-2 font-medium text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:pointer-events-none disabled:opacity-50",
         isActive
           ? "text-blue-600 dark:text-blue-400"
           : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200",
         className
       )}
       onClick={() => setActiveTab(value)}
+      role="tab"
       type="button"
       {...props}
     >
-      {!!isActive && (
+      {isActive ? (
         <motion.div
           className="absolute inset-0 z-0 rounded-full bg-white shadow-sm dark:bg-white/10"
           initial={false}
-          layoutId={`tab-bg-${layoutId}`}
-          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+          layoutId={prefersReducedMotion ? undefined : `tab-bg-${layoutId}`}
+          transition={
+            prefersReducedMotion ? { duration: 0 } : { type: "spring", stiffness: 500, damping: 30 }
+          }
         />
-      )}
+      ) : null}
       <span className="relative z-10">{children}</span>
     </button>
   );
@@ -111,8 +123,10 @@ interface TabsContentProps extends HTMLMotionProps<"div"> {
 }
 
 export function TabsContent({ className, value, children, ...props }: TabsContentProps) {
-  const { activeTab } = useTabs();
+  const { activeTab, layoutId } = useTabs();
+  const prefersReducedMotion = useReducedMotion();
   const isActive = activeTab === value;
+  const panelId = `tabpanel-${layoutId}-${value}`;
 
   if (!isActive) {
     return null;
@@ -120,14 +134,16 @@ export function TabsContent({ className, value, children, ...props }: TabsConten
 
   return (
     <motion.div
-      animate={{ opacity: 1, y: 0, scale: 1 }}
+      animate={prefersReducedMotion ? {} : { opacity: 1, y: 0, scale: 1 }}
       className={cn(
         "mt-6 ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
         className
       )}
-      exit={{ opacity: 0, y: -10, scale: 0.98 }}
-      initial={{ opacity: 0, y: 10, scale: 0.98 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
+      exit={prefersReducedMotion ? {} : { opacity: 0, y: -10, scale: 0.98 }}
+      id={panelId}
+      initial={prefersReducedMotion ? {} : { opacity: 0, y: 10, scale: 0.98 }}
+      role="tabpanel"
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3, ease: "easeOut" }}
       {...props}
     >
       {children}

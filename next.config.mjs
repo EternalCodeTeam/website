@@ -46,6 +46,7 @@ const nextConfig = {
   compress: true,
   reactStrictMode: true,
   reactCompiler: true,
+  transpilePackages: ["next-mdx-remote"],
   experimental: {
     optimizePackageImports: [
       "framer-motion",

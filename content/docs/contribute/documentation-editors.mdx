@@ -61,6 +61,26 @@ Use different types of callouts to communicate context.
   This is a critical alert. Data loss is possible.
 </Callout>
 
+<Callout type="success" title="Success">
+  Operation completed successfully!
+</Callout>
+
+<Callout type="important" title="Important">
+  This information is crucial for understanding the topic.
+</Callout>
+
+<Callout type="example" title="Example">
+  This demonstrates how to use a feature.
+</Callout>
+
+### Badges
+
+Use badges to display status, labels, or categories.
+
+<Badge>Default</Badge> <Badge variant="success">Available</Badge> <Badge variant="warning">Beta</Badge> <Badge variant="danger">Deprecated</Badge> <Badge variant="info">New</Badge> <Badge variant="secondary">Optional</Badge>
+
+<Badge size="sm">Small</Badge> <Badge size="default">Default</Badge> <Badge size="lg">Large</Badge>
+
 ### Cards
 
 Use Cards to link to other sections visually.
@@ -91,9 +111,9 @@ Use Steps for tutorials or guides.
   </Step>
 </Steps>
 
-### Tabs
+### Code Tabs
 
-Organize content with Tabs.
+Organize code examples by language or platform.
 
 <CodeTabs>
   <CodeTab label="Java">
@@ -112,12 +132,38 @@ Organize content with Tabs.
     }
     ```
   </CodeTab>
+  <CodeTab label="Gradle">
+    ```gradle
+    dependencies {
+        implementation 'com.eternalcode:eternalcore:2.0.0'
+    }
+    ```
+  </CodeTab>
 </CodeTabs>
 
 
+
+### Commands
+
+Display CLI commands with copy functionality.
+
+<Command command="npm install eternalcore" theme="light" />
+
+<Command variant="gradle" theme="light">
+  ./gradlew build
+</Command>
+
+<Command variant="maven" theme="light">
+  mvn clean install
+</Command>
+
+<Command variant="bash" theme="light">
+  curl -fsSL https://example.com/install.sh | bash
+</Command>
+
 ### Before & After Comparison
 
-Compare code implementations with an interactive slider. Drag the line to reveal before/after code side-by-side.
+Compare code implementations with an interactive slider. Drag the line or use arrow keys to reveal before/after code side-by-side.
 
 <BeforeAfter>
   <BeforeAfterItem type="before" title="Without Library" label="Verbose">
@@ -167,6 +213,7 @@ Compare code implementations with an interactive slider. Drag the line to reveal
 
 <Callout type="tip" title="Component Features">
   - **Interactive Slider**: Drag the vertical line to compare code
+  - **Keyboard Navigation**: Use arrow keys, Home, and End keys
   - **Smooth Dragging**: Fluid experience with no text selection
   - **Touch Support**: Works on mobile devices
   - **Custom Labels**: Add badges like "Verbose" or "Clean" in headers
@@ -174,9 +221,7 @@ Compare code implementations with an interactive slider. Drag the line to reveal
 
 ### Code Blocks
 
-
-
-Code blocks feature syntax highlighting and a "toasty" copy button!
+Code blocks feature syntax highlighting and a copy button that appears on hover!
 
 ```typescript
 // Example TypeScript code
@@ -190,3 +235,91 @@ const user: User = {
   name: "EternalCode",
 };
 ```
+
+### File Tree
+
+Display project structure or file hierarchies.
+
+<FileTree>
+  <FileTreeItem name="eternalcore" type="directory" defaultOpen>
+    <FileTreeItem name="src" type="directory" defaultOpen>
+      <FileTreeItem name="main" type="directory">
+        <FileTreeItem name="java" type="directory">
+          <FileTreeItem name="com" type="directory">
+            <FileTreeItem name="eternalcode" type="directory">
+              <FileTreeItem name="core" type="directory">
+                <FileTreeItem name="CorePlugin.java" type="file" />
+                <FileTreeItem name="CommandManager.java" type="file" />
+              </FileTreeItem>
+            </FileTreeItem>
+          </FileTreeItem>
+        </FileTreeItem>
+        <FileTreeItem name="resources" type="directory">
+          <FileTreeItem name="plugin.yml" type="file" />
+          <FileTreeItem name="config.yml" type="file" />
+        </FileTreeItem>
+      </FileTreeItem>
+    </FileTreeItem>
+  </FileTreeItem>
+</FileTree>
+
+### Link Previews
+
+Create rich link previews for external resources or related documentation.
+
+<LinkPreview
+  href="/docs/eternalcore/introduction"
+  title="EternalCore Introduction"
+  description="Learn about EternalCore, a lightweight Minecraft plugin with essential features."
+/>
+
+<LinkPreview
+  href="https://github.com/EternalCodeTeam/EternalCore"
+  title="EternalCore on GitHub"
+  description="View the source code, report issues, and contribute to the project."
+/>
+
+### Dividers
+
+Use dividers to separate content sections.
+
+<Divider />
+
+<Divider label="OR" />
+
+<Divider label="Continue Reading" />
+
+## Component Usage Examples
+
+### Using Badges in Tables
+
+| Component | Status | Version |
+| :--- | :--- | :--- |
+| EternalCore | <Badge variant="success">Stable</Badge> | 2.0.0 |
+| EternalCombat | <Badge variant="warning">Beta</Badge> | 1.5.0 |
+| Multification | <Badge variant="info">New</Badge> | 1.0.0 |
+
+## Best Practices
+
+1. **Use Callouts** for important information that needs to stand out
+2. **Use Steps** for sequential instructions or tutorials
+3. **Use Badges** for status indicators and labels
+4. **Use Commands** for CLI instructions that users need to copy
+5. **Use File Trees** to show project structure or file locations
+6. **Use Link Previews** for important external or internal links
+7. **Use Code Tabs** to organize code examples by language or platform
+
+## Accessibility
+
+All components are built with accessibility in mind:
+
+- Keyboard navigation support
+- ARIA labels and roles
+- Screen reader compatibility
+- Respects `prefers-reduced-motion` settings
+- Focus management
+- Semantic HTML
+
+## Need Help?
+
+If you have questions about using these components or need to add new ones, please reach out to the documentation team or open an issue on GitHub.

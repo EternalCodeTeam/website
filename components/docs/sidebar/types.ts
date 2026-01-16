@@ -3,11 +3,13 @@ export interface DocItem {
   path: string;
   icon?: string;
   children?: DocItem[];
+  sidebar_position?: number;
 }
 
 export interface DocSidebarProps {
   className?: string;
   onItemClick?: (path: string) => void;
+  sidebarStructure: DocItem[];
 }
 
 export interface DocItemProps {

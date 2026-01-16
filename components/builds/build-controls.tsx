@@ -1,7 +1,10 @@
+import { motion } from "framer-motion";
 import { GitBranch, Package } from "lucide-react";
+import { useMemo } from "react";
 import type { Project } from "@/app/api/builds/builds";
 import { Dropdown } from "@/components/ui/dropdown";
 import { FadeIn } from "@/components/ui/motion/motion-components";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 interface BuildControlsProps {
   projects: Project[];
@@ -18,11 +21,17 @@ export function BuildControls({
   onProjectChange,
   onTabChange,
 }: BuildControlsProps) {
-  const projectOptions = projects.map((p) => ({
-    value: p.id,
-    label: p.name,
-    icon: <Package className="h-4 w-4 text-gray-500 dark:text-gray-400" />,
-  }));
+  const prefersReducedMotion = useReducedMotion();
+
+  const projectOptions = useMemo(
+    () =>
+      projects.map((p) => ({
+        value: p.id,
+        label: p.name,
+        icon: <Package className="h-4 w-4 text-gray-500 dark:text-gray-400" />,
+      })),
+    [projects]
+  );
 
   return (
     <FadeIn className="relative z-20 mx-auto mb-10 max-w-2xl" delay={0.2}>
@@ -39,31 +48,70 @@ export function BuildControls({
         </div>
 
         {/* Tabs - Right */}
-        <div className="flex h-[46px] rounded-xl border border-gray-200 bg-white/70 p-1 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/40">
-          <button
-            className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg font-medium text-sm transition-all ${
-              activeTab === "STABLE"
-                ? "bg-white text-blue-600 shadow-xs dark:bg-gray-800 dark:text-blue-400"
-                : "text-gray-500 hover:bg-gray-100/50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-white"
-            }`}
+        <div
+          aria-label="Build type selection"
+          className="flex h-[46px] rounded-xl border border-gray-200 bg-white/70 p-1 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/40"
+          role="tablist"
+        >
+          <motion.button
+            aria-selected={activeTab === "STABLE"}
+            className="relative flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg font-medium text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
             onClick={() => onTabChange("STABLE")}
+            role="tab"
+            style={{ touchAction: "manipulation" }}
             type="button"
           >
-            <Package className="h-4 w-4" />
-            Stable
-          </button>
-          <button
-            className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg font-medium text-sm transition-all ${
-              activeTab === "DEV"
-                ? "bg-white text-blue-600 shadow-xs dark:bg-gray-800 dark:text-blue-400"
-                : "text-gray-500 hover:bg-gray-100/50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-white"
-            }`}
+            {activeTab === "STABLE" && !prefersReducedMotion && (
+              <motion.div
+                className="absolute inset-0 rounded-lg bg-white shadow-xs dark:bg-gray-800"
+                layoutId="active-tab"
+                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+              />
+            )}
+            {activeTab === "STABLE" && prefersReducedMotion && (
+              <div className="absolute inset-0 rounded-lg bg-white shadow-xs dark:bg-gray-800" />
+            )}
+            <span
+              className={`relative z-10 flex items-center gap-2 ${
+                activeTab === "STABLE"
+                  ? "text-blue-600 dark:text-blue-400"
+                  : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+              }`}
+            >
+              <Package className="h-4 w-4" />
+              Stable
+            </span>
+          </motion.button>
+
+          <motion.button
+            aria-selected={activeTab === "DEV"}
+            className="relative flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg font-medium text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
             onClick={() => onTabChange("DEV")}
+            role="tab"
+            style={{ touchAction: "manipulation" }}
             type="button"
           >
-            <GitBranch className="h-4 w-4" />
-            Dev Builds
-          </button>
+            {activeTab === "DEV" && !prefersReducedMotion && (
+              <motion.div
+                className="absolute inset-0 rounded-lg bg-white shadow-xs dark:bg-gray-800"
+                layoutId="active-tab"
+                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+              />
+            )}
+            {activeTab === "DEV" && prefersReducedMotion && (
+              <div className="absolute inset-0 rounded-lg bg-white shadow-xs dark:bg-gray-800" />
+            )}
+            <span
+              className={`relative z-10 flex items-center gap-2 ${
+                activeTab === "DEV"
+                  ? "text-blue-600 dark:text-blue-400"
+                  : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+              }`}
+            >
+              <GitBranch className="h-4 w-4" />
+              Dev Builds
+            </span>
+          </motion.button>
         </div>
       </div>
     </FadeIn>

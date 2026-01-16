@@ -1,58 +1,20 @@
 import { z } from "zod";
 
-export const BuildArtifactSchema = z.object({
-  id: z.number(),
-  node_id: z.string(),
-  name: z.string(),
-  size_in_bytes: z.number(),
-  url: z.string(),
-  archive_download_url: z.string(),
-  expired: z.boolean(),
-  created_at: z.string(),
-  expires_at: z.string(),
-  updated_at: z.string(),
-});
-
-export type BuildArtifact = z.infer<typeof BuildArtifactSchema>;
-
-export const BuildRunSchema = z.object({
-  id: z.number(),
-  name: z.string().nullable(),
-  status: z.string(),
-  conclusion: z.string().nullable(),
-  head_branch: z.string(),
-  head_sha: z.string(),
-  created_at: z.string(),
-  html_url: z.string(),
-  artifacts_url: z.string(),
-  display_title: z.string().optional(),
-});
-
-export type BuildRun = z.infer<typeof BuildRunSchema> & {
-  found_artifact?: BuildArtifact;
-};
-
-const GithubRunsResponseSchema = z.object({
-  workflow_runs: z.array(BuildRunSchema),
-});
-
-const BuildArtifactsResponseSchema = z.object({
-  total_count: z.number(),
-  artifacts: z.array(BuildArtifactSchema),
-});
-
 export const ModrinthFileSchema = z.object({
   url: z.string(),
   filename: z.string(),
   primary: z.boolean(),
+  size: z.number().optional(),
 });
 
 export const ModrinthVersionSchema = z.object({
   id: z.string(),
   name: z.string(),
   version_number: z.string(),
+  version_type: z.enum(["release", "beta", "alpha"]),
   date_published: z.string(),
   files: z.array(ModrinthFileSchema),
+  changelog: z.string().optional(),
 });
 
 export type ModrinthVersion = z.infer<typeof ModrinthVersionSchema>;
@@ -79,66 +41,10 @@ export const PROJECTS: Project[] = [
   },
 ];
 
-export async function fetchDevBuilds(project: Project): Promise<BuildRun[]> {
-  const token = process.env.GITHUB_TOKEN;
-  const headers: HeadersInit = {
-    Accept: "application/vnd.github.v3+json",
-  };
-
-  if (token) {
-    headers.Authorization = `token ${token}`;
-  }
-
-  try {
-    const res = await fetch(
-      `https://api.github.com/repos/${project.githubRepo}/actions/runs?per_page=20&status=success&branch=master`,
-      { headers }
-    );
-    if (!res.ok) {
-      console.error(`Failed to fetch Github Actions for ${project.name}`, await res.text());
-      return [];
-    }
-
-    const json = await res.json();
-    const parsed = GithubRunsResponseSchema.safeParse(json);
-
-    if (!parsed.success) {
-      console.error(`Invalid Github Actions response for ${project.name}`, parsed.error);
-      return [];
-    }
-
-    const runs = parsed.data.workflow_runs;
-
-    // Fetch artifacts for each run to get the correct artifact name
-    return await Promise.all(
-      runs.map(async (run) => {
-        try {
-          const artRes = await fetch(run.artifacts_url, { headers });
-          if (!artRes.ok) {
-            return run;
-          }
-
-          const artJson = await artRes.json();
-          const artParsed = BuildArtifactsResponseSchema.safeParse(artJson);
-
-          if (artParsed.success && artParsed.data.artifacts.length > 0) {
-            // We take the first artifact as the primary one
-            return { ...run, found_artifact: artParsed.data.artifacts[0] };
-          }
-          return run;
-        } catch (e) {
-          console.error(`Error fetching artifacts for run ${run.id}`, e);
-          return run;
-        }
-      })
-    );
-  } catch (error) {
-    console.error(`Error fetching dev builds for ${project.name}`, error);
-    return [];
-  }
-}
-
-export async function fetchStableBuilds(project: Project): Promise<ModrinthVersion[]> {
+async function fetchModrinthVersions(
+  project: Project,
+  types: ("release" | "beta" | "alpha")[]
+): Promise<ModrinthVersion[]> {
   if (!project.modrinthId) {
     return [];
   }
@@ -162,9 +68,20 @@ export async function fetchStableBuilds(project: Project): Promise<ModrinthVersi
       return [];
     }
 
-    return parsed.data;
+    // Filter by version type
+    return parsed.data.filter((v) => types.includes(v.version_type));
   } catch (error) {
-    console.error(`Error fetching stable builds for ${project.name}`, error);
+    console.error(`Error fetching builds for ${project.name}`, error);
     return [];
   }
+}
+
+export function fetchDevBuilds(project: Project): Promise<ModrinthVersion[]> {
+  // Fetch 'beta' and 'alpha' versions for dev builds
+  return fetchModrinthVersions(project, ["beta", "alpha"]);
+}
+
+export function fetchStableBuilds(project: Project): Promise<ModrinthVersion[]> {
+  // Fetch 'release' versions for stable builds
+  return fetchModrinthVersions(project, ["release"]);
 }

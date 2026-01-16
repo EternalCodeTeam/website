@@ -1,7 +1,9 @@
+// ... imports
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import type { ReactNode } from "react";
-import SidebarWrapper from "@/components/docs/sidebar/sidebar-wrapper";
+
+// Removed sidebar imports
 
 const poppins = Poppins({
   weight: "500",
@@ -17,21 +19,6 @@ export const metadata: Metadata = {
     default: "Documentation | EternalCode.pl",
   },
   description: "Comprehensive documentation for EternalCode.pl projects and services",
-  metadataBase: new URL("https://eternalcode.pl"),
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://eternalcode.pl/docs",
-    siteName: "EternalCode.pl",
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "@eternalcode",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
 };
 
 import { FacadePattern } from "@/components/ui/facade-pattern";
@@ -48,16 +35,7 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
         <FacadePattern className="absolute inset-0 h-full opacity-30 dark:opacity-10" />
       </div>
 
-      <div className="relative z-10 mx-auto min-h-[calc(100vh-7rem)] max-w-[90rem] px-4 py-12 pt-32 md:pt-28">
-        <div className="flex flex-col gap-8 lg:flex-row">
-          <SidebarWrapper />
-          <main className="flex min-w-0 flex-1 flex-col items-stretch">
-            <div className="w-full" style={{ minHeight: "60vh" }}>
-              {children}
-            </div>
-          </main>
-        </div>
-      </div>
+      {children}
     </div>
   );
 }

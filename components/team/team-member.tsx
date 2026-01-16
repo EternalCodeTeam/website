@@ -9,7 +9,7 @@ const MotionCard = motion.create(Card);
 
 import type { TeamMemberProps } from "./types";
 
-export default function TeamMember({ member }: TeamMemberProps) {
+export default function TeamMember({ member, index }: TeamMemberProps) {
   const githubUsername = member.github?.split("/").pop() ?? "GitHub";
 
   const linkedinUsername = member.linkedin?.split("/").filter(Boolean).pop() ?? "LinkedIn";
@@ -23,12 +23,16 @@ export default function TeamMember({ member }: TeamMemberProps) {
       <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-gray-100 ring-1 ring-gray-200 dark:bg-gray-800 dark:ring-gray-700">
         <motion.div
           className="relative h-full w-full"
-          whileHover={{ scale: 1.05, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+          whileHover={{
+            scale: 1.05,
+            transition: { type: "spring", stiffness: 300, damping: 20 },
+          }}
         >
           <Image
-            alt={`${member.name} Avatar`}
+            alt={`Profile picture of ${member.name}`}
             className="object-cover transition-transform duration-500"
             fill
+            loading={index > 5 ? "lazy" : undefined}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             src={member.avatar_url}
           />
@@ -45,6 +49,7 @@ export default function TeamMember({ member }: TeamMemberProps) {
         <div className="mt-1.5 flex flex-col gap-1">
           {!!member.github && (
             <motion.a
+              aria-label={`View ${member.name}'s GitHub profile (@${githubUsername})`}
               className="flex w-max items-center gap-2 rounded-md px-1 py-0.5 text-gray-500 text-sm transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
               href={member.github}
               rel="noopener noreferrer"
@@ -55,13 +60,14 @@ export default function TeamMember({ member }: TeamMemberProps) {
                 transition: { type: "spring", stiffness: 400, damping: 10 },
               }}
             >
-              <FaGithub className="h-4 w-4" />
+              <FaGithub aria-hidden="true" className="h-4 w-4" />
               <span className="max-w-[140px] truncate">{githubUsername}</span>
             </motion.a>
           )}
 
           {!!member.linkedin && (
             <motion.a
+              aria-label={`View ${member.name}'s LinkedIn profile`}
               className="flex w-max items-center gap-2 rounded-md px-1 py-0.5 text-gray-500 text-sm transition-colors hover:bg-blue-50 hover:text-blue-600 dark:text-gray-400 dark:hover:bg-blue-900/20 dark:hover:text-blue-400"
               href={member.linkedin}
               rel="noopener noreferrer"
@@ -72,7 +78,7 @@ export default function TeamMember({ member }: TeamMemberProps) {
                 transition: { type: "spring", stiffness: 400, damping: 10 },
               }}
             >
-              <FaLinkedin className="h-4 w-4" />
+              <FaLinkedin aria-hidden="true" className="h-4 w-4" />
               <span className="max-w-[140px] truncate">{linkedinUsername}</span>
             </motion.a>
           )}

@@ -2,80 +2,67 @@
 
 import { useEffect, useState } from "react";
 
-export interface CookieConsent {
+export interface ConsentPreferences {
   necessary: boolean;
   analytics: boolean;
   marketing: boolean;
   preferences: boolean;
 }
 
-const defaultConsent: CookieConsent = {
+export interface CookieConsent {
+  consent: ConsentPreferences;
+  updateConsent: (updates: Partial<ConsentPreferences>) => void;
+  acceptAll: () => void;
+  isInitialized: boolean;
+}
+
+const CONSENT_KEY = "cookie-consent";
+
+const DEFAULT_CONSENT: ConsentPreferences = {
   necessary: true,
   analytics: false,
   marketing: false,
   preferences: false,
 };
 
-export function useCookieConsent() {
-  const [consent, setConsent] = useState<CookieConsent>(defaultConsent);
+export function useCookieConsent(): CookieConsent {
+  const [consent, setConsent] = useState<ConsentPreferences>(DEFAULT_CONSENT);
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    const savedConsent = localStorage.getItem("cookieConsent");
-    if (savedConsent) {
+    const stored = localStorage.getItem(CONSENT_KEY);
+    if (stored) {
       try {
-        const parsedConsent = JSON.parse(savedConsent) as CookieConsent;
-
-        if (
-          typeof parsedConsent === "object" &&
-          "necessary" in parsedConsent &&
-          "analytics" in parsedConsent &&
-          "marketing" in parsedConsent &&
-          "preferences" in parsedConsent
-        ) {
-          setConsent(parsedConsent);
-        }
-      } catch (e) {
-        console.error("Failed to parse cookie consent:", e);
+        const parsed = JSON.parse(stored) as ConsentPreferences;
+        setConsent(parsed);
+      } catch {
+        setConsent(DEFAULT_CONSENT);
       }
     }
     setIsInitialized(true);
   }, []);
 
-  const updateConsent = (newConsent: Partial<CookieConsent>) => {
-    const updatedConsent = { ...consent, ...newConsent };
-    setConsent(updatedConsent);
-    localStorage.setItem("cookieConsent", JSON.stringify(updatedConsent));
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(new Event("cookieConsentChanged"));
-    }
+  const updateConsent = (updates: Partial<ConsentPreferences>) => {
+    const newConsent = { ...consent, ...updates };
+    setConsent(newConsent);
+    localStorage.setItem(CONSENT_KEY, JSON.stringify(newConsent));
   };
 
   const acceptAll = () => {
-    const allAccepted = {
+    const allAccepted: ConsentPreferences = {
       necessary: true,
       analytics: true,
       marketing: true,
       preferences: true,
     };
-    updateConsent(allAccepted);
-  };
-
-  const rejectAll = () => {
-    const allRejected = {
-      necessary: true,
-      analytics: false,
-      marketing: false,
-      preferences: false,
-    };
-    updateConsent(allRejected);
+    setConsent(allAccepted);
+    localStorage.setItem(CONSENT_KEY, JSON.stringify(allAccepted));
   };
 
   return {
     consent,
     updateConsent,
     acceptAll,
-    rejectAll,
     isInitialized,
   };
 }

@@ -18,8 +18,8 @@ export default function TeamHero() {
 
           <SlideIn delay={0.3} direction="up">
             <p className="mb-8 max-w-3xl text-gray-600 text-lg sm:text-xl dark:text-gray-300">
-              We are a collective of passionate developers, designers, and creators dedicated to
-              building the future of open-source software. Driven by curiosity and united by code.
+              Meet the developers, designers, and creators who build powerful open-source tools.
+              Driven by curiosity and united by code.
             </p>
           </SlideIn>
         </div>

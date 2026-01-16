@@ -14,11 +14,12 @@ import {
   type ReactNode,
   type SVGProps,
   useCallback,
+  useMemo,
   useState,
 } from "react";
 // biome-ignore lint/performance/noNamespaceImport: Dynamic icon accessing
 import * as SIIcons from "react-icons/si";
-
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { cn } from "@/lib/utils";
 
 const ICONS: Record<string, string> = {
@@ -56,17 +57,29 @@ const ICONS: Record<string, string> = {
 const NON_ALPHANUMERIC_REGEX = /[^a-z0-9]/gi;
 const FIRST_CHAR_REGEX = /^./;
 
-const getIcon = (label: string) => {
+// Memoize icon lookup to avoid repeated calculations
+const iconCache = new Map<string, ComponentType<SVGProps<SVGSVGElement>> | null>();
+
+const getIcon = (label: string): ComponentType<SVGProps<SVGSVGElement>> | null => {
   const key = label.trim().toLowerCase();
+
+  if (iconCache.has(key)) {
+    return iconCache.get(key) ?? null;
+  }
+
   const iconName =
     ICONS[key] ??
     `Si${key.replace(NON_ALPHANUMERIC_REGEX, "").replace(FIRST_CHAR_REGEX, (c) => c.toUpperCase())}`;
 
-  return (SIIcons as Record<string, ComponentType<SVGProps<SVGSVGElement>>>)[iconName];
+  const Icon =
+    (SIIcons as Record<string, ComponentType<SVGProps<SVGSVGElement>>>)[iconName] ?? null;
+  iconCache.set(key, Icon);
+  return Icon;
 };
 
 const LanguageIcon = ({ label }: { label: string }) => {
-  const Icon = getIcon(label);
+  const Icon = useMemo(() => getIcon(label), [label]);
+
   if (Icon) {
     return <Icon aria-hidden="true" aria-label={label} className="mr-1" height={18} width={18} />;
   }
@@ -88,12 +101,17 @@ export const CodeTabs = ({
   onChange?: (index: number) => void;
   className?: string;
 }) => {
+  const prefersReducedMotion = useReducedMotion();
   const childrenArray = Children.toArray(children);
-  const validChildren = childrenArray.filter(isValidElement);
+  const validChildren = useMemo(() => childrenArray.filter(isValidElement), [childrenArray]);
 
-  const defaultLabel = validChildren[defaultIndex]
-    ? (validChildren[defaultIndex].props as { label: string }).label
-    : undefined;
+  const defaultLabel = useMemo(
+    () =>
+      validChildren[defaultIndex]
+        ? (validChildren[defaultIndex].props as { label: string }).label
+        : undefined,
+    [validChildren, defaultIndex]
+  );
 
   const [selectedValue, setSelectedValue] = useState(defaultLabel);
 
@@ -162,12 +180,12 @@ export const CodeTabs = ({
               value={label}
             >
               <motion.div
-                animate={{ opacity: 1, x: 0 }}
+                animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
                 // Exit animation is removed because Radix unmounts content immediately.
                 // To support exit animations, we would need to control rendering manually outside of Tabs.Content
                 // or use forceMount with standard AnimatePresence, but simple entry animation is usually sufficient.
-                initial={{ opacity: 0, x: -10 }}
-                transition={{ duration: 0.2 }}
+                initial={prefersReducedMotion ? {} : { opacity: 0, x: -10 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.2 }}
               >
                 {tabChildren}
               </motion.div>
@@ -179,6 +197,12 @@ export const CodeTabs = ({
   );
 };
 
-export function CodeTab({ children }: { label: string; children: ReactNode; disabled?: boolean }) {
+interface CodeTabProps {
+  label: string;
+  children: ReactNode;
+  disabled?: boolean;
+}
+
+export function CodeTab({ children }: CodeTabProps) {
   return <>{children}</>;
 }

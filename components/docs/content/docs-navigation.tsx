@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { cn } from "@/lib/utils";
 
 interface NavigationLink {
@@ -16,6 +17,8 @@ interface DocsNavigationProps {
 }
 
 export function DocsNavigation({ prev, next }: DocsNavigationProps) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <nav
       aria-label="Documentation navigation"
@@ -35,8 +38,13 @@ export function DocsNavigation({ prev, next }: DocsNavigationProps) {
 
           <motion.div
             className="relative flex items-center gap-2 font-medium text-gray-500 text-sm transition-colors group-hover:text-blue-600 dark:text-gray-400 dark:group-hover:text-blue-400"
-            transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            whileHover={{ x: -4 }}
+            transition={{
+              type: prefersReducedMotion ? "tween" : "spring",
+              stiffness: 400,
+              damping: 25,
+              duration: prefersReducedMotion ? 0 : undefined,
+            }}
+            whileHover={{ x: prefersReducedMotion ? 0 : -4 }}
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Previous</span>
@@ -63,8 +71,13 @@ export function DocsNavigation({ prev, next }: DocsNavigationProps) {
 
           <motion.div
             className="relative flex items-center gap-2 font-medium text-gray-500 text-sm transition-colors group-hover:text-blue-600 dark:text-gray-400 dark:group-hover:text-blue-400"
-            transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            whileHover={{ x: 4 }}
+            transition={{
+              type: prefersReducedMotion ? "tween" : "spring",
+              stiffness: 400,
+              damping: 25,
+              duration: prefersReducedMotion ? 0 : undefined,
+            }}
+            whileHover={{ x: prefersReducedMotion ? 0 : 4 }}
           >
             <span>Next</span>
             <ArrowRight className="h-4 w-4" />

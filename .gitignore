@@ -40,7 +40,5 @@ next-env.d.ts
 # ignore idea files
 .idea
 
-# Shannon
-.shannon-tool
-shannon_repos
-shannon_results
+# internal content layer
+/content/_generated/
