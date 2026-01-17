@@ -16,6 +16,7 @@ import { FileTree, FileTreeItem } from "@/components/ui/mdx/file-tree";
 import { Heading } from "@/components/ui/mdx/heading";
 import { Inline } from "@/components/ui/mdx/inline";
 import { LinkPreview } from "@/components/ui/mdx/link-preview";
+import { MdxLink } from "@/components/ui/mdx/mdx-link";
 import { MdxImage } from "@/components/ui/mdx/mdx-image";
 import { Step, Steps } from "@/components/ui/mdx/steps";
 
@@ -130,6 +131,8 @@ export const components: MDXComponents = {
   li: (props) => <li className="leading-relaxed" {...props} />,
 
   img: (props) => <MdxImage {...props} />,
+
+  a: (props) => <MdxLink {...props} />,
 };
 
 // biome-ignore lint/performance/noBarrelFile: Re-exporting for convenience
