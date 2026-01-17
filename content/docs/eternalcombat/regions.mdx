@@ -1,0 +1,200 @@
+---
+title: Regions & WorldGuard
+description: Configure protected regions and WorldGuard integration
+icon: Map
+sidebar_position: 5
+---
+
+# Regions & WorldGuard
+
+EternalCombat protects players from entering safe zones during combat. This page explains how to set up protected regions.
+
+## How It Works
+
+When a player is in combat and tries to enter a protected region:
+
+1. **Visual Border** - An animated border appears showing the region boundary
+2. **Knockback** - The player is pushed back from the region
+3. **Message** - A warning message is displayed
+
+This prevents players from escaping fights by running to spawn or other safe zones.
+
+## Setting Up Protected Regions
+
+<Steps>
+  <Step title="Create a WorldGuard Region" icon="Map">
+    First, create your protected region using WorldGuard:
+    
+    ```
+    //wand
+    # Select two corners of your region
+    /rg define spawn
+    ```
+  </Step>
+  
+  <Step title="Add Region to Config" icon="Settings">
+    Open `plugins/EternalCombat/config.yml` and add your region name to the `blockedRegions` list:
+    
+    ```yaml
+    regions:
+      blockedRegions:
+        - spawn
+        - safezone
+        - pvp-arena-lobby
+    ```
+    
+    <Callout type="important" title="Exact Name Required">
+      The region name must **exactly match** the WorldGuard region name. Region names are case-sensitive!
+    </Callout>
+  </Step>
+  
+  <Step title="Reload Configuration" icon="RefreshCw">
+    Reload EternalCombat to apply changes:
+    
+    <Command variant="bash" theme="light">/combatlog reload</Command>
+  </Step>
+  
+  <Step title="Test the Region" icon="Play">
+    Tag yourself in combat and try to enter the region:
+    
+    ```
+    /combatlog tag YourName
+    # Now try to walk into the protected region
+    ```
+    
+    You should be pushed back with an animated border visible.
+  </Step>
+</Steps>
+
+## Configuration Options
+
+```yaml
+regions:
+  # List of blocked region names - ADD YOUR REGIONS HERE
+  blockedRegions:
+    - spawn
+    - safezone
+  
+  # Block regions where WorldGuard has PvP disabled
+  preventPvpInRegions: true
+  
+  # Spawn region radius if WorldGuard is not installed
+  restrictedRegionRadius: 10
+```
+
+| Option | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `blockedRegions` | list | `[]` | WorldGuard region names to block |
+| `preventPvpInRegions` | boolean | `true` | Auto-block regions with PvP disabled |
+| `restrictedRegionRadius` | int | `10` | Spawn protection radius (no WorldGuard) |
+
+## WorldGuard Integration
+
+### Automatic PvP Region Detection
+
+When `preventPvpInRegions` is enabled, EternalCombat will **automatically** block entry to:
+
+- Regions with the `pvp` flag set to `deny`
+- Regions with the `invincible` flag
+
+This means you don't need to manually add every safe region to `blockedRegions`.
+
+<Callout type="tip" title="Recommended Setup">
+  For most servers, just enable `preventPvpInRegions: true` and EternalCombat will automatically protect all your PvP-disabled regions.
+  
+  Use `blockedRegions` for additional regions that have PvP enabled but should still be protected during combat.
+</Callout>
+
+### Priority Order
+
+If a region is in both WorldGuard (with PvP disabled) AND `blockedRegions`:
+1. **blockedRegions** takes priority
+2. WorldGuard check is secondary
+
+## Without WorldGuard
+
+If you don't have WorldGuard installed, EternalCombat will create a **circular spawn protection zone**:
+
+```yaml
+regions:
+  # Radius of the protected spawn area
+  restrictedRegionRadius: 10
+```
+
+This creates a 10-block radius protection zone around the world spawn point.
+
+## Border Appearance
+
+The visual border that appears at protected regions can be customized:
+
+```yaml
+border:
+  # How far players can see the border
+  distance: 6.5
+  
+  block:
+    enabled: true
+    type: RAINBOW_GLASS
+  
+  particle:
+    enabled: true
+    type: DUST
+    color: RAINBOW
+```
+
+See [Configuration](/docs/eternalcombat/configuration#border-settings) for all border options.
+
+## Knockback Settings
+
+Configure how strongly players are pushed away from protected regions:
+
+```yaml
+knockback:
+  # Knockback strength (1.0 = 2-4 blocks)
+  multiplier: 1
+  
+  # Delay before forcing the player out
+  forceDelay: 1s
+```
+
+<Callout type="warning" title="High Multiplier Warning">
+  Setting a very high knockback multiplier may cause:
+  - Players flying far distances
+  - Potential fall damage
+  - Disorienting gameplay
+  
+  Recommended values: `0.5` to `2.0`
+</Callout>
+
+## Common Issues
+
+### Border Not Showing
+
+1. Check that `border.block.enabled` or `border.particle.enabled` is `true`
+2. Verify PacketEvents is installed and working
+3. Check `border.distance` is not set too low
+
+### Players Can Still Enter Region
+
+1. Verify the region name is spelled correctly (exact match)
+2. Check that the player doesn't have `eternalcombat.bypass` permission
+3. Ensure the world isn't in `ignoredWorlds`
+
+### Region Not Detected
+
+1. Make sure WorldGuard is installed and the region exists
+2. Try running `/rg info <region>` to verify the region
+3. Check for typos in the region name
+
+---
+
+## Next Steps
+
+<CardGroup>
+  <Card title="Configuration" icon="Settings" href="/docs/eternalcombat/configuration">
+    Customize border appearance
+  </Card>
+  <Card title="Troubleshooting" icon="AlertTriangle" href="/docs/eternalcombat/troubleshooting">
+    Solve common problems
+  </Card>
+</CardGroup>

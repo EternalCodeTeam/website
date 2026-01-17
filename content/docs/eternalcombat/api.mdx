@@ -1,0 +1,359 @@
+---
+title: API for Developers
+description: Developer guide for integrating with EternalCombat's API
+icon: Code
+sidebar_position: 7
+---
+
+# Developer API
+
+This page documents the EternalCombat API for plugin developers who want to integrate with EternalCombat.
+
+<Callout type="note" title="For Server Administrators">
+  This page is intended for **developers** creating plugins that integrate with EternalCombat. If you're a server administrator, you don't need to read this.
+</Callout>
+
+---
+
+## Getting Started
+
+### Add Repository
+
+Add the EternalCode repository to your build configuration:
+
+<CodeTabs>
+  <CodeTab label="Gradle (Kotlin)">
+    ```kotlin
+    repositories {
+        maven("https://repo.eternalcode.pl/releases")
+    }
+    ```
+  </CodeTab>
+  <CodeTab label="Gradle (Groovy)">
+    ```groovy
+    repositories {
+        maven { url = "https://repo.eternalcode.pl/releases" }
+    }
+    ```
+  </CodeTab>
+  <CodeTab label="Maven">
+    ```xml
+    <repositories>
+        <repository>
+            <id>eternalcode-reposilite-releases</id>
+            <name>EternalCode Repository</name>
+            <url>https://repo.eternalcode.pl/releases</url>
+        </repository>
+    </repositories>
+    ```
+  </CodeTab>
+</CodeTabs>
+
+### Add Dependency
+
+<Callout type="important" title="Current Version">
+  The latest API version is **2.4.0-SNAPSHOT**. Check [GitHub releases](https://github.com/EternalCodeTeam/EternalCombat/releases) for the most recent version.
+</Callout>
+
+<CodeTabs>
+  <CodeTab label="Gradle (Kotlin)">
+    ```kotlin
+    dependencies {
+        compileOnly("com.eternalcode:eternalcombat-api:2.4.0-SNAPSHOT")
+    }
+    ```
+  </CodeTab>
+  <CodeTab label="Gradle (Groovy)">
+    ```groovy
+    dependencies {
+        compileOnly "com.eternalcode:eternalcombat-api:2.4.0-SNAPSHOT"
+    }
+    ```
+  </CodeTab>
+  <CodeTab label="Maven">
+    ```xml
+    <dependencies>
+        <dependency>
+            <groupId>com.eternalcode</groupId>
+            <artifactId>eternalcombat-api</artifactId>
+            <version>2.4.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    ```
+  </CodeTab>
+</CodeTabs>
+
+### Plugin Dependency
+
+Declare EternalCombat as a dependency in your plugin's configuration:
+
+<CodeTabs>
+  <CodeTab label="plugin.yml">
+    ```yaml
+    name: YourPlugin
+    version: 1.0.0
+    main: com.example.YourPlugin
+    depend:
+      - EternalCombat
+    ```
+  </CodeTab>
+  <CodeTab label="paper-plugin.yml">
+    ```yaml
+    name: YourPlugin
+    version: 1.0.0
+    main: com.example.YourPlugin
+    
+    dependencies:
+      server:
+        EternalCombat:
+          load: OMIT
+          required: true
+          join-classpath: true
+    ```
+  </CodeTab>
+</CodeTabs>
+
+---
+
+## Accessing the API
+
+Get the API instance in your plugin's `onEnable`:
+
+```java
+import com.eternalcode.combat.EternalCombatApi;
+import com.eternalcode.combat.EternalCombatProvider;
+
+public class YourPlugin extends JavaPlugin {
+    private EternalCombatApi combatApi;
+
+    @Override
+    public void onEnable() {
+        this.combatApi = EternalCombatProvider.provide();
+    }
+}
+```
+
+---
+
+## Available Services
+
+The API provides access to several services:
+
+| Service | Method | Description |
+| :--- | :--- | :--- |
+| `FightManager` | `getFightManager()` | Core combat state management |
+| `RegionProvider` | `getRegionProvider()` | Region-based features |
+| `FightPearlService` | `getFightPearlService()` | Ender pearl mechanics |
+| `FightTagOutService` | `getFightTagOutService()` | Combat tag-out system |
+| `FightEffectService` | `getFightEffectService()` | Combat potion effects |
+| `DropService` | `getDropService()` | Item drop management |
+| `DropKeepInventoryService` | `getDropKeepInventoryService()` | Keep inventory handling |
+
+---
+
+## Common Use Cases
+
+### Check Combat Status
+
+```java
+public class CombatChecker {
+    private final FightManager fightManager;
+
+    public CombatChecker(EternalCombatApi api) {
+        this.fightManager = api.getFightManager();
+    }
+
+    public boolean isPlayerInCombat(UUID playerId) {
+        return fightManager.isInCombat(playerId);
+    }
+    
+    public Optional<Instant> getCombatEndTime(UUID playerId) {
+        return fightManager.getEndOfCombatTime(playerId);
+    }
+}
+```
+
+### Tag a Player
+
+```java
+import com.eternalcode.combat.fight.CauseOfTag;
+
+public class CombatTagger {
+    private final FightManager fightManager;
+
+    public CombatTagger(EternalCombatApi api) {
+        this.fightManager = api.getFightManager();
+    }
+
+    public void tagPlayer(UUID playerId, Duration duration) {
+        fightManager.tag(playerId, duration, CauseOfTag.COMMAND);
+    }
+    
+    public void tagTwoPlayers(UUID attacker, UUID victim, Duration duration) {
+        fightManager.tag(attacker, victim, duration, CauseOfTag.PLAYER);
+    }
+}
+```
+
+### Remove from Combat
+
+```java
+import com.eternalcode.combat.fight.CauseOfUnTag;
+
+public class CombatRemover {
+    private final FightManager fightManager;
+
+    public CombatRemover(EternalCombatApi api) {
+        this.fightManager = api.getFightManager();
+    }
+
+    public void untagPlayer(UUID playerId) {
+        fightManager.untag(playerId, CauseOfUnTag.COMMAND);
+    }
+}
+```
+
+---
+
+## Event System
+
+EternalCombat provides events you can listen to for combat state changes.
+
+### FightTagEvent
+
+Fired when a player enters combat:
+
+```java
+import com.eternalcode.combat.event.FightTagEvent;
+import com.eternalcode.combat.fight.CauseOfTag;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+
+public class CombatListener implements Listener {
+    
+    @EventHandler
+    public void onCombatStart(FightTagEvent event) {
+        UUID playerId = event.getPlayer();
+        CauseOfTag cause = event.getCause();
+        Duration duration = event.getDuration();
+        
+        Player player = Bukkit.getPlayer(playerId);
+        if (player != null) {
+            player.sendMessage("Combat started! Cause: " + cause);
+        }
+    }
+}
+```
+
+### FightUntagEvent
+
+Fired when a player leaves combat:
+
+```java
+import com.eternalcode.combat.event.FightUntagEvent;
+import com.eternalcode.combat.fight.CauseOfUnTag;
+
+@EventHandler
+public void onCombatEnd(FightUntagEvent event) {
+    UUID playerId = event.getPlayer();
+    CauseOfUnTag cause = event.getCause();
+    
+    Player player = Bukkit.getPlayer(playerId);
+    if (player != null) {
+        switch (cause) {
+            case TIMER_EXPIRED -> player.sendMessage("Combat ended - timer expired");
+            case DEATH -> player.sendMessage("Combat ended - you died");
+            case COMMAND -> player.sendMessage("Combat ended - admin command");
+            case LOGOUT -> player.sendMessage("Combat ended - logout");
+        }
+    }
+}
+```
+
+### Event Cancellation
+
+Both events can be cancelled to prevent the action:
+
+```java
+@EventHandler
+public void onCombatStart(FightTagEvent event) {
+    Player player = Bukkit.getPlayer(event.getPlayer());
+    
+    // Prevent VIP players from entering combat
+    if (player != null && player.hasPermission("yourplugin.vip")) {
+        event.setCancelled(true);
+    }
+}
+```
+
+---
+
+## Tag Causes
+
+### CauseOfTag
+
+| Cause | Description |
+| :--- | :--- |
+| `PLAYER` | Combat started by another player |
+| `COMMAND` | Combat started by admin command |
+| `CRYSTAL` | Combat from end crystal explosion |
+| `RESPAWN_ANCHOR` | Combat from respawn anchor explosion |
+| `DAMAGE_CAUSE` | Combat from environmental damage |
+
+### CauseOfUnTag
+
+| Cause | Description |
+| :--- | :--- |
+| `TIMER_EXPIRED` | Combat timer ran out |
+| `DEATH` | Player died |
+| `COMMAND` | Admin removed from combat |
+| `LOGOUT` | Player logged out |
+| `WORLD_CHANGE` | Player changed worlds |
+
+---
+
+## Best Practices
+
+<Callout type="tip" title="API Guidelines">
+  1. **Cache the API reference** - Get `EternalCombatApi` once in `onEnable`
+  2. **Use soft dependency** - Handle cases where EternalCombat isn't installed
+  3. **Don't store player objects** - Always use UUIDs and fetch players when needed
+  4. **Register events properly** - Register your listener in `onEnable`
+</Callout>
+
+### Soft Dependency Example
+
+```java
+public class YourPlugin extends JavaPlugin {
+    private EternalCombatApi combatApi;
+    private boolean eternalCombatEnabled;
+
+    @Override
+    public void onEnable() {
+        if (getServer().getPluginManager().getPlugin("EternalCombat") != null) {
+            this.combatApi = EternalCombatProvider.provide();
+            this.eternalCombatEnabled = true;
+            getLogger().info("EternalCombat integration enabled!");
+        } else {
+            this.eternalCombatEnabled = false;
+            getLogger().info("EternalCombat not found, integration disabled.");
+        }
+    }
+    
+    public boolean isPlayerInCombat(UUID playerId) {
+        if (!eternalCombatEnabled) {
+            return false;
+        }
+        return combatApi.getFightManager().isInCombat(playerId);
+    }
+}
+```
+
+---
+
+## Need Help?
+
+- **JavaDocs** - Check inline documentation in the API
+- **Discord** - [discord.gg/FQ7jmGBd6c](https://discord.gg/FQ7jmGBd6c)
+- **GitHub** - [EternalCombat Repository](https://github.com/EternalCodeTeam/EternalCombat)

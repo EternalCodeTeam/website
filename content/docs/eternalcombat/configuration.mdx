@@ -1,0 +1,546 @@
+---
+title: Configuration
+description: Complete configuration reference for EternalCombat
+icon: Settings
+sidebar_position: 3
+---
+
+# Configuration Reference
+
+This page documents all configuration options available in `plugins/EternalCombat/config.yml`.
+
+<Callout type="tip" title="Reload Configuration">
+  After making changes, reload the configuration with:
+  
+  <Command variant="bash" theme="light">/combatlog reload</Command>
+</Callout>
+
+---
+
+## General Settings
+
+Basic plugin settings that control core behavior.
+
+```yaml
+settings:
+  # Notify players about new plugin updates when they join
+  notifyAboutUpdates: true
+  
+  # How long a player stays in combat after being attacked
+  combatTimerDuration: 20s
+  
+  # Worlds where combat logging is disabled
+  ignoredWorlds:
+    - your_world
+```
+
+| Option | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `notifyAboutUpdates` | boolean | `true` | Notify admins about plugin updates |
+| `combatTimerDuration` | duration | `20s` | Combat duration after last hit |
+| `ignoredWorlds` | list | `[]` | Worlds where combat is disabled |
+
+<Callout type="example" title="Combat Duration Examples">
+  - **10s** - Fast-paced servers, quick fights
+  - **20s** - Standard, recommended for most servers
+  - **30s** - Longer combat, harder to escape
+</Callout>
+
+---
+
+## Combat Settings
+
+Controls what players can and cannot do during combat.
+
+```yaml
+combat:
+  # Release attacker when victim dies
+  releaseAttackerOnVictimDeath: true
+  
+  # Disable elytra during combat
+  disableElytraUsage: true
+  disableElytraOnDamage: true
+  
+  # Disable flying during combat
+  disableFlying: true
+  
+  # Disable firework boosting during combat
+  disableFireworks: true
+  
+  # Block inventory access during combat
+  disableInventoryAccess: false
+```
+
+| Option | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `releaseAttackerOnVictimDeath` | boolean | `true` | End combat for attacker when victim dies |
+| `disableElytraUsage` | boolean | `true` | Prevent elytra activation during combat |
+| `disableElytraOnDamage` | boolean | `true` | Disable active elytra when taking damage |
+| `disableFlying` | boolean | `true` | Force flying players to the ground |
+| `disableFireworks` | boolean | `true` | Block firework boosting during elytra flight |
+| `disableInventoryAccess` | boolean | `false` | Block opening containers during combat |
+
+### Damage Cause Logging
+
+Control which environmental damage sources trigger combat:
+
+```yaml
+combat:
+  # Enable combat from environmental damage
+  enableDamageCauseLogging: false
+  
+  # WHITELIST = only listed causes trigger combat
+  # BLACKLIST = all causes except listed ones trigger combat
+  damageCauseRestrictionMode: WHITELIST
+  
+  # Damage causes affected by the mode
+  loggedDamageCauses:
+    - LAVA
+    - CONTACT
+    - FIRE
+    - FIRE_TICK
+```
+
+### Projectile Settings
+
+Configure which projectiles should NOT trigger combat:
+
+```yaml
+combat:
+  # Projectiles that don't trigger combat
+  ignoredProjectileTypes:
+    - ENDER_PEARL
+    - EGG
+```
+
+### Kick Punishment Settings
+
+Configure when kicked players should NOT be punished for combat logging:
+
+```yaml
+combat:
+  # Kick reasons that won't punish the player
+  whitelistedKickReasons:
+    - "Kicked for inactivity"
+    - "Timed out"
+    - "Server is restarting"
+```
+
+<Callout type="tip" title="Server Restart Protection">
+  Adding "Server is restarting" to whitelisted kick reasons prevents players from being punished when you restart your server.
+</Callout>
+
+---
+
+## Command Restrictions
+
+Block or allow specific commands during combat.
+
+```yaml
+commands:
+  # WHITELIST = only listed commands are ALLOWED
+  # BLACKLIST = listed commands are BLOCKED
+  commandRestrictionMode: BLACKLIST
+  
+  restrictedCommands:
+    - gamemode
+    - spawn
+    - tp
+    - tpa
+    - tpaccept
+```
+
+| Mode | Behavior |
+| :--- | :--- |
+| `BLACKLIST` | Commands in the list are **blocked** during combat |
+| `WHITELIST` | Only commands in the list are **allowed** during combat |
+
+<Callout type="example" title="Typical Configurations">
+  **Survival Server (Blacklist mode)**
+  ```yaml
+  restrictedCommands:
+    - spawn
+    - home
+    - tpa
+    - tpaccept
+    - warp
+  ```
+  
+  **Anarchy Server (minimal restrictions)**
+  ```yaml
+  restrictedCommands:
+    - gamemode
+    - fly
+  ```
+</Callout>
+
+---
+
+## Admin Settings
+
+Special settings for server administrators.
+
+```yaml
+admin:
+  # Exclude admins from combat (requires eternalcombat.bypass)
+  excludeAdminsFromCombat: false
+  
+  # Exclude creative mode players from combat
+  excludeCreativePlayersFromCombat: false
+```
+
+| Option | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `excludeAdminsFromCombat` | boolean | `false` | Players with `eternalcombat.bypass` can't be tagged |
+| `excludeCreativePlayersFromCombat` | boolean | `false` | Creative mode players can't be tagged |
+
+---
+
+## Block Placement Restrictions
+
+Prevent players from building during combat.
+
+```yaml
+blockPlacement:
+  # Enable block placement restrictions
+  disableBlockPlacing: true
+  
+  # ABOVE = can't place blocks above Y coordinate
+  # BELOW = can't place blocks below Y coordinate
+  blockPlacementMode: ABOVE
+  blockPlacementModeDisplayName: "above"
+  
+  # Y coordinate for the restriction
+  blockPlacementYCoordinate: 40
+  
+  # Specific blocks to restrict (empty = all blocks)
+  restrictedBlockTypes: []
+```
+
+<Callout type="tip" title="Preventing Sky Base Escapes">
+  Set `blockPlacementMode: ABOVE` with `blockPlacementYCoordinate: 40` to prevent players from building up and escaping during combat.
+</Callout>
+
+---
+
+## Ender Pearl Settings
+
+Configure ender pearl behavior during combat.
+
+```yaml
+pearl:
+  # Enable pearl fall damage
+  pearlThrowDamageEnabled: true
+  
+  # Disable throwing pearls during combat
+  pearlThrowDisabledDuringCombat: true
+  
+  # Enable pearl cooldown
+  pearlCooldownEnabled: false
+  
+  # Cooldown duration
+  pearlThrowDelay: 3s
+```
+
+| Option | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `pearlThrowDamageEnabled` | boolean | `true` | Pearl damage applies globally |
+| `pearlThrowDisabledDuringCombat` | boolean | `true` | Block pearl throwing during combat |
+| `pearlCooldownEnabled` | boolean | `false` | Enable cooldown between pearls |
+| `pearlThrowDelay` | duration | `3s` | Cooldown duration if enabled |
+
+---
+
+## Combat Effects
+
+Apply potion effects to players during combat.
+
+```yaml
+effect:
+  # Enable custom effects during combat
+  customEffectsEnabled: false
+  
+  # Effects to apply (format: EFFECT_TYPE: AMPLIFIER)
+  # Amplifier 0 = Level 1, Amplifier 1 = Level 2, etc.
+  customEffects:
+    SPEED: 1
+    DAMAGE_RESISTANCE: 0
+```
+
+<Callout type="example" title="Effect Examples">
+  - `SPEED: 0` - Speed I (slight boost)
+  - `SPEED: 1` - Speed II (noticeable boost)
+  - `DAMAGE_RESISTANCE: 0` - Resistance I (8% damage reduction)
+  - `GLOWING: 0` - Make players glow (visible through walls)
+</Callout>
+
+---
+
+## Drop Settings
+
+Configure what players drop when killed during combat.
+
+```yaml
+drop:
+  # Drop type:
+  # UNCHANGED - Default Minecraft behavior
+  # PERCENT - Drop a fixed percentage of items
+  # PLAYERS_HEALTH - Drop based on health when logging out
+  dropType: UNCHANGED
+  
+  # Percentage of items to drop (only for PERCENT type)
+  dropItemPercent: 100
+  
+  # Minimum drop percentage for PLAYERS_HEALTH type
+  playersHealthPercentClamp: 20
+  
+  # Apply drop modification to experience
+  affectExperience: false
+```
+
+| Drop Type | Behavior |
+| :--- | :--- |
+| `UNCHANGED` | Normal Minecraft drop behavior |
+| `PERCENT` | Drop exactly X% of inventory |
+| `PLAYERS_HEALTH` | Drop more items when logging out with high health |
+
+### Head Drop System
+
+```yaml
+drop:
+  # Enable player head drops
+  headDropEnabled: false
+  
+  # Chance to drop head (0-100)
+  headDropChance: 0.0
+  
+  # Only drop heads during combat
+  headDropOnlyInCombat: true
+  
+  # Display name of dropped head
+  headDropDisplayName: "{PLAYER}'s Head"
+  
+  # Lore lines
+  headDropLore:
+    - "Slain by {KILLER}"
+    - "Collected in battle"
+```
+
+---
+
+## Crystal PvP Settings
+
+Configure combat tagging from explosives.
+
+```yaml
+crystalPvp:
+  # Tag players from crystal damage
+  tagFromCrystals: true
+  
+  # Tag players from respawn anchor damage
+  tagFromRespawnAnchor: true
+```
+
+---
+
+## Knockback Settings
+
+Configure knockback when players try to enter protected regions.
+
+```yaml
+knockback:
+  # Knockback strength multiplier
+  multiplier: 1
+  
+  # Delay before forcing player out of safe zone
+  forceDelay: 1s
+```
+
+---
+
+## Border Settings
+
+Configure the visual combat border that shows protected regions.
+
+```yaml
+border:
+  # How far the border is visible (in blocks)
+  distance: 6.5
+  
+  block:
+    # Enable block animation
+    enabled: true
+    
+    # Block type for border
+    # Custom: RAINBOW_GLASS, RAINBOW_WOOL, RAINBOW_TERRACOTTA, RAINBOW_CONCRETE
+    type: RAINBOW_GLASS
+    
+    # Animation update delay (lower = smoother but more resource intensive)
+    updateDelay: 250ms
+    chunkCacheDelay: 300ms
+  
+  particle:
+    # Enable particle animation
+    enabled: true
+    
+    # Particle type
+    type: DUST
+    
+    # Color: hex color like "#ca4c45" or "RAINBOW"
+    color: RAINBOW
+    
+    count: 1
+    scale: 1.7
+```
+
+<Callout type="tip" title="Performance Tip">
+  If you experience lag, try:
+  - Increasing `updateDelay` and `chunkCacheDelay`
+  - Disabling one of the animations (block or particle)
+  - Reducing `distance`
+</Callout>
+
+---
+
+## Region Settings
+
+Configure protected regions where players can't enter during combat.
+
+```yaml
+regions:
+  # Regions where combat is blocked - PUT YOUR REGION NAMES HERE
+  blockedRegions:
+    - spawn
+    - safezone
+  
+  # Prevent entering WorldGuard regions with PvP disabled
+  preventPvpInRegions: true
+  
+  # Default spawn region radius (if WorldGuard is not used)
+  restrictedRegionRadius: 10
+```
+
+<Callout type="important" title="Setting Up Regions">
+  To block a region during combat, you need to add its **exact name** to the `blockedRegions` list:
+  
+  1. Create a WorldGuard region (e.g., `/rg define spawn`)
+  2. Add the region name to `blockedRegions` in config
+  3. Reload with `/combatlog reload`
+  
+  Players in combat will now be blocked from entering that region.
+</Callout>
+
+For more details, see the [Regions](/docs/eternalcombat/regions) page.
+
+---
+
+## Placeholder Settings
+
+Configure PlaceholderAPI placeholder values.
+
+```yaml
+placeholders:
+  # Text when player is in combat
+  isInCombatFormattedTrue: "In Combat"
+  
+  # Text when player is not in combat
+  isInCombatFormattedFalse: "Not In Combat"
+```
+
+### Available Placeholders
+
+| Placeholder | Description |
+| :--- | :--- |
+| `%eternalcombat_opponent%` | Name of combat opponent |
+| `%eternalcombat_opponent_health%` | Opponent's health (00.00 format) |
+| `%eternalcombat_remaining_seconds%` | Seconds until combat ends |
+| `%eternalcombat_remaining_millis%` | Milliseconds until combat ends |
+| `%eternalcombat_isInCombat_formatted%` | Formatted combat status text |
+
+<Callout type="note" title="Empty Placeholders">
+  If a player is not in combat, placeholders return an empty string. Opponent placeholders also return empty if combat wasn't triggered by another player.
+</Callout>
+
+---
+
+## Message Settings
+
+EternalCombat uses [MiniMessage](https://docs.advntr.dev/minimessage/format.html) format for all messages. You can customize colors, gradients, and formatting.
+
+### Combat Notification Types
+
+You can display combat status using different notification types. Use CodeTabs to see examples:
+
+<CodeTabs>
+  <CodeTab label="ActionBar">
+    ```yaml
+    messagesSettings:
+      combatNotification:
+        actionbar: '<dark_red>Combat ends in: <red>{TIME}</red>'
+    ```
+  </CodeTab>
+  <CodeTab label="BossBar">
+    ```yaml
+    messagesSettings:
+      combatNotification:
+        bossbar:
+          message: "<dark_red>Combat ends in: <red>{TIME}</red>"
+          color: RED
+    ```
+  </CodeTab>
+  <CodeTab label="ActionBar + BossBar">
+    ```yaml
+    messagesSettings:
+      combatNotification:
+        actionbar: '<dark_red>Combat ends in: <red>{TIME}</red>'
+        bossbar:
+          message: "<dark_red>Combat ends in: <red>{TIME}</red>"
+          color: PURPLE
+    ```
+  </CodeTab>
+  <CodeTab label="Title">
+    ```yaml
+    messagesSettings:
+      combatNotification:
+        title:
+          title: "<red>⚔ COMBAT ⚔"
+          subtitle: "<gray>Ends in: {TIME}"
+          times: "0s 1s 0s"
+    ```
+  </CodeTab>
+</CodeTabs>
+
+### BossBar Colors
+
+Available colors for BossBar: `PINK`, `BLUE`, `RED`, `GREEN`, `YELLOW`, `PURPLE`, `WHITE`
+
+### Common Message Placeholders
+
+| Placeholder | Description |
+| :--- | :--- |
+| `{TIME}` | Remaining combat time |
+| `{PLAYER}` | Player name |
+| `{PERMISSION}` | Required permission |
+
+<Callout type="tip" title="MiniMessage Format">
+  EternalCombat uses MiniMessage for rich text formatting:
+  
+  - Colors: `<red>`, `<green>`, `<#ff5555>`
+  - Gradients: `<gradient:red:yellow>text</gradient>`
+  - Formatting: `<bold>`, `<italic>`, `<underlined>`
+  
+  [Learn more about MiniMessage](https://docs.advntr.dev/minimessage/format.html)
+</Callout>
+
+---
+
+## Next Steps
+
+<CardGroup>
+  <Card title="Commands" icon="Terminal" href="/docs/eternalcombat/commands">
+    Learn all available commands
+  </Card>
+  <Card title="Regions" icon="Map" href="/docs/eternalcombat/regions">
+    Set up protected regions
+  </Card>
+</CardGroup>

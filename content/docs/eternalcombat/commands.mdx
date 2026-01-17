@@ -1,0 +1,172 @@
+---
+title: Commands & Permissions
+description: Complete list of EternalCombat commands and permissions
+icon: Terminal
+sidebar_position: 4
+---
+
+# Commands & Permissions
+
+This page documents all commands and permissions available in EternalCombat.
+
+## Commands
+
+### combatlog
+
+The main command for all EternalCombat functionality.
+
+```
+/combatlog <subcommand>
+```
+
+Aliases: `/cl`, `/combat`
+
+<Divider label="Available Subcommands" />
+
+### status
+
+Check if a player is currently in combat.
+
+<Command variant="bash" theme="light">/combatlog status [player]</Command>
+
+| Argument | Required | Description |
+| :--- | :--- | :--- |
+| `player` | No | Player to check (defaults to yourself) |
+
+**Permission:** `eternalcombat.status`
+
+**Examples:**
+```
+/combatlog status          # Check your own status
+/combatlog status Steve    # Check Steve's status
+```
+
+<Divider />
+
+### tag
+
+Force one or two players into combat.
+
+<Command variant="bash" theme="light">/combatlog tag &lt;player&gt; [player2]</Command>
+
+| Argument | Required | Description |
+| :--- | :--- | :--- |
+| `player` | Yes | First player to tag |
+| `player2` | No | Second player (optional, tags both against each other) |
+
+**Permission:** `eternalcombat.tag`
+
+**Examples:**
+```
+/combatlog tag Steve       # Put Steve in combat
+/combatlog tag Steve Alex  # Put Steve and Alex in combat with each other
+```
+
+<Callout type="tip" title="Use Cases">
+  - **Events:** Force players into combat for PvP events
+  - **Testing:** Test combat-related features
+  - **Punishment:** Prevent a player from escaping
+</Callout>
+
+<Divider />
+
+### untag
+
+Remove a player from combat.
+
+<Command variant="bash" theme="light">/combatlog untag &lt;player&gt;</Command>
+
+| Argument | Required | Description |
+| :--- | :--- | :--- |
+| `player` | Yes | Player to remove from combat |
+
+**Permission:** `eternalcombat.untag`
+
+**Examples:**
+```
+/combatlog untag Steve     # Remove Steve from combat
+```
+
+<Divider />
+
+### reload
+
+Reload the plugin configuration.
+
+<Command variant="bash" theme="light">/combatlog reload</Command>
+
+**Permission:** `eternalcombat.reload`
+
+<Callout type="warning" title="When to Restart">
+  Some settings require a server restart to take effect:
+  
+  - Border animation delays (`updateDelay`, `chunkCacheDelay`)
+  - Event priority settings
+</Callout>
+
+---
+
+## Permissions
+
+### Player Permissions
+
+| Permission | Description | Default |
+| :--- | :--- | :--- |
+| `eternalcombat.status` | Check your own or others' combat status | op |
+| `eternalcombat.receiveupdates` | Receive notifications about plugin updates | op |
+| `eternalcombat.bypass` | Bypass combat restrictions (when enabled in config) | op |
+
+### Admin Permissions
+
+| Permission | Description | Default |
+| :--- | :--- | :--- |
+| `eternalcombat.tag` | Force players into combat | op |
+| `eternalcombat.untag` | Remove players from combat | op |
+| `eternalcombat.reload` | Reload plugin configuration | op |
+
+---
+
+## LuckPerms Setup
+
+Here's an example of how to set up permissions using LuckPerms:
+
+<CodeTabs>
+  <CodeTab label="Staff Permissions">
+    ```bash
+    # Give staff the ability to manage combat
+    /lp group mod permission set eternalcombat.status true
+    /lp group mod permission set eternalcombat.tag true
+    /lp group mod permission set eternalcombat.untag true
+    ```
+  </CodeTab>
+  <CodeTab label="Admin Permissions">
+    ```bash
+    # Give admins full control
+    /lp group admin permission set eternalcombat.* true
+    ```
+  </CodeTab>
+  <CodeTab label="Bypass Permission">
+    ```bash
+    # Allow a player to bypass combat restrictions
+    # Note: excludeAdminsFromCombat must be enabled in config
+    /lp user Steve permission set eternalcombat.bypass true
+    ```
+  </CodeTab>
+</CodeTabs>
+
+<Callout type="important" title="Bypass Permission">
+  The `eternalcombat.bypass` permission only works when `admin.excludeAdminsFromCombat` is set to `true` in the configuration. Otherwise, this permission has no effect.
+</Callout>
+
+---
+
+## Next Steps
+
+<CardGroup>
+  <Card title="Configuration" icon="Settings" href="/docs/eternalcombat/configuration">
+    Customize plugin behavior
+  </Card>
+  <Card title="Regions" icon="Map" href="/docs/eternalcombat/regions">
+    Set up protected regions
+  </Card>
+</CardGroup>
