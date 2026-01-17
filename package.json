@@ -26,6 +26,7 @@
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.19",
+    "@takumi-rs/image-response": "^0.63.1",
     "@xyflow/react": "^12.10.0",
     "babel-plugin-react-compiler": "^1.0.0",
     "class-variance-authority": "^0.7.1",

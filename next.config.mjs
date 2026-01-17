@@ -61,7 +61,7 @@ const nextConfig = {
     },
   },
   bundlePagesRouterDependencies: true,
-  serverExternalPackages: ["gray-matter", "sharp"],
+  serverExternalPackages: ["gray-matter", "sharp", "@takumi-rs/image-response"],
 };
 
 import withBundleAnalyzer from "@next/bundle-analyzer";

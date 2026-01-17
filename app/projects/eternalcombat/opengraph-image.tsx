@@ -9,12 +9,16 @@ export const size = {
 
 export default function Image() {
   return new ImageResponse(
-    <OgTemplate subtitle="We are a team creating open source projects!" title="EternalCode.pl" />,
+    <OgTemplate
+      siteName="EternalCode.pl"
+      subtitle="Combat Logging, Solved Forever."
+      title="EternalCombat"
+    />,
     {
       ...size,
       format: "webp",
       headers: {
-        "Cache-Control": "public, max-age=0, must-revalidate",
+        "Cache-Control": "public, max-age=31536000, immutable",
       },
     }
   );

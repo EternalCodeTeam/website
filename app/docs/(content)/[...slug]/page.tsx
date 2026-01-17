@@ -38,6 +38,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  const ogImageUrl = `/api/og/${resolvedParams.slug.join("/")}`;
+
   return {
     title: doc.frontmatter.title,
     description: doc.frontmatter.description,
@@ -47,11 +49,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "article",
       publishedTime: new Date(doc.lastModified).toISOString(),
       authors: doc.frontmatter.author ? [doc.frontmatter.author] : undefined,
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: doc.frontmatter.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: doc.frontmatter.title,
       description: doc.frontmatter.description,
+      images: [ogImageUrl],
     },
   };
 }

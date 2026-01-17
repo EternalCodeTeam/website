@@ -1,4 +1,4 @@
-import { ImageResponse } from "next/og";
+import { ImageResponse } from "@takumi-rs/image-response";
 import { getDoc } from "@/lib/docs/loader";
 
 export const runtime = "nodejs";
@@ -30,6 +30,7 @@ export async function GET(_request: Request, { params }: Props) {
           alignItems: "center",
           justifyContent: "center",
           backgroundColor: "#030712", // gray-950
+          fontFamily: '"Geist"',
           position: "relative",
         }}
       >
@@ -104,6 +105,7 @@ export async function GET(_request: Request, { params }: Props) {
       {
         width: 1200,
         height: 630,
+        format: "webp",
       }
     );
     // biome-ignore lint/suspicious/noExplicitAny: Error handling fallback

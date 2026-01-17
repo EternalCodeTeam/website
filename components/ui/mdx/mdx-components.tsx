@@ -24,26 +24,35 @@ type HeadingProps = HTMLAttributes<HTMLHeadingElement>;
 export const components: MDXComponents = {
   h1: (props: HeadingProps) => (
     <Heading
-      className="mt-10 mb-6 font-bold text-4xl tracking-tight lg:text-5xl"
+      className="mt-12 mb-8 font-bold text-4xl tracking-tight lg:text-5xl"
       tag="h1"
       {...props}
     />
   ),
+
   h2: (props: HeadingProps) => (
-    <Heading className="mt-10 mb-4 font-semibold text-3xl tracking-tight" tag="h2" {...props} />
+    <Heading
+      className="mt-12 mb-6 border-border border-b pb-2 font-semibold text-3xl tracking-tight"
+      tag="h2"
+      {...props}
+    />
   ),
+
   h3: (props: HeadingProps) => (
-    <Heading className="mt-8 mb-3 font-medium text-2xl" tag="h3" {...props} />
+    <Heading className="mt-10 mb-4 font-semibold text-2xl" tag="h3" {...props} />
   ),
+
   h4: (props: HeadingProps) => (
-    <Heading className="mt-6 mb-2 font-medium text-xl" tag="h4" {...props} />
+    <Heading className="mt-8 mb-3 font-medium text-xl" tag="h4" {...props} />
   ),
+
   h5: (props: HeadingProps) => (
-    <Heading className="mt-4 mb-1 font-medium text-lg" tag="h5" {...props} />
+    <Heading className="mt-6 mb-2 font-medium text-lg text-muted-foreground" tag="h5" {...props} />
   ),
+
   h6: (props: HeadingProps) => (
     <Heading
-      className="mt-2 mb-1 font-medium text-base text-muted-foreground"
+      className="mt-4 mb-2 font-medium text-muted-foreground text-sm uppercase tracking-wide"
       tag="h6"
       {...props}
     />
@@ -68,23 +77,14 @@ export const components: MDXComponents = {
   DynamicCommandsTable,
   DynamicPlaceholdersTable,
 
-  code: (props: ComponentProps<"code">) => {
-    const { children, ...rest } = props;
-
-    // If children is not a string, it's likely complex content (like syntax highlighted code),
-    // so we return it as is.
+  code: ({ children, ...props }: ComponentProps<"code">) => {
     if (typeof children !== "string") {
-      return <code {...rest}>{children}</code>;
+      return <code {...props}>{children}</code>;
     }
 
-    let content = children;
-    content = content.replace(/^`+|`+$/g, "");
+    const content = children.replace(/^`+|`+$/g, "");
 
-    if (!content.includes("\n")) {
-      return <Inline {...rest}>{content}</Inline>;
-    }
-
-    return <code {...rest}>{children}</code>;
+    return <Inline {...props}>{content}</Inline>;
   },
 
   pre: CodeBlock,
@@ -113,17 +113,21 @@ export const components: MDXComponents = {
     <tr className="transition-colors hover:bg-gray-50/50 dark:hover:bg-gray-800/50" {...props} />
   ),
   th: (props) => (
-    <th className="px-4 py-3 font-semibold text-gray-900 text-sm dark:text-gray-100" {...props} />
+    <th
+      className="px-4 py-3 text-left font-semibold text-muted-foreground text-xs uppercase tracking-wide"
+      {...props}
+    />
   ),
-  td: (props) => <td className="px-4 py-3 text-gray-600 text-sm dark:text-gray-300" {...props} />,
-  hr: (props) => <hr className="my-8 border-gray-200 dark:border-gray-800" {...props} />,
-  ul: (props) => (
-    <ul className="list-disc space-y-2 pl-6 text-gray-600 dark:text-gray-400" {...props} />
-  ),
-  ol: (props) => (
-    <ol className="list-decimal space-y-2 pl-8 text-gray-600 dark:text-gray-400" {...props} />
-  ),
-  li: (props) => <li className="py-0.5" {...props} />,
+
+  td: (props) => <td className="px-4 py-3 text-sm" {...props} />,
+
+  hr: (props) => <hr className="my-12 border-border" {...props} />,
+
+  ul: (props) => <ul className="my-4 list-disc space-y-2 pl-6" {...props} />,
+
+  ol: (props) => <ol className="my-4 list-decimal space-y-2 pl-8" {...props} />,
+
+  li: (props) => <li className="leading-relaxed" {...props} />,
 
   img: (props) => <MdxImage {...props} />,
 };

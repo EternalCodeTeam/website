@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
+import { generateOgImageMetadata } from "@/components/og-image";
 import ContributeView from "./contribute-view";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Contribute | EternalCode",
   description:
     "Join the EternalCode community. Contribute code, support us financially, or help with documentation and support.",
+  ...generateOgImageMetadata({
+    title: "Contribute",
+    subtitle: "Join the EternalCode community",
+  }),
 };
 
 interface CardData {
