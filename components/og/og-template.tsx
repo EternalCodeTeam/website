@@ -23,7 +23,7 @@ export function OgTemplate({
         alignItems: "center",
         justifyContent: "space-between",
         backgroundColor: "#ffffff",
-        fontFamily: '"Inter"',
+        fontFamily: '"Geist"',
         position: "relative",
         overflow: "hidden",
       }}
@@ -107,7 +107,7 @@ export function OgTemplate({
           justifyContent: "center",
           flex: 1,
           width: "100%",
-          padding: "60px 40px",
+          padding: "60px 100px",
           zIndex: 10,
         }}
       >
@@ -144,19 +144,15 @@ export function OgTemplate({
         {/* Title */}
         <h1
           style={{
-            fontSize: "92px", // Massive title
+            fontSize: "80px", // Large but safe title size
             fontWeight: 900, // Extra heavy
             textAlign: "center",
             lineHeight: 1.05,
-            maxWidth: "1150px",
-            // Deep Slate Gradient
-            background: "linear-gradient(to bottom right, #020617 20%, #334155 100%)",
-            backgroundClip: "text",
-            color: "transparent",
+            maxWidth: "900px",
+            color: "#020617", // Deep slate color
             margin: "0 0 32px 0",
             letterSpacing: "-0.04em",
-            padding: "0 20px",
-            textShadow: "0 10px 40px rgba(0,0,0,0.08)", // Soft lift
+            padding: "0 60px",
           }}
         >
           {title}
@@ -182,35 +178,4 @@ export function OgTemplate({
       </div>
     </div>
   );
-}
-
-// Shared Font Loading Logic
-export async function loadFonts() {
-  const [interRegular, interBlack] = await Promise.all([
-    fetch(
-      new URL(
-        "https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.8/files/inter-latin-500-normal.woff"
-      )
-    ).then((res) => res.arrayBuffer()),
-    fetch(
-      new URL(
-        "https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.8/files/inter-latin-900-normal.woff"
-      )
-    ).then((res) => res.arrayBuffer()), // Using 900 Black for maximum impact
-  ]);
-
-  return [
-    {
-      name: "Inter",
-      data: interRegular,
-      style: "normal" as const,
-      weight: 500 as const,
-    },
-    {
-      name: "Inter",
-      data: interBlack,
-      style: "normal" as const,
-      weight: 900 as const,
-    },
-  ];
 }

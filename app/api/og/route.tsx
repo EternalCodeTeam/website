@@ -1,10 +1,10 @@
-import { ImageResponse } from "next/og";
+import { ImageResponse } from "@takumi-rs/image-response";
 import type { NextRequest } from "next/server";
-import { loadFonts, OgTemplate } from "@/components/og/og-template";
+import { OgTemplate } from "@/components/og/og-template";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
-export async function GET(req: NextRequest) {
+export function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
 
@@ -12,12 +12,10 @@ export async function GET(req: NextRequest) {
     const subtitle = searchParams.get("subtitle") || "Open Source Solutions";
     const image = searchParams.get("image") || "https://eternalcode.pl/logo.svg";
 
-    const fonts = await loadFonts();
-
     return new ImageResponse(<OgTemplate image={image} subtitle={subtitle} title={title} />, {
       width: 1200,
       height: 630,
-      fonts,
+      format: "webp",
       headers: {
         "Cache-Control": "public, max-age=0, must-revalidate",
       },
