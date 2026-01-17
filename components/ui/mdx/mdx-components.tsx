@@ -16,10 +16,9 @@ import { FileTree, FileTreeItem } from "@/components/ui/mdx/file-tree";
 import { Heading } from "@/components/ui/mdx/heading";
 import { Inline } from "@/components/ui/mdx/inline";
 import { LinkPreview } from "@/components/ui/mdx/link-preview";
-import { MdxLink } from "@/components/ui/mdx/mdx-link";
 import { MdxImage } from "@/components/ui/mdx/mdx-image";
+import { MdxLink } from "@/components/ui/mdx/mdx-link";
 import { Step, Steps } from "@/components/ui/mdx/steps";
-import { cn } from "@/lib/utils";
 
 type HeadingProps = HTMLAttributes<HTMLHeadingElement>;
 

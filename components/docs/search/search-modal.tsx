@@ -80,9 +80,7 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: prefersReducedMotion
-        ? { duration: 0 }
-        : springResultTransition,
+      transition: prefersReducedMotion ? { duration: 0 } : springResultTransition,
     },
     exit: {
       opacity: 0,
@@ -360,7 +358,7 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
 
                   {/* Search Results */}
                   {showResults && !isLoading && !isInitializing && (
-                    <AnimatePresence mode="popLayout" initial={false}>
+                    <AnimatePresence initial={false} mode="popLayout">
                       <motion.div
                         animate="visible"
                         className="p-2"
