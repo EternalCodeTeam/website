@@ -24,26 +24,26 @@ This page covers common issues and their solutions. If you don't find your answe
 <Steps>
   <Step title="Check Java Version" icon="Coffee">
     EternalCombat requires **Java 17 or newer**. Check your Java version:
-    
+
     Look for this line in your server startup log:
     ```
     [INFO] Loading Java ...
     ```
-    
+
     Or run your server with `java -version` to check.
   </Step>
-  
-  <Step title="Check PacketEvents" icon="Package">
+
+  <Step title="Check if PacketEvents plugin is enabled" icon="Package">
     EternalCombat **requires PacketEvents** to be installed. Verify:
-    
+
     1. PacketEvents JAR is in `plugins/` folder
     2. PacketEvents appears in `/plugins` list
     3. No PacketEvents errors in console
   </Step>
-  
+
   <Step title="Check Console Errors" icon="AlertCircle">
     Look for error messages in your server console at startup. Common causes:
-    
+
     - Missing dependencies
     - Incompatible server version
     - Corrupted JAR file
@@ -51,7 +51,7 @@ This page covers common issues and their solutions. If you don't find your answe
 </Steps>
 
 <Callout type="danger" title="Corrupted Download">
-  If you see `java.util.zip.ZipException`, the JAR file may be corrupted. Re-download from the official source.
+  If you see `java.util.zip.ZipException`, the JAR file may be corrupted. Re-download from the [official source](https://modrinth.com/plugin/eternalcombat).
 </Callout>
 
 ---
@@ -182,7 +182,7 @@ restrictedCommands:
 pearl:
   # Set to true to block pearls during combat
   pearlThrowDisabledDuringCombat: true
-  
+
   # Or enable cooldown
   pearlCooldownEnabled: true
   pearlThrowDelay: 3s

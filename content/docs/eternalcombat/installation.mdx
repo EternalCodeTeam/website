@@ -27,41 +27,41 @@ This guide will walk you through installing EternalCombat on your Minecraft serv
 <Steps>
   <Step title="Install PacketEvents" icon="Package">
     Download PacketEvents from one of these sources:
-    
+
     - [Modrinth](https://modrinth.com/plugin/packetevents) (Recommended)
     - [SpigotMC](https://www.spigotmc.org/resources/packetevents-api.80279/)
     - [GitHub](https://github.com/retrooper/packetevents/releases)
-    
+
     Place the JAR file in your server's `plugins` folder.
   </Step>
-  
+
   <Step title="Download EternalCombat" icon="Download">
     Download the latest version of EternalCombat from:
-    
+
     - [Modrinth](https://modrinth.com/plugin/eternalcombat) (Recommended)
     - [SpigotMC](https://www.spigotmc.org/resources/eternalcombat.109056/)
     - [Hangar](https://hangar.papermc.io/EternalCodeTeam/eternalcombat)
     - [GitHub Releases](https://github.com/EternalCodeTeam/EternalCombat/releases)
-    
+
     Place the JAR file in your server's `plugins` folder.
   </Step>
-  
+
   <Step title="Start Your Server" icon="Play">
     Start or restart your Minecraft server. You should see EternalCombat loading in the console:
-    
+
     ```
     [EternalCombat] Loading EternalCombat v2.4.0
     [EternalCombat] Enabling EternalCombat v2.4.0
     ```
   </Step>
-  
+
   <Step title="Configure the Plugin" icon="Settings">
     After the first start, EternalCombat will generate its configuration file. Edit it to customize the plugin:
-    
+
     ```
     plugins/EternalCombat/config.yml
     ```
-    
+
     See the [Configuration](/docs/eternalcombat/configuration) page for detailed information about all options.
   </Step>
 </Steps>
@@ -83,16 +83,16 @@ After starting the server, EternalCombat will create the following structure:
 <Steps>
   <Step title="Backup Configuration" icon="Save">
     Before updating, always backup your configuration file:
-    
+
     <Command variant="bash" theme="light">
       cp plugins/EternalCombat/config.yml plugins/EternalCombat/config.yml.backup
     </Command>
   </Step>
-  
+
   <Step title="Download New Version" icon="Download">
     Download the latest version from [Modrinth](https://modrinth.com/plugin/eternalcombat) or other sources.
   </Step>
-  
+
   <Step title="Replace JAR File" icon="RefreshCw">
     1. Stop your server
     2. Delete the old `EternalCombat-*.jar` file
@@ -105,19 +105,7 @@ After starting the server, EternalCombat will create the following structure:
   EternalCombat automatically migrates your configuration when updating. Your settings will be preserved, and new options will be added with their default values.
 </Callout>
 
-### Important notes
 
-<Callout type="danger" title="Never Use /reload">
-  **Never** use `/reload` or plugin managers like PlugMan to reload EternalCombat. This can cause memory leaks and unexpected behavior.
-  
-  Instead, use the built-in reload command:
-  
-  <Command variant="bash" theme="light">
-    /combatlog reload
-  </Command>
-  
-  For major changes, always restart your server.
-</Callout>
 
 ### Next steps
 
@@ -125,7 +113,7 @@ After starting the server, EternalCombat will create the following structure:
   <Card title="Configuration" icon="Settings" href="/docs/eternalcombat/configuration">
     Configure the plugin to your needs
   </Card>
-  <Card title="Commands" icon="Terminal" href="/docs/eternalcombat/commands">
-    Learn about available commands
+  <Card title="Commands & Placeholders" icon="Terminal" href="/docs/eternalcombat/commands-and-placeholders">
+    Learn about available commands and placeholders
   </Card>
 </CardGroup>
