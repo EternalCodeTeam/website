@@ -15,9 +15,9 @@ This page documents the EternalCombat API for plugin developers who want to inte
 
 ---
 
-### Getting Started
+### Getting started
 
-#### Add Repository
+#### Add repository
 
 Add the EternalCode repository to your build configuration:
 
@@ -49,7 +49,7 @@ Add the EternalCode repository to your build configuration:
   </CodeTab>
 </CodeTabs>
 
-#### Add Dependency
+#### Add dependency
 
 <Callout type="important" title="Current Version">
   The latest API version is **2.4.0-SNAPSHOT**. Check [GitHub releases](https://github.com/EternalCodeTeam/EternalCombat/releases) for the most recent version.
@@ -84,7 +84,7 @@ Add the EternalCode repository to your build configuration:
   </CodeTab>
 </CodeTabs>
 
-#### Plugin Dependency
+#### Plugin dependency
 
 Declare EternalCombat as a dependency in your plugin's configuration:
 
@@ -136,7 +136,7 @@ public class YourPlugin extends JavaPlugin {
 
 ---
 
-### Available Services
+### Available services
 
 The API provides access to several services:
 
@@ -152,9 +152,9 @@ The API provides access to several services:
 
 ---
 
-### Common Use Cases
+### Common use cases
 
-#### Check Combat Status
+#### Check combat status
 
 ```java
 public class CombatChecker {
@@ -174,7 +174,7 @@ public class CombatChecker {
 }
 ```
 
-#### Tag a Player
+#### Tag a player
 
 ```java
 import com.eternalcode.combat.fight.CauseOfTag;
@@ -196,7 +196,7 @@ public class CombatTagger {
 }
 ```
 
-#### Remove from Combat
+#### Remove from combat
 
 ```java
 import com.eternalcode.combat.fight.CauseOfUnTag;
@@ -216,7 +216,7 @@ public class CombatRemover {
 
 ---
 
-### Event System
+### Event system
 
 EternalCombat provides events you can listen to for combat state changes.
 
@@ -271,7 +271,7 @@ public void onCombatEnd(FightUntagEvent event) {
 }
 ```
 
-#### Event Cancellation
+#### Event cancellation
 
 Both events can be cancelled to prevent the action:
 
@@ -289,7 +289,7 @@ public void onCombatStart(FightTagEvent event) {
 
 ---
 
-### Tag Causes
+### Tag causes
 
 #### CauseOfTag
 
@@ -313,7 +313,7 @@ public void onCombatStart(FightTagEvent event) {
 
 ---
 
-### Best Practices
+### Best practices
 
 <Callout type="tip" title="API Guidelines">
   1. **Cache the API reference** - Get `EternalCombatApi` once in `onEnable`
@@ -322,7 +322,7 @@ public void onCombatStart(FightTagEvent event) {
   4. **Register events properly** - Register your listener in `onEnable`
 </Callout>
 
-#### Soft Dependency Example
+#### Soft dependency example
 
 ```java
 public class YourPlugin extends JavaPlugin {
@@ -352,7 +352,7 @@ public class YourPlugin extends JavaPlugin {
 
 ---
 
-### Need Help?
+### Need help?
 
 - **JavaDocs** - Check inline documentation in the API
 - **Discord** - [discord.gg/FQ7jmGBd6c](https://discord.gg/FQ7jmGBd6c)
