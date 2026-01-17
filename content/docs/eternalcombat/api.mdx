@@ -5,7 +5,7 @@ icon: Code
 sidebar_position: 7
 ---
 
-# Developer API
+## Developer API
 
 This page documents the EternalCombat API for plugin developers who want to integrate with EternalCombat.
 
@@ -15,9 +15,9 @@ This page documents the EternalCombat API for plugin developers who want to inte
 
 ---
 
-## Getting Started
+### Getting Started
 
-### Add Repository
+#### Add Repository
 
 Add the EternalCode repository to your build configuration:
 
@@ -49,7 +49,7 @@ Add the EternalCode repository to your build configuration:
   </CodeTab>
 </CodeTabs>
 
-### Add Dependency
+#### Add Dependency
 
 <Callout type="important" title="Current Version">
   The latest API version is **2.4.0-SNAPSHOT**. Check [GitHub releases](https://github.com/EternalCodeTeam/EternalCombat/releases) for the most recent version.
@@ -84,7 +84,7 @@ Add the EternalCode repository to your build configuration:
   </CodeTab>
 </CodeTabs>
 
-### Plugin Dependency
+#### Plugin Dependency
 
 Declare EternalCombat as a dependency in your plugin's configuration:
 
@@ -116,7 +116,7 @@ Declare EternalCombat as a dependency in your plugin's configuration:
 
 ---
 
-## Accessing the API
+### Accessing the API
 
 Get the API instance in your plugin's `onEnable`:
 
@@ -136,7 +136,7 @@ public class YourPlugin extends JavaPlugin {
 
 ---
 
-## Available Services
+### Available Services
 
 The API provides access to several services:
 
@@ -152,9 +152,9 @@ The API provides access to several services:
 
 ---
 
-## Common Use Cases
+### Common Use Cases
 
-### Check Combat Status
+#### Check Combat Status
 
 ```java
 public class CombatChecker {
@@ -174,7 +174,7 @@ public class CombatChecker {
 }
 ```
 
-### Tag a Player
+#### Tag a Player
 
 ```java
 import com.eternalcode.combat.fight.CauseOfTag;
@@ -196,7 +196,7 @@ public class CombatTagger {
 }
 ```
 
-### Remove from Combat
+#### Remove from Combat
 
 ```java
 import com.eternalcode.combat.fight.CauseOfUnTag;
@@ -216,11 +216,11 @@ public class CombatRemover {
 
 ---
 
-## Event System
+### Event System
 
 EternalCombat provides events you can listen to for combat state changes.
 
-### FightTagEvent
+#### FightTagEvent
 
 Fired when a player enters combat:
 
@@ -246,7 +246,7 @@ public class CombatListener implements Listener {
 }
 ```
 
-### FightUntagEvent
+#### FightUntagEvent
 
 Fired when a player leaves combat:
 
@@ -271,7 +271,7 @@ public void onCombatEnd(FightUntagEvent event) {
 }
 ```
 
-### Event Cancellation
+#### Event Cancellation
 
 Both events can be cancelled to prevent the action:
 
@@ -289,9 +289,9 @@ public void onCombatStart(FightTagEvent event) {
 
 ---
 
-## Tag Causes
+### Tag Causes
 
-### CauseOfTag
+#### CauseOfTag
 
 | Cause | Description |
 | :--- | :--- |
@@ -301,7 +301,7 @@ public void onCombatStart(FightTagEvent event) {
 | `RESPAWN_ANCHOR` | Combat from respawn anchor explosion |
 | `DAMAGE_CAUSE` | Combat from environmental damage |
 
-### CauseOfUnTag
+#### CauseOfUnTag
 
 | Cause | Description |
 | :--- | :--- |
@@ -313,7 +313,7 @@ public void onCombatStart(FightTagEvent event) {
 
 ---
 
-## Best Practices
+### Best Practices
 
 <Callout type="tip" title="API Guidelines">
   1. **Cache the API reference** - Get `EternalCombatApi` once in `onEnable`
@@ -322,7 +322,7 @@ public void onCombatStart(FightTagEvent event) {
   4. **Register events properly** - Register your listener in `onEnable`
 </Callout>
 
-### Soft Dependency Example
+#### Soft Dependency Example
 
 ```java
 public class YourPlugin extends JavaPlugin {
@@ -352,7 +352,7 @@ public class YourPlugin extends JavaPlugin {
 
 ---
 
-## Need Help?
+### Need Help?
 
 - **JavaDocs** - Check inline documentation in the API
 - **Discord** - [discord.gg/FQ7jmGBd6c](https://discord.gg/FQ7jmGBd6c)

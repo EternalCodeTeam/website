@@ -5,7 +5,7 @@ icon: Settings
 sidebar_position: 3
 ---
 
-# Configuration Reference
+## Configuration Reference
 
 This page documents all configuration options available in `plugins/EternalCombat/config.yml`.
 
@@ -17,7 +17,7 @@ This page documents all configuration options available in `plugins/EternalComba
 
 ---
 
-## General Settings
+### General Settings
 
 Basic plugin settings that control core behavior.
 
@@ -48,7 +48,7 @@ settings:
 
 ---
 
-## Combat Settings
+### Combat Settings
 
 Controls what players can and cannot do during combat.
 
@@ -80,7 +80,7 @@ combat:
 | `disableFireworks` | boolean | `true` | Block firework boosting during elytra flight |
 | `disableInventoryAccess` | boolean | `false` | Block opening containers during combat |
 
-### Damage Cause Logging
+#### Damage Cause Logging
 
 Control which environmental damage sources trigger combat:
 
@@ -101,7 +101,7 @@ combat:
     - FIRE_TICK
 ```
 
-### Projectile Settings
+#### Projectile Settings
 
 Configure which projectiles should NOT trigger combat:
 
@@ -113,7 +113,7 @@ combat:
     - EGG
 ```
 
-### Kick Punishment Settings
+#### Kick Punishment Settings
 
 Configure when kicked players should NOT be punished for combat logging:
 
@@ -132,7 +132,7 @@ combat:
 
 ---
 
-## Command Restrictions
+### Command Restrictions
 
 Block or allow specific commands during combat.
 
@@ -176,7 +176,7 @@ commands:
 
 ---
 
-## Admin Settings
+### Admin Settings
 
 Special settings for server administrators.
 
@@ -196,7 +196,7 @@ admin:
 
 ---
 
-## Block Placement Restrictions
+### Block Placement Restrictions
 
 Prevent players from building during combat.
 
@@ -223,7 +223,7 @@ blockPlacement:
 
 ---
 
-## Ender Pearl Settings
+### Ender Pearl Settings
 
 Configure ender pearl behavior during combat.
 
@@ -251,7 +251,7 @@ pearl:
 
 ---
 
-## Combat Effects
+### Combat Effects
 
 Apply potion effects to players during combat.
 
@@ -276,7 +276,7 @@ effect:
 
 ---
 
-## Drop Settings
+### Drop Settings
 
 Configure what players drop when killed during combat.
 
@@ -304,7 +304,7 @@ drop:
 | `PERCENT` | Drop exactly X% of inventory |
 | `PLAYERS_HEALTH` | Drop more items when logging out with high health |
 
-### Head Drop System
+#### Head Drop System
 
 ```yaml
 drop:
@@ -328,7 +328,7 @@ drop:
 
 ---
 
-## Crystal PvP Settings
+### Crystal PvP Settings
 
 Configure combat tagging from explosives.
 
@@ -343,7 +343,7 @@ crystalPvp:
 
 ---
 
-## Knockback Settings
+### Knockback Settings
 
 Configure knockback when players try to enter protected regions.
 
@@ -358,7 +358,7 @@ knockback:
 
 ---
 
-## Border Settings
+### Border Settings
 
 Configure the visual combat border that shows protected regions.
 
@@ -402,7 +402,7 @@ border:
 
 ---
 
-## Region Settings
+### Region Settings
 
 Configure protected regions where players can't enter during combat.
 
@@ -434,7 +434,7 @@ For more details, see the [Regions](/docs/eternalcombat/regions) page.
 
 ---
 
-## Placeholder Settings
+### Placeholder Settings
 
 Configure PlaceholderAPI placeholder values.
 
@@ -447,7 +447,7 @@ placeholders:
   isInCombatFormattedFalse: "Not In Combat"
 ```
 
-### Available Placeholders
+#### Available Placeholders
 
 | Placeholder | Description |
 | :--- | :--- |
@@ -463,11 +463,11 @@ placeholders:
 
 ---
 
-## Message Settings
+### Message Settings
 
 EternalCombat uses [MiniMessage](https://docs.advntr.dev/minimessage/format.html) format for all messages. You can customize colors, gradients, and formatting.
 
-### Combat Notification Types
+#### Combat Notification Types
 
 You can display combat status using different notification types. Use CodeTabs to see examples:
 
@@ -510,11 +510,11 @@ You can display combat status using different notification types. Use CodeTabs t
   </CodeTab>
 </CodeTabs>
 
-### BossBar Colors
+#### BossBar Colors
 
 Available colors for BossBar: `PINK`, `BLUE`, `RED`, `GREEN`, `YELLOW`, `PURPLE`, `WHITE`
 
-### Common Message Placeholders
+#### Common Message Placeholders
 
 | Placeholder | Description |
 | :--- | :--- |
@@ -534,7 +534,7 @@ Available colors for BossBar: `PINK`, `BLUE`, `RED`, `GREEN`, `YELLOW`, `PURPLE`
 
 ---
 
-## Next Steps
+### Next Steps
 
 <CardGroup>
   <Card title="Commands" icon="Terminal" href="/docs/eternalcombat/commands">

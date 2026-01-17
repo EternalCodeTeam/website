@@ -5,20 +5,20 @@ icon: AlertTriangle
 sidebar_position: 6
 ---
 
-# Troubleshooting
+## Troubleshooting
 
 This page covers common issues and their solutions. If you don't find your answer here, join our [Discord server](https://discord.gg/FQ7jmGBd6c) for support.
 
 ---
 
-## Plugin Not Loading
+### Plugin Not Loading
 
-### Symptoms
+#### Symptoms
 - EternalCombat doesn't appear in `/plugins`
 - No EternalCombat messages in console
 - Config file is not generated
 
-### Solutions
+#### Solutions
 
 <Steps>
   <Step title="Check Java Version" icon="Coffee">
@@ -55,13 +55,13 @@ This page covers common issues and their solutions. If you don't find your answe
 
 ---
 
-## Border Not Working
+### Border Not Working
 
-### Symptoms
+#### Symptoms
 - No visual border appears at protected regions
 - Players can walk into safe zones during combat
 
-### Solutions
+#### Solutions
 
 **1. Check Border Settings**
 ```yaml
@@ -83,13 +83,13 @@ Make sure the region is properly configured. See [Regions](/docs/eternalcombat/r
 
 ---
 
-## Players Not Getting Tagged
+### Players Not Getting Tagged
 
-### Symptoms
+#### Symptoms
 - Players can attack each other without entering combat
 - Combat timer never appears
 
-### Solutions
+#### Solutions
 
 **1. Check Ignored Worlds**
 ```yaml
@@ -120,13 +120,13 @@ combat:
 
 ---
 
-## Commands Still Work During Combat
+### Commands Still Work During Combat
 
-### Symptoms
+#### Symptoms
 - Players can use `/spawn`, `/home`, etc. during combat
 - Command blocking doesn't work
 
-### Solutions
+#### Solutions
 
 **Check Command Restriction Mode:**
 
@@ -169,13 +169,13 @@ restrictedCommands:
 
 ---
 
-## Ender Pearls Not Blocked
+### Ender Pearls Not Blocked
 
-### Symptoms
+#### Symptoms
 - Players can throw ender pearls during combat
 - Pearl cooldown doesn't work
 
-### Solution
+#### Solution
 
 ```yaml
 pearl:
@@ -189,13 +189,13 @@ pearl:
 
 ---
 
-## No Items Dropping on Death
+### No Items Dropping on Death
 
-### Symptoms
+#### Symptoms
 - Players don't drop items when killed during combat log
 - Combat loggers escape without penalty
 
-### Solutions
+#### Solutions
 
 **1. Check Drop Type**
 ```yaml
@@ -217,13 +217,13 @@ Some worlds may have keep inventory enabled via plugins. Check your world manage
 
 ---
 
-## Performance Issues
+### Performance Issues
 
-### Symptoms
+#### Symptoms
 - Server TPS drops when players are in combat
 - High CPU usage from EternalCombat
 
-### Solutions
+#### Solutions
 
 **1. Reduce Border Updates**
 ```yaml
@@ -257,13 +257,13 @@ border:
 
 ---
 
-## Messages Not Showing
+### Messages Not Showing
 
-### Symptoms
+#### Symptoms
 - Combat notifications don't appear
 - ActionBar or BossBar not visible
 
-### Solutions
+#### Solutions
 
 **1. Check Notification Type**
 ```yaml
@@ -289,13 +289,13 @@ Run `/combatlog status` to verify the plugin is responsive.
 
 ---
 
-## Crystal PvP Not Tagging
+### Crystal PvP Not Tagging
 
-### Symptoms
+#### Symptoms
 - End crystal explosions don't trigger combat
 - Respawn anchor deaths don't tag players
 
-### Solution
+#### Solution
 
 ```yaml
 crystalPvp:
@@ -305,7 +305,7 @@ crystalPvp:
 
 ---
 
-## Still Need Help?
+### Still Need Help?
 
 If your issue isn't listed here:
 
