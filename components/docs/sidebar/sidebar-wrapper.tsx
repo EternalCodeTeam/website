@@ -2,10 +2,11 @@
 
 import Lenis from "lenis";
 import type { FC } from "react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import DocSidebar from "./doc-sidebar";
-import DocsSearch from "./docs-search";
+import { SearchModal } from "@/components/docs/search/search-modal";
+import { SearchTrigger } from "@/components/docs/search/search-trigger";
 import type { DocItem } from "./types";
 
 interface SidebarWrapperProps {
@@ -15,6 +16,7 @@ interface SidebarWrapperProps {
 const SidebarWrapper: FC<SidebarWrapperProps> = ({ sidebarStructure }) => {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const lenisRef = useRef<Lenis | null>(null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
     const sidebarElement = sidebarRef.current;
@@ -44,11 +46,24 @@ const SidebarWrapper: FC<SidebarWrapperProps> = ({ sidebarStructure }) => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key === "k") {
+        event.preventDefault();
+        setIsSearchOpen(true);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <>
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
       <aside className="hidden w-72 shrink-0 lg:block">
         <div className="sticky top-32 flex h-[calc(100vh-8rem)] flex-col gap-4">
-          <DocsSearch />
+          <SearchTrigger onClick={() => setIsSearchOpen(true)} />
           <div
             className="scrollbar-hide relative flex min-h-0 flex-1 flex-col overflow-auto overscroll-contain rounded-xl border border-gray-200 bg-white/90 shadow-lg backdrop-blur-md transition-shadow hover:shadow-xl dark:border-gray-800 dark:bg-gray-900/60"
             ref={sidebarRef}
@@ -59,7 +74,7 @@ const SidebarWrapper: FC<SidebarWrapperProps> = ({ sidebarStructure }) => {
       </aside>
 
       <div className="flex flex-col gap-4 lg:hidden">
-        <DocsSearch />
+        <SearchTrigger onClick={() => setIsSearchOpen(true)} />
         <DocSidebar sidebarStructure={sidebarStructure} />
       </div>
     </>

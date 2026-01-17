@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, type Transition, type Variants } from "framer-motion";
 import { Search, Sparkles, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import type { KeyboardEvent } from "react";
@@ -31,6 +31,37 @@ const SearchBox = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const prefersReducedMotion = useReducedMotion();
+
+  const resultsContainerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: prefersReducedMotion
+        ? { duration: 0 }
+        : { staggerChildren: 0.04, delayChildren: 0.02 },
+    },
+    exit: { opacity: 0, transition: { duration: prefersReducedMotion ? 0 : 0.12 } },
+  };
+
+  const resultItemTransition: Transition = prefersReducedMotion
+    ? { duration: 0 }
+    : { type: "spring", stiffness: 360, damping: 28, mass: 0.7 };
+
+  const resultItemVariants: Variants = {
+    hidden: { opacity: 0, y: 8, scale: 0.98 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: resultItemTransition,
+    },
+    exit: {
+      opacity: 0,
+      y: -6,
+      scale: 0.98,
+      transition: { duration: prefersReducedMotion ? 0 : 0.12 },
+    },
+  };
 
   // Use shared search hook
   const { query, setQuery, results, isLoading } = useSearch({
@@ -231,73 +262,80 @@ const SearchBox = ({
             }}
           >
             {results.length > 0 ? (
-              <div className="scrollbar-hide max-h-96 overflow-y-auto">
-                {/* biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Search result rendering is complex */}
-                {results.map((result, index) => (
-                  <motion.button
-                    animate={{ opacity: 1, x: 0 }}
-                    className={cn(
-                      "touch-action-manipulation w-full select-none px-4 py-3 text-left transition-all",
-                      selectedIndex === index
-                        ? "bg-blue-50 dark:bg-blue-500/10"
-                        : "hover:bg-gray-50 dark:hover:bg-gray-800/50"
-                    )}
-                    initial={{ opacity: 0, x: -20 }}
-                    key={result.path}
-                    onClick={() => handleSelect(result.path)}
-                    onMouseDown={(e) => {
-                      e.preventDefault(); // Prevent blur before click
-                    }}
-                    onMouseEnter={() => setSelectedIndex(index)}
-                    transition={{
-                      delay: prefersReducedMotion ? 0 : index * 0.04,
-                      type: prefersReducedMotion ? "tween" : "spring",
-                      stiffness: 300,
-                      damping: 25,
-                    }}
-                    type="button"
-                    whileHover={{ x: prefersReducedMotion ? 0 : 4 }}
-                  >
-                    <div className="flex items-start gap-3">
-                      <motion.div
-                        animate={{
-                          rotate: selectedIndex === index ? [0, -10, 10, 0] : 0,
-                        }}
-                        className={cn(
-                          "mt-0.5 shrink-0",
-                          selectedIndex === index
-                            ? "text-blue-600 dark:text-blue-400"
-                            : "text-gray-400"
-                        )}
-                        transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
-                      >
-                        <Sparkles className="h-4 w-4" />
-                      </motion.div>
-                      <div className="min-w-0 flex-1">
-                        <div className="truncate font-semibold text-gray-900 dark:text-white">
-                          {result.title}
+              <AnimatePresence mode="popLayout" initial={false}>
+                <motion.div
+                  animate="visible"
+                  className="scrollbar-hide max-h-96 overflow-y-auto"
+                  exit="exit"
+                  initial="hidden"
+                  key={`results-${query}`}
+                  layout
+                  variants={resultsContainerVariants}
+                >
+                  {/* biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Search result rendering is complex */}
+                  {results.map((result, index) => (
+                    <motion.button
+                      className={cn(
+                        "touch-action-manipulation w-full select-none px-4 py-3 text-left transition-all",
+                        selectedIndex === index
+                          ? "bg-blue-50 dark:bg-blue-500/10"
+                          : "hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                      )}
+                      key={result.path}
+                      layout="position"
+                      onClick={() => handleSelect(result.path)}
+                      onMouseDown={(e) => {
+                        e.preventDefault(); // Prevent blur before click
+                      }}
+                      onMouseEnter={() => setSelectedIndex(index)}
+                      type="button"
+                      variants={resultItemVariants}
+                      whileHover={{
+                        x: prefersReducedMotion ? 0 : 2,
+                        scale: prefersReducedMotion ? 1 : 1.01,
+                      }}
+                    >
+                      <div className="flex items-start gap-3">
+                        <motion.div
+                          animate={{
+                            rotate: selectedIndex === index ? [0, -8, 8, 0] : 0,
+                          }}
+                          className={cn(
+                            "mt-0.5 shrink-0",
+                            selectedIndex === index
+                              ? "text-blue-600 dark:text-blue-400"
+                              : "text-gray-400"
+                          )}
+                          transition={{ duration: prefersReducedMotion ? 0 : 0.25 }}
+                        >
+                          <Sparkles className="h-4 w-4" />
+                        </motion.div>
+                        <div className="min-w-0 flex-1">
+                          <div className="truncate font-semibold text-gray-900 dark:text-white">
+                            {result.title}
+                          </div>
+                          <div className="mt-0.5 line-clamp-2 text-gray-500 text-xs dark:text-gray-400">
+                            {result.excerpt}
+                          </div>
                         </div>
-                        <div className="mt-0.5 line-clamp-2 text-gray-500 text-xs dark:text-gray-400">
-                          {result.excerpt}
-                        </div>
+                        <AnimatePresence initial={false}>
+                          {selectedIndex === index && (
+                            <motion.div
+                              animate={{ opacity: 1, scale: 1 }}
+                              className="shrink-0 rounded-sm bg-blue-100 px-2 py-0.5 font-medium text-blue-700 text-xs dark:bg-blue-900/30 dark:text-blue-300"
+                              exit={{ opacity: 0, scale: 0.9 }}
+                              initial={{ opacity: 0, scale: 0.9 }}
+                              transition={{ duration: prefersReducedMotion ? 0 : 0.15 }}
+                            >
+                              Enter
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
-                      <AnimatePresence>
-                        {selectedIndex === index && (
-                          <motion.div
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="shrink-0 rounded-sm bg-blue-100 px-2 py-0.5 font-medium text-blue-700 text-xs dark:bg-blue-900/30 dark:text-blue-300"
-                            exit={{ opacity: 0, scale: 0 }}
-                            initial={{ opacity: 0, scale: 0 }}
-                            transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
-                          >
-                            Enter
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  </motion.button>
-                ))}
-              </div>
+                    </motion.button>
+                  ))}
+                </motion.div>
+              </AnimatePresence>
             ) : (
               <motion.div
                 animate={{ opacity: 1, scale: 1 }}

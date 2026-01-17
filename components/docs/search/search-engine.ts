@@ -33,6 +33,7 @@ export class SearchEngine {
           title: "string",
           path: "string",
           excerpt: "string",
+          category: "string",
         },
       });
 
@@ -55,7 +56,7 @@ export class SearchEngine {
     try {
       const searchResults = await search(this.db, {
         term: query,
-        properties: ["title", "excerpt"],
+        properties: ["title", "excerpt", "category"],
         limit,
         boost: {
           title: 2,
@@ -66,6 +67,7 @@ export class SearchEngine {
         title: hit.document.title as string,
         path: hit.document.path as string,
         excerpt: hit.document.excerpt as string,
+        category: hit.document.category as string,
       }));
     } catch (error) {
       if (process.env.NODE_ENV === "development") {

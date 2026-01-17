@@ -5,11 +5,32 @@ import matter from "gray-matter";
 import { NextResponse } from "next/server";
 
 const MDX_EXTENSION_REGEX = /\.mdx$/;
+const TITLE_SPLIT_REGEX = /[-_]/;
 
 interface SearchIndexItem {
   title: string;
   path: string;
   excerpt: string;
+  category: string;
+}
+
+const CATEGORY_LABELS: Record<string, string> = {
+  eternalcore: "EternalCore",
+  eternalcombat: "EternalCombat",
+  multification: "Multification",
+  contribute: "Contribute",
+};
+
+function toTitleCase(value: string): string {
+  return value
+    .split(TITLE_SPLIT_REGEX)
+    .map((part) => (part ? part[0].toUpperCase() + part.slice(1) : part))
+    .join(" ");
+}
+
+function getCategoryLabel(relativePath: string): string {
+  const topLevel = relativePath.split(path.sep)[0] ?? "docs";
+  return CATEGORY_LABELS[topLevel] ?? toTitleCase(topLevel);
 }
 
 function findMarkdownFiles(dir: string): string[] {
@@ -38,6 +59,7 @@ function generateSearchIndex() {
     const { data, content: markdownContent } = matter(content);
     const relativePath = path.relative(docsDir, file);
     const urlPath = `/docs/${relativePath.replace(MDX_EXTENSION_REGEX, "")}`;
+    const category = getCategoryLabel(relativePath);
 
     const excerpt = markdownContent
       .replace(/[#*`_~]/g, "")
@@ -49,6 +71,7 @@ function generateSearchIndex() {
       title: data.title || path.basename(file, ".mdx"),
       path: urlPath,
       excerpt,
+      category,
     });
   }
 

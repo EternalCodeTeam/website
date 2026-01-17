@@ -1,6 +1,7 @@
 "use client";
 
 import FocusTrap from "focus-trap-react";
+import type { Transition, Variants } from "framer-motion";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Clock, Hash, Search, Sparkles, TrendingUp, X } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -31,6 +32,19 @@ const POPULAR_PAGES = [
   { title: "Contributing", path: "/docs/contribute", category: "Contribute" },
 ];
 
+const CATEGORY_BADGE_STYLES: Record<string, string> = {
+  EternalCore:
+    "bg-purple-100 text-purple-700 ring-purple-200 dark:bg-purple-500/20 dark:text-purple-200 dark:ring-purple-500/40",
+  EternalCombat:
+    "bg-red-100 text-red-700 ring-red-200 dark:bg-red-500/20 dark:text-red-200 dark:ring-red-500/40",
+  Multification:
+    "bg-blue-100 text-blue-700 ring-blue-200 dark:bg-blue-500/20 dark:text-blue-200 dark:ring-blue-500/40",
+  Contribute:
+    "bg-emerald-100 text-emerald-700 ring-emerald-200 dark:bg-emerald-500/20 dark:text-emerald-200 dark:ring-emerald-500/40",
+};
+
+const DOCS_PREFIX_REGEX = /^\/docs\//;
+
 // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Modal logic handles many interactions
 export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -41,6 +55,42 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const prefersReducedMotion = useReducedMotion();
+
+  const resultsContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: prefersReducedMotion
+        ? { duration: 0 }
+        : { staggerChildren: 0.04, delayChildren: 0.02 },
+    },
+    exit: { opacity: 0, transition: { duration: prefersReducedMotion ? 0 : 0.12 } },
+  } satisfies Variants;
+
+  const springResultTransition: Transition = {
+    type: "spring",
+    stiffness: 360,
+    damping: 28,
+    mass: 0.7,
+  };
+
+  const resultItemVariants = {
+    hidden: { opacity: 0, y: 8, scale: 0.98 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: prefersReducedMotion
+        ? { duration: 0 }
+        : springResultTransition,
+    },
+    exit: {
+      opacity: 0,
+      y: -6,
+      scale: 0.98,
+      transition: { duration: prefersReducedMotion ? 0 : 0.12 },
+    },
+  } satisfies Variants;
 
   // Use shared hooks
   const { query, setQuery, results, isLoading, isInitializing } = useSearch({ maxResults: 10 });
@@ -118,7 +168,10 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
   // Reset selected index when results change
   useEffect(() => {
     setSelectedIndex(0);
-  }, []);
+    if (results.length === 0) {
+      return;
+    }
+  }, [results.length]);
 
   // Scroll selected item into view
   useEffect(() => {
@@ -149,6 +202,24 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
     );
   };
 
+  const formatResultPath = (path: string) => {
+    const trimmed = path.replace(DOCS_PREFIX_REGEX, "");
+    const segments = trimmed.split("/").filter(Boolean);
+    if (segments.length <= 1) {
+      return "Overview";
+    }
+
+    return segments
+      .slice(1)
+      .map((segment) =>
+        segment
+          .split("-")
+          .map((part) => (part ? part[0].toUpperCase() + part.slice(1) : part))
+          .join(" ")
+      )
+      .join(" / ");
+  };
+
   if (!isMounted) {
     return null;
   }
@@ -157,6 +228,12 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
   const showEmpty = query.length >= 2 && results.length === 0 && !isLoading;
   const showRecent = query.length === 0 && recentSearches.length > 0;
   const showPopular = query.length === 0;
+  let searchIconScale: number | number[] = 1;
+  if (isLoading) {
+    searchIconScale = [1, 1.05, 1];
+  } else if (query) {
+    searchIconScale = 1.05;
+  }
 
   return createPortal(
     <AnimatePresence mode="wait">
@@ -197,17 +274,17 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
                     {/* Search Icon with Animation */}
                     <motion.div
                       animate={{
-                        rotate: isLoading ? 360 : 0,
-                        scale: query ? 1.1 : 1,
+                        opacity: isLoading ? [0.5, 1, 0.5] : 1,
+                        scale: searchIconScale,
                       }}
                       style={{ transformOrigin: "center" }}
                       transition={{
-                        rotate: {
-                          duration: 1,
+                        opacity: {
+                          duration: prefersReducedMotion ? 0 : 1.1,
                           repeat: isLoading ? Number.POSITIVE_INFINITY : 0,
-                          ease: "linear",
+                          ease: "easeInOut",
                         },
-                        scale: { duration: prefersReducedMotion ? 0 : 0.2 },
+                        scale: { duration: prefersReducedMotion ? 0 : 0.25 },
                       }}
                     >
                       <Search className="h-5 w-5 shrink-0 text-blue-500" />
@@ -283,72 +360,93 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
 
                   {/* Search Results */}
                   {showResults && !isLoading && !isInitializing && (
-                    <div className="p-2">
-                      <div className="mb-2 flex items-center gap-2 px-3 py-1">
-                        <Sparkles className="h-3.5 w-3.5 text-gray-400" />
-                        <span className="font-medium text-gray-500 text-xs uppercase tracking-wider dark:text-gray-400">
-                          Results
-                        </span>
-                      </div>
-                      {results.map((result, index) => (
-                        <motion.button
-                          animate={{ opacity: 1, x: 0 }}
-                          className={cn(
-                            "group touch-action-manipulation relative w-full cursor-pointer rounded-lg px-3 py-3 text-left transition-all",
-                            selectedIndex === index
-                              ? "bg-gradient-to-r from-blue-50 to-blue-50/50 shadow-sm dark:from-blue-500/10 dark:to-blue-500/5"
-                              : "hover:bg-gray-50 dark:hover:bg-gray-800/50"
-                          )}
-                          data-search-result-index={index}
-                          exit={{ opacity: 0, x: -20 }}
-                          initial={{ opacity: 0, x: -20 }}
-                          key={result.path}
-                          onClick={() => handleSelect(result.path)}
-                          onMouseEnter={() => setSelectedIndex(index)}
-                          transition={{
-                            delay: prefersReducedMotion ? 0 : index * 0.03,
-                            type: "spring",
-                            stiffness: 300,
-                            damping: 25,
-                          }}
-                          type="button"
-                          whileHover={{ x: prefersReducedMotion ? 0 : 4 }}
-                        >
-                          <div className="flex items-start gap-3">
-                            <div
-                              className={cn(
-                                "mt-0.5 shrink-0 transition-colors",
-                                selectedIndex === index
-                                  ? "text-blue-600 dark:text-blue-400"
-                                  : "text-gray-400"
-                              )}
-                            >
-                              <Hash className="h-4 w-4" />
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <div className="mb-1 font-semibold text-gray-900 text-sm dark:text-white">
-                                {highlightText(result.title, query)}
+                    <AnimatePresence mode="popLayout" initial={false}>
+                      <motion.div
+                        animate="visible"
+                        className="p-2"
+                        exit="exit"
+                        initial="hidden"
+                        key={`results-${query}`}
+                        layout
+                        variants={resultsContainerVariants}
+                      >
+                        <div className="mb-2 flex items-center gap-2 px-3 py-1">
+                          <Sparkles className="h-3.5 w-3.5 text-gray-400" />
+                          <span className="font-medium text-gray-500 text-xs uppercase tracking-wider dark:text-gray-400">
+                            Results
+                          </span>
+                        </div>
+                        {results.map((result, index) => (
+                          <motion.button
+                            className={cn(
+                              "group touch-action-manipulation relative w-full cursor-pointer rounded-lg px-3 py-3 text-left transition-all",
+                              selectedIndex === index
+                                ? "bg-gradient-to-r from-blue-50 to-blue-50/50 shadow-sm dark:from-blue-500/10 dark:to-blue-500/5"
+                                : "hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                            )}
+                            data-search-result-index={index}
+                            key={result.path}
+                            layout="position"
+                            onClick={() => handleSelect(result.path)}
+                            onMouseEnter={() => setSelectedIndex(index)}
+                            type="button"
+                            variants={resultItemVariants}
+                            whileHover={{
+                              x: prefersReducedMotion ? 0 : 2,
+                              scale: prefersReducedMotion ? 1 : 1.01,
+                            }}
+                          >
+                            <div className="flex items-start gap-3">
+                              <div
+                                className={cn(
+                                  "mt-0.5 shrink-0 transition-colors",
+                                  selectedIndex === index
+                                    ? "text-blue-600 dark:text-blue-400"
+                                    : "text-gray-400"
+                                )}
+                              >
+                                <Hash className="h-4 w-4" />
                               </div>
-                              <div className="line-clamp-2 text-gray-600 text-xs dark:text-gray-400">
-                                {highlightText(result.excerpt, query)}
+                              <div className="min-w-0 flex-1">
+                                <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
+                                  <div className="font-semibold text-gray-900 text-sm dark:text-white">
+                                    {highlightText(result.title, query)}
+                                  </div>
+                                  <span
+                                    className={cn(
+                                      "inline-flex items-center rounded-full px-2 py-0.5 font-semibold text-[10px] uppercase tracking-wide ring-1 ring-inset",
+                                      CATEGORY_BADGE_STYLES[result.category] ??
+                                        "bg-gray-100 text-gray-600 ring-gray-200 dark:bg-gray-700/60 dark:text-gray-200 dark:ring-gray-600"
+                                    )}
+                                  >
+                                    {result.category}
+                                  </span>
+                                </div>
+                                <div className="mb-1 text-gray-500 text-xs dark:text-gray-400">
+                                  {formatResultPath(result.path)}
+                                </div>
+                                <div className="line-clamp-2 text-gray-600 text-xs dark:text-gray-400">
+                                  {highlightText(result.excerpt, query)}
+                                </div>
                               </div>
+                              <AnimatePresence initial={false}>
+                                {selectedIndex === index && (
+                                  <motion.div
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    className="shrink-0"
+                                    exit={{ opacity: 0, scale: 0.9 }}
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    transition={{ duration: prefersReducedMotion ? 0 : 0.15 }}
+                                  >
+                                    <ArrowRight className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                                  </motion.div>
+                                )}
+                              </AnimatePresence>
                             </div>
-                            <AnimatePresence>
-                              {selectedIndex === index && (
-                                <motion.div
-                                  animate={{ opacity: 1, scale: 1 }}
-                                  className="shrink-0"
-                                  exit={{ opacity: 0, scale: 0 }}
-                                  initial={{ opacity: 0, scale: 0 }}
-                                >
-                                  <ArrowRight className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                                </motion.div>
-                              )}
-                            </AnimatePresence>
-                          </div>
-                        </motion.button>
-                      ))}
-                    </div>
+                          </motion.button>
+                        ))}
+                      </motion.div>
+                    </AnimatePresence>
                   )}
 
                   {/* Empty State */}
