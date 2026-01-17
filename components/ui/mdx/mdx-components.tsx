@@ -18,6 +18,7 @@ import { Inline } from "@/components/ui/mdx/inline";
 import { LinkPreview } from "@/components/ui/mdx/link-preview";
 import { MdxImage } from "@/components/ui/mdx/mdx-image";
 import { Step, Steps } from "@/components/ui/mdx/steps";
+import { cn } from "@/lib/utils";
 
 type HeadingProps = HTMLAttributes<HTMLHeadingElement>;
 
@@ -32,7 +33,7 @@ export const components: MDXComponents = {
 
   h2: (props: HeadingProps) => (
     <Heading
-      className="mt-12 mb-6 border-border border-b pb-2 font-semibold text-3xl tracking-tight"
+      className="mt-12 mb-6 pb-2 font-semibold text-3xl tracking-tight"
       tag="h2"
       {...props}
     />
@@ -89,9 +90,35 @@ export const components: MDXComponents = {
 
   pre: CodeBlock,
 
+  p: (props) => (
+    <p
+      className="my-4 text-base leading-relaxed text-gray-700 first:mt-0 last:mb-0 dark:text-gray-300"
+      {...props}
+    />
+  ),
+
+  a: ({ className, ...props }: ComponentProps<"a">) => (
+    <a
+      className={cn(
+        "font-medium text-blue-600 underline decoration-blue-400/60 decoration-2 underline-offset-4 transition-colors",
+        "hover:text-blue-700 hover:decoration-blue-500/80",
+        "dark:text-sky-400 dark:decoration-sky-400/50 dark:hover:text-sky-300 dark:hover:decoration-sky-300/70",
+        className
+      )}
+      {...props}
+    />
+  ),
+
+  br: () => (
+    <span
+      aria-hidden="true"
+      className="my-5 block h-px w-full bg-gradient-to-r from-transparent via-gray-200/70 to-transparent dark:via-gray-700/60"
+    />
+  ),
+
   blockquote: (props) => (
     <blockquote
-      className="border-gray-300 border-l-4 pl-4 text-gray-600 italic dark:border-gray-600 dark:text-gray-400"
+      className="my-6 rounded-xl border-gray-200 border-l-4 bg-gray-50 px-5 py-4 text-gray-700 italic shadow-sm dark:border-gray-700 dark:bg-gray-900/50 dark:text-gray-300"
       {...props}
     />
   ),
@@ -123,11 +150,21 @@ export const components: MDXComponents = {
 
   hr: (props) => <hr className="my-12 border-border" {...props} />,
 
-  ul: (props) => <ul className="my-4 list-disc space-y-2 pl-6" {...props} />,
+  ul: (props) => (
+    <ul
+      className="my-4 list-disc space-y-2 pl-6 text-gray-700 marker:text-gray-400 dark:text-gray-300 dark:marker:text-gray-500"
+      {...props}
+    />
+  ),
 
-  ol: (props) => <ol className="my-4 list-decimal space-y-2 pl-8" {...props} />,
+  ol: (props) => (
+    <ol
+      className="my-4 list-decimal space-y-2 pl-8 text-gray-700 marker:text-gray-400 dark:text-gray-300 dark:marker:text-gray-500"
+      {...props}
+    />
+  ),
 
-  li: (props) => <li className="leading-relaxed" {...props} />,
+  li: (props) => <li className="leading-relaxed text-gray-700 dark:text-gray-300" {...props} />,
 
   img: (props) => <MdxImage {...props} />,
 };
