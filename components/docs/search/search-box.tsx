@@ -262,7 +262,7 @@ const SearchBox = ({
             }}
           >
             {results.length > 0 ? (
-              <AnimatePresence mode="popLayout" initial={false}>
+              <AnimatePresence initial={false} mode="popLayout">
                 <motion.div
                   animate="visible"
                   className="scrollbar-hide max-h-96 overflow-y-auto"

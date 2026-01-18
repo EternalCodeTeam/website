@@ -16,10 +16,9 @@ import { FileTree, FileTreeItem } from "@/components/ui/mdx/file-tree";
 import { Heading } from "@/components/ui/mdx/heading";
 import { Inline } from "@/components/ui/mdx/inline";
 import { LinkPreview } from "@/components/ui/mdx/link-preview";
-import { MdxLink } from "@/components/ui/mdx/mdx-link";
 import { MdxImage } from "@/components/ui/mdx/mdx-image";
+import { MdxLink } from "@/components/ui/mdx/mdx-link";
 import { Step, Steps } from "@/components/ui/mdx/steps";
-import { cn } from "@/lib/utils";
 
 type HeadingProps = HTMLAttributes<HTMLHeadingElement>;
 
@@ -93,19 +92,7 @@ export const components: MDXComponents = {
 
   p: (props) => (
     <p
-      className="my-4 text-base leading-relaxed text-gray-700 first:mt-0 last:mb-0 dark:text-gray-300"
-      {...props}
-    />
-  ),
-
-  a: ({ className, ...props }: ComponentProps<"a">) => (
-    <a
-      className={cn(
-        "font-medium text-blue-600 underline decoration-blue-400/60 decoration-2 underline-offset-4 transition-colors",
-        "hover:text-blue-700 hover:decoration-blue-500/80",
-        "dark:text-sky-400 dark:decoration-sky-400/50 dark:hover:text-sky-300 dark:hover:decoration-sky-300/70",
-        className
-      )}
+      className="my-4 text-base text-gray-700 leading-relaxed first:mt-0 last:mb-0 dark:text-gray-300"
       {...props}
     />
   ),
@@ -113,7 +100,7 @@ export const components: MDXComponents = {
   br: () => (
     <span
       aria-hidden="true"
-      className="my-5 block h-px w-full bg-gradient-to-r from-transparent via-gray-200/70 to-transparent dark:via-gray-700/60"
+      className="my-5 block h-px w-full bg-linear-to-r from-transparent via-gray-200/70 to-transparent dark:via-gray-700/60"
     />
   ),
 
@@ -165,7 +152,7 @@ export const components: MDXComponents = {
     />
   ),
 
-  li: (props) => <li className="leading-relaxed text-gray-700 dark:text-gray-300" {...props} />,
+  li: (props) => <li className="text-gray-700 leading-relaxed dark:text-gray-300" {...props} />,
 
   img: (props) => <MdxImage {...props} />,
 

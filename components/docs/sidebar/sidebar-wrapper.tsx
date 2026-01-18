@@ -3,10 +3,9 @@
 import Lenis from "lenis";
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
-
-import DocSidebar from "./doc-sidebar";
 import { SearchModal } from "@/components/docs/search/search-modal";
 import { SearchTrigger } from "@/components/docs/search/search-trigger";
+import DocSidebar from "./doc-sidebar";
 import type { DocItem } from "./types";
 
 interface SidebarWrapperProps {

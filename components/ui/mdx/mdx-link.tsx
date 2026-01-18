@@ -1,7 +1,6 @@
-import type { AnchorHTMLAttributes, ReactNode } from "react";
-
 import { ArrowUpRight, Link as LinkIcon } from "lucide-react";
 import Link from "next/link";
+import type { AnchorHTMLAttributes, ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -25,9 +24,7 @@ export function MdxLink({ href = "", children, className, ...rest }: MdxLinkProp
 
   const content = (
     <span className="relative inline-flex items-center gap-1.5">
-      <span className="relative">
-        {children}
-      </span>
+      <span className="relative">{children}</span>
       {isExternal || isSpecial ? (
         <ArrowUpRight
           aria-hidden="true"
@@ -54,11 +51,7 @@ export function MdxLink({ href = "", children, className, ...rest }: MdxLinkProp
   }
 
   return (
-    <Link
-      className={cn(baseClassName, underlineClassName, className)}
-      href={href}
-      {...rest}
-    >
+    <Link className={cn(baseClassName, underlineClassName, className)} href={href} {...rest}>
       {content}
     </Link>
   );
