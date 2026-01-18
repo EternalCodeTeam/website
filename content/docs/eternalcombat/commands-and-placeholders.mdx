@@ -1,0 +1,58 @@
+---
+title: Commands & Placeholders
+description: Complete list of EternalCombat commands, permissions, and placeholders
+icon: Terminal
+sidebar_position: 4
+---
+
+## Commands & Placeholders
+
+This page documents all commands, permissions, and placeholders available in EternalCombat.
+
+### Commands
+
+| Command | Description | Permission |
+| :--- | :--- | :--- |
+| `/combatlog status [player]` | Check a player's combat status | `eternalcombat.status` |
+| `/combatlog tag <player> [player2]` | Start a fight between players | `eternalcombat.tag` |
+| `/combatlog untag <player>` | Remove a player from combat | `eternalcombat.untag` |
+| `/combatlog reload` | Reload the plugin configuration | `eternalcombat.reload` |
+
+### Permissions
+
+| Permission | Description |
+| :--- | :--- |
+| `eternalcombat.status` | Check a player's combat status with /combatlog status |
+| `eternalcombat.tag` | Start a fight between players using /combatlog tag [player2] |
+| `eternalcombat.untag` | Remove a player from combat with /combatlog untag |
+| `eternalcombat.reload` | Reload the plugin with /combatlog reload |
+| `eternalcombat.receiveupdates` | Receive notifications about new plugin versions on join |
+| `eternalcombat.bypass` | Bypass combat tagging (requires `excludeAdminsFromCombat` enabled) |
+
+### Placeholders
+
+EternalCombat provides several placeholders for usage in messages or other plugins (requires PlaceholderAPI).
+
+| Placeholder | Description |
+| :--- | :--- |
+| `%eternalcombat_opponent%` | Returns the name of the player you're fighting |
+| `%eternalcombat_opponent_health%` | Returns the opponent's health in 00.00 format |
+| `%eternalcombat_remaining_seconds%` | Returns seconds remaining until the player exits combat |
+| `%eternalcombat_remaining_millis%` | Returns milliseconds remaining until the player exits combat |
+
+<Callout type="important" title="Bypass Permission">
+  The `eternalcombat.bypass` permission only works when `admin.excludeAdminsFromCombat` is set to `true` in the configuration. Otherwise, this permission has no effect.
+</Callout>
+
+---
+
+### Next steps
+
+<CardGroup>
+  <Card title="Configuration" icon="Settings" href="/docs/eternalcombat/configuration">
+    Customize plugin behavior
+  </Card>
+  <Card title="Regions" icon="Map" href="/docs/eternalcombat/regions">
+    Set up protected regions
+  </Card>
+</CardGroup>
