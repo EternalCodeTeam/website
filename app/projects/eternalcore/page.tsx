@@ -221,7 +221,7 @@ export default function EternalCorePage() {
             </SlideIn>
 
             <SlideIn delay={0.2} direction="right">
-              <div className="group perspective-1000 relative">
+              <div className="group relative">
                 {/* The "Long Screenshot" Container */}
                 <div className="relative h-[600px] w-full transform select-none overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl transition-transform duration-700 hover:scale-[1.02] dark:border-gray-800 dark:bg-[#0d1117]">
                   {/* Window Controls */}
