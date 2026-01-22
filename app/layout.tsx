@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Poppins } from "next/font/google";
+import { JetBrains_Mono, Poppins } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 import "lenis/dist/lenis.css";
@@ -22,6 +22,12 @@ const poppins = Poppins({
   preload: true,
   fallback: ["system-ui", "arial"],
   variable: "--font-poppins",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-jetbrains-mono",
 });
 
 export const viewport: Viewport = {
@@ -88,7 +94,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className={poppins.variable} lang="en" suppressHydrationWarning>
+    <html
+      className={`${poppins.variable} ${jetbrainsMono.variable}`}
+      lang="en"
+      suppressHydrationWarning
+    >
       <body
         className={`${poppins.className} relative min-h-screen overflow-x-hidden bg-light-gray-100 antialiased dark:bg-gray-900`}
       >

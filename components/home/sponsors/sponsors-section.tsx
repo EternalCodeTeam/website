@@ -1,14 +1,49 @@
 "use client";
 
-import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
+import { m } from "framer-motion";
 import type { ReactNode } from "react";
 import { SiGithub, SiJetbrains, SiJira, SiNetlify, SiSentry } from "react-icons/si";
+import { FadeIn } from "@/components/ui/motion/motion-components";
 
 interface Sponsor {
   name: string;
   icon: ReactNode;
   url: string;
 }
+
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+      delayChildren: 0.1,
+      duration: 0.6,
+      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 20,
+    scale: 0.95,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring" as const,
+      stiffness: 100,
+      damping: 15,
+      mass: 0.5,
+      duration: 0.6,
+    },
+  },
+};
 
 export default function Sponsors() {
   const sponsors: Sponsor[] = [
@@ -43,14 +78,23 @@ export default function Sponsors() {
 
   return (
     <section className="relative w-full overflow-hidden py-8" id="sponsors">
-      <div className="relative z-20 mb-6 text-center">
-        <p className="font-semibold text-gray-500 text-sm uppercase tracking-widest dark:text-gray-400">
-          Powered by industry leaders
-        </p>
-      </div>
+      <FadeIn delay={0.1}>
+        <div className="relative z-20 mb-6 text-center">
+          <p className="font-semibold text-gray-500 text-sm uppercase tracking-widest dark:text-gray-400">
+            Powered by industry leaders
+          </p>
+        </div>
+      </FadeIn>
 
-      <div className="relative flex w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]">
-        <motion.div
+      <m.div
+        animate="visible"
+        className="relative flex w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]"
+        initial="hidden"
+        variants={containerVariants}
+        viewport={{ once: true, margin: "-50px" }}
+        whileInView="visible"
+      >
+        <m.div
           animate={{
             x: "-100%",
           }}
@@ -58,29 +102,30 @@ export default function Sponsors() {
           transition={{
             repeat: Number.POSITIVE_INFINITY,
             repeatType: "loop",
-            duration: 60,
+            duration: 40,
             ease: "linear",
           }}
         >
           {repeatedSponsors.map((sponsor, index) => (
-            <a
-              className="group relative flex items-center justify-center gap-4 transition-all hover:scale-110"
+            <m.a
+              className="group relative flex items-center justify-center gap-4"
               href={sponsor.url}
               key={`${sponsor.name}-${index}`}
               rel="noopener noreferrer"
               target="_blank"
+              variants={itemVariants}
             >
-              <div className="text-gray-400 opacity-70 grayscale filter transition-colors duration-300 group-hover:text-gray-900 group-hover:opacity-100 group-hover:grayscale-0 dark:group-hover:text-white">
+              <m.div className="text-gray-400 opacity-70 grayscale filter transition-all duration-500 ease-out group-hover:opacity-100 group-hover:grayscale-0">
                 {sponsor.icon}
-              </div>
-              <span className="hidden font-bold text-gray-400 text-xl transition-colors duration-300 group-hover:text-gray-900 lg:block dark:text-gray-500 dark:group-hover:text-white">
+              </m.div>
+              <m.span className="hidden font-bold text-gray-400 text-xl transition-colors duration-500 ease-out group-hover:text-gray-900 lg:block dark:text-gray-500 dark:group-hover:text-gray-300">
                 {sponsor.name}
-              </span>
-            </a>
+              </m.span>
+            </m.a>
           ))}
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           animate={{
             x: "-100%",
           }}
@@ -89,28 +134,28 @@ export default function Sponsors() {
           transition={{
             repeat: Number.POSITIVE_INFINITY,
             repeatType: "loop",
-            duration: 60,
+            duration: 40,
             ease: "linear",
           }}
         >
           {repeatedSponsors.map((sponsor, index) => (
-            <a
-              className="group relative flex items-center justify-center gap-4 transition-all hover:scale-110"
+            <m.a
+              className="group relative flex items-center justify-center gap-4"
               href={sponsor.url}
               key={`${sponsor.name}-duplicate-${index}`}
               rel="noopener noreferrer"
               target="_blank"
             >
-              <div className="text-gray-400 opacity-70 grayscale filter transition-colors duration-300 group-hover:text-gray-900 group-hover:opacity-100 group-hover:grayscale-0 dark:group-hover:text-white">
+              <m.div className="text-gray-400 opacity-70 grayscale filter transition-all duration-500 ease-out group-hover:opacity-100 group-hover:grayscale-0">
                 {sponsor.icon}
-              </div>
-              <span className="hidden font-bold text-gray-400 text-xl transition-colors duration-300 group-hover:text-gray-900 lg:block dark:text-gray-500 dark:group-hover:text-white">
+              </m.div>
+              <m.span className="hidden font-bold text-gray-400 text-xl transition-colors duration-500 ease-out group-hover:text-gray-900 lg:block dark:text-gray-500 dark:group-hover:text-gray-300">
                 {sponsor.name}
-              </span>
-            </a>
+              </m.span>
+            </m.a>
           ))}
-        </motion.div>
-      </div>
+        </m.div>
+      </m.div>
     </section>
   );
 }

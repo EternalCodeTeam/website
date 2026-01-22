@@ -16,8 +16,8 @@ import { FacadePattern } from "@/components/ui/facade-pattern";
 import {
   FadeIn,
   HoverScale,
+  MotionSection,
   SlideIn,
-  StaggerContainer,
 } from "@/components/ui/motion/motion-components";
 
 export default function PrivacyPolicyPage() {
@@ -54,7 +54,7 @@ export default function PrivacyPolicyPage() {
           </FadeIn>
         </div>
 
-        <StaggerContainer className="w-full space-y-16">
+        <MotionSection className="w-full space-y-16">
           {/* Who We Are */}
           <SlideIn direction="up">
             <section className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white/50 p-8 shadow-xs backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/50">
@@ -259,7 +259,7 @@ export default function PrivacyPolicyPage() {
               </div>
             </section>
           </SlideIn>
-        </StaggerContainer>
+        </MotionSection>
       </div>
     </div>
   );

@@ -83,7 +83,7 @@ code,
 .prose pre,
 .prose code {
   font-family:
-    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important;
+    var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace !important;
 }
 
 code[class*="language-"],
@@ -108,7 +108,7 @@ pre[class*="language-"] {
 
 @theme {
   --font-monospace:
-    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
   --background-image-gradient-conic: conic-gradient(
@@ -185,7 +185,7 @@ pre[class*="language-"] {
 
 @utility optimize-visibility {
   content-visibility: auto;
-  contain-intrinsic-size: 100px;
+  contain-intrinsic-size: 0 500px;
 }
 
 @utility touch-optimized {
@@ -197,7 +197,7 @@ pre[class*="language-"] {
 code[class*="language-"],
 pre[class*="language-"] {
   font-family:
-    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important;
+    var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace !important;
   font-size: 1em;
   text-align: left;
   white-space: pre;
@@ -283,38 +283,6 @@ pre[class*="language-"].line-numbers > code {
   box-shadow: none !important;
 }
 
-@keyframes fadein {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.animate-slide-up {
-  animation: slide-up 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-}
-
-.animate-fadein {
-  animation: fadein 0.4s cubic-bezier(0.4, 2, 0.6, 1) both;
-}
-
 /* Honor prefers-reduced-motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -324,13 +292,6 @@ pre[class*="language-"].line-numbers > code {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-
-  .animate-slide-up,
-  .animate-fadein {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
   }
 }
 

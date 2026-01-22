@@ -54,6 +54,7 @@ const nextConfig = {
       "date-fns",
       "react-icons",
       "@radix-ui/react-tabs",
+      "next-mdx-remote",
     ],
     serverActions: {
       allowedOrigins: ["eternalcode.pl", "www.eternalcode.pl"],

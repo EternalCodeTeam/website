@@ -69,10 +69,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function DocPage({ params }: Props) {
   const resolvedParams = await params;
-  const doc = await getDoc(resolvedParams.slug);
+
+  // Parallel data fetching - avoid waterfall
+  const [doc, sidebar] = await Promise.all([getDoc(resolvedParams.slug), getSidebarStructure()]);
 
   if (!doc) {
-    const sidebar = await getSidebarStructure();
     const currentPath = `/docs/${resolvedParams.slug.join("/")}`;
 
     // Helper to find item by path in sidebar tree
@@ -118,10 +119,8 @@ export default async function DocPage({ params }: Props) {
     notFound();
   }
 
-  const sidebar = await getSidebarStructure();
   const currentPath = `/docs/${resolvedParams.slug.join("/")}`;
   const { prev, next } = getDocNavigation(sidebar, currentPath);
-
   const category = sidebar.find((item) => currentPath.startsWith(item.path))?.title;
 
   return (

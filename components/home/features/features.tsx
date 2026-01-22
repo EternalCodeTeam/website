@@ -1,16 +1,14 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import type { ReactNode } from "react";
 import GitBranchIcon from "@/components/icons/git-branch";
 import JavaIcon from "@/components/icons/java";
 import TabNew from "@/components/icons/tab-new";
 import SectionTitle from "@/components/section-title";
 import { Card } from "@/components/ui/card";
-import { SlideIn, StaggerContainer } from "@/components/ui/motion/motion-components";
+import { MotionSection, SlideIn } from "@/components/ui/motion/motion-components";
 import { slideUp } from "@/lib/animations/variants";
-
-const MotionCard = motion.create(Card);
 
 interface Feature {
   icon: ReactNode;
@@ -46,7 +44,7 @@ export default function Features() {
 
   return (
     <section aria-labelledby="features-heading" className="relative py-12 lg:py-24" id="features">
-      <div className="relative z-10 mx-auto max-w-[90rem] px-4">
+      <div className="relative z-10 mx-auto max-w-360 px-4">
         <SlideIn direction="up">
           <SectionTitle
             description="We leverage industry-standard technologies to build high-quality software."
@@ -55,33 +53,31 @@ export default function Features() {
           />
         </SlideIn>
 
-        <StaggerContainer className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
+        <MotionSection className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
           {features.map((feature) => (
-            <MotionCard
-              className="group flex flex-col p-8 hover:bg-gray-50 hover:shadow-md dark:hover:bg-gray-800/60"
-              key={feature.title}
-              variants={slideUp}
-            >
-              <div
-                className={`absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${feature.color} pointer-events-none`}
-              />
+            <m.div className="h-full" key={feature.title} variants={slideUp}>
+              <Card className="group flex h-full flex-col p-8 transition-colors duration-300 hover:bg-gray-50 hover:shadow-md dark:hover:bg-gray-800/60">
+                <div
+                  className={`absolute inset-0 bg-linear-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${feature.color} pointer-events-none`}
+                />
 
-              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-gray-50 shadow-inner ring-1 ring-gray-200 transition-colors group-hover:bg-white dark:bg-gray-800 dark:ring-gray-700 dark:group-hover:bg-gray-700">
-                <div className="text-gray-900 transition-transform duration-300 group-hover:scale-110 dark:text-white">
-                  {feature.icon}
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-gray-50 shadow-inner ring-1 ring-gray-200 transition-colors group-hover:bg-white dark:bg-gray-800 dark:ring-gray-700 dark:group-hover:bg-gray-700">
+                  <div className="text-gray-900 transition-transform duration-300 group-hover:scale-110 dark:text-white">
+                    {feature.icon}
+                  </div>
                 </div>
-              </div>
 
-              <h3 className="font-bold text-gray-900 text-xl leading-7 dark:text-gray-100">
-                {feature.title}
-              </h3>
+                <h3 className="font-bold text-gray-900 text-xl leading-7 dark:text-gray-100">
+                  {feature.title}
+                </h3>
 
-              <p className="mt-4 flex-auto text-base text-gray-600 leading-7 dark:text-gray-400">
-                {feature.description}
-              </p>
-            </MotionCard>
+                <p className="mt-4 flex-auto text-base text-gray-600 leading-7 dark:text-gray-400">
+                  {feature.description}
+                </p>
+              </Card>
+            </m.div>
           ))}
-        </StaggerContainer>
+        </MotionSection>
       </div>
     </section>
   );

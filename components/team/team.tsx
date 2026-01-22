@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { SlideIn, StaggerContainer } from "@/components/ui/motion/motion-components";
+import { MotionSection, SlideIn } from "@/components/ui/motion/motion-components";
 import { getTeamData } from "@/lib/team";
 import TeamMember from "./team-member";
 
@@ -22,7 +22,7 @@ export default async function Team() {
               </SlideIn>
 
               {section.variant === "contributors" ? (
-                <StaggerContainer className="flex flex-wrap gap-4">
+                <MotionSection className="flex flex-wrap gap-4">
                   {section.members.map((member, index) => (
                     <SlideIn
                       delay={index * 0.01}
@@ -50,9 +50,9 @@ export default async function Team() {
                       </a>
                     </SlideIn>
                   ))}
-                </StaggerContainer>
+                </MotionSection>
               ) : (
-                <StaggerContainer className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <MotionSection className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {section.members.map((member, index) => (
                     <SlideIn
                       delay={index * 0.05}
@@ -62,7 +62,7 @@ export default async function Team() {
                       <TeamMember index={index} member={member} />
                     </SlideIn>
                   ))}
-                </StaggerContainer>
+                </MotionSection>
               )}
             </div>
           ))}

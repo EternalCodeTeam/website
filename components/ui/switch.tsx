@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
-import { softSpring } from "@/lib/animations/variants";
+import { interactionSpring } from "@/lib/animations/variants";
 
 interface SwitchProps {
   checked: boolean;
@@ -48,7 +48,7 @@ export function Switch({
         className="inline-block h-4 w-4 rounded-full bg-white shadow-sm"
         initial={false}
         style={{ x: checked ? 24 : 4 }}
-        transition={prefersReducedMotion ? { duration: 0 } : softSpring}
+        transition={prefersReducedMotion ? { duration: 0 } : interactionSpring}
       />
     </button>
   );

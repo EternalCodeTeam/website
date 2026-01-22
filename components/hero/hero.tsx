@@ -4,7 +4,7 @@ import { m } from "framer-motion";
 import { Github } from "lucide-react";
 import ArrowForwardHeroIcon from "@/components/icons/arrow-forward-hero";
 import { Button } from "@/components/ui/button";
-import { FadeIn, SlideIn, StaggerContainer } from "@/components/ui/motion/motion-components";
+import { FadeIn, MotionSection, SlideIn } from "@/components/ui/motion/motion-components";
 import Terminal from "./terminal/terminal-window";
 
 export default function Hero() {
@@ -17,17 +17,15 @@ export default function Hero() {
           y: [0, -12, 18, -8, 0],
           scale: [1, 1.1, 0.95, 1.05, 1],
         }}
-        className="absolute -top-20 -right-20 h-56 w-56 rounded-full bg-linear-to-br from-blue-400/20 to-blue-600/15 blur-3xl will-change-transform sm:h-64 sm:w-64"
-        style={{ willChange: "transform" }}
+        className="absolute -top-20 -right-20 h-56 w-56 rounded-full bg-linear-to-br from-blue-400/20 to-blue-600/15 blur-3xl sm:h-64 sm:w-64"
         transition={{ duration: 25, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
       />
 
-      <StaggerContainer className="relative mx-auto max-w-[90rem] px-4 pt-48 pb-12 sm:pt-40 sm:pb-16 md:pt-48 lg:flex lg:items-center lg:justify-between lg:gap-16">
+      <MotionSection className="relative mx-auto max-w-[90rem] px-4 pt-48 pb-12 sm:pt-40 sm:pb-16 md:pt-48 lg:flex lg:items-center lg:justify-between lg:gap-16">
         {/* Text Content */}
         <div className="flex flex-col items-center text-center lg:flex-1 lg:items-start lg:text-left">
           {/* Title */}
-          {/* Title - CSS Animated for LCP */}
-          <div className="animate-slide-up" style={{ animationDelay: "0.1s" }}>
+          <SlideIn delay={0.1}>
             <h1
               className="wrap-break-word max-w-3xl font-extrabold text-4xl leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
               id="hero-heading"
@@ -36,13 +34,10 @@ export default function Hero() {
                 EternalCode.pl
               </span>
             </h1>
-          </div>
+          </SlideIn>
 
-          {/* Subtitle - CSS Animated for LCP */}
-          <div
-            className="transform-gpu animate-slide-up will-change-transform"
-            style={{ animationDelay: "0.2s", willChange: "transform, opacity" }}
-          >
+          {/* Subtitle */}
+          <SlideIn delay={0.2}>
             <p className="mt-6 max-w-2xl text-base text-gray-600 leading-relaxed sm:text-lg md:text-xl dark:text-gray-400">
               Building the future with{" "}
               <span className="relative whitespace-nowrap">
@@ -65,7 +60,7 @@ export default function Hero() {
                     strokeLinejoin="round"
                     strokeWidth="3"
                     transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, margin: "-100px" }}
                     whileInView={{ pathLength: 1, opacity: 1 }}
                   />
                 </svg>
@@ -73,7 +68,7 @@ export default function Hero() {
               . Join a community of passionate developers crafting the next generation of software
               tools.
             </p>
-          </div>
+          </SlideIn>
 
           {/* Buttons */}
           <FadeIn
@@ -113,7 +108,7 @@ export default function Hero() {
             <Terminal />
           </div>
         </SlideIn>
-      </StaggerContainer>
+      </MotionSection>
     </div>
   );
 }

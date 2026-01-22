@@ -184,16 +184,25 @@ export default function Footer() {
               &copy; {currentYear} EternalCodeTeam. All rights reserved.
             </p>
             <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-6">
-              <a
-                className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1 font-medium text-gray-700 text-xs shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-neutral-900 dark:text-gray-200"
+              <motion.a
+                className="group inline-flex items-center gap-2 rounded-lg border border-gray-200/80 bg-gradient-to-br from-white to-gray-50/50 px-3.5 py-1.5 font-medium text-gray-700 text-xs shadow-sm transition-all hover:border-emerald-200 hover:shadow-md dark:border-white/[0.08] dark:from-neutral-900 dark:to-neutral-900/50 dark:text-gray-300 dark:hover:border-emerald-500/30"
                 href="https://www.netlify.com/"
                 rel="noopener noreferrer"
                 target="_blank"
+                whileTap={{ scale: 0.98 }}
               >
-                <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_0_3px_rgba(16,185,129,0.15)]" />
-                <SiNetlify aria-hidden className="h-4 w-4 text-emerald-500" />
-                This site is powered by Netlify
-              </a>
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75 group-hover:opacity-100" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
+                </span>
+                <SiNetlify
+                  aria-hidden
+                  className="h-4 w-4 text-emerald-500 transition-colors group-hover:text-emerald-600 dark:text-emerald-400 dark:group-hover:text-emerald-300"
+                />
+                <span className="bg-gradient-to-r from-gray-700 to-gray-900 bg-clip-text text-transparent dark:from-gray-300 dark:to-gray-100">
+                  Powered by Netlify
+                </span>
+              </motion.a>
               <span className="text-gray-500 text-xs dark:text-gray-500">
                 Designed with <span className="text-red-500">❤</span> by the EternalCodeTeam.
               </span>

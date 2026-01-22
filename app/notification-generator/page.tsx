@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
 import type { NotificationConfig } from "@/components/notification-generator/types";
 import { Button } from "@/components/ui/button";
-import { FadeIn, SlideIn, StaggerContainer } from "@/components/ui/motion/motion-components";
+import { FadeIn, MotionSection, SlideIn } from "@/components/ui/motion/motion-components";
 
 const NotificationGeneratedCode = dynamic(
   () =>
@@ -59,7 +59,7 @@ export default function NotificationGeneratorPage() {
   }, []);
 
   return (
-    <StaggerContainer className="w-full">
+    <MotionSection className="w-full">
       <div className="mb-12 text-center">
         <SlideIn delay={0.1} direction="down">
           <h1 className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text font-extrabold text-4xl text-transparent tracking-tight md:text-6xl dark:from-white dark:to-gray-300">
@@ -114,7 +114,7 @@ export default function NotificationGeneratorPage() {
           </div>
         </div>
       </SlideIn>
-    </StaggerContainer>
+    </MotionSection>
   );
 }
 
