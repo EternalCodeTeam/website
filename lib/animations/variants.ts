@@ -30,6 +30,12 @@ export const interactionSpring: Transition = {
   damping: 25,
 };
 
+export const premiumSpring: Transition = {
+  type: "spring",
+  stiffness: 200,
+  damping: 20,
+};
+
 // --- Variants ---
 
 export const fadeIn: Variants = {
