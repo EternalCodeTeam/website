@@ -434,35 +434,6 @@ For more details, see the [Regions](/docs/eternalcombat/regions) page.
 
 ---
 
-### Placeholder settings
-
-Configure PlaceholderAPI placeholder values.
-
-```yaml
-placeholders:
-  # Text when player is in combat
-  isInCombatFormattedTrue: "In Combat"
-  
-  # Text when player is not in combat
-  isInCombatFormattedFalse: "Not In Combat"
-```
-
-#### Available placeholders
-
-| Placeholder | Description |
-| :--- | :--- |
-| `%eternalcombat_opponent%` | Name of combat opponent |
-| `%eternalcombat_opponent_health%` | Opponent's health (00.00 format) |
-| `%eternalcombat_remaining_seconds%` | Seconds until combat ends |
-| `%eternalcombat_remaining_millis%` | Milliseconds until combat ends |
-| `%eternalcombat_isInCombat_formatted%` | Formatted combat status text |
-
-<Callout type="note" title="Empty Placeholders">
-  If a player is not in combat, placeholders return an empty string. Opponent placeholders also return empty if combat wasn't triggered by another player.
-</Callout>
-
----
-
 ### Message settings
 
 EternalCombat uses [MiniMessage](https://docs.advntr.dev/minimessage/format.html) format for all messages. You can customize colors, gradients, and formatting.
@@ -509,30 +480,6 @@ You can display combat status using different notification types. Use CodeTabs t
     ```
   </CodeTab>
 </CodeTabs>
-
-#### BossBar colors
-
-Available colors for BossBar: `PINK`, `BLUE`, `RED`, `GREEN`, `YELLOW`, `PURPLE`, `WHITE`
-
-#### Common message placeholders
-
-| Placeholder | Description |
-| :--- | :--- |
-| `{TIME}` | Remaining combat time |
-| `{PLAYER}` | Player name |
-| `{PERMISSION}` | Required permission |
-
-<Callout type="tip" title="MiniMessage Format">
-  EternalCombat uses MiniMessage for rich text formatting:
-  
-  - Colors: `<red>`, `<green>`, `<#ff5555>`
-  - Gradients: `<gradient:red:yellow>text</gradient>`
-  - Formatting: `<bold>`, `<italic>`, `<underlined>`
-  
-  [Learn more about MiniMessage](https://docs.advntr.dev/minimessage/format.html)
-</Callout>
-
----
 
 ### Next steps
 
