@@ -1,5 +1,6 @@
 "use client";
 
+import type { Variants } from "framer-motion";
 import { m } from "framer-motion";
 import type { ReactNode } from "react";
 import { SiGithub, SiJetbrains, SiJira, SiNetlify, SiSentry } from "react-icons/si";
@@ -11,7 +12,7 @@ interface Sponsor {
   url: string;
 }
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -19,12 +20,12 @@ const containerVariants = {
       staggerChildren: 0.05,
       delayChildren: 0.1,
       duration: 0.6,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
     },
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: {
     opacity: 0,
     y: 20,
