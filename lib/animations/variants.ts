@@ -1,130 +1,145 @@
 import type { Transition, Variants } from "framer-motion";
 
-export const softSpring: Transition = {
-  type: "spring",
-  stiffness: 120,
-  damping: 18,
-  mass: 1,
+export const easeOut: Transition = {
+  duration: 0.35,
+  ease: [0.22, 1, 0.36, 1],
 };
 
-export const bouncySpring: Transition = {
-  type: "spring",
-  stiffness: 180,
-  damping: 12,
-};
-
-export const snappySpring: Transition = {
-  type: "spring",
-  stiffness: 250,
-  damping: 25,
-};
-
-export const smoothEase: Transition = {
-  duration: 0.4,
-  ease: [0.22, 1, 0.36, 1], // Custom cubic-bezier (easeOutExpo-ish)
+export const fastEase: Transition = {
+  duration: 0.18,
+  ease: [0.4, 0, 0.2, 1],
 };
 
 export const interactionSpring: Transition = {
   type: "spring",
-  stiffness: 400,
-  damping: 25,
+  stiffness: 420,
+  damping: 28,
+  mass: 0.9,
 };
 
-export const premiumSpring: Transition = {
+export const tapSpring: Transition = {
   type: "spring",
-  stiffness: 200,
-  damping: 20,
+  stiffness: 600,
+  damping: 35,
+  mass: 0.8,
 };
-
-// --- Variants ---
 
 export const fadeIn: Variants = {
   hidden: {
     opacity: 0,
   },
-  visible: {
+  visible: (delay = 0) => ({
     opacity: 1,
-    transition: smoothEase,
-  },
+    transition: { ...easeOut, delay },
+  }),
 };
 
 export const slideUp: Variants = {
   hidden: {
-    y: 20,
+    y: 32,
     opacity: 0,
+    willChange: "transform, opacity",
   },
-  visible: {
+  visible: (delay = 0) => ({
     y: 0,
     opacity: 1,
-    transition: softSpring,
-  },
+    willChange: "auto",
+    transition: {
+      y: { ...easeOut, delay },
+      opacity: { ...easeOut, delay },
+    },
+  }),
 };
 
 export const slideDown: Variants = {
   hidden: {
-    y: -20,
+    y: -32,
     opacity: 0,
+    willChange: "transform, opacity",
   },
-  visible: {
+  visible: (delay = 0) => ({
     y: 0,
     opacity: 1,
-    transition: softSpring,
-  },
+    willChange: "auto",
+    transition: {
+      y: { ...easeOut, delay },
+      opacity: { ...easeOut, delay },
+    },
+  }),
 };
 
 export const slideInLeft: Variants = {
   hidden: {
-    x: -20,
+    x: -32,
     opacity: 0,
+    willChange: "transform, opacity",
   },
-  visible: {
+  visible: (delay = 0) => ({
     x: 0,
     opacity: 1,
-    transition: softSpring,
-  },
+    willChange: "auto",
+    transition: {
+      x: { ...easeOut, delay },
+      opacity: { ...easeOut, delay },
+    },
+  }),
 };
 
 export const slideInRight: Variants = {
   hidden: {
-    x: 20,
+    x: 32,
     opacity: 0,
+    willChange: "transform, opacity",
   },
-  visible: {
+  visible: (delay = 0) => ({
     x: 0,
     opacity: 1,
-    transition: softSpring,
-  },
+    willChange: "auto",
+    transition: {
+      x: { ...easeOut, delay },
+      opacity: { ...easeOut, delay },
+    },
+  }),
 };
 
 export const scaleIn: Variants = {
   hidden: {
-    scale: 0.95,
+    scale: 0.94,
     opacity: 0,
+    willChange: "transform, opacity",
   },
-  visible: {
+  visible: (delay = 0) => ({
     scale: 1,
     opacity: 1,
-    transition: softSpring,
-  },
+    willChange: "auto",
+    transition: {
+      scale: { ...easeOut, delay },
+      opacity: { ...easeOut, delay },
+    },
+  }),
 };
 
 export const containerStagger: Variants = {
+  hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.08, // Faster stagger
-      delayChildren: 0,
+      staggerChildren: 0.06,
     },
   },
 };
 
 export const hoverScale: Variants = {
-  initial: { scale: 1 },
+  initial: {
+    scale: 1,
+  },
   hover: {
-    scale: 1.03,
-    transition: { ...bouncySpring, mass: 0.8 },
+    scale: 1.035,
+    willChange: "transform",
+    transition: fastEase,
   },
   tap: {
     scale: 0.97,
-    transition: snappySpring,
+    willChange: "transform",
+    transition: tapSpring,
   },
 };

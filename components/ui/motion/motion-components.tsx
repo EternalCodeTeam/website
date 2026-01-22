@@ -19,15 +19,15 @@ interface MotionProps extends HTMLMotionProps<"div"> {
   delay?: number;
 }
 
-// --- Primitive Wrappers ---
+/* ----------------- Primitives ----------------- */
 
-export const FadeIn = ({ children, delay, className, ...props }: MotionProps) => (
+export const FadeIn = ({ children, delay = 0, className, ...props }: MotionProps) => (
   <m.div
     className={className}
+    custom={delay}
     initial="hidden"
-    transition={delay ? { delay } : undefined}
     variants={fadeIn}
-    viewport={{ once: true, margin: "0px" }}
+    viewport={{ once: true, margin: "-100px" }}
     whileInView="visible"
     {...props}
   >
@@ -37,31 +37,25 @@ export const FadeIn = ({ children, delay, className, ...props }: MotionProps) =>
 
 export const SlideIn = ({
   children,
-  delay,
+  delay = 0,
   direction = "up",
   className,
   ...props
 }: MotionProps & { direction?: "up" | "down" | "left" | "right" }) => {
-  const getVariant = () => {
-    switch (direction) {
-      case "down":
-        return slideDown;
-      case "left":
-        return slideInLeft;
-      case "right":
-        return slideInRight;
-      default:
-        return slideUp;
-    }
-  };
+  const variantMap = {
+    up: slideUp,
+    down: slideDown,
+    left: slideInLeft,
+    right: slideInRight,
+  } as const;
 
   return (
     <m.div
       className={className}
+      custom={delay}
       initial="hidden"
-      transition={delay ? { delay } : undefined}
-      variants={getVariant()}
-      viewport={{ once: true, margin: "0px" }}
+      variants={variantMap[direction]}
+      viewport={{ once: true, margin: "-100px" }}
       whileInView="visible"
       {...props}
     >
@@ -70,13 +64,13 @@ export const SlideIn = ({
   );
 };
 
-export const ScaleIn = ({ children, delay, className, ...props }: MotionProps) => (
+export const ScaleIn = ({ children, delay = 0, className, ...props }: MotionProps) => (
   <m.div
     className={className}
+    custom={delay}
     initial="hidden"
-    transition={delay ? { delay } : undefined}
     variants={scaleIn}
-    viewport={{ once: true, margin: "0px" }}
+    viewport={{ once: true, margin: "-100px" }}
     whileInView="visible"
     {...props}
   >
@@ -97,14 +91,14 @@ export const HoverScale = ({ children, className, ...props }: MotionProps) => (
   </m.div>
 );
 
-// --- Container (for Staggering) ---
+/* ----------------- Container ----------------- */
 
-export const StaggerContainer = ({ children, className, ...props }: MotionProps) => (
+export const MotionSection = ({ children, className, ...props }: MotionProps) => (
   <m.div
     className={className}
     initial="hidden"
     variants={containerStagger}
-    viewport={{ once: true, margin: "0px" }}
+    viewport={{ once: true, margin: "-80px" }}
     whileInView="visible"
     {...props}
   >

@@ -89,7 +89,8 @@ function sortDocs(a: DocItem, b: DocItem): number {
   return a.title.localeCompare(b.title);
 }
 
-export function getDocNavigation(sidebar: DocItem[], currentPath: string) {
+// Cache flattened navigation to avoid recomputation
+const flattenSidebar = cache((sidebar: DocItem[]): DocItem[] => {
   const flat: DocItem[] = [];
 
   function traverse(items: DocItem[]) {
@@ -103,7 +104,13 @@ export function getDocNavigation(sidebar: DocItem[], currentPath: string) {
   }
   traverse(sidebar);
 
+  return flat;
+});
+
+export function getDocNavigation(sidebar: DocItem[], currentPath: string) {
+  const flat = flattenSidebar(sidebar);
   const index = flat.findIndex((i) => i.path === currentPath);
+
   return {
     prev: index > 0 ? flat[index - 1] : null,
     next: index < flat.length - 1 ? flat[index + 1] : null,

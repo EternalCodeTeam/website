@@ -2,7 +2,7 @@
 
 import { domAnimation, LazyMotion } from "framer-motion";
 import { ThemeProvider } from "next-themes";
-import { type ReactNode, useEffect, useState } from "react";
+import type { ReactNode } from "react";
 import { Toaster } from "react-hot-toast";
 
 import { SearchProvider } from "@/components/docs/search/search-context";
@@ -13,18 +13,8 @@ interface ProvidersProps {
 }
 
 export function Providers({ children }: ProvidersProps) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
-
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" disableTransitionOnChange enableSystem>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <LazyMotion features={domAnimation}>
         <SearchProvider>
           <SmoothScrolling>{children}</SmoothScrolling>

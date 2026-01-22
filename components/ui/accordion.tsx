@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import React, { useCallback, useId } from "react";
+import React, { useCallback } from "react";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { cn } from "@/lib/utils";
 
@@ -38,7 +38,8 @@ interface AccordionItemProps {
 }
 
 export function AccordionItem({ children, value, className }: AccordionItemProps) {
-  const itemId = useId();
+  // Use value as stable ID to prevent hydration mismatches
+  const itemId = value;
   return (
     <div
       className={cn(

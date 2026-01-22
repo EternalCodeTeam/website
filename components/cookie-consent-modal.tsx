@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { useCookieConsent } from "@/hooks/use-cookie-consent";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
-import { softSpring } from "@/lib/animations/variants";
+import { interactionSpring } from "@/lib/animations/variants";
 
 // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Component logic is complex by design
 export function CookieConsentModal() {
@@ -156,7 +156,7 @@ export function CookieConsentModal() {
                     transition={
                       prefersReducedMotion
                         ? { duration: 0 }
-                        : { ...softSpring, stiffness: 300, damping: 30 }
+                        : { ...interactionSpring, stiffness: 300, damping: 30 }
                     }
                   >
                     <div className="mt-4 space-y-4 rounded-xl bg-gray-50/50 p-4 dark:bg-gray-800/50">

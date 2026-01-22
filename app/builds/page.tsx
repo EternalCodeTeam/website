@@ -61,7 +61,7 @@ function BuildExplorerContent() {
     async function fetchData() {
       setLoading(true);
       setError(null);
-      setBuilds([]); // Clear previous builds
+      setBuilds([]);
       try {
         const data =
           activeTab === "STABLE"
@@ -78,8 +78,6 @@ function BuildExplorerContent() {
               date: version.date_published,
               downloadUrl: primaryFile?.url || "",
               version: version.version_number,
-              // Modrinth doesn't strictly provide commit hash in top-level,
-              // but we can link to the version page
               runUrl: activeProject.modrinthId
                 ? `https://modrinth.com/project/${activeProject.modrinthId}/version/${version.id}`
                 : undefined,

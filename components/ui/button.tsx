@@ -1,9 +1,9 @@
 "use client";
 
 import { cva, type VariantProps } from "class-variance-authority";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { ButtonHTMLAttributes, ReactNode, Ref } from "react";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { interactionSpring } from "@/lib/animations/variants";
 import { cn } from "@/lib/utils";
@@ -54,12 +54,9 @@ export type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "ref"> &
     href?: string;
     target?: string;
     rel?: string;
-    // Relaxed type to allow Framer Motion props without explicit interface bloat
     // biome-ignore lint/suspicious/noExplicitAny: Intentional for Framer Motion props
     [key: string]: any;
   };
-
-const MotionLink = motion.create(Link);
 
 const Button = ({
   className,
@@ -75,7 +72,7 @@ const Button = ({
   ref,
   ...props
 }: ButtonProps & {
-  ref?: React.Ref<HTMLButtonElement | HTMLAnchorElement>;
+  ref?: Ref<HTMLButtonElement | HTMLAnchorElement>;
 }) => {
   const isLink = Boolean(href);
   const prefersReducedMotion = useReducedMotion();
@@ -96,7 +93,7 @@ const Button = ({
     <>
       {!!shine && (
         <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
-          <div className="absolute inset-0 -translate-x-[100%] bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 ease-in-out group-hover:translate-x-[100%]" />
+          <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 ease-in-out group-hover:translate-x-full" />
         </div>
       )}
       <div className="relative z-10 flex items-center justify-center gap-2">
@@ -109,22 +106,23 @@ const Button = ({
 
   if (isLink && href) {
     return (
-      <MotionLink
-        className={baseStyles}
-        href={href}
-        // biome-ignore lint/suspicious/noExplicitAny: Ref compatibility
-        ref={ref as any}
-        {...animationProps}
-        // biome-ignore lint/suspicious/noExplicitAny: Props compatibility
-        {...(props as any)}
-      >
-        {content}
-      </MotionLink>
+      <m.div className={cn("inline-flex", fullWidth ? "w-full" : "")} {...animationProps}>
+        <Link
+          className={baseStyles}
+          href={href}
+          // biome-ignore lint/suspicious/noExplicitAny: Ref compatibility
+          ref={ref as any}
+          // biome-ignore lint/suspicious/noExplicitAny: Props compatibility
+          {...(props as any)}
+        >
+          {content}
+        </Link>
+      </m.div>
     );
   }
 
   return (
-    <motion.button
+    <m.button
       className={baseStyles}
       disabled={props.disabled}
       // biome-ignore lint/suspicious/noExplicitAny: Ref compatibility
@@ -135,7 +133,7 @@ const Button = ({
       {...(props as any)}
     >
       {content}
-    </motion.button>
+    </m.button>
   );
 };
 Button.displayName = "Button";

@@ -7,12 +7,7 @@ import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { FacadePattern } from "@/components/ui/facade-pattern";
-import {
-  FadeIn,
-  ScaleIn,
-  SlideIn,
-  StaggerContainer,
-} from "@/components/ui/motion/motion-components";
+import { FadeIn, MotionSection, ScaleIn, SlideIn } from "@/components/ui/motion/motion-components";
 import { slideUp } from "@/lib/animations/variants";
 
 import { ConfigPreview } from "./config-preview";
@@ -47,7 +42,7 @@ export default function EternalCorePage() {
           >
             {/* Text Content */}
             <div className="flex-1 text-center lg:text-left">
-              <StaggerContainer className="flex flex-col items-center lg:items-start">
+              <MotionSection className="flex flex-col items-center lg:items-start">
                 <m.div variants={slideUp}>
                   <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#9d6eef]/5 px-3 py-1 font-bold text-[#9d6eef] text-[10px] uppercase tracking-widest">
                     <Zap className="h-3 w-3" />
@@ -96,7 +91,7 @@ export default function EternalCorePage() {
                     Documentation
                   </Button>
                 </m.div>
-              </StaggerContainer>
+              </MotionSection>
             </div>
 
             {/* Project Banner Placeholder */}
@@ -130,7 +125,7 @@ export default function EternalCorePage() {
             </FadeIn>
           </div>
 
-          <StaggerContainer className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <MotionSection className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {[
               {
                 title: "80+ Commands",
@@ -185,7 +180,7 @@ export default function EternalCorePage() {
                 </Card>
               </m.div>
             ))}
-          </StaggerContainer>
+          </MotionSection>
         </section>
       </div>
 
