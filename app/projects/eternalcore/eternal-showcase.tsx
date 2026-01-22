@@ -141,7 +141,7 @@ const InfiniteMarquee = ({
           repeatType: "loop",
         }}
       >
-        {[...items, ...items, ...items].map((item, i) => (
+        {[...items, ...items].map((item, i) => (
           <motion.div
             className="group relative aspect-video w-[400px] shrink-0 cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-gray-100 shadow-sm transition-all hover:border-[#9d6eef]/50 hover:shadow-[#9d6eef]/20 hover:shadow-lg dark:border-gray-800 dark:bg-gray-900"
             key={`${item.id}-${i}`}
