@@ -100,7 +100,7 @@ export default function EternalCorePage() {
                 <div className="group relative aspect-video overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 shadow-2xl dark:border-gray-800 dark:bg-gray-900">
                   <Image
                     alt="EternalCore Project Banner"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="object-cover transform-gpu transition-transform duration-700 will-change-transform group-hover:scale-105"
                     fill
                     priority
                     src="/eternalcore/readme-banner.png"
@@ -161,14 +161,14 @@ export default function EternalCorePage() {
               },
             ].map((feature) => (
               <m.div className="h-full" key={feature.title} variants={slideUp}>
-                <Card className="group relative flex h-full flex-col p-6 transition-all hover:-translate-y-1 hover:bg-gray-50 hover:shadow-lg dark:hover:bg-gray-800/60">
+                <Card className="group relative flex h-full flex-col p-6 transform-gpu transition-all hover:-translate-y-1 hover:bg-gray-50 hover:shadow-lg dark:hover:bg-gray-800/60 will-change-transform">
                   <div
                     className={`absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${feature.gradient} pointer-events-none`}
                   />
 
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gray-50 shadow-inner ring-1 ring-gray-200 transition-colors group-hover:bg-white dark:bg-gray-800 dark:ring-gray-700 dark:group-hover:bg-gray-700">
                     <feature.icon
-                      className={`h-6 w-6 transition-transform duration-300 group-hover:scale-110 ${feature.iconColor}`}
+                      className={`h-6 w-6 transform-gpu transition-transform duration-300 will-change-transform group-hover:scale-110 ${feature.iconColor}`}
                     />
                   </div>
                   <h3 className="mb-2 font-bold text-gray-900 text-lg dark:text-white">
@@ -223,7 +223,7 @@ export default function EternalCorePage() {
             <SlideIn delay={0.2} direction="right">
               <div className="group relative">
                 {/* The "Long Screenshot" Container */}
-                <div className="relative h-[600px] w-full transform select-none overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl transition-transform duration-700 hover:scale-[1.02] dark:border-gray-800 dark:bg-[#0d1117]">
+                <div className="relative h-[600px] w-full transform-gpu select-none overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl transition-transform duration-700 will-change-transform hover:scale-[1.02] dark:border-gray-800 dark:bg-[#0d1117]">
                   {/* Window Controls */}
                   <div className="absolute top-0 right-0 left-0 z-20 flex items-center gap-2 border-gray-100 border-b bg-white/80 px-4 py-3 backdrop-blur-md dark:border-white/5 dark:bg-gray-900/80">
                     <div className="flex gap-1.5">

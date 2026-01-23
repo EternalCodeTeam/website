@@ -80,7 +80,7 @@ export default function About() {
 
               <div className="mt-10 flex gap-4">
                 <Button className="group gap-2" href="/team" size="lg">
-                  <PeopleGroupIcon className="h-5 w-5 transition-transform group-hover:scale-110" />
+                  <PeopleGroupIcon className="h-5 w-5 transform-gpu transition-transform will-change-transform group-hover:scale-110" />
                   Meet the Team
                 </Button>
               </div>
@@ -95,7 +95,7 @@ export default function About() {
 
               <SlideIn className="relative z-10 w-full" delay={0.3} direction="right">
                 <motion.div
-                  className="relative overflow-hidden rounded-2xl shadow-2xl"
+                  className="relative overflow-hidden rounded-2xl shadow-2xl transform-gpu will-change-transform"
                   transition={{ duration: 0.5, type: "spring" }}
                   whileHover={{ scale: 1.02, rotate: 1 }}
                 >

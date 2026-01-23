@@ -143,7 +143,7 @@ const InfiniteMarquee = ({
       >
         {[...items, ...items].map((item, i) => (
           <motion.div
-            className="group relative aspect-video w-[400px] shrink-0 cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-gray-100 shadow-sm transition-all hover:border-[#9d6eef]/50 hover:shadow-[#9d6eef]/20 hover:shadow-lg dark:border-gray-800 dark:bg-gray-900"
+            className="group relative aspect-video w-[400px] shrink-0 cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-gray-100 shadow-sm transition-all hover:border-[#9d6eef]/50 hover:shadow-[#9d6eef]/20 hover:shadow-lg dark:border-gray-800 dark:bg-gray-900 transform-gpu will-change-transform"
             key={`${item.id}-${i}`}
             onClick={() => onItemClick(item)}
             whileHover={{ scale: 1.02 }}
@@ -151,7 +151,7 @@ const InfiniteMarquee = ({
           >
             <Image
               alt={item.id}
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+              className="h-full w-full object-cover transform-gpu transition-transform duration-500 will-change-transform group-hover:scale-110"
               fill
               sizes="400px"
               src={item.src}
@@ -160,7 +160,7 @@ const InfiniteMarquee = ({
 
             {/* Gradient Overlay & Content - Always visible on hover */}
             <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 opacity-0 transition-all duration-300 group-hover:opacity-100">
-              <div className="translate-y-4 transform transition-transform duration-300 group-hover:translate-y-0">
+              <div className="translate-y-4 transform-gpu transition-transform duration-300 will-change-transform group-hover:translate-y-0">
                 <div className="flex items-center justify-between">
                   <div>
                     <h4 className="font-bold text-lg text-white">{item.title}</h4>

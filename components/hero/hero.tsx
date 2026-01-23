@@ -79,7 +79,7 @@ export default function Hero() {
               className="group flex w-full min-w-[160px] items-center justify-center gap-2 sm:w-auto"
               href="#about"
               rightIcon={
-                <ArrowForwardHeroIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <ArrowForwardHeroIcon className="h-4 w-4 transform-gpu transition-transform will-change-transform group-hover:translate-x-1" />
               }
               shine
               size="lg"

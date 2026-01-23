@@ -49,7 +49,7 @@ export function ContributionCard({
         <div className="relative z-10 flex h-full flex-col">
           <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gray-50 shadow-inner ring-1 ring-gray-200 transition-colors group-hover:bg-white dark:bg-gray-800 dark:ring-gray-700 dark:group-hover:bg-gray-700">
             <LucideIcon
-              className="h-6 w-6 transition-transform duration-300 group-hover:scale-110"
+              className="h-6 w-6 transform-gpu transition-transform duration-300 will-change-transform group-hover:scale-110"
               name={icon}
               style={{ color }}
             />

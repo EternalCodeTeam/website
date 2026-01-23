@@ -37,7 +37,7 @@ export default async function Team() {
                         target="_blank"
                         title={member.name}
                       >
-                        <div className="relative h-16 w-16 overflow-hidden rounded-full border-2 border-gray-200 shadow-sm transition-transform duration-300 group-hover:scale-110 group-hover:shadow-md dark:border-gray-800">
+                        <div className="relative h-16 w-16 transform-gpu overflow-hidden rounded-full border-2 border-gray-200 shadow-sm transition-transform duration-300 will-change-transform group-hover:scale-110 group-hover:shadow-md dark:border-gray-800">
                           <Image
                             alt={`Profile picture of ${member.name}`}
                             className="h-full w-full object-cover"

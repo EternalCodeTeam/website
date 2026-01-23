@@ -28,7 +28,7 @@ export default function AnnouncementBanner() {
           href="/notification-generator"
         >
           Check it out
-          <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+          <ArrowRight className="h-3.5 w-3.5 transform-gpu transition-transform will-change-transform group-hover:translate-x-0.5" />
         </Link>
       </div>
     </div>
