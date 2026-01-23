@@ -9,11 +9,10 @@ export const containerVariants: Variants = {
 };
 
 export const itemVariants: Variants = {
-  hidden: { y: 20, opacity: 0, filter: "blur(4px)" },
+  hidden: { y: 20, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
-    filter: "blur(0px)",
     transition: {
       type: "spring",
       stiffness: 200,

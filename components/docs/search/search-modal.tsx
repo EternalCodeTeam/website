@@ -239,14 +239,14 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
         <FocusTrap>
           <motion.div
             animate={{ opacity: 1 }}
-            className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto overscroll-contain bg-black/70 p-0 pt-0 backdrop-blur-md md:p-4 md:pt-[10vh] md:backdrop-blur-sm"
+            className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto overscroll-contain bg-black/80 p-0 pt-0 md:p-4 md:pt-[10vh]"
             exit={{ opacity: 0 }}
             initial={{ opacity: 0 }}
             transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
           >
             <motion.div
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              className="relative h-full w-full md:h-auto md:max-w-2xl"
+              className="optimize-animation relative h-full w-full md:h-auto md:max-w-2xl"
               exit={{
                 opacity: 0,
                 scale: prefersReducedMotion ? 1 : 0.95,
@@ -265,23 +265,18 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
               }}
             >
               {/* Modal Container with Enhanced Glassmorphism */}
-              <div className="flex h-full flex-col overflow-hidden rounded-none border-0 bg-white/98 shadow-2xl backdrop-blur-2xl md:h-auto md:rounded-2xl md:border md:border-gray-200/60 dark:bg-gray-900/98 dark:md:border-gray-700/60">
+              <div className="flex h-full flex-col overflow-hidden rounded-none border-0 bg-white shadow-2xl md:h-auto md:rounded-2xl md:border md:border-gray-200/60 dark:bg-gray-900 dark:md:border-gray-700/60">
                 {/* Search Input Section with Enhanced Gradient */}
                 <div className="relative border-gray-200 border-b bg-gradient-to-r from-gray-50/80 to-white/80 dark:border-gray-700 dark:from-gray-800/80 dark:to-gray-900/80">
                   <div className="flex items-center gap-3 px-5 py-4">
                     {/* Search Icon with Animation */}
                     <motion.div
                       animate={{
-                        opacity: isLoading ? [0.5, 1, 0.5] : 1,
                         scale: searchIconScale,
                       }}
+                      className={isLoading ? "animate-pulse" : ""}
                       style={{ transformOrigin: "center" }}
                       transition={{
-                        opacity: {
-                          duration: prefersReducedMotion ? 0 : 1.1,
-                          repeat: isLoading ? Number.POSITIVE_INFINITY : 0,
-                          ease: "easeInOut",
-                        },
                         scale: { duration: prefersReducedMotion ? 0 : 0.25 },
                       }}
                     >

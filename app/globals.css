@@ -339,3 +339,32 @@ pre[class*="language-"] {
 pre[class*="language-"] {
   color: var(--prism-text) !important;
 }
+
+/* Performance optimization utilities */
+@layer utilities {
+  .contain-layout {
+    contain: layout;
+  }
+
+  .contain-paint {
+    contain: paint;
+  }
+
+  .contain-strict {
+    contain: strict;
+  }
+
+  .contain-content {
+    contain: content;
+  }
+
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  .optimize-animation {
+    contain: layout paint;
+    will-change: transform, opacity;
+  }
+}

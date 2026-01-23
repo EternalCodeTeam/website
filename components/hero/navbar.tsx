@@ -146,7 +146,8 @@ export default function Navbar() {
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          setScrolled(window.scrollY > 20);
+          const isScrolled = window.scrollY > 20;
+          setScrolled((prev) => (prev === isScrolled ? prev : isScrolled));
           ticking = false;
         });
         ticking = true;
@@ -210,7 +211,7 @@ export default function Navbar() {
         aria-label="Main navigation"
         className={`fixed inset-x-0 top-0 z-50 border-transparent border-b transition-all duration-300 ${
           scrolled || isMenuOpen
-            ? "border-gray-200/50 bg-white/80 backdrop-blur-xl dark:border-white/5 dark:bg-[#0a0a0a]/80"
+            ? "border-gray-200/50 bg-white/95 backdrop-blur-sm dark:border-white/5 dark:bg-[#0a0a0a]/95"
             : "bg-white/0 dark:bg-black/0"
         }`}
         initial="hidden"

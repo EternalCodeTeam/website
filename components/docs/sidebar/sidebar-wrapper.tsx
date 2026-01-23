@@ -32,7 +32,19 @@ const SidebarWrapper: FC<SidebarWrapperProps> = ({ sidebarStructure }) => {
 
     lenisRef.current = lenis;
 
+    // Throttle RAF to 120Hz (8.33ms per frame) for optimal performance
+    const targetFPS = 120;
+    const frameTime = 1000 / targetFPS;
+    let lastTime = 0;
+
     function raf(time: number) {
+      // Skip frame if not enough time has passed
+      if (time - lastTime < frameTime) {
+        requestAnimationFrame(raf);
+        return;
+      }
+
+      lastTime = time;
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
@@ -64,7 +76,7 @@ const SidebarWrapper: FC<SidebarWrapperProps> = ({ sidebarStructure }) => {
         <div className="sticky top-32 flex h-[calc(100vh-8rem)] flex-col gap-4">
           <SearchTrigger onClick={() => setIsSearchOpen(true)} />
           <div
-            className="scrollbar-hide relative flex min-h-0 flex-1 flex-col overflow-auto overscroll-contain rounded-xl border border-gray-200 bg-white/90 shadow-lg backdrop-blur-md transition-shadow hover:shadow-xl dark:border-gray-800 dark:bg-gray-900/60"
+            className="scrollbar-hide relative flex min-h-0 flex-1 flex-col overflow-auto overscroll-contain rounded-xl border border-gray-200 bg-white/95 shadow-lg backdrop-blur-sm transition-shadow hover:shadow-xl dark:border-gray-800 dark:bg-gray-900/90"
             ref={sidebarRef}
           >
             <DocSidebar sidebarStructure={sidebarStructure} />

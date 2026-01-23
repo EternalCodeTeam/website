@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useAnimationControls } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 interface Project {
   name: string;
@@ -52,41 +52,11 @@ const projects: Project[] = [
 ];
 
 export default function Projects() {
-  const scrollRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-
-  // Auto-scroll logic
-  useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) {
-      return;
-    }
-
-    let animationFrameId: number;
-    let scrollPos = scrollContainer.scrollLeft;
-    const speed = 0.6; // Slightly slower for better viewing of images
-
-    const scroll = () => {
-      if (!isHovered && scrollContainer) {
-        scrollPos += speed;
-
-        if (scrollPos >= scrollContainer.scrollWidth / 3) {
-          scrollPos = 0;
-        }
-
-        scrollContainer.scrollLeft = scrollPos;
-      } else if (isHovered && scrollContainer) {
-        scrollPos = scrollContainer.scrollLeft;
-      }
-      animationFrameId = requestAnimationFrame(scroll);
-    };
-
-    animationFrameId = requestAnimationFrame(scroll);
-
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [isHovered]);
+  const controls = useAnimationControls();
 
   const displayProjects = [...projects, ...projects, ...projects];
+  const singleSetWidth = projects.length * (420 + 24);
 
   return (
     <section className="relative w-full py-24" id="projects">
@@ -123,23 +93,39 @@ export default function Projects() {
         {/* biome-ignore lint/a11y/noNoninteractiveElementInteractions: Pause on hover feature */}
         <div
           className="group relative -mx-4 w-[calc(100%+2rem)] overflow-hidden rounded-3xl border border-gray-200/50 bg-gray-50/50 p-6 md:mx-0 md:w-full dark:border-white/5 dark:bg-white/5"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          onMouseEnter={() => {
+            setIsHovered(true);
+            controls.stop();
+          }}
+          onMouseLeave={() => {
+            setIsHovered(false);
+            controls.start({
+              x: [`${-singleSetWidth}px`, "0px"],
+              transition: {
+                duration: 60,
+                ease: "linear",
+                repeat: Number.POSITIVE_INFINITY,
+              },
+            });
+          }}
         >
-          <div
-            className="no-scrollbar flex w-full overflow-x-auto overflow-y-hidden"
-            ref={scrollRef}
-            style={{
-              WebkitOverflowScrolling: "touch",
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-            }}
-          >
-            <div className="flex gap-6">
+          <div className="no-scrollbar relative flex w-full overflow-hidden contain-layout">
+            <motion.div
+              animate={{
+                x: isHovered ? undefined : [`${-singleSetWidth}px`, "0px"],
+              }}
+              className="optimize-animation flex gap-6"
+              initial={{ x: 0 }}
+              transition={{
+                duration: 60,
+                ease: "linear",
+                repeat: Number.POSITIVE_INFINITY,
+              }}
+            >
               {displayProjects.map((project, index) => (
                 <ProjectCard key={`${project.name}-${index}`} project={project} />
               ))}
-            </div>
+            </motion.div>
           </div>
 
           {/* Subtle fade masks inside the container */}
