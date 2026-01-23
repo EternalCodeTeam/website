@@ -8,14 +8,14 @@ export const fetchCache = "force-cache";
 export const metadata: Metadata = {
   title: "Home",
   description:
-    "EternalCode.pl delivers open source projects with a focus on quality, performance, and innovation.",
+    "EternalCode.pl delivers high-quality open source Minecraft server plugins including EternalCore and EternalCombat. Built with focus on performance and innovation.",
   alternates: {
     canonical: "https://eternalcode.pl",
   },
   openGraph: {
     title: "EternalCode.pl | We are a team creating open source projects!",
     description:
-      "EternalCode.pl delivers open source solutions with a focus on quality, performance, and innovation.",
+      "EternalCode.pl delivers high-quality open source Minecraft server plugins including EternalCore and EternalCombat. Built with focus on performance and innovation.",
     url: "https://eternalcode.pl",
     siteName: "EternalCode.pl",
     images: [
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "EternalCode.pl | We are a team creating open source projects!",
     description:
-      "EternalCode.pl delivers open source solutions with a focus on quality, performance, and innovation.",
+      "EternalCode.pl delivers high-quality open source Minecraft server plugins including EternalCore and EternalCombat. Built with focus on performance and innovation.",
     images: ["/opengraph-image"],
   },
 };

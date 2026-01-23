@@ -11,6 +11,8 @@ import { HashScroll } from "@/components/docs/content/hash-scroll";
 import { LoadingFallback } from "@/components/docs/content/loading-fallback";
 import { ReadingTime } from "@/components/docs/content/reading-time";
 import { HotReload } from "@/components/docs/hot-reload";
+import { ArticleSchema } from "@/components/seo/article-schema";
+import { BreadcrumbSchema } from "@/components/seo/breadcrumb-schema";
 import { components, mdxOptions } from "@/components/ui/mdx/mdx-components";
 import { getAllDocs, getDoc } from "@/lib/docs/loader";
 import { getDocNavigation, getSidebar as getSidebarStructure } from "@/lib/docs/sidebar";
@@ -39,10 +41,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const ogImageUrl = `/api/og/${resolvedParams.slug.join("/")}`;
+  const canonicalUrl = `https://eternalcode.pl/docs/${resolvedParams.slug.join("/")}`;
 
   return {
     title: doc.frontmatter.title,
     description: doc.frontmatter.description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
       title: doc.frontmatter.title,
       description: doc.frontmatter.description,
@@ -123,8 +129,44 @@ export default async function DocPage({ params }: Props) {
   const { prev, next } = getDocNavigation(sidebar, currentPath);
   const category = sidebar.find((item) => currentPath.startsWith(item.path))?.title;
 
+  // Build breadcrumb items
+  const breadcrumbItems = [
+    { name: "Home", url: "https://eternalcode.pl" },
+    { name: "Documentation", url: "https://eternalcode.pl/docs" },
+  ];
+
+  // Add category if present
+  if (category) {
+    const categoryItem = sidebar.find((item) => currentPath.startsWith(item.path));
+    if (categoryItem) {
+      breadcrumbItems.push({
+        name: category,
+        url: `https://eternalcode.pl${categoryItem.path}`,
+      });
+    }
+  }
+
+  // Add current page
+  breadcrumbItems.push({
+    name: doc.frontmatter.title,
+    url: `https://eternalcode.pl${currentPath}`,
+  });
+
+  const canonicalUrl = `https://eternalcode.pl${currentPath}`;
+  const ogImageUrl = `https://eternalcode.pl/api/og/${resolvedParams.slug.join("/")}`;
+
   return (
     <div className="lg:mt-2">
+      <ArticleSchema
+        author={doc.frontmatter.author}
+        description={doc.frontmatter.description}
+        imageUrl={ogImageUrl}
+        modifiedTime={new Date(doc.lastModified).toISOString()}
+        publishedTime={new Date(doc.lastModified).toISOString()}
+        title={doc.frontmatter.title}
+        url={canonicalUrl}
+      />
+      <BreadcrumbSchema items={breadcrumbItems} />
       <HotReload lastModified={doc.lastModified} slug={resolvedParams.slug} />
       <DocsHeader
         actions={

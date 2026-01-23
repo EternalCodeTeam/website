@@ -5,7 +5,10 @@ import ContributeView from "./contribute-view";
 export const metadata: Metadata = {
   title: "Contribute | EternalCode",
   description:
-    "Join the EternalCode community. Contribute code, support us financially, or help with documentation and support.",
+    "Join the EternalCode community and make an impact. Contribute code to our open source projects, support us financially, help with documentation, or assist users on Discord.",
+  alternates: {
+    canonical: "https://eternalcode.pl/contribute",
+  },
   ...generateOgImageMetadata({
     title: "Contribute",
     subtitle: "Join the EternalCode community",
