@@ -1,0 +1,322 @@
+---
+title: Troubleshooting
+description: Solutions to common EternalCombat problems
+icon: AlertTriangle
+sidebar_position: 6
+---
+
+## Troubleshooting
+
+This page covers common issues and their solutions. If you don't find your answer here, join our [Discord server](https://discord.gg/FQ7jmGBd6c) for support.
+
+---
+
+### Plugin not loading
+
+#### Symptoms
+- EternalCombat doesn't appear in `/plugins`
+- No EternalCombat messages in console
+- Config file is not generated
+- Players are not tagged during combat
+
+#### Solutions
+
+<Steps>
+  <Step title="Check Java version" icon="Coffee">
+    EternalCombat requires **Java 17 or newer**. Check your Java version:
+
+    Look for this line in your server startup log:
+    ```
+    [INFO] Loading Java ...
+    ```
+
+    Or run your server with `java -version` to check.
+  </Step>
+
+  <Step title="Check if PacketEvents plugin is enabled" icon="Package">
+    EternalCombat **requires PacketEvents** to be installed. Verify:
+
+    1. PacketEvents JAR is in `plugins/` folder
+    2. PacketEvents appears in `/plugins` list
+    3. No PacketEvents errors in console
+  </Step>
+
+  <Step title="Check for console errors" icon="AlertCircle">
+    Look for error messages in your server console at startup. Common causes:
+
+    - Missing dependencies
+    - Incompatible server version
+    - Corrupted JAR file
+  </Step>
+</Steps>
+
+<Callout type="danger" title="Corrupted Download">
+  If you see `java.util.zip.ZipException`, the JAR file may be corrupted. Re-download from the [official source](https://modrinth.com/plugin/eternalcombat).
+</Callout>
+
+---
+
+### Border not working
+
+#### Symptoms
+- No visual border appears at protected regions
+- Players can walk into safe zones during combat
+
+#### Solutions
+
+**1. Check Border Settings**
+```yaml
+border:
+  block:
+    enabled: true   # <-- Must be true
+  particle:
+    enabled: true   # <-- Must be true
+  distance: 6.5     # <-- Must be > 0
+```
+
+**2. Verify PacketEvents**
+
+The border uses packets to display fake blocks. Ensure PacketEvents is working.
+
+**3. Check Region Setup**
+
+Make sure the region is properly configured. See [Regions](/docs/eternalcombat/regions) for setup guide.
+
+---
+
+### Players not getting tagged
+
+#### Symptoms
+- Players can attack each other without entering combat
+- Combat timer never appears
+
+#### Solutions
+
+**1. Check Ignored Worlds**
+```yaml
+settings:
+  ignoredWorlds:
+    - creative_world  # Remove your world if listed here
+```
+
+**2. Check Admin Settings**
+```yaml
+admin:
+  excludeAdminsFromCombat: false  # Set to false
+  excludeCreativePlayersFromCombat: false
+```
+
+**3. Check Bypass Permission**
+
+Players with `eternalcombat.bypass` permission won't be tagged (only if `excludeAdminsFromCombat: true`).
+
+**4. Check Projectile Settings**
+```yaml
+combat:
+  ignoredProjectileTypes:
+    - ENDER_PEARL
+    - EGG
+  # Make sure the weapon type isn't listed here
+```
+
+---
+
+### Commands can be used during combat
+
+#### Symptoms
+- Players can use `/spawn`, `/home`, etc. during combat
+- Command blocking doesn't work
+
+#### Solutions
+
+**Check Command Restriction Mode:**
+
+<CodeTabs>
+  <CodeTab label="Blacklist Mode (Block Listed)">
+    ```yaml
+    commands:
+      commandRestrictionMode: BLACKLIST
+      restrictedCommands:
+        - spawn     # These are BLOCKED
+        - home
+        - tpa
+    ```
+  </CodeTab>
+  <CodeTab label="Whitelist Mode (Allow Listed)">
+    ```yaml
+    commands:
+      commandRestrictionMode: WHITELIST
+      restrictedCommands:
+        - msg       # Only these are ALLOWED
+        - tell
+        - r
+    ```
+  </CodeTab>
+</CodeTabs>
+
+<Callout type="tip" title="Common Mistake">
+  If you're using **BLACKLIST mode**, commands NOT in the list are allowed.
+  If you're using **WHITELIST mode**, commands NOT in the list are blocked.
+</Callout>
+
+**Check Command Aliases:**
+
+```yaml
+restrictedCommands:
+  - spawn
+  - /spawn      # Don't include the slash!
+  - espawn      # Remember plugin prefixes like /essentials:spawn
+```
+
+---
+
+### Ender pearls not blocked
+
+#### Symptoms
+- Players can throw ender pearls during combat
+- Pearl cooldown doesn't work
+
+#### Solution
+
+```yaml
+pearl:
+  # Set to true to block pearls during combat
+  pearlThrowDisabledDuringCombat: true
+
+  # Or enable cooldown
+  pearlCooldownEnabled: true
+  pearlThrowDelay: 3s
+```
+
+---
+
+### No items dropping on death
+
+#### Symptoms
+- Players don't drop items when killed during combat log
+- Combat loggers escape without penalty
+
+#### Solutions
+
+**1. Check Drop Type**
+```yaml
+drop:
+  dropType: PERCENT    # Use PERCENT or PLAYERS_HEALTH
+  dropItemPercent: 100 # 100% of items drop
+```
+
+**2. Check Server's Keep Inventory**
+
+If your server has `keepInventory` gamerule enabled, EternalCombat cannot override it:
+```
+/gamerule keepInventory false
+```
+
+**3. Check World Settings**
+
+Some worlds may have keep inventory enabled via plugins. Check your world management plugins.
+
+---
+
+### Performance issues
+
+#### Symptoms
+- Server TPS drops when players are in combat
+- High CPU usage from EternalCombat
+
+#### Solutions
+
+**1. Reduce Border Updates**
+```yaml
+border:
+  block:
+    updateDelay: 500ms       # Increase from 250ms
+    chunkCacheDelay: 500ms   # Increase from 300ms
+  distance: 4.0              # Reduce from 6.5
+```
+
+**2. Disable One Animation**
+```yaml
+border:
+  block:
+    enabled: true
+  particle:
+    enabled: false    # Disable particles
+```
+
+**3. Reduce Particle Count**
+```yaml
+border:
+  particle:
+    count: 1          # Keep at 1
+    scale: 1.0        # Reduce from 1.7
+```
+
+<Callout type="tip" title="Restart Required">
+  Changes to `updateDelay` and `chunkCacheDelay` require a server restart.
+</Callout>
+
+---
+
+### Messages not showing
+
+#### Symptoms
+- Combat notifications don't appear
+- ActionBar or BossBar not visible
+
+#### Solutions
+
+**1. Check Notification Type**
+```yaml
+messagesSettings:
+  combatNotification:
+    actionbar: '<red>Combat ends in: {TIME}'  # Check this exists
+```
+
+**2. Check MiniMessage Syntax**
+
+Invalid MiniMessage format can cause messages to fail silently:
+```yaml
+# Wrong
+combatNotification: '<red>Text'   # Missing closing tag (may work)
+
+# Better
+combatNotification: '<red>Text</red>'  # Explicit closing
+```
+
+**3. Verify Plugin Is Working**
+
+Run `/combatlog status` to verify the plugin is responsive.
+
+---
+
+### Crystal PvP not tagging
+
+#### Symptoms
+- End crystal explosions don't trigger combat
+- Respawn anchor deaths don't tag players
+
+#### Solution
+
+```yaml
+crystalPvp:
+  tagFromCrystals: true       # Enable crystal tagging
+  tagFromRespawnAnchor: true  # Enable anchor tagging
+```
+
+---
+
+### Still need help?
+
+If your issue isn't listed here:
+
+1. **Check console logs** for any error messages
+2. **Join our Discord** - [discord.gg/FQ7jmGBd6c](https://discord.gg/FQ7jmGBd6c)
+3. **Report on GitHub** - [GitHub Issues](https://github.com/EternalCodeTeam/EternalCombat/issues)
+
+When reporting issues, please include:
+- Server version (Paper/Spigot + Minecraft version)
+- EternalCombat version
+- PacketEvents version
+- Full error message (if any)
+- Your `config.yml` (remove sensitive data)

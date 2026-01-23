@@ -1,96 +1,119 @@
 ---
-title: Installation Guide
-description: Learn how to install and configure EternalCombat on your Minecraft server
+title: Installation
+description: Step-by-step guide to installing EternalCombat on your Minecraft server
 icon: Download
 sidebar_position: 2
 ---
 
-import { AlertBox } from "../../../components/ui/alert-box";
+## Installation Guide
 
-## 📋 Prerequisites
+This guide will walk you through installing EternalCombat on your Minecraft server.
 
-Before installing EternalCombat, ensure you have:
+### Requirements
 
-- A Minecraft server running Paper/Spigot 1.17 or newer
-- Access to your server's `plugins` directory
-- Basic knowledge of server administration
-- Backup of your current server configuration
+| Requirement | Details |
+| :--- | :--- |
+| **Minecraft Version** | 1.17.1 - 1.21.1 |
+| **Java Version** | Java 17 or newer |
+| **Server Software** | Paper, Spigot, or compatible forks |
+| **Required Plugin** | PacketEvents |
 
-## 🚀 Installation Steps
+<Callout type="danger" title="PacketEvents Required">
+  EternalCombat **will not work** without PacketEvents installed. Make sure to install it first!
+</Callout>
 
-### 1. Download the Plugin
+### Installation steps
 
-1. Visit our [official download page](https://github.com/EternalCodeTeam/EternalCombat/releases)
-2. Download the latest version of EternalCombat
-3. Verify the file integrity using the provided checksums
+<Steps>
+  <Step title="Install PacketEvents" icon="Package">
+    Download PacketEvents from one of these sources:
 
-### 2. Install the Plugin
+    - [Modrinth](https://modrinth.com/plugin/packetevents) (Recommended)
+    - [SpigotMC](https://www.spigotmc.org/resources/packetevents-api.80279/)
+    - [GitHub](https://github.com/retrooper/packetevents/releases)
 
-1. Stop your Minecraft server
-2. Place the downloaded JAR file in your server's `plugins` directory
-3. Start your server
-4. The plugin will automatically generate its configuration files
+    Place the JAR file in your server's `plugins` folder.
+  </Step>
 
-### 3. Initial Configuration
+  <Step title="Download EternalCombat" icon="Download">
+    Download the latest version of EternalCombat from:
 
-After installation, EternalCombat will create the following files:
+    - [Modrinth](https://modrinth.com/plugin/eternalcombat) (Recommended)
+    - [SpigotMC](https://www.spigotmc.org/resources/eternalcombat.109056/)
+    - [Hangar](https://hangar.papermc.io/EternalCodeTeam/eternalcombat)
+    - [GitHub Releases](https://github.com/EternalCodeTeam/EternalCombat/releases)
 
-- `plugins/EternalCombat/config.yml` - Main configuration file
+    Place the JAR file in your server's `plugins` folder.
+  </Step>
 
-## 🔄 Upgrading
+  <Step title="Start your server" icon="Play">
+    Start or restart your Minecraft server. You should see EternalCombat loading in the console:
 
-### Upgrade Process
+    ```
+    [EternalCombat] Loading EternalCombat v2.4.0
+    [EternalCombat] Enabling EternalCombat v2.4.0
+    ```
+  </Step>
 
-1. **Backup Your Configuration**
+  <Step title="Configure EternalCombat" icon="Settings">
+    After the first start, EternalCombat will generate its configuration file. Edit it to customize the plugin:
 
-   ```bash
-   cp plugins/EternalCombat/config.yml plugins/EternalCombat/config.yml.backup
-   ```
+    ```
+    plugins/EternalCombat/config.yml
+    ```
 
-2. **Download the New Version**
+    See the [Configuration](/docs/eternalcombat/configuration) page for detailed information about all options.
+  </Step>
+</Steps>
 
-   - Download the latest version from our [releases page](https://github.com/EternalCodeTeam/EternalCombat/releases)
+### Generated files
 
-3. **Replace the Old Version**
+After starting the server, EternalCombat will create the following structure:
 
-   - Stop your server
-   - Replace the old JAR file with the new one
-   - Start your server
+<FileTree>
+  <FileTreeItem name="plugins" type="directory" defaultOpen>
+    <FileTreeItem name="EternalCombat" type="directory" defaultOpen>
+      <FileTreeItem name="config.yml" type="file" />
+    </FileTreeItem>
+  </FileTreeItem>
+</FileTree>
 
-4. **Verify the Upgrade**
-   - Check the console for any error messages
-   - Test the plugin's functionality
-   - Restore your backup if needed
+### Updating the plugin
 
-## ⚠️ Important Notes
+<Steps>
+  <Step title="Backup configuration" icon="Save">
+    Before updating, always backup your configuration file:
 
-- Never use `/reload` or plugins like PlugMan to reload EternalCombat
-- Always restart your server for plugin updates
-- Keep backups of your configuration files
-- Test new versions in a development environment first
+    <Command variant="bash" theme="light">
+      cp plugins/EternalCombat/config.yml plugins/EternalCombat/config.yml.backup
+    </Command>
+  </Step>
 
-## 🔧 Troubleshooting
+  <Step title="Download a new version" icon="Download">
+    Download the latest version from [Modrinth](https://modrinth.com/plugin/eternalcombat) or other sources.
+  </Step>
 
-### Common Issues
+  <Step title="Replace JAR file" icon="RefreshCw">
+    1. Stop your server
+    2. Delete the old `EternalCombat-*.jar` file
+    3. Place the new JAR file in the `plugins` folder
+    4. Start your server
+  </Step>
+</Steps>
 
-1. **Plugin Not Loading**
+<Callout type="tip" title="Configuration Migration">
+  EternalCombat automatically migrates your configuration when updating. Your settings will be preserved, and new options will be added with their default values.
+</Callout>
 
-   - Verify you're using a compatible server version
-   - Check the console for error messages
-   - Ensure all dependencies are installed
 
-2. **Configuration Errors**
 
-   - Validate your YAML syntax
-   - Check for missing or incorrect values
-   - Restore from backup if needed
+### Next steps
 
-3. **Performance Issues**
-   - Adjust particle and border settings
-   - Reduce update frequencies
-   - Monitor server performance
-
-<AlertBox type="info">
-  Need help? Join our <a href="https://discord.gg/FQ7jmGBd6c">Discord server</a> or check our{" "}
-  <a href="https://github.com/EternalCodeTeam/EternalCombat/issues">GitHub issues</a>.
-</AlertBox>
+<CardGroup>
+  <Card title="Configuration" icon="Settings" href="/docs/eternalcombat/configuration">
+    Configure the plugin to your needs
+  </Card>
+  <Card title="Commands & Placeholders" icon="Terminal" href="/docs/eternalcombat/commands-and-placeholders">
+    Learn about available commands and placeholders
+  </Card>
+</CardGroup>

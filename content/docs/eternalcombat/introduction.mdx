@@ -1,48 +1,54 @@
 ---
 title: Introduction
-description: Welcome to EternalCombat - A powerful combat logging and PvP management plugin for Minecraft servers
+description: A powerful combat logging and PvP management plugin for Minecraft servers
 icon: BookOpen
 sidebar_position: 1
 ---
 
-## 🎯 Key Features
+<Callout type="warning" title="Required Dependency">
+  EternalCombat requires **PacketEvents** to work properly. Make sure to install it before using EternalCombat.
 
-- **Combat Logging Prevention**: Automatically tracks players in combat and prevents them from logging out
-- **Customizable Combat Timer**: Set your own combat duration with configurable timers
-- **Advanced PvP Management**: Control PvP zones, block placement, and command usage during combat
-- **Visual Combat Indicators**: Beautiful border effects and particle animations
-- **Admin Protection System**: Special commands and permissions for server administrators
-- **WorldGuard Integration**: Seamless compatibility with WorldGuard regions
-- **Extensive API**: Developer-friendly API for custom integrations
+  [Download PacketEvents from Modrinth](https://modrinth.com/plugin/packetevents)
+</Callout>
 
-## 📚 Documentation Sections
+### Key features
 
-- [Installation Guide](/docs/eternalcombat/installation) - Learn how to install and configure EternalCombat
-- [Features & Commands](/docs/eternalcombat/features) - Explore all available features and commands
-- [API Documentation](/docs/eternalcombat/using-api) - Integrate EternalCombat with your own plugins
+| Feature | Description |
+| :--- | :--- |
+| **Combat Logging Prevention** | Players cannot escape fights by disconnecting - they will be punished |
+| **Visual Combat Border** | Beautiful animated border shows protected regions during combat |
+| **Crystal PvP Support** | Full support for end crystals and respawn anchors |
+| **Region Protection** | Prevent players from fleeing to safe zones during combat |
+| **Customizable Restrictions** | Block commands, elytra, flying, inventory, and more during combat |
+| **PlaceholderAPI Support** | Display combat status in scoreboards and other plugins |
+| **WorldGuard Integration** | Automatic protection for regions with PvP disabled |
+| **Developer API** | Easy-to-use API for custom integrations |
 
-## 🚀 Getting Started
+### Documentation sections
 
-1. [Install the plugin](/docs/eternalcombat/installation)
-2. Configure your settings in `config.yml`
-3. Set up permissions for your staff
-4. Test the features in a controlled environment
+<CardGroup>
+  <Card title="Installation" icon="Download" href="/docs/eternalcombat/installation">
+    Step-by-step installation guide
+  </Card>
+  <Card title="Configuration" icon="Settings" href="/docs/eternalcombat/configuration">
+    Complete configuration reference
+  </Card>
+  <Card title="Commands" icon="Terminal" href="/docs/eternalcombat/commands">
+    Commands and permissions
+  </Card>
+  <Card title="Regions" icon="Map" href="/docs/eternalcombat/regions">
+    WorldGuard integration and spawn protection
+  </Card>
+  <Card title="Troubleshooting" icon="AlertTriangle" href="/docs/eternalcombat/troubleshooting">
+    Common issues and solutions
+  </Card>
+  <Card title="API" icon="Code" href="/docs/eternalcombat/api">
+    Developer API documentation
+  </Card>
+</CardGroup>
 
-## 💡 Tips
+### Need help?
 
-- Always backup your configuration before making changes
-- Test new features in a development environment first
-- Keep the plugin updated to the latest version
-- Join our [Discord community](https://discord.gg/FQ7jmGBd6c) for support and updates
-
-## 🔧 Support
-
-Need help? Here are your options:
-
-- Join our [Discord server](https://discord.gg/FQ7jmGBd6c)
+- Join our [Discord server](https://discord.gg/FQ7jmGBd6c) for support
 - Report issues on [GitHub](https://github.com/EternalCodeTeam/EternalCombat/issues)
-- Check our [FAQ section](/docs/eternalcombat/faq)
-
-## 📝 License
-
-EternalCombat is licensed under the MIT License. See our [GitHub repository](https://github.com/EternalCodeTeam/EternalCombat) for more information.
+- View plugin statistics on [bStats](https://bstats.org/plugin/bukkit/EternalCombat/17803)
