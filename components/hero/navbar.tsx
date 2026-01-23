@@ -91,7 +91,7 @@ function MobileMenuAccordion({
       >
         <span>{title}</span>
         <ChevronDown
-          className={`h-4 w-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+          className={`h-4 w-4 transform-gpu transition-transform duration-200 will-change-transform ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
       <AnimatePresence>

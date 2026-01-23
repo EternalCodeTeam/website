@@ -154,12 +154,12 @@ export default function Projects() {
 function ProjectCard({ project }: { project: Project }) {
   return (
     <Link
-      className="group relative block aspect-[16/9] w-[300px] shrink-0 overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 shadow-lg transition-all duration-500 hover:shadow-2xl md:w-[420px] dark:border-gray-800 dark:bg-gray-900"
+      className="group relative block aspect-[16/9] w-[300px] shrink-0 overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 shadow-lg transition-all duration-500 hover:shadow-2xl md:w-[420px] dark:border-gray-800 dark:bg-gray-900 transform-gpu will-change-transform"
       href={project.url}
     >
       <Image
         alt={project.name}
-        className="object-cover transition-transform duration-700 group-hover:scale-105"
+        className="object-cover transform-gpu transition-transform duration-700 will-change-transform group-hover:scale-105"
         fill
         sizes="(max-width: 768px) 300px, 420px"
         src={project.image}
@@ -170,7 +170,7 @@ function ProjectCard({ project }: { project: Project }) {
 
       {/* Minimal Floating Badge */}
       <div className="absolute bottom-4 left-4">
-        <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/40 px-4 py-1.5 shadow-lg backdrop-blur-md transition-transform duration-300 group-hover:scale-105 group-hover:bg-black/60">
+        <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/40 px-4 py-1.5 shadow-lg backdrop-blur-md transform-gpu transition-transform duration-300 will-change-transform group-hover:scale-105 group-hover:bg-black/60">
           <span className="font-bold text-sm text-white dark:text-gray-100">{project.name}</span>
         </div>
       </div>

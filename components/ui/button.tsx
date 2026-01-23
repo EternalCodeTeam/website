@@ -79,7 +79,11 @@ const Button = ({
   const shouldAnimate =
     animate && variant !== "ghost" && variant !== "link" && !prefersReducedMotion;
 
-  const baseStyles = cn(buttonVariants({ variant, size, fullWidth }), className);
+  const baseStyles = cn(
+    buttonVariants({ variant, size, fullWidth }),
+    "transform-gpu will-change-transform",
+    className
+  );
 
   const animationProps = shouldAnimate
     ? {
@@ -93,7 +97,7 @@ const Button = ({
     <>
       {!!shine && (
         <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
-          <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 ease-in-out group-hover:translate-x-full" />
+          <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transform-gpu transition-transform duration-1000 ease-in-out will-change-transform group-hover:translate-x-full" />
         </div>
       )}
       <div className="relative z-10 flex items-center justify-center gap-2">
@@ -106,7 +110,10 @@ const Button = ({
 
   if (isLink && href) {
     return (
-      <m.div className={cn("inline-flex", fullWidth ? "w-full" : "")} {...animationProps}>
+      <m.div
+        className={cn("inline-flex transform-gpu will-change-transform", fullWidth ? "w-full" : "")}
+        {...animationProps}
+      >
         <Link
           className={baseStyles}
           href={href}

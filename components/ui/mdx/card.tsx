@@ -24,7 +24,7 @@ export function Card({ title, description, icon, href, className }: CardProps) {
       className={cn(
         "group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 dark:border-gray-800 dark:bg-gray-900",
         href
-          ? "cursor-pointer hover:-translate-y-1 hover:border-blue-500/50 hover:shadow-md dark:hover:border-blue-400/50"
+          ? "cursor-pointer transform-gpu will-change-transform hover:-translate-y-1 hover:border-blue-500/50 hover:shadow-md dark:hover:border-blue-400/50"
           : "",
         className
       )}

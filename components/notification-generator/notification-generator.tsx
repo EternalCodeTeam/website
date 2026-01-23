@@ -143,7 +143,7 @@ export function NotificationGenerator({ notification, setNotification }: Notific
         >
           <Button
             aria-label="Reset form"
-            className="transition-transform hover:scale-105 active:scale-95"
+            className="transform-gpu transition-transform will-change-transform hover:scale-105 active:scale-95"
             onClick={resetForm}
             variant="danger"
           >
