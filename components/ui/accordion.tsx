@@ -38,7 +38,6 @@ interface AccordionItemProps {
 }
 
 export function AccordionItem({ children, value, className }: AccordionItemProps) {
-  // Use value as stable ID to prevent hydration mismatches
   const itemId = value;
   return (
     <div

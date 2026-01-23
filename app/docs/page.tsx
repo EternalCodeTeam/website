@@ -4,7 +4,11 @@ import { DocsView } from "./view";
 
 export const metadata: Metadata = {
   title: "Documentation",
-  description: "Browse our comprehensive documentation for all EternalCode projects",
+  description:
+    "Browse comprehensive documentation for all EternalCode projects including EternalCore, EternalCombat, and Multification. Find guides, API references, and configuration examples.",
+  alternates: {
+    canonical: "https://eternalcode.pl/docs",
+  },
   ...generateOgImageMetadata({
     title: "Documentation",
     subtitle: "Browse our comprehensive guides and references",

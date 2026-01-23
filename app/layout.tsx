@@ -9,6 +9,7 @@ import "./prism-languages";
 import { CookieConsentModal } from "@/components/cookie-consent-modal";
 import Footer from "@/components/footer/footer";
 import Navbar from "@/components/hero/navbar";
+import { OrganizationSchema } from "@/components/seo/organization-schema";
 
 import { Providers } from "./providers";
 
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://eternalcode.pl"),
   title: "EternalCode.pl | Home",
   description:
-    "EternalCode.pl delivers open source solutions with a focus on quality, performance, and innovation.",
+    "EternalCode.pl delivers high-quality open source Minecraft server plugins including EternalCore and EternalCombat. Built with focus on performance and innovation.",
   keywords: ["open source", "Java", "Linux", "Minecraft", "plugins", "development"],
   authors: [{ name: "EternalCode Team" }],
   creator: "EternalCode Team",
@@ -62,7 +63,7 @@ export const metadata: Metadata = {
     siteName: "EternalCode.pl",
     title: "EternalCode.pl | We are a team creating open source projects!",
     description:
-      "EternalCode.pl delivers open source solutions with a focus on quality, performance, and innovation.",
+      "EternalCode.pl delivers high-quality open source Minecraft server plugins including EternalCore and EternalCombat. Built with focus on performance and innovation.",
   },
   twitter: {
     card: "summary_large_image",
@@ -70,7 +71,7 @@ export const metadata: Metadata = {
     creator: "@eternalcode",
     title: "EternalCode.pl | We are a team creating open source projects!",
     description:
-      "EternalCode.pl delivers open source solutions with a focus on quality, performance, and innovation.",
+      "EternalCode.pl delivers high-quality open source Minecraft server plugins including EternalCore and EternalCombat. Built with focus on performance and innovation.",
   },
   robots: {
     index: true,
@@ -102,6 +103,7 @@ export default function RootLayout({
       <body
         className={`${poppins.className} relative min-h-screen overflow-x-hidden bg-light-gray-100 antialiased dark:bg-gray-900`}
       >
+        <OrganizationSchema />
         <Providers>
           <NextTopLoader
             color="#3b82f6"
