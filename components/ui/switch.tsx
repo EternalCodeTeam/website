@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
-import { interactionSpring } from "@/lib/animations/variants";
+import { switchThumb, type MotionCustom } from "@/lib/animations/variants";
 
 interface SwitchProps {
   checked: boolean;
@@ -44,11 +44,11 @@ export function Switch({
       type="button"
     >
       <motion.span
-        animate={prefersReducedMotion ? {} : { x: checked ? 24 : 4 }}
         className="inline-block h-4 w-4 rounded-full bg-white shadow-sm"
+        custom={{ reduced: prefersReducedMotion } satisfies MotionCustom}
         initial={false}
-        style={{ x: checked ? 24 : 4 }}
-        transition={prefersReducedMotion ? { duration: 0 } : interactionSpring}
+        variants={switchThumb}
+        animate={checked ? "on" : "off"}
       />
     </button>
   );

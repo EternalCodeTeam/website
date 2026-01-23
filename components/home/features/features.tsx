@@ -8,7 +8,8 @@ import TabNew from "@/components/icons/tab-new";
 import SectionTitle from "@/components/section-title";
 import { Card } from "@/components/ui/card";
 import { MotionSection, SlideIn } from "@/components/ui/motion/motion-components";
-import { slideUp } from "@/lib/animations/variants";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { slideUp, type MotionCustom } from "@/lib/animations/variants";
 
 interface Feature {
   icon: ReactNode;
@@ -18,6 +19,8 @@ interface Feature {
 }
 
 export default function Features() {
+  const prefersReducedMotion = useReducedMotion();
+
   const features: Feature[] = [
     {
       icon: <JavaIcon aria-hidden="true" className="h-8 w-8" />,
@@ -55,7 +58,12 @@ export default function Features() {
 
         <MotionSection className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
           {features.map((feature) => (
-            <m.div className="h-full" key={feature.title} variants={slideUp}>
+            <m.div
+              className="h-full"
+              custom={{ reduced: prefersReducedMotion } satisfies MotionCustom}
+              key={feature.title}
+              variants={slideUp}
+            >
               <Card className="group flex h-full flex-col p-8 transition-colors duration-300 hover:bg-gray-50 hover:shadow-md dark:hover:bg-gray-800/60">
                 <div
                   className={`absolute inset-0 bg-linear-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${feature.color} pointer-events-none`}

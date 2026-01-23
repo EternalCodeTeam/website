@@ -1,7 +1,6 @@
 "use client";
 
 import FocusTrap from "focus-trap-react";
-import type { Transition, Variants } from "framer-motion";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Clock, Hash, Search, Sparkles, TrendingUp, X } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -13,6 +12,17 @@ import { useClickOutside } from "@/hooks/use-click-outside";
 import { useRecentSearches } from "@/hooks/use-recent-searches";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { useSearch } from "@/hooks/use-search";
+import {
+  containerStagger,
+  fadeIn,
+  focusScale,
+  popIn,
+  pulse,
+  scaleXIn,
+  slideInLeft,
+  wiggle,
+  type MotionCustom,
+} from "@/lib/animations/variants";
 import { cn } from "@/lib/utils";
 
 interface SearchModalProps {
@@ -55,40 +65,6 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const prefersReducedMotion = useReducedMotion();
-
-  const resultsContainerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: prefersReducedMotion
-        ? { duration: 0 }
-        : { staggerChildren: 0.04, delayChildren: 0.02 },
-    },
-    exit: { opacity: 0, transition: { duration: prefersReducedMotion ? 0 : 0.12 } },
-  } satisfies Variants;
-
-  const springResultTransition: Transition = {
-    type: "spring",
-    stiffness: 360,
-    damping: 28,
-    mass: 0.7,
-  };
-
-  const resultItemVariants = {
-    hidden: { opacity: 0, y: 8, scale: 0.98 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: prefersReducedMotion ? { duration: 0 } : springResultTransition,
-    },
-    exit: {
-      opacity: 0,
-      y: -6,
-      scale: 0.98,
-      transition: { duration: prefersReducedMotion ? 0 : 0.12 },
-    },
-  } satisfies Variants;
 
   // Use shared hooks
   const { query, setQuery, results, isLoading, isInitializing } = useSearch({ maxResults: 10 });
@@ -226,43 +202,26 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
   const showEmpty = query.length >= 2 && results.length === 0 && !isLoading;
   const showRecent = query.length === 0 && recentSearches.length > 0;
   const showPopular = query.length === 0;
-  let searchIconScale: number | number[] = 1;
-  if (isLoading) {
-    searchIconScale = [1, 1.05, 1];
-  } else if (query) {
-    searchIconScale = 1.05;
-  }
-
   return createPortal(
     <AnimatePresence mode="wait">
       {isOpen && (
         <FocusTrap>
           <motion.div
-            animate={{ opacity: 1 }}
             className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto overscroll-contain bg-black/70 p-0 pt-0 backdrop-blur-md md:p-4 md:pt-[10vh] md:backdrop-blur-sm"
-            exit={{ opacity: 0 }}
-            initial={{ opacity: 0 }}
-            transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
+            custom={{ reduced: prefersReducedMotion } satisfies MotionCustom}
+            exit="hidden"
+            initial="hidden"
+            variants={fadeIn}
+            animate="visible"
           >
             <motion.div
-              animate={{ opacity: 1, scale: 1, y: 0 }}
               className="relative h-full w-full md:h-auto md:max-w-2xl"
-              exit={{
-                opacity: 0,
-                scale: prefersReducedMotion ? 1 : 0.95,
-                y: prefersReducedMotion ? 0 : -20,
-              }}
-              initial={{
-                opacity: 0,
-                scale: prefersReducedMotion ? 1 : 0.95,
-                y: prefersReducedMotion ? 0 : -20,
-              }}
+              custom={{ reduced: prefersReducedMotion, distance: -20, scale: 0.95 } satisfies MotionCustom}
+              exit="exit"
+              initial="hidden"
               ref={modalRef}
-              transition={{
-                type: prefersReducedMotion ? "tween" : "spring",
-                stiffness: 300,
-                damping: 30,
-              }}
+              variants={popIn}
+              animate="visible"
             >
               {/* Modal Container with Enhanced Glassmorphism */}
               <div className="flex h-full flex-col overflow-hidden rounded-none border-0 bg-white/98 shadow-2xl backdrop-blur-2xl md:h-auto md:rounded-2xl md:border md:border-gray-200/60 dark:bg-gray-900/98 dark:md:border-gray-700/60">
@@ -271,21 +230,20 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
                   <div className="flex items-center gap-3 px-5 py-4">
                     {/* Search Icon with Animation */}
                     <motion.div
-                      animate={{
-                        opacity: isLoading ? [0.5, 1, 0.5] : 1,
-                        scale: searchIconScale,
-                      }}
+                      custom={{ reduced: prefersReducedMotion, duration: 1.1 } satisfies MotionCustom}
                       style={{ transformOrigin: "center" }}
-                      transition={{
-                        opacity: {
-                          duration: prefersReducedMotion ? 0 : 1.1,
-                          repeat: isLoading ? Number.POSITIVE_INFINITY : 0,
-                          ease: "easeInOut",
-                        },
-                        scale: { duration: prefersReducedMotion ? 0 : 0.25 },
-                      }}
+                      initial="initial"
+                      variants={pulse}
+                      animate={isLoading ? "animate" : "initial"}
                     >
-                      <Search className="h-5 w-5 shrink-0 text-blue-500" />
+                      <motion.div
+                        custom={{ reduced: prefersReducedMotion, scale: 1.05 } satisfies MotionCustom}
+                        initial="initial"
+                        variants={focusScale}
+                        animate={query && !isLoading ? "focused" : "initial"}
+                      >
+                        <Search className="h-5 w-5 shrink-0 text-blue-500" />
+                      </motion.div>
                     </motion.div>
 
                     {/* Input */}
@@ -306,15 +264,22 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
                     <div className="flex items-center gap-1.5">
                       {query && (
                         <motion.button
-                          animate={{ opacity: 1, scale: 1 }}
                           aria-label="Clear search"
                           className="touch-action-manipulation rounded-lg p-1.5 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
-                          exit={{ opacity: 0, scale: 0.8 }}
-                          initial={{ opacity: 0, scale: 0.8 }}
+                          custom={{
+                            reduced: prefersReducedMotion,
+                            scale: 0.8,
+                            hoverScale: 1.1,
+                            tapScale: 0.9,
+                          } satisfies MotionCustom}
+                          exit="exit"
+                          initial="hidden"
                           onClick={() => setQuery("")}
                           type="button"
-                          whileHover={{ scale: prefersReducedMotion ? 1 : 1.1 }}
-                          whileTap={{ scale: prefersReducedMotion ? 1 : 0.9 }}
+                          variants={popIn}
+                          animate="visible"
+                          whileHover="hover"
+                          whileTap="tap"
                         >
                           <X className="h-4 w-4 text-gray-400" />
                         </motion.button>
@@ -332,11 +297,12 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
                   <AnimatePresence>
                     {isLoading && (
                       <motion.div
-                        animate={{ scaleX: 1 }}
                         className="absolute bottom-0 left-0 h-0.5 w-full origin-left bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"
-                        exit={{ scaleX: 0 }}
-                        initial={{ scaleX: 0 }}
-                        transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
+                        custom={{ reduced: prefersReducedMotion } satisfies MotionCustom}
+                        exit="exit"
+                        initial="hidden"
+                        variants={scaleXIn}
+                        animate="visible"
                       />
                     )}
                   </AnimatePresence>
@@ -360,13 +326,14 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
                   {showResults && !isLoading && !isInitializing && (
                     <AnimatePresence initial={false} mode="popLayout">
                       <motion.div
-                        animate="visible"
                         className="p-2"
-                        exit="exit"
+                        custom={{ reduced: prefersReducedMotion, stagger: 0.04, delayChildren: 0.02 } satisfies MotionCustom}
+                        exit="hidden"
                         initial="hidden"
                         key={`results-${query}`}
                         layout
-                        variants={resultsContainerVariants}
+                        variants={containerStagger}
+                        animate="visible"
                       >
                         <div className="mb-2 flex items-center gap-2 px-3 py-1">
                           <Sparkles className="h-3.5 w-3.5 text-gray-400" />
@@ -382,17 +349,27 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
                                 ? "bg-gradient-to-r from-blue-50 to-blue-50/50 shadow-sm dark:from-blue-500/10 dark:to-blue-500/5"
                                 : "hover:bg-gray-50 dark:hover:bg-gray-800/50"
                             )}
+                            custom={{
+                              reduced: prefersReducedMotion,
+                              distance: 8,
+                              scale: 0.98,
+                              exitDistance: -6,
+                              hoverDistance: 2,
+                              hoverScale: 1.01,
+                              tapScale: 0.99,
+                            } satisfies MotionCustom}
                             data-search-result-index={index}
                             key={result.path}
                             layout="position"
                             onClick={() => handleSelect(result.path)}
                             onMouseEnter={() => setSelectedIndex(index)}
                             type="button"
-                            variants={resultItemVariants}
-                            whileHover={{
-                              x: prefersReducedMotion ? 0 : 2,
-                              scale: prefersReducedMotion ? 1 : 1.01,
-                            }}
+                            variants={popIn}
+                            initial="hidden"
+                            animate="visible"
+                            exit="exit"
+                            whileHover="hover"
+                            whileTap="tap"
                           >
                             <div className="flex items-start gap-3">
                               <div
@@ -430,11 +407,12 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
                               <AnimatePresence initial={false}>
                                 {selectedIndex === index && (
                                   <motion.div
-                                    animate={{ opacity: 1, scale: 1 }}
                                     className="shrink-0"
-                                    exit={{ opacity: 0, scale: 0.9 }}
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    transition={{ duration: prefersReducedMotion ? 0 : 0.15 }}
+                                    custom={{ reduced: prefersReducedMotion, scale: 0.9 } satisfies MotionCustom}
+                                    exit="exit"
+                                    initial="hidden"
+                                    variants={popIn}
+                                    animate="visible"
                                   >
                                     <ArrowRight className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                                   </motion.div>
@@ -450,15 +428,18 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
                   {/* Empty State */}
                   {showEmpty && (
                     <motion.div
-                      animate={{ opacity: 1, scale: 1 }}
                       className="px-4 py-12 text-center"
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                      custom={{ reduced: prefersReducedMotion, scale: 0.95 } satisfies MotionCustom}
+                      initial="hidden"
+                      variants={popIn}
+                      animate="visible"
                     >
                       <motion.div
-                        animate={{ rotate: [0, -10, 10, 0] }}
                         className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700"
-                        transition={{ duration: prefersReducedMotion ? 0 : 0.5, delay: 0.1 }}
+                        custom={{ reduced: prefersReducedMotion, duration: 0.5, delay: 0.1 } satisfies MotionCustom}
+                        initial="initial"
+                        variants={wiggle}
+                        animate="animate"
                       >
                         <Search className="h-7 w-7 text-gray-400" />
                       </motion.div>
@@ -491,14 +472,17 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
                       </div>
                       {recentSearches.map((search, index) => (
                         <motion.button
-                          animate={{ opacity: 1, x: 0 }}
                           className="touch-action-manipulation w-full cursor-pointer rounded-lg px-3 py-2 text-left text-gray-700 text-sm transition-colors hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800/50"
-                          initial={{ opacity: 0, x: -20 }}
+                          custom={{
+                            reduced: prefersReducedMotion,
+                            distance: 20,
+                            delay: prefersReducedMotion ? 0 : index * 0.05,
+                          } satisfies MotionCustom}
+                          initial="hidden"
                           key={search}
                           onClick={() => handleRecentSearchClick(search)}
-                          transition={{
-                            delay: prefersReducedMotion ? 0 : index * 0.05,
-                          }}
+                          variants={slideInLeft}
+                          animate="visible"
                           type="button"
                         >
                           {search}
@@ -518,16 +502,20 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
                       </div>
                       {POPULAR_PAGES.map((page, index) => (
                         <motion.button
-                          animate={{ opacity: 1, x: 0 }}
                           className="group touch-action-manipulation w-full cursor-pointer rounded-lg px-3 py-2.5 text-left transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/50"
-                          initial={{ opacity: 0, x: -20 }}
+                          custom={{
+                            reduced: prefersReducedMotion,
+                            distance: 20,
+                            delay: prefersReducedMotion ? 0 : index * 0.05,
+                            hoverDistance: 4,
+                          } satisfies MotionCustom}
+                          initial="hidden"
                           key={page.path}
                           onClick={() => handleSelect(page.path)}
-                          transition={{
-                            delay: prefersReducedMotion ? 0 : index * 0.05,
-                          }}
                           type="button"
-                          whileHover={{ x: prefersReducedMotion ? 0 : 4 }}
+                          variants={slideInLeft}
+                          animate="visible"
+                          whileHover="hover"
                         >
                           <div className="mb-1 font-medium text-gray-900 text-sm dark:text-white">
                             {page.title}

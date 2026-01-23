@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, type Transition, type Variants } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Search, Sparkles, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import type { KeyboardEvent } from "react";
@@ -8,6 +8,16 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useClickOutside } from "@/hooks/use-click-outside";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { useSearch } from "@/hooks/use-search";
+import {
+  containerStagger,
+  fadeIn,
+  focusScale,
+  popIn,
+  scaleXIn,
+  spin,
+  wiggle,
+  type MotionCustom,
+} from "@/lib/animations/variants";
 import { cn } from "@/lib/utils";
 
 interface SearchBoxProps {
@@ -31,37 +41,6 @@ const SearchBox = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const prefersReducedMotion = useReducedMotion();
-
-  const resultsContainerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: prefersReducedMotion
-        ? { duration: 0 }
-        : { staggerChildren: 0.04, delayChildren: 0.02 },
-    },
-    exit: { opacity: 0, transition: { duration: prefersReducedMotion ? 0 : 0.12 } },
-  };
-
-  const resultItemTransition: Transition = prefersReducedMotion
-    ? { duration: 0 }
-    : { type: "spring", stiffness: 360, damping: 28, mass: 0.7 };
-
-  const resultItemVariants: Variants = {
-    hidden: { opacity: 0, y: 8, scale: 0.98 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: resultItemTransition,
-    },
-    exit: {
-      opacity: 0,
-      y: -6,
-      scale: 0.98,
-      transition: { duration: prefersReducedMotion ? 0 : 0.12 },
-    },
-  };
 
   // Use shared search hook
   const { query, setQuery, results, isLoading } = useSearch({
@@ -164,36 +143,40 @@ const SearchBox = ({
           />
 
           <motion.div
-            animate={{
-              rotate: isLoading ? 360 : 0,
-              scale: isFocused || isOpen ? 1.1 : 1,
-            }}
             className="pointer-events-none absolute top-2.5 left-3"
             style={{ transformOrigin: "center" }}
-            transition={{
-              rotate: {
-                duration: 1,
-                repeat: isLoading ? Number.POSITIVE_INFINITY : 0,
-                ease: "linear",
-              },
-              scale: { duration: prefersReducedMotion ? 0 : 0.2 },
-            }}
           >
-            <Search
-              className={cn(
-                "h-5 w-5 transition-colors duration-200",
-                isFocused || isOpen ? "text-blue-500" : "text-gray-400"
-              )}
-            />
+            <motion.div
+              custom={{ reduced: prefersReducedMotion, duration: 1 } satisfies MotionCustom}
+              initial="initial"
+              variants={spin}
+              animate={isLoading ? "animate" : "initial"}
+            >
+              <motion.div
+                custom={{ reduced: prefersReducedMotion, scale: 1.1 } satisfies MotionCustom}
+                initial="initial"
+                variants={focusScale}
+                animate={isFocused || isOpen ? "focused" : "initial"}
+              >
+                <Search
+                  className={cn(
+                    "h-5 w-5 transition-colors duration-200",
+                    isFocused || isOpen ? "text-blue-500" : "text-gray-400"
+                  )}
+                />
+              </motion.div>
+            </motion.div>
           </motion.div>
 
           <AnimatePresence>
             {!(isFocused || query) && (
               <motion.div
-                animate={{ opacity: 1 }}
                 className="pointer-events-none absolute top-2.5 right-3 flex items-center gap-1"
-                exit={{ opacity: 0 }}
-                initial={{ opacity: 0 }}
+                custom={{ reduced: prefersReducedMotion } satisfies MotionCustom}
+                exit="hidden"
+                initial="hidden"
+                variants={fadeIn}
+                animate="visible"
               >
                 <kbd
                   className="hidden rounded border border-gray-300 bg-gray-100 px-1.5 py-0.5 font-mono text-gray-500 text-xs sm:inline-block dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
@@ -214,18 +197,25 @@ const SearchBox = ({
           <AnimatePresence>
             {!!query && (
               <motion.button
-                animate={{ opacity: 1, scale: 1 }}
                 aria-label="Clear search"
                 className="touch-action-manipulation absolute top-2.5 right-3 rounded-full p-0.5 hover:bg-gray-100 dark:hover:bg-gray-700"
-                exit={{ opacity: 0, scale: 0.8 }}
-                initial={{ opacity: 0, scale: 0.8 }}
+                custom={{
+                  reduced: prefersReducedMotion,
+                  scale: 0.8,
+                  hoverScale: 1.1,
+                  tapScale: 0.9,
+                } satisfies MotionCustom}
+                exit="exit"
+                initial="hidden"
+                variants={popIn}
                 onMouseDown={(e) => {
                   e.preventDefault();
                   clearSearch();
                 }}
                 type="button"
-                whileHover={{ scale: prefersReducedMotion ? 1 : 1.1 }}
-                whileTap={{ scale: prefersReducedMotion ? 1 : 0.9 }}
+                animate="visible"
+                whileHover="hover"
+                whileTap="tap"
               >
                 <X className="h-4 w-4 text-gray-400" />
               </motion.button>
@@ -237,11 +227,12 @@ const SearchBox = ({
         <AnimatePresence>
           {!!isLoading && (
             <motion.div
-              animate={{ scaleX: 1 }}
               className="absolute bottom-0 left-0 h-0.5 w-full origin-left rounded-full bg-linear-to-r from-blue-500 to-purple-500"
-              exit={{ scaleX: 0 }}
-              initial={{ scaleX: 0 }}
-              transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
+              custom={{ reduced: prefersReducedMotion } satisfies MotionCustom}
+              exit="exit"
+              initial="hidden"
+              variants={scaleXIn}
+              animate="visible"
             />
           )}
         </AnimatePresence>
@@ -251,26 +242,24 @@ const SearchBox = ({
       <AnimatePresence>
         {!!isOpen && query.length >= minQueryLength && (
           <motion.div
-            animate={{ opacity: 1, y: 0, scale: 1 }}
             className="absolute z-50 mt-2 w-full overflow-hidden rounded-xl border border-gray-200 bg-white/90 shadow-2xl backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/90"
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            transition={{
-              type: prefersReducedMotion ? "tween" : "spring",
-              stiffness: 400,
-              damping: 25,
-            }}
+            custom={{ reduced: prefersReducedMotion, distance: -10, scale: 0.95 } satisfies MotionCustom}
+            exit="exit"
+            initial="hidden"
+            variants={popIn}
+            animate="visible"
           >
             {results.length > 0 ? (
               <AnimatePresence initial={false} mode="popLayout">
                 <motion.div
-                  animate="visible"
                   className="scrollbar-hide max-h-96 overflow-y-auto"
-                  exit="exit"
+                  custom={{ reduced: prefersReducedMotion, stagger: 0.04, delayChildren: 0.02 } satisfies MotionCustom}
+                  exit="hidden"
                   initial="hidden"
                   key={`results-${query}`}
                   layout
-                  variants={resultsContainerVariants}
+                  variants={containerStagger}
+                  animate="visible"
                 >
                   {/* biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Search result rendering is complex */}
                   {results.map((result, index) => (
@@ -281,6 +270,15 @@ const SearchBox = ({
                           ? "bg-blue-50 dark:bg-blue-500/10"
                           : "hover:bg-gray-50 dark:hover:bg-gray-800/50"
                       )}
+                      custom={{
+                        reduced: prefersReducedMotion,
+                        distance: 8,
+                        scale: 0.98,
+                        exitDistance: -6,
+                        hoverDistance: 2,
+                        hoverScale: 1.01,
+                        tapScale: 0.99,
+                      } satisfies MotionCustom}
                       key={result.path}
                       layout="position"
                       onClick={() => handleSelect(result.path)}
@@ -289,24 +287,25 @@ const SearchBox = ({
                       }}
                       onMouseEnter={() => setSelectedIndex(index)}
                       type="button"
-                      variants={resultItemVariants}
-                      whileHover={{
-                        x: prefersReducedMotion ? 0 : 2,
-                        scale: prefersReducedMotion ? 1 : 1.01,
-                      }}
+                      variants={popIn}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      whileHover="hover"
+                      whileTap="tap"
                     >
                       <div className="flex items-start gap-3">
                         <motion.div
-                          animate={{
-                            rotate: selectedIndex === index ? [0, -8, 8, 0] : 0,
-                          }}
                           className={cn(
                             "mt-0.5 shrink-0",
                             selectedIndex === index
                               ? "text-blue-600 dark:text-blue-400"
                               : "text-gray-400"
                           )}
-                          transition={{ duration: prefersReducedMotion ? 0 : 0.25 }}
+                          custom={{ reduced: prefersReducedMotion, duration: 0.25 } satisfies MotionCustom}
+                          initial="initial"
+                          variants={wiggle}
+                          animate={selectedIndex === index ? "animate" : "initial"}
                         >
                           <Sparkles className="h-4 w-4" />
                         </motion.div>
@@ -321,11 +320,12 @@ const SearchBox = ({
                         <AnimatePresence initial={false}>
                           {selectedIndex === index && (
                             <motion.div
-                              animate={{ opacity: 1, scale: 1 }}
                               className="shrink-0 rounded-sm bg-blue-100 px-2 py-0.5 font-medium text-blue-700 text-xs dark:bg-blue-900/30 dark:text-blue-300"
-                              exit={{ opacity: 0, scale: 0.9 }}
-                              initial={{ opacity: 0, scale: 0.9 }}
-                              transition={{ duration: prefersReducedMotion ? 0 : 0.15 }}
+                              custom={{ reduced: prefersReducedMotion, scale: 0.9 } satisfies MotionCustom}
+                              exit="exit"
+                              initial="hidden"
+                              variants={popIn}
+                              animate="visible"
                             >
                               Enter
                             </motion.div>
@@ -338,19 +338,18 @@ const SearchBox = ({
               </AnimatePresence>
             ) : (
               <motion.div
-                animate={{ opacity: 1, scale: 1 }}
                 className="px-4 py-8 text-center"
-                initial={{ opacity: 0, scale: 0.95 }}
-                transition={{
-                  type: prefersReducedMotion ? "tween" : "spring",
-                  stiffness: 300,
-                  damping: 25,
-                }}
+                custom={{ reduced: prefersReducedMotion, scale: 0.95 } satisfies MotionCustom}
+                initial="hidden"
+                variants={popIn}
+                animate="visible"
               >
                 <motion.div
-                  animate={{ rotate: [0, -10, 10, 0] }}
                   className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700"
-                  transition={{ duration: prefersReducedMotion ? 0 : 0.5, delay: 0.1 }}
+                  custom={{ reduced: prefersReducedMotion, duration: 0.5, delay: 0.1 } satisfies MotionCustom}
+                  initial="initial"
+                  variants={wiggle}
+                  animate="animate"
                 >
                   <Search className="h-6 w-6 text-gray-400" />
                 </motion.div>

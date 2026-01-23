@@ -6,33 +6,29 @@ import {
   containerStagger,
   fadeIn,
   hoverScale,
+  type MotionCustom,
   scaleIn,
   slideDown,
   slideInLeft,
   slideInRight,
   slideUp,
 } from "@/lib/animations/variants";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 interface MotionProps extends HTMLMotionProps<"div"> {
   children: ReactNode;
   className?: string;
   delay?: number;
+  stagger?: number;
+  delayChildren?: number;
 }
 
 /* ----------------- Primitives ----------------- */
 
 export const FadeIn = ({ children, delay = 0, className, ...props }: MotionProps) => (
-  <m.div
-    className={className}
-    custom={delay}
-    initial="hidden"
-    variants={fadeIn}
-    viewport={{ once: true, margin: "-100px" }}
-    whileInView="visible"
-    {...props}
-  >
+  <FadeInBase className={className} delay={delay} {...props}>
     {children}
-  </m.div>
+  </FadeInBase>
 );
 
 export const SlideIn = ({
@@ -42,6 +38,7 @@ export const SlideIn = ({
   className,
   ...props
 }: MotionProps & { direction?: "up" | "down" | "left" | "right" }) => {
+  const prefersReducedMotion = useReducedMotion();
   const variantMap = {
     up: slideUp,
     down: slideDown,
@@ -52,7 +49,7 @@ export const SlideIn = ({
   return (
     <m.div
       className={className}
-      custom={delay}
+      custom={{ delay, reduced: prefersReducedMotion } satisfies MotionCustom}
       initial="hidden"
       variants={variantMap[direction]}
       viewport={{ once: true, margin: "-100px" }}
@@ -65,17 +62,9 @@ export const SlideIn = ({
 };
 
 export const ScaleIn = ({ children, delay = 0, className, ...props }: MotionProps) => (
-  <m.div
-    className={className}
-    custom={delay}
-    initial="hidden"
-    variants={scaleIn}
-    viewport={{ once: true, margin: "-100px" }}
-    whileInView="visible"
-    {...props}
-  >
+  <ScaleInBase className={className} delay={delay} {...props}>
     {children}
-  </m.div>
+  </ScaleInBase>
 );
 
 export const HoverScale = ({ children, className, ...props }: MotionProps) => (
@@ -94,14 +83,64 @@ export const HoverScale = ({ children, className, ...props }: MotionProps) => (
 /* ----------------- Container ----------------- */
 
 export const MotionSection = ({ children, className, ...props }: MotionProps) => (
-  <m.div
-    className={className}
-    initial="hidden"
-    variants={containerStagger}
-    viewport={{ once: true, margin: "-80px" }}
-    whileInView="visible"
-    {...props}
-  >
+  <MotionSectionBase className={className} {...props}>
     {children}
-  </m.div>
+  </MotionSectionBase>
 );
+
+const FadeInBase = ({ children, delay = 0, className, ...props }: MotionProps) => {
+  const prefersReducedMotion = useReducedMotion();
+  return (
+    <m.div
+      className={className}
+      custom={{ delay, reduced: prefersReducedMotion } satisfies MotionCustom}
+      initial="hidden"
+      variants={fadeIn}
+      viewport={{ once: true, margin: "-100px" }}
+      whileInView="visible"
+      {...props}
+    >
+      {children}
+    </m.div>
+  );
+};
+
+const ScaleInBase = ({ children, delay = 0, className, ...props }: MotionProps) => {
+  const prefersReducedMotion = useReducedMotion();
+  return (
+    <m.div
+      className={className}
+      custom={{ delay, reduced: prefersReducedMotion } satisfies MotionCustom}
+      initial="hidden"
+      variants={scaleIn}
+      viewport={{ once: true, margin: "-100px" }}
+      whileInView="visible"
+      {...props}
+    >
+      {children}
+    </m.div>
+  );
+};
+
+const MotionSectionBase = ({
+  children,
+  className,
+  stagger,
+  delayChildren,
+  ...props
+}: MotionProps) => {
+  const prefersReducedMotion = useReducedMotion();
+  return (
+    <m.div
+      className={className}
+      custom={{ reduced: prefersReducedMotion, stagger, delayChildren } satisfies MotionCustom}
+      initial="hidden"
+      variants={containerStagger}
+      viewport={{ once: true, margin: "-80px" }}
+      whileInView="visible"
+      {...props}
+    >
+      {children}
+    </m.div>
+  );
+};

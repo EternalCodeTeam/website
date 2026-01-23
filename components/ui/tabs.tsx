@@ -12,6 +12,7 @@ import {
   useState,
 } from "react";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { interactionSpring, popIn, type MotionCustom } from "@/lib/animations/variants";
 import { cn } from "@/lib/utils";
 
 interface TabsContextType {
@@ -107,9 +108,7 @@ export function TabsTrigger({ className, value, children, ...props }: TabsTrigge
           className="absolute inset-0 z-0 rounded-full bg-white shadow-sm dark:bg-white/10"
           initial={false}
           layoutId={prefersReducedMotion ? undefined : `tab-bg-${layoutId}`}
-          transition={
-            prefersReducedMotion ? { duration: 0 } : { type: "spring", stiffness: 500, damping: 30 }
-          }
+          transition={prefersReducedMotion ? { duration: 0 } : interactionSpring}
         />
       ) : null}
       <span className="relative z-10">{children}</span>
@@ -134,16 +133,17 @@ export function TabsContent({ className, value, children, ...props }: TabsConten
 
   return (
     <motion.div
-      animate={prefersReducedMotion ? {} : { opacity: 1, y: 0, scale: 1 }}
       className={cn(
         "mt-6 ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
         className
       )}
-      exit={prefersReducedMotion ? {} : { opacity: 0, y: -10, scale: 0.98 }}
+      custom={{ reduced: prefersReducedMotion, distance: 10, scale: 0.98 } satisfies MotionCustom}
+      exit="exit"
       id={panelId}
-      initial={prefersReducedMotion ? {} : { opacity: 0, y: 10, scale: 0.98 }}
+      initial="hidden"
       role="tabpanel"
-      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3, ease: "easeOut" }}
+      variants={popIn}
+      animate="visible"
       {...props}
     >
       {children}

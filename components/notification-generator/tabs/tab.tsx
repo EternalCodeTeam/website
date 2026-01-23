@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { interactionSpring } from "@/lib/animations/variants";
 
 import type { TabType } from "../types";
 
@@ -34,7 +35,7 @@ export const Tab = ({ activeTab, tabName, label, onClick }: TabProps) => {
           className="absolute inset-0 rounded-lg bg-white shadow-sm dark:bg-gray-800"
           initial={false}
           layoutId="activeTab"
-          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+          transition={interactionSpring}
         />
       )}
       <span className="relative z-10">{label}</span>

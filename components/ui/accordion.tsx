@@ -4,6 +4,12 @@ import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import React, { useCallback } from "react";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import {
+  accordionHighlight,
+  expandCollapse,
+  rotateChevron,
+  type MotionCustom,
+} from "@/lib/animations/variants";
 import { cn } from "@/lib/utils";
 
 interface AccordionContextType {
@@ -84,28 +90,26 @@ export function AccordionTrigger({ children, className, value, itemId }: Accordi
 
   return (
     <motion.button
-      animate={
-        prefersReducedMotion ? {} : { backgroundColor: isOpen ? "rgba(0,0,0,0.02)" : "transparent" }
-      }
       aria-controls={contentId}
       aria-expanded={isOpen}
       className={cn(
         "flex w-full cursor-pointer items-center justify-between px-6 py-4 text-left font-medium transition-colors hover:bg-gray-50/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:hover:bg-gray-800/50",
         className
       )}
+      custom={{ reduced: prefersReducedMotion } satisfies MotionCustom}
       initial={false}
+      variants={accordionHighlight}
+      animate={isOpen ? "open" : "closed"}
       onClick={toggle}
       type="button"
     >
       <span className="text-gray-800 dark:text-gray-100">{children}</span>
       <motion.div
-        animate={prefersReducedMotion ? {} : { rotate: isOpen ? 180 : 0 }}
         className="text-gray-500 dark:text-gray-400"
-        transition={
-          prefersReducedMotion
-            ? { duration: 0 }
-            : { duration: 0.3, type: "spring", stiffness: 300, damping: 20 }
-        }
+        custom={{ reduced: prefersReducedMotion } satisfies MotionCustom}
+        initial="closed"
+        variants={rotateChevron}
+        animate={isOpen ? "open" : "closed"}
       >
         <ChevronDown className="h-5 w-5" />
       </motion.div>
@@ -133,32 +137,13 @@ export function AccordionContent({ children, className, value, itemId }: Accordi
 
   return (
     <motion.div
-      animate={
-        prefersReducedMotion
-          ? {}
-          : {
-              height: isOpen ? "auto" : 0,
-              opacity: isOpen ? 1 : 0,
-            }
-      }
       className="overflow-hidden"
       id={contentId}
       initial={false}
+      custom={{ reduced: prefersReducedMotion } satisfies MotionCustom}
+      variants={expandCollapse}
+      animate={isOpen ? "visible" : "hidden"}
       style={prefersReducedMotion ? { display: isOpen ? "block" : "none" } : {}}
-      transition={
-        prefersReducedMotion
-          ? { duration: 0 }
-          : {
-              height: {
-                duration: 0.4,
-                ease: "easeInOut",
-              },
-              opacity: {
-                duration: 0.25,
-                delay: isOpen ? 0.2 : 0,
-              },
-            }
-      }
     >
       <div
         className={cn("px-6 pt-1 pb-4 text-gray-600 dark:text-gray-300", className)}

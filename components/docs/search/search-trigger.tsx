@@ -4,6 +4,12 @@ import { motion } from "framer-motion";
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import {
+  hoverScaleSoft,
+  hoverTilt,
+  skeletonShimmer,
+  type MotionCustom,
+} from "@/lib/animations/variants";
 import { cn } from "@/lib/utils";
 
 interface SearchTriggerProps {
@@ -27,18 +33,23 @@ export function SearchTrigger({ onClick, className }: SearchTriggerProps) {
         className
       )}
       onClick={onClick}
+      custom={{ reduced: prefersReducedMotion, scale: 1.01 } satisfies MotionCustom}
+      initial="initial"
+      variants={hoverScaleSoft}
       type="button"
-      whileHover={{ scale: prefersReducedMotion ? 1 : 1.01 }}
-      whileTap={{ scale: prefersReducedMotion ? 1 : 0.99 }}
+      whileHover="hover"
+      whileTap="tap"
     >
       {/* Gradient overlay on hover */}
       <div className="absolute inset-0 bg-gradient-to-r from-blue-50/0 via-blue-50/50 to-blue-50/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-blue-500/0 dark:via-blue-500/5 dark:to-blue-500/0" />
 
       {/* Search Icon */}
       <motion.div
-        animate={{ scale: 1 }}
         className="relative z-10"
-        whileHover={{ scale: prefersReducedMotion ? 1 : 1.1, rotate: prefersReducedMotion ? 0 : 5 }}
+        custom={{ reduced: prefersReducedMotion, scale: 1.1, distance: 5 } satisfies MotionCustom}
+        initial="initial"
+        variants={hoverTilt}
+        whileHover="hover"
       >
         <Search className="h-4 w-4 text-gray-400 transition-colors group-hover:text-blue-500" />
       </motion.div>
@@ -66,15 +77,11 @@ export function SearchTrigger({ onClick, className }: SearchTriggerProps) {
 
       {/* Shine effect */}
       <motion.div
-        animate={{
-          x: ["-100%", "100%"],
-        }}
         className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100"
-        transition={{
-          duration: prefersReducedMotion ? 0 : 1.5,
-          repeat: Number.POSITIVE_INFINITY,
-          repeatDelay: 3,
-        }}
+        custom={{ reduced: prefersReducedMotion, duration: 1.5 } satisfies MotionCustom}
+        initial="initial"
+        variants={skeletonShimmer}
+        animate="animate"
       />
     </motion.button>
   );

@@ -4,8 +4,9 @@ import { m } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import type { DocProject } from "@/lib/docs-projects";
-import { itemVariants } from "./animations";
+import { blurIn, type MotionCustom } from "@/lib/animations/variants";
 
 interface DocsCardProps {
   project: DocProject;
@@ -13,9 +14,14 @@ interface DocsCardProps {
 
 export function DocsCard({ project }: DocsCardProps) {
   const Icon = project.icon;
+  const prefersReducedMotion = useReducedMotion();
 
   return (
-    <m.div className="h-full" variants={itemVariants}>
+    <m.div
+      className="h-full"
+      custom={{ reduced: prefersReducedMotion, distance: 20, blur: 4 } satisfies MotionCustom}
+      variants={blurIn}
+    >
       <Card className="group relative flex h-full flex-col p-6 transition-colors duration-300 hover:bg-gray-50 hover:shadow-md dark:hover:bg-gray-800/60">
         <div
           className={`pointer-events-none absolute inset-0 bg-linear-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${project.gradientColor}`}

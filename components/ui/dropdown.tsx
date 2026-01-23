@@ -10,6 +10,7 @@ import {
   useState,
 } from "react";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { popIn, rotateChevron, type MotionCustom } from "@/lib/animations/variants";
 
 export interface DropdownOption {
   value: string;
@@ -102,9 +103,11 @@ export function Dropdown({
           {selected?.label || placeholder}
         </span>
         <motion.span
-          animate={prefersReducedMotion ? {} : { rotate: isOpen ? 180 : 0 }}
           className="ml-2 shrink-0"
-          transition={{ duration: 0.2 }}
+          custom={{ reduced: prefersReducedMotion } satisfies MotionCustom}
+          initial="closed"
+          variants={rotateChevron}
+          animate={isOpen ? "open" : "closed"}
         >
           <ChevronDown aria-hidden="true" className="h-4 w-4 opacity-50" />
         </motion.span>
@@ -112,15 +115,14 @@ export function Dropdown({
       <AnimatePresence>
         {isOpen ? (
           <motion.div
-            animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
             className={`absolute left-0 z-50 mt-2 min-w-full origin-top-right overflow-hidden rounded-xl border border-gray-200 bg-white p-1 shadow-2xl ring-1 ring-black/5 dark:border-gray-800 dark:bg-gray-950 dark:ring-white/10 ${menuClassName}`}
-            exit={prefersReducedMotion ? {} : { opacity: 0, y: -8, scale: 0.95 }}
-            initial={prefersReducedMotion ? {} : { opacity: 0, y: -8, scale: 0.95 }}
+            custom={{ reduced: prefersReducedMotion, distance: -8, scale: 0.95 } satisfies MotionCustom}
+            exit="exit"
+            initial="hidden"
             role="listbox"
             style={{ position: "absolute" }}
-            transition={
-              prefersReducedMotion ? { duration: 0 } : { duration: 0.2, ease: [0.16, 1, 0.3, 1] }
-            }
+            variants={popIn}
+            animate="visible"
           >
             <div className="scrollbar-none max-h-[300px] overflow-y-auto">
               {options.map((option) => (

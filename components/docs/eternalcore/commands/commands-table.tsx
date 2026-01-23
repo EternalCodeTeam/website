@@ -4,12 +4,16 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import type { CommandData } from "@/components/docs/eternalcore/commands/types";
 import { CopyToClipboard } from "@/components/ui/copy-to-clipboard";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { popIn, type MotionCustom } from "@/lib/animations/variants";
 
 interface CommandsTableProps {
   commands: CommandData[];
 }
 
 export function CommandsTable({ commands }: CommandsTableProps) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <div className="my-6 overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900/50">
       <table className="w-full border-collapse text-left text-sm">
@@ -26,12 +30,18 @@ export function CommandsTable({ commands }: CommandsTableProps) {
           <AnimatePresence>
             {commands.map((c, i) => (
               <motion.tr
-                animate={{ opacity: 1, y: 0 }}
                 className="transition-colors hover:bg-gray-50/50 dark:hover:bg-gray-800/50"
-                exit={{ opacity: 0, y: -3 }}
-                initial={{ opacity: 0, y: 3 }}
+                custom={{
+                  reduced: prefersReducedMotion,
+                  distance: 3,
+                  exitDistance: -3,
+                  delay: prefersReducedMotion ? 0 : i * 0.01,
+                } satisfies MotionCustom}
+                exit="exit"
+                initial="hidden"
                 key={`${c.name}-${i}`}
-                transition={{ duration: 0.15, delay: i * 0.01 }}
+                variants={popIn}
+                animate="visible"
               >
                 <td className="px-4 py-2 font-medium text-gray-900 text-sm dark:text-gray-100">
                   <CopyToClipboard className="inline-flex" text={c.name}>

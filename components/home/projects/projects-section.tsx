@@ -1,9 +1,8 @@
 "use client";
-
-import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { SlideIn } from "@/components/ui/motion/motion-components";
 
 interface Project {
   name: string;
@@ -94,17 +93,12 @@ export default function Projects() {
       <div className="mx-auto max-w-[90rem] px-4 md:px-8">
         {/* Header content */}
         <div className="mb-12 w-full">
-          <motion.div
-            className="mb-4 flex items-center gap-2"
-            initial={{ opacity: 0, x: -20 }}
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, x: 0 }}
-          >
+          <SlideIn className="mb-4 flex items-center gap-2" direction="left">
             <span className="h-px w-8 bg-blue-600/50 dark:bg-blue-400/50" />
             <span className="font-bold text-blue-600 text-sm uppercase tracking-widest dark:text-blue-400">
               Our Ecosystem
             </span>
-          </motion.div>
+          </SlideIn>
 
           <h3 className="max-w-4xl font-extrabold text-4xl text-gray-900 tracking-tight sm:text-5xl lg:text-7xl dark:text-white">
             Crafting{" "}

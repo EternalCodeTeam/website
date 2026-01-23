@@ -9,7 +9,16 @@ import { createPortal } from "react-dom";
 
 import AnnouncementBanner from "@/components/hero/announcement-banner";
 import { Button } from "@/components/ui/button";
-import { slideDown } from "@/lib/animations/variants";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import {
+  expandCollapse,
+  fadeIn,
+  rotateChevron,
+  slideDown,
+  slideInLeft,
+  slideInLeftFull,
+  type MotionCustom,
+} from "@/lib/animations/variants";
 import logo from "@/public/logo.svg";
 import NewWindow from "../icons/new-window";
 import AnimatedHamburger from "./hamburger";
@@ -81,6 +90,7 @@ function MobileMenuAccordion({
   onSelect: () => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <div className="overflow-hidden rounded-lg">
@@ -90,18 +100,25 @@ function MobileMenuAccordion({
         type="button"
       >
         <span>{title}</span>
-        <ChevronDown
-          className={`h-4 w-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
-        />
+        <motion.span
+          className="h-4 w-4"
+          custom={{ reduced: prefersReducedMotion } satisfies MotionCustom}
+          initial="closed"
+          variants={rotateChevron}
+          animate={isOpen ? "open" : "closed"}
+        >
+          <ChevronDown className="h-4 w-4" />
+        </motion.span>
       </button>
       <AnimatePresence>
         {!!isOpen && (
           <motion.div
-            animate={{ height: "auto", opacity: 1 }}
             className="overflow-hidden"
-            exit={{ height: 0, opacity: 0 }}
-            initial={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
+            custom={{ reduced: prefersReducedMotion } satisfies MotionCustom}
+            exit="hidden"
+            initial="hidden"
+            variants={expandCollapse}
+            animate="visible"
           >
             <ul className="flex flex-col space-y-1 bg-gray-50/50 pb-2 pl-4 dark:bg-white/5">
               {items.map((item) => (
@@ -127,6 +144,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   const navRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -215,6 +233,7 @@ export default function Navbar() {
         }`}
         initial="hidden"
         ref={navRef}
+        custom={{ reduced: prefersReducedMotion, distance: 16 } satisfies MotionCustom}
         variants={slideDown}
       >
         <AnnouncementBanner />
@@ -298,23 +317,26 @@ export default function Navbar() {
             {!!isMenuOpen && (
               <>
                 <motion.div
-                  animate={{ opacity: 1 }}
                   aria-hidden="true"
                   className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm md:hidden"
-                  exit={{ opacity: 0 }}
-                  initial={{ opacity: 0 }}
+                  custom={{ reduced: prefersReducedMotion } satisfies MotionCustom}
+                  exit="hidden"
+                  initial="hidden"
+                  variants={fadeIn}
+                  animate="visible"
                   onClick={closeMenu}
                   role="presentation"
                 />
                 <motion.aside
-                  animate={{ x: 0 }}
                   className="fixed inset-y-0 left-0 z-50 flex w-full flex-col bg-white shadow-2xl md:hidden dark:bg-[#050505]"
-                  exit={{ x: "-100%" }}
                   id="mobile-menu"
-                  initial={{ x: "-100%" }}
+                  custom={{ reduced: prefersReducedMotion } satisfies MotionCustom}
+                  exit="exit"
+                  initial="hidden"
                   ref={mobileMenuRef}
                   role="menu"
-                  transition={{ type: "spring", stiffness: 320, damping: 32 }}
+                  variants={slideInLeftFull}
+                  animate="visible"
                 >
                   <div className="flex items-center justify-between border-gray-100 border-b px-6 py-5 dark:border-white/5">
                     <Link
@@ -350,10 +372,15 @@ export default function Navbar() {
                     <ul className="space-y-2">
                       {mainNavLinks.map((link, index) => (
                         <motion.li
-                          animate={{ opacity: 1, x: 0 }}
-                          initial={{ opacity: 0, x: -20 }}
+                          custom={{
+                            reduced: prefersReducedMotion,
+                            distance: 20,
+                            delay: prefersReducedMotion ? 0 : index * 0.05,
+                          } satisfies MotionCustom}
+                          initial="hidden"
                           key={link.href}
-                          transition={{ duration: 0.25, delay: index * 0.05 }}
+                          variants={slideInLeft}
+                          animate="visible"
                         >
                           <MobileMenuLink
                             href={link.href}
@@ -368,9 +395,10 @@ export default function Navbar() {
 
                     <div className="mt-6 space-y-3">
                       <motion.div
-                        animate={{ opacity: 1, x: 0 }}
-                        initial={{ opacity: 0, x: -20 }}
-                        transition={{ delay: 0.05 }}
+                        custom={{ reduced: prefersReducedMotion, distance: 20, delay: 0.05 } satisfies MotionCustom}
+                        initial="hidden"
+                        variants={slideInLeft}
+                        animate="visible"
                       >
                         <MobileMenuAccordion
                           items={TOOLS_LINKS}
@@ -384,10 +412,15 @@ export default function Navbar() {
                       <ul className="space-y-2">
                         {externalNavLinks.map((link, index) => (
                           <motion.li
-                            animate={{ opacity: 1, x: 0 }}
-                            initial={{ opacity: 0, x: -20 }}
+                            custom={{
+                              reduced: prefersReducedMotion,
+                              distance: 20,
+                              delay: prefersReducedMotion ? 0 : 0.1 + index * 0.04,
+                            } satisfies MotionCustom}
+                            initial="hidden"
                             key={link.href}
-                            transition={{ duration: 0.25, delay: 0.1 + index * 0.04 }}
+                            variants={slideInLeft}
+                            animate="visible"
                           >
                             <MobileMenuLink
                               href={link.href}

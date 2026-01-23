@@ -6,6 +6,15 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { FadeIn } from "@/components/ui/motion/motion-components";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import {
+  fadeIn,
+  marqueeHalf,
+  marqueeHalfReverse,
+  popIn,
+  hoverScaleSoft,
+  type MotionCustom,
+} from "@/lib/animations/variants";
 
 const marqueeItems = [
   // Row 1: Essentials & Chat
@@ -60,6 +69,8 @@ const ShowcaseModal = ({
   item: (typeof marqueeItems)[0];
   onClose: () => void;
 }) => {
+  const prefersReducedMotion = useReducedMotion();
+
   // Prevent body scroll when modal is open
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -70,19 +81,22 @@ const ShowcaseModal = ({
 
   return createPortal(
     <motion.div
-      animate={{ opacity: 1 }}
       className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
-      exit={{ opacity: 0 }}
-      initial={{ opacity: 0 }}
+      custom={{ reduced: prefersReducedMotion } satisfies MotionCustom}
+      exit="hidden"
+      initial="hidden"
+      variants={fadeIn}
+      animate="visible"
       onClick={onClose}
     >
       <motion.div
-        animate={{ scale: 1, opacity: 1, y: 0 }}
         className="relative w-full max-w-5xl overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-white/10"
-        exit={{ scale: 0.9, opacity: 0, y: 20 }}
-        initial={{ scale: 0.9, opacity: 0, y: 20 }}
+        custom={{ reduced: prefersReducedMotion, distance: 20, scale: 0.9 } satisfies MotionCustom}
+        exit="exit"
+        initial="hidden"
         onClick={(e) => e.stopPropagation()}
-        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+        variants={popIn}
+        animate="visible"
       >
         <div className="relative aspect-video w-full bg-black/5 dark:bg-black">
           <Image
@@ -124,30 +138,30 @@ const InfiniteMarquee = ({
   speed?: number;
   onItemClick: (item: (typeof marqueeItems)[0]) => void;
 }) => {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <div className="relative flex w-full overflow-hidden">
       <motion.div
-        animate={{
-          x: direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"],
-        }}
         className="flex gap-4 py-4"
+        custom={{ reduced: prefersReducedMotion, duration: speed } satisfies MotionCustom}
+        initial="initial"
         style={{
           width: "max-content",
         }}
-        transition={{
-          duration: speed,
-          ease: "linear",
-          repeat: Number.POSITIVE_INFINITY,
-          repeatType: "loop",
-        }}
+        variants={direction === "left" ? marqueeHalf : marqueeHalfReverse}
+        animate="animate"
       >
         {[...items, ...items].map((item, i) => (
           <motion.div
             className="group relative aspect-video w-[400px] shrink-0 cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-gray-100 shadow-sm transition-all hover:border-[#9d6eef]/50 hover:shadow-[#9d6eef]/20 hover:shadow-lg dark:border-gray-800 dark:bg-gray-900"
+            custom={{ reduced: prefersReducedMotion, scale: 1.02, tapScale: 0.98 } satisfies MotionCustom}
             key={`${item.id}-${i}`}
             onClick={() => onItemClick(item)}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            initial="initial"
+            variants={hoverScaleSoft}
+            whileHover="hover"
+            whileTap="tap"
           >
             <Image
               alt={item.id}

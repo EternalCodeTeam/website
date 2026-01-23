@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { FaExclamationTriangle } from "react-icons/fa";
+import { SlideIn } from "@/components/ui/motion/motion-components";
 
 interface TeamErrorProps {
   error: string;
@@ -11,11 +11,7 @@ export default function TeamError({ error }: TeamErrorProps) {
   return (
     <section className="py-20" id="team">
       <div className="mx-auto max-w-7xl px-4">
-        <motion.div
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col items-center justify-center rounded-2xl border border-red-200 bg-red-50 p-12 text-center dark:border-red-900/30 dark:bg-red-900/10"
-          initial={{ opacity: 0, y: 20 }}
-        >
+        <SlideIn className="flex flex-col items-center justify-center rounded-2xl border border-red-200 bg-red-50 p-12 text-center dark:border-red-900/30 dark:bg-red-900/10">
           <div className="mb-4 rounded-full bg-red-100 p-4 text-red-500 dark:bg-red-900/20">
             <FaExclamationTriangle className="h-8 w-8" />
           </div>
@@ -28,7 +24,7 @@ export default function TeamError({ error }: TeamErrorProps) {
           <div className="mt-6 rounded-lg bg-red-100 px-4 py-2 font-mono text-red-600 text-sm dark:bg-red-900/30 dark:text-red-400">
             Error: {error}
           </div>
-        </motion.div>
+        </SlideIn>
       </div>
     </section>
   );

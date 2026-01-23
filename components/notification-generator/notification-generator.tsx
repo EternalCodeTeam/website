@@ -11,6 +11,8 @@ import {
 import { TitleTab } from "@/components/notification-generator/tabs/title/title-tab";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/ui/motion/motion-components";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { fadeIn, slideInRight, type MotionCustom } from "@/lib/animations/variants";
 
 import { validateField } from "./form/validation";
 import { AdvancedTab } from "./tabs/advanced/advanced-tab";
@@ -26,6 +28,7 @@ export function NotificationGenerator({ notification, setNotification }: Notific
   const [activeTab, setActiveTab] = useState<TabType>("chat");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const soundTabRef = useRef<SoundTabRef>(null);
+  const prefersReducedMotion = useReducedMotion();
 
   const handleChange = useCallback(
     (field: FieldType, value: string | boolean) => {
@@ -122,24 +125,26 @@ export function NotificationGenerator({ notification, setNotification }: Notific
 
         <AnimatePresence mode="wait">
           <motion.div
-            animate={{ opacity: 1, x: 0 }}
             aria-labelledby={`tab-${activeTab}`}
             className="min-h-[400px]"
-            exit={{ opacity: 0, x: -10 }}
-            initial={{ opacity: 0, x: 10 }}
+            custom={{ reduced: prefersReducedMotion, distance: 10, exitDistance: -10 } satisfies MotionCustom}
+            exit="exit"
+            initial="hidden"
             key={activeTab}
             role="tabpanel"
-            transition={{ duration: 0.2 }}
+            variants={slideInRight}
+            animate="visible"
           >
             {tabContent}
           </motion.div>
         </AnimatePresence>
 
         <motion.div
-          animate={{ opacity: 1 }}
           className="mt-8 flex justify-end border-gray-200 border-t pt-6 dark:border-gray-800"
-          initial={{ opacity: 0 }}
-          transition={{ delay: 0.2 }}
+          custom={{ reduced: prefersReducedMotion, delay: 0.2 } satisfies MotionCustom}
+          initial="hidden"
+          variants={fadeIn}
+          animate="visible"
         >
           <Button
             aria-label="Reset form"

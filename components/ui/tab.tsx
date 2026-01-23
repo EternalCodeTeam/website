@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import type React from "react";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { interactionSpring } from "@/lib/animations/variants";
 import { cn } from "@/lib/utils";
 
 import { Button } from "./button";
@@ -60,11 +61,7 @@ const Tab = ({
         <motion.div
           className="absolute bottom-0 left-0 h-0.5 w-full bg-blue-500"
           layoutId={prefersReducedMotion ? undefined : "activeTab"}
-          transition={
-            prefersReducedMotion
-              ? { duration: 0 }
-              : { type: "spring", stiffness: 300, damping: 30, duration: 0.1 }
-          }
+          transition={prefersReducedMotion ? { duration: 0 } : interactionSpring}
         />
       ) : null}
     </div>

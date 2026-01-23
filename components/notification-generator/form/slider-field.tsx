@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { type ChangeEvent, useCallback, useEffect, useState } from "react";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { popIn, type MotionCustom } from "@/lib/animations/variants";
 
 interface SliderFieldProps {
   label: string;
@@ -27,6 +29,7 @@ export const SliderField = ({
   const [sliderValue, setSliderValue] = useState<number>(
     value ? Number.parseFloat(value) : (min + max) / 2
   );
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     if (value) {
@@ -77,10 +80,11 @@ export const SliderField = ({
       </div>
       {!!error && (
         <motion.p
-          animate={{ opacity: 1, y: 0 }}
           className="mt-1 text-red-500 text-xs dark:text-red-400"
-          initial={{ opacity: 0, y: -5 }}
-          transition={{ duration: 0.2 }}
+          custom={{ reduced: prefersReducedMotion, distance: -5 } satisfies MotionCustom}
+          initial="hidden"
+          variants={popIn}
+          animate="visible"
         >
           {error}
         </motion.p>

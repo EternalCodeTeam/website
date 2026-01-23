@@ -5,20 +5,22 @@ import { Github } from "lucide-react";
 import ArrowForwardHeroIcon from "@/components/icons/arrow-forward-hero";
 import { Button } from "@/components/ui/button";
 import { FadeIn, MotionSection, SlideIn } from "@/components/ui/motion/motion-components";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { drawPath, floatBlob, type MotionCustom } from "@/lib/animations/variants";
 import Terminal from "./terminal/terminal-window";
 
 export default function Hero() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <div className="relative overflow-hidden">
       {/* Background Blob */}
       <m.div
-        animate={{
-          x: [0, 15, -10, 20, 0],
-          y: [0, -12, 18, -8, 0],
-          scale: [1, 1.1, 0.95, 1.05, 1],
-        }}
         className="absolute -top-20 -right-20 h-56 w-56 rounded-full bg-linear-to-br from-blue-400/20 to-blue-600/15 blur-3xl sm:h-64 sm:w-64"
-        transition={{ duration: 25, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+        custom={{ reduced: prefersReducedMotion, duration: 25 } satisfies MotionCustom}
+        initial="initial"
+        variants={floatBlob}
+        animate="animate"
       />
 
       <MotionSection className="relative mx-auto max-w-[90rem] px-4 pt-48 pb-12 sm:pt-40 sm:pb-16 md:pt-48 lg:flex lg:items-center lg:justify-between lg:gap-16">
@@ -54,14 +56,15 @@ export default function Hero() {
                 >
                   <m.path
                     d="M10 18C44 24 99 9 143 14C179 18 211 25 244 21C266 18 288 12 290 10"
-                    initial={{ pathLength: 0, opacity: 0 }}
+                    custom={{ reduced: prefersReducedMotion, duration: 0.8, delay: 0.5 } satisfies MotionCustom}
+                    initial="hidden"
+                    variants={drawPath}
                     stroke="currentColor"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="3"
-                    transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
                     viewport={{ once: true, margin: "-100px" }}
-                    whileInView={{ pathLength: 1, opacity: 1 }}
+                    whileInView="visible"
                   />
                 </svg>
               </span>

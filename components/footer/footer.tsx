@@ -9,6 +9,8 @@ import DiscordIcon from "@/components/icons/discord";
 import GitHubIcon from "@/components/icons/github";
 import TikTokIcon from "@/components/icons/round-tiktok";
 import YouTubeIcon from "@/components/icons/youtube";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { hoverScaleSoft, type MotionCustom } from "@/lib/animations/variants";
 import logo from "@/public/logo.svg";
 
 interface FooterLink {
@@ -104,6 +106,7 @@ const socialLinks = [
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <footer className="border-gray-200 border-t bg-gray-50/50 py-12 lg:pt-16 lg:pb-8 dark:border-white/5 dark:bg-[#0a0a0a]">
@@ -131,12 +134,15 @@ export default function Footer() {
                 <motion.a
                   aria-label={item.label}
                   className="text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                  custom={{ reduced: prefersReducedMotion, scale: 1.1, tapScale: 0.95 } satisfies MotionCustom}
                   href={item.href}
                   key={item.label}
                   rel="noopener noreferrer"
                   target="_blank"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
+                  initial="initial"
+                  variants={hoverScaleSoft}
+                  whileHover="hover"
+                  whileTap="tap"
                 >
                   <span className="h-5 w-5">{item.icon}</span>
                 </motion.a>
@@ -189,7 +195,10 @@ export default function Footer() {
                 href="https://www.netlify.com/"
                 rel="noopener noreferrer"
                 target="_blank"
-                whileTap={{ scale: 0.98 }}
+                custom={{ reduced: prefersReducedMotion, tapScale: 0.98 } satisfies MotionCustom}
+                initial="initial"
+                variants={hoverScaleSoft}
+                whileTap="tap"
               >
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75 group-hover:opacity-100" />
