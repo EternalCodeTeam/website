@@ -6,11 +6,14 @@ import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { FacadePattern } from "@/components/ui/facade-pattern";
 import { FadeIn, SlideIn } from "@/components/ui/motion/motion-components";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { pulse, sway, type MotionCustom } from "@/lib/animations/variants";
 
 import { ConfigPreview } from "./config-preview";
 
 export default function EternalCombatPage() {
   const targetRef = useRef(null);
+  const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start start", "end start"],
@@ -80,12 +83,10 @@ export default function EternalCombatPage() {
                   <div className="flex items-center gap-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-100 text-red-600 dark:bg-red-500/10 dark:text-red-500">
                       <motion.div
-                        animate={{ rotate: [-6, 6, -6] }}
-                        transition={{
-                          duration: 3,
-                          repeat: Number.POSITIVE_INFINITY,
-                          ease: "easeInOut",
-                        }}
+                        custom={{ reduced: prefersReducedMotion, duration: 3 } satisfies MotionCustom}
+                        initial="initial"
+                        variants={sway}
+                        animate="animate"
                       >
                         <Swords className="h-5 w-5" />
                       </motion.div>
@@ -105,8 +106,10 @@ export default function EternalCombatPage() {
                   <div className="flex items-center gap-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-yellow-100 text-yellow-600 dark:bg-yellow-500/10 dark:text-yellow-500">
                       <motion.div
-                        animate={{ opacity: [1, 0.6, 1], scale: [1, 1.05, 1] }}
-                        transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
+                        custom={{ reduced: prefersReducedMotion, duration: 3 } satisfies MotionCustom}
+                        initial="initial"
+                        variants={pulse}
+                        animate="animate"
                       >
                         <Zap className="h-5 w-5 fill-current" />
                       </motion.div>

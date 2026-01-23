@@ -20,6 +20,7 @@ import {
 // biome-ignore lint/performance/noNamespaceImport: Dynamic icon accessing
 import * as SIIcons from "react-icons/si";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { slideInLeft, type MotionCustom } from "@/lib/animations/variants";
 import { cn } from "@/lib/utils";
 
 const ICONS: Record<string, string> = {
@@ -180,12 +181,13 @@ export const CodeTabs = ({
               value={label}
             >
               <motion.div
-                animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
+                custom={{ reduced: prefersReducedMotion, distance: 10 } satisfies MotionCustom}
                 // Exit animation is removed because Radix unmounts content immediately.
                 // To support exit animations, we would need to control rendering manually outside of Tabs.Content
                 // or use forceMount with standard AnimatePresence, but simple entry animation is usually sufficient.
-                initial={prefersReducedMotion ? {} : { opacity: 0, x: -10 }}
-                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.2 }}
+                initial="hidden"
+                variants={slideInLeft}
+                animate="visible"
               >
                 {tabChildren}
               </motion.div>

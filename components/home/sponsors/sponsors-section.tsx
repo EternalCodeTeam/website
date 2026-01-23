@@ -1,10 +1,11 @@
 "use client";
 
-import type { Variants } from "framer-motion";
 import { m } from "framer-motion";
 import type { ReactNode } from "react";
 import { SiGithub, SiJetbrains, SiJira, SiNetlify, SiSentry } from "react-icons/si";
 import { FadeIn } from "@/components/ui/motion/motion-components";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { containerStagger, marquee, popIn, type MotionCustom } from "@/lib/animations/variants";
 
 interface Sponsor {
   name: string;
@@ -12,40 +13,8 @@ interface Sponsor {
   url: string;
 }
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.05,
-      delayChildren: 0.1,
-      duration: 0.6,
-      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
-    },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 20,
-    scale: 0.95,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      type: "spring" as const,
-      stiffness: 100,
-      damping: 15,
-      mass: 0.5,
-      duration: 0.6,
-    },
-  },
-};
-
 export default function Sponsors() {
+  const prefersReducedMotion = useReducedMotion();
   const sponsors: Sponsor[] = [
     {
       name: "Netlify",
@@ -87,24 +56,23 @@ export default function Sponsors() {
       </FadeIn>
 
       <m.div
-        animate="visible"
         className="relative flex w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]"
+        custom={{
+          reduced: prefersReducedMotion,
+          stagger: 0.05,
+          delayChildren: 0.1,
+        } satisfies MotionCustom}
         initial="hidden"
-        variants={containerVariants}
+        variants={containerStagger}
         viewport={{ once: true, margin: "-50px" }}
         whileInView="visible"
       >
         <m.div
-          animate={{
-            x: "-100%",
-          }}
           className="flex min-w-full shrink-0 items-center justify-around gap-12 px-4 md:gap-32 md:px-16"
-          transition={{
-            repeat: Number.POSITIVE_INFINITY,
-            repeatType: "loop",
-            duration: 40,
-            ease: "linear",
-          }}
+          custom={{ reduced: prefersReducedMotion, duration: 40 } satisfies MotionCustom}
+          initial="initial"
+          variants={marquee}
+          animate="animate"
         >
           {repeatedSponsors.map((sponsor, index) => (
             <m.a
@@ -113,7 +81,8 @@ export default function Sponsors() {
               key={`${sponsor.name}-${index}`}
               rel="noopener noreferrer"
               target="_blank"
-              variants={itemVariants}
+              custom={{ reduced: prefersReducedMotion, distance: 20, scale: 0.95 } satisfies MotionCustom}
+              variants={popIn}
             >
               <m.div className="text-gray-400 opacity-70 grayscale filter transition-all duration-500 ease-out group-hover:opacity-100 group-hover:grayscale-0">
                 {sponsor.icon}
@@ -126,17 +95,12 @@ export default function Sponsors() {
         </m.div>
 
         <m.div
-          animate={{
-            x: "-100%",
-          }}
           aria-hidden="true"
           className="flex min-w-full shrink-0 items-center justify-around gap-12 px-4 md:gap-32 md:px-16"
-          transition={{
-            repeat: Number.POSITIVE_INFINITY,
-            repeatType: "loop",
-            duration: 40,
-            ease: "linear",
-          }}
+          custom={{ reduced: prefersReducedMotion, duration: 40 } satisfies MotionCustom}
+          initial="initial"
+          variants={marquee}
+          animate="animate"
         >
           {repeatedSponsors.map((sponsor, index) => (
             <m.a

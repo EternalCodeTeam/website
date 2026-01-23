@@ -4,18 +4,8 @@ import { m } from "framer-motion";
 import { LucideIcon } from "@/components/lucide-icon";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.4,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-} as const;
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { slideUp, type MotionCustom } from "@/lib/animations/variants";
 
 interface ContributionCardProps {
   icon: string;
@@ -35,9 +25,14 @@ export function ContributionCard({
   color,
 }: ContributionCardProps) {
   const external = href.startsWith("http");
+  const prefersReducedMotion = useReducedMotion();
 
   return (
-    <m.div className="h-full" variants={itemVariants}>
+    <m.div
+      className="h-full"
+      custom={{ reduced: prefersReducedMotion, distance: 20 } satisfies MotionCustom}
+      variants={slideUp}
+    >
       <Card className="group flex h-full flex-col p-6 transition-colors duration-300 hover:bg-gray-50 hover:shadow-md dark:hover:bg-gray-800/60">
         <div
           className="pointer-events-none absolute inset-0 bg-linear-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100"

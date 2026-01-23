@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { useRef } from "react";
 
 import { TextFormattingButtons } from "@/components/notification-generator/form/formatting/text-formatting-buttons";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { inputField, popIn, type MotionCustom } from "@/lib/animations/variants";
 
 import { insertTag, toggleFormatting } from "./formatting/tag-utils";
 import type { FormFieldProps } from "./types";
@@ -23,6 +25,7 @@ export const FormField = ({
 }: FormFieldProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const prefersReducedMotion = useReducedMotion();
 
   const handleFormatButtonClick = (format: string) => {
     const input = type === "textarea" ? textareaRef.current : inputRef.current;
@@ -126,55 +129,59 @@ export const FormField = ({
       )}
       {type === "textarea" ? (
         <motion.textarea
-          animate={{ opacity: 1, y: 0 }}
           aria-describedby={ariaDescribedBy}
           aria-invalid={!!error}
           className={textareaClasses}
+          custom={{ reduced: prefersReducedMotion, distance: 3, delay: 0.05 } satisfies MotionCustom}
           id={`formfield-${name}`}
-          initial={{ opacity: 0, y: 3 }}
+          initial="hidden"
+          variants={inputField}
           onChange={(e) => onChange(name, e.target.value)}
           placeholder={placeholder}
           ref={textareaRef}
           rows={rows}
-          transition={{ duration: 0.1, delay: 0.05 }}
+          animate="visible"
           value={value}
-          whileFocus={{ scale: 1.005 }}
+          whileFocus="focused"
         />
       ) : (
         <motion.input
-          animate={{ opacity: 1, y: 0 }}
           aria-describedby={ariaDescribedBy}
           aria-invalid={!!error}
           className={inputClasses}
+          custom={{ reduced: prefersReducedMotion, distance: 3, delay: 0.05 } satisfies MotionCustom}
           id={`formfield-${name}`}
-          initial={{ opacity: 0, y: 3 }}
+          initial="hidden"
+          variants={inputField}
           onChange={(e) => onChange(name, e.target.value)}
           placeholder={placeholder}
           ref={inputRef}
-          transition={{ duration: 0.1, delay: 0.05 }}
           type={type}
           value={value}
-          whileFocus={{ scale: 1.005 }}
+          animate="visible"
+          whileFocus="focused"
         />
       )}
       {!!error && (
         <motion.p
-          animate={{ opacity: 1, y: 0 }}
           className="mt-1.5 font-medium text-red-500 text-xs dark:text-red-400"
           id={`error-${name}`}
-          initial={{ opacity: 0, y: -5 }}
-          transition={{ duration: 0.2 }}
+          custom={{ reduced: prefersReducedMotion, distance: -5 } satisfies MotionCustom}
+          initial="hidden"
+          variants={popIn}
+          animate="visible"
         >
           {error}
         </motion.p>
       )}
       {!!helpText && !error && (
         <motion.p
-          animate={{ opacity: 1, y: 0 }}
           className="mt-1.5 text-gray-500 text-xs dark:text-gray-400"
           id={`help-${name}`}
-          initial={{ opacity: 0, y: -5 }}
-          transition={{ duration: 0.2 }}
+          custom={{ reduced: prefersReducedMotion, distance: -5 } satisfies MotionCustom}
+          initial="hidden"
+          variants={popIn}
+          animate="visible"
         >
           {helpText}
         </motion.p>

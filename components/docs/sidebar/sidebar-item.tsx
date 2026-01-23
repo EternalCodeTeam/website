@@ -6,6 +6,7 @@ import { type FC, type MouseEvent, memo, useCallback, useState } from "react";
 
 import { DocIcon } from "@/components/docs/content/doc-icon";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { expandCollapse, rotateToggle, type MotionCustom } from "@/lib/animations/variants";
 import { cn } from "@/lib/utils";
 
 import type { DocItemProps } from "./types";
@@ -96,13 +97,10 @@ const FolderItem: FC<{
       tabIndex={0}
     >
       <motion.div
-        animate={{ rotate: isExpanded ? 90 : 0 }}
-        transition={{
-          type: prefersReducedMotion ? "tween" : "spring",
-          stiffness: 300,
-          damping: 20,
-          duration: prefersReducedMotion ? 0 : undefined,
-        }}
+        custom={{ reduced: prefersReducedMotion } satisfies MotionCustom}
+        initial="collapsed"
+        variants={rotateToggle}
+        animate={isExpanded ? "expanded" : "collapsed"}
       >
         <ChevronRight className="h-4 w-4 shrink-0" />
       </motion.div>
@@ -125,11 +123,12 @@ const FolderItem: FC<{
     <AnimatePresence initial={false}>
       {!!isExpanded && (
         <motion.div
-          animate={{ height: "auto", opacity: 1 }}
           className="overflow-hidden"
-          exit={{ height: 0, opacity: 0 }}
-          initial={{ height: 0, opacity: 0 }}
-          transition={{ duration: prefersReducedMotion ? 0 : 0.2, ease: "easeInOut" }}
+          custom={{ reduced: prefersReducedMotion } satisfies MotionCustom}
+          exit="hidden"
+          initial="hidden"
+          variants={expandCollapse}
+          animate="visible"
         >
           <div className="mt-0.5 space-y-0.5">
             {item.children?.map((child, childIndex) => (

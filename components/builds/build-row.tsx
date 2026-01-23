@@ -1,7 +1,8 @@
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { Calendar, Download, GitBranch, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { tableRow, type MotionCustom } from "@/lib/animations/variants";
 
 export interface Build {
   id: string;
@@ -76,20 +77,6 @@ const fullDateFormatter = new Intl.DateTimeFormat("en-US", {
   minute: "numeric",
 });
 
-const rowVariants: Variants = {
-  hidden: { opacity: 0, y: 10 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.03,
-      duration: 0.2,
-      ease: "easeOut",
-    },
-  }),
-  exit: { opacity: 0, y: -5, transition: { duration: 0.1 } },
-};
-
 export function BuildRow({ build, index, lastDownloadedId, onDownload }: BuildRowProps) {
   const prefersReducedMotion = useReducedMotion();
 
@@ -97,11 +84,11 @@ export function BuildRow({ build, index, lastDownloadedId, onDownload }: BuildRo
     <motion.tr
       animate={prefersReducedMotion ? undefined : "visible"}
       className="group transition-colors hover:bg-white dark:hover:bg-gray-800/50"
-      custom={index}
+      custom={{ reduced: prefersReducedMotion, delay: prefersReducedMotion ? 0 : index * 0.03 } satisfies MotionCustom}
       exit={prefersReducedMotion ? undefined : "exit"}
       initial={prefersReducedMotion ? undefined : "hidden"}
       layoutId={build.id}
-      variants={prefersReducedMotion ? undefined : rowVariants}
+      variants={prefersReducedMotion ? undefined : tableRow}
     >
       <th
         className="px-4 py-3 text-left font-medium text-gray-900 md:px-6 dark:text-white"

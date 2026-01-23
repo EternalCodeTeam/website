@@ -8,13 +8,15 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { FacadePattern } from "@/components/ui/facade-pattern";
 import { FadeIn, MotionSection, ScaleIn, SlideIn } from "@/components/ui/motion/motion-components";
-import { slideUp } from "@/lib/animations/variants";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { slideUp, type MotionCustom } from "@/lib/animations/variants";
 
 import { ConfigPreview } from "./config-preview";
 import { EternalShowcase } from "./eternal-showcase";
 
 export default function EternalCorePage() {
   const targetRef = useRef(null);
+  const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start start", "end start"],
@@ -43,14 +45,14 @@ export default function EternalCorePage() {
             {/* Text Content */}
             <div className="flex-1 text-center lg:text-left">
               <MotionSection className="flex flex-col items-center lg:items-start">
-                <m.div variants={slideUp}>
+                <m.div custom={{ reduced: prefersReducedMotion } satisfies MotionCustom} variants={slideUp}>
                   <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#9d6eef]/5 px-3 py-1 font-bold text-[#9d6eef] text-[10px] uppercase tracking-widest">
                     <Zap className="h-3 w-3" />
                     Next-Gen Essentials
                   </div>
                 </m.div>
 
-                <m.div variants={slideUp}>
+                <m.div custom={{ reduced: prefersReducedMotion } satisfies MotionCustom} variants={slideUp}>
                   <h1 className="mb-6 font-extrabold text-4xl text-gray-900 tracking-tight md:text-5xl lg:text-6xl dark:text-white">
                     Essential commands.
                     <br />
@@ -60,7 +62,7 @@ export default function EternalCorePage() {
                   </h1>
                 </m.div>
 
-                <m.div variants={slideUp}>
+                <m.div custom={{ reduced: prefersReducedMotion } satisfies MotionCustom} variants={slideUp}>
                   <p className="mx-auto mb-8 max-w-2xl text-gray-600 text-lg leading-relaxed lg:mx-0 dark:text-gray-400">
                     EternalCore is a modern, open-source replacement for EssentialsX. Built for
                     Paper & Folia to deliver maximum performance without the legacy bloat.
@@ -69,6 +71,7 @@ export default function EternalCorePage() {
 
                 <m.div
                   className="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start"
+                  custom={{ reduced: prefersReducedMotion } satisfies MotionCustom}
                   variants={slideUp}
                 >
                   <Button
@@ -160,7 +163,12 @@ export default function EternalCorePage() {
                 gradient: "from-blue-500/20 to-cyan-500/20",
               },
             ].map((feature) => (
-              <m.div className="h-full" key={feature.title} variants={slideUp}>
+              <m.div
+                className="h-full"
+                custom={{ reduced: prefersReducedMotion } satisfies MotionCustom}
+                key={feature.title}
+                variants={slideUp}
+              >
                 <Card className="group relative flex h-full flex-col p-6 transition-all hover:-translate-y-1 hover:bg-gray-50 hover:shadow-lg dark:hover:bg-gray-800/60">
                   <div
                     className={`absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${feature.gradient} pointer-events-none`}

@@ -4,6 +4,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Plus, RefreshCcw, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { popIn, slideInLeft, type MotionCustom } from "@/lib/animations/variants";
 
 import { gradientPresets, minecraftColors } from "../color-constants";
 import type { ColorPickerProps, MinecraftColor } from "../types";
@@ -13,6 +15,7 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
   const [solidColor, setSolidColor] = useState("#FFFFFF");
   const [gradientColors, setGradientColors] = useState<string[]>(["#55FFFF", "#FF55FF"]);
   const [_copied, _setCopied] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   // Sync solid color with first gradient color for smoother transitions
   useEffect(() => {
@@ -70,10 +73,12 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
 
   return (
     <motion.div
-      animate={{ opacity: 1, y: 0, scale: 1 }}
       className="absolute top-full left-0 z-50 mt-2 w-72 rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-800 dark:bg-gray-950"
-      exit={{ opacity: 0, y: 10, scale: 0.95 }}
-      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+      custom={{ reduced: prefersReducedMotion, distance: 10, scale: 0.95 } satisfies MotionCustom}
+      exit="exit"
+      initial="hidden"
+      variants={popIn}
+      animate="visible"
     >
       {/* Header */}
       <div className="flex items-center justify-between border-gray-100 border-b p-3 dark:border-gray-800">
@@ -110,11 +115,12 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
         <AnimatePresence mode="wait">
           {activeTab === "solid" && (
             <motion.div
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 10 }}
-              initial={{ opacity: 0, x: -10 }}
+              custom={{ reduced: prefersReducedMotion, distance: 10 } satisfies MotionCustom}
+              exit="hidden"
+              initial="hidden"
               key="solid"
-              transition={{ duration: 0.2 }}
+              variants={slideInLeft}
+              animate="visible"
             >
               <div className="mb-4 flex justify-center">
                 <HexColorPicker
@@ -141,12 +147,13 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
 
           {activeTab === "gradient" && (
             <motion.div
-              animate={{ opacity: 1, x: 0 }}
               className="space-y-4"
-              exit={{ opacity: 0, x: 10 }}
-              initial={{ opacity: 0, x: -10 }}
+              custom={{ reduced: prefersReducedMotion, distance: 10 } satisfies MotionCustom}
+              exit="hidden"
+              initial="hidden"
               key="gradient"
-              transition={{ duration: 0.2 }}
+              variants={slideInLeft}
+              animate="visible"
             >
               <div
                 className="h-12 w-full rounded-md border border-gray-200 shadow-sm dark:border-gray-700"
@@ -207,12 +214,13 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
 
           {activeTab === "presets" && (
             <motion.div
-              animate={{ opacity: 1, x: 0 }}
               className="space-y-4"
-              exit={{ opacity: 0, x: 10 }}
-              initial={{ opacity: 0, x: -10 }}
+              custom={{ reduced: prefersReducedMotion, distance: 10 } satisfies MotionCustom}
+              exit="hidden"
+              initial="hidden"
               key="presets"
-              transition={{ duration: 0.2 }}
+              variants={slideInLeft}
+              animate="visible"
             >
               <div>
                 <h4 className="mb-2 font-semibold text-gray-500 text-xs uppercase dark:text-gray-400">

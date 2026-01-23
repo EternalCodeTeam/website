@@ -4,6 +4,8 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import type { Placeholder } from "@/components/docs/eternalcore/placeholder/types";
 import { CopyToClipboard } from "@/components/ui/copy-to-clipboard";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { popIn, type MotionCustom } from "@/lib/animations/variants";
 import { cn } from "@/lib/utils";
 
 interface PlaceholderTableProps {
@@ -11,6 +13,8 @@ interface PlaceholderTableProps {
 }
 
 export function PlaceholderTable({ placeholders }: PlaceholderTableProps) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <div className="my-6 overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900/50">
       <table className="w-full text-left text-sm">
@@ -27,12 +31,18 @@ export function PlaceholderTable({ placeholders }: PlaceholderTableProps) {
           <AnimatePresence>
             {placeholders.map((p, i) => (
               <motion.tr
-                animate={{ opacity: 1, y: 0 }}
                 className="transition-colors hover:bg-gray-50/50 dark:hover:bg-gray-800/50"
-                exit={{ opacity: 0, y: -5 }}
-                initial={{ opacity: 0, y: 5 }}
+                custom={{
+                  reduced: prefersReducedMotion,
+                  distance: 5,
+                  exitDistance: -5,
+                  delay: prefersReducedMotion ? 0 : i * 0.01,
+                } satisfies MotionCustom}
+                exit="exit"
+                initial="hidden"
                 key={p.name}
-                transition={{ duration: 0.2, delay: i * 0.01 }}
+                variants={popIn}
+                animate="visible"
               >
                 <td className="px-4 py-2 font-medium text-sm">
                   <CopyToClipboard className="inline-flex" text={p.name}>

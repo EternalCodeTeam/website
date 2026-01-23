@@ -1,4 +1,9 @@
 import { motion } from "framer-motion";
+import {
+  hamburgerBottom,
+  hamburgerCenter,
+  hamburgerTop,
+} from "@/lib/animations/variants";
 
 interface HamburgerProps {
   className?: string;
@@ -12,19 +17,6 @@ export default function Hamburger({
   ariaHidden = true,
 }: HamburgerProps) {
   const variant = isOpen ? "opened" : "closed";
-
-  const top = {
-    closed: { rotate: 0, translateY: 0 },
-    opened: { rotate: 45, translateY: 6 },
-  };
-  const center = {
-    closed: { opacity: 1 },
-    opened: { opacity: 0 },
-  };
-  const bottom = {
-    closed: { rotate: 0, translateY: 0 },
-    opened: { rotate: -45, translateY: -6 },
-  };
 
   return (
     <svg
@@ -46,7 +38,7 @@ export default function Hamburger({
         stroke="currentColor"
         strokeLinecap="round"
         strokeWidth="2"
-        variants={top}
+        variants={hamburgerTop}
       />
       <motion.path
         animate={variant}
@@ -55,7 +47,7 @@ export default function Hamburger({
         stroke="currentColor"
         strokeLinecap="round"
         strokeWidth="2"
-        variants={center}
+        variants={hamburgerCenter}
       />
       <motion.path
         animate={variant}
@@ -64,7 +56,7 @@ export default function Hamburger({
         stroke="currentColor"
         strokeLinecap="round"
         strokeWidth="2"
-        variants={bottom}
+        variants={hamburgerBottom}
       />
     </svg>
   );

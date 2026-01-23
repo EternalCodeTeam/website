@@ -17,6 +17,8 @@ import { useState } from "react";
 
 import { ColorPicker } from "../color-picker/color-picker";
 import type { TextFormattingProps } from "../types";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { hoverScaleSoft, type MotionCustom } from "@/lib/animations/variants";
 
 export const TextFormattingButtons = ({
   onFormat,
@@ -27,6 +29,7 @@ export const TextFormattingButtons = ({
   onColorApply?: (color: string, isGradient: boolean, colors: string[]) => void;
 }) => {
   const [showColorPicker, setShowColorPicker] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   const handleColorApply = (color: string, isGradient: boolean, colors: string[]) => {
     onColorApply?.(color, isGradient, colors);
@@ -87,8 +90,11 @@ export const TextFormattingButtons = ({
             onClick={() => setShowColorPicker((v) => !v)}
             title="Text Color"
             type="button"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            custom={{ reduced: prefersReducedMotion, scale: 1.05, tapScale: 0.95 } satisfies MotionCustom}
+            initial="initial"
+            variants={hoverScaleSoft}
+            whileHover="hover"
+            whileTap="tap"
           >
             <Palette className="h-4 w-4" strokeWidth={2.5} />
           </motion.button>
@@ -106,13 +112,13 @@ export const TextFormattingButtons = ({
       <div className="h-6 w-px bg-gray-200 dark:bg-white/10" />
 
       {/* Formatting Buttons */}
-      <ButtonGroup buttons={formattingButtons} />
+      <ButtonGroup buttons={formattingButtons} prefersReducedMotion={prefersReducedMotion} />
 
       {/* Interaction Buttons (if any) */}
       {interactionButtons.length > 0 && (
         <>
           <div className="h-6 w-px bg-gray-200 dark:bg-white/10" />
-          <ButtonGroup buttons={interactionButtons} />
+          <ButtonGroup buttons={interactionButtons} prefersReducedMotion={prefersReducedMotion} />
         </>
       )}
     </div>
@@ -121,12 +127,14 @@ export const TextFormattingButtons = ({
 
 const ButtonGroup = ({
   buttons,
+  prefersReducedMotion,
 }: {
   buttons: {
     title: string;
     icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
     action: () => void;
   }[];
+  prefersReducedMotion: boolean;
 }) => (
   <div className="flex items-center gap-0.5 rounded-lg border border-gray-200 bg-white p-1 dark:border-white/10 dark:bg-white/5">
     {buttons.map(({ title, icon: Icon, action }) => (
@@ -136,8 +144,11 @@ const ButtonGroup = ({
         onClick={action}
         title={title}
         type="button"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        custom={{ reduced: prefersReducedMotion, scale: 1.05, tapScale: 0.95 } satisfies MotionCustom}
+        initial="initial"
+        variants={hoverScaleSoft}
+        whileHover="hover"
+        whileTap="tap"
       >
         <Icon className="h-4 w-4" strokeWidth={2.5} />
       </motion.button>

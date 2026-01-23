@@ -1,20 +1,9 @@
 "use client";
-
-import { motion } from "framer-motion";
 import { ContributeHero } from "@/components/contribute/contribute-hero";
 import { ContributionCard } from "@/components/contribute/contribution-card";
 import { ContributionEmptyState } from "@/components/contribute/contribution-empty-state";
 import { ContributionHint } from "@/components/contribute/contribution-hint";
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
+import { MotionSection } from "@/components/ui/motion/motion-components";
 
 export interface ContributionCardData {
   id?: string | null;
@@ -39,12 +28,7 @@ export default function ContributeView({ cards }: { cards: ContributionCardData[
 
       <div className="relative z-10 mx-auto max-w-[90rem] px-4 pb-24 sm:px-6 lg:px-8">
         {cards.length > 0 ? (
-          <motion.div
-            animate="visible"
-            className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
-            initial="hidden"
-            variants={containerVariants}
-          >
+          <MotionSection className="grid gap-8 md:grid-cols-2 lg:grid-cols-3" stagger={0.1}>
             {cards.map((card, index) => (
               <ContributionCard
                 actionText={card.actionText}
@@ -56,7 +40,7 @@ export default function ContributeView({ cards }: { cards: ContributionCardData[
                 title={card.title}
               />
             ))}
-          </motion.div>
+          </MotionSection>
         ) : (
           <ContributionEmptyState />
         )}

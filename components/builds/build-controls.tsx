@@ -5,6 +5,7 @@ import type { Project } from "@/app/api/builds/builds";
 import { Dropdown } from "@/components/ui/dropdown";
 import { FadeIn } from "@/components/ui/motion/motion-components";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { interactionSpring } from "@/lib/animations/variants";
 
 interface BuildControlsProps {
   projects: Project[];
@@ -65,7 +66,7 @@ export function BuildControls({
               <motion.div
                 className="absolute inset-0 rounded-lg bg-white shadow-xs dark:bg-gray-800"
                 layoutId="active-tab"
-                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                transition={interactionSpring}
               />
             )}
             {activeTab === "STABLE" && prefersReducedMotion && (
@@ -95,7 +96,7 @@ export function BuildControls({
               <motion.div
                 className="absolute inset-0 rounded-lg bg-white shadow-xs dark:bg-gray-800"
                 layoutId="active-tab"
-                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                transition={interactionSpring}
               />
             )}
             {activeTab === "DEV" && prefersReducedMotion && (

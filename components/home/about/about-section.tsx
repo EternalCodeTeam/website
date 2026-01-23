@@ -7,9 +7,13 @@ import PolandMap from "@/components/home/about/poland-map";
 import PeopleGroupIcon from "@/components/icons/people-group";
 import { Button } from "@/components/ui/button";
 import { SlideIn } from "@/components/ui/motion/motion-components";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { hoverTilt, rotateIn, type MotionCustom } from "@/lib/animations/variants";
 import AboutImage from "@/public/hero image.png";
 
 export default function About() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <section
       aria-labelledby="about-heading"
@@ -40,10 +44,11 @@ export default function About() {
                     Poland
                   </span>
                   <motion.div
-                    animate={{ opacity: 1, rotate: 12, scale: 1 }}
                     className="absolute -top-6 -right-8 flex flex-col items-center will-change-transform"
-                    initial={{ opacity: 0, rotate: -15, scale: 0 }}
-                    transition={{ delay: 1, type: "spring" }}
+                    custom={{ reduced: prefersReducedMotion, delay: 1 } satisfies MotionCustom}
+                    initial="hidden"
+                    variants={rotateIn}
+                    animate="visible"
                   >
                     <div className="relative h-5 w-8 overflow-hidden rounded-sm drop-shadow-[0_0_1px_rgba(0,0,0,0.5)]">
                       <svg
@@ -96,8 +101,10 @@ export default function About() {
               <SlideIn className="relative z-10 w-full" delay={0.3} direction="right">
                 <motion.div
                   className="relative overflow-hidden rounded-2xl shadow-2xl"
-                  transition={{ duration: 0.5, type: "spring" }}
-                  whileHover={{ scale: 1.02, rotate: 1 }}
+                  custom={{ reduced: prefersReducedMotion, scale: 1.02, distance: 1 } satisfies MotionCustom}
+                  initial="initial"
+                  variants={hoverTilt}
+                  whileHover="hover"
                 >
                   <Image
                     alt="EternalCode Team"

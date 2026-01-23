@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { skeletonPulse, skeletonShimmer, type MotionCustom } from "@/lib/animations/variants";
 
 interface SkeletonProps {
   className?: string;
@@ -36,14 +37,12 @@ export function Skeleton({
   if (shouldAnimate && animation === "pulse") {
     return (
       <motion.div
-        animate={{ opacity: [0.5, 1, 0.5] }}
         className={`${baseClasses} ${variantClasses[variant]} ${className}`}
+        custom={{ reduced: prefersReducedMotion, duration: 1.5 } satisfies MotionCustom}
         style={style}
-        transition={{
-          duration: 1.5,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        }}
+        initial="initial"
+        variants={skeletonPulse}
+        animate="animate"
       />
     );
   }
@@ -55,13 +54,11 @@ export function Skeleton({
         style={style}
       >
         <motion.div
-          animate={{ x: ["-100%", "100%"] }}
           className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent dark:via-gray-700/20"
-          transition={{
-            duration: 1.5,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "linear",
-          }}
+          custom={{ reduced: prefersReducedMotion, duration: 1.5 } satisfies MotionCustom}
+          initial="initial"
+          variants={skeletonShimmer}
+          animate="animate"
         />
       </div>
     );
