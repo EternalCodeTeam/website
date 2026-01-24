@@ -95,7 +95,7 @@ export default function About() {
 
               <SlideIn className="relative z-10 w-full" delay={0.3} direction="right">
                 <motion.div
-                  className="relative overflow-hidden rounded-2xl shadow-2xl transform-gpu will-change-transform"
+                  className="relative transform-gpu overflow-hidden rounded-2xl shadow-2xl will-change-transform"
                   transition={{ duration: 0.5, type: "spring" }}
                   whileHover={{ scale: 1.02, rotate: 1 }}
                 >

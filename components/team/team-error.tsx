@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FaExclamationTriangle } from "react-icons/fa";
+import { TriangleAlert } from "lucide-react";
 
 interface TeamErrorProps {
   error: string;
@@ -17,7 +17,7 @@ export default function TeamError({ error }: TeamErrorProps) {
           initial={{ opacity: 0, y: 20 }}
         >
           <div className="mb-4 rounded-full bg-red-100 p-4 text-red-500 dark:bg-red-900/20">
-            <FaExclamationTriangle className="h-8 w-8" />
+            <TriangleAlert className="h-8 w-8" />
           </div>
           <h3 className="mb-2 font-bold text-gray-900 text-xl dark:text-white">
             Something went wrong

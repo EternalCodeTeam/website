@@ -143,7 +143,7 @@ const InfiniteMarquee = ({
       >
         {[...items, ...items].map((item, i) => (
           <motion.div
-            className="group relative aspect-video w-[400px] shrink-0 cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-gray-100 shadow-sm transition-all hover:border-[#9d6eef]/50 hover:shadow-[#9d6eef]/20 hover:shadow-lg dark:border-gray-800 dark:bg-gray-900 transform-gpu will-change-transform"
+            className="group relative aspect-video w-[400px] shrink-0 transform-gpu cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-gray-100 shadow-sm transition-all will-change-transform hover:border-[#9d6eef]/50 hover:shadow-[#9d6eef]/20 hover:shadow-lg dark:border-gray-800 dark:bg-gray-900"
             key={`${item.id}-${i}`}
             onClick={() => onItemClick(item)}
             whileHover={{ scale: 1.02 }}
@@ -151,7 +151,7 @@ const InfiniteMarquee = ({
           >
             <Image
               alt={item.id}
-              className="h-full w-full object-cover transform-gpu transition-transform duration-500 will-change-transform group-hover:scale-110"
+              className="h-full w-full transform-gpu object-cover transition-transform duration-500 will-change-transform group-hover:scale-110"
               fill
               sizes="400px"
               src={item.src}

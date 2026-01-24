@@ -213,7 +213,7 @@ export default function EternalCombatPage() {
               <SlideIn className="h-full" delay={i * 0.1} direction="up" key={feature.title}>
                 <div className="group h-full rounded-2xl border border-gray-200 bg-gray-50 p-8 transition-colors hover:border-red-500/30 dark:border-gray-800 dark:bg-gray-900/50">
                   <div
-                    className={`h-12 w-12 rounded-xl ${feature.bg} ${feature.color} mb-6 flex items-center justify-center transform-gpu transition-transform duration-300 will-change-transform group-hover:scale-110`}
+                    className={`h-12 w-12 rounded-xl ${feature.bg} ${feature.color} mb-6 flex transform-gpu items-center justify-center transition-transform duration-300 will-change-transform group-hover:scale-110`}
                   >
                     <feature.icon className="h-6 w-6" />
                   </div>

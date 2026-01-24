@@ -10,7 +10,7 @@ export function NetlifyHighlight() {
     >
       <div className="relative overflow-hidden rounded-xl border border-gray-200 bg-gray-50/50 transition-all duration-300 hover:border-[#05BDBA]/40 hover:shadow-md dark:border-gray-800 dark:bg-gray-900/20 dark:hover:border-[#32E6E2]/40">
         <div className="flex items-center gap-3 px-4 py-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#E6FFFA] text-[#05BDBA] transform-gpu transition-transform duration-300 will-change-transform group-hover:scale-105 dark:bg-[#1E2124] dark:text-[#32E6E2]">
+          <div className="flex h-10 w-10 shrink-0 transform-gpu items-center justify-center rounded-lg bg-[#E6FFFA] text-[#05BDBA] transition-transform duration-300 will-change-transform group-hover:scale-105 dark:bg-[#1E2124] dark:text-[#32E6E2]">
             <SiNetlify className="h-5 w-5" />
           </div>
 

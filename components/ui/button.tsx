@@ -97,7 +97,7 @@ const Button = ({
     <>
       {!!shine && (
         <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
-          <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transform-gpu transition-transform duration-1000 ease-in-out will-change-transform group-hover:translate-x-full" />
+          <div className="absolute inset-0 -translate-x-full transform-gpu bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 ease-in-out will-change-transform group-hover:translate-x-full" />
         </div>
       )}
       <div className="relative z-10 flex items-center justify-center gap-2">

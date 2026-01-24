@@ -100,7 +100,7 @@ export default function EternalCorePage() {
                 <div className="group relative aspect-video overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 shadow-2xl dark:border-gray-800 dark:bg-gray-900">
                   <Image
                     alt="EternalCore Project Banner"
-                    className="object-cover transform-gpu transition-transform duration-700 will-change-transform group-hover:scale-105"
+                    className="transform-gpu object-cover transition-transform duration-700 will-change-transform group-hover:scale-105"
                     fill
                     priority
                     src="/eternalcore/readme-banner.png"
@@ -161,7 +161,7 @@ export default function EternalCorePage() {
               },
             ].map((feature) => (
               <m.div className="h-full" key={feature.title} variants={slideUp}>
-                <Card className="group relative flex h-full flex-col p-6 transform-gpu transition-all hover:-translate-y-1 hover:bg-gray-50 hover:shadow-lg dark:hover:bg-gray-800/60 will-change-transform">
+                <Card className="group relative flex h-full transform-gpu flex-col p-6 transition-all will-change-transform hover:-translate-y-1 hover:bg-gray-50 hover:shadow-lg dark:hover:bg-gray-800/60">
                   <div
                     className={`absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${feature.gradient} pointer-events-none`}
                   />
