@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import PolandMap from "@/components/home/about/poland-map";
@@ -39,7 +39,7 @@ export default function About() {
                   >
                     Poland
                   </span>
-                  <motion.div
+                  <m.div
                     animate={{ opacity: 1, rotate: 12, scale: 1 }}
                     className="absolute -top-6 -right-8 flex flex-col items-center will-change-transform"
                     initial={{ opacity: 0, rotate: -15, scale: 0 }}
@@ -58,7 +58,7 @@ export default function About() {
                     </div>
 
                     <div className="-mt-1 ml-0.5 h-10 w-0.5 self-start rounded-full bg-gray-400 shadow-sm" />
-                  </motion.div>
+                  </m.div>
                 </span>{" "}
                 <br />
                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent dark:from-blue-400 dark:to-purple-400">
@@ -94,7 +94,7 @@ export default function About() {
               <PolandMap />
 
               <SlideIn className="relative z-10 w-full" delay={0.3} direction="right">
-                <motion.div
+                <m.div
                   className="relative transform-gpu overflow-hidden rounded-2xl shadow-2xl will-change-transform"
                   transition={{ duration: 0.5, type: "spring" }}
                   whileHover={{ scale: 1.02, rotate: 1 }}
@@ -109,7 +109,7 @@ export default function About() {
                   />
                   {/* Subtle clean overlay */}
                   <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-black/10 ring-inset dark:ring-white/10" />
-                </motion.div>
+                </m.div>
               </SlideIn>
             </div>
           </div>

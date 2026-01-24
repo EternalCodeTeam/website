@@ -17,31 +17,32 @@ interface Feature {
   color: string;
 }
 
-export default function Features() {
-  const features: Feature[] = [
-    {
-      icon: <JavaIcon aria-hidden="true" className="h-8 w-8" />,
-      title: "Java Ecosystem",
-      description:
-        "We harness the full power of the Java ecosystem to build scalable, high-performance server-side applications and plugins that you can rely on.",
-      color: "from-orange-500/20 to-red-500/20",
-    },
-    {
-      icon: <GitBranchIcon aria-hidden="true" className="h-8 w-8" />,
-      title: "Open Source",
-      description:
-        "We believe in the power of open source. Transparency, collaboration, and community are the core values that drive every line of code we write.",
-      color: "from-green-500/20 to-emerald-500/20",
-    },
-    {
-      icon: <TabNew aria-hidden="true" className="h-8 w-8" />,
-      title: "Modern Web Stack",
-      description:
-        "We don't just write code; we create experiences. Utilizing Next.js and modern web standards to deliver fast, accessible, and beautiful interfaces.",
-      color: "from-blue-500/20 to-cyan-500/20",
-    },
-  ];
+// Hoisted outside component to prevent recreation on each render
+const features: Feature[] = [
+  {
+    icon: <JavaIcon aria-hidden="true" className="h-8 w-8" />,
+    title: "Java Ecosystem",
+    description:
+      "We harness the full power of the Java ecosystem to build scalable, high-performance server-side applications and plugins that you can rely on.",
+    color: "from-orange-500/20 to-red-500/20",
+  },
+  {
+    icon: <GitBranchIcon aria-hidden="true" className="h-8 w-8" />,
+    title: "Open Source",
+    description:
+      "We believe in the power of open source. Transparency, collaboration, and community are the core values that drive every line of code we write.",
+    color: "from-green-500/20 to-emerald-500/20",
+  },
+  {
+    icon: <TabNew aria-hidden="true" className="h-8 w-8" />,
+    title: "Modern Web Stack",
+    description:
+      "We don't just write code; we create experiences. Utilizing Next.js and modern web standards to deliver fast, accessible, and beautiful interfaces.",
+    color: "from-blue-500/20 to-cyan-500/20",
+  },
+];
 
+export default function Features() {
   return (
     <section aria-labelledby="features-heading" className="relative py-12 lg:py-24" id="features">
       <div className="relative z-10 mx-auto max-w-360 px-4">
