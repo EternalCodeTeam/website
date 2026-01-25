@@ -1,8 +1,23 @@
-// biome-ignore lint/performance/noNamespaceImport: Dynamic lookup
-import * as LucideIcons from "lucide-react";
-import { HelpCircle, type LucideIcon as LucideIconType } from "lucide-react";
+import {
+  BookOpen,
+  Code2,
+  Heart,
+  HelpCircle,
+  LifeBuoy,
+  Lightbulb,
+  type LucideIcon as LucideIconType,
+  MessageCircle,
+} from "lucide-react";
 
-const icons = LucideIcons as unknown as Record<string, LucideIconType>;
+const icons: Record<string, LucideIconType> = {
+  BookOpen,
+  Code2,
+  Heart,
+  HelpCircle,
+  LifeBuoy,
+  Lightbulb,
+  MessageCircle,
+};
 
 export function LucideIcon({
   name,
@@ -16,7 +31,7 @@ export function LucideIcon({
   const Icon = icons[name];
 
   if (!Icon) {
-    console.warn(`Icon "${name}" not found in lucide-react`);
+    console.warn(`Icon "${name}" not found. Add it to lucide-icon.tsx`);
     return <HelpCircle className={className} style={style} />;
   }
 

@@ -26,11 +26,11 @@ export default function TeamMembers() {
       {/* Background Decor */}
       <div className="pointer-events-none absolute inset-0 z-0 select-none overflow-hidden">
         {/* Top Center - Hero backing */}
-        <div className="absolute -top-20 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-3xl filter dark:bg-blue-500/5" />
+        <div className="absolute -top-20 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-2xl filter dark:bg-blue-500/5 dark:blur-3xl" />
         {/* Team Area - Purple/Pink spread */}
-        <div className="absolute top-[40%] left-0 h-[800px] w-[800px] -translate-x-1/3 rounded-full bg-purple-500/10 mix-blend-multiply blur-3xl filter dark:bg-purple-500/5 dark:mix-blend-screen" />
+        <div className="absolute top-[40%] left-0 h-[800px] w-[800px] -translate-x-1/3 rounded-full bg-purple-500/10 blur-2xl filter dark:bg-purple-500/5 dark:blur-3xl" />
         {/* Bottom Right - Cyan accent */}
-        <div className="absolute right-0 bottom-0 h-[600px] w-[600px] translate-x-1/3 rounded-full bg-cyan-500/10 mix-blend-multiply blur-3xl filter dark:bg-cyan-500/5 dark:mix-blend-screen" />
+        <div className="absolute right-0 bottom-0 h-[600px] w-[600px] translate-x-1/3 rounded-full bg-cyan-500/10 blur-2xl filter dark:bg-cyan-500/5 dark:blur-3xl" />
 
         <FacadePattern className="absolute inset-0 h-full opacity-30 dark:opacity-10" />
       </div>

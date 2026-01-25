@@ -10,16 +10,8 @@ import Terminal from "./terminal/terminal-window";
 export default function Hero() {
   return (
     <div className="relative overflow-hidden">
-      {/* Background Blob */}
-      <m.div
-        animate={{
-          x: [0, 15, -10, 20, 0],
-          y: [0, -12, 18, -8, 0],
-          scale: [1, 1.1, 0.95, 1.05, 1],
-        }}
-        className="absolute -top-20 -right-20 h-56 w-56 rounded-full bg-linear-to-br from-blue-400/20 to-blue-600/15 blur-3xl sm:h-64 sm:w-64"
-        transition={{ duration: 25, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-      />
+      {/* Background Blob - using CSS animation for better performance */}
+      <div className="absolute -top-20 -right-20 h-56 w-56 animate-[float_20s_ease-in-out_infinite] rounded-full bg-linear-to-br from-blue-400/20 to-blue-600/15 blur-2xl motion-reduce:animate-none sm:h-64 sm:w-64 dark:blur-3xl" />
 
       <MotionSection className="relative mx-auto max-w-[90rem] px-4 pt-48 pb-12 sm:pt-40 sm:pb-16 md:pt-48 lg:flex lg:items-center lg:justify-between lg:gap-16">
         {/* Text Content */}
