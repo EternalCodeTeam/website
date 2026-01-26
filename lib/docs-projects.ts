@@ -17,7 +17,8 @@ export const DOC_PROJECTS: DocProject[] = [
     icon: Code,
     iconColor: "text-purple-500 dark:text-purple-400",
     gradientColor: "from-purple-500/20 to-indigo-500/20",
-    description: "All the most important server functions in one!",
+    description:
+      "EternalCore is a modern, actively maintained alternative to EssentialsX. It provides the most important server features in one plugin, with better configuration, performance, and support for the latest Minecraft versions.",
   },
   {
     path: "/docs/eternalcombat",
