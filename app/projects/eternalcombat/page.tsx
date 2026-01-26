@@ -129,7 +129,7 @@ export default function EternalCombatPage() {
               <FadeIn delay={0.2}>
                 {/* Code Preview Overlay */}
                 <div className="flex items-center justify-center pt-8 lg:pt-0">
-                  <div className="w-full max-w-lg rounded-xl border border-gray-700/50 bg-gray-900/90 p-6 shadow-2xl backdrop-blur-sm transition-transform duration-500 hover:scale-[1.02]">
+                  <div className="w-full max-w-lg transform-gpu rounded-xl border border-gray-700/50 bg-gray-900/90 p-6 shadow-2xl backdrop-blur-sm transition-transform duration-500 will-change-transform hover:scale-[1.02]">
                     <div className="mb-4 flex items-center gap-2 border-gray-700/50 border-b pb-2">
                       <div className="h-3 w-3 rounded-full bg-red-500" />
                       <div className="h-3 w-3 rounded-full bg-yellow-500" />
@@ -213,7 +213,7 @@ export default function EternalCombatPage() {
               <SlideIn className="h-full" delay={i * 0.1} direction="up" key={feature.title}>
                 <div className="group h-full rounded-2xl border border-gray-200 bg-gray-50 p-8 transition-colors hover:border-red-500/30 dark:border-gray-800 dark:bg-gray-900/50">
                   <div
-                    className={`h-12 w-12 rounded-xl ${feature.bg} ${feature.color} mb-6 flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}
+                    className={`h-12 w-12 rounded-xl ${feature.bg} ${feature.color} mb-6 flex transform-gpu items-center justify-center transition-transform duration-300 will-change-transform group-hover:scale-110`}
                   >
                     <feature.icon className="h-6 w-6" />
                   </div>
@@ -261,9 +261,9 @@ export default function EternalCombatPage() {
             <SlideIn delay={0.2} direction="right">
               <div className="group perspective-1000 relative">
                 {/* The "Long Screenshot" Container */}
-                <div className="relative h-[600px] w-full transform select-none overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl transition-transform duration-700 hover:scale-[1.02] dark:border-gray-800 dark:bg-[#0d1117]">
+                <div className="relative h-[600px] w-full transform-gpu select-none overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl transition-transform duration-700 will-change-transform hover:scale-[1.02] dark:border-gray-800 dark:bg-[#0d1117]">
                   {/* Tilted Content */}
-                  <div className="absolute -top-10 -left-[15%] h-[200%] w-[150%] origin-top-left rotate-2 transform transition-all duration-700 hover:rotate-0 hover:scale-100">
+                  <div className="absolute -top-10 -left-[15%] h-[200%] w-[150%] origin-top-left rotate-2 transform-gpu transition-all duration-700 will-change-transform hover:rotate-0 hover:scale-100">
                     {/* Inner blur container */}
                     <div className="h-full pl-24 opacity-90 blur-[0.5px] filter transition-all duration-700 group-hover:opacity-100 group-hover:blur-0">
                       {/* Auto-scrolling animation container */}

@@ -89,7 +89,6 @@ function sortDocs(a: DocItem, b: DocItem): number {
   return a.title.localeCompare(b.title);
 }
 
-// Cache flattened navigation to avoid recomputation
 const flattenSidebar = cache((sidebar: DocItem[]): DocItem[] => {
   const flat: DocItem[] = [];
 

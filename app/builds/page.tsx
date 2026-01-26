@@ -98,9 +98,9 @@ function BuildExplorerContent() {
     <div className="relative min-h-screen overflow-hidden bg-gray-50 text-gray-900 selection:bg-blue-500/30 dark:bg-gray-950 dark:text-white">
       {/* Background Decor */}
       <div className="pointer-events-none absolute inset-0 z-0">
-        <div className="absolute top-20 -left-20 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl filter dark:bg-blue-500/5" />
-        <div className="absolute top-40 -right-20 h-96 w-96 rounded-full bg-indigo-500/10 blur-3xl filter dark:bg-indigo-500/5" />
-        <div className="absolute top-1/2 left-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-500/5 blur-3xl filter" />
+        <div className="absolute top-20 -left-20 h-96 w-96 rounded-full bg-blue-500/10 blur-2xl filter dark:bg-blue-500/5 dark:blur-3xl" />
+        <div className="absolute top-40 -right-20 h-96 w-96 rounded-full bg-indigo-500/10 blur-2xl filter dark:bg-indigo-500/5 dark:blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-500/5 blur-2xl filter dark:blur-3xl" />
         <FacadePattern className="absolute inset-0 h-full opacity-30 dark:opacity-10" />
       </div>
 

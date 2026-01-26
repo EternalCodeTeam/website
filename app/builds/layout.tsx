@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "Build Explorer | EternalCode Team",
   description:
     "Access stable releases and development builds for all EternalCode Team projects. Download the latest versions of EternalCore, EternalCombat, and more.",
+  alternates: {
+    canonical: "https://eternalcode.pl/builds",
+  },
   keywords: [
     "minecraft",
     "plugins",

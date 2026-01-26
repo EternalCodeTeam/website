@@ -135,12 +135,12 @@ export function CookieConsentModal() {
               >
                 {showDetails ? (
                   <>
-                    <ChevronUp className="h-4 w-4 transition-transform group-hover:-translate-y-0.5" />
+                    <ChevronUp className="h-4 w-4 transform-gpu transition-transform will-change-transform group-hover:-translate-y-0.5" />
                     Hide Details
                   </>
                 ) : (
                   <>
-                    <ChevronDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
+                    <ChevronDown className="h-4 w-4 transform-gpu transition-transform will-change-transform group-hover:translate-y-0.5" />
                     Customize Preferences
                   </>
                 )}

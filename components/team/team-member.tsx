@@ -1,8 +1,8 @@
 "use client";
 
 import { m } from "framer-motion";
+import { Github, Linkedin } from "lucide-react";
 import Image from "next/image";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { Card } from "@/components/ui/card";
 import { interactionSpring, slideUp } from "@/lib/animations/variants";
 import type { TeamMemberProps } from "./types";
@@ -26,13 +26,13 @@ export default function TeamMember({ member, index }: TeamMemberProps) {
         {/* Avatar */}
         <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-gray-100 ring-1 ring-gray-200 dark:bg-gray-800 dark:ring-gray-700">
           <m.div
-            className="relative h-full w-full"
+            className="relative h-full w-full transform-gpu will-change-transform"
             transition={interactionSpring}
             whileHover={{ scale: 1.05 }}
           >
             <Image
               alt={`Profile picture of ${member.name}`}
-              className="object-cover transition-transform duration-500"
+              className="transform-gpu object-cover transition-transform duration-500 will-change-transform"
               fill
               loading={index > 5 ? "lazy" : undefined}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -58,7 +58,7 @@ export default function TeamMember({ member, index }: TeamMemberProps) {
                 target="_blank"
                 whileHover={iconHover}
               >
-                <FaGithub aria-hidden="true" className="h-4 w-4" />
+                <Github aria-hidden="true" className="h-4 w-4" />
                 <span className="max-w-35 truncate">{githubUsername}</span>
               </m.a>
             )}
@@ -72,7 +72,7 @@ export default function TeamMember({ member, index }: TeamMemberProps) {
                 target="_blank"
                 whileHover={iconHover}
               >
-                <FaLinkedin aria-hidden="true" className="h-4 w-4" />
+                <Linkedin aria-hidden="true" className="h-4 w-4" />
                 <span className="max-w-35 truncate">{linkedinUsername}</span>
               </m.a>
             )}

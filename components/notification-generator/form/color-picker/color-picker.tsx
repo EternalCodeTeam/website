@@ -228,7 +228,7 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
                 <div className="grid grid-cols-5 gap-2">
                   {minecraftColors.map((mcColor) => (
                     <button
-                      className="group relative flex aspect-square cursor-pointer flex-col items-center justify-center rounded-md border border-gray-200 transition-all hover:scale-110 hover:shadow-md dark:border-gray-700"
+                      className="group relative flex aspect-square transform-gpu cursor-pointer flex-col items-center justify-center rounded-md border border-gray-200 transition-all will-change-transform hover:scale-110 hover:shadow-md dark:border-gray-700"
                       key={mcColor.hex}
                       onClick={() => handlePresetClick(mcColor)}
                       style={{ backgroundColor: mcColor.hex }}
@@ -248,7 +248,7 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
                 <div className="grid grid-cols-2 gap-2">
                   {gradientPresets.map((preset) => (
                     <button
-                      className="group relative h-10 w-full cursor-pointer overflow-hidden rounded-md border border-gray-200 transition-all hover:scale-105 hover:shadow-md dark:border-gray-700"
+                      className="group relative h-10 w-full transform-gpu cursor-pointer overflow-hidden rounded-md border border-gray-200 transition-all will-change-transform hover:scale-105 hover:shadow-md dark:border-gray-700"
                       key={preset.name}
                       onClick={() => handleGradientPresetClick(preset.colors)}
                       style={{

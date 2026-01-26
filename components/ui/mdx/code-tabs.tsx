@@ -17,64 +17,80 @@ import {
   useMemo,
   useState,
 } from "react";
-// biome-ignore lint/performance/noNamespaceImport: Dynamic icon accessing
-import * as SIIcons from "react-icons/si";
+import {
+  SiApachemaven,
+  SiC,
+  SiCplusplus,
+  SiDocker,
+  SiGnubash,
+  SiGo,
+  SiGradle,
+  SiJavascript,
+  SiKotlin,
+  SiLua,
+  SiModrinth,
+  SiNpm,
+  SiPerl,
+  SiPhp,
+  SiPnpm,
+  SiPython,
+  SiRuby,
+  SiRust,
+  SiScala,
+  SiSharp,
+  SiSwift,
+  SiTypescript,
+  SiYarn,
+} from "react-icons/si";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { cn } from "@/lib/utils";
 
-const ICONS: Record<string, string> = {
-  maven: "SiApachemaven",
-  gradle: "SiGradle",
-  "gradle.kts": "SiGradle",
-  npm: "SiNpm",
-  yarn: "SiYarn",
-  pnpm: "SiPnpm",
-  bash: "SiGnubash",
-  shell: "SiGnubash",
-  kotlin: "SiKotlin",
-  java: "SiJava",
-  xml: "SiXml",
-  json: "SiJson",
-  typescript: "SiTypescript",
-  javascript: "SiJavascript",
-  python: "SiPython",
-  docker: "SiDocker",
-  go: "SiGo",
-  php: "SiPhp",
-  ruby: "SiRuby",
-  csharp: "SiCsharp",
-  cpp: "SiCplusplus",
-  c: "SiC",
-  rust: "SiRust",
-  swift: "SiSwift",
-  scala: "SiScala",
-  perl: "SiPerl",
-  lua: "SiLua",
-  modrinth: "SiModrinth",
-  spigot: "SiSpigot",
+type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
+
+const ICONS: Record<string, IconComponent> = {
+  maven: SiApachemaven,
+  gradle: SiGradle,
+  "gradle.kts": SiGradle,
+  npm: SiNpm,
+  yarn: SiYarn,
+  pnpm: SiPnpm,
+  bash: SiGnubash,
+  shell: SiGnubash,
+  sh: SiGnubash,
+  kotlin: SiKotlin,
+  kt: SiKotlin,
+  typescript: SiTypescript,
+  ts: SiTypescript,
+  tsx: SiTypescript,
+  javascript: SiJavascript,
+  js: SiJavascript,
+  jsx: SiJavascript,
+  python: SiPython,
+  py: SiPython,
+  docker: SiDocker,
+  dockerfile: SiDocker,
+  go: SiGo,
+  php: SiPhp,
+  ruby: SiRuby,
+  rb: SiRuby,
+  csharp: SiSharp,
+  cs: SiSharp,
+  cpp: SiCplusplus,
+  "c++": SiCplusplus,
+  c: SiC,
+  rust: SiRust,
+  rs: SiRust,
+  swift: SiSwift,
+  scala: SiScala,
+  perl: SiPerl,
+  pl: SiPerl,
+  lua: SiLua,
+  modrinth: SiModrinth,
 };
 
-const NON_ALPHANUMERIC_REGEX = /[^a-z0-9]/gi;
-const FIRST_CHAR_REGEX = /^./;
-
-// Memoize icon lookup to avoid repeated calculations
-const iconCache = new Map<string, ComponentType<SVGProps<SVGSVGElement>> | null>();
-
-const getIcon = (label: string): ComponentType<SVGProps<SVGSVGElement>> | null => {
+const getIcon = (label: string): IconComponent | null => {
   const key = label.trim().toLowerCase();
-
-  if (iconCache.has(key)) {
-    return iconCache.get(key) ?? null;
-  }
-
-  const iconName =
-    ICONS[key] ??
-    `Si${key.replace(NON_ALPHANUMERIC_REGEX, "").replace(FIRST_CHAR_REGEX, (c) => c.toUpperCase())}`;
-
-  const Icon =
-    (SIIcons as Record<string, ComponentType<SVGProps<SVGSVGElement>>>)[iconName] ?? null;
-  iconCache.set(key, Icon);
-  return Icon;
+  return ICONS[key] ?? null;
 };
 
 const LanguageIcon = ({ label }: { label: string }) => {
