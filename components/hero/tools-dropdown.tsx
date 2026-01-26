@@ -6,6 +6,7 @@ import { Dropdown } from "@/components/ui/dropdown";
 export const TOOLS_OPTIONS = [
   { label: "Notification Generator", value: "/notification-generator" },
   { label: "Build Explorer", value: "/builds" },
+  { label: "BBCode Converter", value: "/tools/converter" },
 ];
 
 export function ToolsDropdown() {
