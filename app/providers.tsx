@@ -7,6 +7,7 @@ import { Toaster } from "react-hot-toast";
 
 import { SearchProvider } from "@/components/docs/search/search-context";
 import SmoothScrolling from "@/components/smooth-scrolling";
+import { ServiceWorkerRegistration } from "@/components/pwa/service-worker";
 
 interface ProvidersProps {
   children: ReactNode;
@@ -18,6 +19,7 @@ export function Providers({ children }: ProvidersProps) {
       <LazyMotion features={domAnimation}>
         <SearchProvider>
           <SmoothScrolling>{children}</SmoothScrolling>
+          <ServiceWorkerRegistration />
           <Toaster
             position="bottom-right"
             reverseOrder={false}

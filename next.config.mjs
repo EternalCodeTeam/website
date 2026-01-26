@@ -63,6 +63,28 @@ const nextConfig = {
   },
   bundlePagesRouterDependencies: true,
   serverExternalPackages: ["gray-matter", "sharp", "@takumi-rs/image-response"],
+  async headers() {
+    return [
+      {
+        source: "/sw.js",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=0, must-revalidate",
+          },
+        ],
+      },
+      {
+        source: "/manifest.webmanifest",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=0, must-revalidate",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 import withBundleAnalyzer from "@next/bundle-analyzer";
