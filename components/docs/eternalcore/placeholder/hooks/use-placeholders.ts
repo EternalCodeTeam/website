@@ -16,9 +16,9 @@ const placeholderSchema = {
 
 type PlaceholderDB = Orama<typeof placeholderSchema>;
 
-export function usePlaceholders() {
-  const [allPlaceholders, setAllPlaceholders] = useState<Placeholder[]>([]);
-  const [viewablePlaceholders, setViewablePlaceholders] = useState<Placeholder[]>([]);
+export function usePlaceholders(initialData: Placeholder[]) {
+  const [allPlaceholders] = useState<Placeholder[]>(initialData);
+  const [viewablePlaceholders, setViewablePlaceholders] = useState<Placeholder[]>(initialData);
   const [categories, setCategories] = useState<string[]>([]);
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
@@ -31,26 +31,11 @@ export function usePlaceholders() {
       try {
         setLoading(true);
 
-        const response = await fetch(
-          "https://raw.githubusercontent.com/EternalCodeTeam/EternalCore/refs/heads/master/raw_eternalcore_placeholders.json"
-        );
-
-        if (!response.ok) {
-          setError(`Failed to fetch data: ${response.statusText}`);
-          return;
-        }
-
-        const data = (await response.json()) as Placeholder[];
-        const sortedData = [...data].sort((a, b) => a.name.localeCompare(b.name, "pl"));
-
-        setAllPlaceholders(sortedData);
-        setViewablePlaceholders(sortedData);
-
-        const uniqueCategories = Array.from(new Set(sortedData.map((p) => p.category))).sort();
+        const uniqueCategories = Array.from(new Set(initialData.map((p) => p.category))).sort();
         setCategories(["All", ...uniqueCategories]);
 
         const oramaDb = create({ schema: placeholderSchema });
-        await Promise.all(sortedData.map((p) => insert(oramaDb, p)));
+        await Promise.all(initialData.map((p) => insert(oramaDb, p)));
 
         setDb(oramaDb);
       } catch (exception) {
@@ -61,7 +46,7 @@ export function usePlaceholders() {
     };
 
     initializeData();
-  }, []);
+  }, [initialData]);
 
   const filterPlaceholders = useCallback(
     async (query = searchQuery, category = activeCategory) => {

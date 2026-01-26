@@ -2,8 +2,7 @@
 
 import { create, insert, type Orama, search } from "@orama/orama";
 import { type ChangeEvent, useEffect, useState } from "react";
-
-import type { CommandData, EternalCoreData } from "@/components/docs/eternalcore/commands/types";
+import type { CommandData } from "@/components/docs/eternalcore/commands/types";
 
 const commandSchema = {
   name: "string",
@@ -14,41 +13,34 @@ const commandSchema = {
 
 type CommandDB = Orama<typeof commandSchema>;
 
-const REGEX_LEADING_SLASH = /^\//;
-
-export function useCommands() {
-  const [commands, setCommands] = useState<CommandData[]>([]);
-  const [filteredCommands, setFilteredCommands] = useState<CommandData[]>([]);
+export function useCommands(initialData: CommandData[]) {
+  const [commands] = useState<CommandData[]>(initialData);
+  const [filteredCommands, setFilteredCommands] = useState<CommandData[]>(initialData);
   const [searchQuery, setSearchQuery] = useState("");
   const [db, setDb] = useState<CommandDB | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const load = async (): Promise<void> => {
+    const initDb = async () => {
       try {
         setLoading(true);
-        const all = await fetchAndParseCommands();
-
-        setCommands(all);
-        setFilteredCommands(all);
-
         const orama = create({
           schema: commandSchema,
         });
 
-        await insertCommands(orama, all);
+        await insertCommands(orama, initialData);
         setDb(orama);
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Unknown error";
+        const message = err instanceof Error ? err.message : "Failed to initialize search";
         setError(message);
       } finally {
         setLoading(false);
       }
     };
 
-    load();
-  }, []);
+    initDb();
+  }, [initialData]);
 
   const handleSearch = async (q: string): Promise<void> => {
     setSearchQuery(q);
@@ -82,42 +74,6 @@ export function useCommands() {
     error,
     handleSearchChange,
   };
-}
-
-async function fetchAndParseCommands(): Promise<CommandData[]> {
-  const res = await fetch(
-    "https://raw.githubusercontent.com/EternalCodeTeam/EternalCore/refs/heads/master/raw_eternalcore_documentation.json"
-  );
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  const data = (await res.json()) as unknown as EternalCoreData;
-
-  const commandsList =
-    data.commands?.map((c) => ({
-      name: `/${c.name.trim()}`,
-      permission: c.permissions?.[0] ?? "-",
-      description: c.descriptions?.[0] ?? "-",
-      arguments: c.arguments?.join(", ") ?? "-",
-    })) ?? [];
-
-  const permsList =
-    data.permissions?.map((p) => ({
-      name: p.name || "Unknown",
-      permission: p.permissions?.[0] ?? "-",
-      description: p.descriptions?.[0] ?? "-",
-      arguments: "-",
-    })) ?? [];
-
-  return [...commandsList, ...permsList].sort((a, b) =>
-    a.name
-      .replace(REGEX_LEADING_SLASH, "")
-      .localeCompare(b.name.replace(REGEX_LEADING_SLASH, ""), "pl", {
-        sensitivity: "base",
-      })
-  );
 }
 
 async function insertCommands(orama: CommandDB, commands: CommandData[]) {

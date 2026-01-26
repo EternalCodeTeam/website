@@ -1,8 +1,9 @@
 import type { MDXComponents } from "mdx/types";
+import dynamic from "next/dynamic";
 import type { ComponentProps, HTMLAttributes } from "react";
 
-import DynamicCommandsTable from "@/components/docs/eternalcore/commands/dynamic-commands-table";
-import DynamicPlaceholdersTable from "@/components/docs/eternalcore/placeholder/dynamic-placeholders-table";
+import CommandsTableRSC from "@/components/docs/eternalcore/commands/commands-table-rsc";
+import PlaceholdersTableRSC from "@/components/docs/eternalcore/placeholder/placeholders-table-rsc";
 import { AlertBox } from "@/components/ui/alert-box";
 import { Badge } from "@/components/ui/mdx/badge";
 import { BeforeAfter, BeforeAfterItem } from "@/components/ui/mdx/before-after";
@@ -15,10 +16,13 @@ import { Divider } from "@/components/ui/mdx/divider";
 import { FileTree, FileTreeItem } from "@/components/ui/mdx/file-tree";
 import { Heading } from "@/components/ui/mdx/heading";
 import { Inline } from "@/components/ui/mdx/inline";
-import { LinkPreview } from "@/components/ui/mdx/link-preview";
 import { MdxImage } from "@/components/ui/mdx/mdx-image";
 import { MdxLink } from "@/components/ui/mdx/mdx-link";
 import { Step, Steps } from "@/components/ui/mdx/steps";
+
+const LinkPreview = dynamic(() =>
+  import("@/components/ui/mdx/link-preview").then((mod) => mod.LinkPreview)
+);
 
 type HeadingProps = HTMLAttributes<HTMLHeadingElement>;
 
@@ -75,8 +79,8 @@ export const components: MDXComponents = {
   FileTree,
   FileTreeItem,
   LinkPreview,
-  DynamicCommandsTable,
-  DynamicPlaceholdersTable,
+  DynamicCommandsTable: CommandsTableRSC,
+  DynamicPlaceholdersTable: PlaceholdersTableRSC,
 
   code: ({ children, ...props }: ComponentProps<"code">) => {
     if (typeof children !== "string") {

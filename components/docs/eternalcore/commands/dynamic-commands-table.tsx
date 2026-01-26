@@ -1,12 +1,17 @@
 "use client";
 
 import { useCommands } from "@/components/docs/eternalcore/commands/hooks/use-commands";
+import type { CommandData } from "@/components/docs/eternalcore/commands/types";
 import { CommandsSearchBar } from "./commands-search-bar";
 import { CommandsTable } from "./commands-table";
 
-export default function DynamicCommandsTable() {
+interface DynamicCommandsTableProps {
+  initialData: CommandData[];
+}
+
+export default function DynamicCommandsTable({ initialData }: DynamicCommandsTableProps) {
   const { commands, filteredCommands, searchQuery, loading, error, handleSearchChange } =
-    useCommands();
+    useCommands(initialData);
 
   if (error) {
     return <div className="p-6 text-center text-red-500">Error: {error}</div>;
