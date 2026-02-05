@@ -1,6 +1,7 @@
 "use client";
 
 import { type ChangeEvent, type KeyboardEvent, useEffect, useRef, useState } from "react";
+import { useSpotlight } from "@/hooks/use-spotlight";
 
 import responses from "./responses";
 
@@ -21,6 +22,7 @@ export default function Terminal() {
   const [input, setInput] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const spotlight = useSpotlight<HTMLDivElement>();
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
@@ -58,7 +60,11 @@ export default function Terminal() {
   };
 
   return (
-    <div className="mx-auto mt-8 w-full rounded-xl border border-gray-200 bg-white/80 shadow-2xl backdrop-blur-xl dark:border-gray-800 dark:bg-gray-900/50">
+    <div
+      className="spotlight-card relative mx-auto mt-8 w-full rounded-xl border border-gray-200 bg-white/80 shadow-2xl backdrop-blur-xl dark:border-gray-800 dark:bg-gray-900/50"
+      onPointerLeave={spotlight.onPointerLeave}
+      onPointerMove={spotlight.onPointerMove}
+    >
       {/* Title bar */}
       <div className="flex h-11 items-center rounded-t-xl border-gray-200 border-b bg-gray-50/50 px-4 dark:border-gray-800 dark:bg-gray-900/50">
         <div className="flex space-x-2">

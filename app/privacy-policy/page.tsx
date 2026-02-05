@@ -19,9 +19,11 @@ import {
   MotionSection,
   SlideIn,
 } from "@/components/ui/motion/motion-components";
+import { useSpotlight } from "@/hooks/use-spotlight";
 
 export default function PrivacyPolicyPage() {
   const lastUpdated = "December 9, 2025";
+  const spotlight = useSpotlight<HTMLElement>();
 
   return (
     <div className="relative min-h-screen bg-gray-50 dark:bg-gray-950">
@@ -57,7 +59,11 @@ export default function PrivacyPolicyPage() {
         <MotionSection className="w-full space-y-16">
           {/* Who We Are */}
           <SlideIn direction="up">
-            <section className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white/50 p-8 shadow-xs backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/50">
+            <section
+              className="spotlight-card relative overflow-hidden rounded-2xl border border-gray-200 bg-white/50 p-8 shadow-xs backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/50"
+              onPointerLeave={spotlight.onPointerLeave}
+              onPointerMove={spotlight.onPointerMove}
+            >
               <div className="flex items-start gap-4">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-100 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400">
                   <Globe className="h-6 w-6" />
@@ -89,7 +95,11 @@ export default function PrivacyPolicyPage() {
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               <HoverScale>
-                <div className="h-full rounded-xl border border-gray-200 bg-white p-6 shadow-xs transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-800">
+                <div
+                  className="spotlight-card relative h-full rounded-xl border border-gray-200 bg-white p-6 shadow-xs transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
+                  onPointerLeave={spotlight.onPointerLeave}
+                  onPointerMove={spotlight.onPointerMove}
+                >
                   <Cookie className="mb-4 h-8 w-8 text-orange-500" />
                   <h3 className="mb-2 font-semibold text-gray-900 text-lg dark:text-white">
                     Cookies
@@ -102,7 +112,11 @@ export default function PrivacyPolicyPage() {
               </HoverScale>
 
               <HoverScale>
-                <div className="h-full rounded-xl border border-gray-200 bg-white p-6 shadow-xs transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-800">
+                <div
+                  className="spotlight-card relative h-full rounded-xl border border-gray-200 bg-white p-6 shadow-xs transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
+                  onPointerLeave={spotlight.onPointerLeave}
+                  onPointerMove={spotlight.onPointerMove}
+                >
                   <Eye className="mb-4 h-8 w-8 text-blue-500" />
                   <h3 className="mb-2 font-semibold text-gray-900 text-lg dark:text-white">
                     Analytics
@@ -115,7 +129,11 @@ export default function PrivacyPolicyPage() {
               </HoverScale>
 
               <HoverScale>
-                <div className="h-full rounded-xl border border-gray-200 bg-white p-6 shadow-xs transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-800">
+                <div
+                  className="spotlight-card relative h-full rounded-xl border border-gray-200 bg-white p-6 shadow-xs transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
+                  onPointerLeave={spotlight.onPointerLeave}
+                  onPointerMove={spotlight.onPointerMove}
+                >
                   <Mail className="mb-4 h-8 w-8 text-purple-500" />
                   <h3 className="mb-2 font-semibold text-gray-900 text-lg dark:text-white">
                     Communications
@@ -132,7 +150,11 @@ export default function PrivacyPolicyPage() {
           {/* Usage & Cookie Details - Split View */}
           <div className="grid gap-8 lg:grid-cols-2">
             <SlideIn direction="left">
-              <section className="h-full rounded-2xl border border-gray-200 bg-white/50 p-8 dark:border-gray-800 dark:bg-gray-900/50">
+              <section
+                className="spotlight-card relative h-full rounded-2xl border border-gray-200 bg-white/50 p-8 dark:border-gray-800 dark:bg-gray-900/50"
+                onPointerLeave={spotlight.onPointerLeave}
+                onPointerMove={spotlight.onPointerMove}
+              >
                 <div className="mb-6 flex items-center gap-3">
                   <Server className="h-6 w-6 text-indigo-500" />
                   <h2 className="font-bold text-gray-900 text-xl dark:text-white">Data Usage</h2>
@@ -157,7 +179,11 @@ export default function PrivacyPolicyPage() {
             </SlideIn>
 
             <SlideIn direction="right">
-              <section className="h-full rounded-2xl border border-gray-200 bg-white/50 p-8 dark:border-gray-800 dark:bg-gray-900/50">
+              <section
+                className="spotlight-card relative h-full rounded-2xl border border-gray-200 bg-white/50 p-8 dark:border-gray-800 dark:bg-gray-900/50"
+                onPointerLeave={spotlight.onPointerLeave}
+                onPointerMove={spotlight.onPointerMove}
+              >
                 <div className="mb-6 flex items-center gap-3">
                   <Database className="h-6 w-6 text-teal-500" />
                   <h2 className="font-bold text-gray-900 text-xl dark:text-white">Cookie Types</h2>
@@ -194,7 +220,11 @@ export default function PrivacyPolicyPage() {
 
           {/* User Rights */}
           <SlideIn direction="up">
-            <section className="overflow-hidden rounded-2xl bg-linear-to-br from-indigo-900 to-blue-900 px-8 py-10 text-white shadow-xl">
+            <section
+              className="spotlight-card relative overflow-hidden rounded-2xl bg-linear-to-br from-indigo-900 to-blue-900 px-8 py-10 text-white shadow-xl"
+              onPointerLeave={spotlight.onPointerLeave}
+              onPointerMove={spotlight.onPointerMove}
+            >
               <div className="flex flex-col items-center gap-6 md:flex-row">
                 <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm">
                   <Shield className="h-8 w-8 text-indigo-200" />
@@ -216,7 +246,11 @@ export default function PrivacyPolicyPage() {
 
           {/* Contact Section */}
           <SlideIn direction="up">
-            <section className="rounded-2xl border border-gray-200 bg-white p-8 dark:border-gray-800 dark:bg-gray-900">
+            <section
+              className="spotlight-card relative rounded-2xl border border-gray-200 bg-white p-8 dark:border-gray-800 dark:bg-gray-900"
+              onPointerLeave={spotlight.onPointerLeave}
+              onPointerMove={spotlight.onPointerMove}
+            >
               <h2 className="mb-6 flex items-center gap-2 font-bold text-2xl text-gray-900 dark:text-white">
                 <FileText className="h-6 w-6 text-gray-400" />
                 Contact Us
@@ -246,7 +280,11 @@ export default function PrivacyPolicyPage() {
                     </a>
                   </div>
                 </div>
-                <div className="rounded-lg bg-gray-50 p-6 dark:bg-gray-800/50">
+                <div
+                  className="spotlight-card relative rounded-lg bg-gray-50 p-6 dark:bg-gray-800/50"
+                  onPointerLeave={spotlight.onPointerLeave}
+                  onPointerMove={spotlight.onPointerMove}
+                >
                   <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">
                     Important Note
                   </h3>

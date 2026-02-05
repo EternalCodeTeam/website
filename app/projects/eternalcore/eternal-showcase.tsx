@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { FadeIn } from "@/components/ui/motion/motion-components";
+import { useSpotlight } from "@/hooks/use-spotlight";
 
 const marqueeItems = [
   // Row 1: Essentials & Chat
@@ -124,6 +125,8 @@ const InfiniteMarquee = ({
   speed?: number;
   onItemClick: (item: (typeof marqueeItems)[0]) => void;
 }) => {
+  const spotlight = useSpotlight<HTMLDivElement>();
+
   return (
     <div className="relative flex w-full overflow-hidden">
       <motion.div
@@ -143,9 +146,11 @@ const InfiniteMarquee = ({
       >
         {[...items, ...items].map((item, i) => (
           <motion.div
-            className="group relative aspect-video w-[400px] shrink-0 transform-gpu cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-gray-100 shadow-sm transition-all will-change-transform hover:border-[#9d6eef]/50 hover:shadow-[#9d6eef]/20 hover:shadow-lg dark:border-gray-800 dark:bg-gray-900"
+            className="spotlight-card group relative aspect-video w-[400px] shrink-0 transform-gpu cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-gray-100 shadow-sm transition-all will-change-transform hover:border-[#9d6eef]/50 hover:shadow-[#9d6eef]/20 hover:shadow-lg dark:border-gray-800 dark:bg-gray-900"
             key={`${item.id}-${i}`}
             onClick={() => onItemClick(item)}
+            onPointerLeave={spotlight.onPointerLeave}
+            onPointerMove={spotlight.onPointerMove}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >

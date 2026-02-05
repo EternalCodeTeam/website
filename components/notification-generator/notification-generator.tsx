@@ -11,6 +11,7 @@ import {
 import { TitleTab } from "@/components/notification-generator/tabs/title/title-tab";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/ui/motion/motion-components";
+import { useSpotlight } from "@/hooks/use-spotlight";
 
 import { validateField } from "./form/validation";
 import { AdvancedTab } from "./tabs/advanced/advanced-tab";
@@ -26,6 +27,7 @@ export function NotificationGenerator({ notification, setNotification }: Notific
   const [activeTab, setActiveTab] = useState<TabType>("chat");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const soundTabRef = useRef<SoundTabRef>(null);
+  const spotlight = useSpotlight<HTMLDivElement>();
 
   const handleChange = useCallback(
     (field: FieldType, value: string | boolean) => {
@@ -108,7 +110,11 @@ export function NotificationGenerator({ notification, setNotification }: Notific
   }, [activeTab]);
 
   return (
-    <div className="h-full rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 dark:bg-gray-900/40 dark:ring-gray-800">
+    <div
+      className="spotlight-card relative h-full rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 dark:bg-gray-900/40 dark:ring-gray-800"
+      onPointerLeave={spotlight.onPointerLeave}
+      onPointerMove={spotlight.onPointerMove}
+    >
       <FadeIn>
         <div className="mb-8">
           <div

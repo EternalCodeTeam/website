@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { FacadePattern } from "@/components/ui/facade-pattern";
 import { FadeIn, MotionSection, ScaleIn, SlideIn } from "@/components/ui/motion/motion-components";
+import { useSpotlight } from "@/hooks/use-spotlight";
 import { slideUp } from "@/lib/animations/variants";
 
 import { ConfigPreview } from "./config-preview";
@@ -15,6 +16,8 @@ import { EternalShowcase } from "./eternal-showcase";
 
 export default function EternalCorePage() {
   const targetRef = useRef(null);
+  const bannerSpotlight = useSpotlight<HTMLDivElement>();
+  const previewSpotlight = useSpotlight<HTMLDivElement>();
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start start", "end start"],
@@ -97,7 +100,11 @@ export default function EternalCorePage() {
             {/* Project Banner Placeholder */}
             <div className="w-full max-w-xl flex-1 lg:max-w-none">
               <ScaleIn delay={0.2}>
-                <div className="group relative aspect-video overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 shadow-2xl dark:border-gray-800 dark:bg-gray-900">
+                <div
+                  className="spotlight-card group relative aspect-video overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 shadow-2xl dark:border-gray-800 dark:bg-gray-900"
+                  onPointerLeave={bannerSpotlight.onPointerLeave}
+                  onPointerMove={bannerSpotlight.onPointerMove}
+                >
                   <Image
                     alt="EternalCore Project Banner"
                     className="transform-gpu object-cover transition-transform duration-700 will-change-transform group-hover:scale-105"
@@ -223,7 +230,11 @@ export default function EternalCorePage() {
             <SlideIn delay={0.2} direction="right">
               <div className="group relative">
                 {/* The "Long Screenshot" Container */}
-                <div className="relative h-[600px] w-full transform-gpu select-none overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl transition-transform duration-700 will-change-transform hover:scale-[1.02] dark:border-gray-800 dark:bg-[#0d1117]">
+                <div
+                  className="spotlight-card relative h-[600px] w-full transform-gpu select-none overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl transition-transform duration-700 will-change-transform hover:scale-[1.02] dark:border-gray-800 dark:bg-[#0d1117]"
+                  onPointerLeave={previewSpotlight.onPointerLeave}
+                  onPointerMove={previewSpotlight.onPointerMove}
+                >
                   {/* Window Controls */}
                   <div className="absolute top-0 right-0 left-0 z-20 flex items-center gap-2 border-gray-100 border-b bg-white/80 px-4 py-3 backdrop-blur-md dark:border-white/5 dark:bg-gray-900/80">
                     <div className="flex gap-1.5">

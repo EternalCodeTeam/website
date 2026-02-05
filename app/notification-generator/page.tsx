@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import type { NotificationConfig } from "@/components/notification-generator/types";
 import { Button } from "@/components/ui/button";
 import { FadeIn, MotionSection, SlideIn } from "@/components/ui/motion/motion-components";
+import { useSpotlight } from "@/hooks/use-spotlight";
 
 const NotificationGeneratedCode = dynamic(
   () =>
@@ -47,6 +48,8 @@ export default function NotificationGeneratorPage() {
 
   const [yamlCode, setYamlCode] = useState("");
   const [previewKey, setPreviewKey] = useState(0);
+  const configSpotlight = useSpotlight<HTMLDivElement>();
+  const previewSpotlight = useSpotlight<HTMLDivElement>();
 
   const generateYaml = useCallback(() => generateYamlString(notification), [notification]);
 
@@ -82,7 +85,11 @@ export default function NotificationGeneratorPage() {
         </SlideIn>
 
         <SlideIn className="h-full" delay={0.4} direction="right">
-          <div className="h-full rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 dark:bg-gray-900/40 dark:ring-gray-800">
+          <div
+            className="spotlight-card relative h-full rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 dark:bg-gray-900/40 dark:ring-gray-800"
+            onPointerLeave={configSpotlight.onPointerLeave}
+            onPointerMove={configSpotlight.onPointerMove}
+          >
             <h2 className="mb-4 font-semibold text-gray-900 text-xl dark:text-white">
               Generated Configuration
             </h2>
@@ -92,7 +99,11 @@ export default function NotificationGeneratorPage() {
       </div>
 
       <SlideIn className="mt-8" delay={0.5} direction="up">
-        <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 dark:bg-gray-900/40 dark:ring-gray-800">
+        <div
+          className="spotlight-card relative rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 dark:bg-gray-900/40 dark:ring-gray-800"
+          onPointerLeave={previewSpotlight.onPointerLeave}
+          onPointerMove={previewSpotlight.onPointerMove}
+        >
           <div className="mb-6 flex flex-col items-center justify-between gap-4 sm:flex-row">
             <div>
               <h2 className="font-semibold text-gray-900 text-xl dark:text-white">Live Preview</h2>

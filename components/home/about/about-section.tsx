@@ -7,9 +7,12 @@ import PolandMap from "@/components/home/about/poland-map";
 import PeopleGroupIcon from "@/components/icons/people-group";
 import { Button } from "@/components/ui/button";
 import { SlideIn } from "@/components/ui/motion/motion-components";
+import { useSpotlight } from "@/hooks/use-spotlight";
 import AboutImage from "@/public/hero image.png";
 
 export default function About() {
+  const spotlight = useSpotlight<HTMLDivElement>();
+
   return (
     <section
       aria-labelledby="about-heading"
@@ -95,7 +98,9 @@ export default function About() {
 
               <SlideIn className="relative z-10 w-full" delay={0.3} direction="right">
                 <m.div
-                  className="relative transform-gpu overflow-hidden rounded-2xl shadow-2xl will-change-transform"
+                  className="spotlight-card relative transform-gpu overflow-hidden rounded-2xl shadow-2xl will-change-transform"
+                  onPointerLeave={spotlight.onPointerLeave}
+                  onPointerMove={spotlight.onPointerMove}
                   transition={{ duration: 0.5, type: "spring" }}
                   whileHover={{ scale: 1.02, rotate: 1 }}
                 >

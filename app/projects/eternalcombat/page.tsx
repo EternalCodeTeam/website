@@ -6,11 +6,15 @@ import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { FacadePattern } from "@/components/ui/facade-pattern";
 import { FadeIn, SlideIn } from "@/components/ui/motion/motion-components";
+import { useSpotlight } from "@/hooks/use-spotlight";
 
 import { ConfigPreview } from "./config-preview";
 
 export default function EternalCombatPage() {
   const targetRef = useRef(null);
+  const previewSpotlight = useSpotlight<HTMLDivElement>();
+  const featureSpotlight = useSpotlight<HTMLDivElement>();
+  const configSpotlight = useSpotlight<HTMLDivElement>();
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start start", "end start"],
@@ -129,7 +133,11 @@ export default function EternalCombatPage() {
               <FadeIn delay={0.2}>
                 {/* Code Preview Overlay */}
                 <div className="flex items-center justify-center pt-8 lg:pt-0">
-                  <div className="w-full max-w-lg transform-gpu rounded-xl border border-gray-700/50 bg-gray-900/90 p-6 shadow-2xl backdrop-blur-sm transition-transform duration-500 will-change-transform hover:scale-[1.02]">
+                  <div
+                    className="spotlight-card relative w-full max-w-lg transform-gpu rounded-xl border border-gray-700/50 bg-gray-900/90 p-6 shadow-2xl backdrop-blur-sm transition-transform duration-500 will-change-transform hover:scale-[1.02]"
+                    onPointerLeave={previewSpotlight.onPointerLeave}
+                    onPointerMove={previewSpotlight.onPointerMove}
+                  >
                     <div className="mb-4 flex items-center gap-2 border-gray-700/50 border-b pb-2">
                       <div className="h-3 w-3 rounded-full bg-red-500" />
                       <div className="h-3 w-3 rounded-full bg-yellow-500" />
@@ -211,7 +219,11 @@ export default function EternalCombatPage() {
               },
             ].map((feature, i) => (
               <SlideIn className="h-full" delay={i * 0.1} direction="up" key={feature.title}>
-                <div className="group h-full rounded-2xl border border-gray-200 bg-gray-50 p-8 transition-colors hover:border-red-500/30 dark:border-gray-800 dark:bg-gray-900/50">
+                <div
+                  className="spotlight-card relative group h-full rounded-2xl border border-gray-200 bg-gray-50 p-8 transition-colors hover:border-red-500/30 dark:border-gray-800 dark:bg-gray-900/50"
+                  onPointerLeave={featureSpotlight.onPointerLeave}
+                  onPointerMove={featureSpotlight.onPointerMove}
+                >
                   <div
                     className={`h-12 w-12 rounded-xl ${feature.bg} ${feature.color} mb-6 flex transform-gpu items-center justify-center transition-transform duration-300 will-change-transform group-hover:scale-110`}
                   >
@@ -261,7 +273,11 @@ export default function EternalCombatPage() {
             <SlideIn delay={0.2} direction="right">
               <div className="group perspective-1000 relative">
                 {/* The "Long Screenshot" Container */}
-                <div className="relative h-[600px] w-full transform-gpu select-none overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl transition-transform duration-700 will-change-transform hover:scale-[1.02] dark:border-gray-800 dark:bg-[#0d1117]">
+                <div
+                  className="spotlight-card relative h-[600px] w-full transform-gpu select-none overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl transition-transform duration-700 will-change-transform hover:scale-[1.02] dark:border-gray-800 dark:bg-[#0d1117]"
+                  onPointerLeave={configSpotlight.onPointerLeave}
+                  onPointerMove={configSpotlight.onPointerMove}
+                >
                   {/* Tilted Content */}
                   <div className="absolute -top-10 -left-[15%] h-[200%] w-[150%] origin-top-left rotate-2 transform-gpu transition-all duration-700 will-change-transform hover:rotate-0 hover:scale-100">
                     {/* Inner blur container */}

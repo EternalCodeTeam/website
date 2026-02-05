@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { useCookieConsent } from "@/hooks/use-cookie-consent";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { useSpotlight } from "@/hooks/use-spotlight";
 import { interactionSpring } from "@/lib/animations/variants";
 
 // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Component logic is complex by design
@@ -16,6 +17,7 @@ export function CookieConsentModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const prefersReducedMotion = useReducedMotion();
+  const spotlight = useSpotlight<HTMLDivElement>();
 
   const isDefaultConsent =
     consent.necessary && !consent.analytics && !consent.marketing && !consent.preferences;
@@ -84,7 +86,7 @@ export function CookieConsentModal() {
         {isOpen ? (
           <motion.div
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            className="fixed right-6 bottom-6 z-50 w-full max-w-sm overflow-hidden rounded-2xl border border-white/20 bg-white/80 p-6 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-gray-900/80"
+            className="spotlight-card fixed right-6 bottom-6 z-50 w-full max-w-sm overflow-hidden rounded-2xl border border-white/20 bg-white/80 p-6 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-gray-900/80"
             exit={{
               opacity: 0,
               y: prefersReducedMotion ? 0 : 50,
@@ -96,6 +98,8 @@ export function CookieConsentModal() {
               scale: prefersReducedMotion ? 1 : 0.98,
             }}
             key="cookie-modal"
+            onPointerLeave={spotlight.onPointerLeave}
+            onPointerMove={spotlight.onPointerMove}
             transition={{ duration: prefersReducedMotion ? 0 : 0.15, ease: "easeOut" }}
           >
             <div className="flex items-start justify-between">

@@ -13,6 +13,7 @@ import { useClickOutside } from "@/hooks/use-click-outside";
 import { useRecentSearches } from "@/hooks/use-recent-searches";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { useSearch } from "@/hooks/use-search";
+import { useSpotlight } from "@/hooks/use-spotlight";
 import { cn } from "@/lib/utils";
 
 interface SearchModalProps {
@@ -53,6 +54,7 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
 
   const modalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const spotlight = useSpotlight<HTMLDivElement>();
   const router = useRouter();
   const prefersReducedMotion = useReducedMotion();
 
@@ -265,7 +267,11 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
               }}
             >
               {/* Modal Container with Enhanced Glassmorphism */}
-              <div className="flex h-full flex-col overflow-hidden rounded-none border-0 bg-white/98 shadow-2xl backdrop-blur-2xl md:h-auto md:rounded-2xl md:border md:border-gray-200/60 dark:bg-gray-900/98 dark:md:border-gray-700/60">
+              <div
+                className="spotlight-card relative flex h-full flex-col overflow-hidden rounded-none border-0 bg-white/98 shadow-2xl backdrop-blur-2xl md:h-auto md:rounded-2xl md:border md:border-gray-200/60 dark:bg-gray-900/98 dark:md:border-gray-700/60"
+                onPointerLeave={spotlight.onPointerLeave}
+                onPointerMove={spotlight.onPointerMove}
+              >
                 {/* Search Input Section with Enhanced Gradient */}
                 <div className="relative border-gray-200 border-b bg-gradient-to-r from-gray-50/80 to-white/80 dark:border-gray-700 dark:from-gray-800/80 dark:to-gray-900/80">
                   <div className="flex items-center gap-3 px-5 py-4">

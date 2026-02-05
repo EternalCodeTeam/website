@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { useSpotlight } from "@/hooks/use-spotlight";
 
 interface Project {
   name: string;
@@ -54,6 +55,7 @@ const projects: Project[] = [
 export default function Projects() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const containerSpotlight = useSpotlight<HTMLDivElement>();
 
   // Auto-scroll logic
   useEffect(() => {
@@ -122,9 +124,11 @@ export default function Projects() {
         {/* biome-ignore lint/a11y/noStaticElementInteractions: Pause on hover feature */}
         {/* biome-ignore lint/a11y/noNoninteractiveElementInteractions: Pause on hover feature */}
         <div
-          className="group relative -mx-4 w-[calc(100%+2rem)] overflow-hidden rounded-3xl border border-gray-200/50 bg-gray-50/50 p-6 md:mx-0 md:w-full dark:border-white/5 dark:bg-white/5"
+          className="spotlight-card group relative -mx-4 w-[calc(100%+2rem)] overflow-hidden rounded-3xl border border-gray-200/50 bg-gray-50/50 p-6 md:mx-0 md:w-full dark:border-white/5 dark:bg-white/5"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          onPointerLeave={containerSpotlight.onPointerLeave}
+          onPointerMove={containerSpotlight.onPointerMove}
         >
           <div
             className="no-scrollbar flex w-full overflow-x-auto overflow-y-hidden"
@@ -152,10 +156,14 @@ export default function Projects() {
 }
 
 function ProjectCard({ project }: { project: Project }) {
+  const spotlight = useSpotlight<HTMLAnchorElement>();
+
   return (
     <Link
-      className="group relative block aspect-[16/9] w-[300px] shrink-0 transform-gpu overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 shadow-lg transition-all duration-500 will-change-transform hover:shadow-2xl md:w-[420px] dark:border-gray-800 dark:bg-gray-900"
+      className="spotlight-card group relative block aspect-[16/9] w-[300px] shrink-0 transform-gpu overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 shadow-lg transition-all duration-500 will-change-transform hover:shadow-2xl md:w-[420px] dark:border-gray-800 dark:bg-gray-900"
       href={project.url}
+      onPointerLeave={spotlight.onPointerLeave}
+      onPointerMove={spotlight.onPointerMove}
     >
       <Image
         alt={project.name}

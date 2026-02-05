@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import type { Placeholder } from "@/components/docs/eternalcore/placeholder/types";
 import { CopyToClipboard } from "@/components/ui/copy-to-clipboard";
+import { useSpotlight } from "@/hooks/use-spotlight";
 import { cn } from "@/lib/utils";
 
 interface PlaceholderTableProps {
@@ -11,8 +12,14 @@ interface PlaceholderTableProps {
 }
 
 export function PlaceholderTable({ placeholders }: PlaceholderTableProps) {
+  const spotlight = useSpotlight<HTMLDivElement>();
+
   return (
-    <div className="my-6 overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900/50">
+    <div
+      className="spotlight-card relative my-6 overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900/50"
+      onPointerLeave={spotlight.onPointerLeave}
+      onPointerMove={spotlight.onPointerMove}
+    >
       <table className="w-full text-left text-sm">
         <thead className="border-gray-200 border-b bg-gray-50/50 text-gray-900 dark:border-gray-800 dark:bg-gray-900/50 dark:text-gray-100">
           <tr>

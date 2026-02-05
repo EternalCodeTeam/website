@@ -1,20 +1,39 @@
+"use client";
+
 import type * as React from "react";
 import { cn } from "@/lib/utils";
+import { useSpotlight } from "@/hooks/use-spotlight";
 
 const Card = ({
   className,
   ref,
   ...props
-}: React.HTMLAttributes<HTMLDivElement> & { ref?: React.Ref<HTMLDivElement> }) => (
-  <div
-    className={cn(
-      "relative overflow-hidden rounded-2xl bg-white text-gray-950 shadow-sm ring-1 ring-gray-200 transition-all dark:bg-gray-900/40 dark:text-gray-50 dark:ring-gray-800",
-      className
-    )}
-    ref={ref}
-    {...props}
-  />
-);
+}: React.HTMLAttributes<HTMLDivElement> & { ref?: React.Ref<HTMLDivElement> }) => {
+  const spotlight = useSpotlight<HTMLDivElement>();
+
+  const handlePointerMove: React.PointerEventHandler<HTMLDivElement> = (event) => {
+    spotlight.onPointerMove(event);
+    props.onPointerMove?.(event);
+  };
+
+  const handlePointerLeave: React.PointerEventHandler<HTMLDivElement> = (event) => {
+    spotlight.onPointerLeave(event);
+    props.onPointerLeave?.(event);
+  };
+
+  return (
+    <div
+      className={cn(
+        "spotlight-card relative overflow-hidden rounded-2xl bg-white text-gray-950 shadow-sm ring-1 ring-gray-200 transition-all dark:bg-gray-900/40 dark:text-gray-50 dark:ring-gray-800",
+        className
+      )}
+      ref={ref}
+      {...props}
+      onPointerLeave={handlePointerLeave}
+      onPointerMove={handlePointerMove}
+    />
+  );
+};
 Card.displayName = "Card";
 
 const CardHeader = ({
