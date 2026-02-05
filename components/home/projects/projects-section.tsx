@@ -1,9 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { gsap } from "gsap";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { useAutoScroll } from "@/hooks/use-auto-scroll";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 interface Project {
   name: string;
@@ -52,44 +55,69 @@ const projects: Project[] = [
 ];
 
 export default function Projects() {
+  const sectionRef = useRef<HTMLElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
-  // Auto-scroll logic
+  useAutoScroll(scrollRef, {
+    speed: 36,
+    isPaused: isHovered,
+    prefersReducedMotion,
+    maxFrameRate: 30,
+  });
+
   useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) {
+    if (prefersReducedMotion) {
       return;
     }
 
-    let animationFrameId: number;
-    let scrollPos = scrollContainer.scrollLeft;
-    const speed = 0.6; // Slightly slower for better viewing of images
+    const section = sectionRef.current;
+    if (!section) {
+      return;
+    }
 
-    const scroll = () => {
-      if (!isHovered && scrollContainer) {
-        scrollPos += speed;
-
-        if (scrollPos >= scrollContainer.scrollWidth / 3) {
-          scrollPos = 0;
-        }
-
-        scrollContainer.scrollLeft = scrollPos;
-      } else if (isHovered && scrollContainer) {
-        scrollPos = scrollContainer.scrollLeft;
+    const ctx = gsap.context(() => {
+      const q = gsap.utils.selector(section);
+      const cards = q<HTMLElement>("[data-project-card]");
+      if (!cards.length) {
+        return;
       }
-      animationFrameId = requestAnimationFrame(scroll);
-    };
 
-    animationFrameId = requestAnimationFrame(scroll);
+      gsap.set(cards, { autoAlpha: 0, y: 24 });
 
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [isHovered]);
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry?.isIntersecting) {
+            return;
+          }
+
+          gsap.to(cards, {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.7,
+            ease: "power3.out",
+            stagger: 0.08,
+            clearProps: "opacity,transform",
+          });
+
+          observer.disconnect();
+        },
+        { threshold: 0.3 }
+      );
+
+      observer.observe(section);
+
+      return () => observer.disconnect();
+    }, section);
+
+    return () => ctx.revert();
+  }, [prefersReducedMotion]);
 
   const displayProjects = [...projects, ...projects, ...projects];
 
   return (
-    <section className="relative w-full py-24" id="projects">
+    <section className="relative w-full py-24" id="projects" ref={sectionRef}>
       {/* Main Container - Keeps everything aligned with navbar */}
       <div className="mx-auto max-w-[90rem] px-4 md:px-8">
         {/* Header content */}
@@ -155,6 +183,7 @@ function ProjectCard({ project }: { project: Project }) {
   return (
     <Link
       className="group relative block aspect-[16/9] w-[300px] shrink-0 transform-gpu overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 shadow-lg transition-all duration-500 will-change-transform hover:shadow-2xl md:w-[420px] dark:border-gray-800 dark:bg-gray-900"
+      data-project-card
       href={project.url}
     >
       <Image

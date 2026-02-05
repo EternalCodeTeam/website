@@ -1,11 +1,12 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, type Transition } from "framer-motion";
 import { Maximize2, X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { FadeIn } from "@/components/ui/motion/motion-components";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 const marqueeItems = [
   // Row 1: Essentials & Chat
@@ -117,29 +118,38 @@ const InfiniteMarquee = ({
   items,
   direction = "left",
   speed = 40,
+  prefersReducedMotion,
   onItemClick,
 }: {
   items: typeof marqueeItems;
   direction?: "left" | "right";
   speed?: number;
+  prefersReducedMotion: boolean;
   onItemClick: (item: (typeof marqueeItems)[0]) => void;
 }) => {
+  const marqueeAnimation = prefersReducedMotion
+    ? undefined
+    : {
+        x: direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"],
+      };
+  const marqueeTransition: Transition | undefined = prefersReducedMotion
+    ? undefined
+    : {
+        duration: speed,
+        ease: "linear",
+        repeat: Number.POSITIVE_INFINITY,
+        repeatType: "loop",
+      };
+
   return (
     <div className="relative flex w-full overflow-hidden">
       <motion.div
-        animate={{
-          x: direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"],
-        }}
+        animate={marqueeAnimation}
         className="flex gap-4 py-4"
         style={{
           width: "max-content",
         }}
-        transition={{
-          duration: speed,
-          ease: "linear",
-          repeat: Number.POSITIVE_INFINITY,
-          repeatType: "loop",
-        }}
+        transition={marqueeTransition}
       >
         {[...items, ...items].map((item, i) => (
           <motion.div
@@ -182,6 +192,7 @@ const InfiniteMarquee = ({
 export function EternalShowcase() {
   const [selectedItem, setSelectedItem] = useState<(typeof marqueeItems)[0] | null>(null);
   const midPoint = Math.ceil(marqueeItems.length / 2);
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <>
@@ -203,12 +214,14 @@ export function EternalShowcase() {
             direction="left"
             items={marqueeItems.slice(0, midPoint)}
             onItemClick={setSelectedItem}
+            prefersReducedMotion={prefersReducedMotion}
             speed={50}
           />
           <InfiniteMarquee
             direction="right"
             items={marqueeItems.slice(midPoint)}
             onItemClick={setSelectedItem}
+            prefersReducedMotion={prefersReducedMotion}
             speed={50}
           />
         </FadeIn>

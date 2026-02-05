@@ -27,9 +27,11 @@ export const tapSpring: Transition = {
 export const fadeIn: Variants = {
   hidden: {
     opacity: 0,
+    willChange: "opacity",
   },
   visible: (delay = 0) => ({
     opacity: 1,
+    willChange: "auto",
     transition: { ...easeOut, delay },
   }),
 };
@@ -131,6 +133,7 @@ export const containerStagger: Variants = {
 export const hoverScale: Variants = {
   initial: {
     scale: 1,
+    willChange: "auto",
   },
   hover: {
     scale: 1.035,

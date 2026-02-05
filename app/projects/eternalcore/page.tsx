@@ -1,20 +1,24 @@
 "use client";
 
 import { m, motion, useScroll, useTransform } from "framer-motion";
+import { gsap } from "gsap";
 import { Book, Check, ChevronRight, Download, Layers, Settings, Zap } from "lucide-react";
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { FacadePattern } from "@/components/ui/facade-pattern";
 import { FadeIn, MotionSection, ScaleIn, SlideIn } from "@/components/ui/motion/motion-components";
 import { slideUp } from "@/lib/animations/variants";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 import { ConfigPreview } from "./config-preview";
 import { EternalShowcase } from "./eternal-showcase";
 
 export default function EternalCorePage() {
+  const pageRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef(null);
+  const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start start", "end start"],
@@ -23,13 +27,54 @@ export default function EternalCorePage() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
 
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      return;
+    }
+
+    const root = pageRef.current;
+    if (!root) {
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      const q = gsap.utils.selector(root);
+      const blobs = q<HTMLElement>("[data-ambient-blob]");
+
+      blobs.forEach((blob, index) => {
+        gsap.to(blob, {
+          x: index % 2 === 0 ? 24 : -24,
+          y: index % 2 === 0 ? -32 : 32,
+          duration: 14 + index * 2,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+      });
+    }, root);
+
+    return () => ctx.revert();
+  }, [prefersReducedMotion]);
+
   return (
-    <div className="relative min-h-screen bg-gray-50 text-gray-900 selection:bg-[#9d6eef]/30 dark:bg-gray-950 dark:text-white">
+    <div
+      className="relative min-h-screen bg-gray-50 text-gray-900 selection:bg-[#9d6eef]/30 dark:bg-gray-950 dark:text-white"
+      ref={pageRef}
+    >
       {/* Background Decor */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <div className="absolute top-0 right-0 h-[600px] w-[600px] translate-x-1/3 -translate-y-1/4 rounded-full bg-[#9d6eef]/20 blur-3xl filter dark:bg-[#9d6eef]/10" />
-        <div className="absolute top-[40%] left-0 h-[600px] w-[600px] -translate-x-1/3 rounded-full bg-[#d946ef]/20 mix-blend-multiply blur-3xl filter dark:bg-[#d946ef]/10 dark:mix-blend-screen" />
-        <div className="absolute right-0 bottom-20 h-[600px] w-[600px] translate-x-1/3 rounded-full bg-[#8b5cf6]/20 mix-blend-multiply blur-3xl filter dark:bg-[#8b5cf6]/10 dark:mix-blend-screen" />
+        <div
+          className="absolute top-0 right-0 h-[600px] w-[600px] translate-x-1/3 -translate-y-1/4 rounded-full bg-[#9d6eef]/20 blur-3xl filter dark:bg-[#9d6eef]/10"
+          data-ambient-blob
+        />
+        <div
+          className="absolute top-[40%] left-0 h-[600px] w-[600px] -translate-x-1/3 rounded-full bg-[#d946ef]/20 mix-blend-multiply blur-3xl filter dark:bg-[#d946ef]/10 dark:mix-blend-screen"
+          data-ambient-blob
+        />
+        <div
+          className="absolute right-0 bottom-20 h-[600px] w-[600px] translate-x-1/3 rounded-full bg-[#8b5cf6]/20 mix-blend-multiply blur-3xl filter dark:bg-[#8b5cf6]/10 dark:mix-blend-screen"
+          data-ambient-blob
+        />
         <FacadePattern className="absolute inset-0 h-full opacity-30 dark:opacity-10" />
       </div>
 
