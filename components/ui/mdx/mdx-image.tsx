@@ -13,6 +13,8 @@ export function MdxImage({ src, alt, className }: MdxImageProps) {
     return null;
   }
 
+  const isLocal = src.startsWith("/");
+  const cdnSrc = isLocal ? `/.netlify/images?url=${encodeURIComponent(src)}` : src;
   const isVideo = src.endsWith(".mp4") || src.endsWith(".webm") || src.endsWith(".mov");
   const isGif = src.endsWith(".gif");
 
@@ -46,7 +48,7 @@ export function MdxImage({ src, alt, className }: MdxImageProps) {
           alt={alt || ""}
           className={`h-auto w-full object-cover ${className || ""}`}
           loading="lazy"
-          src={src}
+          src={cdnSrc}
         />
       </span>
     );
