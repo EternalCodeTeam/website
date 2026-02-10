@@ -74,7 +74,6 @@ const footerSections: FooterSection[] = [
       { href: "/#about", label: "About" },
       { href: "/team", label: "Team" },
       { href: "/contribute", label: "Contribute" },
-      { href: "/privacy-policy", label: "Privacy Policy" },
     ],
   },
 ];

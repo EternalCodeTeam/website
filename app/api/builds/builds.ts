@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { Project } from "@/lib/builds/projects";
 
 export const ModrinthFileSchema = z.object({
   url: z.string(),
@@ -19,28 +20,6 @@ export const ModrinthVersionSchema = z.object({
 
 export type ModrinthVersion = z.infer<typeof ModrinthVersionSchema>;
 
-export interface Project {
-  id: string;
-  name: string;
-  githubRepo: string;
-  modrinthId?: string;
-}
-
-export const PROJECTS: Project[] = [
-  {
-    id: "eternalcore",
-    name: "EternalCore",
-    githubRepo: "EternalCodeTeam/EternalCore",
-    modrinthId: "eternalcore",
-  },
-  {
-    id: "eternalcombat",
-    name: "EternalCombat",
-    githubRepo: "EternalCodeTeam/EternalCombat",
-    modrinthId: "eternalcombat",
-  },
-];
-
 async function fetchModrinthVersions(
   project: Project,
   types: ("release" | "beta" | "alpha")[]
@@ -50,7 +29,12 @@ async function fetchModrinthVersions(
   }
 
   try {
-    const res = await fetch(`https://api.modrinth.com/v2/project/${project.modrinthId}/version`);
+    const res = await fetch(`https://api.modrinth.com/v2/project/${project.modrinthId}/version`, {
+      next: {
+        revalidate: 300,
+        tags: [`modrinth-builds-${project.modrinthId}`],
+      },
+    });
     if (!res.ok) {
       if (res.status === 404) {
         return []; // Project might not exist yet

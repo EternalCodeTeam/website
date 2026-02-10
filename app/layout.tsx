@@ -6,7 +6,6 @@ import "lenis/dist/lenis.css";
 import type React from "react";
 
 import "./prism-languages";
-import { CookieConsentModal } from "@/components/cookie-consent-modal";
 import Footer from "@/components/footer/footer";
 import Navbar from "@/components/hero/navbar";
 import { OrganizationSchema } from "@/components/seo/organization-schema";
@@ -125,7 +124,6 @@ export default function RootLayout({
           </main>
 
           <Footer />
-          <CookieConsentModal />
         </Providers>
       </body>
     </html>

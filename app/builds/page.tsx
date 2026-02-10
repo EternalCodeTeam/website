@@ -3,13 +3,13 @@
 import { AlertCircle, Loader2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useState } from "react";
-import { fetchDevBuilds, fetchStableBuilds, PROJECTS, type Project } from "@/app/api/builds/builds";
 import { BuildControls } from "@/components/builds/build-controls";
 import { BuildHeader } from "@/components/builds/build-header";
 import type { Build } from "@/components/builds/build-row";
 import { BuildTable } from "@/components/builds/build-table";
 import { Button } from "@/components/ui/button";
 import { FacadePattern } from "@/components/ui/facade-pattern";
+import { type BuildTab, PROJECTS, type Project } from "@/lib/builds/projects";
 
 function BuildExplorerContent() {
   const searchParams = useSearchParams();
@@ -19,11 +19,12 @@ function BuildExplorerContent() {
   const initialProject = PROJECTS.find((p) => p.id === projectIdParam) || PROJECTS[0];
 
   const [activeProject, setActiveProject] = useState<Project>(initialProject);
-  const [activeTab, setActiveTab] = useState<"STABLE" | "DEV">("STABLE");
+  const [activeTab, setActiveTab] = useState<BuildTab>("STABLE");
   const [builds, setBuilds] = useState<Build[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [lastDownloadedId, setLastDownloadedId] = useState<string | null>(null);
+  const [refreshNonce, setRefreshNonce] = useState(0);
 
   useEffect(() => {
     const foundProject = PROJECTS.find((p) => p.id === projectIdParam);
@@ -53,46 +54,49 @@ function BuildExplorerContent() {
   );
 
   const retryFetch = useCallback(() => {
-    setError(null);
-    setLoading(true);
+    setRefreshNonce((value) => value + 1);
   }, []);
 
   useEffect(() => {
+    const abortController = new AbortController();
+
     async function fetchData() {
       setLoading(true);
       setError(null);
       setBuilds([]);
       try {
-        const data =
-          activeTab === "STABLE"
-            ? await fetchStableBuilds(activeProject)
-            : await fetchDevBuilds(activeProject);
+        const params = new URLSearchParams({
+          project: activeProject.id,
+          type: activeTab,
+          retry: String(refreshNonce),
+        });
 
-        setBuilds(
-          data.map((version) => {
-            const primaryFile = version.files.find((f) => f.primary) || version.files[0];
-            return {
-              id: version.id,
-              name: version.name,
-              type: activeTab,
-              date: version.date_published,
-              downloadUrl: primaryFile?.url || "",
-              version: version.version_number,
-              runUrl: activeProject.modrinthId
-                ? `https://modrinth.com/project/${activeProject.modrinthId}/version/${version.id}`
-                : undefined,
-            };
-          })
-        );
+        const response = await fetch(`/api/builds?${params.toString()}`, {
+          signal: abortController.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Build endpoint returned ${response.status}`);
+        }
+
+        const data = (await response.json()) as Build[];
+        setBuilds(data);
       } catch (e) {
+        if (e instanceof DOMException && e.name === "AbortError") {
+          return;
+        }
         console.error("Failed to load builds", e);
         setError("Failed to load builds. Please check your connection and try again.");
       } finally {
-        setLoading(false);
+        if (!abortController.signal.aborted) {
+          setLoading(false);
+        }
       }
     }
+
     fetchData();
-  }, [activeTab, activeProject]);
+    return () => abortController.abort();
+  }, [activeTab, activeProject, refreshNonce]);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-gray-50 text-gray-900 selection:bg-blue-500/30 dark:bg-gray-950 dark:text-white">
