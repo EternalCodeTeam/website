@@ -4,14 +4,21 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import type { CommandData } from "@/components/docs/eternalcore/commands/types";
 import { CopyToClipboard } from "@/components/ui/copy-to-clipboard";
+import { useSpotlight } from "@/hooks/use-spotlight";
 
 interface CommandsTableProps {
   commands: CommandData[];
 }
 
 export function CommandsTable({ commands }: CommandsTableProps) {
+  const spotlight = useSpotlight<HTMLDivElement>();
+
   return (
-    <div className="my-6 overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900/50">
+    <div
+      className="spotlight-card relative my-6 overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900/50"
+      onPointerLeave={spotlight.onPointerLeave}
+      onPointerMove={spotlight.onPointerMove}
+    >
       <table className="w-full border-collapse text-left text-sm">
         <thead className="border-gray-200 border-b bg-gray-50/50 text-gray-900 dark:border-gray-800 dark:bg-gray-900/50 dark:text-gray-100">
           <tr>

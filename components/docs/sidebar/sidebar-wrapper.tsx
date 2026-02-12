@@ -5,6 +5,7 @@ import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
 import { SearchModal } from "@/components/docs/search/search-modal";
 import { SearchTrigger } from "@/components/docs/search/search-trigger";
+import { useSpotlight } from "@/hooks/use-spotlight";
 import DocSidebar from "./doc-sidebar";
 import type { DocItem } from "./types";
 
@@ -16,6 +17,7 @@ const SidebarWrapper: FC<SidebarWrapperProps> = ({ sidebarStructure }) => {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const lenisRef = useRef<Lenis | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const spotlight = useSpotlight<HTMLDivElement>();
 
   useEffect(() => {
     const sidebarElement = sidebarRef.current;
@@ -64,7 +66,9 @@ const SidebarWrapper: FC<SidebarWrapperProps> = ({ sidebarStructure }) => {
         <div className="sticky top-32 flex h-[calc(100vh-8rem)] flex-col gap-4">
           <SearchTrigger onClick={() => setIsSearchOpen(true)} />
           <div
-            className="scrollbar-hide relative flex min-h-0 flex-1 flex-col overflow-auto overscroll-contain rounded-xl border border-gray-200 bg-white/90 shadow-lg backdrop-blur-md transition-shadow hover:shadow-xl dark:border-gray-800 dark:bg-gray-900/60"
+            className="spotlight-card scrollbar-hide relative flex min-h-0 flex-1 flex-col overflow-auto overscroll-contain rounded-xl border border-gray-200 bg-white/90 shadow-lg backdrop-blur-md transition-shadow hover:shadow-xl dark:border-gray-800 dark:bg-gray-900/60"
+            onPointerLeave={spotlight.onPointerLeave}
+            onPointerMove={spotlight.onPointerMove}
             ref={sidebarRef}
           >
             <DocSidebar sidebarStructure={sidebarStructure} />

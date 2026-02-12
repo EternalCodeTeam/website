@@ -194,6 +194,37 @@ pre[class*="language-"] {
   user-select: none;
 }
 
+@layer components {
+  .spotlight-card {
+    --spotlight-x: 50%;
+    --spotlight-y: 50%;
+    --spotlight-color: rgba(59, 130, 246, 0.15);
+  }
+
+  .dark .spotlight-card {
+    --spotlight-color: rgba(59, 130, 246, 0.25);
+  }
+
+  .spotlight-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(
+      600px circle at var(--spotlight-x) var(--spotlight-y),
+      var(--spotlight-color),
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .spotlight-card:hover::after {
+    opacity: 1;
+  }
+}
+
 /* Sponsor carousel scroll animation - GPU accelerated */
 @keyframes scroll {
   from {

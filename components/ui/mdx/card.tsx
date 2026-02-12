@@ -6,6 +6,7 @@ import * as LucideIcons from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { useSpotlight } from "@/hooks/use-spotlight";
 
 interface CardProps {
   title: string;
@@ -18,16 +19,19 @@ interface CardProps {
 export function Card({ title, description, icon, href, className }: CardProps) {
   // biome-ignore lint/performance/noDynamicNamespaceImportAccess: Optimized by Next.js optimizePackageImports
   const IconComponent = icon ? (LucideIcons[icon as keyof typeof LucideIcons] as LucideIcon) : null;
+  const spotlight = useSpotlight<HTMLDivElement>();
 
   const content = (
     <div
       className={cn(
-        "group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 dark:border-gray-800 dark:bg-gray-900",
+        "spotlight-card group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 dark:border-gray-800 dark:bg-gray-900",
         href
           ? "transform-gpu cursor-pointer will-change-transform hover:-translate-y-1 hover:border-blue-500/50 hover:shadow-md dark:hover:border-blue-400/50"
           : "",
         className
       )}
+      onPointerLeave={spotlight.onPointerLeave}
+      onPointerMove={spotlight.onPointerMove}
     >
       <div className="flex flex-col gap-4">
         {!!IconComponent && (

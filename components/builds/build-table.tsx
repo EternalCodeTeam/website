@@ -1,6 +1,9 @@
+"use client";
+
 import { AnimatePresence } from "framer-motion";
 import { Loader2, Package } from "lucide-react";
 import type { Project } from "@/app/api/builds/builds";
+import { useSpotlight } from "@/hooks/use-spotlight";
 import { type Build, BuildRow } from "./build-row";
 
 interface BuildTableProps {
@@ -18,6 +21,8 @@ export function BuildTable({
   lastDownloadedId,
   onDownload,
 }: BuildTableProps) {
+  const spotlight = useSpotlight<HTMLDivElement>();
+
   return (
     <div className="min-h-[400px]">
       {loading ? (
@@ -29,7 +34,11 @@ export function BuildTable({
           <p className="animate-pulse font-medium text-sm">Fetching builds for {project.name}…</p>
         </output>
       ) : (
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white/60 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/40">
+        <div
+          className="spotlight-card relative overflow-hidden rounded-xl border border-gray-200 bg-white/60 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/40"
+          onPointerLeave={spotlight.onPointerLeave}
+          onPointerMove={spotlight.onPointerMove}
+        >
           <div className="overflow-x-auto">
             <table className="w-full border-collapse whitespace-nowrap text-left text-sm md:whitespace-normal">
               <thead className="border-gray-200 border-b bg-gray-50/50 text-gray-900 dark:border-gray-800 dark:bg-gray-900/50 dark:text-gray-100">

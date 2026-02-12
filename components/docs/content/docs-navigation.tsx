@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { useSpotlight } from "@/hooks/use-spotlight";
 import { cn } from "@/lib/utils";
 
 interface NavigationLink {
@@ -18,6 +19,8 @@ interface DocsNavigationProps {
 
 export function DocsNavigation({ prev, next }: DocsNavigationProps) {
   const prefersReducedMotion = useReducedMotion();
+  const prevSpotlight = useSpotlight<HTMLAnchorElement>();
+  const nextSpotlight = useSpotlight<HTMLAnchorElement>();
 
   return (
     <nav
@@ -28,10 +31,12 @@ export function DocsNavigation({ prev, next }: DocsNavigationProps) {
         <Link
           aria-label={`Previous: ${prev.title}`}
           className={cn(
-            "group relative flex h-full w-full flex-1 flex-col gap-2 overflow-hidden rounded-xl border border-gray-200 bg-white p-5 transition-all hover:border-blue-300 hover:shadow-lg dark:border-gray-800 dark:bg-gray-900/50 dark:hover:border-blue-700 dark:hover:bg-gray-900",
+            "spotlight-card group relative flex h-full w-full flex-1 flex-col gap-2 overflow-hidden rounded-xl border border-gray-200 bg-white p-5 transition-all hover:border-blue-300 hover:shadow-lg dark:border-gray-800 dark:bg-gray-900/50 dark:hover:border-blue-700 dark:hover:bg-gray-900",
             "sm:max-w-[50%]"
           )}
           href={prev.path}
+          onPointerLeave={prevSpotlight.onPointerLeave}
+          onPointerMove={prevSpotlight.onPointerMove}
         >
           {/* Gradient overlay on hover */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 to-blue-100/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-blue-500/0 dark:to-blue-600/0" />
@@ -61,10 +66,12 @@ export function DocsNavigation({ prev, next }: DocsNavigationProps) {
         <Link
           aria-label={`Next: ${next.title}`}
           className={cn(
-            "group relative flex h-full w-full flex-1 flex-col items-end gap-2 overflow-hidden rounded-xl border border-gray-200 bg-white p-5 text-right transition-all hover:border-blue-300 hover:shadow-lg dark:border-gray-800 dark:bg-gray-900/50 dark:hover:border-blue-700 dark:hover:bg-gray-900",
+            "spotlight-card group relative flex h-full w-full flex-1 flex-col items-end gap-2 overflow-hidden rounded-xl border border-gray-200 bg-white p-5 text-right transition-all hover:border-blue-300 hover:shadow-lg dark:border-gray-800 dark:bg-gray-900/50 dark:hover:border-blue-700 dark:hover:bg-gray-900",
             "sm:max-w-[50%]"
           )}
           href={next.path}
+          onPointerLeave={nextSpotlight.onPointerLeave}
+          onPointerMove={nextSpotlight.onPointerMove}
         >
           {/* Gradient overlay on hover */}
           <div className="absolute inset-0 bg-gradient-to-bl from-blue-50/0 to-blue-100/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-blue-500/0 dark:to-blue-600/0" />

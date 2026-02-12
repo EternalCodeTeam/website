@@ -4,6 +4,7 @@ import { ExternalLink } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { useSpotlight } from "@/hooks/use-spotlight";
 
 interface LinkPreviewProps {
   href: string;
@@ -15,13 +16,16 @@ interface LinkPreviewProps {
 
 export function LinkPreview({ href, title, description, icon, className }: LinkPreviewProps) {
   const isExternal = href.startsWith("http://") || href.startsWith("https://");
+  const spotlight = useSpotlight<HTMLDivElement>();
 
   const content = (
     <div
       className={cn(
-        "group relative flex cursor-pointer items-start gap-4 rounded-lg border border-gray-200 bg-white p-4 transition-all hover:border-blue-500 hover:shadow-md dark:border-gray-800 dark:bg-gray-900/50 dark:hover:border-blue-400",
+        "spotlight-card group relative flex cursor-pointer items-start gap-4 rounded-lg border border-gray-200 bg-white p-4 transition-all hover:border-blue-500 hover:shadow-md dark:border-gray-800 dark:bg-gray-900/50 dark:hover:border-blue-400",
         className
       )}
+      onPointerLeave={spotlight.onPointerLeave}
+      onPointerMove={spotlight.onPointerMove}
     >
       {icon && (
         <div className="shrink-0 text-gray-400 group-hover:text-blue-500 dark:text-gray-500">
