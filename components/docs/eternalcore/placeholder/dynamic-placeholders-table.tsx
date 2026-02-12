@@ -1,12 +1,17 @@
 "use client";
 
 import { usePlaceholders } from "@/components/docs/eternalcore/placeholder/hooks/use-placeholders";
+import type { Placeholder } from "@/components/docs/eternalcore/placeholder/types";
 import { DynamicNoPlaceholderMessage } from "./dynamic-no-placeholder-message";
 import { PlaceholderCategoryButtons } from "./placeholder-category-buttons";
 import { PlaceholderSearchBar } from "./placeholder-search-bar";
 import { PlaceholderTable } from "./placeholder-table";
 
-export default function DynamicPlaceholdersTable() {
+interface DynamicPlaceholdersTableProps {
+  initialData: Placeholder[];
+}
+
+export default function DynamicPlaceholdersTable({ initialData }: DynamicPlaceholdersTableProps) {
   const {
     allPlaceholders,
     viewablePlaceholders,
@@ -17,7 +22,7 @@ export default function DynamicPlaceholdersTable() {
     loading,
     handleSearchChange,
     handleCategoryClick,
-  } = usePlaceholders();
+  } = usePlaceholders(initialData);
 
   if (error) {
     return <div className="p-6 text-center text-red-500">Error: {error}</div>;

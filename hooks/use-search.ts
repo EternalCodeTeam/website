@@ -28,13 +28,21 @@ export function useSearch({
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { searchEngine, isInitializing, error } = useSearchEngine();
+  const { searchEngine, isInitializing, error, initialize } = useSearchEngine();
 
   // Perform search with debouncing
   useEffect(() => {
     if (query.length < minQueryLength) {
       setResults([]);
       setIsLoading(false);
+      return;
+    }
+
+    if (!searchEngine.isInitialized) {
+      setIsLoading(true);
+      if (!isInitializing) {
+        initialize().catch(() => undefined);
+      }
       return;
     }
 
@@ -54,7 +62,7 @@ export function useSearch({
     }, 200);
 
     return () => clearTimeout(timeoutId);
-  }, [query, minQueryLength, maxResults, searchEngine]);
+  }, [query, minQueryLength, maxResults, searchEngine, initialize, isInitializing]);
 
   return {
     query,

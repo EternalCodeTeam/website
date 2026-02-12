@@ -4,6 +4,7 @@ import { m } from "framer-motion";
 import dynamic from "next/dynamic";
 import Hero from "@/components/hero/hero";
 import { FacadePattern } from "@/components/ui/facade-pattern";
+import VisibleSection from "@/components/ui/visible-section";
 
 const About = dynamic(() => import("@/components/home/about/about-section"), {
   loading: () => <div className="min-h-[500px]" />,
@@ -40,21 +41,36 @@ export default function AnimatedHome() {
 
       <div className="relative z-10">
         <Hero />
-        <div className="optimize-visibility">
+        <VisibleSection
+          className="optimize-visibility"
+          fallback={<div aria-hidden="true" className="min-h-[120px]" />}
+        >
           <Sponsors />
-        </div>
-        <div className="optimize-visibility">
+        </VisibleSection>
+        <VisibleSection
+          className="optimize-visibility"
+          fallback={<div aria-hidden="true" className="min-h-[500px]" />}
+        >
           <About />
-        </div>
-        <div className="optimize-visibility">
+        </VisibleSection>
+        <VisibleSection
+          className="optimize-visibility"
+          fallback={<div aria-hidden="true" className="min-h-[400px]" />}
+        >
           <Features />
-        </div>
-        <div className="optimize-visibility">
+        </VisibleSection>
+        <VisibleSection
+          className="optimize-visibility"
+          fallback={<div aria-hidden="true" className="min-h-[600px]" />}
+        >
           <Faq />
-        </div>
-        <div className="optimize-visibility">
+        </VisibleSection>
+        <VisibleSection
+          className="optimize-visibility"
+          fallback={<div aria-hidden="true" className="min-h-[300px]" />}
+        >
           <Cta />
-        </div>
+        </VisibleSection>
       </div>
     </m.div>
   );
