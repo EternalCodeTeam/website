@@ -7,6 +7,7 @@
     "dev": "next dev",
     "build": "bun run format:fix && bun run lint:fix && next build",
     "start": "next start",
+    "bench": "vitest bench --run",
     "lint": "biome lint app components hooks lib content",
     "lint:fix": "biome lint --write app components hooks lib content",
     "format": "biome check app components hooks lib content",
@@ -60,6 +61,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.11",
+    "@codspeed/vitest-plugin": "^5.2.0",
     "@netlify/plugin-nextjs": "^5.15.5",
     "@next/bundle-analyzer": "^16.1.1",
     "@next/codemod": "^16.1.1",
@@ -73,7 +75,8 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3",
-    "ultracite": "^7.0.11"
+    "ultracite": "^7.0.11",
+    "vitest": "^4.0.18"
   },
   "trustedDependencies": [
     "tree-sitter-javascript"

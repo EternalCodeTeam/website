@@ -1,5 +1,7 @@
 # EternalCode.pl website
 
+[![CodSpeed](https://img.shields.io/endpoint?url=https://codspeed.io/badge/json/EternalCodeTeam/website&style=flat)](https://codspeed.io/EternalCodeTeam/website?utm_source=badge)
+
 ## Getting Started
 
 First, run the development server:
@@ -24,5 +26,3 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions
 are welcome!
-
-
