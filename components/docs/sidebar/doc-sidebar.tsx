@@ -4,23 +4,20 @@ import { AnimatePresence, motion } from "framer-motion";
 import { BookOpen, ChevronLeft, Github, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { type FC, useEffect, useMemo, useState } from "react";
+import { type FC, useCallback, useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { Dropdown, type DropdownOption } from "@/components/ui/dropdown";
-import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { getDocProjectIcon } from "@/lib/docs-projects";
 import { cn } from "@/lib/utils";
 import { NetlifyHighlight } from "./netlify-highlight";
 import SidebarItem from "./sidebar-item";
 import type { DocSidebarProps } from "./types";
-import { useMobileSidebar } from "./use-mobile-sidebar";
 
 const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick, sidebarStructure }) => {
   const pathname = usePathname();
-  const { isOpen, isMobile, toggleSidebar, sidebarRef, toggleButtonRef, setIsOpen } =
-    useMobileSidebar();
+  const [isMobile, setIsMobile] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const prefersReducedMotion = useReducedMotion();
 
   const currentProject = useMemo(() => {
     return (
@@ -52,41 +49,83 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick, sidebarS
   }, [selectedProject, sidebarStructure]);
 
   useEffect(() => {
-    const handleEscapeKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && isOpen && isMobile) {
-        toggleSidebar();
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const check = () => {
+      const mobile = window.innerWidth < 1024;
+      setIsMobile(mobile);
+      if (!mobile) {
+        setIsOpen(false);
       }
     };
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
-    document.addEventListener("keydown", handleEscapeKey);
-    return () => document.removeEventListener("keydown", handleEscapeKey);
-  }, [isOpen, isMobile, toggleSidebar]);
+  useEffect(() => {
+    if (isMobile && isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobile, isOpen]);
+
+  // Close on navigation
+  // biome-ignore lint/correctness/useExhaustiveDependencies: intentionally close on pathname change
+  useEffect(() => {
+    if (isMobile && isOpen) {
+      setIsOpen(false);
+    }
+  }, [pathname]);
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen && isMobile) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [isOpen, isMobile]);
+
+  const closeSidebar = useCallback(() => setIsOpen(false), []);
+  const toggleSidebar = useCallback(() => setIsOpen((v) => !v), []);
+
+  const handleItemClick = useCallback(
+    (path: string) => {
+      onItemClick?.(path);
+      if (isMobile) {
+        setIsOpen(false);
+      }
+    },
+    [isMobile, onItemClick]
+  );
 
   const sidebarContent = (
     <>
-      {/* Sidebar Header */}
-      <div className="relative z-10 flex shrink-0 flex-col gap-3 border-gray-200 border-b bg-gray-50/50 px-4 py-4 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/20">
+      {/* Header */}
+      <div className="shrink-0 border-gray-200/80 border-b bg-gray-50/80 px-4 py-4 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/40">
         <div className="flex items-center gap-3">
-          <motion.div
-            className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 shadow-xs dark:bg-blue-500"
-            transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
-            whileHover={{
-              scale: prefersReducedMotion ? 1 : 1.1,
-              rotate: prefersReducedMotion ? 0 : 5,
-            }}
-          >
-            <BookOpen className="h-5 w-5 text-white" />
-          </motion.div>
-          <div className="flex flex-col">
-            <h2 className="font-bold text-gray-900 text-sm dark:text-white">Documentation</h2>
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 dark:bg-blue-500">
+            <BookOpen className="h-4 w-4 text-white" />
+          </div>
+          <div>
+            <h2 className="font-semibold text-gray-900 text-sm leading-tight dark:text-white">
+              Documentation
+            </h2>
             <p className="text-gray-500 text-xs dark:text-gray-400">Browse all topics</p>
           </div>
         </div>
 
-        {/* Project Filter Dropdown */}
-        <div className="relative z-[100] mt-2">
+        <div className="relative z-[100] mt-3">
           <Dropdown
-            buttonClassName="h-10 text-xs"
+            buttonClassName="h-9 text-xs"
             className="w-full"
             menuClassName="max-h-[300px] z-[100]"
             onChange={setSelectedProject}
@@ -98,9 +137,9 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick, sidebarS
 
       <NetlifyHighlight />
 
-      {/* Sidebar Content - Scrollable with hidden scrollbar */}
-      <div className="scrollbar-hide flex-1 px-3 py-4">
-        <div className="space-y-1">
+      {/* Items */}
+      <div className="scrollbar-hide flex-1 overflow-y-auto px-3 py-3">
+        <div className="space-y-0.5">
           {filteredDocsStructure.map((item, index) => (
             <SidebarItem
               index={index}
@@ -108,58 +147,42 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick, sidebarS
               item={item}
               key={item.path}
               level={0}
-              onItemClick={(path) => {
-                onItemClick?.(path);
-                if (isMobile) {
-                  setIsOpen(false);
-                }
-              }}
+              onItemClick={handleItemClick}
             />
           ))}
         </div>
       </div>
 
-      {/* Sidebar Footer - Simple */}
-      <div className="shrink-0 border-gray-200 border-t bg-gray-50/50 px-4 py-3 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/20">
+      {/* Footer */}
+      <div className="shrink-0 border-gray-200/80 border-t bg-gray-50/80 px-4 py-3 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/40">
         <div className="flex items-center justify-between">
-          <p className="text-gray-500 text-xs dark:text-gray-400">
-            © {new Date().getFullYear()} EternalCodeTeam
+          <p className="text-gray-400 text-xs dark:text-gray-500">
+            &copy; {new Date().getFullYear()} EternalCodeTeam
           </p>
           <Link
-            className="group"
+            className="text-gray-400 transition-colors hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
             href="https://github.com/eternalcodeteam"
             rel="noopener noreferrer"
             target="_blank"
             title="GitHub"
           >
-            <motion.div
-              whileHover={{ scale: prefersReducedMotion ? 1 : 1.1 }}
-              whileTap={{ scale: prefersReducedMotion ? 1 : 0.95 }}
-            >
-              <Github className="h-4 w-4 text-gray-500 transition-colors group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
-            </motion.div>
+            <Github className="h-4 w-4" />
           </Link>
         </div>
       </div>
     </>
   );
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
   return (
     <>
-      {/* Mobile toggle button */}
+      {/* Mobile toggle */}
       {!!isMobile && (
-        <motion.button
+        <button
           aria-controls="doc-sidebar"
           aria-expanded={isOpen}
-          className="group mb-4 flex w-full items-center justify-between gap-3 rounded-lg border border-gray-200 bg-white px-4 py-3 font-medium text-gray-900 text-sm shadow-xs transition-all hover:border-blue-300 hover:shadow-md lg:hidden dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:border-blue-700"
+          className="group mb-4 flex w-full items-center justify-between gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3 text-left font-medium text-gray-900 text-sm shadow-sm transition-all hover:border-blue-300 hover:shadow-md lg:hidden dark:border-gray-800 dark:bg-gray-900 dark:text-white dark:hover:border-blue-700"
           onClick={toggleSidebar}
-          ref={toggleButtonRef}
-          whileHover={{ scale: prefersReducedMotion ? 1 : 1.01 }}
-          whileTap={{ scale: prefersReducedMotion ? 1 : 0.99 }}
+          type="button"
         >
           <div className="flex items-center gap-2">
             {isOpen ? (
@@ -171,14 +194,14 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick, sidebarS
           </div>
           <ChevronLeft
             className={cn(
-              "h-4 w-4 transform-gpu transition-transform duration-300 will-change-transform",
-              isOpen ? "rotate-180" : "rotate-0"
+              "h-4 w-4 transition-transform duration-200",
+              isOpen ? "rotate-90" : "-rotate-90"
             )}
           />
-        </motion.button>
+        </button>
       )}
 
-      {/* Desktop Sidebar */}
+      {/* Desktop sidebar */}
       {!isMobile && (
         <nav
           aria-label="Documentation navigation"
@@ -189,43 +212,101 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick, sidebarS
         </nav>
       )}
 
+      {/* Mobile sidebar portal */}
       {isMounted &&
         createPortal(
-          <>
-            <AnimatePresence mode="wait">
-              {!!isMobile && !!isOpen && (
+          <AnimatePresence>
+            {!!isMobile && !!isOpen && (
+              <>
+                <motion.div
+                  animate={{ opacity: 1 }}
+                  aria-hidden="true"
+                  className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm"
+                  exit={{ opacity: 0 }}
+                  initial={{ opacity: 0 }}
+                  onClick={closeSidebar}
+                />
                 <motion.nav
                   animate={{ x: 0 }}
                   aria-label="Documentation navigation"
-                  className="fixed inset-y-0 left-0 z-[70] flex w-72 flex-col overflow-auto overscroll-contain border-gray-200 border-r bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900"
-                  exit={{ x: prefersReducedMotion ? 0 : -280 }}
+                  className="fixed inset-y-0 left-0 z-[70] flex w-80 max-w-[85vw] flex-col overflow-hidden bg-white shadow-2xl dark:bg-gray-950"
+                  exit={{ x: "-100%" }}
                   id="doc-sidebar-mobile"
-                  initial={{ x: prefersReducedMotion ? 0 : -280 }}
-                  ref={sidebarRef}
+                  initial={{ x: "-100%" }}
                   role="navigation"
-                  transition={{
-                    type: prefersReducedMotion ? "tween" : "spring",
-                    stiffness: 300,
-                    damping: 30,
-                    duration: prefersReducedMotion ? 0 : undefined,
-                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 40 }}
                 >
-                  {sidebarContent}
-                </motion.nav>
-              )}
-            </AnimatePresence>
+                  {/* Mobile header with close */}
+                  <div className="flex items-center justify-between border-gray-100 border-b px-4 py-3 dark:border-gray-800">
+                    <div className="flex items-center gap-2">
+                      <BookOpen className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                      <span className="font-semibold text-gray-900 text-sm dark:text-white">
+                        Navigation
+                      </span>
+                    </div>
+                    <button
+                      aria-label="Close navigation"
+                      className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                      onClick={closeSidebar}
+                      type="button"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
 
-            {!!isMobile && !!isOpen && (
-              <motion.div
-                animate={{ opacity: 1 }}
-                aria-hidden="true"
-                className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-xs lg:hidden"
-                exit={{ opacity: 0 }}
-                initial={{ opacity: 0 }}
-                onClick={toggleSidebar}
-              />
+                  {/* Project dropdown */}
+                  <div className="border-gray-100 border-b px-4 py-3 dark:border-gray-800">
+                    <div className="relative z-[100]">
+                      <Dropdown
+                        buttonClassName="h-9 text-xs"
+                        className="w-full"
+                        menuClassName="max-h-[300px] z-[100]"
+                        onChange={setSelectedProject}
+                        options={projectOptions}
+                        value={selectedProject}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Items */}
+                  <div className="scrollbar-hide flex-1 overflow-y-auto px-3 py-3">
+                    <div className="space-y-0.5">
+                      {filteredDocsStructure.map((item, index) => (
+                        <SidebarItem
+                          index={index}
+                          isActive={pathname === item.path}
+                          item={item}
+                          key={item.path}
+                          level={0}
+                          onItemClick={handleItemClick}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  <NetlifyHighlight />
+
+                  {/* Footer */}
+                  <div className="shrink-0 border-gray-100 border-t px-4 py-3 dark:border-gray-800">
+                    <div className="flex items-center justify-between">
+                      <p className="text-gray-400 text-xs dark:text-gray-500">
+                        &copy; {new Date().getFullYear()} EternalCodeTeam
+                      </p>
+                      <Link
+                        className="text-gray-400 transition-colors hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
+                        href="https://github.com/eternalcodeteam"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="GitHub"
+                      >
+                        <Github className="h-4 w-4" />
+                      </Link>
+                    </div>
+                  </div>
+                </motion.nav>
+              </>
             )}
-          </>,
+          </AnimatePresence>,
           document.body
         )}
     </>
