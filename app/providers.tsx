@@ -6,8 +6,8 @@ import type { ReactNode } from "react";
 import { Toaster } from "react-hot-toast";
 
 import { SearchProvider } from "@/components/docs/search/search-context";
-import SmoothScrolling from "@/components/smooth-scrolling";
 import { ServiceWorkerRegistration } from "@/components/pwa/service-worker";
+import SmoothScrolling from "@/components/smooth-scrolling";
 
 interface ProvidersProps {
   children: ReactNode;

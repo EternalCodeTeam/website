@@ -1,17 +1,17 @@
 import { motion } from "framer-motion";
 import { GitBranch, Package } from "lucide-react";
 import { useMemo } from "react";
-import type { Project } from "@/app/api/builds/builds";
 import { Dropdown } from "@/components/ui/dropdown";
 import { FadeIn } from "@/components/ui/motion/motion-components";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import type { BuildTab, Project } from "@/lib/builds/projects";
 
 interface BuildControlsProps {
   projects: Project[];
   activeProject: Project;
-  activeTab: "STABLE" | "DEV";
+  activeTab: BuildTab;
   onProjectChange: (projectId: string) => void;
-  onTabChange: (tab: "STABLE" | "DEV") => void;
+  onTabChange: (tab: BuildTab) => void;
 }
 
 export function BuildControls({
