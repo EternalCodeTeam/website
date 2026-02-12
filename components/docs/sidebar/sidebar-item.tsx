@@ -80,7 +80,7 @@ const FolderItem: FC<{
     <motion.div
       aria-expanded={isExpanded}
       className={cn(
-        "group flex cursor-pointer select-none items-center gap-2 rounded-lg px-3 py-2 font-medium text-sm transition-all",
+        "group flex cursor-pointer select-none items-center gap-2 rounded-lg px-3 py-2 font-medium text-sm transition-colors",
         isActive
           ? "bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400"
           : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-gray-200"
@@ -158,7 +158,7 @@ const FileItem: FC<{
   <Link href={item.path} onClick={onClick}>
     <motion.div
       className={cn(
-        "group mb-0.5 flex select-none items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all",
+        "group mb-0.5 flex select-none items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors",
         isActive
           ? "bg-blue-50 font-medium text-blue-700 dark:bg-blue-500/10 dark:text-blue-400"
           : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-gray-200"

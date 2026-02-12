@@ -33,7 +33,7 @@ export function DocsHeader({ category, title, description, icon, actions }: DocH
             transition={{ delay: prefersReducedMotion ? 0 : 0.1 }}
           >
             <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75 motion-reduce:animate-none" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-blue-500" />
             </span>
             {category}

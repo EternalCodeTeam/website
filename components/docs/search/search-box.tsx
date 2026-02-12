@@ -141,7 +141,7 @@ const SearchBox = ({
             aria-label="Search documentation"
             autoComplete="off"
             className={cn(
-              "w-full cursor-pointer select-none rounded-lg border bg-gray-50/50 px-4 py-2.5 pr-10 pl-10 text-sm outline-hidden transition-all duration-200",
+              "w-full cursor-pointer select-none rounded-lg border bg-gray-50/50 px-4 py-2.5 pr-10 pl-10 text-sm outline-hidden transition-[border-color,background-color,box-shadow,color] duration-200",
               isFocused || isOpen
                 ? "border-blue-500 bg-white shadow-blue-500/10 shadow-lg ring-2 ring-blue-500/10 dark:bg-gray-800 dark:shadow-blue-500/20"
                 : "border-gray-200 shadow-xs hover:border-gray-300 hover:bg-white dark:border-gray-800 dark:bg-gray-900/50 dark:hover:border-gray-700 dark:hover:bg-gray-900",
@@ -279,7 +279,7 @@ const SearchBox = ({
                   {results.map((result, index) => (
                     <motion.button
                       className={cn(
-                        "touch-action-manipulation w-full select-none px-4 py-3 text-left transition-all",
+                        "touch-action-manipulation w-full select-none px-4 py-3 text-left transition-[background-color,transform]",
                         selectedIndex === index
                           ? "bg-blue-50 dark:bg-blue-500/10"
                           : "hover:bg-gray-50 dark:hover:bg-gray-800/50"

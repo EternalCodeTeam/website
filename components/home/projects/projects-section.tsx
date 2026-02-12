@@ -154,7 +154,7 @@ export default function Projects() {
 function ProjectCard({ project }: { project: Project }) {
   return (
     <Link
-      className="group relative block aspect-[16/9] w-[300px] shrink-0 transform-gpu overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 shadow-lg transition-all duration-500 will-change-transform hover:shadow-2xl md:w-[420px] dark:border-gray-800 dark:bg-gray-900"
+      className="group relative block aspect-[16/9] w-[300px] shrink-0 transform-gpu overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 shadow-lg transition-[border-color,box-shadow,background-color,transform] duration-500 will-change-transform hover:shadow-2xl md:w-[420px] dark:border-gray-800 dark:bg-gray-900"
       href={project.url}
     >
       <Image

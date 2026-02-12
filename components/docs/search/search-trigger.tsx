@@ -23,7 +23,7 @@ export function SearchTrigger({ onClick, className }: SearchTriggerProps) {
     <motion.button
       aria-label="Search documentation (⌘K)"
       className={cn(
-        "group touch-action-manipulation relative flex w-full items-center gap-3 overflow-hidden rounded-lg border border-gray-200 bg-white/50 px-4 py-2.5 text-left shadow-xs backdrop-blur-sm transition-all hover:border-blue-300 hover:bg-white hover:shadow-md dark:border-gray-800 dark:bg-gray-900/50 dark:hover:border-blue-700 dark:hover:bg-gray-900",
+        "group touch-action-manipulation relative flex w-full items-center gap-3 overflow-hidden rounded-lg border border-gray-200 bg-white/50 px-4 py-2.5 text-left shadow-xs backdrop-blur-sm transition-[border-color,box-shadow,background-color,transform] hover:border-blue-300 hover:bg-white hover:shadow-md dark:border-gray-800 dark:bg-gray-900/50 dark:hover:border-blue-700 dark:hover:bg-gray-900",
         className
       )}
       onClick={onClick}

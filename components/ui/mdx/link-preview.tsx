@@ -19,7 +19,7 @@ export function LinkPreview({ href, title, description, icon, className }: LinkP
   const content = (
     <div
       className={cn(
-        "group relative flex cursor-pointer items-start gap-4 rounded-lg border border-gray-200 bg-white p-4 transition-all hover:border-blue-500 hover:shadow-md dark:border-gray-800 dark:bg-gray-900/50 dark:hover:border-blue-400",
+        "group relative flex cursor-pointer items-start gap-4 rounded-lg border border-gray-200 bg-white p-4 transition-[border-color,box-shadow] hover:border-blue-500 hover:shadow-md dark:border-gray-800 dark:bg-gray-900/50 dark:hover:border-blue-400",
         className
       )}
     >

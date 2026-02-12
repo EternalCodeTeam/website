@@ -22,7 +22,7 @@ export function Card({ title, description, icon, href, className }: CardProps) {
   const content = (
     <div
       className={cn(
-        "group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 dark:border-gray-800 dark:bg-gray-900",
+        "group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-[transform,box-shadow,border-color,background-color] duration-300 dark:border-gray-800 dark:bg-gray-900",
         href
           ? "transform-gpu cursor-pointer will-change-transform hover:-translate-y-1 hover:border-blue-500/50 hover:shadow-md dark:hover:border-blue-400/50"
           : "",

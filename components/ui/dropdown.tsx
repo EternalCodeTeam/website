@@ -92,7 +92,7 @@ export function Dropdown({
       <button
         aria-expanded={isOpen}
         aria-haspopup="listbox"
-        className={`flex w-full cursor-pointer items-center justify-between gap-2 font-medium text-gray-700 text-sm outline-none transition-all duration-200 ${baseButtonStyles} ${buttonClassName}`}
+        className={`flex w-full cursor-pointer items-center justify-between gap-2 font-medium text-gray-700 text-sm outline-none transition-[background-color,border-color,color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${baseButtonStyles} ${buttonClassName}`}
         disabled={disabled}
         onClick={() => !disabled && setIsOpen((v) => !v)}
         type="button"
@@ -126,7 +126,7 @@ export function Dropdown({
               {options.map((option) => (
                 <div
                   aria-selected={option.value === value}
-                  className={`flex cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${
+                  className={`flex cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${
                     option.value === value
                       ? "bg-blue-50 font-medium text-blue-700 dark:bg-blue-500/10 dark:text-blue-400"
                       : "text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800/50"

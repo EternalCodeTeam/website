@@ -5,6 +5,7 @@ import { ContributeHero } from "@/components/contribute/contribute-hero";
 import { ContributionCard } from "@/components/contribute/contribution-card";
 import { ContributionEmptyState } from "@/components/contribute/contribution-empty-state";
 import { ContributionHint } from "@/components/contribute/contribution-hint";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -27,6 +28,8 @@ export interface ContributionCardData {
 }
 
 export default function ContributeView({ cards }: { cards: ContributionCardData[] }) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <div className="relative z-10 min-h-screen overflow-hidden bg-gray-50 pt-28 md:pt-32 dark:bg-[#0a0a0a]">
       {/* Background decoration */}
@@ -40,10 +43,10 @@ export default function ContributeView({ cards }: { cards: ContributionCardData[
       <div className="relative z-10 mx-auto max-w-[90rem] px-4 pb-24 sm:px-6 lg:px-8">
         {cards.length > 0 ? (
           <m.div
-            animate="visible"
+            animate={prefersReducedMotion ? undefined : "visible"}
             className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
-            initial="hidden"
-            variants={containerVariants}
+            initial={prefersReducedMotion ? false : "hidden"}
+            variants={prefersReducedMotion ? undefined : containerVariants}
           >
             {cards.map((card, index) => (
               <ContributionCard

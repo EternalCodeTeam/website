@@ -50,7 +50,7 @@ function SponsorItem({ sponsor }: { sponsor: Sponsor }) {
       rel="noopener noreferrer"
       target="_blank"
     >
-      <div className="text-gray-400 opacity-70 grayscale filter transition-all duration-500 ease-out group-hover:opacity-100 group-hover:grayscale-0">
+      <div className="text-gray-400 opacity-70 grayscale filter transition-[opacity,filter] duration-500 ease-out group-hover:opacity-100 group-hover:grayscale-0">
         {sponsor.icon}
       </div>
       <span className="hidden font-bold text-gray-400 text-xl transition-colors duration-500 ease-out group-hover:text-gray-900 lg:block dark:text-gray-500 dark:group-hover:text-gray-300">

@@ -185,14 +185,14 @@ export default function Footer() {
             </p>
             <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-6">
               <motion.a
-                className="group inline-flex items-center gap-2 rounded-lg border border-gray-200/80 bg-gradient-to-br from-white to-gray-50/50 px-3.5 py-1.5 font-medium text-gray-700 text-xs shadow-sm transition-all hover:border-emerald-200 hover:shadow-md dark:border-white/[0.08] dark:from-neutral-900 dark:to-neutral-900/50 dark:text-gray-300 dark:hover:border-emerald-500/30"
+                className="group inline-flex items-center gap-2 rounded-lg border border-gray-200/80 bg-gradient-to-br from-white to-gray-50/50 px-3.5 py-1.5 font-medium text-gray-700 text-xs shadow-sm transition-[border-color,box-shadow,background-color,transform] hover:border-emerald-200 hover:shadow-md dark:border-white/[0.08] dark:from-neutral-900 dark:to-neutral-900/50 dark:text-gray-300 dark:hover:border-emerald-500/30"
                 href="https://www.netlify.com/"
                 rel="noopener noreferrer"
                 target="_blank"
                 whileTap={{ scale: 0.98 }}
               >
                 <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75 group-hover:opacity-100" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75 group-hover:opacity-100 motion-reduce:animate-none" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
                 </span>
                 <SiNetlify

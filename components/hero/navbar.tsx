@@ -208,7 +208,7 @@ export default function Navbar() {
       <motion.nav
         animate="visible"
         aria-label="Main navigation"
-        className={`fixed inset-x-0 top-0 z-50 border-transparent border-b transition-all duration-300 ${
+        className={`fixed inset-x-0 top-0 z-50 border-transparent border-b transition-[background-color,border-color,backdrop-filter] duration-300 ${
           scrolled || isMenuOpen
             ? "border-gray-200/50 bg-white/80 backdrop-blur-xl dark:border-white/5 dark:bg-[#0a0a0a]/80"
             : "bg-white/0 dark:bg-black/0"
@@ -257,7 +257,7 @@ export default function Navbar() {
               {mainNavLinks.map((link) => (
                 <li key={link.href}>
                   <Link
-                    className="flex items-center justify-center rounded-full px-4 py-2 text-gray-600 text-sm transition-all hover:bg-black/5 hover:text-black dark:text-gray-300 dark:hover:bg-white/10 dark:hover:text-white"
+                    className="flex items-center justify-center rounded-full px-4 py-2 text-gray-600 text-sm transition-colors hover:bg-black/5 hover:text-black dark:text-gray-300 dark:hover:bg-white/10 dark:hover:text-white"
                     href={link.href}
                     {...(link.isExternal ? { rel: "noopener noreferrer", target: "_blank" } : {})}
                   >
@@ -276,7 +276,7 @@ export default function Navbar() {
               {externalNavLinks.map((link) => (
                 <li key={link.href}>
                   <Link
-                    className="flex items-center justify-center rounded-full px-4 py-2 text-gray-600 text-sm transition-all hover:bg-black/5 hover:text-black dark:text-gray-300 dark:hover:bg-white/10 dark:hover:text-white"
+                    className="flex items-center justify-center rounded-full px-4 py-2 text-gray-600 text-sm transition-colors hover:bg-black/5 hover:text-black dark:text-gray-300 dark:hover:bg-white/10 dark:hover:text-white"
                     href={link.href}
                     {...(link.isExternal ? { rel: "noopener noreferrer", target: "_blank" } : {})}
                   >

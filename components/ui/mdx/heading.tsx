@@ -37,7 +37,7 @@ export const Heading = ({ children, id, tag, className, ...props }: HeadingProps
           text={link}
         >
           {({ copied }) => (
-            <div className="inline-flex items-center justify-center rounded-md p-1 text-gray-400 transition-all hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-300">
+            <div className="inline-flex items-center justify-center rounded-md p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-300">
               {copied ? (
                 <Check className="h-4 w-4 text-green-500" />
               ) : (

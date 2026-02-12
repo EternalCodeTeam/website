@@ -5,7 +5,7 @@ const skeletonKeys = Array.from({ length: 5 }, () => crypto.randomUUID());
 export function LoadingFallback() {
   return (
     <div
-      className="animate-pulse space-y-4"
+      className="animate-pulse space-y-4 motion-reduce:animate-none"
       style={{
         contentVisibility: "auto",
         containIntrinsicSize: "auto 500px",

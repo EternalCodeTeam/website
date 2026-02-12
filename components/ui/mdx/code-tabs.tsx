@@ -163,7 +163,7 @@ export const CodeTabs = ({
             return (
               <TabsTrigger
                 className={cn(
-                  "relative cursor-pointer rounded-lg px-4 py-2 font-medium text-sm outline-none transition-all duration-200",
+                  "relative cursor-pointer rounded-lg px-4 py-2 font-medium text-sm outline-none transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
                   "disabled:cursor-not-allowed disabled:opacity-50",
                   "data-[state=active]:bg-blue-50 data-[state=active]:text-blue-600 dark:data-[state=active]:bg-blue-900/20 dark:data-[state=active]:text-blue-400",
                   "data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:bg-gray-100 data-[state=inactive]:hover:text-gray-900 dark:data-[state=inactive]:text-gray-400 dark:data-[state=inactive]:hover:bg-gray-800 dark:data-[state=inactive]:hover:text-gray-200"

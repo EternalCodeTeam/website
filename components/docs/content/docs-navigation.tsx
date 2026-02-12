@@ -28,7 +28,7 @@ export function DocsNavigation({ prev, next }: DocsNavigationProps) {
         <Link
           aria-label={`Previous: ${prev.title}`}
           className={cn(
-            "group relative flex h-full w-full flex-1 flex-col gap-2 overflow-hidden rounded-xl border border-gray-200 bg-white p-5 transition-all hover:border-blue-300 hover:shadow-lg dark:border-gray-800 dark:bg-gray-900/50 dark:hover:border-blue-700 dark:hover:bg-gray-900",
+            "group relative flex h-full w-full flex-1 flex-col gap-2 overflow-hidden rounded-xl border border-gray-200 bg-white p-5 transition-[border-color,box-shadow,background-color] hover:border-blue-300 hover:shadow-lg dark:border-gray-800 dark:bg-gray-900/50 dark:hover:border-blue-700 dark:hover:bg-gray-900",
             "sm:max-w-[50%]"
           )}
           href={prev.path}
@@ -61,7 +61,7 @@ export function DocsNavigation({ prev, next }: DocsNavigationProps) {
         <Link
           aria-label={`Next: ${next.title}`}
           className={cn(
-            "group relative flex h-full w-full flex-1 flex-col items-end gap-2 overflow-hidden rounded-xl border border-gray-200 bg-white p-5 text-right transition-all hover:border-blue-300 hover:shadow-lg dark:border-gray-800 dark:bg-gray-900/50 dark:hover:border-blue-700 dark:hover:bg-gray-900",
+            "group relative flex h-full w-full flex-1 flex-col items-end gap-2 overflow-hidden rounded-xl border border-gray-200 bg-white p-5 text-right transition-[border-color,box-shadow,background-color] hover:border-blue-300 hover:shadow-lg dark:border-gray-800 dark:bg-gray-900/50 dark:hover:border-blue-700 dark:hover:bg-gray-900",
             "sm:max-w-[50%]"
           )}
           href={next.path}

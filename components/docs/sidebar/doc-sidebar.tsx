@@ -158,7 +158,7 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick, sidebarS
         <motion.button
           aria-controls="doc-sidebar"
           aria-expanded={isOpen}
-          className="group mb-4 flex w-full items-center justify-between gap-3 rounded-lg border border-gray-200 bg-white px-4 py-3 font-medium text-gray-900 text-sm shadow-xs transition-all hover:border-blue-300 hover:shadow-md lg:hidden dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:border-blue-700"
+          className="group mb-4 flex w-full items-center justify-between gap-3 rounded-lg border border-gray-200 bg-white px-4 py-3 font-medium text-gray-900 text-sm shadow-xs transition-[border-color,box-shadow,background-color,transform] hover:border-blue-300 hover:shadow-md lg:hidden dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:border-blue-700"
           onClick={toggleSidebar}
           ref={toggleButtonRef}
           whileHover={{ scale: prefersReducedMotion ? 1 : 1.01 }}

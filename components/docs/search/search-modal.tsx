@@ -384,7 +384,7 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
                         {results.map((result, index) => (
                           <motion.button
                             className={cn(
-                              "group touch-action-manipulation relative w-full cursor-pointer rounded-lg px-3 py-3 text-left transition-all",
+                              "group touch-action-manipulation relative w-full cursor-pointer rounded-lg px-3 py-3 text-left transition-[background-color,box-shadow,transform]",
                               selectedIndex === index
                                 ? "bg-gradient-to-r from-blue-50 to-blue-50/50 shadow-sm dark:from-blue-500/10 dark:to-blue-500/5"
                                 : "hover:bg-gray-50 dark:hover:bg-gray-800/50"

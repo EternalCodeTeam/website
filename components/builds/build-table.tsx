@@ -26,7 +26,9 @@ export function BuildTable({
           className="flex flex-col items-center justify-center gap-4 py-32 text-gray-400"
         >
           <Loader2 className="h-8 w-8 animate-spin text-blue-500 motion-reduce:animate-none" />
-          <p className="animate-pulse font-medium text-sm">Fetching builds for {project.name}…</p>
+          <p className="animate-pulse font-medium text-sm motion-reduce:animate-none">
+            Fetching builds for {project.name}…
+          </p>
         </output>
       ) : (
         <div className="overflow-hidden rounded-xl border border-gray-200 bg-white/60 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/40">

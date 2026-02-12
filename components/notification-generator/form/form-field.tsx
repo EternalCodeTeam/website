@@ -93,10 +93,10 @@ export const FormField = ({
   };
 
   const inputClasses =
-    "w-full rounded-lg border border-gray-200 bg-gray-50/50 px-4 py-2.5 text-sm transition-all focus:border-blue-500 focus:bg-white focus:outline-hidden focus:ring-4 focus:ring-blue-500/10 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-blue-500 dark:focus:bg-black/40";
+    "w-full rounded-lg border border-gray-200 bg-gray-50/50 px-4 py-2.5 text-sm transition-[border-color,background-color,box-shadow] focus:border-blue-500 focus:bg-white focus:outline-hidden focus:ring-4 focus:ring-blue-500/10 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-blue-500 dark:focus:bg-black/40";
 
   const textareaClasses =
-    "w-full rounded-lg border border-gray-200 bg-gray-50/50 px-4 py-2.5 text-sm transition-all focus:border-blue-500 focus:bg-white focus:outline-hidden focus:ring-4 focus:ring-blue-500/10 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-blue-500 dark:focus:bg-black/40";
+    "w-full rounded-lg border border-gray-200 bg-gray-50/50 px-4 py-2.5 text-sm transition-[border-color,background-color,box-shadow] focus:border-blue-500 focus:bg-white focus:outline-hidden focus:ring-4 focus:ring-blue-500/10 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-blue-500 dark:focus:bg-black/40";
 
   /* Logic for aria-describedby to avoid nested ternary */
   let ariaDescribedBy: string | undefined;

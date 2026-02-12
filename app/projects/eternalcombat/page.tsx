@@ -263,11 +263,11 @@ export default function EternalCombatPage() {
                 {/* The "Long Screenshot" Container */}
                 <div className="relative h-[600px] w-full transform-gpu select-none overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl transition-transform duration-700 will-change-transform hover:scale-[1.02] dark:border-gray-800 dark:bg-[#0d1117]">
                   {/* Tilted Content */}
-                  <div className="absolute -top-10 -left-[15%] h-[200%] w-[150%] origin-top-left rotate-2 transform-gpu transition-all duration-700 will-change-transform hover:rotate-0 hover:scale-100">
+                  <div className="absolute -top-10 -left-[15%] h-[200%] w-[150%] origin-top-left rotate-2 transform-gpu transition-transform duration-700 will-change-transform hover:rotate-0 hover:scale-100">
                     {/* Inner blur container */}
-                    <div className="h-full pl-24 opacity-90 blur-[0.5px] filter transition-all duration-700 group-hover:opacity-100 group-hover:blur-0">
+                    <div className="h-full pl-24 opacity-90 blur-[0.5px] filter transition-[opacity,filter] duration-700 group-hover:opacity-100 group-hover:blur-0">
                       {/* Auto-scrolling animation container */}
-                      <div className="animate-scroll-y">
+                      <div className="animate-scroll-y motion-reduce:animate-none">
                         <ConfigPreview />
                         {/* Duplicate content for seamless loop */}
                         <ConfigPreview />
@@ -289,6 +289,11 @@ export default function EternalCombatPage() {
                                         }
                                         .animate-scroll-y:hover {
                                             animation-play-state: paused;
+                                        }
+                                        @media (prefers-reduced-motion: reduce) {
+                                            .animate-scroll-y {
+                                                animation: none;
+                                            }
                                         }
                                     `}</style>
                 </div>

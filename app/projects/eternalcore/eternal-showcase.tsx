@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { FadeIn } from "@/components/ui/motion/motion-components";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 const marqueeItems = [
   // Row 1: Essentials & Chat
@@ -124,30 +125,41 @@ const InfiniteMarquee = ({
   speed?: number;
   onItemClick: (item: (typeof marqueeItems)[0]) => void;
 }) => {
+  const prefersReducedMotion = useReducedMotion();
+  let marqueeX: "0%" | ["0%", "-50%"] | ["-50%", "0%"];
+
+  if (prefersReducedMotion) {
+    marqueeX = "0%";
+  } else if (direction === "left") {
+    marqueeX = ["0%", "-50%"];
+  } else {
+    marqueeX = ["-50%", "0%"];
+  }
+
   return (
     <div className="relative flex w-full overflow-hidden">
       <motion.div
         animate={{
-          x: direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"],
+          x: marqueeX,
         }}
         className="flex gap-4 py-4"
         style={{
           width: "max-content",
         }}
         transition={{
-          duration: speed,
+          duration: prefersReducedMotion ? 0 : speed,
           ease: "linear",
-          repeat: Number.POSITIVE_INFINITY,
+          repeat: prefersReducedMotion ? 0 : Number.POSITIVE_INFINITY,
           repeatType: "loop",
         }}
       >
         {[...items, ...items].map((item, i) => (
           <motion.div
-            className="group relative aspect-video w-[400px] shrink-0 transform-gpu cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-gray-100 shadow-sm transition-all will-change-transform hover:border-[#9d6eef]/50 hover:shadow-[#9d6eef]/20 hover:shadow-lg dark:border-gray-800 dark:bg-gray-900"
+            className="group relative aspect-video w-[400px] shrink-0 transform-gpu cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-gray-100 shadow-sm transition-[border-color,box-shadow,background-color,transform] will-change-transform hover:border-[#9d6eef]/50 hover:shadow-[#9d6eef]/20 hover:shadow-lg dark:border-gray-800 dark:bg-gray-900"
             key={`${item.id}-${i}`}
             onClick={() => onItemClick(item)}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={prefersReducedMotion ? undefined : { scale: 1.02 }}
+            whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
           >
             <Image
               alt={item.id}
@@ -159,7 +171,7 @@ const InfiniteMarquee = ({
             />
 
             {/* Gradient Overlay & Content - Always visible on hover */}
-            <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 opacity-0 transition-all duration-300 group-hover:opacity-100">
+            <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
               <div className="translate-y-4 transform-gpu transition-transform duration-300 will-change-transform group-hover:translate-y-0">
                 <div className="flex items-center justify-between">
                   <div>

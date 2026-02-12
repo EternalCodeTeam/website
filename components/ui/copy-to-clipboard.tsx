@@ -33,7 +33,7 @@ export function CopyToClipboard({
           <output
             aria-live="polite"
             className={cn(
-              "pointer-events-auto flex w-full max-w-sm items-center gap-3 rounded-2xl p-4 shadow-xl backdrop-blur-md transition-all duration-300",
+              "pointer-events-auto flex w-full max-w-sm items-center gap-3 rounded-2xl p-4 shadow-xl backdrop-blur-md transition-[opacity,transform] duration-300",
               "border border-white/10 bg-white/70 dark:border-gray-800 dark:bg-gray-900/90",
               "bg-gradient-to-br from-white/80 to-white/60 dark:from-gray-800/10 dark:to-gray-900/10",
               t.visible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"

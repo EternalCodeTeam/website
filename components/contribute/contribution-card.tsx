@@ -4,6 +4,7 @@ import { m } from "framer-motion";
 import { LucideIcon } from "@/components/lucide-icon";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 const itemVariants = {
   hidden: { y: 20, opacity: 0 },
@@ -35,9 +36,10 @@ export function ContributionCard({
   color,
 }: ContributionCardProps) {
   const external = href.startsWith("http");
+  const prefersReducedMotion = useReducedMotion();
 
   return (
-    <m.div className="h-full" variants={itemVariants}>
+    <m.div className="h-full" variants={prefersReducedMotion ? undefined : itemVariants}>
       <Card className="group flex h-full flex-col p-6 transition-colors duration-300 hover:bg-gray-50 hover:shadow-md dark:hover:bg-gray-800/60">
         <div
           className="pointer-events-none absolute inset-0 bg-linear-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100"

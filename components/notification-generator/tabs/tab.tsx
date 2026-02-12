@@ -18,7 +18,7 @@ export const Tab = ({ activeTab, tabName, label, onClick }: TabProps) => {
     <button
       aria-controls={`panel-${tabName}`}
       aria-selected={isActive}
-      className={`relative cursor-pointer rounded-lg px-4 py-2 font-medium text-sm transition-colors duration-200 focus:outline-none ${
+      className={`relative cursor-pointer rounded-lg px-4 py-2 font-medium text-sm transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${
         isActive
           ? "text-gray-900 dark:text-white"
           : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
