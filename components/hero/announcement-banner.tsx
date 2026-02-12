@@ -42,13 +42,12 @@ export default function AnnouncementBanner() {
               </span>
 
               <p className="text-sm text-white/90">
-                We just launched the{" "}
-                <span className="font-semibold text-white">Notification Generator</span>
+                Explore the latest <span className="font-semibold text-white">stable</span> and <span className="font-semibold text-white">dev</span> builds using the <span className="font-semibold text-white">Build Explorer</span>.
               </p>
 
               <Link
                 className="group inline-flex items-center gap-1 font-medium text-sm text-white/95 underline decoration-white/30 underline-offset-2 transition-colors hover:decoration-white/60"
-                href="/notification-generator"
+                href="/builds"
               >
                 Check it out
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
