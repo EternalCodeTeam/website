@@ -5,6 +5,7 @@ import { Search, Sparkles, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import type { KeyboardEvent } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useSearchEngine } from "@/components/docs/search/search-context";
 import { useClickOutside } from "@/hooks/use-click-outside";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { useSearch } from "@/hooks/use-search";
@@ -31,6 +32,7 @@ const SearchBox = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const prefersReducedMotion = useReducedMotion();
+  const { initialize } = useSearchEngine();
 
   const resultsContainerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -154,6 +156,7 @@ const SearchBox = ({
             onFocus={() => {
               setIsOpen(true);
               setIsFocused(true);
+              initialize().catch(() => undefined);
             }}
             onKeyDown={handleKeyDown}
             placeholder={placeholder}

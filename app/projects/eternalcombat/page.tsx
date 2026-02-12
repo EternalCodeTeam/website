@@ -66,7 +66,7 @@ export default function EternalCombatPage() {
                   </Button>
 
                   <Button
-                    href="https://eternalcode.pl/docs/eternalcombat"
+                    href="https://eternalcode.pl/docs/eternalcombat/introduction"
                     leftIcon={<Book className="h-4 w-4" />}
                     rel="noopener noreferrer"
                     target="_blank"
