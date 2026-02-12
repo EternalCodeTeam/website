@@ -61,7 +61,7 @@ const SidebarWrapper: FC<SidebarWrapperProps> = ({ sidebarStructure }) => {
     <>
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
       <aside className="hidden w-72 shrink-0 lg:block">
-        <div className="sticky top-32 flex h-[calc(100vh-8rem)] flex-col gap-4">
+        <div className="sticky top-32 flex h-[calc(100vh-8rem)] flex-col gap-3">
           <SearchTrigger onClick={() => setIsSearchOpen(true)} />
           <div
             className="scrollbar-hide relative flex min-h-0 flex-1 flex-col overflow-auto overscroll-contain rounded-xl border border-gray-200 bg-white/90 shadow-lg backdrop-blur-md transition-shadow hover:shadow-xl dark:border-gray-800 dark:bg-gray-900/60"
@@ -72,7 +72,7 @@ const SidebarWrapper: FC<SidebarWrapperProps> = ({ sidebarStructure }) => {
         </div>
       </aside>
 
-      <div className="flex flex-col gap-4 lg:hidden">
+      <div className="flex flex-col gap-3 lg:hidden">
         <SearchTrigger onClick={() => setIsSearchOpen(true)} />
         <DocSidebar sidebarStructure={sidebarStructure} />
       </div>

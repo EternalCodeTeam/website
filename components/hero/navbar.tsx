@@ -1,43 +1,42 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ExternalLink, Menu, Wrench, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import AnnouncementBanner from "@/components/hero/announcement-banner";
-import { Button } from "@/components/ui/button";
 import { slideDown } from "@/lib/animations/variants";
+import { cn } from "@/lib/utils";
 import logo from "@/public/logo.svg";
-import NewWindow from "../icons/new-window";
-import AnimatedHamburger from "./hamburger";
 import ThemeSwitchButton from "./theme-switch-button";
-import { TOOLS_OPTIONS, ToolsDropdown } from "./tools-dropdown";
+import { TOOLS_OPTIONS } from "./tools-dropdown";
 
 interface NavLink {
   href: string;
   label: string;
-  text: string;
   isExternal?: boolean;
 }
 
 const NAV_LINKS: NavLink[] = [
-  { href: "/", label: "Home", text: "Home" },
-  { href: "/team", label: "Team", text: "Team" },
-  { href: "/docs", label: "Documentation", text: "Documentation" },
-  { href: "/contribute", label: "Contribute", text: "Contribute" },
+  { href: "/", label: "Home" },
+  { href: "/team", label: "Team" },
+  { href: "/docs", label: "Docs" },
+  { href: "/contribute", label: "Contribute" },
+];
+
+const EXTERNAL_LINKS: NavLink[] = [
   {
     href: "https://repo.eternalcode.pl/#/",
     label: "Repository",
-    text: "Repository",
     isExternal: true,
   },
   {
     href: "https://status.eternalcode.pl/",
     label: "Status",
-    text: "Status",
     isExternal: true,
   },
 ];
@@ -47,75 +46,87 @@ const TOOLS_LINKS = TOOLS_OPTIONS.map((opt) => ({
   href: opt.value,
 }));
 
-function MobileMenuLink({
-  href,
-  children,
-  onClick,
-  isExternal,
-}: {
-  href: string;
-  children: React.ReactNode;
-  onClick: () => void;
-  isExternal?: boolean;
-}) {
+function NavItem({ href, label, isActive, isExternal }: NavLink & { isActive: boolean }) {
   return (
     <Link
-      className="flex w-full items-center rounded-lg px-4 py-2.5 font-medium text-base text-gray-900 transition-colors hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-white/10"
+      className={cn(
+        "relative rounded-lg px-3 py-1.5 font-medium text-sm transition-colors",
+        isActive
+          ? "text-gray-900 dark:text-white"
+          : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+      )}
       href={href}
-      onClick={onClick}
-      {...(isExternal ? { rel: "noopener noreferrer", target: "_blank" } : {})}
+      {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
     >
-      {children}
-      {!!isExternal && <NewWindow aria-hidden="true" className="ml-2 h-4 w-4 opacity-50" />}
+      <span className="flex items-center gap-1.5">
+        {label}
+        {!!isExternal && <ExternalLink className="h-3 w-3 opacity-50" />}
+      </span>
+      {!!isActive && (
+        <motion.span
+          className="absolute inset-x-1 -bottom-2.5 h-0.5 rounded-full bg-blue-600 dark:bg-blue-400"
+          layoutId="navbar-active"
+          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+        />
+      )}
     </Link>
   );
 }
 
-function MobileMenuAccordion({
-  title,
-  items,
-  onSelect,
-}: {
-  title: string;
-  items: { label: string; href: string }[];
-  onSelect: () => void;
-}) {
+function ToolsMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClick);
+    }
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [isOpen]);
 
   return (
-    <div className="overflow-hidden rounded-lg">
+    <div className="relative" ref={menuRef}>
       <button
-        className="flex w-full items-center justify-between px-4 py-2.5 font-medium text-base text-gray-900 transition-colors hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-white/10"
-        onClick={() => setIsOpen(!isOpen)}
+        className={cn(
+          "flex items-center gap-1 rounded-lg px-3 py-1.5 font-medium text-sm transition-colors",
+          isOpen
+            ? "text-gray-900 dark:text-white"
+            : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+        )}
+        onClick={() => setIsOpen((v) => !v)}
         type="button"
       >
-        <span>{title}</span>
+        <Wrench className="h-3.5 w-3.5" />
+        Tools
         <ChevronDown
-          className={`h-4 w-4 transform-gpu transition-transform duration-200 will-change-transform ${isOpen ? "rotate-180" : ""}`}
+          className={cn("h-3.5 w-3.5 transition-transform duration-200", isOpen && "rotate-180")}
         />
       </button>
+
       <AnimatePresence>
         {!!isOpen && (
           <motion.div
-            animate={{ height: "auto", opacity: 1 }}
-            className="overflow-hidden"
-            exit={{ height: 0, opacity: 0 }}
-            initial={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            className="absolute top-full right-0 z-50 mt-2 w-52 origin-top-right overflow-hidden rounded-xl border border-gray-200 bg-white p-1 shadow-xl dark:border-gray-800 dark:bg-gray-900"
+            exit={{ opacity: 0, y: -4, scale: 0.95 }}
+            initial={{ opacity: 0, y: -4, scale: 0.95 }}
+            transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
           >
-            <ul className="flex flex-col space-y-1 bg-gray-50/50 pb-2 pl-4 dark:bg-white/5">
-              {items.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    className="block rounded-lg px-4 py-2 text-gray-700 text-sm transition-colors hover:bg-gray-200/50 dark:text-gray-300 dark:hover:bg-white/5"
-                    href={item.href}
-                    onClick={onSelect}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            {TOOLS_LINKS.map((tool) => (
+              <Link
+                className="flex items-center gap-2 rounded-lg px-3 py-2 text-gray-600 text-sm transition-colors hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
+                href={tool.href}
+                key={tool.href}
+                onClick={() => setIsOpen(false)}
+              >
+                {tool.label}
+              </Link>
+            ))}
           </motion.div>
         )}
       </AnimatePresence>
@@ -123,288 +134,311 @@ function MobileMenuAccordion({
   );
 }
 
+function MobileNav({
+  isOpen,
+  onClose,
+  pathname,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  pathname: string;
+}) {
+  const [toolsOpen, setToolsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    if (isOpen) {
+      document.addEventListener("keydown", handleEscape);
+    }
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [isOpen, onClose]);
+
+  return (
+    <AnimatePresence>
+      {!!isOpen && (
+        <>
+          <motion.div
+            animate={{ opacity: 1 }}
+            className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+            exit={{ opacity: 0 }}
+            initial={{ opacity: 0 }}
+            onClick={onClose}
+          />
+          <motion.div
+            animate={{ x: 0 }}
+            className="fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col bg-white shadow-2xl dark:bg-gray-950"
+            exit={{ x: "100%" }}
+            initial={{ x: "100%" }}
+            ref={menuRef}
+            transition={{ type: "spring", stiffness: 400, damping: 40 }}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between border-gray-100 border-b px-5 py-4 dark:border-gray-800">
+              <Link className="flex items-center gap-2.5" href="/" onClick={onClose}>
+                <Image
+                  alt="EternalCode"
+                  className="h-8 w-auto dark:invert"
+                  height={32}
+                  src={logo}
+                  width={32}
+                />
+                <span className="font-bold text-gray-900 text-lg dark:text-white">EternalCode</span>
+              </Link>
+              <button
+                aria-label="Close menu"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                onClick={onClose}
+                type="button"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Navigation */}
+            <nav className="flex-1 overflow-y-auto px-4 py-5">
+              <ul className="space-y-1">
+                {NAV_LINKS.map((link, i) => {
+                  const active = pathname === link.href;
+                  return (
+                    <motion.li
+                      animate={{ opacity: 1, x: 0 }}
+                      initial={{ opacity: 0, x: 16 }}
+                      key={link.href}
+                      transition={{ delay: i * 0.04, duration: 0.2 }}
+                    >
+                      <Link
+                        className={cn(
+                          "flex items-center rounded-xl px-4 py-3 font-medium text-[15px] transition-colors",
+                          active
+                            ? "bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400"
+                            : "text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800/60"
+                        )}
+                        href={link.href}
+                        onClick={onClose}
+                      >
+                        {link.label}
+                      </Link>
+                    </motion.li>
+                  );
+                })}
+              </ul>
+
+              {/* Tools accordion */}
+              <motion.div
+                animate={{ opacity: 1, x: 0 }}
+                className="mt-3"
+                initial={{ opacity: 0, x: 16 }}
+                transition={{ delay: NAV_LINKS.length * 0.04, duration: 0.2 }}
+              >
+                <button
+                  className="flex w-full items-center justify-between rounded-xl px-4 py-3 font-medium text-[15px] text-gray-700 transition-colors hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800/60"
+                  onClick={() => setToolsOpen((v) => !v)}
+                  type="button"
+                >
+                  <span className="flex items-center gap-2">
+                    <Wrench className="h-4 w-4 opacity-60" />
+                    Tools
+                  </span>
+                  <ChevronDown
+                    className={cn(
+                      "h-4 w-4 transition-transform duration-200",
+                      toolsOpen && "rotate-180"
+                    )}
+                  />
+                </button>
+                <AnimatePresence>
+                  {!!toolsOpen && (
+                    <motion.ul
+                      animate={{ height: "auto", opacity: 1 }}
+                      className="overflow-hidden"
+                      exit={{ height: 0, opacity: 0 }}
+                      initial={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {TOOLS_LINKS.map((tool) => (
+                        <li key={tool.href}>
+                          <Link
+                            className="flex items-center rounded-lg px-4 py-2.5 pl-11 text-gray-600 text-sm transition-colors hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/60 dark:hover:text-white"
+                            href={tool.href}
+                            onClick={onClose}
+                          >
+                            {tool.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </motion.ul>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+
+              {/* External links */}
+              <div className="mt-5 border-gray-100 border-t pt-5 dark:border-gray-800">
+                <p className="mb-2 px-4 font-semibold text-gray-400 text-xs uppercase tracking-wider dark:text-gray-500">
+                  External
+                </p>
+                <ul className="space-y-1">
+                  {EXTERNAL_LINKS.map((link, i) => (
+                    <motion.li
+                      animate={{ opacity: 1, x: 0 }}
+                      initial={{ opacity: 0, x: 16 }}
+                      key={link.href}
+                      transition={{
+                        delay: (NAV_LINKS.length + 1 + i) * 0.04,
+                        duration: 0.2,
+                      }}
+                    >
+                      <a
+                        className="flex items-center justify-between rounded-xl px-4 py-3 font-medium text-[15px] text-gray-700 transition-colors hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800/60"
+                        href={link.href}
+                        onClick={onClose}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        {link.label}
+                        <ExternalLink className="h-4 w-4 opacity-40" />
+                      </a>
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+            </nav>
+
+            {/* Footer */}
+            <div className="border-gray-100 border-t px-5 py-4 dark:border-gray-800">
+              <div className="flex items-center justify-between">
+                <p className="text-gray-400 text-xs">
+                  &copy; {new Date().getFullYear()} EternalCode
+                </p>
+                <ThemeSwitchButton />
+              </div>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+}
+
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const pathname = usePathname();
 
-  const navRef = useRef<HTMLElement>(null);
-  const menuButtonRef = useRef<HTMLButtonElement>(null);
-  const mobileMenuRef = useRef<HTMLDivElement>(null);
-
-  const toggleMenu = useCallback(() => {
-    setIsMenuOpen((prev) => !prev);
-  }, []);
-
-  const closeMenu = useCallback(() => {
-    setIsMenuOpen(false);
-  }, []);
-
-  useEffect(() => {
-    let ticking = false;
-
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          setScrolled(window.scrollY > 20);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isMenuOpen) {
-        setIsMenuOpen(false);
-        menuButtonRef.current?.focus();
-      }
-    };
-
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, [isMenuOpen]);
-
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [isMenuOpen]);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Node;
-      const clickedInsideNav = navRef.current?.contains(target);
-      const clickedInsideMobileMenu = mobileMenuRef.current?.contains(target);
-
-      if (isMenuOpen && !clickedInsideNav && !clickedInsideMobileMenu) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isMenuOpen]);
+  const closeMenu = useCallback(() => setIsMenuOpen(false), []);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  // Main navigation items split
-  const mainNavLinks = NAV_LINKS.slice(0, 3);
-  const externalNavLinks = NAV_LINKS.slice(3);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: intentionally close menu on pathname change
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 10);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
       <motion.nav
         animate="visible"
         aria-label="Main navigation"
-        className={`fixed inset-x-0 top-0 z-50 border-transparent border-b transition-all duration-300 ${
-          scrolled || isMenuOpen
-            ? "border-gray-200/50 bg-white/80 backdrop-blur-xl dark:border-white/5 dark:bg-[#0a0a0a]/80"
-            : "bg-white/0 dark:bg-black/0"
-        }`}
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow] duration-300",
+          scrolled
+            ? "border-gray-200/60 border-b bg-white/80 shadow-sm backdrop-blur-xl dark:border-gray-800/60 dark:bg-gray-950/80"
+            : "border-transparent border-b bg-light-gray-100 dark:bg-gray-900"
+        )}
         initial="hidden"
-        ref={navRef}
         variants={slideDown}
       >
         <AnnouncementBanner />
 
-        <div className="mx-auto flex max-w-[90rem] flex-wrap items-center justify-between px-4 py-3 md:py-4">
-          <Link aria-label="Go to homepage" className="flex items-center gap-3" href="/">
+        <div className="mx-auto flex max-w-[90rem] items-center justify-between px-4 py-3 sm:px-6">
+          {/* Logo */}
+          <Link aria-label="Go to homepage" className="flex shrink-0 items-center gap-2.5" href="/">
             <Image
               alt="EternalCode Logo"
-              className="h-9 w-auto dark:invert"
-              height={36}
+              className="h-8 w-auto dark:invert"
+              height={32}
               priority
               src={logo}
-              width={36}
+              width={32}
             />
-            <span className="hidden self-center whitespace-nowrap font-bold text-gray-900 text-xl tracking-tight md:block dark:text-white">
+            <span className="hidden font-bold text-gray-900 text-lg tracking-tight sm:block dark:text-white">
               EternalCode
             </span>
           </Link>
 
-          <div className="flex items-center justify-center gap-2 md:order-2">
-            <ThemeSwitchButton />
+          {/* Desktop nav */}
+          <div className="hidden items-center gap-1 md:flex">
+            {NAV_LINKS.map((link) => (
+              <NavItem
+                isActive={link.href === "/" ? pathname === "/" : pathname.startsWith(link.href)}
+                key={link.href}
+                {...link}
+              />
+            ))}
+            <ToolsMenu />
+            <div className="mx-2 h-5 w-px bg-gray-200 dark:bg-gray-700" />
+            {EXTERNAL_LINKS.map((link) => (
+              <NavItem isActive={false} key={link.href} {...link} />
+            ))}
+          </div>
 
-            <Button
+          {/* Right side */}
+          <div className="flex items-center gap-2">
+            <div className="hidden md:block">
+              <ThemeSwitchButton />
+            </div>
+
+            {/* Mobile hamburger */}
+            <button
               aria-controls="mobile-menu"
               aria-expanded={isMenuOpen}
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              className="inline-flex items-center justify-center rounded-lg p-2 text-gray-500 text-sm hover:bg-gray-100 focus:outline-hidden focus:ring-2 focus:ring-gray-200 md:hidden dark:text-gray-400 dark:focus:ring-gray-600 dark:hover:bg-gray-700"
-              onClick={toggleMenu}
-              ref={menuButtonRef}
-              size="sm"
+              className="flex h-9 w-9 items-center justify-center rounded-lg text-gray-600 transition-colors hover:bg-gray-100 md:hidden dark:text-gray-300 dark:hover:bg-gray-800"
+              onClick={() => setIsMenuOpen((v) => !v)}
               type="button"
-              variant="ghost"
             >
-              <AnimatedHamburger className="h-5 w-5" isOpen={isMenuOpen} />
-            </Button>
-          </div>
-
-          <div className="hidden w-full items-center justify-between gap-4 md:order-1 md:flex md:w-auto">
-            <ul className="mt-4 flex flex-col space-y-2 font-medium md:mt-0 md:flex-row md:items-center md:space-x-1 md:space-y-0 md:p-0">
-              {mainNavLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    className="flex items-center justify-center rounded-full px-4 py-2 text-gray-600 text-sm transition-all hover:bg-black/5 hover:text-black dark:text-gray-300 dark:hover:bg-white/10 dark:hover:text-white"
-                    href={link.href}
-                    {...(link.isExternal ? { rel: "noopener noreferrer", target: "_blank" } : {})}
-                  >
-                    {link.text}
-                    {!!link.isExternal && (
-                      <NewWindow aria-hidden="true" className="ml-1.5 h-3.5 w-3.5 opacity-70" />
-                    )}
-                  </Link>
-                </li>
-              ))}
-
-              <li>
-                <ToolsDropdown />
-              </li>
-
-              {externalNavLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    className="flex items-center justify-center rounded-full px-4 py-2 text-gray-600 text-sm transition-all hover:bg-black/5 hover:text-black dark:text-gray-300 dark:hover:bg-white/10 dark:hover:text-white"
-                    href={link.href}
-                    {...(link.isExternal ? { rel: "noopener noreferrer", target: "_blank" } : {})}
-                  >
-                    {link.text}
-                    {!!link.isExternal && (
-                      <NewWindow aria-hidden="true" className="ml-1.5 h-3.5 w-3.5 opacity-70" />
-                    )}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+              <Menu className="h-5 w-5" />
+            </button>
           </div>
         </div>
       </motion.nav>
 
       {isMounted &&
         createPortal(
-          <AnimatePresence>
-            {!!isMenuOpen && (
-              <>
-                <motion.div
-                  animate={{ opacity: 1 }}
-                  aria-hidden="true"
-                  className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm md:hidden"
-                  exit={{ opacity: 0 }}
-                  initial={{ opacity: 0 }}
-                  onClick={closeMenu}
-                  role="presentation"
-                />
-                <motion.aside
-                  animate={{ x: 0 }}
-                  className="fixed inset-y-0 left-0 z-50 flex w-full flex-col bg-white shadow-2xl md:hidden dark:bg-[#050505]"
-                  exit={{ x: "-100%" }}
-                  id="mobile-menu"
-                  initial={{ x: "-100%" }}
-                  ref={mobileMenuRef}
-                  role="menu"
-                  transition={{ type: "spring", stiffness: 320, damping: 32 }}
-                >
-                  <div className="flex items-center justify-between border-gray-100 border-b px-6 py-5 dark:border-white/5">
-                    <Link
-                      aria-label="Go to homepage"
-                      className="flex items-center gap-3"
-                      href="/"
-                      onClick={closeMenu}
-                    >
-                      <Image
-                        alt="EternalCode Logo"
-                        className="h-9 w-auto dark:invert"
-                        height={36}
-                        src={logo}
-                        width={36}
-                      />
-                      <span className="font-semibold text-gray-900 text-lg dark:text-white">
-                        EternalCode
-                      </span>
-                    </Link>
-                    <Button
-                      aria-label="Close menu"
-                      className="h-10 w-10 rounded-full p-2 text-gray-500 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/10"
-                      onClick={closeMenu}
-                      size="sm"
-                      type="button"
-                      variant="ghost"
-                    >
-                      <AnimatedHamburger ariaHidden={false} className="h-5 w-5" isOpen />
-                    </Button>
-                  </div>
-
-                  <div className="flex-1 overflow-y-auto px-6 py-6">
-                    <ul className="space-y-2">
-                      {mainNavLinks.map((link, index) => (
-                        <motion.li
-                          animate={{ opacity: 1, x: 0 }}
-                          initial={{ opacity: 0, x: -20 }}
-                          key={link.href}
-                          transition={{ duration: 0.25, delay: index * 0.05 }}
-                        >
-                          <MobileMenuLink
-                            href={link.href}
-                            isExternal={link.isExternal}
-                            onClick={closeMenu}
-                          >
-                            {link.text}
-                          </MobileMenuLink>
-                        </motion.li>
-                      ))}
-                    </ul>
-
-                    <div className="mt-6 space-y-3">
-                      <motion.div
-                        animate={{ opacity: 1, x: 0 }}
-                        initial={{ opacity: 0, x: -20 }}
-                        transition={{ delay: 0.05 }}
-                      >
-                        <MobileMenuAccordion
-                          items={TOOLS_LINKS}
-                          onSelect={closeMenu}
-                          title="Tools"
-                        />
-                      </motion.div>
-                    </div>
-
-                    <div className="mt-6 border-gray-100 border-t pt-6 dark:border-white/10">
-                      <ul className="space-y-2">
-                        {externalNavLinks.map((link, index) => (
-                          <motion.li
-                            animate={{ opacity: 1, x: 0 }}
-                            initial={{ opacity: 0, x: -20 }}
-                            key={link.href}
-                            transition={{ duration: 0.25, delay: 0.1 + index * 0.04 }}
-                          >
-                            <MobileMenuLink
-                              href={link.href}
-                              isExternal={link.isExternal}
-                              onClick={closeMenu}
-                            >
-                              {link.text}
-                            </MobileMenuLink>
-                          </motion.li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </motion.aside>
-              </>
-            )}
-          </AnimatePresence>,
+          <MobileNav isOpen={isMenuOpen} onClose={closeMenu} pathname={pathname} />,
           document.body
         )}
     </>
