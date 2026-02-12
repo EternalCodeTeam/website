@@ -8,12 +8,12 @@ import { useRouter } from "next/navigation";
 import type { KeyboardEvent } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useSearchEngine } from "@/components/docs/search/search-context";
 import { SearchResultSkeleton } from "@/components/ui/skeleton";
 import { useClickOutside } from "@/hooks/use-click-outside";
 import { useRecentSearches } from "@/hooks/use-recent-searches";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { useSearch } from "@/hooks/use-search";
-import { useSearchEngine } from "@/components/docs/search/search-context";
 import { cn } from "@/lib/utils";
 
 interface SearchModalProps {

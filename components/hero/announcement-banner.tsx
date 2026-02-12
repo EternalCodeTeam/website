@@ -42,7 +42,9 @@ export default function AnnouncementBanner() {
               </span>
 
               <p className="text-sm text-white/90">
-                Explore the latest <span className="font-semibold text-white">stable</span> and <span className="font-semibold text-white">dev</span> builds using the <span className="font-semibold text-white">Build Explorer</span>.
+                Explore the latest <span className="font-semibold text-white">stable</span> and{" "}
+                <span className="font-semibold text-white">dev</span> builds using the{" "}
+                <span className="font-semibold text-white">Build Explorer</span>.
               </p>
 
               <Link
