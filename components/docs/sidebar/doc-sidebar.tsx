@@ -138,7 +138,10 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick, sidebarS
       <NetlifyHighlight />
 
       {/* Items */}
-      <div className="scrollbar-hide flex-1 overflow-y-auto px-3 py-3">
+      <div
+        className="scrollbar-hide flex-1 overflow-y-auto px-3 py-3"
+        style={{ contentVisibility: "auto", containIntrinsicSize: "320px 800px" }}
+      >
         <div className="space-y-0.5">
           {filteredDocsStructure.map((item, index) => (
             <SidebarItem
