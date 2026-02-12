@@ -113,6 +113,8 @@ const nextConfig = {
       {
         source: "/(.*)",
         headers: securityHeaders,
+      },
+      {
         source: "/sw.js",
         headers: [
           {
