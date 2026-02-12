@@ -99,7 +99,10 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick, sidebarS
       <NetlifyHighlight />
 
       {/* Sidebar Content - Scrollable with hidden scrollbar */}
-      <div className="scrollbar-hide flex-1 px-3 py-4">
+      <div
+        className="scrollbar-hide flex-1 px-3 py-4"
+        style={{ contentVisibility: "auto", containIntrinsicSize: "320px 800px" }}
+      >
         <div className="space-y-1">
           {filteredDocsStructure.map((item, index) => (
             <SidebarItem

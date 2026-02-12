@@ -13,6 +13,7 @@ interface DocsCardProps {
 
 export function DocsCard({ project }: DocsCardProps) {
   const Icon = project.icon;
+  const entryPath = project.entryPath ?? project.path;
 
   return (
     <m.div className="h-full" variants={itemVariants}>
@@ -32,7 +33,7 @@ export function DocsCard({ project }: DocsCardProps) {
 
           <p className="mb-6 grow text-gray-600 dark:text-gray-400">{project.description}</p>
 
-          <Button className="w-full justify-center" href={project.path} variant="primary">
+          <Button className="w-full justify-center" href={entryPath} prefetch variant="primary">
             Browse Docs <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>

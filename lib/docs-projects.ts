@@ -3,6 +3,7 @@ import { BookOpen, Code, FileText, Users } from "lucide-react";
 
 export interface DocProject {
   path: string;
+  entryPath?: string;
   title: string;
   icon: LucideIcon;
   iconColor: string;
@@ -13,6 +14,7 @@ export interface DocProject {
 export const DOC_PROJECTS: DocProject[] = [
   {
     path: "/docs/eternalcore",
+    entryPath: "/docs/eternalcore/introduction",
     title: "EternalCore",
     icon: Code,
     iconColor: "text-purple-500 dark:text-purple-400",
@@ -22,6 +24,7 @@ export const DOC_PROJECTS: DocProject[] = [
   },
   {
     path: "/docs/eternalcombat",
+    entryPath: "/docs/eternalcombat/introduction",
     title: "EternalCombat",
     icon: FileText,
     iconColor: "text-red-500 dark:text-red-400",
@@ -30,6 +33,7 @@ export const DOC_PROJECTS: DocProject[] = [
   },
   {
     path: "/docs/multification",
+    entryPath: "/docs/multification/index",
     title: "Multification",
     icon: BookOpen,
     iconColor: "text-blue-500 dark:text-blue-400",
@@ -39,6 +43,7 @@ export const DOC_PROJECTS: DocProject[] = [
   },
   {
     path: "/docs/contribute",
+    entryPath: "/docs/contribute/guide",
     title: "Contribute",
     icon: Users,
     iconColor: "text-green-500 dark:text-green-400",

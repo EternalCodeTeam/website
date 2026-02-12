@@ -183,7 +183,10 @@ export default async function DocPage({ params }: Props) {
 
       <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700" />
 
-      <article className="prose dark:prose-invert max-w-none">
+      <article
+        className="prose dark:prose-invert max-w-none"
+        style={{ contentVisibility: "auto", containIntrinsicSize: "1000px 2000px" }}
+      >
         <ErrorBoundary>
           <Suspense fallback={<LoadingFallback />}>
             <MDXRemote

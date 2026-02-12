@@ -13,6 +13,7 @@ import { useClickOutside } from "@/hooks/use-click-outside";
 import { useRecentSearches } from "@/hooks/use-recent-searches";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { useSearch } from "@/hooks/use-search";
+import { useSearchEngine } from "@/components/docs/search/search-context";
 import { cn } from "@/lib/utils";
 
 interface SearchModalProps {
@@ -22,14 +23,18 @@ interface SearchModalProps {
 }
 
 const POPULAR_PAGES = [
-  { title: "Getting Started", path: "/docs/eternalcore", category: "EternalCore" },
+  {
+    title: "Getting Started",
+    path: "/docs/eternalcore/introduction",
+    category: "EternalCore",
+  },
   {
     title: "Commands & Permissions",
     path: "/docs/eternalcore/commands-and-permissions",
     category: "EternalCore",
   },
   { title: "Placeholders", path: "/docs/eternalcore/placeholders", category: "EternalCore" },
-  { title: "Contributing", path: "/docs/contribute", category: "Contribute" },
+  { title: "Contributing", path: "/docs/contribute/guide", category: "Contribute" },
 ];
 
 const CATEGORY_BADGE_STYLES: Record<string, string> = {
@@ -55,6 +60,7 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const prefersReducedMotion = useReducedMotion();
+  const { initialize } = useSearchEngine();
 
   const resultsContainerVariants = {
     hidden: { opacity: 0 },
@@ -103,6 +109,7 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
   // Focus input when modal opens
   useEffect(() => {
     if (isOpen) {
+      initialize().catch(() => undefined);
       setTimeout(() => {
         inputRef.current?.focus();
       }, 100);
@@ -110,7 +117,7 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
       setQuery("");
       setSelectedIndex(0);
     }
-  }, [isOpen, setQuery]);
+  }, [isOpen, setQuery, initialize]);
 
   const handleClose = useCallback(() => {
     if (isOpen) {
