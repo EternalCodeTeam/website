@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { Suspense } from "react";
 
+import { DocsEditors } from "@/components/docs/content/docs-editors";
 import { DocsHeader } from "@/components/docs/content/docs-header";
 import { DocsNavigation } from "@/components/docs/content/docs-navigation";
 import { EditOnGitHub } from "@/components/docs/content/edit-on-github";
@@ -14,6 +15,7 @@ import { HotReload } from "@/components/docs/hot-reload";
 import { ArticleSchema } from "@/components/seo/article-schema";
 import { BreadcrumbSchema } from "@/components/seo/breadcrumb-schema";
 import { components, mdxOptions } from "@/components/ui/mdx/mdx-components";
+import { getDocEditors } from "@/lib/docs/editors";
 import { getAllDocs, getDoc } from "@/lib/docs/loader";
 import { getDocNavigation, getSidebar as getSidebarStructure } from "@/lib/docs/sidebar";
 
@@ -77,7 +79,11 @@ export default async function DocPage({ params }: Props) {
   const resolvedParams = await params;
 
   // Parallel data fetching - avoid waterfall
-  const [doc, sidebar] = await Promise.all([getDoc(resolvedParams.slug), getSidebarStructure()]);
+  const [doc, sidebar, docEditors] = await Promise.all([
+    getDoc(resolvedParams.slug),
+    getSidebarStructure(),
+    getDocEditors(resolvedParams.slug.join("/")),
+  ]);
 
   if (!doc) {
     const currentPath = `/docs/${resolvedParams.slug.join("/")}`;
@@ -180,6 +186,14 @@ export default async function DocPage({ params }: Props) {
         icon={doc.frontmatter.icon}
         title={doc.frontmatter.title}
       />
+      {!!docEditors?.editors.length && (
+        <DocsEditors
+          className="mb-6"
+          editors={docEditors.editors}
+          edits={docEditors.edits}
+          historyUrl={docEditors.historyUrl}
+        />
+      )}
 
       <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700" />
 
