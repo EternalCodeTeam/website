@@ -1,22 +1,22 @@
 import type { MinecraftColor, TagCategory } from "./types";
 
 export const minecraftColors: MinecraftColor[] = [
-  { name: "Black", hex: "#000000" },
-  { name: "Dark Blue", hex: "#0000AA" },
-  { name: "Dark Green", hex: "#00AA00" },
-  { name: "Dark Aqua", hex: "#00AAAA" },
-  { name: "Dark Red", hex: "#AA0000" },
-  { name: "Dark Purple", hex: "#AA00AA" },
-  { name: "Gold", hex: "#FFAA00" },
-  { name: "Gray", hex: "#AAAAAA" },
-  { name: "Dark Gray", hex: "#555555" },
-  { name: "Blue", hex: "#5555FF" },
-  { name: "Green", hex: "#55FF55" },
-  { name: "Aqua", hex: "#55FFFF" },
-  { name: "Red", hex: "#FF5555" },
-  { name: "Light Purple", hex: "#FF55FF" },
-  { name: "Yellow", hex: "#FFFF55" },
-  { name: "White", hex: "#FFFFFF" },
+  { name: "Black", hex: "#000000", legacyCode: "&0" },
+  { name: "Dark Blue", hex: "#0000AA", legacyCode: "&1" },
+  { name: "Dark Green", hex: "#00AA00", legacyCode: "&2" },
+  { name: "Dark Aqua", hex: "#00AAAA", legacyCode: "&3" },
+  { name: "Dark Red", hex: "#AA0000", legacyCode: "&4" },
+  { name: "Dark Purple", hex: "#AA00AA", legacyCode: "&5" },
+  { name: "Gold", hex: "#FFAA00", legacyCode: "&6" },
+  { name: "Gray", hex: "#AAAAAA", legacyCode: "&7" },
+  { name: "Dark Gray", hex: "#555555", legacyCode: "&8" },
+  { name: "Blue", hex: "#5555FF", legacyCode: "&9" },
+  { name: "Green", hex: "#55FF55", legacyCode: "&a" },
+  { name: "Aqua", hex: "#55FFFF", legacyCode: "&b" },
+  { name: "Red", hex: "#FF5555", legacyCode: "&c" },
+  { name: "Light Purple", hex: "#FF55FF", legacyCode: "&d" },
+  { name: "Yellow", hex: "#FFFF55", legacyCode: "&e" },
+  { name: "White", hex: "#FFFFFF", legacyCode: "&f" },
 ];
 
 export const gradientPresets = [
@@ -47,6 +47,10 @@ export const allowedTags: Record<string, TagCategory> = {
   minecraftColor: {
     pattern: /<[a-z_]+>/,
     tags: minecraftColors.map((color) => `<${color.name.toLowerCase().replace(/ /g, "_")}>`),
+  },
+  legacy: {
+    pattern: /(?:§|&)[0-9a-fk-or]/i,
+    tags: [...minecraftColors.map((color) => color.legacyCode), "&k", "&l", "&m", "&n", "&o", "&r"],
   },
   clickUrl: {
     pattern: /<click:open_url:'[^']*'><\/click>/,
