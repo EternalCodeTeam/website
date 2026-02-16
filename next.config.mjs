@@ -96,7 +96,6 @@ const nextConfig = {
     optimizePackageImports: [
       "framer-motion",
       "lucide-react",
-      "date-fns",
       "@iconify/react",
       "@radix-ui/react-tabs",
       "next-mdx-remote",
