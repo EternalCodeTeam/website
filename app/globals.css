@@ -204,6 +204,12 @@ pre[class*="language-"] {
   }
 }
 
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
 /* Hero blob floating animation - GPU accelerated */
 @keyframes float {
   0%,
