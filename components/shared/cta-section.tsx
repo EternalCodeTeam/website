@@ -1,6 +1,6 @@
 "use client";
 
-import { SiDiscord } from "react-icons/si";
+import { Icon } from "@iconify/react";
 
 import { Button } from "@/components/ui/button";
 import { SlideIn } from "@/components/ui/motion/motion-components";
@@ -22,7 +22,7 @@ export default function Cta() {
               <Button
                 className="gap-2 border-[#5865F2]/50 bg-[#5865F2] hover:bg-[#5865F2]/90"
                 href="https://discord.com/invite/FQ7jmGBd6c"
-                leftIcon={<SiDiscord className="h-5 w-5" />}
+                leftIcon={<Icon className="h-5 w-5" icon="simple-icons:discord" />}
                 rel="noopener noreferrer"
                 shine
                 size="lg"

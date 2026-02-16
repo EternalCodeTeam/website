@@ -1,5 +1,6 @@
 "use client";
 
+import { Icon } from "@iconify/react";
 import {
   Content as TabsContent,
   List as TabsList,
@@ -7,97 +8,70 @@ import {
   Trigger as TabsTrigger,
 } from "@radix-ui/react-tabs";
 import { motion } from "framer-motion";
-import {
-  Children,
-  type ComponentType,
-  isValidElement,
-  type ReactNode,
-  type SVGProps,
-  useCallback,
-  useMemo,
-  useState,
-} from "react";
-import {
-  SiApachemaven,
-  SiC,
-  SiCplusplus,
-  SiDocker,
-  SiGnubash,
-  SiGo,
-  SiGradle,
-  SiJavascript,
-  SiKotlin,
-  SiLua,
-  SiModrinth,
-  SiNpm,
-  SiPerl,
-  SiPhp,
-  SiPnpm,
-  SiPython,
-  SiRuby,
-  SiRust,
-  SiScala,
-  SiSharp,
-  SiSwift,
-  SiTypescript,
-  SiYarn,
-} from "react-icons/si";
+import { Children, isValidElement, type ReactNode, useCallback, useMemo, useState } from "react";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { cn } from "@/lib/utils";
 
-type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
-
-const ICONS: Record<string, IconComponent> = {
-  maven: SiApachemaven,
-  gradle: SiGradle,
-  "gradle.kts": SiGradle,
-  npm: SiNpm,
-  yarn: SiYarn,
-  pnpm: SiPnpm,
-  bash: SiGnubash,
-  shell: SiGnubash,
-  sh: SiGnubash,
-  kotlin: SiKotlin,
-  kt: SiKotlin,
-  typescript: SiTypescript,
-  ts: SiTypescript,
-  tsx: SiTypescript,
-  javascript: SiJavascript,
-  js: SiJavascript,
-  jsx: SiJavascript,
-  python: SiPython,
-  py: SiPython,
-  docker: SiDocker,
-  dockerfile: SiDocker,
-  go: SiGo,
-  php: SiPhp,
-  ruby: SiRuby,
-  rb: SiRuby,
-  csharp: SiSharp,
-  cs: SiSharp,
-  cpp: SiCplusplus,
-  "c++": SiCplusplus,
-  c: SiC,
-  rust: SiRust,
-  rs: SiRust,
-  swift: SiSwift,
-  scala: SiScala,
-  perl: SiPerl,
-  pl: SiPerl,
-  lua: SiLua,
-  modrinth: SiModrinth,
+const ICONS: Record<string, string> = {
+  maven: "simple-icons:apachemaven",
+  gradle: "simple-icons:gradle",
+  "gradle.kts": "simple-icons:gradle",
+  npm: "simple-icons:npm",
+  yarn: "simple-icons:yarn",
+  pnpm: "simple-icons:pnpm",
+  bash: "simple-icons:gnubash",
+  shell: "simple-icons:gnubash",
+  sh: "simple-icons:gnubash",
+  kotlin: "simple-icons:kotlin",
+  kt: "simple-icons:kotlin",
+  typescript: "simple-icons:typescript",
+  ts: "simple-icons:typescript",
+  tsx: "simple-icons:typescript",
+  javascript: "simple-icons:javascript",
+  js: "simple-icons:javascript",
+  jsx: "simple-icons:javascript",
+  python: "simple-icons:python",
+  py: "simple-icons:python",
+  docker: "simple-icons:docker",
+  dockerfile: "simple-icons:docker",
+  go: "simple-icons:go",
+  php: "simple-icons:php",
+  ruby: "simple-icons:ruby",
+  rb: "simple-icons:ruby",
+  csharp: "simple-icons:sharp",
+  cs: "simple-icons:sharp",
+  cpp: "simple-icons:cplusplus",
+  "c++": "simple-icons:cplusplus",
+  c: "simple-icons:c",
+  rust: "simple-icons:rust",
+  rs: "simple-icons:rust",
+  swift: "simple-icons:swift",
+  scala: "simple-icons:scala",
+  perl: "simple-icons:perl",
+  pl: "simple-icons:perl",
+  lua: "simple-icons:lua",
+  modrinth: "simple-icons:modrinth",
 };
 
-const getIcon = (label: string): IconComponent | null => {
+const getIcon = (label: string): string | null => {
   const key = label.trim().toLowerCase();
   return ICONS[key] ?? null;
 };
 
 const LanguageIcon = ({ label }: { label: string }) => {
-  const Icon = useMemo(() => getIcon(label), [label]);
+  const iconName = useMemo(() => getIcon(label), [label]);
 
-  if (Icon) {
-    return <Icon aria-hidden="true" aria-label={label} className="mr-1" height={18} width={18} />;
+  if (iconName) {
+    return (
+      <Icon
+        aria-hidden="true"
+        aria-label={label}
+        className="mr-1"
+        height={18}
+        icon={iconName}
+        width={18}
+      />
+    );
   }
   return (
     <span aria-hidden="true" className="mr-1" title={label}>

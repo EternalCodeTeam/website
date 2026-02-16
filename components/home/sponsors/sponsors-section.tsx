@@ -1,7 +1,7 @@
 "use client";
 
+import { Icon } from "@iconify/react";
 import type { ReactNode } from "react";
-import { SiGithub, SiJetbrains, SiJira, SiNetlify, SiSentry } from "react-icons/si";
 import { FadeIn } from "@/components/ui/motion/motion-components";
 
 interface Sponsor {
@@ -14,27 +14,27 @@ interface Sponsor {
 const sponsors: Sponsor[] = [
   {
     name: "Netlify",
-    icon: <SiNetlify className="h-10 w-10" />,
+    icon: <Icon className="h-10 w-10" icon="simple-icons:netlify" />,
     url: "https://www.netlify.com/",
   },
   {
     name: "JetBrains",
-    icon: <SiJetbrains className="h-12 w-12" />,
+    icon: <Icon className="h-12 w-12" icon="cib:jetbrains" />,
     url: "https://jetbrains.com",
   },
   {
     name: "Sentry",
-    icon: <SiSentry className="h-10 w-10" />,
+    icon: <Icon className="h-10 w-10" icon="simple-icons:sentry" />,
     url: "https://sentry.io",
   },
   {
     name: "Jira Software",
-    icon: <SiJira className="h-10 w-10" />,
+    icon: <Icon className="h-10 w-10" icon="simple-icons:jira" />,
     url: "https://www.atlassian.com/software/jira",
   },
   {
     name: "GitHub",
-    icon: <SiGithub className="h-10 w-10" />,
+    icon: <Icon className="h-10 w-10" icon="simple-icons:github" />,
     url: "https://github.com",
   },
 ];

@@ -1,9 +1,9 @@
 "use client";
 
+import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { SiNetlify } from "react-icons/si";
 
 import DiscordIcon from "@/components/icons/discord";
 import GitHubIcon from "@/components/icons/github";
@@ -194,9 +194,10 @@ export default function Footer() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75 group-hover:opacity-100" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
                 </span>
-                <SiNetlify
+                <Icon
                   aria-hidden
                   className="h-4 w-4 text-emerald-500 transition-colors group-hover:text-emerald-600 dark:text-emerald-400 dark:group-hover:text-emerald-300"
+                  icon="simple-icons:netlify"
                 />
                 <span className="bg-gradient-to-r from-gray-700 to-gray-900 bg-clip-text text-transparent dark:from-gray-300 dark:to-gray-100">
                   Powered by Netlify
