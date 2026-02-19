@@ -43,3 +43,12 @@ next-env.d.ts
 
 # internal content layer
 /content/_generated/
+
+# AI tool junction dirs — actual content lives in .ai/skills/
+# These folders are created locally by `bun run setup:ai`
+/.agent/
+/.agents/
+/.claude/
+/.codex/
+/.gemini/
+

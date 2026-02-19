@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "setup:ai": "bun scripts/setup-ai-links.ts",
     "build": "bun run format && bun run lint && next build",
     "start": "next start",
     "check": "bun run format && bun run lint && bun run type-check",
