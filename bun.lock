@@ -21,7 +21,7 @@
         "gray-matter": "^4.0.3",
         "lenis": "^1.3.17",
         "lucide-react": "^0.575.0",
-        "minimessage-js": "^1.2.1",
+        "minimessage-js": "^2.0.0",
         "next-mdx-remote": "^6.0.0",
         "next-sitemap": "^4.2.3",
         "next-themes": "^0.4.6",
@@ -919,7 +919,7 @@
 
     "minimatch": ["minimatch@10.1.1", "", { "dependencies": { "@isaacs/brace-expansion": "^5.0.0" } }, "sha512-enIvLvRAFZYXJzkCYG5RKmPfrFArdLv+R+lbQ53BmIMLIry74bjKzX6iHAm8WYamJkhSSEabrWN5D97XnKObjQ=="],
 
-    "minimessage-js": ["minimessage-js@1.2.1", "", {}, "sha512-Mqg9aiUEAGXGhwqwy+P/tjJbviBMgK2QpUxUIdi66o6xiQNIxR5AXLVdlQ7jiowfdkBZxcrT8jgCBs132xlsfw=="],
+    "minimessage-js": ["minimessage-js@2.0.1", "", {}, "sha512-9rkMlqu2iXJYWyRhselioOsXWhDyqb3qBvG/vCQtRHMvClJ1RGGkS2tU1gfvo0zSiKiU2k3EnH+Q2UR/CWU1RA=="],
 
     "minimist": ["minimist@1.2.8", "", {}, "sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA=="],
 
