@@ -41,7 +41,25 @@ bun run type-check   # Run TypeScript type checking
 bun run ultracite:check  # Run Ultracite linter
 bun run ultracite:fix    # Auto-fix Ultracite issues
 ANALYZE=true bun build   # Build with bundle analyzer
+bun run setup:ai         # Create AI tool junctions (see below)
 ```
+
+## AI Skills Setup
+
+Shared AI skills/context live in **`.ai/skills/`**.  
+Running `bun run setup:ai` (or just `bun dev`) creates local directory junctions so every AI tool finds its expected
+path:
+
+| Tool          | Expects                             | Points to     |
+|---------------|-------------------------------------|---------------|
+| Claude Code   | `.claude/skills/`                   | `.ai/skills/` |
+| OpenAI Codex  | `.codex/skills/`                    | `.ai/skills/` |
+| Google Gemini | `.gemini/skills/`                   | `.ai/skills/` |
+| Generic agent | `.agent/skills/`, `.agents/skills/` | `.ai/skills/` |
+
+The junction dirs (`.claude/`, `.codex/`, etc.) are listed in `.gitignore` and are created automatically on first
+`bun dev`.  
+To add or update a skill, edit files inside `.ai/skills/` — changes are immediately visible to all tools.
 
 ## Project Architecture
 
