@@ -9,9 +9,10 @@ import { gradientPresets, minecraftColors } from "../color-constants";
 import type { ColorPickerProps, MinecraftColor } from "../types";
 
 export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) => {
-  const [activeTab, setActiveTab] = useState<"solid" | "gradient" | "presets">("solid");
+  const [activeTab, setActiveTab] = useState<"solid" | "gradient" | "presets" | "legacy">("solid");
   const [solidColor, setSolidColor] = useState("#FFFFFF");
   const [gradientColors, setGradientColors] = useState<string[]>(["#55FFFF", "#FF55FF"]);
+  const [legacyColor, setLegacyColor] = useState<MinecraftColor>(minecraftColors[0]);
   const [_copied, _setCopied] = useState(false);
 
   // Sync solid color with first gradient color for smoother transitions
@@ -25,10 +26,16 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
     if (activeTab === "gradient") {
       const result = `<gradient:${gradientColors.join(":")}></gradient>`;
       onApplyAction(result, true, gradientColors);
-    } else {
-      const result = `<color:${solidColor}></color>`;
-      onApplyAction(result, false, [solidColor]);
+      return;
     }
+
+    if (activeTab === "legacy") {
+      onApplyAction(legacyColor.legacyCode, false, [legacyColor.hex]);
+      return;
+    }
+
+    const result = `<color:${solidColor}></color>`;
+    onApplyAction(result, false, [solidColor]);
   };
 
   const handlePresetClick = (color: MinecraftColor) => {
@@ -89,7 +96,7 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
 
       {/* Tabs */}
       <div className="flex border-gray-100 border-b dark:border-gray-800">
-        {(["solid", "gradient", "presets"] as const).map((tab) => (
+        {(["solid", "gradient", "presets", "legacy"] as const).map((tab) => (
           <button
             className={`flex-1 cursor-pointer px-3 py-2 font-medium text-sm transition-colors ${
               activeTab === tab
@@ -257,6 +264,48 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
               </div>
             </motion.div>
           )}
+
+          {activeTab === "legacy" && (
+            <motion.div
+              animate={{ opacity: 1, x: 0 }}
+              className="space-y-4"
+              exit={{ opacity: 0, x: 10 }}
+              initial={{ opacity: 0, x: -10 }}
+              key="legacy"
+              transition={{ duration: 0.2 }}
+            >
+              <div>
+                <h4 className="mb-2 font-semibold text-gray-500 text-xs uppercase dark:text-gray-400">
+                  Legacy Colors (with & codes)
+                </h4>
+                <div className="grid grid-cols-4 gap-2">
+                  {minecraftColors.map((mcColor) => (
+                    <button
+                      className={`group relative flex aspect-square cursor-pointer flex-col items-center justify-center rounded-md border transition-all hover:scale-105 hover:shadow-md ${
+                        legacyColor.name === mcColor.name
+                          ? "border-blue-500 ring-2 ring-blue-500/40"
+                          : "border-gray-200 dark:border-gray-700"
+                      }`}
+                      key={mcColor.hex}
+                      onClick={() => setLegacyColor(mcColor)}
+                      style={{ backgroundColor: mcColor.hex }}
+                      title={`${mcColor.name} (${mcColor.legacyCode})`}
+                      type="button"
+                    >
+                      <span className="sr-only">{mcColor.name}</span>
+                      <span className="rounded bg-black/50 px-1.5 py-0.5 font-mono text-[10px] text-white">
+                        {mcColor.legacyCode}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-600 text-xs dark:border-gray-800 dark:bg-gray-900/60 dark:text-gray-300">
+                Legacy codes are classic Minecraft formatting codes that work in older configs.
+              </div>
+            </motion.div>
+          )}
         </AnimatePresence>
 
         {activeTab !== "presets" && (
@@ -265,7 +314,15 @@ export const ColorPicker = ({ onApplyAction, onCloseAction }: ColorPickerProps) 
             onClick={handleApply}
             type="button"
           >
-            Apply {activeTab === "gradient" ? "Gradient" : "Color"}
+            {(() => {
+              if (activeTab === "gradient") {
+                return "Apply Gradient";
+              }
+              if (activeTab === "legacy") {
+                return "Insert Legacy Code";
+              }
+              return "Apply Color";
+            })()}
           </button>
         )}
       </div>

@@ -1,10 +1,8 @@
 "use client";
 
-import { Play } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
 import type { NotificationConfig } from "@/components/notification-generator/types";
-import { Button } from "@/components/ui/button";
 import { FadeIn, MotionSection, SlideIn } from "@/components/ui/motion/motion-components";
 
 const NotificationGeneratedCode = dynamic(
@@ -21,14 +19,6 @@ const NotificationGeneratorForm = dynamic(
     ),
   { ssr: false }
 );
-const MinecraftPreview = dynamic(
-  () =>
-    import("@/components/notification-generator/preview/minecraft-preview").then(
-      (mod) => mod.MinecraftPreview
-    ),
-  { ssr: false }
-);
-
 export default function NotificationGeneratorPage() {
   const [notification, setNotification] = useState<NotificationConfig>({
     chat: "",
@@ -46,74 +36,66 @@ export default function NotificationGeneratorPage() {
   });
 
   const [yamlCode, setYamlCode] = useState("");
-  const [previewKey, setPreviewKey] = useState(0);
-
   const generateYaml = useCallback(() => generateYamlString(notification), [notification]);
 
   useEffect(() => {
     setYamlCode(generateYaml());
   }, [generateYaml]);
 
-  const handlePlayPreview = useCallback(() => {
-    setPreviewKey((prev) => prev + 1);
-  }, []);
-
   return (
-    <MotionSection className="w-full">
-      <div className="mb-12 text-center">
-        <SlideIn delay={0.1} direction="down">
-          <h1 className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text font-extrabold text-4xl text-transparent tracking-tight md:text-6xl dark:from-white dark:to-gray-300">
-            Notification Generator
-          </h1>
-        </SlideIn>
-        <FadeIn delay={0.2}>
-          <p className="mt-4 text-gray-600 text-lg dark:text-gray-400">
-            Design and preview your EternalCode notifications in real-time.
-          </p>
-        </FadeIn>
+    <MotionSection className="relative w-full overflow-hidden">
+      <div className="absolute inset-0">
+        <div className="absolute top-32 left-[-10%] h-[420px] w-[420px] rounded-full bg-blue-500/15 blur-[120px]" />
+        <div className="absolute right-[-5%] bottom-0 h-[480px] w-[480px] rounded-full bg-emerald-500/10 blur-[140px]" />
+        <div className="absolute top-0 right-[20%] h-[260px] w-[260px] rounded-full bg-orange-400/10 blur-[110px]" />
       </div>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        <SlideIn className="h-full" delay={0.3} direction="left">
-          <NotificationGeneratorForm
-            notification={notification}
-            setNotification={setNotification}
-          />
-        </SlideIn>
-
-        <SlideIn className="h-full" delay={0.4} direction="right">
-          <div className="h-full rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 dark:bg-gray-900/40 dark:ring-gray-800">
-            <h2 className="mb-4 font-semibold text-gray-900 text-xl dark:text-white">
-              Generated Configuration
-            </h2>
-            <NotificationGeneratedCode yamlCode={yamlCode} />
-          </div>
-        </SlideIn>
-      </div>
-
-      <SlideIn className="mt-8" delay={0.5} direction="up">
-        <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 dark:bg-gray-900/40 dark:ring-gray-800">
-          <div className="mb-6 flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <div>
-              <h2 className="font-semibold text-gray-900 text-xl dark:text-white">Live Preview</h2>
-              <p className="mt-1 text-gray-500 text-sm dark:text-gray-400">
-                See how your notification looks in-game.
-              </p>
-            </div>
-            <Button
-              leftIcon={<Play className="h-4 w-4" />}
-              onClick={handlePlayPreview}
-              variant="primary"
-            >
-              Replay Animation
-            </Button>
-          </div>
-
-          <div className="overflow-hidden rounded-xl border border-gray-200 bg-black shadow-lg dark:border-gray-800">
-            <MinecraftPreview key={previewKey} notification={notification} />
-          </div>
+      <div className="relative z-10 mx-auto max-w-[90rem] px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mb-12 text-center">
+          <SlideIn delay={0.1} direction="down">
+            <p className="font-semibold text-gray-500 text-sm uppercase tracking-[0.3em] dark:text-gray-400">
+              Minecraft Notification Studio
+            </p>
+          </SlideIn>
+          <SlideIn delay={0.18} direction="down">
+            <h1 className="mt-4 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500 bg-clip-text font-extrabold text-4xl text-transparent tracking-tight md:text-6xl dark:from-white dark:via-gray-200 dark:to-gray-400">
+              Notification Generator
+            </h1>
+          </SlideIn>
+          <FadeIn delay={0.26}>
+            <p className="mx-auto mt-4 max-w-2xl text-gray-600 text-lg dark:text-gray-400">
+              Build, preview, and ship polished in-game notifications with modern formatting and
+              legacy-friendly color support.
+            </p>
+          </FadeIn>
         </div>
-      </SlideIn>
+
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+          <SlideIn className="h-full" delay={0.3} direction="left">
+            <NotificationGeneratorForm
+              notification={notification}
+              setNotification={setNotification}
+            />
+          </SlideIn>
+
+          <SlideIn className="h-full" delay={0.4} direction="right">
+            <div className="h-full rounded-3xl border border-white/10 bg-white/80 p-6 shadow-lg backdrop-blur-sm dark:border-gray-800 dark:bg-gray-950/60">
+              <div className="mb-6">
+                <p className="font-semibold text-gray-500 text-xs uppercase tracking-[0.25em] dark:text-gray-400">
+                  Output
+                </p>
+                <h2 className="mt-2 font-semibold text-2xl text-gray-900 dark:text-white">
+                  Generated Configuration
+                </h2>
+                <p className="mt-2 text-gray-500 text-sm dark:text-gray-400">
+                  Copy the YAML and paste it into the EternalCore notification config.
+                </p>
+              </div>
+              <NotificationGeneratedCode yamlCode={yamlCode} />
+            </div>
+          </SlideIn>
+        </div>
+      </div>
     </MotionSection>
   );
 }
