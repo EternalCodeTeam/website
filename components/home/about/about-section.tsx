@@ -2,12 +2,10 @@
 
 import { m } from "framer-motion";
 import { Heart } from "lucide-react";
-import Image from "next/image";
 import PolandMap from "@/components/home/about/poland-map";
 import PeopleGroupIcon from "@/components/icons/people-group";
 import { Button } from "@/components/ui/button";
 import { SlideIn } from "@/components/ui/motion/motion-components";
-import AboutImage from "@/public/hero image.png";
 
 export default function About() {
   return (
@@ -90,7 +88,6 @@ export default function About() {
           {/* Image & Map Content */}
           <div className="relative flex items-center justify-center lg:order-2">
             <div className="relative flex aspect-square w-full items-center justify-center">
-              {/* Animated Map Background */}
               <PolandMap />
             </div>
           </div>
