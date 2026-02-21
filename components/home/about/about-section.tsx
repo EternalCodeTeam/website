@@ -34,11 +34,31 @@ export default function About() {
                 From{" "}
                 <span className="relative inline-block">
                   <span
-                    className="bg-gradient-to-b from-50% from-white to-50% to-[#DC143C] bg-clip-text text-transparent [--stroke-color:rgba(17,17,17,0.7)] [--stroke-width:1px] dark:[--stroke-color:transparent] dark:[--stroke-width:0px]"
+                    className="bg-gradient-to-b from-50% from-white to-50% to-[#DC143C] bg-clip-text text-transparent [--stroke-color:rgba(17,17,17,0.2)] [--stroke-width:2px] dark:[--stroke-color:transparent] dark:[--stroke-width:0px]"
                     style={{ WebkitTextStroke: "var(--stroke-width) var(--stroke-color)" }}
                   >
                     Poland
                   </span>
+                  <m.div
+                    animate={{ opacity: 1, rotate: 12, scale: 1 }}
+                    className="absolute -top-6 -right-8 flex flex-col items-center will-change-transform"
+                    initial={{ opacity: 0, rotate: -15, scale: 0 }}
+                    transition={{ delay: 1, type: "spring" }}
+                  >
+                    <div className="relative h-5 w-8 overflow-hidden rounded-sm drop-shadow-[0_0_1px_rgba(0,0,0,0.5)]">
+                      <svg
+                        className="block h-full w-full"
+                        viewBox="0 0 32 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <title>Poland Flag</title>
+                        <rect fill="#ffffff" height="10" width="32" />
+                        <rect fill="#DC143C" height="10" width="32" y="10" />
+                      </svg>
+                    </div>
+
+                    <div className="-mt-1 ml-0.5 h-10 w-0.5 self-start rounded-full bg-gray-400 shadow-sm" />
+                  </m.div>
                 </span>{" "}
                 <br />
                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent dark:from-blue-400 dark:to-purple-400">
