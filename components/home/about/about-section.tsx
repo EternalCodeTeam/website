@@ -89,29 +89,9 @@ export default function About() {
 
           {/* Image & Map Content */}
           <div className="relative flex items-center justify-center lg:order-2">
-            <div className="relative flex aspect-square w-full max-w-[600px] items-center justify-center">
+            <div className="relative flex aspect-square w-full items-center justify-center">
               {/* Animated Map Background */}
               <PolandMap />
-
-              <SlideIn className="relative z-10 w-full" delay={0.3} direction="right">
-                <m.div
-                  className="relative transform-gpu overflow-hidden rounded-2xl shadow-2xl will-change-transform"
-                  transition={{ duration: 0.5, type: "spring" }}
-                  whileHover={{ scale: 1.02, rotate: 1 }}
-                >
-                  <Image
-                    alt="EternalCode Team"
-                    className="h-auto w-full object-cover"
-                    fetchPriority="low"
-                    loading="lazy"
-                    placeholder="blur"
-                    sizes="(max-width: 1024px) 100vw, 600px"
-                    src={AboutImage}
-                  />
-                  {/* Subtle clean overlay */}
-                  <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-black/10 ring-inset dark:ring-white/10" />
-                </m.div>
-              </SlideIn>
             </div>
           </div>
         </div>
