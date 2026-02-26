@@ -28,7 +28,7 @@
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.19",
-    "@takumi-rs/image-response": "^0.68.0",
+    "@takumi-rs/image-response": "^0.69.0",
     "class-variance-authority": "^0.7.1",
     "date-fns": "^4.1.0",
     "focus-trap-react": "^12.0.0",
