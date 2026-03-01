@@ -66,25 +66,35 @@ async function embedBatch(client: OpenAI, texts: string[]): Promise<number[][]> 
 }
 
 function createGatewayOpenAiClient(): OpenAI {
-  const netlifyGatewayKey = process.env.NETLIFY_AI_GATEWAY_KEY?.trim();
-  const netlifyGatewayBaseUrl = process.env.NETLIFY_AI_GATEWAY_BASE_URL?.trim();
-  const openAiKey = process.env.OPENAI_API_KEY?.trim();
-  const openAiBaseUrl = process.env.OPENAI_BASE_URL?.trim();
+  return new OpenAI();
+}
 
-  const apiKey = netlifyGatewayKey || openAiKey;
-  const baseURL = netlifyGatewayBaseUrl || openAiBaseUrl;
-
-  if (!(apiKey && baseURL)) {
-    throw new Error(
-      "AI Gateway is required for indexing. Set NETLIFY_AI_GATEWAY_KEY and NETLIFY_AI_GATEWAY_BASE_URL (or OPENAI_API_KEY and OPENAI_BASE_URL from Netlify AI Gateway)."
-    );
+async function hasExistingVectorIndex(): Promise<boolean> {
+  try {
+    await fs.access(OUTPUT_PATH);
+    return true;
+  } catch {
+    return false;
   }
-
-  return new OpenAI({ apiKey, baseURL });
 }
 
 async function main() {
-  const client = createGatewayOpenAiClient();
+  let client: OpenAI;
+  try {
+    client = createGatewayOpenAiClient();
+  } catch (error) {
+    const runningOnNetlify = process.env.NETLIFY === "true";
+    const hasIndex = await hasExistingVectorIndex();
+
+    if (runningOnNetlify && hasIndex) {
+      console.warn(
+        "Skipping vector reindex during Netlify build because AI Gateway credentials are unavailable in this context. Using existing content/_generated/vector-index.json."
+      );
+      return;
+    }
+
+    throw error;
+  }
 
   let existingChunks: VectorChunk[] = [];
   let manifest: Record<string, string> = {};
