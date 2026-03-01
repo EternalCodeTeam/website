@@ -14,20 +14,9 @@ const MANIFEST_PATH = path.join(process.cwd(), "content/_generated/vector-manife
 const EMBEDDING_MODEL = "text-embedding-3-small";
 const EMBEDDING_BATCH_SIZE = 20;
 const MDX_EXTENSION_REGEX = /\.mdx$/;
-const CATEGORY_LABELS: Record<string, string> = {
-  eternalcore: "EternalCore",
-  eternalcombat: "EternalCombat",
-  multification: "Multification",
-  contribute: "Contribute",
-};
 
 function hashContent(content: string): string {
   return crypto.createHash("sha256").update(content).digest("hex").slice(0, 16);
-}
-
-function getCategory(relativePath: string): string {
-  const top = relativePath.split("/")[0] ?? "";
-  return CATEGORY_LABELS[top] ?? top;
 }
 
 function buildDocPath(relativePath: string): string {
@@ -37,19 +26,20 @@ function buildDocPath(relativePath: string): string {
 async function findMdxFiles(dir: string): Promise<string[]> {
   const entries = await fs.readdir(dir, { withFileTypes: true });
   const results = await Promise.all(
-    entries.map((e) => {
-      const full = path.join(dir, e.name);
-      if (e.isDirectory()) {
+    entries.map((entry) => {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
         return findMdxFiles(full);
       }
 
-      if (e.isFile() && e.name.endsWith(".mdx")) {
+      if (entry.isFile() && entry.name.endsWith(".mdx")) {
         return [full];
       }
 
       return [];
     })
   );
+
   return results.flat();
 }
 
@@ -62,25 +52,39 @@ async function embedBatch(client: OpenAI, texts: string[]): Promise<number[][]> 
       model: EMBEDDING_MODEL,
       input: batch,
     });
+
     for (const item of response.data) {
       embeddings.push(item.embedding);
     }
+
     if (i + EMBEDDING_BATCH_SIZE < texts.length) {
-      await new Promise((r) => setTimeout(r, 200));
+      await new Promise((resolve) => setTimeout(resolve, 200));
     }
   }
 
   return embeddings;
 }
 
-async function main() {
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) {
-    console.error("❌  OPENAI_API_KEY environment variable is not set.");
-    process.exit(1);
+function createGatewayOpenAiClient(): OpenAI {
+  const netlifyGatewayKey = process.env.NETLIFY_AI_GATEWAY_KEY?.trim();
+  const netlifyGatewayBaseUrl = process.env.NETLIFY_AI_GATEWAY_BASE_URL?.trim();
+  const openAiKey = process.env.OPENAI_API_KEY?.trim();
+  const openAiBaseUrl = process.env.OPENAI_BASE_URL?.trim();
+
+  const apiKey = netlifyGatewayKey || openAiKey;
+  const baseURL = netlifyGatewayBaseUrl || openAiBaseUrl;
+
+  if (!(apiKey && baseURL)) {
+    throw new Error(
+      "AI Gateway is required for indexing. Set NETLIFY_AI_GATEWAY_KEY and NETLIFY_AI_GATEWAY_BASE_URL (or OPENAI_API_KEY and OPENAI_BASE_URL from Netlify AI Gateway)."
+    );
   }
 
-  const client = new OpenAI({ apiKey });
+  return new OpenAI({ apiKey, baseURL });
+}
+
+async function main() {
+  const client = createGatewayOpenAiClient();
 
   let existingChunks: VectorChunk[] = [];
   let manifest: Record<string, string> = {};
@@ -101,7 +105,7 @@ async function main() {
   }
 
   const files = await findMdxFiles(DOCS_DIR);
-  console.log(`📂  Found ${files.length} MDX files`);
+  console.log(`Found ${files.length} MDX files`);
 
   const allChunks: VectorChunk[] = [];
   const chunksToEmbed: Array<{ chunk: Omit<VectorChunk, "embedding">; text: string }> = [];
@@ -118,14 +122,13 @@ async function main() {
     newManifest[relativePath] = hash;
 
     const unchanged = manifest[relativePath] === hash;
-    const docExistingChunks = existingChunks.filter((c) => c.docPath === docPath);
+    const docExistingChunks = existingChunks.filter((chunk) => chunk.docPath === docPath);
 
     if (unchanged && docExistingChunks.length > 0) {
       allChunks.push(...docExistingChunks);
       continue;
     }
 
-    const _category = getCategory(relativePath);
     const chunkDrafts = chunkMarkdown(content, title);
 
     for (let i = 0; i < chunkDrafts.length; i++) {
@@ -139,15 +142,15 @@ async function main() {
   }
 
   if (chunksToEmbed.length > 0) {
-    console.log(`🧠  Embedding ${chunksToEmbed.length} new/changed chunks…`);
-    const texts = chunksToEmbed.map((c) => c.text);
+    console.log(`Embedding ${chunksToEmbed.length} new/changed chunks...`);
+    const texts = chunksToEmbed.map((chunk) => chunk.text);
     const embeddings = await embedBatch(client, texts);
 
     for (let i = 0; i < chunksToEmbed.length; i++) {
       allChunks.push({ ...chunksToEmbed[i].chunk, embedding: embeddings[i] });
     }
   } else {
-    console.log("✅  All files unchanged — using cached embeddings");
+    console.log("All files unchanged - using cached embeddings");
   }
 
   allChunks.sort((a, b) => a.id.localeCompare(b.id));
@@ -162,10 +165,10 @@ async function main() {
   await fs.writeFile(OUTPUT_PATH, JSON.stringify(index, null, 2), "utf-8");
   await fs.writeFile(MANIFEST_PATH, JSON.stringify(newManifest, null, 2), "utf-8");
 
-  console.log(`✅  Wrote ${allChunks.length} chunks → ${OUTPUT_PATH}`);
+  console.log(`Wrote ${allChunks.length} chunks -> ${OUTPUT_PATH}`);
 }
 
-main().catch((err) => {
-  console.error("❌  Fatal error:", err);
+main().catch((error) => {
+  console.error("Fatal error:", error);
   process.exit(1);
 });
