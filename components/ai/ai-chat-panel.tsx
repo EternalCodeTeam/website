@@ -10,6 +10,8 @@ import { AiMessage } from "./ai-message";
 
 interface AiChatPanelProps {
   onClose: () => void;
+  initialQuestion?: string | null;
+  onInitialQuestionConsumed?: () => void;
 }
 
 const SUGGESTED_QUESTIONS = [
@@ -18,10 +20,15 @@ const SUGGESTED_QUESTIONS = [
   "How do I configure placeholders?",
 ];
 
-export function AiChatPanel({ onClose }: AiChatPanelProps) {
+export function AiChatPanel({
+  onClose,
+  initialQuestion,
+  onInitialQuestionConsumed,
+}: AiChatPanelProps) {
   const { messages, isLoading, error, sendMessage, clearMessages } = useAiChat();
   const bottomRef = useRef<HTMLDivElement>(null);
   const lastMessageId = messages.at(-1)?.id;
+  const injectedQuestionRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (!lastMessageId) {
@@ -30,6 +37,21 @@ export function AiChatPanel({ onClose }: AiChatPanelProps) {
 
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [lastMessageId]);
+
+  useEffect(() => {
+    const normalizedQuestion = initialQuestion?.trim();
+    if (!normalizedQuestion) {
+      return;
+    }
+
+    if (normalizedQuestion === injectedQuestionRef.current) {
+      return;
+    }
+
+    injectedQuestionRef.current = normalizedQuestion;
+    sendMessage(normalizedQuestion).catch(() => undefined);
+    onInitialQuestionConsumed?.();
+  }, [initialQuestion, onInitialQuestionConsumed, sendMessage]);
 
   const isEmpty = messages.length === 0;
 

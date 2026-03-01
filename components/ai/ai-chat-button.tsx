@@ -6,10 +6,12 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { cn } from "@/lib/utils";
 import { AiChatPanel } from "./ai-chat-panel";
+import { OPEN_AI_CHAT_EVENT, type OpenAiChatEventDetail } from "./events";
 
 export function AiChatButton() {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [initialQuestion, setInitialQuestion] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -29,6 +31,21 @@ export function AiChatButton() {
     document.addEventListener("keydown", handleKey);
     return () => document.removeEventListener("keydown", handleKey);
   }, [isOpen]);
+
+  useEffect(() => {
+    const handleOpenChat = (event: Event) => {
+      const customEvent = event as CustomEvent<OpenAiChatEventDetail>;
+      const nextQuestion = customEvent.detail?.question?.trim();
+
+      setIsOpen(true);
+      if (nextQuestion) {
+        setInitialQuestion(nextQuestion);
+      }
+    };
+
+    window.addEventListener(OPEN_AI_CHAT_EVENT, handleOpenChat as EventListener);
+    return () => window.removeEventListener(OPEN_AI_CHAT_EVENT, handleOpenChat as EventListener);
+  }, []);
 
   if (!mounted) {
     return null;
@@ -55,7 +72,11 @@ export function AiChatButton() {
             style={{ transformOrigin: "bottom right" }}
             transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
           >
-            <AiChatPanel onClose={() => setIsOpen(false)} />
+            <AiChatPanel
+              initialQuestion={initialQuestion}
+              onClose={() => setIsOpen(false)}
+              onInitialQuestionConsumed={() => setInitialQuestion(null)}
+            />
           </motion.div>
         )}
       </AnimatePresence>
