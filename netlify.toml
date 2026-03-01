@@ -1,5 +1,5 @@
 [build]
-command = "bun run build"
+command = "bun run build:index && bun run build"
 publish = ".next"
 
 [[headers]]
