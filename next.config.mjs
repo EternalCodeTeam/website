@@ -107,7 +107,7 @@ const nextConfig = {
     },
   },
   bundlePagesRouterDependencies: true,
-  serverExternalPackages: ["gray-matter", "sharp", "@takumi-rs/image-response"],
+  serverExternalPackages: ["gray-matter", "sharp", "@takumi-rs/image-response", "openai"],
   async headers() {
     return [
       {
