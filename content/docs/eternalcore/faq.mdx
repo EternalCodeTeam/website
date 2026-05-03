@@ -10,6 +10,11 @@ import { AlertBox } from "../../components/ui/alert-box";
 ## Disabling commands
 
 If a command from EternalCore conflicts with a command from another plugin, you can disable it in `commands.yml`.
+Example usage to disable `rtp` command in EternalCore.
+
+1. Open file: `/plugins/EternalCore/commands.yml`
+
+2. Add in commands structure:
 
 ```yaml
 rtp:
@@ -17,8 +22,14 @@ rtp:
   enabled: false
   aliases: []
   permissions: []
-  subCommands: []
+  subCommands: {}
 ```
+<AlertBox type="warning" title="Note">
+Remember to use full original command name NOT THE ALIAS.
+</AlertBox>
+
+
+3. Restart the server for the changes to work.
 
 ## Formatting text in chat
 
