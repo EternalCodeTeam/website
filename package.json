@@ -53,7 +53,7 @@
     "remark": "^15.0.1",
     "remark-emoji": "^5.0.2",
     "remark-gfm": "^4.0.1",
-    "sharp": "^0.34.5",
+    "sharp": "^0.35.0",
     "strip-markdown": "^6.0.0",
     "tailwind-merge": "^3.4.0",
     "tsx": "^4.21.0",
