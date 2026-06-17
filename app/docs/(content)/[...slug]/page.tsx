@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { Suspense } from "react";
 
+import { CopyPageButton } from "@/components/docs/content/copy-page-button";
 import { DocsEditors } from "@/components/docs/content/docs-editors";
 import { DocsHeader } from "@/components/docs/content/docs-header";
 import { DocsNavigation } from "@/components/docs/content/docs-navigation";
@@ -178,6 +179,11 @@ export default async function DocPage({ params }: Props) {
         actions={
           <>
             <ReadingTime content={doc.content} />
+            <CopyPageButton
+              content={doc.content}
+              pageUrl={canonicalUrl}
+              title={doc.frontmatter.title}
+            />
             <EditOnGitHub filePath={resolvedParams.slug.join("/")} />
           </>
         }
