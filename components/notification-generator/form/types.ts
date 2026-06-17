@@ -8,6 +8,7 @@ export interface TagCategory {
 export interface MinecraftColor {
   name: string;
   hex: string;
+  legacyCode: string;
 }
 
 export interface FormFieldProps {
