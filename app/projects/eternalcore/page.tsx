@@ -9,6 +9,7 @@ import { Card } from "@/components/ui/card";
 import { FacadePattern } from "@/components/ui/facade-pattern";
 import { FadeIn, MotionSection, ScaleIn, SlideIn } from "@/components/ui/motion/motion-components";
 import { slideUp } from "@/lib/animations/variants";
+import netlifyImageLoader from "@/lib/netlify-image-loader";
 
 import { ConfigPreview } from "./config-preview";
 import { EternalShowcase } from "./eternal-showcase";
@@ -101,8 +102,11 @@ export default function EternalCorePage() {
                   <Image
                     alt="EternalCore Project Banner"
                     className="transform-gpu object-cover transition-transform duration-700 will-change-transform group-hover:scale-105"
+                    fetchPriority="high"
                     fill
+                    loader={netlifyImageLoader}
                     priority
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     src="/eternalcore/readme-banner.png"
                   />
                   <div className="pointer-events-none absolute inset-0 bg-linear-to-tr from-blue-500/10 via-transparent to-purple-500/10 mix-blend-overlay" />
