@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import netlifyImageLoader from "@/lib/netlify-image-loader";
 
 interface Project {
   name: string;
@@ -161,6 +162,8 @@ function ProjectCard({ project }: { project: Project }) {
         alt={project.name}
         className="transform-gpu object-cover transition-transform duration-700 will-change-transform group-hover:scale-105"
         fill
+        loader={netlifyImageLoader}
+        loading="lazy"
         sizes="(max-width: 768px) 300px, 420px"
         src={project.image}
       />

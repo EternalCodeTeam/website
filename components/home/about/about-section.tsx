@@ -7,6 +7,7 @@ import PolandMap from "@/components/home/about/poland-map";
 import PeopleGroupIcon from "@/components/icons/people-group";
 import { Button } from "@/components/ui/button";
 import { SlideIn } from "@/components/ui/motion/motion-components";
+import netlifyImageLoader from "@/lib/netlify-image-loader";
 import AboutImage from "@/public/hero image.png";
 
 export default function About() {
@@ -103,6 +104,7 @@ export default function About() {
                     alt="EternalCode Team"
                     className="h-auto w-full object-cover"
                     fetchPriority="low"
+                    loader={netlifyImageLoader}
                     loading="lazy"
                     placeholder="blur"
                     sizes="(max-width: 1024px) 100vw, 600px"

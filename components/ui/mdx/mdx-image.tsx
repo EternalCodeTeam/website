@@ -1,6 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import netlifyImageLoader, {
+  getNetlifyImageSrcSet,
+  getNetlifyImageUrl,
+} from "@/lib/netlify-image-loader";
 
 interface MdxImageProps {
   src?: string;
@@ -14,7 +18,8 @@ export function MdxImage({ src, alt, className }: MdxImageProps) {
   }
 
   const isLocal = src.startsWith("/");
-  const cdnSrc = isLocal ? `/.netlify/images?url=${encodeURIComponent(src)}` : src;
+  const cdnSrc = isLocal ? getNetlifyImageUrl(src, 800) : src;
+  const cdnSrcSet = isLocal ? getNetlifyImageSrcSet(src) : undefined;
   const isVideo = src.endsWith(".mp4") || src.endsWith(".webm") || src.endsWith(".mov");
   const isGif = src.endsWith(".gif");
 
@@ -43,12 +48,15 @@ export function MdxImage({ src, alt, className }: MdxImageProps) {
     return (
       <span className="group relative my-6 block w-full overflow-hidden rounded-md bg-gray-100 shadow-sm dark:bg-gray-800">
         {/* biome-ignore lint/performance/noImgElement: Next.js Image Optimization warnings */}
-        {/** biome-ignore lint/correctness/useImageSize: Decorative preview */}
         <img
           alt={alt || ""}
           className={`h-auto w-full object-cover ${className || ""}`}
+          height={450}
           loading="lazy"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px"
           src={cdnSrc}
+          srcSet={cdnSrcSet}
+          width={800}
         />
       </span>
     );
@@ -60,6 +68,8 @@ export function MdxImage({ src, alt, className }: MdxImageProps) {
         alt={alt || ""}
         className={`h-auto w-full rounded-md shadow-sm ${className || ""}`}
         height={500}
+        loader={isLocal ? netlifyImageLoader : undefined}
+        loading="lazy"
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px"
         src={src}
         width={900}

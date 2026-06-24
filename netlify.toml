@@ -7,5 +7,46 @@ publish = ".next"
   [headers.values]
     Cache-Control = "public, max-age=31556952, immutable"
 
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/icons/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.webmanifest"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Netlify-CDN-Cache-Control = "public, max-age=0, stale-while-revalidate=86400"
+
+[images]
+remote_images = [
+  "https://github\\.com/.*",
+  "https://avatars\\.githubusercontent\\.com/.*",
+  "https://avatars-githubusercontent\\.webp\\.se/.*",
+  "https://private-user-images\\.githubusercontent\\.com/.*",
+  "https://i\\.imgur\\.com/.*",
+  "https://imgur\\.com/.*",
+  "https://cms\\.eternalcode\\.pl/.*"
+]
+
 [[plugins]]
 package = "@netlify/plugin-nextjs"

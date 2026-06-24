@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { FadeIn } from "@/components/ui/motion/motion-components";
+import netlifyImageLoader from "@/lib/netlify-image-loader";
 
 const marqueeItems = [
   // Row 1: Essentials & Chat
@@ -89,9 +90,10 @@ const ShowcaseModal = ({
             alt={item.title}
             className="object-contain"
             fill
+            loader={netlifyImageLoader}
             priority
+            sizes="(max-width: 1024px) 100vw, 1024px"
             src={item.src}
-            unoptimized
           />
           {/* Close Button */}
           <button
@@ -153,9 +155,10 @@ const InfiniteMarquee = ({
               alt={item.id}
               className="h-full w-full transform-gpu object-cover transition-transform duration-500 will-change-transform group-hover:scale-110"
               fill
+              loader={netlifyImageLoader}
+              loading="lazy"
               sizes="400px"
               src={item.src}
-              unoptimized
             />
 
             {/* Gradient Overlay & Content - Always visible on hover */}
