@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import type { KeyboardEvent } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { OPEN_AI_CHAT_EVENT } from "@/components/ai/events";
 import { useSearchEngine } from "@/components/docs/search/search-context";
 import { SearchResultSkeleton } from "@/components/ui/skeleton";
 import { useClickOutside } from "@/hooks/use-click-outside";
@@ -148,6 +149,23 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
       inputRef.current?.focus();
     },
     [setQuery]
+  );
+
+  const handleAskAi = useCallback(
+    (source: "search-modal" | "search-empty-state" | "search-footer") => {
+      const question = query.trim();
+      if (!question) {
+        return;
+      }
+
+      window.dispatchEvent(
+        new CustomEvent(OPEN_AI_CHAT_EVENT, {
+          detail: { question, source },
+        })
+      );
+      onClose();
+    },
+    [onClose, query]
   );
 
   const handleKeyDown = useCallback(
@@ -475,6 +493,14 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
                       <p className="text-gray-500 text-sm dark:text-gray-400">
                         Try different keywords or check your spelling
                       </p>
+                      <button
+                        className="mt-4 inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2 font-semibold text-sm text-white transition-colors hover:bg-blue-500"
+                        onClick={() => handleAskAi("search-empty-state")}
+                        type="button"
+                      >
+                        <Sparkles className="h-4 w-4" />
+                        Ask Docs AI Instead
+                      </button>
                     </motion.div>
                   )}
 
@@ -564,6 +590,16 @@ export function SearchModal({ isOpen, onClose, triggerRef }: SearchModalProps) {
                       <span>Select</span>
                     </div>
                   </div>
+                  {query.trim().length >= 2 && (
+                    <button
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-blue-200 bg-blue-50 px-2.5 py-1.5 font-medium text-blue-700 text-xs transition-colors hover:bg-blue-100 dark:border-blue-800/60 dark:bg-blue-900/20 dark:text-blue-300 dark:hover:bg-blue-900/40"
+                      onClick={() => handleAskAi("search-footer")}
+                      type="button"
+                    >
+                      <Sparkles className="h-3.5 w-3.5" />
+                      Can&apos;t find it? Ask AI
+                    </button>
+                  )}
                 </div>
               </div>
             </motion.div>

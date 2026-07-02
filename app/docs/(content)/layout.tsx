@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { AiChatButton } from "@/components/ai/ai-chat-button";
 import SidebarWrapper from "@/components/docs/sidebar/sidebar-wrapper";
 import { getSidebar } from "@/lib/docs/sidebar";
 
@@ -15,6 +16,9 @@ export default async function ContentLayout({ children }: { children: ReactNode 
           </div>
         </main>
       </div>
+
+      {/* Floating AI assistant — rendered in a portal inside the component */}
+      <AiChatButton />
     </div>
   );
 }
