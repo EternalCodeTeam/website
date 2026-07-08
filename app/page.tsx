@@ -6,7 +6,7 @@ export const dynamic = "force-static";
 export const fetchCache = "force-cache";
 
 export const metadata: Metadata = {
-  title: "Home",
+  title: "EternalCode.pl – Open Source Minecraft Plugins",
   description:
     "EternalCode.pl delivers high-quality open source Minecraft server plugins including EternalCore and EternalCombat. Built with focus on performance and innovation.",
   alternates: {

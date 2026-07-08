@@ -43,7 +43,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://eternalcode.pl"),
-  title: "EternalCode.pl | Home",
+  title: "EternalCode.pl – Open Source Minecraft Plugins",
   description:
     "EternalCode.pl delivers high-quality open source Minecraft server plugins including EternalCore and EternalCombat. Built with focus on performance and innovation.",
   keywords: ["open source", "Java", "Linux", "Minecraft", "plugins", "development"],
