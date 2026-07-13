@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { CursorGlow } from "@/components/ui/cursor-glow";
 import { MotionSection, SlideIn } from "@/components/ui/motion/motion-components";
 import { getTeamData } from "@/lib/team";
 import TeamMember from "./team-member";
@@ -52,17 +53,19 @@ export default async function Team() {
                   ))}
                 </MotionSection>
               ) : (
-                <MotionSection className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                  {section.members.map((member, index) => (
-                    <SlideIn
-                      delay={index * 0.05}
-                      direction="up"
-                      key={`${section.name}-${member.documentId || index}`}
-                    >
-                      <TeamMember index={index} member={member} />
-                    </SlideIn>
-                  ))}
-                </MotionSection>
+                <CursorGlow>
+                  <MotionSection className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {section.members.map((member, index) => (
+                      <SlideIn
+                        delay={index * 0.05}
+                        direction="up"
+                        key={`${section.name}-${member.documentId || index}`}
+                      >
+                        <TeamMember index={index} member={member} />
+                      </SlideIn>
+                    ))}
+                  </MotionSection>
+                </CursorGlow>
               )}
             </div>
           ))}

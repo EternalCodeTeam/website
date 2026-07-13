@@ -8,9 +8,10 @@ const Card = ({
 }: React.HTMLAttributes<HTMLDivElement> & { ref?: React.Ref<HTMLDivElement> }) => (
   <div
     className={cn(
-      "relative overflow-hidden rounded-2xl bg-white text-gray-950 shadow-sm ring-1 ring-gray-200 transition-all dark:bg-gray-900/40 dark:text-gray-50 dark:ring-gray-800",
+      "ec-card relative overflow-hidden rounded-[1.4rem] border text-[var(--ec-text)] shadow-none transition-all",
       className
     )}
+    data-glow-card
     ref={ref}
     {...props}
   />

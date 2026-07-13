@@ -5,6 +5,7 @@ import { ContributeHero } from "@/components/contribute/contribute-hero";
 import { ContributionCard } from "@/components/contribute/contribution-card";
 import { ContributionEmptyState } from "@/components/contribute/contribution-empty-state";
 import { ContributionHint } from "@/components/contribute/contribution-hint";
+import { CursorGlow } from "@/components/ui/cursor-glow";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -39,24 +40,26 @@ export default function ContributeView({ cards }: { cards: ContributionCardData[
 
       <div className="relative z-10 mx-auto max-w-[90rem] px-4 pb-24 sm:px-6 lg:px-8">
         {cards.length > 0 ? (
-          <m.div
-            animate="visible"
-            className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
-            initial="hidden"
-            variants={containerVariants}
-          >
-            {cards.map((card, index) => (
-              <ContributionCard
-                actionText={card.actionText}
-                color={card.color}
-                description={card.description}
-                href={card.href}
-                icon={card.icon || "HelpCircle"}
-                key={card.id || index}
-                title={card.title}
-              />
-            ))}
-          </m.div>
+          <CursorGlow>
+            <m.div
+              animate="visible"
+              className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+              initial="hidden"
+              variants={containerVariants}
+            >
+              {cards.map((card, index) => (
+                <ContributionCard
+                  actionText={card.actionText}
+                  color={card.color}
+                  description={card.description}
+                  href={card.href}
+                  icon={card.icon || "HelpCircle"}
+                  key={card.id || index}
+                  title={card.title}
+                />
+              ))}
+            </m.div>
+          </CursorGlow>
         ) : (
           <ContributionEmptyState />
         )}

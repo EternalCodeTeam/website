@@ -267,7 +267,7 @@ function SoundRow({
       className={`border-gray-100 border-b hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 ${
         selectedSound?.id === sound.id ? "bg-blue-50 dark:bg-blue-900/20" : ""
       } ${
-        currentlyPlayingId === sound.id ? "bg-green-50 dark:bg-green-900/20" : ""
+        currentlyPlayingId === sound.id ? "bg-blue-50 dark:bg-blue-900/20" : ""
       } cursor-pointer transition-colors duration-150`}
       onClick={() => onSelectSound(sound.id)}
     >

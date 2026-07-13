@@ -62,7 +62,7 @@ export default function NotificationGeneratorPage() {
     <MotionSection className="w-full">
       <div className="mb-12 text-center">
         <SlideIn delay={0.1} direction="down">
-          <h1 className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text font-extrabold text-4xl text-transparent tracking-tight md:text-6xl dark:from-white dark:to-gray-300">
+          <h1 className="font-semibold text-5xl text-[var(--ec-text)] tracking-[-0.06em] md:text-7xl">
             Notification Generator
           </h1>
         </SlideIn>

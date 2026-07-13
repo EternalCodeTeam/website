@@ -45,7 +45,7 @@ const CATEGORY_BADGE_STYLES: Record<string, string> = {
   Multification:
     "bg-blue-100 text-blue-700 ring-blue-200 dark:bg-blue-500/20 dark:text-blue-200 dark:ring-blue-500/40",
   Contribute:
-    "bg-emerald-100 text-emerald-700 ring-emerald-200 dark:bg-emerald-500/20 dark:text-emerald-200 dark:ring-emerald-500/40",
+    "bg-sky-100 text-sky-700 ring-sky-200 dark:bg-sky-500/20 dark:text-sky-200 dark:ring-sky-500/40",
 };
 
 const DOCS_PREFIX_REGEX = /^\/docs\//;

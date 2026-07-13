@@ -20,12 +20,12 @@ export default function EternalCombatPage() {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
 
   return (
-    <div className="relative min-h-screen bg-white text-gray-900 selection:bg-red-500/30 dark:bg-gray-950 dark:text-white">
+    <div className="relative min-h-screen bg-[var(--ec-bg)] text-[var(--ec-text)] selection:bg-red-500/30">
       {/* Background Decor */}
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
         <FacadePattern className="absolute inset-0 h-full opacity-30 dark:opacity-10" />
         <div className="absolute top-0 right-0 h-[500px] w-[500px] rounded-full bg-red-500/5 p-20 mix-blend-multiply blur-[100px] dark:mix-blend-screen" />
-        <div className="absolute top-20 left-0 h-[400px] w-[400px] rounded-full bg-orange-500/5 p-20 mix-blend-multiply blur-[100px] dark:mix-blend-screen" />
+        <div className="absolute top-20 left-0 h-[400px] w-[400px] rounded-full bg-sky-500/5 p-20 mix-blend-multiply blur-[100px] dark:mix-blend-screen" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-8" ref={targetRef}>
@@ -42,9 +42,9 @@ export default function EternalCombatPage() {
                   <Swords className="h-3 w-3" />
                   PvP Evolved
                 </div>
-                <h1 className="mb-6 font-extrabold text-4xl text-gray-900 leading-[1.1] tracking-tight md:text-5xl lg:text-6xl dark:text-white">
+                <h1 className="mb-6 font-extrabold text-4xl text-[var(--ec-text)] leading-[1.1] tracking-tight md:text-5xl lg:text-6xl">
                   Combat Logging, <br />
-                  <span className="bg-gradient-to-r from-red-500 via-orange-500 to-red-500 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-red-500 via-sky-500 to-red-500 bg-clip-text text-transparent">
                     Solved Forever.
                   </span>
                 </h1>
@@ -103,7 +103,7 @@ export default function EternalCombatPage() {
                   <div className="hidden h-8 w-px bg-gray-200 sm:block dark:bg-gray-800" />
 
                   <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-yellow-100 text-yellow-600 dark:bg-yellow-500/10 dark:text-yellow-500">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-100 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-500">
                       <motion.div
                         animate={{ opacity: [1, 0.6, 1], scale: [1, 1.05, 1] }}
                         transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
@@ -132,8 +132,8 @@ export default function EternalCombatPage() {
                   <div className="w-full max-w-lg transform-gpu rounded-xl border border-gray-700/50 bg-gray-900/90 p-6 shadow-2xl backdrop-blur-sm transition-transform duration-500 will-change-transform hover:scale-[1.02]">
                     <div className="mb-4 flex items-center gap-2 border-gray-700/50 border-b pb-2">
                       <div className="h-3 w-3 rounded-full bg-red-500" />
-                      <div className="h-3 w-3 rounded-full bg-yellow-500" />
-                      <div className="h-3 w-3 rounded-full bg-green-500" />
+                      <div className="h-3 w-3 rounded-full bg-indigo-500" />
+                      <div className="h-3 w-3 rounded-full bg-blue-500" />
                       <div className="ml-2 font-mono text-gray-400 text-xs">latest.txt</div>
                     </div>
                     <div className="font-mono text-gray-400 text-sm leading-relaxed">
@@ -145,7 +145,7 @@ export default function EternalCombatPage() {
                       </div>
                       <div>
                         <span className="text-gray-500">[19:23:01]</span>{" "}
-                        <span className="bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text font-bold text-transparent">
+                        <span className="bg-gradient-to-r from-red-500 to-indigo-500 bg-clip-text font-bold text-transparent">
                           ⚠ You are in combat!
                         </span>{" "}
                         <span className="text-white underline decoration-1 decoration-white/30 underline-offset-2">
@@ -153,7 +153,7 @@ export default function EternalCombatPage() {
                         </span>
                       </div>
                       <div className="my-2 text-gray-500">...</div>
-                      <div className="text-yellow-400">
+                      <div className="text-indigo-400">
                         <span className="text-gray-500">[19:23:45]</span> vLucky tried to
                         disconnect.
                       </div>

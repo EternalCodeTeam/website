@@ -4,15 +4,21 @@ export function DocsHeader() {
   const { title, description } = DOCS_PAGE_CONFIG;
 
   return (
-    <section className="relative pt-32 pb-8 lg:pt-48 lg:pb-12">
+    <section className="relative pt-32 pb-12 lg:pt-44 lg:pb-16">
       <div className="relative z-10 mx-auto max-w-360 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <div className="mb-6 flex flex-col items-center">
-            <h1 className="mb-6 bg-linear-to-br from-gray-900 via-gray-800 to-gray-600 bg-clip-text font-bold text-4xl text-transparent tracking-tight sm:text-5xl dark:from-white dark:via-gray-100 dark:to-gray-400">
+            <div className="section-kicker mb-7">
+              <span>Library</span> Product documentation
+            </div>
+            <h1 className="mb-6 max-w-3xl font-semibold text-5xl text-[var(--ec-text)] leading-[.95] tracking-[-.06em] sm:text-7xl">
               {title}
             </h1>
             <p className="max-w-2xl whitespace-pre-line text-gray-600 text-lg dark:text-gray-400">
               {description}
+            </p>
+            <p className="mt-4 font-mono text-[11px] text-[var(--ec-faint)]">
+              Written by humans. Tested by humans. Typos also provided by humans.
             </p>
           </div>
         </div>

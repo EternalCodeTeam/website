@@ -7,6 +7,7 @@ import JavaIcon from "@/components/icons/java";
 import TabNew from "@/components/icons/tab-new";
 import SectionTitle from "@/components/section-title";
 import { Card } from "@/components/ui/card";
+import { CursorGlow } from "@/components/ui/cursor-glow";
 import { MotionSection, SlideIn } from "@/components/ui/motion/motion-components";
 import { slideUp } from "@/lib/animations/variants";
 
@@ -24,14 +25,14 @@ const features: Feature[] = [
     title: "Java Ecosystem",
     description:
       "We harness the full power of the Java ecosystem to build scalable, high-performance server-side applications and plugins that you can rely on.",
-    color: "from-orange-500/20 to-red-500/20",
+    color: "from-blue-500/20 to-indigo-500/20",
   },
   {
     icon: <GitBranchIcon aria-hidden="true" className="h-8 w-8" />,
     title: "Open Source",
     description:
       "We believe in the power of open source. Transparency, collaboration, and community are the core values that drive every line of code we write.",
-    color: "from-green-500/20 to-emerald-500/20",
+    color: "from-sky-500/20 to-blue-500/20",
   },
   {
     icon: <TabNew aria-hidden="true" className="h-8 w-8" />,
@@ -54,31 +55,33 @@ export default function Features() {
           />
         </SlideIn>
 
-        <MotionSection className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
-          {features.map((feature) => (
-            <m.div className="h-full" key={feature.title} variants={slideUp}>
-              <Card className="group flex h-full flex-col p-8 transition-colors duration-300 hover:bg-gray-50 hover:shadow-md dark:hover:bg-gray-800/60">
-                <div
-                  className={`absolute inset-0 bg-linear-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${feature.color} pointer-events-none`}
-                />
+        <CursorGlow className="mt-16">
+          <MotionSection className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            {features.map((feature) => (
+              <m.div className="h-full" key={feature.title} variants={slideUp}>
+                <Card className="group flex h-full flex-col p-8 transition-colors duration-300">
+                  <div
+                    className={`absolute inset-0 bg-linear-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${feature.color} pointer-events-none`}
+                  />
 
-                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-gray-50 shadow-inner ring-1 ring-gray-200 transition-colors group-hover:bg-white dark:bg-gray-800 dark:ring-gray-700 dark:group-hover:bg-gray-700">
-                  <div className="transform-gpu text-gray-900 transition-transform duration-300 will-change-transform group-hover:scale-110 dark:text-white">
-                    {feature.icon}
+                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-gray-50 shadow-inner ring-1 ring-gray-200 transition-colors group-hover:bg-white dark:bg-gray-800 dark:ring-gray-700 dark:group-hover:bg-gray-700">
+                    <div className="transform-gpu text-gray-900 transition-transform duration-300 will-change-transform group-hover:scale-110 dark:text-white">
+                      {feature.icon}
+                    </div>
                   </div>
-                </div>
 
-                <h3 className="font-bold text-gray-900 text-xl leading-7 dark:text-gray-100">
-                  {feature.title}
-                </h3>
+                  <h3 className="font-bold text-gray-900 text-xl leading-7 dark:text-gray-100">
+                    {feature.title}
+                  </h3>
 
-                <p className="mt-4 flex-auto text-base text-gray-600 leading-7 dark:text-gray-400">
-                  {feature.description}
-                </p>
-              </Card>
-            </m.div>
-          ))}
-        </MotionSection>
+                  <p className="mt-4 flex-auto text-base text-gray-600 leading-7 dark:text-gray-400">
+                    {feature.description}
+                  </p>
+                </Card>
+              </m.div>
+            ))}
+          </MotionSection>
+        </CursorGlow>
       </div>
     </section>
   );
