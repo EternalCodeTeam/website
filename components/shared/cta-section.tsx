@@ -1,39 +1,56 @@
 "use client";
 
 import { Icon } from "@iconify/react";
-
-import { Button } from "@/components/ui/button";
-import { SlideIn } from "@/components/ui/motion/motion-components";
+import { ArrowUpRight, MessageCircle, Users } from "lucide-react";
+import Image from "next/image";
 
 export default function Cta() {
   return (
-    <section className="relative overflow-hidden py-12 lg:py-20">
-      <div className="mx-auto max-w-[90rem] px-6 lg:px-8">
-        <SlideIn direction="up">
-          <div className="text-center">
-            <h2 className="mx-auto max-w-2xl font-bold text-3xl text-gray-900 tracking-tight sm:text-4xl dark:text-white">
-              Join our Community
-            </h2>
-            <p className="mx-auto mt-6 max-w-xl text-gray-600 text-lg leading-8 dark:text-gray-400">
-              Connect with other developers, showcase your projects, and get help with EternalCode
-              libraries. The best discussions happen on our Discord.
-            </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
-              <Button
-                className="gap-2 border-[#5865F2]/50 bg-[#5865F2] hover:bg-[#5865F2]/90"
-                href="https://discord.com/invite/FQ7jmGBd6c"
-                leftIcon={<Icon className="h-5 w-5" icon="simple-icons:discord" />}
-                rel="noopener noreferrer"
-                shine
-                size="lg"
-                target="_blank"
-                variant="primary"
-              >
-                Join Discord
-              </Button>
-            </div>
+    <section className="section-shell pb-24 sm:pb-32">
+      <div className="cta-panel cta-panel-clean">
+        <div className="cta-copy">
+          <span className="font-mono text-[11px] uppercase tracking-[0.18em] opacity-60">
+            Build with us
+          </span>
+          <h2 className="mt-4 max-w-3xl font-semibold text-4xl tracking-[-0.055em] sm:text-6xl">
+            Good software gets better in good company.
+          </h2>
+          <p className="mt-6 max-w-2xl text-base leading-7 opacity-70">
+            Ask questions, share feedback or just hang out with people who also spend too much time
+            thinking about Minecraft server plugins.
+          </p>
+          <div className="mt-7 flex flex-wrap gap-5 text-sm opacity-65">
+            <span className="inline-flex items-center gap-2">
+              <Users className="h-4 w-4" /> Developers & server owners
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <MessageCircle className="h-4 w-4" /> Help, feedback & releases
+            </span>
           </div>
-        </SlideIn>
+        </div>
+
+        <div className="cta-wumpus-column">
+          <div className="cta-wumpus">
+            <div aria-hidden="true" className="cta-wumpus-glow" />
+            <Image
+              alt="Wumpus Discord mascot"
+              className="cta-wumpus-image"
+              height={1020}
+              sizes="(max-width: 767px) 184px, 212px"
+              src="/community/wumpus.png"
+              width={823}
+            />
+          </div>
+          <a
+            className="cta-button cta-button-clean"
+            href="https://discord.com/invite/FQ7jmGBd6c"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <Icon className="h-5 w-5" icon="simple-icons:discord" /> Join Discord
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
+        </div>
       </div>
     </section>
   );

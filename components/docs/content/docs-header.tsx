@@ -80,7 +80,7 @@ export function DocsHeader({ category, title, description, icon, actions }: DocH
         <div className="flex-1">
           <motion.h1
             animate={{ opacity: 1, y: 0 }}
-            className="mb-2 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text font-extrabold text-4xl text-transparent tracking-tight dark:from-white dark:via-gray-100 dark:to-white"
+            className="mb-2 font-semibold text-4xl text-[var(--ec-text)] tracking-[-0.045em]"
             initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 10 }}
             transition={{ delay: prefersReducedMotion ? 0 : 0.2 }}
           >

@@ -39,7 +39,7 @@ export function CopyToClipboard({
               t.visible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
             )}
           >
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-500/20 text-green-500 dark:bg-green-400/15 dark:text-green-400">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-500/20 text-blue-500 dark:bg-blue-400/15 dark:text-blue-400">
               <Check size={18} />
             </div>
 
@@ -74,7 +74,7 @@ export function CopyToClipboard({
       {showIcon ? (
         <span className="opacity-0 transition-opacity duration-200 group-hover:opacity-100">
           {copied ? (
-            <Check className="text-green-500" size={14} />
+            <Check className="text-blue-500" size={14} />
           ) : (
             <Copy className="text-gray-400 group-hover:text-blue-500" size={14} />
           )}

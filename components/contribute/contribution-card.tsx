@@ -38,7 +38,7 @@ export function ContributionCard({
 
   return (
     <m.div className="h-full" variants={itemVariants}>
-      <Card className="group flex h-full flex-col p-6 transition-colors duration-300 hover:bg-gray-50 hover:shadow-md dark:hover:bg-gray-800/60">
+      <Card className="group flex h-full flex-col p-6 transition-colors duration-300">
         <div
           className="pointer-events-none absolute inset-0 bg-linear-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           style={{

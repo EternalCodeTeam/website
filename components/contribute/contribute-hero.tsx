@@ -4,17 +4,15 @@ import { MotionSection, SlideIn } from "@/components/ui/motion/motion-components
 
 export function ContributeHero() {
   return (
-    <section className="relative pt-32 pb-8 lg:pt-48 lg:pb-12">
+    <section className="relative pt-32 pb-12 lg:pt-44 lg:pb-16">
       <MotionSection className="relative z-10 mx-auto max-w-360 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
           <SlideIn delay={0.1} direction="up">
-            <h1 className="mb-6 font-bold text-4xl text-gray-900 leading-[1.1] tracking-tight sm:text-6xl dark:text-white">
-              Become an Open Source{" "}
-              <span className="relative inline-block">
-                <span className="bg-linear-to-r from-green-400 via-green-500 to-green-600 bg-clip-text pb-2 font-extrabold text-5xl text-transparent sm:text-7xl">
-                  Volunteer
-                </span>
-              </span>{" "}
+            <div className="section-kicker mb-7 justify-center">
+              <span>Contribute</span> Build in public
+            </div>
+            <h1 className="mb-6 font-semibold text-5xl text-[var(--ec-text)] leading-[.95] tracking-[-.065em] sm:text-7xl">
+              Make open source <span className="text-[var(--ec-accent-text)]">better with us.</span>
             </h1>
           </SlideIn>
 

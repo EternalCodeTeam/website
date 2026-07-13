@@ -26,8 +26,8 @@ function BuildStatusBadge({ type }: { type: "STABLE" | "DEV" }) {
     <div
       className={`hidden shrink-0 rounded-lg p-2 sm:flex ${
         type === "STABLE"
-          ? "bg-green-100 text-green-600 dark:bg-green-900/20 dark:text-green-400"
-          : "bg-orange-100 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400"
+          ? "bg-blue-100 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400"
+          : "bg-sky-100 text-sky-600 dark:bg-sky-900/20 dark:text-sky-400"
       }`}
     >
       {type === "STABLE" ? <Package className="h-4 w-4" /> : <GitBranch className="h-4 w-4" />}

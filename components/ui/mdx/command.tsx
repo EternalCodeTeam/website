@@ -19,12 +19,12 @@ const variantStyles: Record<string, { dark: string; light: string }> = {
     light: "bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100",
   },
   gradle: {
-    dark: "bg-gray-900 text-green-400 dark:bg-gray-900 dark:text-green-400",
-    light: "bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+    dark: "bg-gray-900 text-blue-400 dark:bg-gray-900 dark:text-blue-400",
+    light: "bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
   },
   maven: {
-    dark: "bg-gray-900 text-yellow-400 dark:bg-gray-900 dark:text-yellow-400",
-    light: "bg-yellow-50 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300",
+    dark: "bg-gray-900 text-indigo-400 dark:bg-gray-900 dark:text-indigo-400",
+    light: "bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300",
   },
   npm: {
     dark: "bg-gray-900 text-red-400 dark:bg-gray-900 dark:text-red-400",
@@ -100,7 +100,7 @@ export function Command({
       >
         {({ copied }) =>
           copied ? (
-            <Check className="h-4 w-4 text-green-400" />
+            <Check className="h-4 w-4 text-blue-400" />
           ) : (
             <Copy className={cn("h-4 w-4 cursor-pointer", copyIconColor)} />
           )

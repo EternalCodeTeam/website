@@ -23,11 +23,10 @@ const alertContainerVariants = cva(
       type: {
         info: "border border-blue-500/20 bg-blue-500/10 dark:border-blue-500/20 dark:bg-blue-500/10",
         warning:
-          "border border-yellow-500/20 bg-yellow-500/10 dark:border-yellow-500/20 dark:bg-yellow-500/10",
+          "border border-indigo-500/20 bg-indigo-500/10 dark:border-indigo-500/20 dark:bg-indigo-500/10",
         danger: "border border-red-500/20 bg-red-500/10 dark:border-red-500/20 dark:bg-red-500/10",
-        tip: "border border-green-500/20 bg-green-500/10 dark:border-green-500/20 dark:bg-green-500/10",
-        success:
-          "border border-emerald-500/20 bg-emerald-500/10 dark:border-emerald-500/20 dark:bg-emerald-500/10",
+        tip: "border border-blue-500/20 bg-blue-500/10 dark:border-blue-500/20 dark:bg-blue-500/10",
+        success: "border border-sky-500/20 bg-sky-500/10 dark:border-sky-500/20 dark:bg-sky-500/10",
         note: "border border-purple-500/20 bg-purple-500/10 dark:border-purple-500/20 dark:bg-purple-500/10",
         question:
           "border border-indigo-500/20 bg-indigo-500/10 dark:border-indigo-500/20 dark:bg-indigo-500/10",
@@ -47,10 +46,10 @@ const alertIconVariants = cva("h-5 w-5", {
   variants: {
     type: {
       info: "text-blue-500 dark:text-blue-400",
-      warning: "text-yellow-500 dark:text-yellow-400",
+      warning: "text-indigo-500 dark:text-indigo-400",
       danger: "text-red-500 dark:text-red-400",
-      tip: "text-green-500 dark:text-green-400",
-      success: "text-emerald-500 dark:text-emerald-400",
+      tip: "text-blue-500 dark:text-blue-400",
+      success: "text-sky-500 dark:text-sky-400",
       note: "text-purple-500 dark:text-purple-400",
       question: "text-indigo-500 dark:text-indigo-400",
       important: "text-amber-500 dark:text-amber-400",
@@ -66,10 +65,10 @@ const alertTextVariants = cva("prose-sm wrap-break-word md:prose-base max-w-full
   variants: {
     type: {
       info: "text-blue-800 dark:text-blue-200",
-      warning: "text-yellow-800 dark:text-yellow-200",
+      warning: "text-indigo-800 dark:text-indigo-200",
       danger: "text-red-800 dark:text-red-200",
-      tip: "text-green-800 dark:text-green-200",
-      success: "text-emerald-800 dark:text-emerald-200",
+      tip: "text-blue-800 dark:text-blue-200",
+      success: "text-sky-800 dark:text-sky-200",
       note: "text-purple-800 dark:text-purple-200",
       question: "text-indigo-800 dark:text-indigo-200",
       important: "text-amber-800 dark:text-amber-200",
@@ -85,10 +84,10 @@ const alertTitleVariants = cva("mb-1 font-semibold text-sm md:text-base", {
   variants: {
     type: {
       info: "text-blue-900 dark:text-blue-100",
-      warning: "text-yellow-900 dark:text-yellow-100",
+      warning: "text-indigo-900 dark:text-indigo-100",
       danger: "text-red-900 dark:text-red-100",
-      tip: "text-green-900 dark:text-green-100",
-      success: "text-emerald-900 dark:text-emerald-100",
+      tip: "text-blue-900 dark:text-blue-100",
+      success: "text-sky-900 dark:text-sky-100",
       note: "text-purple-900 dark:text-purple-100",
       question: "text-indigo-900 dark:text-indigo-100",
       important: "text-amber-900 dark:text-amber-100",

@@ -75,7 +75,7 @@ const DocSidebar: FC<DocSidebarProps> = ({ className = "", onItemClick, sidebarS
               rotate: prefersReducedMotion ? 0 : 5,
             }}
           >
-            <BookOpen className="h-5 w-5 text-white" />
+            <BookOpen className="h-5 w-5 text-[var(--ec-accent-ink)]" />
           </motion.div>
           <div className="flex flex-col">
             <h2 className="font-bold text-gray-900 text-sm dark:text-white">Documentation</h2>

@@ -44,7 +44,7 @@ export const CodeBlock = memo(({ children, language: _language, className }: Cod
           text={textToCopy}
         >
           {({ copied }) =>
-            copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />
+            copied ? <Check className="h-4 w-4 text-blue-500" /> : <Copy className="h-4 w-4" />
           }
         </CopyToClipboard>
       </div>
