@@ -1,5 +1,7 @@
 import { allowedTags } from "../color-constants";
 
+const LEGACY_CODE_PATTERN = /^(?:&|§)[0-9a-fk-or]$/i;
+
 export const isValidTag = (tag: string): boolean =>
   Object.values(allowedTags).some(
     (category) => category.pattern.test(tag) || category.tags.includes(tag)
@@ -46,6 +48,23 @@ export const insertTag = (
     console.warn(`Invalid tag format: ${tag}`);
     return { newValue: text, newCursorPosition: end };
   }
+
+  if (LEGACY_CODE_PATTERN.test(tag)) {
+    if (start !== end) {
+      const selectedText = text.substring(start, end);
+      const resetCode = tag.startsWith("§") ? "§r" : "&r";
+      const wrappedText = `${tag}${selectedText}${resetCode}`;
+      return {
+        newValue: text.substring(0, start) + wrappedText + text.substring(end),
+        newCursorPosition: start + wrappedText.length,
+      };
+    }
+    return {
+      newValue: text.substring(0, start) + tag + text.substring(end),
+      newCursorPosition: start + tag.length,
+    };
+  }
+
   if (start !== end) {
     const selectedText = text.substring(start, end);
     const tagWithContent = tag.replace("></", `>${selectedText}</`);
