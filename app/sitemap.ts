@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
-import { getAllDocs } from "@/lib/docs/loader";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+import { source } from "@/lib/documentation/source";
+
+export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://eternalcode.pl";
 
   // Static pages
@@ -51,15 +52,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // Dynamic documentation pages
-  const docs = await getAllDocs();
-  const docPages: MetadataRoute.Sitemap = docs
-    .filter((doc) => !doc.param.includes("_index"))
-    .map((doc) => ({
-      url: `${baseUrl}/docs/${doc.param}`,
-      lastModified: new Date(doc.lastModified),
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
-    }));
+  const docPages: MetadataRoute.Sitemap = source.getPages().map((page) => ({
+    url: `${baseUrl}${page.url}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
 
   return [...staticPages, ...docPages];
 }

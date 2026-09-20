@@ -99,19 +99,22 @@ export const getTeamData = cache(async (): Promise<RoleSection[]> => {
   const sections: RoleSection[] = [
     {
       name: "Team Leaders",
-      description: "Leading the EternalCode project.",
+      description:
+        "The people setting the direction. They review every merge, shape the roadmap, and keep the quality bar high across all EternalCode projects.",
       priority: 1,
       members: leaders,
     },
     {
       name: "Team",
-      description: "Core contributors and developers.",
+      description:
+        "Core developers who design, build, and maintain our plugins day to day — from new features and refactors to tricky production bug fixes.",
       priority: 2,
       members: team,
     },
     {
       name: "Students",
-      description: "Learning and contributing.",
+      description:
+        "The next generation of the team. They learn modern Java and open-source workflows by shipping real contributions alongside experienced mentors.",
       priority: 3,
       members: students,
     },
@@ -139,7 +142,8 @@ export const getTeamData = cache(async (): Promise<RoleSection[]> => {
       if (contributorMembers.length > 0) {
         sections.push({
           name: "Contributors",
-          description: "Passionate individuals dedicated to the EternalCode mission.",
+          description:
+            "Every pull request, issue, and review moves the projects forward. These are the people from the community who have already left their mark on EternalCode.",
           priority: 1000,
           members: contributorMembers,
           variant: "contributors",

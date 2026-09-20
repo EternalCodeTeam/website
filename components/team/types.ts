@@ -21,5 +21,5 @@ export interface RoleSection {
 
 export interface TeamMemberProps {
   member: Member;
-  index: number;
+  eager?: boolean;
 }

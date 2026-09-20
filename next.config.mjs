@@ -1,4 +1,10 @@
 import withBundleAnalyzer from "@next/bundle-analyzer";
+import { createMDX } from "fumadocs-mdx/next";
+
+// React 19 in development reconstructs callstacks across environments (and the App Router dev
+// overlay / react-refresh do their own eval-based work), so `next dev` needs 'unsafe-eval'.
+// The exception is scoped to development only - production keeps a strict `script-src`.
+const isDev = process.env.NODE_ENV !== "production";
 
 const contentSecurityPolicy = [
   "default-src 'self'",
@@ -6,7 +12,7 @@ const contentSecurityPolicy = [
   "frame-ancestors 'none'",
   "form-action 'self'",
   "object-src 'none'",
-  "script-src 'self' 'unsafe-inline'",
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://github.com https://avatars.githubusercontent.com https://private-user-images.githubusercontent.com https://i.imgur.com https://imgur.com https://cms.eternalcode.pl https://eternalcode.pl https://www.eternalcode.pl",
   "font-src 'self' data:",
@@ -45,6 +51,9 @@ const securityHeaders = [
 
 const nextConfig = {
   pageExtensions: ["js", "jsx", "ts", "tsx"],
+  turbopack: {
+    root: import.meta.dirname,
+  },
   images: {
     remotePatterns: [
       {
@@ -91,7 +100,6 @@ const nextConfig = {
   compress: true,
   reactStrictMode: true,
   reactCompiler: true,
-  transpilePackages: ["next-mdx-remote"],
   experimental: {
     optimizePackageImports: [
       "framer-motion",
@@ -99,7 +107,6 @@ const nextConfig = {
       "date-fns",
       "@iconify/react",
       "@radix-ui/react-tabs",
-      "next-mdx-remote",
     ],
     serverActions: {
       allowedOrigins: ["eternalcode.pl", "www.eternalcode.pl"],
@@ -107,7 +114,7 @@ const nextConfig = {
     },
   },
   bundlePagesRouterDependencies: true,
-  serverExternalPackages: ["gray-matter", "sharp", "@takumi-rs/image-response"],
+  serverExternalPackages: ["sharp", "@takumi-rs/image-response"],
   async headers() {
     return [
       {
@@ -141,4 +148,6 @@ const bundleAnalyzer = withBundleAnalyzer({
   openAnalyzer: false,
 });
 
-export default bundleAnalyzer(nextConfig);
+const withMDX = createMDX();
+
+export default withMDX(bundleAnalyzer(nextConfig));

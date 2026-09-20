@@ -1,29 +1,39 @@
-"use client";
-
-import { MotionSection, SlideIn } from "@/components/ui/motion/motion-components";
+import { ArrowRight, Github } from "lucide-react";
+import { ContributeReveal } from "./contribute-motion";
 
 export function ContributeHero() {
   return (
-    <section className="relative pt-32 pb-12 lg:pt-44 lg:pb-16">
-      <MotionSection className="relative z-10 mx-auto max-w-360 px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-4xl text-center">
-          <SlideIn delay={0.1} direction="up">
-            <div className="section-kicker mb-7 justify-center">
-              <span>Contribute</span> Build in public
-            </div>
-            <h1 className="mb-6 font-semibold text-5xl text-[var(--ec-text)] leading-[.95] tracking-[-.065em] sm:text-7xl">
-              Make open source <span className="text-[var(--ec-accent-text)]">better with us.</span>
-            </h1>
-          </SlideIn>
+    <header className="contribute-hero section-shell">
+      <div aria-hidden="true" className="contribute-hero-glow" />
 
-          <SlideIn delay={0.2} direction="up">
-            <p className="mx-auto mb-12 max-w-2xl text-gray-600 text-lg leading-8 dark:text-gray-400">
-              Whether you write code, design, write documentation, or support others, there's a
-              place for you here.
-            </p>
-          </SlideIn>
-        </div>
-      </MotionSection>
-    </section>
+      <div className="contribute-hero-copy">
+        <ContributeReveal>
+          <p className="page-kicker">Contribute</p>
+          <h1>
+            Build EternalCode <span>with us</span>.
+          </h1>
+        </ContributeReveal>
+        <ContributeReveal delay={0.12}>
+          <p className="contribute-hero-lead">
+            Our plugins run on thousands of Minecraft servers, and every line of them was written by
+            someone who decided to help. Code, docs, answers, or a cup of coffee — pick the
+            contribution that fits you.
+          </p>
+        </ContributeReveal>
+        <ContributeReveal className="contribute-hero-actions" delay={0.2}>
+          <a className="contribute-primary-action" href="#contribute-ways">
+            Find your way to help <ArrowRight aria-hidden="true" />
+          </a>
+          <a
+            className="contribute-secondary-action"
+            href="https://github.com/EternalCodeTeam"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <Github aria-hidden="true" /> GitHub
+          </a>
+        </ContributeReveal>
+      </div>
+    </header>
   );
 }

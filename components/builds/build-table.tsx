@@ -1,12 +1,16 @@
-import { AnimatePresence } from "framer-motion";
+"use client";
+
+import { m, useReducedMotion } from "framer-motion";
 import { Loader2, Package } from "lucide-react";
-import type { Project } from "@/lib/builds/projects";
+import { easeOut } from "@/lib/animations/variants";
+import type { BuildTab, Project } from "@/lib/builds/projects";
 import { type Build, BuildRow } from "./build-row";
 
 interface BuildTableProps {
   loading: boolean;
   builds: Build[];
   project: Project;
+  channel: BuildTab;
   lastDownloadedId: string | null;
   onDownload: (id: string) => void;
 }
@@ -15,82 +19,77 @@ export function BuildTable({
   loading,
   builds,
   project,
+  channel,
   lastDownloadedId,
   onDownload,
 }: BuildTableProps) {
+  const shouldReduceMotion = useReducedMotion();
+  const initial = shouldReduceMotion ? false : { opacity: 0, y: 28 };
+  const listKey = `${project.id}-${channel}`;
+
   return (
-    <div className="min-h-[400px]">
+    <m.section
+      aria-live="polite"
+      className="builds-list"
+      id="builds-results"
+      initial={initial}
+      transition={{ ...easeOut, duration: 0.6, delay: 0.3 }}
+      viewport={{ once: true }}
+      whileInView={{ opacity: 1, y: 0 }}
+    >
+      <header className="builds-list-heading">
+        <div>
+          <p>{channel === "STABLE" ? "Stable releases" : "Development builds"}</p>
+          <h2>{project.name}</h2>
+        </div>
+        {!loading && <span>{builds.length} available</span>}
+      </header>
       {loading ? (
-        <output
-          aria-live="polite"
-          className="flex flex-col items-center justify-center gap-4 py-32 text-gray-400"
-        >
-          <Loader2 className="h-8 w-8 animate-spin text-blue-500 motion-reduce:animate-none" />
-          <p className="animate-pulse font-medium text-sm">Fetching builds for {project.name}…</p>
+        <output className="builds-loading">
+          <Loader2 aria-hidden="true" />
+          <p>Fetching builds for {project.name}…</p>
         </output>
       ) : (
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white/60 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/40">
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse whitespace-nowrap text-left text-sm md:whitespace-normal">
-              <thead className="border-gray-200 border-b bg-gray-50/50 text-gray-900 dark:border-gray-800 dark:bg-gray-900/50 dark:text-gray-100">
+        <div className="builds-list-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Build</th>
+                <th scope="col">Published</th>
+                <th scope="col">Commit</th>
+                <th scope="col">
+                  <span className="sr-only">Download</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {builds.length === 0 ? (
                 <tr>
-                  <th className="w-full px-4 py-4 font-semibold md:w-auto md:px-6" scope="col">
-                    Name
-                  </th>
-                  <th
-                    className="hidden px-6 py-4 font-semibold text-gray-500 md:table-cell dark:text-gray-400"
-                    scope="col"
-                  >
-                    Date
-                  </th>
-                  <th
-                    className="hidden px-6 py-4 font-semibold text-gray-500 lg:table-cell dark:text-gray-400"
-                    scope="col"
-                  >
-                    Ref
-                  </th>
-                  <th className="px-4 py-4 text-right font-semibold md:px-6" scope="col">
-                    Action
-                  </th>
+                  <td colSpan={4}>
+                    <div className="builds-empty">
+                      <Package aria-hidden="true" />
+                      <div>
+                        <strong>No builds found</strong>
+                        <p>No {project.name} builds in this channel yet.</p>
+                      </div>
+                    </div>
+                  </td>
                 </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
-                <AnimatePresence mode="wait">
-                  {builds.length === 0 ? (
-                    <tr>
-                      <td className="px-6 py-20 text-center text-gray-500" colSpan={4}>
-                        <div className="flex flex-col items-center gap-3">
-                          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800/50">
-                            <Package className="h-6 w-6 text-gray-400 opacity-50" />
-                          </div>
-                          <div className="space-y-1">
-                            <p className="font-medium text-gray-900 text-lg dark:text-gray-200">
-                              No builds found
-                            </p>
-                            <p className="text-gray-500 text-sm dark:text-gray-400">
-                              No {project.name} builds available in this category.
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  ) : (
-                    builds.map((build, i) => (
-                      <BuildRow
-                        build={build}
-                        index={i}
-                        key={build.id}
-                        lastDownloadedId={lastDownloadedId}
-                        onDownload={onDownload}
-                      />
-                    ))
-                  )}
-                </AnimatePresence>
-              </tbody>
-            </table>
-          </div>
+              ) : (
+                builds.map((build, index) => (
+                  <BuildRow
+                    build={build}
+                    index={index}
+                    key={`${listKey}-${build.id}`}
+                    lastDownloadedId={lastDownloadedId}
+                    onDownload={onDownload}
+                  />
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
       )}
-    </div>
+    </m.section>
   );
 }

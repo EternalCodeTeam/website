@@ -1,5 +1,6 @@
 import { ImageResponse } from "@takumi-rs/image-response";
-import { getDoc } from "@/lib/docs/loader";
+
+import { source } from "@/lib/documentation/source";
 
 export const runtime = "nodejs";
 
@@ -12,13 +13,13 @@ interface Props {
 export async function GET(_request: Request, { params }: Props) {
   try {
     const resolvedParams = await params;
-    const doc = await getDoc(resolvedParams.slug);
+    const doc = source.getPage(resolvedParams.slug);
 
     if (!doc) {
       return new Response("Not Found", { status: 404 });
     }
 
-    const { title, description } = doc.frontmatter;
+    const { title, description } = doc.data;
 
     return new ImageResponse(
       <div

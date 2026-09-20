@@ -1,11 +1,12 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowUpRight, Github, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useScrollLock } from "@/hooks/use-scroll-lock";
 import logo from "@/public/logo.svg";
 import ThemeSwitchButton from "./theme-switch-button";
 
@@ -17,12 +18,44 @@ const links = [
   { href: "/builds", label: "Builds" },
 ];
 
+const externalLinks = [
+  { href: "https://repo.eternalcode.pl", label: "Repository" },
+  { href: "https://status.eternalcode.pl", label: "Status" },
+];
+
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const renderedPath = useRef(pathname);
+
+  useScrollLock(open);
+
+  // Routes in the same layout do not remount the navbar, so close the sheet
+  // whenever the URL changes instead of leaving it open over the new page.
+  useEffect(() => {
+    if (renderedPath.current !== pathname) {
+      renderedPath.current = pathname;
+      setOpen(false);
+    }
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [open]);
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6">
+    <nav className="site-nav-shell fixed inset-x-0 top-0 z-50">
       <div className="site-nav mx-auto flex h-16 max-w-[92rem] items-center justify-between px-4 sm:px-5">
         <Link aria-label="EternalCode home" className="group flex items-center gap-3" href="/">
           <span className="grid h-9 w-9 place-items-center rounded-xl bg-[var(--ec-accent)] shadow-[0_0_24px_rgb(59_130_246_/_0.2)]">
@@ -38,6 +71,7 @@ export default function Navbar() {
             const active = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
             return (
               <Link
+                aria-current={active ? "page" : undefined}
                 className={`nav-link ${active ? "nav-link-active" : ""}`}
                 href={link.href}
                 key={link.href}
@@ -46,6 +80,19 @@ export default function Navbar() {
               </Link>
             );
           })}
+          <span aria-hidden className="mx-1 h-5 w-px bg-[var(--ec-line)]" />
+          {externalLinks.map((link) => (
+            <a
+              className="nav-link inline-flex items-center gap-1.5"
+              href={link.href}
+              key={link.href}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {link.label}
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+          ))}
         </div>
 
         <div className="flex items-center gap-2">
@@ -59,9 +106,10 @@ export default function Navbar() {
             GitHub <ArrowUpRight className="h-4 w-4" />
           </a>
           <button
+            aria-controls="site-mobile-menu"
             aria-expanded={open}
             aria-label={open ? "Close menu" : "Open menu"}
-            className="grid h-10 w-10 place-items-center rounded-full border border-[var(--ec-line)] text-[var(--ec-text)] md:hidden"
+            className="grid h-11 w-11 place-items-center rounded-full border border-[var(--ec-line)] text-[var(--ec-text)] md:hidden"
             onClick={() => setOpen((value) => !value)}
             type="button"
           >
@@ -74,20 +122,49 @@ export default function Navbar() {
         {open ? (
           <motion.div
             animate={{ opacity: 1, y: 0 }}
-            className="site-nav mx-auto mt-2 max-w-[92rem] p-3 md:hidden"
+            className="site-nav site-mobile-menu mx-auto max-w-[92rem] md:hidden"
+            data-lenis-prevent
             exit={{ opacity: 0, y: -8 }}
+            id="site-mobile-menu"
             initial={{ opacity: 0, y: -8 }}
           >
-            {links.map((link) => (
-              <Link
-                className="block rounded-xl px-4 py-3 font-medium text-[var(--ec-muted)] hover:bg-[var(--ec-soft)] hover:text-[var(--ec-text)]"
+            {links.map((link) => {
+              const active = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
+              return (
+                <Link
+                  aria-current={active ? "page" : undefined}
+                  className="site-mobile-link"
+                  href={link.href}
+                  key={link.href}
+                  onClick={() => setOpen(false)}
+                >
+                  {link.label}
+                  {active ? <span aria-hidden className="status-dot" /> : null}
+                </Link>
+              );
+            })}
+            <span aria-hidden className="my-2 block h-px bg-[var(--ec-line)]" />
+            {externalLinks.map((link) => (
+              <a
+                className="site-mobile-link"
                 href={link.href}
                 key={link.href}
                 onClick={() => setOpen(false)}
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 {link.label}
-              </Link>
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+              </a>
             ))}
+            <a
+              className="site-mobile-cta"
+              href="https://github.com/EternalCodeTeam"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <Github aria-hidden="true" className="h-4 w-4" /> GitHub
+            </a>
           </motion.div>
         ) : null}
       </AnimatePresence>

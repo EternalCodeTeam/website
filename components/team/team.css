@@ -1,0 +1,672 @@
+.team-page {
+  min-height: 100svh;
+  overflow: clip;
+  background: var(--ec-bg);
+  color: var(--ec-text);
+}
+
+/* Hero */
+.team-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 3rem;
+  padding: clamp(9rem, 14vw, 12rem) 0 clamp(4rem, 7vw, 6rem);
+  border-bottom: 1px solid var(--ec-line);
+}
+
+.team-hero-glow {
+  position: absolute;
+  top: 12%;
+  left: -12%;
+  width: 34rem;
+  height: 34rem;
+  pointer-events: none;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--ec-accent) 16%, transparent),
+    transparent
+  );
+  filter: blur(10px);
+}
+
+.team-hero-copy {
+  position: relative;
+  max-width: 52rem;
+}
+
+.team-hero h1 {
+  max-width: 16ch;
+  margin: 1.1rem 0 0;
+  font-size: clamp(3.1rem, 6.4vw, 6rem);
+  font-weight: 590;
+  letter-spacing: -0.065em;
+  line-height: 0.96;
+  text-wrap: balance;
+}
+
+.team-hero h1 span {
+  background: linear-gradient(
+    100deg,
+    var(--ec-accent-text),
+    color-mix(in srgb, var(--ec-accent-text) 55%, var(--ec-text))
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.team-hero-lead {
+  max-width: 43rem;
+  margin: 1.7rem 0 0;
+  color: var(--ec-muted);
+  font-size: clamp(1rem, 1.5vw, 1.18rem);
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+
+.team-hero-side {
+  position: relative;
+  display: grid;
+  justify-items: end;
+  gap: 1.6rem;
+}
+
+.team-github-link {
+  display: inline-flex;
+  min-height: 2.8rem;
+  align-items: center;
+  gap: 0.55rem;
+  border: 1px solid var(--ec-line);
+  border-radius: 999px;
+  padding: 0 1.1rem;
+  background: var(--ec-panel);
+  color: var(--ec-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  transition:
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.team-github-link:hover {
+  border-color: color-mix(in srgb, var(--ec-accent) 55%, var(--ec-line));
+  color: var(--ec-text);
+  transform: translateY(-1px);
+}
+
+.team-github-link svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.team-hero-stats {
+  display: flex;
+  gap: 1.6rem;
+  margin: 0;
+}
+
+.team-hero-stats > div {
+  display: grid;
+  justify-items: end;
+  gap: 0.25rem;
+}
+
+.team-hero-stats dt {
+  margin: 0;
+  color: var(--ec-faint);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.team-hero-stats dd {
+  margin: 0;
+  font-size: 2rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 640;
+  letter-spacing: -0.03em;
+}
+
+/* Roster */
+.team-roster {
+  padding: 0 0 7rem;
+}
+
+.team-roster-section {
+  display: grid;
+  grid-template-columns: minmax(13rem, 0.34fr) minmax(0, 0.66fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  padding: clamp(3.5rem, 7vw, 6rem) 0;
+  border-bottom: 1px solid var(--ec-line);
+}
+
+.team-section-heading {
+  display: block;
+}
+
+.team-section-index {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--ec-accent-text);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+.team-section-index::after {
+  display: block;
+  width: 2.4rem;
+  height: 1px;
+  background: color-mix(in srgb, var(--ec-accent) 55%, transparent);
+  content: "";
+}
+
+.team-section-heading h2 {
+  margin: 0.9rem 0 0;
+  font-size: clamp(1.8rem, 3vw, 2.7rem);
+  font-weight: 620;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.team-section-heading p {
+  max-width: 24rem;
+  margin: 1rem 0 0;
+  color: var(--ec-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.team-member-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.team-member-grid > * {
+  min-width: 0;
+}
+
+.team-member-profile {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  height: 100%;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  align-items: center;
+  gap: 1.1rem;
+  min-height: 8.4rem;
+  border: 1px solid var(--ec-line);
+  border-radius: 1.1rem;
+  padding: 1rem 1.1rem;
+  background: var(--ec-panel);
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease,
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.team-member-profile::before {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    24rem circle at 15% 0%,
+    color-mix(in srgb, var(--ec-accent) 9%, transparent),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 220ms ease;
+  content: "";
+}
+
+.team-member-profile:hover {
+  border-color: color-mix(in srgb, var(--ec-accent) 38%, var(--ec-line));
+  background: color-mix(in srgb, var(--ec-panel) 86%, var(--ec-soft));
+  box-shadow: 0 14px 34px -18px
+    color-mix(in srgb, var(--ec-text) 30%, transparent);
+  transform: translateY(-3px);
+}
+
+.team-member-profile:hover::before {
+  opacity: 1;
+}
+
+.team-member-avatar {
+  position: relative;
+  width: 5.5rem;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--ec-line);
+  border-radius: 1rem;
+  background: var(--ec-panel-strong);
+}
+
+.team-member-avatar img {
+  object-fit: cover;
+  transition: transform 300ms ease;
+}
+
+.team-member-profile:hover .team-member-avatar img {
+  transform: scale(1.06);
+}
+
+.team-member-body {
+  min-width: 0;
+}
+
+.team-member-body h3 {
+  overflow: hidden;
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.team-member-roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.55rem;
+}
+
+.team-member-roles span {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid color-mix(in srgb, var(--ec-accent) 30%, var(--ec-line));
+  border-radius: 999px;
+  padding: 0.14rem 0.55rem;
+  background: color-mix(in srgb, var(--ec-accent) 8%, transparent);
+  color: var(--ec-accent-text);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.team-member-socials {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.85rem;
+}
+
+.team-member-socials a {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.3rem;
+  overflow: hidden;
+  color: var(--ec-faint);
+  font-size: 0.7rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 160ms ease;
+}
+
+.team-member-socials a:hover {
+  color: var(--ec-text);
+}
+
+.team-member-socials svg {
+  width: 0.78rem;
+  height: 0.78rem;
+  flex: none;
+}
+
+/* Contributors */
+.team-contributors {
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.35fr) minmax(0, 0.65fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  padding-top: clamp(3.5rem, 7vw, 6rem);
+}
+
+.team-contributors-copy {
+  display: block;
+}
+
+.team-contributors-copy h2 {
+  max-width: 15ch;
+  margin: 0.9rem 0 1rem;
+  font-size: clamp(1.8rem, 3.2vw, 3rem);
+  font-weight: 620;
+  letter-spacing: -0.055em;
+  line-height: 1;
+  text-wrap: balance;
+}
+
+.team-contributors-copy > p:last-child {
+  max-width: 26rem;
+  margin: 0;
+  color: var(--ec-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.team-contributor-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-content: start;
+  gap: 0.6rem;
+}
+
+.team-contributor-list > * {
+  min-width: 0;
+}
+
+.team-contributor-list a {
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  align-items: center;
+  gap: 0.65rem;
+  border: 1px solid var(--ec-line);
+  border-radius: 0.85rem;
+  padding: 0.5rem 0.6rem;
+  background: var(--ec-panel);
+  color: var(--ec-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  transition:
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.team-contributor-list a:hover {
+  border-color: color-mix(in srgb, var(--ec-accent) 38%, var(--ec-line));
+  color: var(--ec-text);
+  transform: translateY(-2px);
+}
+
+.team-contributor-list img {
+  width: 2.35rem;
+  height: 2.35rem;
+  flex: none;
+  border-radius: 0.6rem;
+  object-fit: cover;
+}
+
+.team-contributor-list span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.team-empty {
+  padding: 6rem 0;
+  color: var(--ec-muted);
+  text-align: center;
+}
+
+/* Join CTA */
+.team-join {
+  position: relative;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 3rem;
+  overflow: hidden;
+  margin-bottom: 7rem;
+  border: 1px solid var(--ec-line);
+  border-radius: 1.5rem;
+  padding: clamp(1.8rem, 4vw, 3rem);
+  background: var(--ec-panel);
+}
+
+.team-join::before {
+  position: absolute;
+  top: -40%;
+  right: -8%;
+  width: 22rem;
+  height: 22rem;
+  pointer-events: none;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--ec-accent) 14%, transparent),
+    transparent
+  );
+  content: "";
+}
+
+.team-join h2 {
+  max-width: 18ch;
+  margin: 0.75rem 0 0;
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
+  font-weight: 620;
+  letter-spacing: -0.05em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.team-join p {
+  max-width: 34rem;
+  margin: 0.85rem 0 0;
+  color: var(--ec-muted);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.team-join > a {
+  position: relative;
+  display: inline-flex;
+  min-height: 2.9rem;
+  flex: none;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0 1.2rem;
+  background: var(--ec-accent);
+  color: var(--ec-accent-ink);
+  font-size: 0.78rem;
+  font-weight: 750;
+  transition:
+    filter 160ms ease,
+    transform 160ms ease;
+}
+
+.team-join > a:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+.team-join > a svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.team-github-link:focus-visible,
+.team-member-socials a:focus-visible,
+.team-contributor-list a:focus-visible,
+.team-join > a:focus-visible {
+  outline: 2px solid var(--ec-accent);
+  outline-offset: 3px;
+}
+
+/* Skeleton */
+.team-skeleton {
+  padding: clamp(9rem, 14vw, 12rem) 0 7rem;
+}
+
+.team-skeleton-hero {
+  display: grid;
+  gap: 1rem;
+  max-width: 52rem;
+  padding-bottom: 6rem;
+}
+
+.team-skeleton-hero span,
+.team-skeleton-hero strong,
+.team-skeleton-hero p,
+.team-skeleton-heading span,
+.team-skeleton-heading strong,
+.team-skeleton-grid span,
+.team-skeleton-grid strong,
+.team-skeleton-grid p {
+  display: block;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    var(--ec-soft),
+    color-mix(in srgb, var(--ec-text) 11%, transparent),
+    var(--ec-soft)
+  );
+  background-size: 200% 100%;
+  animation: team-skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+.team-skeleton-hero span {
+  width: 9rem;
+  height: 1rem;
+}
+
+.team-skeleton-hero strong {
+  width: min(100%, 48rem);
+  height: 5.5rem;
+}
+
+.team-skeleton-hero p {
+  width: min(72%, 34rem);
+  height: 1.2rem;
+}
+
+.team-skeleton-section {
+  display: grid;
+  grid-template-columns: 14rem 1fr;
+  gap: 4rem;
+  border-top: 1px solid var(--ec-line);
+  padding-top: 5rem;
+}
+
+.team-skeleton-heading span {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.team-skeleton-heading strong {
+  width: 10rem;
+  height: 2.6rem;
+  margin-top: 2rem;
+}
+
+.team-skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.team-skeleton-grid > div {
+  border: 1px solid var(--ec-line);
+  border-radius: 1.5rem;
+  padding: 1rem;
+}
+
+.team-skeleton-grid span {
+  width: 100%;
+  height: 10rem;
+  border-radius: 1rem;
+}
+
+.team-skeleton-grid strong {
+  width: 70%;
+  height: 1.2rem;
+  margin-top: 1rem;
+}
+
+.team-skeleton-grid p {
+  width: 46%;
+  height: 0.8rem;
+  margin-top: 0.7rem;
+}
+
+@keyframes team-skeleton-shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (max-width: 980px) {
+  .team-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .team-hero-side {
+    justify-items: start;
+  }
+
+  .team-github-link {
+    width: fit-content;
+  }
+
+  .team-roster-section,
+  .team-contributors {
+    grid-template-columns: 1fr;
+  }
+
+  .team-section-heading p,
+  .team-contributors-copy > p:last-child {
+    max-width: 38rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .team-hero {
+    gap: 1.5rem;
+    padding-top: 7.5rem;
+  }
+
+  .team-hero h1 {
+    font-size: clamp(2.9rem, 14vw, 4.5rem);
+  }
+
+  .team-member-grid,
+  .team-contributor-list {
+    grid-template-columns: 1fr;
+  }
+
+  .team-join {
+    align-items: start;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .team-skeleton {
+    padding-top: 7.5rem;
+  }
+
+  .team-skeleton-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .team-github-link,
+  .team-member-profile,
+  .team-contributor-list a {
+    transition: none;
+  }
+
+  .team-skeleton-hero span,
+  .team-skeleton-hero strong,
+  .team-skeleton-hero p,
+  .team-skeleton-heading span,
+  .team-skeleton-heading strong,
+  .team-skeleton-grid span,
+  .team-skeleton-grid strong,
+  .team-skeleton-grid p {
+    animation: none;
+  }
+}

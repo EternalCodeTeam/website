@@ -20,7 +20,7 @@ export default function EternalCombatPage() {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
 
   return (
-    <div className="relative min-h-screen bg-[var(--ec-bg)] text-[var(--ec-text)] selection:bg-red-500/30">
+    <div className="relative min-h-svh bg-[var(--ec-bg)] text-[var(--ec-text)] selection:bg-red-500/30">
       {/* Background Decor */}
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
         <FacadePattern className="absolute inset-0 h-full opacity-30 dark:opacity-10" />

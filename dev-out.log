@@ -1,0 +1,9 @@
+▲ Next.js 16.2.10 (Turbopack)
+- Local:         http://localhost:3001
+- Network:       http://192.168.1.20:3001
+- Environments: .env.local, .env
+✓ Ready in 342ms
+[MDX] generated files in 7.366800000000012ms
+[MDX] started dev server
+[MDX] closing dev server
+[?25h

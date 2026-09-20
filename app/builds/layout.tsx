@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Build Explorer | EternalCode Team",
   description:
-    "Access stable releases and development builds for all EternalCode Team projects. Download the latest versions of EternalCore, EternalCombat, and more.",
+    "Access stable releases and development builds for all EternalCode Team projects. Download the latest versions of EternalCore, EternalCombat, ChatFormatter, EternalEconomy, and more.",
   alternates: {
     canonical: "https://eternalcode.pl/builds",
   },
@@ -14,6 +14,8 @@ export const metadata: Metadata = {
     "downloads",
     "eternalcore",
     "eternalcombat",
+    "chatformatter",
+    "eternaleconomy",
     "releases",
     "development builds",
   ],

@@ -1,82 +1,147 @@
+import { ArrowUpRight, Github } from "lucide-react";
 import Image from "next/image";
-import { CursorGlow } from "@/components/ui/cursor-glow";
-import { MotionSection, SlideIn } from "@/components/ui/motion/motion-components";
+import Link from "next/link";
 import { getTeamData } from "@/lib/team";
 import TeamMember from "./team-member";
+import { TeamCounter, TeamReveal, TeamStaggerGrid, TeamStaggerItem } from "./team-motion";
+
+import "./team.css";
+
+function getSectionTitle(name: string) {
+  if (name === "Team") {
+    return "Core team";
+  }
+
+  return name.endsWith("s") ? name : `${name}s`;
+}
 
 export default async function Team() {
   const sections = await getTeamData();
+  const rosterSections = sections.filter((section) => section.variant !== "contributors");
+  const contributors = sections.find((section) => section.variant === "contributors");
+  const memberCount = rosterSections.reduce((total, section) => total + section.members.length, 0);
 
   return (
-    <section id="team">
-      <div className="relative mx-auto max-w-[90rem] px-4 pt-4 pb-20">
-        <div className="mt-8 space-y-20">
-          {sections.map((section) => (
-            <div key={section.name}>
-              <SlideIn className="mb-8" direction="up">
-                <h2 className="font-bold text-2xl text-gray-900 dark:text-white">
-                  {section.name.endsWith("s") ? section.name : `${section.name}s`}
-                </h2>
-                <p className="mt-2 max-w-2xl text-base text-gray-600 dark:text-gray-400">
-                  {section.description}
-                </p>
-              </SlideIn>
+    <>
+      <section className="team-hero section-shell">
+        <div aria-hidden="true" className="team-hero-glow" />
 
-              {section.variant === "contributors" ? (
-                <MotionSection className="flex flex-wrap gap-4">
-                  {section.members.map((member, index) => (
-                    <SlideIn
-                      delay={index * 0.01}
-                      direction="up"
-                      key={`${section.name}-${member.documentId || index}`}
-                    >
-                      <a
-                        aria-label={`View ${member.name}'s GitHub profile`}
-                        className="group relative block"
-                        href={member.github}
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        title={member.name}
-                      >
-                        <div className="relative h-16 w-16 transform-gpu overflow-hidden rounded-full border-2 border-gray-200 shadow-sm transition-transform duration-300 will-change-transform group-hover:scale-110 group-hover:shadow-md dark:border-gray-800">
-                          <Image
-                            alt={`Profile picture of ${member.name}`}
-                            className="h-full w-full object-cover"
-                            height={64}
-                            loading={index > 8 ? "lazy" : undefined}
-                            src={member.avatar_url}
-                            width={64}
-                          />
-                        </div>
-                      </a>
-                    </SlideIn>
-                  ))}
-                </MotionSection>
-              ) : (
-                <CursorGlow>
-                  <MotionSection className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    {section.members.map((member, index) => (
-                      <SlideIn
-                        delay={index * 0.05}
-                        direction="up"
-                        key={`${section.name}-${member.documentId || index}`}
-                      >
-                        <TeamMember index={index} member={member} />
-                      </SlideIn>
-                    ))}
-                  </MotionSection>
-                </CursorGlow>
-              )}
-            </div>
-          ))}
-
-          {sections.length === 0 && (
-            <div className="mt-12 text-center text-gray-500">
-              No team members yet. Check back soon!
-            </div>
-          )}
+        <div className="team-hero-copy">
+          <TeamReveal>
+            <p className="page-kicker">Our team</p>
+            <h1>
+              The people behind <span>EternalCode</span>.
+            </h1>
+          </TeamReveal>
+          <TeamReveal delay={0.12}>
+            <p className="team-hero-lead">
+              A small, distributed crew of developers, maintainers, and students building
+              open-source tools for Minecraft servers. We review each other&apos;s code, argue about
+              naming, and ship software that thousands of servers rely on every day.
+            </p>
+          </TeamReveal>
         </div>
-      </div>
-    </section>
+
+        <TeamReveal className="team-hero-side" delay={0.2}>
+          <a
+            className="team-github-link"
+            href="https://github.com/EternalCodeTeam"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <Github aria-hidden="true" /> EternalCode on GitHub
+          </a>
+
+          <dl className="team-hero-stats">
+            <div>
+              <dt>Team members</dt>
+              <dd>
+                <TeamCounter value={memberCount} />
+              </dd>
+            </div>
+            {!!contributors && contributors.members.length > 0 && (
+              <div>
+                <dt>Contributors</dt>
+                <dd>
+                  <TeamCounter value={contributors.members.length} />
+                </dd>
+              </div>
+            )}
+          </dl>
+        </TeamReveal>
+      </section>
+
+      <section className="team-roster section-shell" id="team-roster">
+        {rosterSections.map((section, sectionIndex) => (
+          <section className="team-roster-section" key={section.name}>
+            <TeamReveal className="team-section-heading">
+              <span aria-hidden="true" className="team-section-index">
+                {String(sectionIndex + 1).padStart(2, "0")}
+              </span>
+              <h2>{getSectionTitle(section.name)}</h2>
+              <p>{section.description}</p>
+            </TeamReveal>
+
+            <TeamStaggerGrid className="team-member-grid">
+              {section.members.map((member, memberIndex) => (
+                <TeamStaggerItem key={`${section.name}-${member.documentId || memberIndex}`}>
+                  <TeamMember eager={sectionIndex === 0} member={member} />
+                </TeamStaggerItem>
+              ))}
+            </TeamStaggerGrid>
+          </section>
+        ))}
+
+        {!!contributors && (
+          <section className="team-contributors">
+            <TeamReveal className="team-contributors-copy">
+              <p className="page-kicker">Contributors</p>
+              <h2>Thank you for making the projects better.</h2>
+              <p>{contributors.description}</p>
+            </TeamReveal>
+            <TeamStaggerGrid className="team-contributor-list">
+              {contributors.members.map((member, index) => (
+                <TeamStaggerItem key={member.documentId}>
+                  <a
+                    aria-label={`View ${member.name}'s GitHub profile`}
+                    href={member.github}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    title={member.name}
+                  >
+                    <Image
+                      alt=""
+                      height={72}
+                      loading={index > 10 ? "lazy" : undefined}
+                      src={member.avatar_url}
+                      width={72}
+                    />
+                    <span>{member.name}</span>
+                  </a>
+                </TeamStaggerItem>
+              ))}
+            </TeamStaggerGrid>
+          </section>
+        )}
+
+        {sections.length === 0 && (
+          <p className="team-empty">No team members yet. Check back soon.</p>
+        )}
+      </section>
+
+      <TeamReveal className="team-join section-shell">
+        <div>
+          <p className="page-kicker">Want to help?</p>
+          <h2>You do not need a title to contribute.</h2>
+          <p>
+            Fix a bug, improve the docs, test a release, or start a useful discussion — every
+            contribution counts, no matter how small.
+          </p>
+        </div>
+        <Link href="/contribute">
+          See how to contribute <ArrowUpRight aria-hidden="true" />
+        </Link>
+      </TeamReveal>
+    </>
   );
 }

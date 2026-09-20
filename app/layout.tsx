@@ -32,11 +32,16 @@ const jetbrainsMono = JetBrains_Mono({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  // Allows the layout to stretch under the iPhone notch / home indicator so the
+  // blurred navbar and footer can bleed to the screen edges. Content is inset
+  // again through `env(safe-area-inset-*)` in globals.css.
+  viewportFit: "cover",
   maximumScale: 5,
   userScalable: true,
+  // Keep the iOS Safari toolbar tint in sync with the actual page background.
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#0b0d0c" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b0d0c" },
+    { media: "(prefers-color-scheme: light)", color: "#f7f7f2" },
+    { media: "(prefers-color-scheme: dark)", color: "#0d0f0d" },
   ],
 };
 
@@ -112,7 +117,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body
-        className={`${manrope.className} relative min-h-screen overflow-x-hidden bg-[var(--ec-bg)] text-[var(--ec-text)] antialiased`}
+        className={`${manrope.className} relative min-h-svh overflow-x-clip bg-[var(--ec-bg)] text-[var(--ec-text)] antialiased`}
       >
         <OrganizationSchema />
         <Providers>
