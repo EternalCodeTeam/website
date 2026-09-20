@@ -1,0 +1,11 @@
+$ next dev
+⚠ Port 3000 is in use by process 41676, using available port 3001 instead.
+⨯ Another next dev server is already running.
+
+- Local:        http://localhost:3000
+- PID:          41676
+- Dir:          C:\Users\vluck\IdeaProjects\website
+- Log:          .next\dev\logs\next-development.log
+
+Run taskkill /PID 41676 /F to stop it.
+error: script "dev" exited with code 1

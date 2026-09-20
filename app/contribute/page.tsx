@@ -15,79 +15,53 @@ export const metadata: Metadata = {
   }),
 };
 
-interface CardData {
-  id: string;
-  title: string;
-  description: string;
-  icon: string;
-  actionText: string;
-  href: string;
-  color: string;
-}
+const ways = [
+  {
+    id: "code",
+    title: "Code",
+    description:
+      "Pick an issue, open a pull request, and ship features that thousands of Minecraft servers run in production. Java, Kotlin, or TypeScript — there is always something to build.",
+    icon: "Code2",
+    tags: ["Java", "TypeScript", "Code review"],
+    actionText: "Browse the organization",
+    href: "https://github.com/EternalCodeTeam",
+    glow: { primary: "#34d399", secondary: "#059669" },
+  },
+  {
+    id: "docs",
+    title: "Documentation",
+    description:
+      "Turn confusing configuration into clear guides. Fix a typo, add a real-world example, or explain one tricky concept — no Java knowledge required.",
+    icon: "BookOpen",
+    tags: ["MDX", "Guides", "Examples"],
+    actionText: "Read the docs",
+    href: "/docs",
+    glow: { primary: "#fbbf24", secondary: "#d97706" },
+  },
+  {
+    id: "community",
+    title: "Community",
+    description:
+      "Answer questions on Discord, report bugs with useful detail, and share feedback from your server. A good bug report saves maintainers hours of guessing.",
+    icon: "MessageCircle",
+    tags: ["Discord", "Bug reports", "Feedback"],
+    actionText: "Join our Discord",
+    href: "https://discord.com/invite/FQ7jmGBd6c",
+    glow: { primary: "#818cf8", secondary: "#6366f1" },
+  },
+  {
+    id: "sponsor",
+    title: "Sponsor",
+    description:
+      "Open source runs on free time. Sponsorships cover infrastructure and give maintainers more evenings to spend on features instead of day jobs.",
+    icon: "Heart",
+    tags: ["Ko-fi", "Infrastructure", "Sustainability"],
+    actionText: "Support on Ko-fi",
+    href: "https://ko-fi.com/eternalcodeteam",
+    glow: { primary: "#fb7185", secondary: "#e11d48" },
+  },
+] as const;
 
 export default function ContributePage() {
-  const cards: CardData[] = [
-    {
-      id: "code",
-      title: "Code",
-      description:
-        "Help us build the future by contributing to our open-source repositories and core libraries.",
-      icon: "Code2",
-      actionText: "View GitHub",
-      href: "https://github.com/EternalCodeTeam",
-      color: "#3b82f6",
-    },
-    {
-      id: "sponsor",
-      title: "Sponsor",
-      description:
-        "Support our work financially via Ko-fi to help us maintain infrastructure and cover costs.",
-      icon: "Heart",
-      actionText: "Support on Ko-fi",
-      href: "https://ko-fi.com/eternalcodeteam",
-      color: "#ec4899",
-    },
-    {
-      id: "discord",
-      title: "Community",
-      description:
-        "Join our Discord server to discuss ideas, help others, and stay updated with our progress.",
-      icon: "MessageCircle",
-      actionText: "Join Discord",
-      href: "https://discord.com/invite/FQ7jmGBd6c",
-      color: "#5865F2",
-    },
-    {
-      id: "docs",
-      title: "Documentation",
-      description:
-        "Help us improve our guides and API references to make our tools accessible to everyone.",
-      icon: "BookOpen",
-      actionText: "Read Docs",
-      href: "/docs",
-      color: "#10b981",
-    },
-    {
-      id: "support",
-      title: "Support",
-      description:
-        "Are you an expert in our tools? Help other users by answering questions on our Discord.",
-      icon: "LifeBuoy",
-      actionText: "Help Others",
-      href: "https://discord.com/invite/FQ7jmGBd6c",
-      color: "#f59e0b",
-    },
-    {
-      id: "ideas",
-      title: "Suggest Idea",
-      description:
-        "Have a great idea for a new feature? Share it with us by opening an issue on GitHub.",
-      icon: "Lightbulb",
-      actionText: "Open Issue",
-      href: "https://github.com/EternalCodeTeam/",
-      color: "#eab308",
-    },
-  ];
-
-  return <ContributeView cards={cards} />;
+  return <ContributeView ways={ways} />;
 }

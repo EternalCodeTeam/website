@@ -43,3 +43,7 @@ next-env.d.ts
 
 # internal content layer
 /content/_generated/
+/.source/
+
+# Local Netlify folder
+.netlify

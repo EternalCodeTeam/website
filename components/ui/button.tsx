@@ -9,29 +9,30 @@ import { interactionSpring } from "@/lib/animations/variants";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "group relative inline-flex cursor-pointer select-none items-center justify-center overflow-visible font-medium transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "group relative inline-flex cursor-pointer select-none items-center justify-center overflow-visible font-semibold transition-all focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--ec-accent)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
         primary:
-          "border border-transparent bg-blue-600 text-white shadow-sm hover:bg-blue-700 hover:shadow-md dark:bg-blue-500 dark:hover:bg-blue-600",
+          "border border-transparent bg-[var(--ec-accent)] text-[var(--ec-accent-ink)] shadow-sm hover:shadow-md hover:brightness-105",
         secondary:
-          "border border-transparent bg-gray-100 text-gray-900 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700",
+          "border border-[var(--ec-line)] bg-[var(--ec-soft)] text-[var(--ec-text)] hover:brightness-95 dark:hover:brightness-125",
         outline:
-          "border border-gray-200 bg-transparent hover:bg-gray-50 hover:text-gray-900 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:text-white",
-        ghost: "border border-transparent bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800",
-        link: "h-auto border-transparent bg-transparent p-0 text-blue-600 underline-offset-4 hover:underline dark:text-blue-400",
+          "border border-[var(--ec-line)] bg-transparent text-[var(--ec-muted)] hover:bg-[var(--ec-soft)] hover:text-[var(--ec-text)]",
+        ghost:
+          "border border-transparent bg-transparent text-[var(--ec-muted)] hover:bg-[var(--ec-soft)] hover:text-[var(--ec-text)]",
+        link: "h-auto border-transparent bg-transparent p-0 text-[var(--ec-accent)] underline-offset-4 hover:underline",
         danger:
           "border border-transparent bg-red-600 text-white shadow-sm hover:bg-red-700 hover:shadow-red-500/20 dark:bg-red-700 dark:hover:bg-red-800",
         contrast:
-          "border border-transparent bg-gray-900 text-white shadow-sm hover:bg-gray-800 hover:shadow-lg dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 dark:hover:shadow-blue-500/20",
+          "border border-transparent bg-[var(--ec-text)] text-[var(--ec-bg)] shadow-sm hover:bg-[var(--ec-accent)] hover:text-[var(--ec-accent-ink)] hover:shadow-lg",
       },
       size: {
         xs: "h-7 rounded-md px-3 text-xs",
         sm: "h-9 rounded-lg px-4 text-sm",
-        md: "h-11 rounded-lg px-6 py-2 text-sm",
-        lg: "h-12 rounded-xl px-8 py-3 text-base",
-        xl: "h-14 rounded-xl px-10 py-4 text-lg",
+        md: "h-11 rounded-full px-6 py-2 text-sm",
+        lg: "h-12 rounded-full px-8 py-3 text-sm",
+        xl: "h-14 rounded-full px-10 py-4 text-base",
       },
       fullWidth: {
         true: "w-full",

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Poppins } from "next/font/google";
+import { JetBrains_Mono, Manrope } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 import "lenis/dist/lenis.css";
@@ -15,13 +15,12 @@ import { Providers } from "./providers";
 export const dynamic = "force-static";
 export const revalidate = 5;
 
-const poppins = Poppins({
-  weight: ["400", "500", "600", "700"],
+const manrope = Manrope({
   subsets: ["latin"],
   display: "swap",
   preload: true,
   fallback: ["system-ui", "arial"],
-  variable: "--font-poppins",
+  variable: "--font-manrope",
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -33,11 +32,16 @@ const jetbrainsMono = JetBrains_Mono({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  // Allows the layout to stretch under the iPhone notch / home indicator so the
+  // blurred navbar and footer can bleed to the screen edges. Content is inset
+  // again through `env(safe-area-inset-*)` in globals.css.
+  viewportFit: "cover",
   maximumScale: 5,
   userScalable: true,
+  // Keep the iOS Safari toolbar tint in sync with the actual page background.
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#eff1f5" },
-    { media: "(prefers-color-scheme: dark)", color: "#0d1117" },
+    { media: "(prefers-color-scheme: light)", color: "#f7f7f2" },
+    { media: "(prefers-color-scheme: dark)", color: "#0d0f0d" },
   ],
 };
 
@@ -108,12 +112,12 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      className={`${poppins.variable} ${jetbrainsMono.variable}`}
+      className={`${manrope.variable} ${jetbrainsMono.variable}`}
       lang="en"
       suppressHydrationWarning
     >
       <body
-        className={`${poppins.className} relative min-h-screen overflow-x-hidden bg-light-gray-100 antialiased dark:bg-gray-900`}
+        className={`${manrope.className} relative min-h-svh overflow-x-clip bg-[var(--ec-bg)] text-[var(--ec-text)] antialiased`}
       >
         <OrganizationSchema />
         <Providers>
@@ -124,7 +128,7 @@ export default function RootLayout({
             easing="ease"
             height={3}
             initialPosition={0.08}
-            shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
+            shadow="0 0 10px #3b82f6"
             showSpinner={false}
             speed={200}
           />
@@ -132,7 +136,7 @@ export default function RootLayout({
             <Navbar />
           </header>
 
-          <main className="pt-20" id="main-content" tabIndex={-1}>
+          <main id="main-content" tabIndex={-1}>
             {children}
           </main>
 

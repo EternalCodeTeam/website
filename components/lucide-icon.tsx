@@ -1,22 +1,32 @@
 import {
   BookOpen,
+  BookOpenText,
   Code2,
+  CodeXml,
   Heart,
   HelpCircle,
   LifeBuoy,
   Lightbulb,
   type LucideIcon as LucideIconType,
   MessageCircle,
+  MessageSquareText,
+  Star,
+  UsersRound,
 } from "lucide-react";
 
 const icons: Record<string, LucideIconType> = {
   BookOpen,
+  BookOpenText,
   Code2,
+  CodeXml,
   Heart,
   HelpCircle,
   LifeBuoy,
   Lightbulb,
   MessageCircle,
+  MessageSquareText,
+  Star,
+  UsersRound,
 };
 
 export function LucideIcon({

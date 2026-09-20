@@ -18,6 +18,18 @@ export const PROJECTS: Project[] = [
     githubRepo: "EternalCodeTeam/EternalCombat",
     modrinthId: "eternalcombat",
   },
+  {
+    id: "chatformatter",
+    name: "ChatFormatter",
+    githubRepo: "EternalCodeTeam/ChatFormatter",
+    modrinthId: "chatformatter",
+  },
+  {
+    id: "eternaleconomy",
+    name: "EternalEconomy",
+    githubRepo: "EternalCodeTeam/EternalEconomy",
+    modrinthId: "eternaleconomy",
+  },
 ];
 
 export type BuildTab = "STABLE" | "DEV";

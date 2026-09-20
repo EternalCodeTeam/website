@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { getDoc } from "@/lib/docs/loader";
+
+import { source } from "@/lib/documentation/source";
 
 export async function POST(req: NextRequest) {
   if (process.env.NODE_ENV !== "development") {
@@ -17,13 +18,13 @@ export async function POST(req: NextRequest) {
     }
 
     const { slug } = result.data;
-    const doc = await getDoc(slug);
+    const doc = source.getPage(slug);
 
     if (!doc) {
       return NextResponse.json({ message: "Not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ lastModified: doc.lastModified });
+    return NextResponse.json({ lastModified: null });
   } catch (error) {
     console.error("[doc-check] Error:", error);
     return NextResponse.json({ message: "Error" }, { status: 500 });

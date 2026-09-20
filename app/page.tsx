@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 
-import AnimatedHome from "@/components/home/animated-home";
+import AnimatedHome from "@/components/animated-home";
+import { getCommunityStats } from "@/lib/stats/community-stats";
 
-export const dynamic = "force-static";
-export const fetchCache = "force-cache";
+// Prerendered, then refreshed hourly so the Modrinth/bStats numbers stay current.
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Home",
@@ -38,6 +39,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
-  return <AnimatedHome />;
+export default async function Home() {
+  const stats = await getCommunityStats();
+
+  return <AnimatedHome stats={stats} />;
 }

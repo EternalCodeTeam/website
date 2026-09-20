@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+
+import { DocsHub } from "@/components/documentation/hub/docs-hub";
 import { generateOgImageMetadata } from "@/components/og-image";
-import { DocsView } from "./view";
 
 export const metadata: Metadata = {
   title: "Documentation",
@@ -16,5 +17,5 @@ export const metadata: Metadata = {
 };
 
 export default function DocsPage() {
-  return <DocsView />;
+  return <DocsHub />;
 }
